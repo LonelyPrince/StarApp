@@ -16,6 +16,7 @@
 
 @interface UPnPDeviceTableViewCell : UPnPTableViewCell 
 {
+    
 }
 
 

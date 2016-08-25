@@ -345,11 +345,33 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 		cg_net_url_set(url, location_str);
 		ipaddr = [[[NSString alloc] initWithUTF8String:cg_net_url_gethost(url)] autorelease];
 		cg_net_url_delete(url);
+    
 	}
 	
 	return ipaddr;
 }
 
+-(UInt16 )ipport
+{
+    if (!cObject)
+    return nil;
+    
+    UInt16 *ipport = nil;
+    
+    char *location_str = cg_upnp_device_getlocationfromssdppacket(cObject);
+    NSLog(@"location_str：--------%@",[NSString stringWithUTF8String:location_str]);
+    if (0 < cg_strlen(location_str)) {
+        CgNetURL *url = cg_net_url_new();
+        cg_net_url_set(url, location_str);
+        
+        ipport = cg_net_url_getport(url);
+        cg_net_url_delete(url);
+        
+    }
+    
+    return ipport;
+
+}
 - (CGUpnpIcon *)smallestIcon
 {
 	if (!cObject)

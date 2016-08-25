@@ -14,6 +14,8 @@
 
 #import "RendererTableViewController.h"
 
+#import "Singleton.h"
+
 //#include <cybergarage/upnp/cupnp.h>
 //#include <cybergarage/xml/cxml.h>
 
@@ -243,8 +245,18 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     //if (!self.detailViewController) {
         self.detailViewController = [[[ServerContentViewController alloc] initWithAvServer:[self.dataSource objectAtIndex:indexPath.row] atIndexPath:indexPath objectId:@"0"] autorelease];
     //}
-   
-    //[self.detailViewController setDetailItem:[self.dataSource objectAtIndex:indexPath.row]];
+    
+    
+    Singleton * singleton = [[Singleton alloc]init];
+    CGUpnpDevice *dev = [self.dataSource objectAtIndex:indexPath.row];
+    
+    singleton.socketHost = [dev ipaddress];
+    singleton.socketPort = [dev ipport];
+    NSLog(@"ipaddress --------%@",[dev ipaddress]);
+    
+    NSLog(@"ipport ----%hu",[dev ipport]);
+    
+ //   [self.detailViewController setDetailItem:[self.dataSource objectAtIndex:indexPath.row]];
     
     [self.navigationController pushViewController:self.detailViewController animated:YES];
 }

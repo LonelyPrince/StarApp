@@ -11,7 +11,14 @@
 		60CAD287159C304100B7E28C /* NDLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CAD286159C304100B7E28C /* NDLUtility.m */; };
 		60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CAD2A1159C461300B7E28C /* UPnPDeviceTableViewCell.m */; };
 		60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CAD2A3159C461300B7E28C /* UPnPTableViewCell.m */; };
+		7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746691D6D8A54002E7A39 /* AsyncSocket.m */; };
+		7097466E1D6D8A54002E7A39 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */; };
+		7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 7097466C1D6D8A54002E7A39 /* Documentation.html */; };
+		709746731D6D8B54002E7A39 /* testViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746711D6D8B54002E7A39 /* testViewController.m */; };
+		709746741D6D8B54002E7A39 /* testViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 709746721D6D8B54002E7A39 /* testViewController.xib */; };
+		709746771D6D8E3F002E7A39 /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746761D6D8E3F002E7A39 /* Singleton.m */; };
 		7ABC93DC1A295C7D0070697C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC93DB1A295C7D0070697C /* Images.xcassets */; };
+		8ED6C830076F28779F6BA445 /* libPods-StarAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF2035D5725126C257DF694 /* libPods-StarAPP.a */; };
 		A43ACCDA1555E653007DE9B0 /* libclinkc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A43ACCD91555E653007DE9B0 /* libclinkc.a */; };
 		A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48574B515A3155500294C34 /* DLNAPlaybackViewController.m */; };
 		A48574B815A3155500294C34 /* DLNAPlaybackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48574B615A3155500294C34 /* DLNAPlaybackViewController.xib */; };
@@ -39,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3DF2035D5725126C257DF694 /* libPods-StarAPP.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StarAPP.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A91E2D05F4181C9A34FCF35 /* Pods-StarAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarAPP.release.xcconfig"; path = "Pods/Target Support Files/Pods-StarAPP/Pods-StarAPP.release.xcconfig"; sourceTree = "<group>"; };
 		604F37CA159B2FDC00FF1F91 /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
 		604F37CB159B2FDC00FF1F91 /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		60B4C535159B0EB900F3BB0C /* clinkc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = clinkc.xcodeproj; path = clinkc/lib/ios/xcode/clinkc.xcodeproj; sourceTree = "<group>"; };
@@ -48,6 +57,16 @@
 		60CAD2A1159C461300B7E28C /* UPnPDeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPDeviceTableViewCell.m; sourceTree = "<group>"; };
 		60CAD2A2159C461300B7E28C /* UPnPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPTableViewCell.h; sourceTree = "<group>"; };
 		60CAD2A3159C461300B7E28C /* UPnPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPTableViewCell.m; sourceTree = "<group>"; };
+		709746681D6D8A54002E7A39 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		709746691D6D8A54002E7A39 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		7097466A1D6D8A54002E7A39 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		7097466C1D6D8A54002E7A39 /* Documentation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Documentation.html; sourceTree = "<group>"; };
+		709746701D6D8B54002E7A39 /* testViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testViewController.h; sourceTree = "<group>"; };
+		709746711D6D8B54002E7A39 /* testViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testViewController.m; sourceTree = "<group>"; };
+		709746721D6D8B54002E7A39 /* testViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = testViewController.xib; sourceTree = "<group>"; };
+		709746751D6D8E3F002E7A39 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		709746761D6D8E3F002E7A39 /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
 		7ABC93DB1A295C7D0070697C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		A43ACCD91555E653007DE9B0 /* libclinkc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libclinkc.a; path = "../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos/libclinkc.a"; sourceTree = "<group>"; };
 		A48574B415A3155500294C34 /* DLNAPlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAPlaybackViewController.h; sourceTree = "<group>"; };
@@ -71,6 +90,7 @@
 		A4A66A171555E44100AED3AF /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A4A66A1A1555E44100AED3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
 		A4A66A1D1555E44100AED3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
+		FDEBE1EC33F8D2BB1F550C37 /* Pods-StarAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StarAPP/Pods-StarAPP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,12 +102,22 @@
 				A4A66A021555E44100AED3AF /* UIKit.framework in Frameworks */,
 				A4A66A041555E44100AED3AF /* Foundation.framework in Frameworks */,
 				A4A66A061555E44100AED3AF /* CoreGraphics.framework in Frameworks */,
+				8ED6C830076F28779F6BA445 /* libPods-StarAPP.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		417FF17A56B269694B018113 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FDEBE1EC33F8D2BB1F550C37 /* Pods-StarAPP.debug.xcconfig */,
+				4A91E2D05F4181C9A34FCF35 /* Pods-StarAPP.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		60B4C536159B0EB900F3BB0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +144,40 @@
 				60CAD2A3159C461300B7E28C /* UPnPTableViewCell.m */,
 			);
 			name = UPnPCell;
-			path = DLNASample/UPnPCell;
+			path = ../DLNASample/UPnPCell;
+			sourceTree = "<group>";
+		};
+		709746641D6D89E6002E7A39 /* ext */ = {
+			isa = PBXGroup;
+			children = (
+				709746671D6D8A54002E7A39 /* RunLoop */,
+				709746751D6D8E3F002E7A39 /* Singleton.h */,
+				709746761D6D8E3F002E7A39 /* Singleton.m */,
+			);
+			path = ext;
+			sourceTree = "<group>";
+		};
+		709746661D6D89FA002E7A39 /* viewController */ = {
+			isa = PBXGroup;
+			children = (
+				60CAD29F159C461300B7E28C /* UPnPCell */,
+				709746701D6D8B54002E7A39 /* testViewController.h */,
+				709746711D6D8B54002E7A39 /* testViewController.m */,
+				709746721D6D8B54002E7A39 /* testViewController.xib */,
+			);
+			path = viewController;
+			sourceTree = "<group>";
+		};
+		709746671D6D8A54002E7A39 /* RunLoop */ = {
+			isa = PBXGroup;
+			children = (
+				709746681D6D8A54002E7A39 /* AsyncSocket.h */,
+				709746691D6D8A54002E7A39 /* AsyncSocket.m */,
+				7097466A1D6D8A54002E7A39 /* AsyncUdpSocket.h */,
+				7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */,
+				7097466C1D6D8A54002E7A39 /* Documentation.html */,
+			);
+			path = RunLoop;
 			sourceTree = "<group>";
 		};
 		A491FFCD15B67AC3002BCAA6 /* RendererList */ = {
@@ -130,12 +193,14 @@
 			isa = PBXGroup;
 			children = (
 				60B4C535159B0EB900F3BB0C /* clinkc.xcodeproj */,
-				60CAD29F159C461300B7E28C /* UPnPCell */,
+				709746661D6D89FA002E7A39 /* viewController */,
+				709746641D6D89E6002E7A39 /* ext */,
 				60CAD284159C2FEC00B7E28C /* Utility */,
 				A43ACCD91555E653007DE9B0 /* libclinkc.a */,
 				A4A66A071555E44100AED3AF /* DLNASample */,
 				A4A66A001555E44100AED3AF /* Frameworks */,
 				A4A669FE1555E44100AED3AF /* Products */,
+				417FF17A56B269694B018113 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +218,7 @@
 				A4A66A011555E44100AED3AF /* UIKit.framework */,
 				A4A66A031555E44100AED3AF /* Foundation.framework */,
 				A4A66A051555E44100AED3AF /* CoreGraphics.framework */,
+				3DF2035D5725126C257DF694 /* libPods-StarAPP.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,9 +264,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A4A66A211555E44100AED3AF /* Build configuration list for PBXNativeTarget "StarAPP" */;
 			buildPhases = (
+				CD5520E035A52EB0454AA367 /* [CP] Check Pods Manifest.lock */,
 				A4A669F91555E44100AED3AF /* Sources */,
 				A4A669FA1555E44100AED3AF /* Frameworks */,
 				A4A669FB1555E44100AED3AF /* Resources */,
+				CBF3B9D7F883F419EE304722 /* [CP] Embed Pods Frameworks */,
+				81EC081D38B8733B3384EFFA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -258,6 +327,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
+				7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */,
+				709746741D6D8B54002E7A39 /* testViewController.xib in Resources */,
 				7ABC93DC1A295C7D0070697C /* Images.xcassets in Resources */,
 				A4A66A1B1555E44100AED3AF /* MasterViewController.xib in Resources */,
 				A4A66A1E1555E44100AED3AF /* DetailViewController.xib in Resources */,
@@ -267,6 +338,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		81EC081D38B8733B3384EFFA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StarAPP/Pods-StarAPP-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CBF3B9D7F883F419EE304722 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StarAPP/Pods-StarAPP-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD5520E035A52EB0454AA367 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A4A669F91555E44100AED3AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -275,11 +394,15 @@
 				A4A66A0E1555E44100AED3AF /* main.m in Sources */,
 				A4A66A121555E44100AED3AF /* AppDelegate.m in Sources */,
 				A4A66A151555E44100AED3AF /* MasterViewController.m in Sources */,
+				7097466E1D6D8A54002E7A39 /* AsyncUdpSocket.m in Sources */,
 				A4A66A181555E44100AED3AF /* DetailViewController.m in Sources */,
 				604F37CC159B2FDC00FF1F91 /* ServerContentViewController.m in Sources */,
 				60CAD287159C304100B7E28C /* NDLUtility.m in Sources */,
 				60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */,
+				7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */,
 				60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */,
+				709746731D6D8B54002E7A39 /* testViewController.m in Sources */,
+				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
 				A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */,
 				A491FFD015B67AFA002BCAA6 /* RendererTableViewController.m in Sources */,
 			);
@@ -368,6 +491,7 @@
 		};
 		A4A66A221555E44100AED3AF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDEBE1EC33F8D2BB1F550C37 /* Pods-StarAPP.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
@@ -400,6 +524,7 @@
 		};
 		A4A66A231555E44100AED3AF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A91E2D05F4181C9A34FCF35 /* Pods-StarAPP.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";

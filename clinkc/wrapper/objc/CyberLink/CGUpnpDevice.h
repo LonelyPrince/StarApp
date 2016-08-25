@@ -236,6 +236,8 @@ typedef void CgUpnpDevice;
  * @return IP address of the device.
  */
 - (NSString *)ipaddress;
+
+-(UInt16 )ipport;
 /**
  * Return a most smallest icon.
  *
