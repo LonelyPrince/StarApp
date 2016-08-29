@@ -1171,6 +1171,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
 #endif
 #if !TARGET_OS_TV
             UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectInset(self.bounds, -100.f, -100.f)];
+            //UIToolbar *toolbar = [[UIToolbar alloc] init];
             toolbar.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             toolbar.barTintColor = self.color;
             toolbar.translucent = YES;

@@ -28,7 +28,7 @@
 		return nil;
 	UIImage *iconImage = [[UIImage alloc] initWithData:data];
 	if (iconImage != nil)
-		[iconImage autorelease];
+//		[iconImage autorelease];
 	return iconImage;
 }
 
@@ -58,11 +58,11 @@
 	[self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 }
 
-
-- (void)dealloc 
-{
-	[super dealloc];
-}
+//
+//- (void)dealloc 
+//{
+//	[super dealloc];
+//}
 
 
 @end

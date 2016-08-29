@@ -18,20 +18,20 @@
 @synthesize detailItem = _detailItem;
 @synthesize detailDescriptionLabel = _detailDescriptionLabel;
 @synthesize ipAddressLable = ipAddressLabel_;
-- (void)dealloc
-{
-    [_detailItem release];
-    [_detailDescriptionLabel release];
-    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [_detailItem release];
+//    [_detailDescriptionLabel release];
+//    [super dealloc];
+//}
 
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
 {
     if (_detailItem != newDetailItem) {
-        [_detailItem release]; 
-        _detailItem = [newDetailItem retain]; 
+//        [_detailItem release]; 
+//        _detailItem = [newDetailItem retain];
 
         // Update the view.
         [self configureView];

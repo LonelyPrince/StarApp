@@ -39,16 +39,16 @@ UPNPAVOBJECT_CELL_DATE,
 		int imgCellWidth =  cellHeight;
 		//int imgCellHeight =  cellHeight;
 		
-		UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(imgMargin, imgMargin, imgWidth, imgHeight)] autorelease];
+		UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imgMargin, imgMargin, imgWidth, imgHeight)];
 		imageView.tag = UPNPAVOBJECT_CELL_IMAGE;
 		[self.contentView addSubview:imageView];
 		
-		UILabel *nameLabel = [[[UILabel alloc] initWithFrame:
+		UILabel *nameLabel = [[UILabel alloc] initWithFrame:
 							   CGRectMake(
 										  imgCellWidth, 
 										  0, 
 										  cellWidth - imgCellWidth, 
-										  (cellHeight - UPNPAVOBJECT_CELL_LOW_HEIGHT))] autorelease];
+										  (cellHeight - UPNPAVOBJECT_CELL_LOW_HEIGHT))];
 		nameLabel.tag = UPNPAVOBJECT_CELL_NAME;
 		nameLabel.font = [UIFont systemFontOfSize:UPNPAVOBJECT_CELL_HEIGHT_FONT_SIZE];
 		nameLabel.textAlignment = UITextAlignmentLeft;
@@ -56,12 +56,12 @@ UPNPAVOBJECT_CELL_DATE,
 		nameLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:nameLabel];
 
-		UILabel *mimeLabel = [[[UILabel alloc] initWithFrame:
+		UILabel *mimeLabel = [[UILabel alloc] initWithFrame:
 							   CGRectMake(
 										  imgCellWidth, 
 										  (cellHeight - UPNPAVOBJECT_CELL_LOW_HEIGHT), 
 										  ((cellWidth - imgCellWidth)/2), 
-										  UPNPAVOBJECT_CELL_LOW_HEIGHT)] autorelease];
+										  UPNPAVOBJECT_CELL_LOW_HEIGHT)] ;
 		mimeLabel.tag = UPNPAVOBJECT_CELL_MIME;
 		mimeLabel.font = [UIFont systemFontOfSize:UPNPAVOBJECT_CELL_LOW_FONT_SIZE];
 		mimeLabel.textAlignment = UITextAlignmentLeft;
@@ -69,12 +69,12 @@ UPNPAVOBJECT_CELL_DATE,
 		mimeLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
 		[self.contentView addSubview:mimeLabel];
 
-		UILabel *dateLabel = [[[UILabel alloc] initWithFrame:
+		UILabel *dateLabel = [[UILabel alloc] initWithFrame:
 							   CGRectMake(
 										  (imgCellWidth + ((cellWidth - imgCellWidth)/2)), 
 										  (cellHeight - UPNPAVOBJECT_CELL_LOW_HEIGHT), 
 										  ((cellWidth - imgCellWidth)/2), 
-										  UPNPAVOBJECT_CELL_LOW_HEIGHT)] autorelease];
+										  UPNPAVOBJECT_CELL_LOW_HEIGHT)];
 		dateLabel.tag = UPNPAVOBJECT_CELL_DATE;
 		dateLabel.font = [UIFont systemFontOfSize:UPNPAVOBJECT_CELL_LOW_FONT_SIZE];
 		dateLabel.textAlignment = UITextAlignmentRight;
@@ -85,10 +85,10 @@ UPNPAVOBJECT_CELL_DATE,
 	return self;
 }
 
-- (void)dealloc 
-{
-	[super dealloc];
-}
+//- (void)dealloc 
+//{
+//	[super dealloc];
+//}
 
 - (UILabel *)nameLabel
 {
@@ -112,17 +112,17 @@ UPNPAVOBJECT_CELL_DATE,
 
 - (NSString *)name
 {
-	return [[[[self nameLabel] text] retain] autorelease];
+	return [[self nameLabel] text] ;
 }
 
 - (NSString *)mime
 {
-	return [[[[self mimeLabel] text] retain] autorelease];
+	return [[self mimeLabel] text] ;
 }
 
 - (NSString *)date
 {
-	return [[[[self dateLabel] text] retain] autorelease];
+    return [[self dateLabel] text];
 }
 
 - (void)setName:(NSString *)aName

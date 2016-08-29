@@ -12,6 +12,15 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+
+
+//import
+#import"TVViewController.h"
+#import"MEViewController.h"
+#import"MonitorViewController.h"
+#import"StarMainTabController.h"
+
+
 //pod
 
 #import "AsyncSocket.h"

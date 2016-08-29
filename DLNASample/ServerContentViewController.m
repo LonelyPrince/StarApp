@@ -20,7 +20,7 @@
 - (void)dealloc 
 {
     self.server = nil;
-    [super dealloc];
+//    [super dealloc];
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -117,7 +117,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     CGUpnpAvObject* avObj = [self.dataSource objectAtIndex:indexPath.row];
     cell.textLabel.text = avObj.title;
@@ -168,7 +168,7 @@
      // ...
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
+     //[detailViewController release];
      
 }
 

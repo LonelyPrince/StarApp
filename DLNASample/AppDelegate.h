@@ -14,4 +14,9 @@
 
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (nonatomic, retain)CGUpnpAvRenderer* avRenderer;
+
+@property(strong,nonatomic) StarMainTabController * starMainTab;
+
++ (AppDelegate *)shareAppDelegate;
+
 @end

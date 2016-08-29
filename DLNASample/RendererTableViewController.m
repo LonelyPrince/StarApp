@@ -85,7 +85,7 @@
 	
 	UPnPDeviceTableViewCell *cell = (UPnPDeviceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CELLID];
 	if (cell == nil) {
-		cell = [[[UPnPDeviceTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CELLID] autorelease];
+		cell =      [[UPnPDeviceTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CELLID];
 	}
 	
 	int row = [indexPath indexAtPosition:1];	

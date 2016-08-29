@@ -94,14 +94,14 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     return self;
 }
 							
-- (void)dealloc
-{
-    [self.avController stop];
-    [_avController release];
-    [_detailViewController release];
-    self.avController = nil;
-    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [self.avController stop];
+//    [_avController release];
+//    [_detailViewController release];
+//    self.avController = nil;
+//    [super dealloc];
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -121,11 +121,11 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     avCtrl.delegate = self;
     [avCtrl search];
     self.avController = avCtrl;
-    [avCtrl release];
+  //  [avCtrl release];
     
     UIBarButtonItem* leftButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(leftButtonDidPush)];
     self.navigationItem.leftBarButtonItem = leftButton;
-    [leftButton release];
+//    [leftButton release];
     
 }
 
@@ -168,7 +168,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
     RendererTableViewController* viewController = [[RendererTableViewController alloc] initWithAvController:self.avController];
     
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
+//    [viewController release];
     
 }
 // Customize the number of sections in the table view.
@@ -207,7 +207,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 	
 	UPnPDeviceTableViewCell *cell = (UPnPDeviceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CELLID];
 	if (cell == nil) {
-		cell = [[[UPnPDeviceTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CELLID] autorelease];
+		cell = [[UPnPDeviceTableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CELLID ];
 	}
 	
 	int row = [indexPath indexAtPosition:1];
@@ -243,7 +243,7 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //if (!self.detailViewController) {
-        self.detailViewController = [[[ServerContentViewController alloc] initWithAvServer:[self.dataSource objectAtIndex:indexPath.row] atIndexPath:indexPath objectId:@"0"] autorelease];
+        self.detailViewController = [[ServerContentViewController alloc] initWithAvServer:[self.dataSource objectAtIndex:indexPath.row] atIndexPath:indexPath objectId:@"0"];
     //}
     
     

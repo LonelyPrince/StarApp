@@ -15,26 +15,36 @@
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
 @synthesize avRenderer = _avRenderer;
-- (void)dealloc
-{
-    [_window release];
-    [_navigationController release];
-    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [_window release];
+//    [_navigationController release];
+//    [super dealloc];
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  
     // Override point for customization after application launch.
 
-    //master第一个页面
-    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil] autorelease];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
-    self.window.rootViewController = self.navigationController;
+//    //master第一个页面
+//    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil] autorelease];
+//    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
+//    self.window.rootViewController = self.navigationController;
+//    [self.window makeKeyAndVisible];
+    self.starMainTab = [[StarMainTabController alloc]init];
+    
+    self.window.rootViewController = self.starMainTab;
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
 
++ (AppDelegate *)shareAppDelegate
+{
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*

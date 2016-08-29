@@ -47,11 +47,11 @@
     UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 200, 20)];
     titleLabel.text = (self.avItem).title;
     [self.view addSubview:titleLabel];
-    [titleLabel release];
+//    [titleLabel release];
     UILabel* artistLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 40, 200, 20)];
     artistLabel.text = [(self.avItem) artist];
     [self.view addSubview:artistLabel];
-    [artistLabel release];
+//    [artistLabel release];
     
     
     NSURL* imageUrl = [NSURL URLWithString:[self.avItem albumArtURI]];
@@ -60,7 +60,7 @@
     UIImageView* coverArtView = [[UIImageView alloc] initWithImage:coverArt];
     coverArtView.frame = CGRectMake(10, 60, 300, 300);
     [self.view addSubview:coverArtView];
-    [coverArtView release];
+//    [coverArtView release];
     UIButton *prevButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [prevButton addTarget:self action:@selector(prevButtonDidPush) forControlEvents:UIControlEventTouchUpInside];
     prevButton.frame = CGRectMake(self.view.center.x-85, 380, 50, 20);
