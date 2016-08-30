@@ -19,6 +19,9 @@
 #import"MEViewController.h"
 #import"MonitorViewController.h"
 #import"StarMainTabController.h"
+#import "SearchViewController.h"
+//宏定义.h文件
+#import "GGMacros.h"
 
 
 //pod

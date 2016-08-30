@@ -50,7 +50,7 @@
     
    
     
-    [self setViewControllers:@[monVC,tvViewNav,meViewNav]];
+    [self setViewControllers:@[tvViewNav,monVC,meViewNav]];
     
     
 }

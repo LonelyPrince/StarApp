@@ -37,6 +37,9 @@
     
     self.window.rootViewController = self.starMainTab;
     
+    [NSThread sleepForTimeInterval:1.0];//设置启动页面时间
+    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
