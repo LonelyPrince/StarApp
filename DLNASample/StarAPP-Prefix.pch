@@ -20,6 +20,10 @@
 #import"MonitorViewController.h"
 #import"StarMainTabController.h"
 #import "SearchViewController.h"
+
+#import "ZXVideo.h"
+
+#import "ZXVideoPlayerController.h"
 //宏定义.h文件
 #import "GGMacros.h"
 

@@ -132,3 +132,14 @@ typedef void(^numberBlock)(NSNumber *result);
 typedef void(^arrayWithErrorBlock)(NSArray *results,NSError *error);
 typedef void(^arrayBlock)(NSArray *results);
 typedef void(^dictionaryBlock)(NSDictionary *results);
+
+
+
+//new
+//----TVViewController.m
+#define searchBtnX 30
+#define searchBtnY 10+NavigationBar_HEIGHT
+#define searchBtnWidth   SCREEN_WIDTH-2*searchBtnX
+#define searchBtnHeight  35
+
+#define topViewHeight  50

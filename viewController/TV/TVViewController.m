@@ -9,31 +9,41 @@
 #import "TVViewController.h"
 
 
-#define searchBtnX 30
-#define searchBtnY 10+NavigationBar_HEIGHT
-#define searchBtnWidth   SCREEN_WIDTH-2*searchBtnX
-#define searchBtnHeight  35
+
+
 
 @interface TVViewController ()
-
+@property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property(nonatomic,strong)SearchViewController * searchViewCon;
 @end
 
 @implementation TVViewController
 
 @synthesize searchViewCon;
+//@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+ 
     
     [self loadNav];
 //    self.view.frame.origin.y = CGRectGetMaxY(44)
     self.view.backgroundColor = [UIColor greenColor];
+    
+    //视频部分
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    
+    [self playVideo];
+
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   
 }
 
 -(void)loadNav
@@ -48,7 +58,7 @@
     
     //顶部搜索条
     self.navigationController.navigationBarHidden = YES;
-    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT, SCREEN_WIDTH, 50)];
+    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT, SCREEN_WIDTH, topViewHeight)];
     topView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:topView];
     
@@ -63,12 +73,52 @@
     [topView bringSubviewToFront:searchBtn];
     [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
+    //视频播放
+   //----直播源
+    self.video = [[ZXVideo alloc] init];
+    //    video.playUrl = @"http://baobab.wdjcdn.com/1451897812703c.mp4";
+    self.video.playUrl = @"http://192.168.32.66/vod/mp4:151463.mp4/playlist.m3u8";
+   self.video.title = @"Rollin'Wild 圆滚滚的";
+    
+    NSLog(@"----%@",self.video.playUrl);
+    NSLog(@"----%@",self.video.title);
+    
+
+  }
+
+- (void)playVideo
+{
+    if (!self.videoController) {
+        self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, searchBtnY+searchBtnHeight, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
+        
+        __weak typeof(self) weakSelf = self;
+        self.videoController.videoPlayerGoBackBlock = ^{
+            __strong typeof(self) strongSelf = weakSelf;
+            
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+            
+            [strongSelf.navigationController popViewControllerAnimated:YES];
+            [strongSelf.navigationController setNavigationBarHidden:NO animated:YES];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"ZXVideoPlayer_DidLockScreen"];
+            
+            strongSelf.videoController = nil;
+        };
+        
+        self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
+            NSLog(@"切换为竖屏模式");
+        };
+        self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
+            NSLog(@"切换为全屏模式");
+        };
+        
+        [self.videoController showInView:self.view];
+    }
+    
 
     
-    
-    //    self.view.frame = CGRectMake(0, 0, 640 , 1136);
-//    NSLog(@"%@",[UIScreen mainScreen].bounds);
-    
+    self.videoController.video = self.video;
+    NSLog(@"video:%@",self.videoController.video);
 }
 
 -(void)searchBtnClick

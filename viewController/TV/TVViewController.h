@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+
+@class ZXVideo;
 @interface TVViewController : UIViewController
+
+@property (nonatomic, strong, readwrite) ZXVideo *video;
 
 
 
