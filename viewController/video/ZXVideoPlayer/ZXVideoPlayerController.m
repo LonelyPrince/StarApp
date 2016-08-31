@@ -265,9 +265,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 /// 控制视图隐藏
 - (void)onPayerControlViewHideNotification
-{
+{///如果是全屏模式
     if (self.isFullscreenMode) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+        
     } else {
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     }
@@ -538,7 +539,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoPlayerWillChangeToOriginalScreenModeBlock();
     }
     
-    self.frame = CGRectMake(0, 0, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
+    self.frame = CGRectMake(0, searchBtnY+searchBtnHeight, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
     
     self.isFullscreenMode = NO;
     self.videoControl.fullScreenButton.hidden = NO;

@@ -219,6 +219,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _pauseButton;
 }
 
+///全屏
 - (UIButton *)fullScreenButton
 {
     if (!_fullScreenButton) {
@@ -239,6 +240,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _shrinkScreenButton;
 }
 
+///进度条
 - (UISlider *)progressSlider
 {
     if (!_progressSlider) {
@@ -252,6 +254,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _progressSlider;
 }
 
+///时间
 - (UILabel *)timeLabel
 {
     if (!_timeLabel) {

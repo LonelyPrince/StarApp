@@ -110,6 +110,7 @@
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");
+           self.tabBarController.tabBar.hidden = YES;
         };
         
         [self.videoController showInView:self.view];
@@ -118,7 +119,8 @@
 
     
     self.videoController.video = self.video;
-    NSLog(@"video:%@",self.videoController.video);
+    NSLog(@"video:%@",self.videoController.video.title);
+    NSLog(@"video:%@",self.videoController.video.playUrl);
 }
 
 -(void)searchBtnClick
