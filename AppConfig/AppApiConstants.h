@@ -31,7 +31,9 @@
 
 
 //常用链接
-#define kSDLB_SYS_SERVER @"http://www.jiajudaren.com/index.php?m=api&"
+//#define kSDLB_SYS_SERVER @"http://www.jiajudaren.com/index.php?m=api&"
+
+#define kSDLB_SYS_SERVER @"http://192.168.1.1/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
 #define k_image_ip @"http://www.jiajudaren.com"
 
 #define k_ZUIXIN @"a=getitems&p=%i&pg=33&sid=0&tid=0&o=0&keyword=&uid=0"
@@ -44,6 +46,9 @@
 #define k_C_Alldata  @"a=getitems&p=%i&pg=33&sid=%@&tid=0&o=0&keyword=&uid=0"
 
 #define k_category_data @"a=getitems&p=%i&pg=33&sid=0&tid=%@&o=0&keyword=&uid=0"
+
+//new
+#define S_category @"flag=0"      //参数
 #endif
 
 /**

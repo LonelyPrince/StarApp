@@ -12,9 +12,24 @@
 
 
 
-@interface TVViewController ()
+@interface TVViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property(nonatomic,strong)SearchViewController * searchViewCon;
+
+//new  scroll table
+@property (nonatomic, strong) NSMutableArray *dataSource;    //
+@property (nonatomic, strong) UITableView *table;   // table表
+@property (nonatomic, strong) UIScrollView *topScroller;
+
+@property (nonatomic, strong) UIView *lineView;
+
+@property (nonatomic, strong) NSMutableArray *categorys;
+
+@property (nonatomic, assign) NSInteger currentIndex;
+
+@property (strong,nonatomic) NSMutableArray *serviceData;
+
+
 @end
 
 @implementation TVViewController
@@ -26,7 +41,17 @@
  
     
     [self loadNav];
-//    self.view.frame.origin.y = CGRectGetMaxY(44)
+    
+   //new
+    [self initData];    //table表
+    
+    [self loadUI];              //加载table 和scroll
+    [self getTopCategory];
+    [self getServiceData];    //获取表数据
+    
+
+    
+
     self.view.backgroundColor = [UIColor greenColor];
     
     //视频部分
@@ -45,7 +70,130 @@
     [super didReceiveMemoryWarning];
    
 }
+//1.line
+-(UIView *) lineView
+{
+    if (!_lineView){
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH/5, 3)];
+        _lineView.backgroundColor = homeTintColor;
+        [self.topScroller addSubview:_lineView];
+    }
+    return _lineView;
+}
+-(void) initData
+{
+    self.dataSource = [NSMutableArray array];
+}
+-(void) loadUI
+{
+    [self creatTopScroller];   //创建scroll
+    
+    
+    //创建table表
+    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 270, SCREEN_WIDTH, SCREEN_HEIGHT-300) style:UITableViewStylePlain];
+    table.delegate = self;
+    table.dataSource = self;
+    //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:table];
+    self.table = table;
+//
+}
+//创建顶部滑动条
+-(void) creatTopScroller
+{
+    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH, 44)];
+    scroller.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:scroller];
+    scroller.showsVerticalScrollIndicator = NO;
+    scroller.showsHorizontalScrollIndicator = NO;
+    self.topScroller = scroller;
+    [self.table  bringSubviewToFront:scroller];
+}
+//获取scroll
+-(void) getTopCategory
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        NSLog(@"response = %@",response);
+        NSArray *data = response[@"category"];
+        
+        if (!isValidArray(data) || data.count == 0){
+            return ;
+        }
+        self.categorys = (NSMutableArray *)data;
+        
+        
+        //[AppDelegate shareAppDelegate].leftVC.dataSource = self.categorys;
+        
+        //  [self.collectionView reloadData];
+        [self refreshTopScroller];
+    }];
+    
+}
 
+//获取table
+-(void) getServiceData
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        NSLog(@"response = %@",response);
+        NSArray *data1 = response[@"service"];
+        if (!isValidArray(data1) || data1.count == 0){
+            return ;
+        }
+        self.serviceData = (NSMutableArray *)data1;
+        
+        NSLog(@"--------%@",self.serviceData);
+        
+        [self.table reloadData];
+       
+    }];
+    
+}
+-(void) refreshTopScroller
+{
+    for (int i = 0 ; i < self.categorys.count; i++) {
+        NSDictionary *item = self.categorys[i];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(SCREEN_WIDTH/5*i, 0, SCREEN_WIDTH/5, 44);
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [btn setBackgroundColor:[UIColor whiteColor]];
+        [btn setTitle:item[@"category_name"] forState:UIControlStateNormal];
+        [btn setTitleColor:homeTintColor forState:UIControlStateNormal];
+        [self.topScroller addSubview:btn];
+        [btn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+            self.currentIndex = i;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.lineView.frame = CGRectMake(i*SCREEN_WIDTH/5, 36, SCREEN_WIDTH/5, 3);
+            }];
+            [UIView animateWithDuration:0.2 animations:^{
+                //self.collectionView.contentOffset = CGPointMake(SCREEN_WIDTH*i, 0);
+            }];
+        }];
+    }
+    self.lineView.hidden = NO;
+    self.topScroller.contentSize = CGSizeMake(SCREEN_WIDTH/5*self.categorys.count, 44);
+    
+}
 -(void)loadNav
 {
 
@@ -58,7 +206,7 @@
     
     //顶部搜索条
     self.navigationController.navigationBarHidden = YES;
-    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, NavigationBar_HEIGHT, SCREEN_WIDTH, topViewHeight)];
+    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, -30, SCREEN_WIDTH, topViewHeight)];
     topView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:topView];
     
@@ -128,5 +276,53 @@
     searchViewCon = [[SearchViewController alloc]init];
     [self.navigationController pushViewController:searchViewCon animated:YES];
 }
+
+
+/**
+ 创建表的deklegate方法
+ 
+ */
+-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSLog(@"````````````%lu",(unsigned long)self.serviceData.count);
+    return self.serviceData.count;
+}
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [TVCell defaultCellHeight];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
+    if (cell == nil){
+        cell = [TVCell loadFromNib];
+    }
+    
+    cell.dataDic = self.serviceData[indexPath.row];
+    
+    return cell;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    DetailViewController *controller =[[DetailViewController alloc] init];
+    //    controller.dataDic = self.dataSource[indexPath.row];
+    //    [self.navigationController pushViewController:controller animated:YES];
+    
+    //被选择时播放视频并高亮
+    
+}
+
 
 @end

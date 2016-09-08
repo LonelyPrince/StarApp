@@ -138,7 +138,8 @@ typedef void(^dictionaryBlock)(NSDictionary *results);
 //new
 //----TVViewController.m
 #define searchBtnX 30
-#define searchBtnY 10+NavigationBar_HEIGHT
+//#define searchBtnY 10+NavigationBar_HEIGHT
+#define searchBtnY 20
 #define searchBtnWidth   SCREEN_WIDTH-2*searchBtnX
 #define searchBtnHeight  35
 
