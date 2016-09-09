@@ -7,12 +7,13 @@
 //
 
 #import "TVViewController.h"
-
-
-
-
-
-@interface TVViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface TVViewController ()<YLSlideViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+{
+    
+    YLSlideView * _slideView;
+    NSArray *colors;
+    NSArray *_testArray;
+}
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property(nonatomic,strong)SearchViewController * searchViewCon;
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;    //
 @property (nonatomic, strong) UITableView *table;   // table表
 @property (nonatomic, strong) UIScrollView *topScroller;
+
 
 @property (nonatomic, strong) UIView *lineView;
 
@@ -43,14 +45,12 @@
     [self loadNav];
     
    //new
-    [self initData];    //table表
-    
-    [self loadUI];              //加载table 和scroll
-    [self getTopCategory];
+    [self initData];    //table表    
+//    [self loadUI];              //加载table 和scroll
+//    [self getTopCategory];
     [self getServiceData];    //获取表数据
     
 
-    
 
     self.view.backgroundColor = [UIColor greenColor];
     
@@ -63,59 +63,17 @@
     [self playVideo];
 
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars =NO;
+    self.modalPresentationCapturesStatusBarAppearance =NO;
+    self.navigationController.navigationBar.translucent =NO;
     
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-   
-}
-//1.line
--(UIView *) lineView
-{
-    if (!_lineView){
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH/5, 3)];
-        _lineView.backgroundColor = homeTintColor;
-        [self.topScroller addSubview:_lineView];
-    }
-    return _lineView;
-}
--(void) initData
-{
-    self.dataSource = [NSMutableArray array];
-}
--(void) loadUI
-{
-    [self creatTopScroller];   //创建scroll
-    
-    
-    //创建table表
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 270, SCREEN_WIDTH, SCREEN_HEIGHT-300) style:UITableViewStylePlain];
-    table.delegate = self;
-    table.dataSource = self;
-    //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.view addSubview:table];
-    self.table = table;
-//
-}
-//创建顶部滑动条
--(void) creatTopScroller
-{
-    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH, 44)];
-    scroller.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:scroller];
-    scroller.showsVerticalScrollIndicator = NO;
-    scroller.showsHorizontalScrollIndicator = NO;
-    self.topScroller = scroller;
-    [self.table  bringSubviewToFront:scroller];
-}
-//获取scroll
--(void) getTopCategory
-{
+    colors = @[[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor]];
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
     LBGetHttpRequest *request = CreateGetHTTP(url);
+    
     
     
     [request startAsynchronous];
@@ -132,13 +90,104 @@
         self.categorys = (NSMutableArray *)data;
         
         
-        //[AppDelegate shareAppDelegate].leftVC.dataSource = self.categorys;
+        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 235,
+                                                                  SCREEN_WIDTH_YLSLIDE,
+                                                                  SCREEN_HEIGHT_YLSLIDE-64)
+                                             forTitles:self.categorys];
         
-        //  [self.collectionView reloadData];
-        [self refreshTopScroller];
+        NSLog(@"category:%@",self.categorys);
+        
+        _slideView.backgroundColor = [UIColor whiteColor];
+        _slideView.delegate        = self;
+        
+        [self.view addSubview:_slideView];
+        
+        
+        
     }];
     
+    
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+   
+}
+//1.line
+//-(UIView *) lineView
+//{
+//    if (!_lineView){
+//        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH/5, 3)];
+//        _lineView.backgroundColor = homeTintColor;
+//        [self.topScroller addSubview:_lineView];
+//    }
+//    return _lineView;
+//}
+-(void) initData
+{
+    self.dataSource = [NSMutableArray array];
+}
+//-(void) loadUI
+//{
+////    [self creatTopScroller];   //创建scroll
+//    
+//    
+//    //创建table表
+//    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 270, SCREEN_WIDTH, SCREEN_HEIGHT-300) style:UITableViewStylePlain];
+//    
+//    [table setScrollEnabled:YES];
+//    table.delegate = self;
+//    table.dataSource = self;
+//    //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    [self.view addSubview:table];
+//    self.table = table;
+////
+//}
+////创建顶部滑动条
+//-(void) creatTopScroller
+//{
+//    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH, 44)];
+//    scroller.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:scroller];
+//    scroller.showsVerticalScrollIndicator = NO;
+//    scroller.showsHorizontalScrollIndicator = NO;
+//    self.topScroller = scroller;
+//    [self.table  bringSubviewToFront:scroller];
+//    
+//    
+//
+//
+//}
+////获取scroll
+//-(void) getTopCategory
+//{
+//    //获取数据的链接
+//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+//    
+//    LBGetHttpRequest *request = CreateGetHTTP(url);
+//    
+//    
+//    [request startAsynchronous];
+//    
+//    WEAKGET
+//    [request setCompletionBlock:^{
+//        NSDictionary *response = httpRequest.responseString.JSONValue;
+//        NSLog(@"response = %@",response);
+//        NSArray *data = response[@"category"];
+//        
+//        if (!isValidArray(data) || data.count == 0){
+//            return ;
+//        }
+//        self.categorys = (NSMutableArray *)data;
+//        
+//        
+//        //[AppDelegate shareAppDelegate].leftVC.dataSource = self.categorys;
+//        
+//          [self.table reloadData];
+//        [self refreshTopScroller];
+//    }];
+//    
+//}
 
 //获取table
 -(void) getServiceData
@@ -169,41 +218,55 @@
     }];
     
 }
--(void) refreshTopScroller
-{
-    for (int i = 0 ; i < self.categorys.count; i++) {
-        NSDictionary *item = self.categorys[i];
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(SCREEN_WIDTH/5*i, 0, SCREEN_WIDTH/5, 44);
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [btn setBackgroundColor:[UIColor whiteColor]];
-        [btn setTitle:item[@"category_name"] forState:UIControlStateNormal];
-        [btn setTitleColor:homeTintColor forState:UIControlStateNormal];
-        [self.topScroller addSubview:btn];
-        [btn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-            self.currentIndex = i;
-            [UIView animateWithDuration:0.2 animations:^{
-                self.lineView.frame = CGRectMake(i*SCREEN_WIDTH/5, 36, SCREEN_WIDTH/5, 3);
-            }];
-            [UIView animateWithDuration:0.2 animations:^{
-                //self.collectionView.contentOffset = CGPointMake(SCREEN_WIDTH*i, 0);
-            }];
-        }];
-    }
-    self.lineView.hidden = NO;
-    self.topScroller.contentSize = CGSizeMake(SCREEN_WIDTH/5*self.categorys.count, 44);
-    
-}
+//-(void) refreshTopScroller
+//{
+//    for (int i = 0 ; i < self.categorys.count; i++) {
+//        NSDictionary *item = self.categorys[i];
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        btn.frame = CGRectMake(SCREEN_WIDTH/5*i, 0, SCREEN_WIDTH/5, 44);
+//        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [btn setBackgroundColor:[UIColor whiteColor]];
+//        [btn setTitle:item[@"category_name"] forState:UIControlStateNormal];
+//        [btn setTitleColor:homeTintColor forState:UIControlStateNormal];
+//        [self.topScroller addSubview:btn];
+//        [btn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+//            self.currentIndex = i;
+//            [UIView animateWithDuration:0.2 animations:^{
+//                self.lineView.frame = CGRectMake(i*SCREEN_WIDTH/5, 36, SCREEN_WIDTH/5, 3);
+//            }];
+//            [UIView animateWithDuration:0.2 animations:^{
+//                self.table.contentOffset = CGPointMake(SCREEN_WIDTH*i, 0);
+//
+//            }];
+//
+//        }];
+//    }
+//    self.lineView.hidden = NO;
+//    self.topScroller.contentSize = CGSizeMake(SCREEN_WIDTH/5*self.categorys.count, 44);
+//
+//    
+//}
+//-(void) scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    //    scrollView.scro
+//    if (self.table == scrollView){
+//        CGFloat pageWidth = scrollView.frame.size.width;
+//        int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+//        if (self.currentIndex != page){
+//            self.currentIndex = page;
+//            [UIView animateWithDuration:0.2 animations:^{
+//                self.lineView.frame = CGRectMake(page*SCREEN_WIDTH/5, 36, SCREEN_WIDTH/5, 3);
+//                
+//            }];
+//        }
+//        
+//    }
+//    
+//    //    HomeModel *model = self.goodsArray[page];
+//    //    self.navTitle.text = model.title;
+//}
 -(void)loadNav
 {
-
-    //设置右边按钮
-//    UIButton * rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightBtn.frame = CGRectMake(0, 0, 70, 30);
-//    [rightBtn setImage:[UIImage imageNamed:@"category"] forState:UIControlStateNormal];
-//    UIBarButtonItem * item = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-//    self.navigationItem.rightBarButtonItem = item;
-    
     //顶部搜索条
     self.navigationController.navigationBarHidden = YES;
     UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, -30, SCREEN_WIDTH, topViewHeight)];
@@ -282,37 +345,37 @@
  创建表的deklegate方法
  
  */
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSLog(@"````````````%lu",(unsigned long)self.serviceData.count);
-    return self.serviceData.count;
-}
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [TVCell defaultCellHeight];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
-    if (cell == nil){
-        cell = [TVCell loadFromNib];
-    }
-    
-    cell.dataDic = self.serviceData[indexPath.row];
-    
-    return cell;
-}
+//-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return 1;
+//}
+//-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    NSLog(@"````````````%lu",(unsigned long)self.serviceData.count);
+//    return self.serviceData.count;
+//}
+//-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return [TVCell defaultCellHeight];
+//}
+//
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return YES;
+//}
+//
+//-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    
+//    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
+//    if (cell == nil){
+//        cell = [TVCell loadFromNib];
+//    }
+//    
+//    cell.dataDic = self.serviceData[indexPath.row];
+//    
+//    return cell;
+//}
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -322,6 +385,84 @@
     
     //被选择时播放视频并高亮
     
+}
+
+
+//************************************************
+- (NSInteger)columnNumber{
+ //   return colors.count;
+    return 6;
+}
+
+- (TVTable *)slideView:(YLSlideView *)slideView
+     cellForRowAtIndex:(NSUInteger)index{
+    
+    TVTable * cell = [slideView dequeueReusableCell];
+    
+    if (!cell) {
+        cell = [[TVTable alloc]initWithFrame:CGRectMake(0, 0, 320, 500)
+                                       style:UITableViewStylePlain];
+        cell.delegate   = self;
+        cell.dataSource = self;
+    }
+    
+    //    cell.backgroundColor = colors[index];
+    
+    
+    return cell;
+}
+- (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
+    
+    NSLog(@"index :%@ ",@(index));
+    [cell reloadData]; //刷新TableView
+    //    NSLog(@"刷新数据");
+}
+
+- (void)slideViewInitiatedComplete:(TVTable *)cell forIndex:(NSUInteger)index{
+    
+    //可以在这里做数据的预加载（缓存数据）
+    NSLog(@"缓存数据 %@",@(index));
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [cell reloadData];
+        
+    });
+}
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"%lu",(unsigned long)self.serviceData.count);
+    
+    return self.serviceData.count;
+
+}
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [TVCell defaultCellHeight];
+}
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
+    if (cell == nil){
+        cell = [TVCell loadFromNib];
+    }
+    
+    cell.dataDic = self.serviceData[indexPath.row];
+    
+    return cell;
+    
+    //    NSString *Identifier = @"cell";
+    //    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
+    //
+    //    if (!cell) {
+    //        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
+    //    }
+    //
+    //    cell.textLabel.text = [@(arc4random()%1000) stringValue];
+    //
+    //
+    //    return cell;
 }
 
 

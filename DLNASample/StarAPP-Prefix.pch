@@ -24,35 +24,39 @@
 #import "ZXVideo.h"
 
 #import "ZXVideoPlayerController.h"
-//宏定义.h文件
-#import "GGMacros.h"
+#import "TVCell.h"
 
 
-//pod
-
-#import "AsyncSocket.h"
-
+//ext
 #import "AppConfig.h"
 #import "GGMacros.h"
 #import "AppApiConstants.h"
 
 #import "BUIControl.h"
-#import "MBProgressHUD.h"
 #import "MBProgressHUD+SimplyShow.h"
 #import "MBProgressHUD+Add.h"
+#import "MBProgressHUD.h"
 #import <Reachability.h>
-
 #import <SDImageCache.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-
-#import <ASIHTTPRequest.h>
 #import "LBGetHttpRequest.h"
 #import "LBPostHttpRequest.h"
-
+#import <ASIHTTPRequest.h>
 #import "NSData+JSONCategories.h"
 #import "NSObject+JSONCategories.h"
 #import "NSString+JSONCategories.h"
+//pod
 
-#import "TVCell.h"
+#import "AsyncSocket.h"
+
+
+//new
+#import "YGPCache.h"
+#import "YGPCacheMemory.h"
+#import "YGPCacheDisk.h"
+#import "TVTable.h"
+#import "YLSlideTitleView.h"
+#import "YLSlideView.h"
+
 
 #endif

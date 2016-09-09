@@ -52,19 +52,27 @@
     self.event_Img.image = [UIImage imageNamed:@"11"];
     self.event_nextImg.image = [UIImage imageNamed:@"11"];
   
-//    if(dataDic[@"epg_info"][0][@"event_name"] ==NULL  )
-//    {
+    if(dataDic[@"epg_info"][0][@"event_name"] ==NULL  )
+    {
         self.event_nameLab.text = @"namenamename";
-//    }
-//    else
-//    {
-//        self.event_nameLab.text = dataDic[@"epg_info"][0][@"event_name"];
-//    }
-    
+        
+    }
+    else
+    {
+        self.event_nameLab.text = dataDic[@"epg_info"][0][@"event_name"];
+  
+    }
+
     
     
     self.event_nextTime.text = @"11:00";
     self.event_nextNameLab.text = @"nextnamename";
+  
+    //字体设置
+    self.event_nameLab.font = FONT(12);
+    self.event_nextTime.font = FONT(12);
+    self.event_nextNameLab.font = FONT(12);
+    
     
     //    self.event_next_nameLab = dataDic
     
