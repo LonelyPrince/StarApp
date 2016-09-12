@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CategoryModel.h"
+#import "ServiceModel.h"
 @interface TVCell : UITableViewCell
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *channelImg;
 
@@ -23,6 +25,11 @@
 ///数据源
 @property (nonatomic, strong) NSDictionary *dataDic;
 
+@property (nonatomic, strong) CategoryModel *categorymodel;
+@property (nonatomic, strong) ServiceModel *servicemodel;
+
+@property(nonatomic,assign)NSInteger aa;
+@property(nonatomic,assign)NSInteger aaa;
 + (id)loadFromNib;
 
 + (NSString*)reuseIdentifier;

@@ -11,4 +11,6 @@
 @interface TVTable : UITableView
 
 @property(nonatomic,assign) NSInteger  index;
+
+@property(nonatomic,strong) NSDictionary *   tabledataDic;
 @end

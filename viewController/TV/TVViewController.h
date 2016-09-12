@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CategoryModel.h"
+#import "ServiceModel.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController
 
 @property (nonatomic, strong, readwrite) ZXVideo *video;
 
-
+@property(nonatomic,strong) CategoryModel * categoryModel;
+@property(nonatomic,strong) ServiceModel * serviceModel;
 
 @end

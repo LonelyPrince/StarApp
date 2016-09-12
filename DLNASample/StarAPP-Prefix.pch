@@ -25,7 +25,8 @@
 
 #import "ZXVideoPlayerController.h"
 #import "TVCell.h"
-
+#import "CategoryModel.h"
+#import "ServiceModel.h"
 
 //ext
 #import "AppConfig.h"

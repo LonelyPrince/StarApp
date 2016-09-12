@@ -7,12 +7,15 @@
 //
 
 #import "TVViewController.h"
+#import "TVCell.h"
 @interface TVViewController ()<YLSlideViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
     YLSlideView * _slideView;
     NSArray *colors;
     NSArray *_testArray;
+    
+    
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property(nonatomic,strong)SearchViewController * searchViewCon;
@@ -30,7 +33,13 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 
 @property (strong,nonatomic) NSMutableArray *serviceData;
+//table的data
+@property (strong,nonatomic) NSMutableArray *serviceTableData;
 
+@property (nonatomic, assign) NSInteger category_index;
+@property (strong,nonatomic)NSMutableDictionary * dicTemp;
+
+//@property (strong,nonatomic) NSMutableArray *arrdata;
 
 @end
 
@@ -89,7 +98,7 @@
         }
         self.categorys = (NSMutableArray *)data;
         
-        
+        //设置滑动条
         _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 235,
                                                                   SCREEN_WIDTH_YLSLIDE,
                                                                   SCREEN_HEIGHT_YLSLIDE-64)
@@ -125,23 +134,12 @@
 //}
 -(void) initData
 {
+    self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
 }
 //-(void) loadUI
 //{
 ////    [self creatTopScroller];   //创建scroll
-//    
-//    
-//    //创建table表
-//    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 270, SCREEN_WIDTH, SCREEN_HEIGHT-300) style:UITableViewStylePlain];
-//    
-//    [table setScrollEnabled:YES];
-//    table.delegate = self;
-//    table.dataSource = self;
-//    //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    [self.view addSubview:table];
-//    self.table = table;
-////
 //}
 ////创建顶部滑动条
 //-(void) creatTopScroller
@@ -154,9 +152,7 @@
 //    self.topScroller = scroller;
 //    [self.table  bringSubviewToFront:scroller];
 //    
-//    
-//
-//
+
 //}
 ////获取scroll
 //-(void) getTopCategory
@@ -218,53 +214,6 @@
     }];
     
 }
-//-(void) refreshTopScroller
-//{
-//    for (int i = 0 ; i < self.categorys.count; i++) {
-//        NSDictionary *item = self.categorys[i];
-//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        btn.frame = CGRectMake(SCREEN_WIDTH/5*i, 0, SCREEN_WIDTH/5, 44);
-//        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-//        [btn setBackgroundColor:[UIColor whiteColor]];
-//        [btn setTitle:item[@"category_name"] forState:UIControlStateNormal];
-//        [btn setTitleColor:homeTintColor forState:UIControlStateNormal];
-//        [self.topScroller addSubview:btn];
-//        [btn handleControlEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-//            self.currentIndex = i;
-//            [UIView animateWithDuration:0.2 animations:^{
-//                self.lineView.frame = CGRectMake(i*SCREEN_WIDTH/5, 36, SCREEN_WIDTH/5, 3);
-//            }];
-//            [UIView animateWithDuration:0.2 animations:^{
-//                self.table.contentOffset = CGPointMake(SCREEN_WIDTH*i, 0);
-//
-//            }];
-//
-//        }];
-//    }
-//    self.lineView.hidden = NO;
-//    self.topScroller.contentSize = CGSizeMake(SCREEN_WIDTH/5*self.categorys.count, 44);
-//
-//    
-//}
-//-(void) scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    //    scrollView.scro
-//    if (self.table == scrollView){
-//        CGFloat pageWidth = scrollView.frame.size.width;
-//        int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-//        if (self.currentIndex != page){
-//            self.currentIndex = page;
-//            [UIView animateWithDuration:0.2 animations:^{
-//                self.lineView.frame = CGRectMake(page*SCREEN_WIDTH/5, 36, SCREEN_WIDTH/5, 3);
-//                
-//            }];
-//        }
-//        
-//    }
-//    
-//    //    HomeModel *model = self.goodsArray[page];
-//    //    self.navTitle.text = model.title;
-//}
 -(void)loadNav
 {
     //顶部搜索条
@@ -341,42 +290,6 @@
 }
 
 
-/**
- 创建表的deklegate方法
- 
- */
-//-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 1;
-//}
-//-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    NSLog(@"````````````%lu",(unsigned long)self.serviceData.count);
-//    return self.serviceData.count;
-//}
-//-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return [TVCell defaultCellHeight];
-//}
-//
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return YES;
-//}
-//
-//-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//    
-//    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
-//    if (cell == nil){
-//        cell = [TVCell loadFromNib];
-//    }
-//    
-//    cell.dataDic = self.serviceData[indexPath.row];
-//    
-//    return cell;
-//}
-
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    DetailViewController *controller =[[DetailViewController alloc] init];
@@ -389,9 +302,10 @@
 
 
 //************************************************
+//table可以滑动的次数
 - (NSInteger)columnNumber{
  //   return colors.count;
-    return 6;
+    return self.categorys.count;
 }
 
 - (TVTable *)slideView:(YLSlideView *)slideView
@@ -408,12 +322,47 @@
     
     //    cell.backgroundColor = colors[index];
     
+   
     
+    
+     NSLog(@"index --------:%@ ",@(index));
     return cell;
 }
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
     
     NSLog(@"index :%@ ",@(index));
+    
+    
+    //self.categorys[i]                          不同类别
+    //self.categoryModel.service_indexArr        类别的索引数组
+    //self.categoryModel.service_indexArr.count
+    //给不同的table赋值
+//    for (int i = 0 ; i<self.categorys.count; i++) {
+        NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+    self.categoryModel = [[CategoryModel alloc]init];
+    
+    self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+
+        //获取EPG信息 展示
+        //时间戳转换
+        
+              //获取不同类别下的节目，然后是节目下不同的cell值                10
+                for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+        
+                    int indexCat ;
+                 //   NSString * str;
+                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                    //cell.tabledataDic = self.serviceData[indexCat -1];
+                    
+                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+
+                   
+                }
+//        cell.tabledataDic =  self.categorys[index];
+//    }
+    
+//    self.a = index;
+    NSLog(@"index  self.a--------:%@ ",@(index));
     [cell reloadData]; //刷新TableView
     //    NSLog(@"刷新数据");
 }
@@ -434,7 +383,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSLog(@"%lu",(unsigned long)self.serviceData.count);
     
-    return self.serviceData.count;
+    return self.categoryModel.service_indexArr.count;
 
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -448,22 +397,23 @@
         cell = [TVCell loadFromNib];
     }
     
-    cell.dataDic = self.serviceData[indexPath.row];
+  
+    
+//    
+//    TVTable * table = [[TVTable alloc]init];
+//    cell.dataDic = table.tabledataDic;
+
+    
+    cell.aa =  self.category_index;
+    cell.aaa =self.categoryModel.service_indexArr.count;
+     NSLog(@"index  cell.aa--------:%d",cell.aa);
+    
+    cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
     
     return cell;
     
-    //    NSString *Identifier = @"cell";
-    //    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Identifier];
-    //
-    //    if (!cell) {
-    //        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Identifier];
-    //    }
-    //
-    //    cell.textLabel.text = [@(arc4random()%1000) stringValue];
-    //
-    //
-    //    return cell;
 }
+
 
 
 @end

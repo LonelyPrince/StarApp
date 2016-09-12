@@ -17,6 +17,8 @@
 		700770821D829EA3003C0D68 /* YGPCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7007707D1D829EA3003C0D68 /* YGPCache.m */; };
 		700770831D829EA3003C0D68 /* YGPCacheDisk.m in Sources */ = {isa = PBXBuildFile; fileRef = 7007707F1D829EA3003C0D68 /* YGPCacheDisk.m */; };
 		700770841D829EA3003C0D68 /* YGPCacheMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = 700770811D829EA3003C0D68 /* YGPCacheMemory.m */; };
+		700770941D86447D003C0D68 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 700770931D86447D003C0D68 /* CategoryModel.m */; };
+		700770971D864491003C0D68 /* ServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 700770961D864491003C0D68 /* ServiceModel.m */; };
 		701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */; };
 		701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294E11D80F4A3003139D5 /* NSObject+JSONCategories.m */; };
 		701294E61D80F4A3003139D5 /* NSString+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294E31D80F4A3003139D5 /* NSString+JSONCategories.m */; };
@@ -201,6 +203,10 @@
 		7007707F1D829EA3003C0D68 /* YGPCacheDisk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPCacheDisk.m; sourceTree = "<group>"; };
 		700770801D829EA3003C0D68 /* YGPCacheMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGPCacheMemory.h; sourceTree = "<group>"; };
 		700770811D829EA3003C0D68 /* YGPCacheMemory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPCacheMemory.m; sourceTree = "<group>"; };
+		700770921D86447D003C0D68 /* CategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryModel.h; sourceTree = "<group>"; };
+		700770931D86447D003C0D68 /* CategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryModel.m; sourceTree = "<group>"; };
+		700770951D864491003C0D68 /* ServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceModel.h; sourceTree = "<group>"; };
+		700770961D864491003C0D68 /* ServiceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceModel.m; sourceTree = "<group>"; };
 		701294DE1D80F4A3003139D5 /* NSData+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONCategories.h"; sourceTree = "<group>"; };
 		701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONCategories.m"; sourceTree = "<group>"; };
 		701294E01D80F4A3003139D5 /* NSObject+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSONCategories.h"; sourceTree = "<group>"; };
@@ -489,6 +495,17 @@
 				700770811D829EA3003C0D68 /* YGPCacheMemory.m */,
 			);
 			path = ScrollCache;
+			sourceTree = "<group>";
+		};
+		7007708A1D8642DA003C0D68 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				700770921D86447D003C0D68 /* CategoryModel.h */,
+				700770931D86447D003C0D68 /* CategoryModel.m */,
+				700770951D864491003C0D68 /* ServiceModel.h */,
+				700770961D864491003C0D68 /* ServiceModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		701294DD1D80F4A3003139D5 /* Json */ = {
@@ -832,6 +849,7 @@
 		A4A669F21555E44100AED3AF = {
 			isa = PBXGroup;
 			children = (
+				7007708A1D8642DA003C0D68 /* Model */,
 				70170BDD1D7412EE00CC3951 /* images */,
 				70170BCD1D74019800CC3951 /* AppConfig */,
 				60B4C535159B0EB900F3BB0C /* clinkc.xcodeproj */,
@@ -1133,6 +1151,7 @@
 				70FC30F71D75714E00BD06FE /* ZXVideo.m in Sources */,
 				A4A66A0E1555E44100AED3AF /* main.m in Sources */,
 				A4A66A121555E44100AED3AF /* AppDelegate.m in Sources */,
+				700770971D864491003C0D68 /* ServiceModel.m in Sources */,
 				701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */,
 				A4A66A151555E44100AED3AF /* MasterViewController.m in Sources */,
 				70FC30FC1D75714E00BD06FE /* ZXVideoPlayerTimeIndicatorView.m in Sources */,
@@ -1171,6 +1190,7 @@
 				709746731D6D8B54002E7A39 /* testViewController.m in Sources */,
 				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
 				A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */,
+				700770941D86447D003C0D68 /* CategoryModel.m in Sources */,
 				70FC30FA1D75714E00BD06FE /* ZXVideoPlayerController.m in Sources */,
 				7012951B1D80F4CF003139D5 /* UILabel+FormattedText.m in Sources */,
 				70FC30FB1D75714E00BD06FE /* ZXVideoPlayerControlView.m in Sources */,
