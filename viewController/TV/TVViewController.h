@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CategoryModel.h"
 #import "ServiceModel.h"
+#import "SocketView.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController
@@ -17,5 +18,6 @@
 
 @property(nonatomic,strong) CategoryModel * categoryModel;
 @property(nonatomic,strong) ServiceModel * serviceModel;
+@property(nonatomic,strong) SocketView * socketView;
 
 @end

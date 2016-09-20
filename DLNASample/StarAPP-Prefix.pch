@@ -27,7 +27,10 @@
 #import "TVCell.h"
 #import "CategoryModel.h"
 #import "ServiceModel.h"
+#import "SocketModel.h"
 
+#import "Singleton.h"
+#import <objc/runtime.h>
 //ext
 #import "AppConfig.h"
 #import "GGMacros.h"
@@ -46,6 +49,8 @@
 #import "NSData+JSONCategories.h"
 #import "NSObject+JSONCategories.h"
 #import "NSString+JSONCategories.h"
+#import "SocketUtils.h"
+
 //pod
 
 #import "AsyncSocket.h"

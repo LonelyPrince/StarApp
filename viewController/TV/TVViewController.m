@@ -227,7 +227,7 @@
     //搜索按钮
     UIButton * searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight)];
     [searchBtn setTitle:@"search" forState:UIControlStateNormal];
-    [searchBtn setBackgroundColor:[UIColor blackColor]];
+    [searchBtn setBackgroundColor:[UIColor grayColor]];
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [self.view addSubview:searchBtn];
     [topView bringSubviewToFront:searchBtn];
@@ -297,6 +297,8 @@
     //    [self.navigationController pushViewController:controller animated:YES];
     
     //被选择时播放视频并高亮
+    self.socketView  = [[SocketView  alloc]init];
+    [self.socketView viewDidLoad];
     
 }
 

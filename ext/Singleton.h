@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 // Singleton.h
-//#import "AsyncSocket.h"
+#import "AsyncSocket.h"
 
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t onceToken = 0; \

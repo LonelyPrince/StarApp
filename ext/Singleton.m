@@ -7,7 +7,13 @@
 //
 
 #import "Singleton.h"
+#import <sys/socket.h>
 
+#import <netinet/in.h>
+
+#import <arpa/inet.h>
+
+#import <unistd.h>
 @implementation Singleton
 +(Singleton *) sharedInstance
 {
@@ -39,9 +45,10 @@
 -(void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString     *)host port:(UInt16)port
 {
     NSLog(@"socket连接成功");
-    
+    NSLog(@"接下来开始发送心跳");
     // 每隔30s像服务器发送心跳包
-    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
+    [sock readDataWithTimeout:30 tag:0];
+    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
     
     [self.connectTimer fire];
     
@@ -61,6 +68,7 @@
 -(void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
     NSLog(@"sorry the connect is failure %ld",sock.userData);
+    NSLog(@"onSocketDidDisconnect");
     if (sock.userData == SocketOfflineByServer) {
         // 服务器掉线，重连
         [self socketConnectHost];
@@ -81,11 +89,25 @@
     
     // 根据服务器要求发送固定格式的数据，假设为指令@"longConnect"，但是一般不会是这么简单的指令
     
-    NSString *longConnect = @"longConnect";
+    NSMutableData * betaData1 = [[NSMutableData alloc]init];
     
-    NSData   *dataStream  = [longConnect dataUsingEncoding:NSUTF8StringEncoding];
+    betaData1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"betaData"];
+    NSLog(@"betadata:%@",betaData1);
     
-    [self.socket writeData:dataStream withTimeout:1 tag:1];
+    [self.socket writeData:betaData1 withTimeout:1 tag:1];
+
     
 }
+
+-(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    // 对得到的data值进行解析与转换即可
+    
+    NSLog(@"读--");
+    NSLog(@"%ld",tag);
+    NSLog(@"data:%@",data);
+    
+    [self.socket readDataWithTimeout:30 tag:0];
+}
+
 @end
