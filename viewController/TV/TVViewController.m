@@ -14,7 +14,7 @@
     YLSlideView * _slideView;
     NSArray *colors;
     NSArray *_testArray;
-    
+    NSMutableData * urlData;
     
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
@@ -49,7 +49,11 @@
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+  
+    //打开时开始连接socket并且发送心跳
+    self.socketView  = [[SocketView  alloc]init];
+    [self.socketView viewDidLoad];
+    
     
     [self loadNav];
     
@@ -59,7 +63,29 @@
 //    [self getTopCategory];
     [self getServiceData];    //获取表数据
     
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:@"1111"forKey:@"data_service11"];
+    
+    [userDef synchronize];//把数据同步到本地
 
+    
+    
+//    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+//    [userDef setObject:@"lalalalalla" forKey:@"data_MDMM"];
+//    
+//    [userDef synchronize];//把数据同步到本地
+//    NSMutableData * datadata = [[NSMutableData alloc]init];
+//    
+//    datadata = [[NSUserDefaults standardUserDefaults] objectForKey:@"data_MDMM"];
+//    
+//    NSString * str = [NSString stringWithFormat:@"%@",datadata];
+    //
+//    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//    [alertview show];
+    
+    
+    
+    
 
     self.view.backgroundColor = [UIColor greenColor];
     
@@ -90,7 +116,7 @@
     WEAKGET
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
-        NSLog(@"response = %@",response);
+//        NSLog(@"response = %@",response);
         NSArray *data = response[@"category"];
         
         if (!isValidArray(data) || data.count == 0){
@@ -104,7 +130,7 @@
                                                                   SCREEN_HEIGHT_YLSLIDE-64)
                                              forTitles:self.categorys];
         
-        NSLog(@"category:%@",self.categorys);
+//        NSLog(@"category:%@",self.categorys);
         
         _slideView.backgroundColor = [UIColor whiteColor];
         _slideView.delegate        = self;
@@ -200,14 +226,14 @@
     WEAKGET
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
-        NSLog(@"response = %@",response);
+//        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         if (!isValidArray(data1) || data1.count == 0){
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
         
-        NSLog(@"--------%@",self.serviceData);
+//        NSLog(@"--------%@",self.serviceData);
         
         [self.table reloadData];
        
@@ -237,8 +263,10 @@
    //----直播源
     self.video = [[ZXVideo alloc] init];
     //    video.playUrl = @"http://baobab.wdjcdn.com/1451897812703c.mp4";
-    self.video.playUrl = @"http://192.168.32.66/vod/mp4:151463.mp4/playlist.m3u8";
-   self.video.title = @"Rollin'Wild 圆滚滚的";
+////    self.video.playUrl = @"http://192.168.32.66/vod/mp4:151463.mp4/playlist.m3u8";
+//self.video.playUrl = @"http://192.168.1.1/segment_delivery/delivery_0/play_tv2ip_0.m3u8";
+    //  http://192.168.1.1/segment_delivery/delivery_0/play_tv2ip_0.m3u8
+    self.video.title = @"Rollin'Wild 圆滚滚的";
     
     NSLog(@"----%@",self.video.playUrl);
     NSLog(@"----%@",self.video.title);
@@ -290,17 +318,7 @@
 }
 
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //    DetailViewController *controller =[[DetailViewController alloc] init];
-    //    controller.dataDic = self.dataSource[indexPath.row];
-    //    [self.navigationController pushViewController:controller animated:YES];
-    
-    //被选择时播放视频并高亮
-    self.socketView  = [[SocketView  alloc]init];
-    [self.socketView viewDidLoad];
-    
-}
+
 
 
 //************************************************
@@ -327,7 +345,7 @@
    
     
     
-     NSLog(@"index --------:%@ ",@(index));
+//     NSLog(@"index --------:%@ ",@(index));
     return cell;
 }
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
@@ -364,7 +382,7 @@
 //    }
     
 //    self.a = index;
-    NSLog(@"index  self.a--------:%@ ",@(index));
+//    NSLog(@"index  self.a--------:%@ ",@(index));
     [cell reloadData]; //刷新TableView
     //    NSLog(@"刷新数据");
 }
@@ -408,13 +426,85 @@
     
     cell.aa =  self.category_index;
     cell.aaa =self.categoryModel.service_indexArr.count;
-     NSLog(@"index  cell.aa--------:%d",cell.aa);
+//     NSLog(@"index  cell.aa--------:%d",cell.aa);
     
     cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
     
     return cell;
     
 }
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    DetailViewController *controller =[[DetailViewController alloc] init];
+    //    controller.dataDic = self.dataSource[indexPath.row];
+    //    [self.navigationController pushViewController:controller animated:YES];
+    
+    //被选择时播放视频
+    
+    [self.socketView  serviceTouch ];
+    
+    
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+    
+   //
+//    NSLog(@"TV dataservice:%@",datadata);
+    
+//    alertview.frame = CGRectMake(30, 30, 150, 170);
+//    [self.view addSubview:alertview];
+//    [self.view bringSubviewToFront:alertview];
+}
+
+- (void)getDataService:(NSNotification *)text{
+    NSLog(@"%@",text.userInfo[@"playdata"]);
+    NSLog(@"－－－－－接收到通知------");
+    
+    //NSData --->byte[]-------NSData----->NSString
+//    NSMutableData * play_data = [[NSMutableData alloc]init];
+//    
+//    play_data = [USER_DEFAULT objectForKey:@"data_service11"];
+//    NSString * data_servicelen = [USER_DEFAULT objectForKey:@"data_servicelen"];
+    
+   
+//    uint8_t byteArray[[play_data length]];
+//    
+//    [play_data getBytes:&byteArray length:[play_data length]];
+////
+//    NSData * byteData;
+    
+//    int urllength =play_data.length-[   data_servicelen intValue];
+//    uint8_t byteArray2[urllength];
+//    for (int i = 0; i <urllength ; i++ ) {
+////        uint8_t byteArray2[urllength];
+//        //转换
+//        byteArray2[i] = byteArray[[data_servicelen intValue] +i];
+//        
+//        
+//        
+//    NSLog(@"---urlData%x",byteArray2[i]);
+//    }
+    NSMutableData * byteDatas;
+    byteDatas = [[NSMutableData alloc]init];
+//    [byteDatas appendData:byteData];
+//    byteDatas =  [[NSMutableData alloc]initWithBytes:byteArray2 length:urllength];
+    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
+    
+    NSLog(@"---urlData%@",byteDatas);
+    self.video.playUrl = [[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding];
+    [self playVideo];
+    NSLog(@"---urlData%@",self.video.playUrl);
+
+ 
+    NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
+
+    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alertview show];
+    
+    
+}
+
+//-(void)dataToByte
 
 
 

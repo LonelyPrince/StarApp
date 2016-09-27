@@ -10,6 +10,7 @@
 #import "CategoryModel.h"
 #import "ServiceModel.h"
 #import "SocketView.h"
+#import "Singleton.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController

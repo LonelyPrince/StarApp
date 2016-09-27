@@ -10,6 +10,8 @@
 #import "Singleton.h"
 #import <objc/runtime.h>
 #import "SocketUtils.h"
+#import "sys/utsname.h"
+
 
 // 后面NSString这是运行时能获取到的C语言的类型
 NSString * const TYPE_UINT8   = @"TC";// char是1个字节，8位
@@ -22,42 +24,37 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @interface SocketView ()
 
 @property (nonatomic,strong)id object;
-
+@property (nonatomic, strong) NSMutableData *beattag;
+//beat除了CRC和tag的值
+@property (nonatomic, strong) NSMutableData *data_beat;
+//beat的所有数据
+@property (nonatomic, strong) NSMutableData *beatAllData;
 @end
 
 @implementation SocketView
-@synthesize  cs_one;
+@synthesize  cs_heatbeat;
+@synthesize  cs_service;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    //初始化
+    _data = [[NSMutableData alloc]init];   
+    cs_heatbeat = [[Cs_Hearbeat alloc]init];
+    cs_service = [[Cs_Service alloc]init];
+    _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
-    _data = [[NSMutableData alloc]init];
-    NSString * astr = @"192.168.1.2";
-    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
-    NSLog(@"array:%@",array);
-    
-    cs_one = [[Cs_20001 alloc]init];
-    cs_one.package_tag= @"DIGW";
-    cs_one.CRC= 1531354454;
-    
-    cs_one.module_name= @"BEAT";
-    cs_one.Ret=0;
-    //    cs_one.Reserved= 12;
-    cs_one.client_ip= array;
-    //    cs_one. data_len= 0;
-    
+    NSLog(@"socket.port:%d",[_socket localPort]);
+
+    NSError *error;
+    int port = 2048;
+    // 绑定端口，监听连接消息
+    BOOL result = [_socket acceptOnPort:port error:&error];
     
     [self heartBeat];
     
-   
-    
-    
-}
-
--(void)heartBeat
-{
-
+  
+    //连接
     [Singleton sharedInstance].socketHost = @"192.168.1.1"; //host设定
     [Singleton sharedInstance].socketPort = 3000; //port设定
     
@@ -69,20 +66,173 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [Singleton sharedInstance].socket.userData = SocketOfflineByServer;
     [[Singleton sharedInstance] socketConnectHost];
     
+//   NSLog(@"socket.port:%d",[_socket localPort]);
+//
+    
+//    [self serviceTouch];
     
     
+}
+
+-(void)heartBeat
+{
     
-    _socket=[[AsyncSocket alloc] initWithDelegate:self];
+    //1.tag转data
+    NSString * package_Betatag = @"DIGW";
+    self.beattag = [[NSMutableData alloc]init];
+    self.beattag = (NSMutableData *)[package_Betatag dataUsingEncoding:NSUTF8StringEncoding];
+
     
     
-    [self RequestSpliceAttribute:cs_one];
+    NSString * astr = @"192.168.1.2";
+    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
+    NSLog(@"array:%@",array);
+
+//    cs_heatbeat.package_tag= @"DIGW";
+//    cs_heatbeat.CRC= 1531354454;
     
-    [_socket writeData:_data withTimeout:-1 tag:3];
+    cs_heatbeat.module_name= @"BEAT";
+    cs_heatbeat.Ret=0;
+    //    cs_heatbeat= 12;
+    cs_heatbeat.client_ip= array;
+    cs_heatbeat. data_len= 0;
+    
+    //2.计算除了CRC和tag之外的值
+    self.data_beat = [[NSMutableData alloc]init];
+    self.data_beat = [self RequestSpliceAttribute:cs_heatbeat];
+    //    [tag_data_service appendData:package_tagData];
+//    [tag_data_service appendData:self.data_beat];   //CRC是除了tag和service
+    
+    //3.计算CRC
+    int result= [self getCRC:self.data_beat];
+    //获取到的CRC16进制CRC
+    NSString * CRChexstring = [self hexFromInt:result];
+    
+    NSMutableData * data_BeatCRC = [[NSMutableData alloc]init];
+    data_BeatCRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    self.beatAllData = [[NSMutableData alloc]init];
+    [self.beatAllData appendData:self.beattag];
+    [self.beatAllData appendData:data_BeatCRC];
+    [self.beatAllData appendData:self.data_beat];
+    
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:self.beatAllData forKey:@"beatAllData"];
+    
+    [userDef synchronize];//把数据同步到本地
+
+    NSLog(@"self.beatAllData  %@",self.beatAllData);
+    
+//    [_socket writeData:_data withTimeout:-1 tag:3];
     
 
 }
 
--(void)RequestSpliceAttribute:(id)obj{
+-(void)serviceTouch{
+    NSString * astr = @"192.168.1.2";
+    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
+    
+//    cs_service.package_tag= @"DIGW";
+    
+    
+    cs_service.module_name= @"MDMM";
+    cs_service.Ret=0;
+    cs_service.client_ip= array;
+    
+    
+    cs_service.client_port = (uint32_t)[_socket localPort] ;
+//    cs_service.unique_id = [SocketView GetNowTimes];
+    //获取的时间戳string转int
+    int x = [[SocketView GetNowTimes] intValue];
+    [self hexFromInt:x];
+    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
+    cs_service.command_type = MEDIA_DELIVERY_PLAY_SERVICE;
+    cs_service.tuner_type = 3;      //...
+    cs_service.network_id = 222;   //...
+    cs_service.ts_id = 4965;           //...
+    cs_service.service_id = 1;      //.....
+    cs_service.audio_index = 67;    //....
+    cs_service.subt_index = 0;      //...
+   NSString * phoneModel = @"iPhone6s";
+//    NSString * phoneModel =  [self deviceVersion];
+    NSLog(@"手机型号:%@",phoneModel);
+    cs_service.client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
+    cs_service.data_len_name =cs_service.client_name.length   ;    //****
+    cs_service. data_len= cs_service.client_name.length +25;
+    cs_service.data_len_m3u8 = 0;
+    
+    //tag
+    NSMutableData * package_tagData ;
+    package_tagData = [[NSMutableData alloc]init];
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * tag_data_service;
+    tag_data_service = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    NSString * package_tag = @"DIGW";
+    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_service];
+    
+
+//    [tag_data_service appendData:package_tagData];
+    [tag_data_service appendData:data_service];   //CRC是除了tag和service
+//    unsigned long result = crc32(0, data_service.bytes, data_service.length);
+    
+//3.计算CRC
+    NSLog(@"计算CRC：%@",tag_data_service);
+   
+//4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:package_tagData];
+    [data_service appendData:[self dataTOCRCdata:tag_data_service]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_service]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_service"];
+//    NSInteger data_servicelen = data_service.length;
+    
+    NSString * data_servicelen = [NSString stringWithFormat:@"%d",data_service.length] ;
+    [userDef setObject:data_servicelen forKey:@"data_servicelen"];
+    
+    [userDef synchronize];//把数据同步到本地
+   
+    
+//     [self.socket writeData:data_service withTimeout:1 tag:1];
+    [[Singleton sharedInstance] Play_ServiceSocket];
+   
+}
+////数据增加CRC
+//-(void)dataAddCRC :(NSMutableData * )data_service{
+//
+//    NSMutableData * dataRec ;
+//    dataRec = [[NSMutableData alloc]init];
+//    dataRec = [self RequestSpliceAttribute:cs_service];
+//    
+//    Byte *testByte = (Byte *)[data_service bytes];
+//    uint32_t CRC=(uint32_t) [self getCRC:testByte offest_name:0 len_name:data_service.length];
+//    NSNumber *CRCToNumber= [[NSNumber alloc]initWithInt:CRC];
+//    NSMutableData * data_CRC =  [self RequestSpliceAttribute:CRCToNumber];
+//    [data_service appendData:data_CRC];
+//}
+
+//int 转16进制
+- (NSString *)hexFromInt:(NSInteger)val {
+    return [NSString stringWithFormat:@"%X", val];
+}
+-(NSMutableData *)RequestSpliceAttribute:(id)obj{
+    _data = [[NSMutableData alloc]init];   
     if (obj == nil) {
         self.object = _data;
     }
@@ -97,45 +247,47 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
         objc_property_t thisProperty = propertys[i];
         
         name = [NSString stringWithUTF8String:property_getName(thisProperty)];
-        NSLog(@"%d.name:%@",i,name);
+//        NSLog(@"%d.name:%@",i,name);
         type = [[[NSString stringWithUTF8String:property_getAttributes(thisProperty)] componentsSeparatedByString:@","] objectAtIndex:0]; //获取成员变量的数据类型
-        NSLog(@"%d.type:%@",i,type);
+//        NSLog(@"%d.type:%@",i,type);
         
         id propertyValue = [obj valueForKey:[(NSString *)name substringFromIndex:0]];
-        NSLog(@"%d.propertyValue:%@",i,propertyValue);
-        
-        NSLog(@"\n");
+//        NSLog(@"%d.propertyValue:%@",i,propertyValue);
+//        
+//        NSLog(@"\n");
         
         if ([type isEqualToString:TYPE_UINT8]) {
             uint8_t i = [propertyValue charValue];// 8位
             [_data appendData:[SocketUtils byteFromUInt8:i]];
-            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+//            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
             
         }else if([type isEqualToString:TYPE_UINT16]){
             uint16_t i = [propertyValue shortValue];// 16位
             [_data appendData:[SocketUtils bytesFromUInt16:i]];
-            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+//            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
             
         }else if([type isEqualToString:TYPE_UINT32]){
             uint32_t i = [propertyValue intValue];// 32位
             [_data appendData:[SocketUtils bytesFromUInt32:i]];
             
-            NSLog(@"%@",[SocketUtils bytesFromUInt32:i]);
-            NSLog(@"%lu",(unsigned long)_data.length);
-            NSLog(@"conn:%@",_data);
+//            NSLog(@"%@",[SocketUtils bytesFromUInt32:i]);
+//            NSLog(@"%lu",(unsigned long)_data.length);
+//            NSLog(@"conn:%@",_data);
             
         }else if([type isEqualToString:TYPE_UINT64]){
             uint64_t i = [propertyValue longLongValue];// 64位
             [_data appendData:[SocketUtils bytesFromUInt64:i]];
-            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+//            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
             
         }else if([type isEqualToString:TYPE_STRING]){
             NSData *data = [(NSString*)propertyValue \
                             dataUsingEncoding:NSUTF8StringEncoding];// 通过utf-8转为data
+//            NSLog(@"conn:%@",_data);
             // 然后拼接字符串
             [_data appendData:data];
-            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
-            NSLog(@"%lu",(unsigned long)_data.length);
+//            NSLog(@"conn:%@",_data);
+            //            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+//            NSLog(@"%lu",(unsigned long)_data.length);
             
             
         }else if ([type isEqualToString: TYPE_ARRAY]){
@@ -148,29 +300,188 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
                 arrtemp =  propertyValue;
                 //                uint8_t intstring =[arrtemp[3-i] charValue];
                 uint8_t arrint = [arrtemp[3-i] intValue];// 8位
+                NSLog(@"arrint: %d",arrint);
                 [_data appendData:[SocketUtils byteFromUInt8:arrint]];
             }
-            // 用4个字节拼接字符串的长度拼接在字符串data之前
-            
-            [_data appendData:[SocketUtils bytesFromUInt32:_data.length]];
-            NSLog(@"7个字段总长度：%lu",(unsigned long)_data.length);
+
             
         }else {
             NSLog(@"RequestSpliceAttribute:未知类型");
             NSAssert(YES, @"RequestSpliceAttribute:未知类型");
         }
+
+        
     }
     
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
-    [userDef setObject:_data forKey:@"betaData"];
-    [userDef synchronize];//把数据同步到本地
+//    NSLog(@"-Data1:%@",_data);
+//    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+//    [userDef setObject:_data forKey:@"betaData"];
+//    NSLog(@"-Data2:%@",_data);
+//    [userDef synchronize];//把数据同步到本地
     
     // hy: 记得释放C语言的结构体指针
     free(propertys);
     self.object = _data;
+    
+    return _data;
+    
+}
+
++ (NSString *)GetNowTimes
+
+{
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
+    
+    NSTimeInterval timeInterval = [date timeIntervalSince1970];
+    
+    NSString *timeString = [NSString stringWithFormat:@"%.0f", timeInterval];
+    
+//    timeString = @"1231231231231";
+    return timeString;
+    
+    
 }
 
 
+-(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    // 对得到的data值进行解析与转换即可
+    
+    NSLog(@"读--");
+    NSLog(@"%ld",tag);
+    NSLog(@"data:%@",data);
+    
+    [self.socket readDataWithTimeout:30 tag:1];
+}
+- (NSString*)deviceVersion
+{
+    // 需要#import "sys/utsname.h"
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString * deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    //iPhone
+    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"VerizoniPhone 4";
+    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
+    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6 Plus";
+    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
+    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
+    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
+    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7s Plus";
+    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7";
+    　return deviceString;
+}
 
+//CRC 的计算
+-(int)getCRC : (NSData *)data  {
+
+    long crc32_table[] = {
+        0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
+        0x076dc419L, 0x706af48fL, 0xe963a535L, 0x9e6495a3L,
+        0x0edb8832L, 0x79dcb8a4L, 0xe0d5e91eL, 0x97d2d988L,
+        0x09b64c2bL, 0x7eb17cbdL, 0xe7b82d07L, 0x90bf1d91L,
+        0x1db71064L, 0x6ab020f2L, 0xf3b97148L, 0x84be41deL,
+        0x1adad47dL, 0x6ddde4ebL, 0xf4d4b551L, 0x83d385c7L,
+        0x136c9856L, 0x646ba8c0L, 0xfd62f97aL, 0x8a65c9ecL,
+        0x14015c4fL, 0x63066cd9L, 0xfa0f3d63L, 0x8d080df5L,
+        0x3b6e20c8L, 0x4c69105eL, 0xd56041e4L, 0xa2677172L,
+        0x3c03e4d1L, 0x4b04d447L, 0xd20d85fdL, 0xa50ab56bL,
+        0x35b5a8faL, 0x42b2986cL, 0xdbbbc9d6L, 0xacbcf940L,
+        0x32d86ce3L, 0x45df5c75L, 0xdcd60dcfL, 0xabd13d59L,
+        0x26d930acL, 0x51de003aL, 0xc8d75180L, 0xbfd06116L,
+        0x21b4f4b5L, 0x56b3c423L, 0xcfba9599L, 0xb8bda50fL,
+        0x2802b89eL, 0x5f058808L, 0xc60cd9b2L, 0xb10be924L,
+        0x2f6f7c87L, 0x58684c11L, 0xc1611dabL, 0xb6662d3dL,
+        0x76dc4190L, 0x01db7106L, 0x98d220bcL, 0xefd5102aL,
+        0x71b18589L, 0x06b6b51fL, 0x9fbfe4a5L, 0xe8b8d433L,
+        0x7807c9a2L, 0x0f00f934L, 0x9609a88eL, 0xe10e9818L,
+        0x7f6a0dbbL, 0x086d3d2dL, 0x91646c97L, 0xe6635c01L,
+        0x6b6b51f4L, 0x1c6c6162L, 0x856530d8L, 0xf262004eL,
+        0x6c0695edL, 0x1b01a57bL, 0x8208f4c1L, 0xf50fc457L,
+        0x65b0d9c6L, 0x12b7e950L, 0x8bbeb8eaL, 0xfcb9887cL,
+        0x62dd1ddfL, 0x15da2d49L, 0x8cd37cf3L, 0xfbd44c65L,
+        0x4db26158L, 0x3ab551ceL, 0xa3bc0074L, 0xd4bb30e2L,
+        0x4adfa541L, 0x3dd895d7L, 0xa4d1c46dL, 0xd3d6f4fbL,
+        0x4369e96aL, 0x346ed9fcL, 0xad678846L, 0xda60b8d0L,
+        0x44042d73L, 0x33031de5L, 0xaa0a4c5fL, 0xdd0d7cc9L,
+        0x5005713cL, 0x270241aaL, 0xbe0b1010L, 0xc90c2086L,
+        0x5768b525L, 0x206f85b3L, 0xb966d409L, 0xce61e49fL,
+        0x5edef90eL, 0x29d9c998L, 0xb0d09822L, 0xc7d7a8b4L,
+        0x59b33d17L, 0x2eb40d81L, 0xb7bd5c3bL, 0xc0ba6cadL,
+        0xedb88320L, 0x9abfb3b6L, 0x03b6e20cL, 0x74b1d29aL,
+        0xead54739L, 0x9dd277afL, 0x04db2615L, 0x73dc1683L,
+        0xe3630b12L, 0x94643b84L, 0x0d6d6a3eL, 0x7a6a5aa8L,
+        0xe40ecf0bL, 0x9309ff9dL, 0x0a00ae27L, 0x7d079eb1L,
+        0xf00f9344L, 0x8708a3d2L, 0x1e01f268L, 0x6906c2feL,
+        0xf762575dL, 0x806567cbL, 0x196c3671L, 0x6e6b06e7L,
+        0xfed41b76L, 0x89d32be0L, 0x10da7a5aL, 0x67dd4accL,
+        0xf9b9df6fL, 0x8ebeeff9L, 0x17b7be43L, 0x60b08ed5L,
+        0xd6d6a3e8L, 0xa1d1937eL, 0x38d8c2c4L, 0x4fdff252L,
+        0xd1bb67f1L, 0xa6bc5767L, 0x3fb506ddL, 0x48b2364bL,
+        0xd80d2bdaL, 0xaf0a1b4cL, 0x36034af6L, 0x41047a60L,
+        0xdf60efc3L, 0xa867df55L, 0x316e8eefL, 0x4669be79L,
+        0xcb61b38cL, 0xbc66831aL, 0x256fd2a0L, 0x5268e236L,
+        0xcc0c7795L, 0xbb0b4703L, 0x220216b9L, 0x5505262fL,
+        0xc5ba3bbeL, 0xb2bd0b28L, 0x2bb45a92L, 0x5cb36a04L,
+        0xc2d7ffa7L, 0xb5d0cf31L, 0x2cd99e8bL, 0x5bdeae1dL,
+        0x9b64c2b0L, 0xec63f226L, 0x756aa39cL, 0x026d930aL,
+        0x9c0906a9L, 0xeb0e363fL, 0x72076785L, 0x05005713L,
+        0x95bf4a82L, 0xe2b87a14L, 0x7bb12baeL, 0x0cb61b38L,
+        0x92d28e9bL, 0xe5d5be0dL, 0x7cdcefb7L, 0x0bdbdf21L,
+        0x86d3d2d4L, 0xf1d4e242L, 0x68ddb3f8L, 0x1fda836eL,
+        0x81be16cdL, 0xf6b9265bL, 0x6fb077e1L, 0x18b74777L,
+        0x88085ae6L, 0xff0f6a70L, 0x66063bcaL, 0x11010b5cL,
+        0x8f659effL, 0xf862ae69L, 0x616bffd3L, 0x166ccf45L,
+        0xa00ae278L, 0xd70dd2eeL, 0x4e048354L, 0x3903b3c2L,
+        0xa7672661L, 0xd06016f7L, 0x4969474dL, 0x3e6e77dbL,
+        0xaed16a4aL, 0xd9d65adcL, 0x40df0b66L, 0x37d83bf0L,
+        0xa9bcae53L, 0xdebb9ec5L, 0x47b2cf7fL, 0x30b5ffe9L,
+        0xbdbdf21cL, 0xcabac28aL, 0x53b39330L, 0x24b4a3a6L,
+        0xbad03605L, 0xcdd70693L, 0x54de5729L, 0x23d967bfL,
+        0xb3667a2eL, 0xc4614ab8L, 0x5d681b02L, 0x2a6f2b94L,
+        0xb40bbe37L, 0xc30c8ea1L, 0x5a05df1bL, 0x2d02ef8dL
+    };
+    int crc32 = 0xFFFFFFFF;
+   
+    uint8_t byteArray[[data length]];
+    
+    [data getBytes:&byteArray length:[data length]];
+    
+    for (int i = 0; i < [data length] ; i++ ) {
+        Byte byte = byteArray[i];
+        NSLog(@"--byte%x",byte);
+        crc32 = (crc32 >> 8) ^ ((int)crc32_table[((crc32) ^ byte) & 0xFF]);
+    }
+    NSLog(@"crc32 ^ 0xFFFFFFFF: %u",crc32 ^ 0xFFFFFFFF);
+ return (int)(crc32 ^ 0xFFFFFFFF);
+    
+}
+
+//nsdata------CRC------>data
+-(NSMutableData *)dataTOCRCdata: (NSMutableData*)aData
+{
+    int result= [self getCRC:aData];
+    
+    NSString * CRChexstring = [self hexFromInt:result];
+    NSLog(@"--获取到的CRC16进制CRC: %@",CRChexstring);
+    
+    NSMutableData * data_CRC = [[NSMutableData alloc]init];
+  
+    data_CRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
+
+    NSLog(@"--CRC: %@",data_CRC);
+    
+    return data_CRC;
+}
 @end
 

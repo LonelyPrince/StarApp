@@ -48,5 +48,7 @@
 
 //+ (NSData *)byteFromUInt8:(uint8_t)val;
 
+//10进制转16
++(NSString *)ToHex:(uint16_t)tmpid;
 
 @end

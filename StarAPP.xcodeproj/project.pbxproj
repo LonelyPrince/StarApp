@@ -109,6 +109,7 @@
 		70170C3E1D74156000CC3951 /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C341D74156000CC3951 /* more@2x.png */; };
 		70170C481D74234900CC3951 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170C461D74234900CC3951 /* MonitorViewController.m */; };
 		70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70170C471D74234900CC3951 /* MonitorViewController.xib */; };
+		704582F51D9A193D0061C154 /* GGUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 704582F41D9A193D0061C154 /* GGUtil.m */; };
 		7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746691D6D8A54002E7A39 /* AsyncSocket.m */; };
 		7097466E1D6D8A54002E7A39 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */; };
 		7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 7097466C1D6D8A54002E7A39 /* Documentation.html */; };
@@ -332,6 +333,8 @@
 		70170C451D74234900CC3951 /* MonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
 		70170C461D74234900CC3951 /* MonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
 		70170C471D74234900CC3951 /* MonitorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitorViewController.xib; sourceTree = "<group>"; };
+		704582F31D9A193D0061C154 /* GGUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGUtil.h; sourceTree = "<group>"; };
+		704582F41D9A193D0061C154 /* GGUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGUtil.m; sourceTree = "<group>"; };
 		709746681D6D8A54002E7A39 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		709746691D6D8A54002E7A39 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		7097466A1D6D8A54002E7A39 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
@@ -601,6 +604,9 @@
 		70130EA91D8FEB9C005F0A49 /* SocketUtils */ = {
 			isa = PBXGroup;
 			children = (
+				709746671D6D8A54002E7A39 /* RunLoop */,
+				709746751D6D8E3F002E7A39 /* Singleton.h */,
+				709746761D6D8E3F002E7A39 /* Singleton.m */,
 				70130EAA1D8FEBDA005F0A49 /* SocketUtils.h */,
 				70130EAB1D8FEBDA005F0A49 /* SocketUtils.m */,
 			);
@@ -738,14 +744,13 @@
 		709746641D6D89E6002E7A39 /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				704582F31D9A193D0061C154 /* GGUtil.h */,
+				704582F41D9A193D0061C154 /* GGUtil.m */,
 				70130EA91D8FEB9C005F0A49 /* SocketUtils */,
 				7007707B1D829EA3003C0D68 /* ScrollCache */,
 				701294EF1D80F4CF003139D5 /* UIAdditions */,
 				701294E81D80F4B5003139D5 /* RequestManager */,
 				701294DD1D80F4A3003139D5 /* Json */,
-				709746671D6D8A54002E7A39 /* RunLoop */,
-				709746751D6D8E3F002E7A39 /* Singleton.h */,
-				709746761D6D8E3F002E7A39 /* Singleton.m */,
 			);
 			path = ext;
 			sourceTree = "<group>";
@@ -1224,6 +1229,7 @@
 				70FC30FD1D75714E00BD06FE /* ZXVideoPlayerVolumeView.m in Sources */,
 				701294E61D80F4A3003139D5 /* NSString+JSONCategories.m in Sources */,
 				700770821D829EA3003C0D68 /* YGPCache.m in Sources */,
+				704582F51D9A193D0061C154 /* GGUtil.m in Sources */,
 				700770791D829C30003C0D68 /* YLSlideTitleView.m in Sources */,
 				70FC30F81D75714E00BD06FE /* ZXVideoPlayerBatteryView.m in Sources */,
 				701295171D80F4CF003139D5 /* BUIControl.m in Sources */,

@@ -7,7 +7,14 @@
 //
 
 #import "SocketModel.h"
-@implementation Cs_20001
+
+//心跳
+@implementation Cs_Hearbeat
+
+@end
+
+//获取节目信息
+@implementation Cs_Service
 
 @end
 

@@ -14,6 +14,8 @@
 #import <arpa/inet.h>
 
 #import <unistd.h>
+
+//#import "SocketModel.h"
 @implementation Singleton
 +(Singleton *) sharedInstance
 {
@@ -29,8 +31,11 @@
 }
 
 
+
 // socket连接
 -(void)socketConnectHost{
+    
+//    self.socketView = [[SocketView alloc]init];
     
     self.socket    = [[AsyncSocket alloc] initWithDelegate:self];
     
@@ -47,10 +52,48 @@
     NSLog(@"socket连接成功");
     NSLog(@"接下来开始发送心跳");
     // 每隔30s像服务器发送心跳包
-    [sock readDataWithTimeout:30 tag:0];
-    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
+    [sock readDataWithTimeout:-1 tag:0];
+//    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
     
     [self.connectTimer fire];
+    
+}
+
+//socket 发送与接收数据
+//发送数据我们补充上文心跳连接未完成的方法
+
+// 心跳连接
+-(void)longConnectToSocket{
+    
+    
+    // 根据服务器要求发送固定格式的数据
+//    [self.socketView heartBeat];
+    NSMutableData * betaData1 = [[NSMutableData alloc]init];
+    
+    betaData1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"beatAllData"];
+    NSLog(@"beatAllData:%@",betaData1);
+    
+    [self.socket writeData:betaData1 withTimeout:1 tag:1];
+    
+    
+    
+}
+
+-(void)Play_ServiceSocket{
+
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_service"];
+    NSLog(@"singleton data_service :%@",data_service);
+//    NSMutableData * betaData1 = [[NSMutableData alloc]init];
+//    
+//    betaData1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"beatAllData"];
+//    NSLog(@"beatAllData:%@",betaData1);
+
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
 
@@ -68,7 +111,7 @@
 -(void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
     NSLog(@"sorry the connect is failure %ld",sock.userData);
-    NSLog(@"onSocketDidDisconnect");
+    
     if (sock.userData == SocketOfflineByServer) {
         // 服务器掉线，重连
         [self socketConnectHost];
@@ -81,23 +124,7 @@
 }
 
 
-//socket 发送与接收数据
-//发送数据我们补充上文心跳连接未完成的方法
 
-// 心跳连接
--(void)longConnectToSocket{
-    
-    // 根据服务器要求发送固定格式的数据，假设为指令@"longConnect"，但是一般不会是这么简单的指令
-    
-    NSMutableData * betaData1 = [[NSMutableData alloc]init];
-    
-    betaData1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"betaData"];
-    NSLog(@"betadata:%@",betaData1);
-    
-    [self.socket writeData:betaData1 withTimeout:1 tag:1];
-
-    
-}
 
 -(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
@@ -105,9 +132,56 @@
     
     NSLog(@"读--");
     NSLog(@"%ld",tag);
-    NSLog(@"data:%@",data);
+    NSLog(@"readdata:%@",data);
+
+    
+    NSData * data1 = [data subdataWithRange:NSMakeRange(8,4)];
+    NSString * model_name = [[NSString alloc]initWithData:data1 encoding:NSUTF8StringEncoding];
+    NSLog(@"data1:%@",model_name);
+    if([model_name isEqualToString:@"BEAT"])
+    {
+    }
+    else if([model_name isEqualToString:@"MDMM"])
+    {
+    NSData * data2 = [data subdataWithRange:NSMakeRange(36,1)];
+       uint8_t command_type = [SocketUtils uint8FromBytes:data2];
+        NSLog(@"data2:%@",data2);
+        NSLog(@"command_type:%hhu",command_type);
+        
+        switch (command_type) {
+            case 0:
+            
+            break;
+            
+            case 12:
+                {
+                    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+                    [userDef setObject:data forKey:@"data_service11"];
+                    
+                    [userDef synchronize];//把数据同步到本地
+                    
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
+                    
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+            break;
+            
+            
+            default:
+            break;
+        }
+    }
+    
+    
+
+    
     
     [self.socket readDataWithTimeout:30 tag:0];
 }
+
+
 
 @end
