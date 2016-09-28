@@ -53,7 +53,7 @@
     NSLog(@"接下来开始发送心跳");
     // 每隔30s像服务器发送心跳包
     [sock readDataWithTimeout:-1 tag:0];
-//    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
+    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
     
     [self.connectTimer fire];
     
@@ -86,12 +86,7 @@
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_service"];
-    NSLog(@"singleton data_service :%@",data_service);
-//    NSMutableData * betaData1 = [[NSMutableData alloc]init];
-//    
-//    betaData1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"beatAllData"];
-//    NSLog(@"beatAllData:%@",betaData1);
-
+//    NSLog(@"singleton data_service :%@",data_service);
     
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
@@ -135,18 +130,18 @@
     NSLog(@"readdata:%@",data);
 
     
-    NSData * data1 = [data subdataWithRange:NSMakeRange(8,4)];
-    NSString * model_name = [[NSString alloc]initWithData:data1 encoding:NSUTF8StringEncoding];
+    NSData * data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
+    NSString * model_name = [[NSString alloc]initWithData:data_model_name encoding:NSUTF8StringEncoding];
     NSLog(@"data1:%@",model_name);
     if([model_name isEqualToString:@"BEAT"])
     {
     }
     else if([model_name isEqualToString:@"MDMM"])
     {
-    NSData * data2 = [data subdataWithRange:NSMakeRange(36,1)];
-       uint8_t command_type = [SocketUtils uint8FromBytes:data2];
-        NSLog(@"data2:%@",data2);
-        NSLog(@"command_type:%hhu",command_type);
+    NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+       uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
+        
+//        NSLog(@"command_type:%hhu",command_type);
         
         switch (command_type) {
             case 0:

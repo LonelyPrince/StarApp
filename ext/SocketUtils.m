@@ -147,7 +147,8 @@
 
 + (uint32_t)uint32FromBytes:(NSData *)fData
 {
-    NSAssert(fData.length == 4, @"uint16FromBytes: (data length != 4)");
+//    NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
+     NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
     NSData *data = [self dataWithReverse:fData];
     
     uint32_t val0 = 0;
@@ -203,6 +204,33 @@
         [data appendBytes:&tempIntValue length:1];
     }
     return data;
+
+//    if (!hexString || [hexString length] == 0) {
+//        return nil;
+//    }
+//    
+//    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:8];
+//    NSRange range;
+//    if ([hexString length] % 2 == 0) {
+//        range = NSMakeRange(0, 2);
+//    } else {
+//        range = NSMakeRange(0, 1);
+//    }
+//    for (NSInteger i = range.location; i < [hexString length]; i += 2) {
+//        unsigned int anInt;
+//        NSString *hexCharStr = [hexString substringWithRange:range];
+//        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
+//        
+//        [scanner scanHexInt:&anInt];
+//        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
+//        [hexData appendData:entity];
+//        
+//        range.location += range.length;
+//        range.length = 2;
+//    }
+//    
+////    LEDEBUG(@"hexdata: %@", hexData);
+//    return hexData;
 }
 
 + (NSString *)hexStringFromData:(NSData *)data

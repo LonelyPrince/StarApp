@@ -110,6 +110,7 @@
 		70170C481D74234900CC3951 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170C461D74234900CC3951 /* MonitorViewController.m */; };
 		70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70170C471D74234900CC3951 /* MonitorViewController.xib */; };
 		704582F51D9A193D0061C154 /* GGUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 704582F41D9A193D0061C154 /* GGUtil.m */; };
+		704582F81D9A63170061C154 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC93DB1A295C7D0070697C /* Images.xcassets */; };
 		7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746691D6D8A54002E7A39 /* AsyncSocket.m */; };
 		7097466E1D6D8A54002E7A39 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */; };
 		7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 7097466C1D6D8A54002E7A39 /* Documentation.html */; };
@@ -153,7 +154,6 @@
 		70FC30FB1D75714E00BD06FE /* ZXVideoPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC30D41D75714E00BD06FE /* ZXVideoPlayerControlView.m */; };
 		70FC30FC1D75714E00BD06FE /* ZXVideoPlayerTimeIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC30D61D75714E00BD06FE /* ZXVideoPlayerTimeIndicatorView.m */; };
 		70FC30FD1D75714E00BD06FE /* ZXVideoPlayerVolumeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC30D81D75714E00BD06FE /* ZXVideoPlayerVolumeView.m */; };
-		7ABC93DC1A295C7D0070697C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC93DB1A295C7D0070697C /* Images.xcassets */; };
 		8ED6C830076F28779F6BA445 /* libPods-StarAPP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DF2035D5725126C257DF694 /* libPods-StarAPP.a */; };
 		A43ACCDA1555E653007DE9B0 /* libclinkc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A43ACCD91555E653007DE9B0 /* libclinkc.a */; };
 		A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A48574B515A3155500294C34 /* DLNAPlaybackViewController.m */; };
@@ -1027,6 +1027,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				704582F81D9A63170061C154 /* Images.xcassets in Resources */,
 				70FC30DE1D75714E00BD06FE /* kr-video-player-fullscreen@3x.png in Resources */,
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
@@ -1047,7 +1048,6 @@
 				70170C1B1D74131500CC3951 /* login_btn@2x.png in Resources */,
 				70170C081D74131500CC3951 /* category_bg.png in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
-				7ABC93DC1A295C7D0070697C /* Images.xcassets in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
 				70FC30DD1D75714E00BD06FE /* kr-video-player-fullscreen@2x.png in Resources */,
 				70FC30F41D75714E00BD06FE /* zx-video-player-volume@3x.png in Resources */,

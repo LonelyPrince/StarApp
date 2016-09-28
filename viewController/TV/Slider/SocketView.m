@@ -66,10 +66,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [Singleton sharedInstance].socket.userData = SocketOfflineByServer;
     [[Singleton sharedInstance] socketConnectHost];
     
-//   NSLog(@"socket.port:%d",[_socket localPort]);
-//
     
-//    [self serviceTouch];
     
     
 }
@@ -88,8 +85,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
     NSLog(@"array:%@",array);
 
-//    cs_heatbeat.package_tag= @"DIGW";
-//    cs_heatbeat.CRC= 1531354454;
     
     cs_heatbeat.module_name= @"BEAT";
     cs_heatbeat.Ret=0;
@@ -100,21 +95,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //2.计算除了CRC和tag之外的值
     self.data_beat = [[NSMutableData alloc]init];
     self.data_beat = [self RequestSpliceAttribute:cs_heatbeat];
-    //    [tag_data_service appendData:package_tagData];
-//    [tag_data_service appendData:self.data_beat];   //CRC是除了tag和service
+     //CRC是除了tag和service
     
     //3.计算CRC
-    int result= [self getCRC:self.data_beat];
-    //获取到的CRC16进制CRC
-    NSString * CRChexstring = [self hexFromInt:result];
-    
-    NSMutableData * data_BeatCRC = [[NSMutableData alloc]init];
-    data_BeatCRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
-    
     //4.重置data_service，将tag,CRC,和其他数据加起来
     self.beatAllData = [[NSMutableData alloc]init];
     [self.beatAllData appendData:self.beattag];
-    [self.beatAllData appendData:data_BeatCRC];
+    [self.beatAllData appendData:[self dataTOCRCdata:self.data_beat ]];
     [self.beatAllData appendData:self.data_beat];
     
     
@@ -126,7 +113,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 
     NSLog(@"self.beatAllData  %@",self.beatAllData);
     
-//    [_socket writeData:_data withTimeout:-1 tag:3];
     
 
 }
@@ -146,8 +132,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.client_port = (uint32_t)[_socket localPort] ;
 //    cs_service.unique_id = [SocketView GetNowTimes];
     //获取的时间戳string转int
+    
     int x = [[SocketView GetNowTimes] intValue];
-    [self hexFromInt:x];
+//    NSLog(@"数%@",[SocketView GetNowTimes]);
+//    NSLog(@"整数%d",x);
+//    int x = 1475026288;
+//    int x = 222;
+//    [self hexFromInt:x];
     cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
     cs_service.command_type = MEDIA_DELIVERY_PLAY_SERVICE;
     cs_service.tuner_type = 3;      //...
@@ -172,8 +163,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     data_service = [[NSMutableData alloc]init];
     
     //计算CRC
-    NSMutableData * tag_data_service;
-    tag_data_service = [[NSMutableData alloc]init];
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
     
     //1.tag转data
     NSString * package_tag = @"DIGW";
@@ -182,18 +173,15 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_service];
     
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
 
-//    [tag_data_service appendData:package_tagData];
-    [tag_data_service appendData:data_service];   //CRC是除了tag和service
-//    unsigned long result = crc32(0, data_service.bytes, data_service.length);
-    
-//3.计算CRC
-    NSLog(@"计算CRC：%@",tag_data_service);
+    NSLog(@"计算CRC：%@",serviceCRCData);
    
 //4.重置data_service，将tag,CRC,和其他数据加起来
     data_service = [[NSMutableData alloc]init];
     [data_service appendData:package_tagData];
-    [data_service appendData:[self dataTOCRCdata:tag_data_service]];
+//3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_service]];
     NSLog(@"finaldata: %@",data_service);
     NSLog(@"finaldata.length: %d",data_service.length);
@@ -203,13 +191,12 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [userDef setObject:data_service forKey:@"data_service"];
 //    NSInteger data_servicelen = data_service.length;
     
-    NSString * data_servicelen = [NSString stringWithFormat:@"%d",data_service.length] ;
-    [userDef setObject:data_servicelen forKey:@"data_servicelen"];
-    
+//    NSString * data_servicelen = [NSString stringWithFormat:@"%d",data_service.length] ;
+//    [userDef setObject:data_servicelen forKey:@"data_servicelen"];
+//    
     [userDef synchronize];//把数据同步到本地
    
     
-//     [self.socket writeData:data_service withTimeout:1 tag:1];
     [[Singleton sharedInstance] Play_ServiceSocket];
    
 }
@@ -229,7 +216,12 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 
 //int 转16进制
 - (NSString *)hexFromInt:(NSInteger)val {
-    return [NSString stringWithFormat:@"%X", val];
+//    NSLog(@"int %d",val);
+//    NSLog(@"int 转16%@",[NSString stringWithFormat:@"%X", val]);
+
+//    return @"1657EB290C";
+        return [NSString stringWithFormat:@"%X", val];
+//    return  @"16C7D3A218";
 }
 -(NSMutableData *)RequestSpliceAttribute:(id)obj{
     _data = [[NSMutableData alloc]init];   
