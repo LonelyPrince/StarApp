@@ -10,26 +10,41 @@
 
 
 typedef enum{
-    MEDIA_DELIVERY_UPDATE_CHANNEL_LIST = 0,
-    MEDIA_DELIVERY_SERVICE_LOCK = 1,
-    MEDIA_DELIVERY_PASSWD_ERROR = 2,
-    MEDIA_DELIVERY_PASSWD_OK = 3,
-    MEDIA_DELIVERY_TUNER_LOCK = 4 ,
-    MEDIA_DELIVERY_TUNER_UNLOCK = 5,
-    MEDIA_DELIVERY_CA_CARD = 6,
-    MEDIA_DELIVERY_CA_ACCESS = 7,
-    MEDIA_DELIVERY_CA_MATURE_LOCK = 8,
-    MEDIA_DELIVERY_CA_PPV = 9,
-    MEDIA_DELIVERY_CA_PPV_ACCEPT = 10,
-    MEDIA_DELIVERY_CA_PPV_TOKEN = 11,
-    MEDIA_DELIVERY_PLAY_SERVICE = 12,
-    MEDIA_DELIVERY_PASSWD_CHECK = 13,
-    MEDIA_DELIVERY_CHANGE_AUDIO = 14,
-    MEDIA_DELIVERY_CHANGE_SUBT = 15,
-    MEDIA_DELIVERY_PLAY_EXIT = 16,
-    MEDIA_DELIVERY_GET_RESOURCE = 17,
-    MEDIA_DELIVERY_HEARTBEAT = 18,
-    MEDIA_DELIVERY_INVALID = 19
+    CMD_PLAY_SERVICE = 12,
+    CMD_EXIT_PLAY = 16,
+    CMD_CHANGE_AUDIO = 14,
+    CMD_CHANGE_SUBTITLE = 15,
+    CMD_VERIFY_PASSWORD = 13,
+    CMD_GET_RESOURCE_INFO = 17,
+    EVENT_CHANNEL_LIST_CHANGE = 0,
+    EVENT_CHANEL_LOCK = 22,
+    EVENT_CA_CARD = 6,
+    EVENT_CA_AUTHORIZE = 7,
+    EVENT_CA_LOCK = 8,
+    EVENT_TUNER_LOCK = 4,
+    EVENT_TUNER_UNLOCK = 5,
+    EVENT_SERVICE_STOP = 19,
+    INVALID = 0xFF
+//    MEDIA_DELIVERY_UPDATE_CHANNEL_LIST = 0,
+//    MEDIA_DELIVERY_SERVICE_LOCK = 1,
+//    MEDIA_DELIVERY_PASSWD_ERROR = 2,
+//    MEDIA_DELIVERY_PASSWD_OK = 3,
+//    MEDIA_DELIVERY_TUNER_LOCK = 4 ,
+//    MEDIA_DELIVERY_TUNER_UNLOCK = 5,
+//    MEDIA_DELIVERY_CA_CARD = 6,
+//    MEDIA_DELIVERY_CA_ACCESS = 7,
+//    MEDIA_DELIVERY_CA_MATURE_LOCK = 8,
+//    MEDIA_DELIVERY_CA_PPV = 9,
+//    MEDIA_DELIVERY_CA_PPV_ACCEPT = 10,
+//    MEDIA_DELIVERY_CA_PPV_TOKEN = 11,
+//    MEDIA_DELIVERY_PLAY_SERVICE = 12,
+//    MEDIA_DELIVERY_PASSWD_CHECK = 13,
+//    MEDIA_DELIVERY_CHANGE_AUDIO = 14,
+//    MEDIA_DELIVERY_CHANGE_SUBT = 15,
+//    MEDIA_DELIVERY_PLAY_EXIT = 16,
+//    MEDIA_DELIVERY_GET_RESOURCE = 17,
+//    MEDIA_DELIVERY_HEARTBEAT = 18,
+//    MEDIA_DELIVERY_INVALID = 19
 }service;
 
 
@@ -45,53 +60,8 @@ typedef enum{
 //    GGOrderStatusAll                                = 0,
 //} GGOrderStatus;
 //
-////红包分类
-//typedef enum {
-//    BTRedPacketStatusUse                     = 6,
-//    BTSharePacketStatusOverdue               = 5,
-//    BTSharePacketStatusUsed                  = 4,
-//    BTSharePacketStatusUnUse                 = 3,
-//    BTRedPacketStatusOverdue                 = 2,
-//    BTRedPacketStatusUsed                    = 1,
-//    BTRedPacketStatusUnUse                   = 0,
-//} BTRedPacketStatus;
-//
-////优惠券分类
-//typedef enum {
-//    BTDiscountCouponStatusShoppingCartUsed          = 0,
-//    BTDiscountCouponStatusShoppingCartUnavailable   = 1,
-//    BTDiscountCouponStatusMyUnUse                   = 2,
-//    BTDiscountCouponStatusMyUsed                    = 3,
-//    BTDiscountCouponStatusMyOverdue                 = 4,
-//} BTDiscountCouponStatus;
-//
-////登陆六个入口分类
-//typedef enum {
-//    BTLoginStatusNormal             =0,
-//    BTLoginStatusMessage            =1,
-//    BTLoginStatusYaoLan             =2,
-//    BTLoginStatusWeibo              =3,
-//    BTLoginStatusWeiXin             =4,
-//    BTLoginStatusQQ                 =5,
-//}BTLoginSourceStatus;
-//
-//typedef enum {
-//    GGIsSignUp                      = 0,
-//    GGIsFindBackPassword            = 1,
-//} GGIsSignUpOrFindBackPassword;
-//
-//typedef enum {
-//    BtTableViewFirstCell            = 0,
-//    BtTableViewNormalCell           = 1,
-//    BtTableViewLastCell             = 2,
-//} BtTableViewCellSeparatorStyle;
-//
-////购物车商品分类
-//typedef enum {
-//    GGProductTypeNormal                         = 0,
-//    GGProductTypeOverseas                       = 1,
-//} GGCartProductType;
-//
+
+
 #define grobalTintColor RGB(249,249,249)
 #define grobalTitleColor [UIColor whiteColor]
 #define grobalItemTitleColor [UIColor whiteColor]

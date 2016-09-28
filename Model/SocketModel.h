@@ -99,6 +99,7 @@
 @property (nonatomic, assign) uint32_t  unique_id;        //系统时间  唯一标识
 @property (nonatomic, assign) uint8_t  command_type;       //类型枚举
 @property (nonatomic, assign) uint8_t  passwd_type;       //密码类型
+@property (nonatomic, strong) NSString *  passwd_string;    //4位或者6位长度的密码
 //还有个passwd_string
 @end
 

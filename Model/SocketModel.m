@@ -8,14 +8,38 @@
 
 #import "SocketModel.h"
 
-//心跳
+//1.心跳
 @implementation Cs_Hearbeat
 
 @end
 
-//获取节目信息
+//2.获取节目信息
 @implementation Cs_Service
 
+@end
+
+
+//3.退出视频分发
+@implementation Cs_PlayExit
+
+@end
+
+//4.客户端向服务器发送密码校验
+@implementation Cs_PasswordCheck
+@end
+
+// 5.客户端向服务器发送更新频道列表
+@implementation Cs_UpdateChannel
+@end
+
+
+
+//6.客户端向服务器发送ca控制节目输pin码
+@implementation Cs_CAMatureLock
+@end
+
+//7.客户端向服务器发送获取资源信息
+@implementation Cs_GetResource
 @end
 
 @implementation Sc_20001

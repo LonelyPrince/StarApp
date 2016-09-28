@@ -148,7 +148,7 @@
 + (uint32_t)uint32FromBytes:(NSData *)fData
 {
 //    NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
-     NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
+//     NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
     NSData *data = [self dataWithReverse:fData];
     
     uint32_t val0 = 0;
@@ -193,7 +193,11 @@
 
 + (NSData *)dataFromHexString:(NSString *)hexString
 {
-    NSAssert((hexString.length > 0) && (hexString.length % 2 == 0), @"hexString.length mod 2 != 0");
+//    NSAssert((hexString.length > 0) && (hexString.length % 2 == 0), @"hexString.length mod 2 != 0");
+    if(!(hexString.length > 0) && (hexString.length % 2 == 0))
+    {
+        return  0 ;
+    }
     NSMutableData *data = [[NSMutableData alloc] init];
     for (NSUInteger i=0; i<hexString.length; i+=2) {
         NSRange tempRange = NSMakeRange(i, 2);

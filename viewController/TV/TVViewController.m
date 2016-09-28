@@ -295,10 +295,17 @@
     NSLog(@"video:%@",self.videoController.video.playUrl);
 }
 
+//搜索按钮
 -(void)searchBtnClick
 {
-    searchViewCon = [[SearchViewController alloc]init];
-    [self.navigationController pushViewController:searchViewCon animated:YES];
+//    searchViewCon = [[SearchViewController alloc]init];
+//    [self.navigationController pushViewController:searchViewCon animated:YES];
+    
+    //停止播放
+    [self.socketView  deliveryPlayExit];
+    
+    //密码校验
+//    [self.socketView passwordCheck];
 }
 
 
@@ -426,12 +433,14 @@
     
     //被选择时播放视频
     
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
     
     [self.socketView  serviceTouch ];
     
-    
+        
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 

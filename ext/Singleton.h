@@ -40,4 +40,6 @@ enum{
 -(void)cutOffSocket; // 断开socket连接
 
 -(void)Play_ServiceSocket;
+-(void)Play_ExitSocket;
+-(void)passwordCheck;
 @end

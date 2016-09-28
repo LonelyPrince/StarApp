@@ -32,8 +32,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @end
 
 @implementation SocketView
-@synthesize  cs_heatbeat;
-@synthesize  cs_service;
+@synthesize  cs_heatbeat;           //1
+@synthesize  cs_service;            //2
+@synthesize  cs_playExit;           //3
+@synthesize  cs_passwordCheck;     //4
+@synthesize  cs_updateChannel;      //5
+@synthesize  cs_CAMatureLock;       //6
+@synthesize  cs_getResource;        //7
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,6 +47,12 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     _data = [[NSMutableData alloc]init];   
     cs_heatbeat = [[Cs_Hearbeat alloc]init];
     cs_service = [[Cs_Service alloc]init];
+    cs_playExit = [[Cs_PlayExit alloc]init];
+    cs_passwordCheck = [[Cs_PasswordCheck alloc]init];
+    cs_updateChannel = [[Cs_UpdateChannel alloc]init];
+    cs_CAMatureLock = [[Cs_CAMatureLock alloc]init];
+    cs_getResource = [[Cs_GetResource alloc]init];
+    
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
     NSLog(@"socket.port:%d",[_socket localPort]);
@@ -81,15 +92,15 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 
     
     
-    NSString * astr = @"192.168.1.2";
-    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
-    NSLog(@"array:%@",array);
+//    NSString * astr = @"192.168.1.2";
+//    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
+//    NSLog(@"array:%@",array);
 
     
     cs_heatbeat.module_name= @"BEAT";
     cs_heatbeat.Ret=0;
     //    cs_heatbeat= 12;
-    cs_heatbeat.client_ip= array;
+    cs_heatbeat.client_ip= [self getIPArr];
     cs_heatbeat. data_len= 0;
     
     //2.计算除了CRC和tag之外的值
@@ -118,29 +129,34 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 }
 
 -(void)serviceTouch{
-    NSString * astr = @"192.168.1.2";
-    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
-    
+//    NSString * astr = @"192.168.1.2";
+//    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
+//    
 //    cs_service.package_tag= @"DIGW";
     
     
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
-    cs_service.client_ip= array;
+    cs_service.client_ip= [self getIPArr];
     
     
     cs_service.client_port = (uint32_t)[_socket localPort] ;
 //    cs_service.unique_id = [SocketView GetNowTimes];
     //获取的时间戳string转int
     
-    int x = [[SocketView GetNowTimes] intValue];
-//    NSLog(@"数%@",[SocketView GetNowTimes]);
+//    int x = [[SocketView GetNowTimes] intValue];
+//
+//    int tmp2 = CFSwapInt32BigToHost(x);
+//    NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
+
+    //    NSLog(@"数%@",[SocketView GetNowTimes]);
 //    NSLog(@"整数%d",x);
 //    int x = 1475026288;
 //    int x = 222;
 //    [self hexFromInt:x];
-    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
-    cs_service.command_type = MEDIA_DELIVERY_PLAY_SERVICE;
+    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+//    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
+    cs_service.command_type = CMD_PLAY_SERVICE;
     cs_service.tuner_type = 3;      //...
     cs_service.network_id = 222;   //...
     cs_service.ts_id = 4965;           //...
@@ -200,19 +216,126 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [[Singleton sharedInstance] Play_ServiceSocket];
    
 }
-////数据增加CRC
-//-(void)dataAddCRC :(NSMutableData * )data_service{
-//
-//    NSMutableData * dataRec ;
-//    dataRec = [[NSMutableData alloc]init];
-//    dataRec = [self RequestSpliceAttribute:cs_service];
-//    
-//    Byte *testByte = (Byte *)[data_service bytes];
-//    uint32_t CRC=(uint32_t) [self getCRC:testByte offest_name:0 len_name:data_service.length];
-//    NSNumber *CRCToNumber= [[NSNumber alloc]initWithInt:CRC];
-//    NSMutableData * data_CRC =  [self RequestSpliceAttribute:CRCToNumber];
-//    [data_service appendData:data_CRC];
-//}
+
+
+//退出视频分发
+
+-(void)deliveryPlayExit{
+    
+    cs_playExit.module_name= @"MDMM";
+    cs_playExit.Ret=0;
+    cs_playExit.client_ip= [self getIPArr];
+    
+    cs_playExit.client_port = (uint32_t)[_socket localPort] ;
+    cs_playExit.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_playExit.command_type = CMD_EXIT_PLAY;
+//        cs_playExit.command_type = 16;
+
+    cs_playExit. data_len= 9;
+    //tag
+    NSMutableData * package_tagData ;
+    package_tagData = [[NSMutableData alloc]init];
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    NSString * package_tag = @"DIGW";
+    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_playExit];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:package_tagData];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_playExit]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_playExit"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] Play_ExitSocket];
+    
+}
+-(void)passwordCheck
+{
+   
+    cs_passwordCheck.module_name= @"MDMM";
+    cs_passwordCheck.Ret=0;
+    cs_passwordCheck.client_ip= [self getIPArr];
+    
+    cs_passwordCheck.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_passwordCheck.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_passwordCheck.command_type = CMD_VERIFY_PASSWORD;
+    cs_passwordCheck.passwd_type = 1;
+    
+    if(cs_passwordCheck.passwd_type == 1){
+        cs_passwordCheck.passwd_string =@"000000";
+        cs_passwordCheck. data_len= 16;
+    }else if(cs_passwordCheck.passwd_type == 1){
+        cs_passwordCheck.passwd_string =@"123a";
+        cs_passwordCheck. data_len= 14;
+    }
+    
+    //tag
+    NSMutableData * package_tagData ;
+    package_tagData = [[NSMutableData alloc]init];
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    NSString * package_tag = @"DIGW";
+    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_passwordCheck];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:package_tagData];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_passwordCheck]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_passwordCheck"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] passwordCheck];
+}
+
+
 
 //int 转16进制
 - (NSString *)hexFromInt:(NSInteger)val {
@@ -319,7 +442,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
 }
 
-+ (NSString *)GetNowTimes
+//返回时间戳的string类型转换成data类型
++ (NSMutableData *)GetNowTimes
 
 {
     
@@ -330,7 +454,12 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSString *timeString = [NSString stringWithFormat:@"%.0f", timeInterval];
     
 //    timeString = @"1231231231231";
-    return timeString;
+    
+    int x = [timeString intValue];
+    int tmp2 = CFSwapInt32BigToHost(x);
+    NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
+    
+    return data_CRC2;
     
     
 }
@@ -451,7 +580,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     for (int i = 0; i < [data length] ; i++ ) {
         Byte byte = byteArray[i];
-        NSLog(@"--byte%x",byte);
+//        NSLog(@"--byte%x",byte);
         crc32 = (crc32 >> 8) ^ ((int)crc32_table[((crc32) ^ byte) & 0xFF]);
     }
     NSLog(@"crc32 ^ 0xFFFFFFFF: %u",crc32 ^ 0xFFFFFFFF);
@@ -463,17 +592,28 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 -(NSMutableData *)dataTOCRCdata: (NSMutableData*)aData
 {
     int result= [self getCRC:aData];
+    int tmp2 = CFSwapInt32BigToHost(result);
+//     NSMutableData* data_CRC1 = (NSMutableData *)[NSData dataWithBytes:&result length:sizeof(result)];
+     NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
+//    NSString * CRChexstring = [self hexFromInt:result];
+//    NSLog(@"--获取到的CRC16进制CRC: %@",CRChexstring);
     
-    NSString * CRChexstring = [self hexFromInt:result];
-    NSLog(@"--获取到的CRC16进制CRC: %@",CRChexstring);
-    
-    NSMutableData * data_CRC = [[NSMutableData alloc]init];
+//    NSMutableData * data_CRC = [[NSMutableData alloc]init];
   
-    data_CRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
+//    data_CRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
 
-    NSLog(@"--CRC: %@",data_CRC);
+//    NSLog(@"--CRC: %@",data_CRC);
+//    NSLog(@"--data_CRC1: %@",data_CRC1);
+    NSLog(@"--data_CRC2: %@",data_CRC2);
     
-    return data_CRC;
+    return data_CRC2;
+}
+
+-(NSArray *)getIPArr
+{
+    NSString * astr = @"192.168.1.2";
+    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
+    return array;
 }
 @end
 

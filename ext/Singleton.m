@@ -79,6 +79,7 @@
     
 }
 
+//播放视频
 -(void)Play_ServiceSocket{
 
     // 根据服务器要求发送固定格式的数据
@@ -91,7 +92,32 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
-
+//退出播放
+-(void)Play_ExitSocket{
+    
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_playExit"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
+//密码校验
+-(void)passwordCheck{
+    
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_passwordCheck"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
 // 切断socket
 -(void)cutOffSocket{
     
@@ -156,6 +182,8 @@
                     [userDef synchronize];//把数据同步到本地
                     
                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
+                    
+                    
                     
                     //创建通知
                     NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];

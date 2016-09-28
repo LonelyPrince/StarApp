@@ -24,13 +24,21 @@ extern NSString * const TYPE_ARRAY;
 @property(nonatomic,assign )BOOL connectBool;
 @property (nonatomic, strong)  AsyncSocket *socket;
 
-@property(nonatomic,strong)Cs_Hearbeat* cs_heatbeat;
-@property(nonatomic,strong)Cs_Service* cs_service;
+@property(nonatomic,strong)Cs_Hearbeat* cs_heatbeat;     //1
+@property(nonatomic,strong)Cs_Service* cs_service;  //2
+@property(nonatomic,strong)Cs_PlayExit * cs_playExit;   //3
+
+@property(nonatomic,strong)Cs_PasswordCheck * cs_passwordCheck;        //4
+@property(nonatomic,strong)Cs_UpdateChannel * cs_updateChannel;     //5
+@property(nonatomic,strong)Cs_CAMatureLock * cs_CAMatureLock;       //6
+
+@property(nonatomic,strong)Cs_GetResource * cs_getResource;         //7
 
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
 -(void)serviceTouch;
-
+-(void)deliveryPlayExit;
+-(void)passwordCheck;
 -(int)getCRC : (NSData *)data ;
-+ (NSString *)GetNowTimes;
++ (NSMutableData *)GetNowTimes;
 @end

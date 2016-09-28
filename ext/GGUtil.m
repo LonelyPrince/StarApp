@@ -594,7 +594,7 @@ static const char *getPropertyType(objc_property_t property) {
     for (int i = 0; i <bReduceALength ; i++ ) {
         //转换
         bReduceAbyteArray[i] = byteArray[aData.length +i];
-        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
+//        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
     }
     
     byteToDatas = [[NSMutableData alloc]init];
