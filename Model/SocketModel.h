@@ -140,7 +140,7 @@
 @property (nonatomic, assign) uint16_t  network_id;        //http请求获得的
 @property (nonatomic, assign) uint16_t  ts_id;             //http请求获得的
 @property (nonatomic, assign) uint16_t  service_id;        //http请求获得的
-@property (nonatomic, assign) uint8_t    num;       //http请求获得的，有可能获取多个，此处可以任选一个
+//@property (nonatomic, assign) uint8_t    num;       //http请求获得的，有可能获取多个，此处可以任选一个
 
 
 @end

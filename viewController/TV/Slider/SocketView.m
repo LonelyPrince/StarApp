@@ -129,11 +129,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 }
 
 -(void)serviceTouch{
-//    NSString * astr = @"192.168.1.2";
-//    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
-//    
-//    cs_service.package_tag= @"DIGW";
-    
     
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
@@ -171,9 +166,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service. data_len= cs_service.client_name.length +25;
     cs_service.data_len_m3u8 = 0;
     
-    //tag
-    NSMutableData * package_tagData ;
-    package_tagData = [[NSMutableData alloc]init];
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
@@ -183,8 +175,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     serviceCRCData = [[NSMutableData alloc]init];
     
     //1.tag转data
-    NSString * package_tag = @"DIGW";
-    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
     
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_service];
@@ -195,7 +185,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
    
 //4.重置data_service，将tag,CRC,和其他数据加起来
     data_service = [[NSMutableData alloc]init];
-    [data_service appendData:package_tagData];
+    [data_service appendData:[self getPackageTagData]];
 //3.计算CRC
     [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_service]];
@@ -229,12 +219,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_playExit.client_port = (uint32_t)[_socket localPort] ;
     cs_playExit.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
     cs_playExit.command_type = CMD_EXIT_PLAY;
-//        cs_playExit.command_type = 16;
 
     cs_playExit. data_len= 9;
-    //tag
-    NSMutableData * package_tagData ;
-    package_tagData = [[NSMutableData alloc]init];
+    
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
@@ -244,8 +231,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     serviceCRCData = [[NSMutableData alloc]init];
     
     //1.tag转data
-    NSString * package_tag = @"DIGW";
-    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
     
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_playExit];
@@ -256,7 +241,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     //4.重置data_service，将tag,CRC,和其他数据加起来
     data_service = [[NSMutableData alloc]init];
-    [data_service appendData:package_tagData];
+    [data_service appendData:[self getPackageTagData]];
     //3.计算CRC
     [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_playExit]];
@@ -273,6 +258,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [[Singleton sharedInstance] Play_ExitSocket];
     
 }
+//密码校验
 -(void)passwordCheck
 {
    
@@ -293,10 +279,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
         cs_passwordCheck.passwd_string =@"123a";
         cs_passwordCheck. data_len= 14;
     }
-    
-    //tag
-    NSMutableData * package_tagData ;
-    package_tagData = [[NSMutableData alloc]init];
+
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
@@ -306,8 +289,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     serviceCRCData = [[NSMutableData alloc]init];
     
     //1.tag转data
-    NSString * package_tag = @"DIGW";
-    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
     
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_passwordCheck];
@@ -318,7 +299,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     //4.重置data_service，将tag,CRC,和其他数据加起来
     data_service = [[NSMutableData alloc]init];
-    [data_service appendData:package_tagData];
+    [data_service appendData:[self getPackageTagData]];
     //3.计算CRC
     [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_passwordCheck]];
@@ -335,6 +316,57 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [[Singleton sharedInstance] passwordCheck];
 }
 
+//获取资源信息
+-(void)csGetResource
+{
+    
+    cs_getResource.module_name= @"MDMM";
+    cs_getResource.Ret=0;
+    cs_getResource.client_ip= [self getIPArr];
+    
+    cs_getResource.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_getResource.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_getResource.command_type = CMD_GET_RESOURCE_INFO;
+    cs_getResource. data_len= 9;
+    
+
+
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+   //1.tag转data
+  
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_getResource];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_getResource]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_getResource"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] GetResource_socket];
+}
 
 
 //int 转16进制
@@ -614,6 +646,14 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSString * astr = @"192.168.1.2";
     NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
     return array;
+}
+-(NSMutableData * )getPackageTagData
+{
+    NSMutableData * package_tagData ;
+    package_tagData = [[NSMutableData alloc]init];
+    NSString * package_tag = @"DIGW";
+    package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
+    return package_tagData;
 }
 @end
 

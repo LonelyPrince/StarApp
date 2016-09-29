@@ -298,14 +298,17 @@
 //搜索按钮
 -(void)searchBtnClick
 {
-//    searchViewCon = [[SearchViewController alloc]init];
-//    [self.navigationController pushViewController:searchViewCon animated:YES];
+    searchViewCon = [[SearchViewController alloc]init];
+    [self.navigationController pushViewController:searchViewCon animated:YES];
+//
+//    //停止播放
+//    [self.socketView  deliveryPlayExit];
     
-    //停止播放
-    [self.socketView  deliveryPlayExit];
+////    密码校验
+//     [self.socketView passwordCheck];
     
-    //密码校验
-//    [self.socketView passwordCheck];
+//    //获取分发资源信息
+//    [self.socketView csGetResource];
 }
 
 
@@ -471,11 +474,11 @@
     
     
 }
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+//
+//- (void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 
 @end

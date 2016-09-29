@@ -42,4 +42,5 @@ enum{
 -(void)Play_ServiceSocket;
 -(void)Play_ExitSocket;
 -(void)passwordCheck;
+-(void)GetResource_socket;
 @end

@@ -118,6 +118,19 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
+//ca控制节目输pin码
+-(void)GetResource_socket{
+    
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_getResource"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
 // 切断socket
 -(void)cutOffSocket{
     
@@ -155,6 +168,13 @@
     NSLog(@"%ld",tag);
     NSLog(@"readdata:%@",data);
 
+    NSData * data_ret = [data subdataWithRange:NSMakeRange(12,4)];
+    uint8_t data_retTo32int = [SocketUtils uint32FromBytes:data_ret];
+    if (data_retTo32int ==1) {
+    
+        [MBProgressHUD showMessag:@"CRC error" toView:nil];
+    }
+    else{
     
     NSData * data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
     NSString * model_name = [[NSString alloc]initWithData:data_model_name encoding:NSUTF8StringEncoding];
@@ -199,7 +219,7 @@
     }
     
     
-
+}
     
     
     [self.socket readDataWithTimeout:30 tag:0];

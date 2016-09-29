@@ -39,6 +39,8 @@ extern NSString * const TYPE_ARRAY;
 -(void)serviceTouch;
 -(void)deliveryPlayExit;
 -(void)passwordCheck;
+-(void)csGetResource;
+
 -(int)getCRC : (NSData *)data ;
 + (NSMutableData *)GetNowTimes;
 @end
