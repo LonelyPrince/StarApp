@@ -46,7 +46,9 @@
 @implementation TVViewController
 
 @synthesize searchViewCon;
-@synthesize avController = _avController;
+@synthesize avController = _avController;   //搜索dms用
+@synthesize  serviceModel;
+@synthesize socketView;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,12 +66,7 @@
 //    [self getTopCategory];
     [self getServiceData];    //获取表数据
     
-//    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
-//    [userDef setObject:@"1111"forKey:@"data_service11"];
-//    
-//    [userDef synchronize];//把数据同步到本地
-//    
-    
+
     
 
     self.view.backgroundColor = [UIColor greenColor];
@@ -413,18 +410,22 @@
         cell = [TVCell loadFromNib];
     }
     
-  
     
 //    
 //    TVTable * table = [[TVTable alloc]init];
 //    cell.dataDic = table.tabledataDic;
 
     
-    cell.aa =  self.category_index;
-    cell.aaa =self.categoryModel.service_indexArr.count;
-//     NSLog(@"index  cell.aa--------:%d",cell.aa);
-    
-    cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+//    cell.aa =  self.category_index;
+//    cell.aaa =self.categoryModel.service_indexArr.count;
+//    NSLog(@"index  cell.aaa--------:%d",cell.aaa);
+   
+    if (!ISEMPTY(self.dicTemp)) {
+         cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+    }else{//如果为空，什么都不执行
+    }
+   
+    NSLog(@"cell.dataDic:%@",cell.dataDic);
     
     return cell;
     
@@ -436,7 +437,52 @@
     //    controller.dataDic = self.dataSource[indexPath.row];
     //    [self.navigationController pushViewController:controller animated:YES];
     
-    //被选择时播放视频
+    //先传输数据到socket，然后再播放视频
+    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+
+    
+    //__
+    
+    NSArray * audio_infoArr = [[NSArray alloc]init];
+    NSArray * subt_infoArr = [[NSArray alloc]init];
+    //****
+    
+    
+    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+   socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+    
+    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+        socketView.socket_ServiceModel.audio_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+    socketView.socket_ServiceModel.subt_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+        socketView.socket_ServiceModel.service_network_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+        socketView.socket_ServiceModel.service_ts_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+        socketView.socket_ServiceModel.service_service_id = @"0";
+    }
+    
+    NSLog(@"------%@",socketView.socket_ServiceModel);
+
+
+    //__
+    
+    
+    
+    
+    
+    
+    
     
     //此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self];

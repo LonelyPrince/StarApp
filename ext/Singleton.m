@@ -70,7 +70,7 @@
 //    [self.socketView heartBeat];
     NSMutableData * betaData1 = [[NSMutableData alloc]init];
     
-    betaData1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"beatAllData"];
+    betaData1 = [USER_DEFAULT objectForKey:@"beatAllData"];
     NSLog(@"beatAllData:%@",betaData1);
     
     [self.socket writeData:betaData1 withTimeout:1 tag:1];
@@ -83,7 +83,7 @@
 -(void)Play_ServiceSocket{
 
     // 根据服务器要求发送固定格式的数据
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_service"];
@@ -96,7 +96,7 @@
 -(void)Play_ExitSocket{
     
     // 根据服务器要求发送固定格式的数据
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_playExit"];
@@ -109,7 +109,7 @@
 -(void)passwordCheck{
     
     // 根据服务器要求发送固定格式的数据
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_passwordCheck"];
@@ -122,7 +122,7 @@
 -(void)GetResource_socket{
     
     // 根据服务器要求发送固定格式的数据
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_getResource"];
@@ -196,7 +196,7 @@
             
             case 12:
                 {
-                    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                     [userDef setObject:data forKey:@"data_service11"];
                     
                     [userDef synchronize];//把数据同步到本地

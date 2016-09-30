@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 #import "SocketUtils.h"
 #import "sys/utsname.h"
+#import "TVViewController.h"
 
 
 // 后面NSString这是运行时能获取到的C语言的类型
@@ -39,6 +40,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  cs_updateChannel;      //5
 @synthesize  cs_CAMatureLock;       //6
 @synthesize  cs_getResource;        //7
+@synthesize socket_ServiceModel;  //给service传值用
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -99,7 +101,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_heatbeat.module_name= @"BEAT";
     cs_heatbeat.Ret=0;
-    //    cs_heatbeat= 12;
     cs_heatbeat.client_ip= [self getIPArr];
     cs_heatbeat. data_len= 0;
     
@@ -130,6 +131,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 
 -(void)serviceTouch{
     
+    
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
     cs_service.client_ip= [self getIPArr];
@@ -152,20 +154,30 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
 //    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
     cs_service.command_type = CMD_PLAY_SERVICE;
-    cs_service.tuner_type = 3;      //...
-    cs_service.network_id = 222;   //...
-    cs_service.ts_id = 4965;           //...
-    cs_service.service_id = 1;      //.....
-    cs_service.audio_index = 67;    //....
-    cs_service.subt_index = 0;      //...
-//   NSString * phoneModel = @"iPhone6s";
+//    cs_service.tuner_type = 3;      //...
+//    cs_service.network_id = 222;   //...
+//    cs_service.ts_id = 4965;           //...
+//    cs_service.service_id = 1;      //.....
+//    cs_service.audio_index = 67;    //....
+//    cs_service.subt_index = 0;      //...
+    //---
+    
+    cs_service.tuner_type = [socket_ServiceModel.service_tuner_mode intValue];
+    cs_service.network_id = [socket_ServiceModel.service_network_id intValue];
+    cs_service.ts_id = [socket_ServiceModel.service_ts_id intValue];
+    cs_service.service_id = [socket_ServiceModel.service_service_id intValue];
+    cs_service.audio_index = [socket_ServiceModel.audio_pid intValue];
+    cs_service.subt_index = [socket_ServiceModel.subt_pid intValue];
+    
+    //---
+
+    //   NSString * phoneModel = @"iPhone6s";
     NSString * phoneModel =  [self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
     cs_service.client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
     cs_service.data_len_name =cs_service.client_name.length   ;    //****
     cs_service. data_len= cs_service.client_name.length +25;
     cs_service.data_len_m3u8 = 0;
-    
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];

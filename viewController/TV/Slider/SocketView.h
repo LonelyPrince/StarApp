@@ -34,6 +34,7 @@ extern NSString * const TYPE_ARRAY;
 
 @property(nonatomic,strong)Cs_GetResource * cs_getResource;         //7
 
+@property(nonatomic,strong)ServiceModel *socket_ServiceModel;
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
 -(void)serviceTouch;

@@ -87,16 +87,7 @@
     self.event_nextNameLab.font = FONT(12);
     
     
-    //    self.event_next_nameLab = dataDic
-    
-    
-    //    NSArray *images = dataDic[@"front_cover_image_list"];
-    //    images[0];
-    //    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:images[0]]];
-    //    NSString *address = [NSString stringWithFormat:@"%@.%@",self.dataDic[@"address"],self.dataDic[@"poi_name"]];
-    
-    //    self.event_nameLab.text = dataDic[@"title"];
-    //    self.event_next_timeLab.text = address;
+  
 }
 //时间戳转换
 - (NSString *)timeWithTimeIntervalString:(NSString *)timeString
