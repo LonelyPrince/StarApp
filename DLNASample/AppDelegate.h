@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StarMainTabController.h"
 @class CGUpnpAvRenderer;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -18,9 +18,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor grayColor];
+    self.navigationController.navigationBarHidden = NO;
+//    UINavigationController * MENavController = [[UINavigationController alloc]initWithRootViewController:self];
+//    MENavController.navigationBarHidden = YES;
     
-    UINavigationController * MENavController = [[UINavigationController alloc]initWithRootViewController:self];
-    MENavController.navigationBarHidden = NO;
+    
+    UIButton * deviceSetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deviceSetBtn setFrame:CGRectMake(80, 80, 80, 80)];
+    [deviceSetBtn addTarget:self action:@selector(deviceSetbtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [deviceSetBtn setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:deviceSetBtn];
+    
+}
+-(void)deviceSetbtnClick
+{
+
+    DeviceManageViewController * deviceManageViewController = [[DeviceManageViewController alloc]init];
+    [self.navigationController pushViewController:deviceManageViewController animated:YES];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

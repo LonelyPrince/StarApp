@@ -111,6 +111,10 @@
 		70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70170C471D74234900CC3951 /* MonitorViewController.xib */; };
 		704582F51D9A193D0061C154 /* GGUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 704582F41D9A193D0061C154 /* GGUtil.m */; };
 		704582F81D9A63170061C154 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC93DB1A295C7D0070697C /* Images.xcassets */; };
+		7045830A1D9D04CE0061C154 /* DeviceManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704583081D9D04CE0061C154 /* DeviceManageViewController.m */; };
+		7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704583091D9D04CE0061C154 /* DeviceManageViewController.xib */; };
+		7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7045830D1D9D0C0B0061C154 /* DeviceManageCell.m */; };
+		704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7045830E1D9D0C0B0061C154 /* DeviceManageCell.xib */; };
 		7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746691D6D8A54002E7A39 /* AsyncSocket.m */; };
 		7097466E1D6D8A54002E7A39 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */; };
 		7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 7097466C1D6D8A54002E7A39 /* Documentation.html */; };
@@ -335,6 +339,12 @@
 		70170C471D74234900CC3951 /* MonitorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitorViewController.xib; sourceTree = "<group>"; };
 		704582F31D9A193D0061C154 /* GGUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGUtil.h; sourceTree = "<group>"; };
 		704582F41D9A193D0061C154 /* GGUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGUtil.m; sourceTree = "<group>"; };
+		704583071D9D04CE0061C154 /* DeviceManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageViewController.h; sourceTree = "<group>"; };
+		704583081D9D04CE0061C154 /* DeviceManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManageViewController.m; sourceTree = "<group>"; };
+		704583091D9D04CE0061C154 /* DeviceManageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceManageViewController.xib; sourceTree = "<group>"; };
+		7045830C1D9D0C0B0061C154 /* DeviceManageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageCell.h; sourceTree = "<group>"; };
+		7045830D1D9D0C0B0061C154 /* DeviceManageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManageCell.m; sourceTree = "<group>"; };
+		7045830E1D9D0C0B0061C154 /* DeviceManageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceManageCell.xib; sourceTree = "<group>"; };
 		709746681D6D8A54002E7A39 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
 		709746691D6D8A54002E7A39 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		7097466A1D6D8A54002E7A39 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
@@ -639,6 +649,7 @@
 		70170BC81D73C1F300CC3951 /* ME */ = {
 			isa = PBXGroup;
 			children = (
+				704583051D9D049B0061C154 /* DeviceManage */,
 				70170BD91D7403C300CC3951 /* MEViewController.h */,
 				70170BDA1D7403C300CC3951 /* MEViewController.m */,
 			);
@@ -739,6 +750,19 @@
 				70170C471D74234900CC3951 /* MonitorViewController.xib */,
 			);
 			path = Monitor;
+			sourceTree = "<group>";
+		};
+		704583051D9D049B0061C154 /* DeviceManage */ = {
+			isa = PBXGroup;
+			children = (
+				704583071D9D04CE0061C154 /* DeviceManageViewController.h */,
+				704583081D9D04CE0061C154 /* DeviceManageViewController.m */,
+				704583091D9D04CE0061C154 /* DeviceManageViewController.xib */,
+				7045830C1D9D0C0B0061C154 /* DeviceManageCell.h */,
+				7045830D1D9D0C0B0061C154 /* DeviceManageCell.m */,
+				7045830E1D9D0C0B0061C154 /* DeviceManageCell.xib */,
+			);
+			name = DeviceManage;
 			sourceTree = "<group>";
 		};
 		709746641D6D89E6002E7A39 /* ext */ = {
@@ -1035,6 +1059,7 @@
 				70FC30EF1D75714E00BD06FE /* zx-video-player-rewind@2x.png in Resources */,
 				70170C0E1D74131500CC3951 /* guang_top.png in Resources */,
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
+				7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */,
 				70170C281D74131500CC3951 /* share_btn.png in Resources */,
 				70170C271D74131500CC3951 /* right_on@2x.png in Resources */,
 				70170C1A1D74131500CC3951 /* login_btn.png in Resources */,
@@ -1078,6 +1103,7 @@
 				70FC30EC1D75714E00BD06FE /* zx-video-player-fastForward@3x.png in Resources */,
 				70170C101D74131500CC3951 /* heart.png in Resources */,
 				70130E9E1D8FDEC8005F0A49 /* search.png in Resources */,
+				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
 				70170C0D1D74131500CC3951 /* detail_btn@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
 				70FC30F01D75714E00BD06FE /* zx-video-player-rewind@3x.png in Resources */,
@@ -1214,8 +1240,10 @@
 				60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */,
 				7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */,
 				70130EB01D8FEE8A005F0A49 /* SocketView.m in Sources */,
+				7045830A1D9D04CE0061C154 /* DeviceManageViewController.m in Sources */,
 				701295151D80F4CF003139D5 /* MBProgressHUD+SimplyShow.m in Sources */,
 				701295231D80F4CF003139D5 /* UIViewController+BaseUISetting.m in Sources */,
+				7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */,
 				60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */,
 				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
 				A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */,

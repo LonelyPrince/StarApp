@@ -31,6 +31,7 @@
 
 #import "Singleton.h"
 #import <objc/runtime.h>
+#import "DeviceManageViewController.h"
 //ext
 #import "AppConfig.h"
 #import "GGMacros.h"

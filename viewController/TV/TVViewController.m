@@ -46,6 +46,7 @@
 @implementation TVViewController
 
 @synthesize searchViewCon;
+@synthesize avController = _avController;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -309,9 +310,10 @@
     
 //    //获取分发资源信息
 //    [self.socketView csGetResource];
+    
+
+    
 }
-
-
 
 
 
@@ -474,11 +476,6 @@
     
     
 }
-//
-//- (void)dealloc
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
 
 
 @end

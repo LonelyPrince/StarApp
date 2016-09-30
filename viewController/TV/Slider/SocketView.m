@@ -117,7 +117,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     
     //转换成字节后，存起来
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:self.beatAllData forKey:@"beatAllData"];
     
     [userDef synchronize];//把数据同步到本地
@@ -158,8 +158,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.service_id = 1;      //.....
     cs_service.audio_index = 67;    //....
     cs_service.subt_index = 0;      //...
-   NSString * phoneModel = @"iPhone6s";
-//    NSString * phoneModel =  [self deviceVersion];
+//   NSString * phoneModel = @"iPhone6s";
+    NSString * phoneModel =  [self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
     cs_service.client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
     cs_service.data_len_name =cs_service.client_name.length   ;    //****
@@ -193,13 +193,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSLog(@"finaldata.length: %d",data_service.length);
     
     //转换成字节后，存起来
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_service"];
-//    NSInteger data_servicelen = data_service.length;
-    
-//    NSString * data_servicelen = [NSString stringWithFormat:@"%d",data_service.length] ;
-//    [userDef setObject:data_servicelen forKey:@"data_servicelen"];
-//    
     [userDef synchronize];//把数据同步到本地
    
     
@@ -249,7 +244,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSLog(@"finaldata.length: %d",data_service.length);
     
     //转换成字节后，存起来
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_playExit"];
     
     [userDef synchronize];//把数据同步到本地
@@ -307,7 +302,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSLog(@"finaldata.length: %d",data_service.length);
     
     //转换成字节后，存起来
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_passwordCheck"];
     
     [userDef synchronize];//把数据同步到本地
@@ -359,7 +354,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSLog(@"finaldata.length: %d",data_service.length);
     
     //转换成字节后，存起来
-    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_getResource"];
     
     [userDef synchronize];//把数据同步到本地
