@@ -32,8 +32,8 @@
 
 + (NSMutableDictionary *)stringToDictionary:(NSString *)sourceString withSeparator:(NSString *)separator;
 
-+ (NSString *)getShowName:(NSString *)username 
-            withFirstName:(NSString *)firstName 
++ (NSString *)getShowName:(NSString *)username
+            withFirstName:(NSString *)firstName
              withLastName:(NSString *)lastName;
 
 + (BOOL)canSendSMS;
@@ -93,4 +93,5 @@
 
 //Data
 +(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData ;
++ (NSString *)GetNowTimeString;
 @end

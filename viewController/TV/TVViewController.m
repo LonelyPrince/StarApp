@@ -8,6 +8,8 @@
 
 #import "TVViewController.h"
 #import "TVCell.h"
+#import "THProgressView.h"
+static const CGSize progressViewSize = {375, 1.5f };
 @interface TVViewController ()<YLSlideViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -39,7 +41,17 @@
 @property (nonatomic, assign) NSInteger category_index;
 @property (strong,nonatomic)NSMutableDictionary * dicTemp;
 
+@property (strong,nonatomic)NSString * service_videoindex;     //video的频道索引
+@property (strong,nonatomic)NSString * service_videoname;    //video的频道名称
+@property (strong,nonatomic)NSString * event_videoname;      //video的节目名称
+@property (strong,nonatomic)NSString * event_startTime;      //video的直播节目开始时间
+@property (strong,nonatomic)NSString * event_endTime;        //video的节目名称结束时间
+
 //@property (strong,nonatomic) NSMutableArray *arrdata;
+//*****progressLineView
+@property (nonatomic) CGFloat progress;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSArray *progressViews;
 
 @end
 
@@ -52,40 +64,40 @@
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
     
     
     [self loadNav];
-    
-   //new
-    [self initData];    //table表    
-//    [self loadUI];              //加载table 和scroll
-//    [self getTopCategory];
+    [self lineView];  //一条0.5pt的线
+    //new
+    [self initData];    //table表
+    //    [self loadUI];              //加载table 和scroll
+    //    [self getTopCategory];
     [self getServiceData];    //获取表数据
+    [self initProgressLine];
     
-
     
-
+    
     self.view.backgroundColor = [UIColor greenColor];
     
     //视频部分
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     [self playVideo];
-
+    
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars =NO;
     self.modalPresentationCapturesStatusBarAppearance =NO;
     self.navigationController.navigationBar.translucent =NO;
     
-    colors = @[[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor]];
+    //    colors = @[[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor]];
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -98,7 +110,7 @@
     WEAKGET
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
-//        NSLog(@"response = %@",response);
+        //        NSLog(@"response = %@",response);
         NSArray *data = response[@"category"];
         
         if (!isValidArray(data) || data.count == 0){
@@ -107,12 +119,17 @@
         self.categorys = (NSMutableArray *)data;
         
         //设置滑动条
-        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, searchBtnY+searchBtnHeight+kZXVideoPlayerOriginalHeight,
+        //        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, searchBtnY+searchBtnHeight+kZXVideoPlayerOriginalHeight,
+        //                                                                  SCREEN_WIDTH_YLSLIDE,
+        //                                                                  SCREEN_HEIGHT_YLSLIDE-64)
+        //                                             forTitles:self.categorys];
+        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                                                   SCREEN_WIDTH_YLSLIDE,
                                                                   SCREEN_HEIGHT_YLSLIDE-64)
                                              forTitles:self.categorys];
         
-//        NSLog(@"category:%@",self.categorys);
+        
+        //        NSLog(@"category:%@",self.categorys);
         
         _slideView.backgroundColor = [UIColor whiteColor];
         _slideView.delegate        = self;
@@ -128,22 +145,68 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+    
 }
 //1.line
-//-(UIView *) lineView
-//{
-//    if (!_lineView){
-//        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 36, SCREEN_WIDTH/5, 3)];
-//        _lineView.backgroundColor = homeTintColor;
-//        [self.topScroller addSubview:_lineView];
-//    }
-//    return _lineView;
-//}
+-(UIView *) lineView
+{
+    if (!_lineView){
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 0.5)];
+        _lineView.backgroundColor = lineBlackColor;
+        [self.view addSubview:_lineView];
+    }
+    return _lineView;
+}
 -(void) initData
 {
     self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
+}
+-(void)initProgressLine
+{
+    THProgressView *topProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(0  ,
+                                                                                       VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
+                                                                                       SCREEN_WIDTH,
+                                                                                       progressViewSize.height)];
+    topProgressView.borderTintColor = [UIColor whiteColor];
+    topProgressView.progressTintColor = [UIColor redColor];
+    [self.view addSubview:topProgressView];
+    [self.view bringSubviewToFront:topProgressView];
+    
+    self.progressViews = @[ topProgressView ];
+    
+    
+    
+}
+- (void)updateProgress :(NSTimer *)Time // lasttime :(NSString*)endTime
+{
+    //算出时间间隔
+    int timeCut = [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
+    NSLog(@"timecut %d",timeCut);
+    NSString *  starttime =[[Time userInfo]objectForKey:@"StarTime"];
+    //    self.progress += 0.20f;
+    //每次移动的距离
+    //    self.progress += SCREEN_WIDTH/timeCut;
+    self.progress = timeCut;
+    //获取当前时间
+    //    NSString * nowTimeString = [GGUtil GetNowTimeString];
+    
+//    NSLog(@"-----self.progress:%f",self.progress);
+//    
+//    if (self.progress > SCREEN_WIDTH) {
+//        self.progress = SCREEN_WIDTH;
+//        
+//    }
+    
+    [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
+        [USER_DEFAULT setObject:starttime forKey:@"StarTime"];
+        [progressView setProgress:self.progress animated:YES ];
+    }];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 //-(void) loadUI
 //{
@@ -159,7 +222,7 @@
 //    scroller.showsHorizontalScrollIndicator = NO;
 //    self.topScroller = scroller;
 //    [self.table  bringSubviewToFront:scroller];
-//    
+//
 
 //}
 ////获取scroll
@@ -167,30 +230,30 @@
 //{
 //    //获取数据的链接
 //    NSString *url = [NSString stringWithFormat:@"%@",S_category];
-//    
+//
 //    LBGetHttpRequest *request = CreateGetHTTP(url);
-//    
-//    
+//
+//
 //    [request startAsynchronous];
-//    
+//
 //    WEAKGET
 //    [request setCompletionBlock:^{
 //        NSDictionary *response = httpRequest.responseString.JSONValue;
 //        NSLog(@"response = %@",response);
 //        NSArray *data = response[@"category"];
-//        
+//
 //        if (!isValidArray(data) || data.count == 0){
 //            return ;
 //        }
 //        self.categorys = (NSMutableArray *)data;
-//        
-//        
+//
+//
 //        //[AppDelegate shareAppDelegate].leftVC.dataSource = self.categorys;
-//        
+//
 //          [self.table reloadData];
 //        [self refreshTopScroller];
 //    }];
-//    
+//
 //}
 
 //获取table
@@ -208,17 +271,17 @@
     WEAKGET
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
-//        NSLog(@"response = %@",response);
+        //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         if (!isValidArray(data1) || data1.count == 0){
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
         
-//        NSLog(@"--------%@",self.serviceData);
+        //        NSLog(@"--------%@",self.serviceData);
         
         [self.table reloadData];
-       
+        
     }];
     
 }
@@ -227,39 +290,40 @@
     //顶部搜索条
     self.navigationController.navigationBarHidden = YES;
     UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, -30, SCREEN_WIDTH, topViewHeight)];
-    topView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:topView];
+    topView.backgroundColor = [UIColor whiteColor];
+    //    [self.view addSubview:topView];
     
     //self.navigationController.navigationBar.barTintColor = UIStatusBarStyleDefault;
     
     //搜索按钮
     UIButton * searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight)];
     [searchBtn setTitle:@"search" forState:UIControlStateNormal];
-    [searchBtn setBackgroundColor:[UIColor grayColor]];
-    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn setBackgroundColor:[UIColor whiteColor]];
+    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
     [self.view addSubview:searchBtn];
     [topView bringSubviewToFront:searchBtn];
     [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     //视频播放
-   //----直播源
+    //----直播源
     self.video = [[ZXVideo alloc] init];
     //    video.playUrl = @"http://baobab.wdjcdn.com/1451897812703c.mp4";
-////    self.video.playUrl = @"http://192.168.32.66/vod/mp4:151463.mp4/playlist.m3u8";
-//self.video.playUrl = @"http://192.168.1.1/segment_delivery/delivery_0/play_tv2ip_0.m3u8";
     //  http://192.168.1.1/segment_delivery/delivery_0/play_tv2ip_0.m3u8
-    self.video.title = @"Rollin'Wild 圆滚滚的";
+    
+    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
+    NSLog(@"video.title %@",self.video.title);
+    //    self.video.title = @"Rollin'Wild 圆滚滚的";
     
     NSLog(@"----%@",self.video.playUrl);
     NSLog(@"----%@",self.video.title);
     
-
-  }
+    
+}
 
 - (void)playVideo
 {
     if (!self.videoController) {
-        self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, searchBtnY+searchBtnHeight, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
+        self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
         
         __weak typeof(self) weakSelf = self;
         self.videoController.videoPlayerGoBackBlock = ^{
@@ -280,13 +344,13 @@
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");
-           self.tabBarController.tabBar.hidden = YES;
+            self.tabBarController.tabBar.hidden = YES;
         };
         
         [self.videoController showInView:self.view];
     }
     
-
+    
     
     self.videoController.video = self.video;
     NSLog(@"video:%@",self.videoController.video.title);
@@ -298,17 +362,17 @@
 {
     searchViewCon = [[SearchViewController alloc]init];
     [self.navigationController pushViewController:searchViewCon animated:YES];
-//
-//    //停止播放
-//    [self.socketView  deliveryPlayExit];
+    //
+    //    //停止播放
+    //    [self.socketView  deliveryPlayExit];
     
-////    密码校验
-//     [self.socketView passwordCheck];
+    ////    密码校验
+    //     [self.socketView passwordCheck];
     
-//    //获取分发资源信息
-//    [self.socketView csGetResource];
+    //    //获取分发资源信息
+    //    [self.socketView csGetResource];
     
-
+    
     
 }
 
@@ -317,7 +381,7 @@
 //************************************************
 //table可以滑动的次数
 - (NSInteger)columnNumber{
- //   return colors.count;
+    //   return colors.count;
     return self.categorys.count;
 }
 
@@ -335,10 +399,10 @@
     
     //    cell.backgroundColor = colors[index];
     
-   
     
     
-//     NSLog(@"index --------:%@ ",@(index));
+    
+    //     NSLog(@"index --------:%@ ",@(index));
     return cell;
 }
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
@@ -350,32 +414,32 @@
     //self.categoryModel.service_indexArr        类别的索引数组
     //self.categoryModel.service_indexArr.count
     //给不同的table赋值
-//    for (int i = 0 ; i<self.categorys.count; i++) {
-        NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+    //    for (int i = 0 ; i<self.categorys.count; i++) {
+    NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
     self.categoryModel = [[CategoryModel alloc]init];
     
     self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
-
-        //获取EPG信息 展示
-        //时间戳转换
-        
-              //获取不同类别下的节目，然后是节目下不同的cell值                10
-                for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-        
-                    int indexCat ;
-                 //   NSString * str;
-                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                    //cell.tabledataDic = self.serviceData[indexCat -1];
-                    
-                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-
-                   
-                }
-//        cell.tabledataDic =  self.categorys[index];
-//    }
     
-//    self.a = index;
-//    NSLog(@"index  self.a--------:%@ ",@(index));
+    //获取EPG信息 展示
+    //时间戳转换
+    
+    //获取不同类别下的节目，然后是节目下不同的cell值                10
+    for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+        
+        int indexCat ;
+        //   NSString * str;
+        indexCat =[self.categoryModel.service_indexArr[i] intValue];
+        //cell.tabledataDic = self.serviceData[indexCat -1];
+        
+        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+        
+        
+    }
+    //        cell.tabledataDic =  self.categorys[index];
+    //    }
+    
+    //    self.a = index;
+    //    NSLog(@"index  self.a--------:%@ ",@(index));
     [cell reloadData]; //刷新TableView
     //    NSLog(@"刷新数据");
 }
@@ -397,7 +461,7 @@
     NSLog(@"%lu",(unsigned long)self.serviceData.count);
     
     return self.categoryModel.service_indexArr.count;
-
+    
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -411,20 +475,20 @@
     }
     
     
-//    
-//    TVTable * table = [[TVTable alloc]init];
-//    cell.dataDic = table.tabledataDic;
-
+    //
+    //    TVTable * table = [[TVTable alloc]init];
+    //    cell.dataDic = table.tabledataDic;
     
-//    cell.aa =  self.category_index;
-//    cell.aaa =self.categoryModel.service_indexArr.count;
-//    NSLog(@"index  cell.aaa--------:%d",cell.aaa);
-   
+    
+    //    cell.aa =  self.category_index;
+    //    cell.aaa =self.categoryModel.service_indexArr.count;
+    //    NSLog(@"index  cell.aaa--------:%d",cell.aaa);
+    
     if (!ISEMPTY(self.dicTemp)) {
-         cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+        cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
     }else{//如果为空，什么都不执行
     }
-   
+    
     NSLog(@"cell.dataDic:%@",cell.dataDic);
     
     return cell;
@@ -439,12 +503,14 @@
     
     //先传输数据到socket，然后再播放视频
     NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
-
+    
     
     //__
     
     NSArray * audio_infoArr = [[NSArray alloc]init];
     NSArray * subt_infoArr = [[NSArray alloc]init];
+    
+    NSArray * epg_infoArr = [[NSArray alloc]init];
     //****
     
     
@@ -455,13 +521,27 @@
     socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
     socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
     socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
-   socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
     socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+    
+    //********
+    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    
+    NSLog(@"eventname :%@",self.event_startTime);
+    //*********
+    
+    
+    
     
     if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
         socketView.socket_ServiceModel.audio_pid = @"0";
     }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
-    socketView.socket_ServiceModel.subt_pid = @"0";
+        socketView.socket_ServiceModel.subt_pid = @"0";
     }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
         socketView.socket_ServiceModel.service_network_id = @"0";
     }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
@@ -473,14 +553,6 @@
     }
     
     NSLog(@"------%@",socketView.socket_ServiceModel);
-
-
-    //__
-    
-    
-    
-    
-    
     
     
     
@@ -491,10 +563,10 @@
     
     [self.socketView  serviceTouch ];
     
-        
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-
+    //    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    
 }
 
 - (void)getDataService:(NSNotification *)text{
@@ -502,26 +574,40 @@
     NSLog(@"－－－－－接收到通知------");
     
     //NSData --->byte[]-------NSData----->NSString
-
+    
     NSMutableData * byteDatas;
     byteDatas = [[NSMutableData alloc]init];
-
+    
     //调用GGutil的方法
     byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
     
     NSLog(@"---urlData%@",byteDatas);
     self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding]];
+    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
+    
+    self.video.playEventName = self.event_videoname;
+    
     [self playVideo];
+    //** 计算进度条
+    if(!ISNULL(self.event_startTime)&&!ISNULL(self.event_endTime))
+    {
+        NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+        [dict setObject:self.event_startTime forKey:@"StarTime"];
+        [dict setObject:self.event_endTime forKey:@"EndTime"];
+        
+        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
+    }
+    //**
     NSLog(@"---urlData%@",self.video.playUrl);
     
- 
+    
     NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
-
+    
     UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alertview show];
     
     
 }
-
 
 @end

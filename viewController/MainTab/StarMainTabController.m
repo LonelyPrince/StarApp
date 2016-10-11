@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     [self loadTab];
-
+    
     // Do any additional setup after loading the view.
 }
 
@@ -30,38 +30,39 @@
 
 -(void)loadTab
 {
-
+    
     
     TVViewController * tvVC = [[TVViewController alloc]init];
     UINavigationController * tvViewNav = [[UINavigationController alloc]initWithRootViewController:tvVC];
-   
-    tvVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"TV" image:[UIImage imageNamed:@"hot"] selectedImage:[UIImage imageNamed:@"hot"]];
+    
+    tvVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Live" image:[UIImage imageNamed:@"live icon copy"] selectedImage:[UIImage imageNamed:@"live icon"]];
     
     
     
     MEViewController * meVC = [[MEViewController alloc]init];
     UINavigationController * meViewNav = [[UINavigationController alloc]initWithRootViewController:meVC];
-    meVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"me" image:[UIImage imageNamed:@"like_btn"] selectedImage:[UIImage imageNamed:@"like_btn_selected"]];
+    meVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Me" image:[UIImage imageNamed:@"me icon copy"] selectedImage:[UIImage imageNamed:@"me icon"]];
     
     MonitorViewController * monVC = [[MonitorViewController alloc]init];
     UINavigationController * monViewNav = [[UINavigationController alloc]initWithRootViewController:monVC];
-    monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"mon" image:[UIImage imageNamed:@"more"] selectedImage:[UIImage imageNamed:@"more"]];
+    monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Monitor" image:[UIImage imageNamed:@"more"] selectedImage:[UIImage imageNamed:@"more"]];
     
     
-   
     
-    [self setViewControllers:@[tvViewNav,monVC,meViewNav]];
+    
+    
+    [self setViewControllers:@[monVC,tvViewNav,meViewNav]];
     
     
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -55,11 +55,11 @@ static NSDateFormatter *g_dayDateFormatter;
     return image;
 }
 
-+(UIImage *)imageMono:(UIImage *)originalImage{    
++(UIImage *)imageMono:(UIImage *)originalImage{
     
     CGColorSpaceRef colorSapce = CGColorSpaceCreateDeviceGray();
     CGContextRef context = CGBitmapContextCreate(nil, originalImage.size.width, originalImage.size.height, 8, originalImage.size.width, colorSapce, kCGBitmapAlphaInfoMask);
-
+    
     CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
     CGContextSetShouldAntialias(context, NO);
     CGContextDrawImage(context, CGRectMake(0, 0, originalImage.size.width, originalImage.size.height), [originalImage CGImage]);
@@ -71,31 +71,31 @@ static NSDateFormatter *g_dayDateFormatter;
     UIImage *returnImage = [UIImage imageWithCGImage:bwImage]; // This is result B/W image.
     CGImageRelease(bwImage);
     
-
+    
     return returnImage;
 }
 
 //+ (UIImage*)cropImage:(UIImage*)img withRect:(CGRect)rect{
-//    
+//
 //    UIGraphicsBeginImageContextWithOptions(rect.size, NO, [UIScreen mainScreen].scale);
-//    
+//
 //    CGContextRef context = UIGraphicsGetCurrentContext();
-//    
+//
 //    // translated rectangle for drawing sub image
 //    CGRect drawRect = CGRectMake(-rect.origin.x, -rect.origin.y, img.size.width, img.size.height);
-//    
+//
 //    // clip to the bounds of the image context
 //    // not strictly necessary as it will get clipped anyway?
 //    CGContextClipToRect(context, CGRectMake(0, 0, rect.size.width, rect.size.height));
-//    
+//
 //    // draw image
 //    [img drawInRect:drawRect];
-//    
+//
 //    // grab image
 //    UIImage* subImage = UIGraphicsGetImageFromCurrentImageContext();
-//    
+//
 //    UIGraphicsEndImageContext();
-//    
+//
 //    return subImage;
 //}
 
@@ -134,7 +134,7 @@ static const char *getPropertyType(objc_property_t property) {
         if (attribute[0] == 'T') {
             //fprintf(stdout, "%s \n",attribute);
             if (attribute[1] == '@'){
-                    return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
+                return (const char *)[[NSData dataWithBytes:(attribute + 3) length:strlen(attribute) - 4] bytes];
             }
         }
     }
@@ -155,7 +155,7 @@ static const char *getPropertyType(objc_property_t property) {
             NSString *propertyType = [NSString stringWithUTF8String:propType];
             if (propertyType) {
                 [props setObject:propertyType forKey:propertyName];
-            } 
+            }
         }
     }
     free(properties);
@@ -183,10 +183,10 @@ static const char *getPropertyType(objc_property_t property) {
     NSArray *chunks = [sourceString componentsSeparatedByString: separator];
     NSMutableDictionary *stringDict=[NSMutableDictionary dictionary];
     
-    for(NSString *chunk in chunks){        
-        NSArray *keyValue=[chunk componentsSeparatedByString: @"="];      
+    for(NSString *chunk in chunks){
+        NSArray *keyValue=[chunk componentsSeparatedByString: @"="];
         DLog(@"key:%@", [keyValue objectAtIndex:0]);
-        DLog(@"value:%@", [keyValue objectAtIndex:1]);        
+        DLog(@"value:%@", [keyValue objectAtIndex:1]);
         [stringDict setValue:[keyValue objectAtIndex:1] forKey:[keyValue objectAtIndex:0]];
     }
     return stringDict;
@@ -196,17 +196,17 @@ static const char *getPropertyType(objc_property_t property) {
 #pragma mark System Check
 + (BOOL)canSendSMS{
     BOOL canSMS=NO;
-    Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));    
+    Class messageClass = (NSClassFromString(@"MFMessageComposeViewController"));
     if (messageClass != nil) {
         if ([messageClass canSendText]) {
             canSMS=YES;
         } else {
-            [GGUtil showAlert:NSLocalizedString(@"Device can not use SMS.",@"") 
-                      title:NSLocalizedString(@"Warning",@"")];
+            [GGUtil showAlert:NSLocalizedString(@"Device can not use SMS.",@"")
+                        title:NSLocalizedString(@"Warning",@"")];
         }
     }
     return canSMS;
-
+    
 }
 
 + (BOOL)checkNetworkConnection
@@ -288,7 +288,7 @@ static const char *getPropertyType(objc_property_t property) {
         }
     }
     
-    return NO; 
+    return NO;
 }
 
 + (BOOL)stringIsEmpty:(NSString *) aString shouldCleanWhiteSpace:(BOOL)cleanWhileSpace {
@@ -301,7 +301,7 @@ static const char *getPropertyType(objc_property_t property) {
         return YES;
     } else if ([aString length] == 0) {
         return YES;
-    } 
+    }
     
     if (cleanWhileSpace) {
         aString = [aString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -310,7 +310,7 @@ static const char *getPropertyType(objc_property_t property) {
         }
     }
     
-    return NO; 
+    return NO;
 }
 
 //+ (NSString*)UUID {
@@ -339,7 +339,7 @@ static const char *getPropertyType(objc_property_t property) {
     }else{
         distanceText=[NSString stringWithFormat:@"%dkm", ((int)distance/1000)];
     }
-    return distanceText;    
+    return distanceText;
 }
 
 + (NSString *)getShowName:(NSString *)username withFirstName:(NSString *)firstName withLastName:(NSString *)lastName{
@@ -365,9 +365,9 @@ static const char *getPropertyType(objc_property_t property) {
 
 +(BOOL)isValidateTelephone:(NSString*)telephone
 {
-//    0\\d{2}\\d{8}|0\\d{2}\\d{7}|0\\d{3}\\d{7}|0\\d{3}\\d{8}
+    //    0\\d{2}\\d{8}|0\\d{2}\\d{7}|0\\d{3}\\d{7}|0\\d{3}\\d{8}
     NSString *phoneRegex = @"0\\d{2,3}-\\d{5,9}|0\\d{2,3}-\\d{5,9}";
-//    NSString *phoneRegex = @"(^(0\\d{2})-(\\d{8})$)|(^(0\\d{3})-(\\d{7})$)|(^(0\\d{2})-(\\d{8})-(\\d+)$)|(^(0\\d{3})-(\\d{7})-(\\d+)$)";
+    //    NSString *phoneRegex = @"(^(0\\d{2})-(\\d{8})$)|(^(0\\d{3})-(\\d{7})$)|(^(0\\d{2})-(\\d{8})-(\\d+)$)|(^(0\\d{3})-(\\d{7})-(\\d+)$)";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     return [phoneTest evaluateWithObject:telephone];
 }
@@ -395,12 +395,12 @@ static const char *getPropertyType(objc_property_t property) {
     NSString *timeText=@"";
     
     NSCalendar *calender = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calender components:(NSYearCalendarUnit | 
+    NSDateComponents *components = [calender components:(NSYearCalendarUnit |
                                                          NSMonthCalendarUnit |
-                                                         NSDayCalendarUnit | 
-                                                         NSHourCalendarUnit | 
-                                                         NSMinuteCalendarUnit | 
-                                                         NSSecondCalendarUnit) 
+                                                         NSDayCalendarUnit |
+                                                         NSHourCalendarUnit |
+                                                         NSMinuteCalendarUnit |
+                                                         NSSecondCalendarUnit)
                                                fromDate:time
                                                  toDate:[NSDate date] options:0];
     
@@ -470,7 +470,7 @@ static const char *getPropertyType(objc_property_t property) {
 {
 #if TARGET_IPHONE_SIMULATOR
 #ifdef DEBUG
-    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), 
+    CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),
                                          (CFStringRef)@"UISimulatedMemoryWarningNotification", NULL, NULL, true);
 #endif
 #endif
@@ -483,7 +483,7 @@ static const char *getPropertyType(objc_property_t property) {
     NSString *largeUrl=shortUrl;
     NSRange textRange = [shortUrl rangeOfString:@"sinaimg"];
     if(textRange.location != NSNotFound) {
-        largeUrl = [shortUrl stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];   
+        largeUrl = [shortUrl stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
         DLog(@"short url:%@",shortUrl);
         DLog(@"large url:%@",largeUrl);
     }
@@ -534,7 +534,7 @@ static const char *getPropertyType(objc_property_t property) {
             if ([priceString rangeOfString:@".0"].location != NSNotFound) {
                 priceString = [priceString substringToIndex:priceString.length - 2];
             }
-        
+            
         }
         
         return [priceString stringByAppendingString:@"元"];
@@ -594,13 +594,28 @@ static const char *getPropertyType(objc_property_t property) {
     for (int i = 0; i <bReduceALength ; i++ ) {
         //转换
         bReduceAbyteArray[i] = byteArray[aData.length +i];
-//        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
+        //        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
     }
     
     byteToDatas = [[NSMutableData alloc]init];
     byteToDatas =  [[NSMutableData alloc]initWithBytes:bReduceAbyteArray length:bReduceALength];
     NSLog(@"---urlData%@",byteToDatas);
     return byteToDatas;
+    
+}
+
+//返回时间戳的string类型
++ (NSString *)GetNowTimeString
+
+{
+    
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];  //获取当前时间
+    
+    NSTimeInterval timeInterval = [date timeIntervalSince1970];
+    
+    NSString *timeString = [NSString stringWithFormat:@"%.0f", timeInterval];
+    
+    return timeString;
     
 }
 

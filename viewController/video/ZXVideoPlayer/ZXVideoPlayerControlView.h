@@ -33,6 +33,7 @@
 @property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;
 @property (nonatomic, strong, readonly) UISlider *progressSlider;
 @property (nonatomic, strong, readonly) UILabel *timeLabel;
+
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *indicatorView;
 
 @property (nonatomic, assign, readonly) BOOL isBarShowing;
@@ -53,6 +54,9 @@
 /// 标题
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 
+//**** 当前节目名称
+@property (nonatomic, strong, readonly) UILabel *eventnameLabel;
+//****
 - (void)animateHide;
 - (void)animateShow;
 - (void)autoFadeOutControlBar;

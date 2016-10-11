@@ -35,7 +35,7 @@
 // socket连接
 -(void)socketConnectHost{
     
-//    self.socketView = [[SocketView alloc]init];
+    //    self.socketView = [[SocketView alloc]init];
     
     self.socket    = [[AsyncSocket alloc] initWithDelegate:self];
     
@@ -67,7 +67,7 @@
     
     
     // 根据服务器要求发送固定格式的数据
-//    [self.socketView heartBeat];
+    //    [self.socketView heartBeat];
     NSMutableData * betaData1 = [[NSMutableData alloc]init];
     
     betaData1 = [USER_DEFAULT objectForKey:@"beatAllData"];
@@ -81,13 +81,14 @@
 
 //播放视频
 -(void)Play_ServiceSocket{
-
+    
     // 根据服务器要求发送固定格式的数据
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_service"];
-//    NSLog(@"singleton data_service :%@",data_service);
+    NSLog(@"singleton data_service :%@",data_service);
+    
     
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
@@ -167,34 +168,34 @@
     NSLog(@"读--");
     NSLog(@"%ld",tag);
     NSLog(@"readdata:%@",data);
-
+    
     NSData * data_ret = [data subdataWithRange:NSMakeRange(12,4)];
     uint8_t data_retTo32int = [SocketUtils uint32FromBytes:data_ret];
     if (data_retTo32int ==1) {
-    
+        
         [MBProgressHUD showMessag:@"CRC error" toView:nil];
     }
     else{
-    
-    NSData * data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
-    NSString * model_name = [[NSString alloc]initWithData:data_model_name encoding:NSUTF8StringEncoding];
-    NSLog(@"data1:%@",model_name);
-    if([model_name isEqualToString:@"BEAT"])
-    {
-    }
-    else if([model_name isEqualToString:@"MDMM"])
-    {
-    NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
-       uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
         
-//        NSLog(@"command_type:%hhu",command_type);
-        
-        switch (command_type) {
-            case 0:
+        NSData * data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
+        NSString * model_name = [[NSString alloc]initWithData:data_model_name encoding:NSUTF8StringEncoding];
+        NSLog(@"data1:%@",model_name);
+        if([model_name isEqualToString:@"BEAT"])
+        {
+        }
+        else if([model_name isEqualToString:@"MDMM"])
+        {
+            NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+            uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
             
-            break;
+            //        NSLog(@"command_type:%hhu",command_type);
             
-            case 12:
+            switch (command_type) {
+                case 0:
+                    
+                    break;
+                    
+                case 12:
                 {
                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                     [userDef setObject:data forKey:@"data_service11"];
@@ -210,16 +211,16 @@
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
-            break;
-            
-            
-            default:
-            break;
+                    break;
+                    
+                    
+                default:
+                    break;
+            }
         }
+        
+        
     }
-    
-    
-}
     
     
     [self.socket readDataWithTimeout:30 tag:0];

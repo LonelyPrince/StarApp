@@ -25,16 +25,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-  
-    // Override point for customization after application launch.
-
-//    //master第一个页面
-//    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil] autorelease];
-//    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
-//    self.window.rootViewController = self.navigationController;
-//    [self.window makeKeyAndVisible];
-    self.starMainTab = [[StarMainTabController alloc]init];
     
+    // Override point for customization after application launch.
+    
+    //    //master第一个页面
+    //    MasterViewController *masterViewController = [[[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil] autorelease];
+    //    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
+    //    self.window.rootViewController = self.navigationController;
+    //    [self.window makeKeyAndVisible];
+    self.starMainTab = [[StarMainTabController alloc]init];
+    self.starMainTab.selectedIndex = 1;
     self.window.rootViewController = self.starMainTab;
     
     [NSThread sleepForTimeInterval:1.0];//设置启动页面时间
@@ -59,7 +59,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     /*
-     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
 }

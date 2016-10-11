@@ -153,11 +153,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // 更新缓冲进度
     self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
     
-//    if (self.duration == self.playableDuration && self.playableDuration != 0.0) {
-//        NSLog(@"缓冲完成");
-//    }
-//    int percentage = self.playableDuration / self.duration * 100;
-//    NSLog(@"缓冲进度: %d%%", percentage);
+    //    if (self.duration == self.playableDuration && self.playableDuration != 0.0) {
+    //        NSLog(@"缓冲完成");
+    //    }
+    //    int percentage = self.playableDuration / self.duration * 100;
+    //    NSLog(@"缓冲进度: %d%%", percentage);
 }
 
 /// 更新播放时间显示
@@ -518,7 +518,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.frame = [UIScreen mainScreen].bounds;
-
+    
     self.isFullscreenMode = YES;
     self.videoControl.fullScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton.hidden = NO;
@@ -708,6 +708,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.titleLabel.text = self.video.title;
     // play url
     self.contentURL = [NSURL URLWithString:self.video.playUrl];
+    //当前节目名称
+    self.videoControl.eventnameLabel.text = self.video.playEventName;
 }
 
 @end

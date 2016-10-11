@@ -23,6 +23,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @property (nonatomic, strong) UIButton *shrinkScreenButton;
 @property (nonatomic, strong) UISlider *progressSlider;
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *eventnameLabel;
+
 @property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
@@ -43,26 +45,29 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self.bottomBar addSubview:self.fullScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton];
         self.shrinkScreenButton.hidden = YES;
-        [self.bottomBar addSubview:self.progressSlider];
-        [self.bottomBar addSubview:self.timeLabel];
+        //        [self.bottomBar addSubview:self.progressSlider];
+        //        [self.bottomBar addSubview:self.timeLabel];
         [self addSubview:self.indicatorView];
-        
+        //****
+        [self.bottomBar addSubview:self.eventnameLabel];
+        //****
         // 返回按钮
-        [self.topBar addSubview:self.backButton];
+        //        [self.topBar addSubview:self.backButton];
         // 锁定按钮
-        [self.topBar addSubview:self.lockButton];
+        //        [self.topBar addSubview:self.lockButton];
         // 缓冲进度条
-        [self.bottomBar insertSubview:self.bufferProgressView belowSubview:self.progressSlider];
+        //        [self.bottomBar insertSubview:self.bufferProgressView belowSubview:self.progressSlider];
         // 快进、快退指示器
-        [self addSubview:self.timeIndicatorView];
+        //        [self addSubview:self.timeIndicatorView];
         // 亮度指示器
         [self addSubview:self.brightnessIndicatorView];
         // 音量指示器
         [self addSubview:self.volumeIndicatorView];
         // 电池条
-//        [self.topBar addSubview:self.batteryView];
+        //        [self.topBar addSubview:self.batteryView];
         // 标题
         [self.topBar addSubview:self.titleLabel];
+        
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
         [self addGestureRecognizer:tapGesture];
@@ -84,6 +89,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.pauseButton.frame = self.playButton.frame;
     
     self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
+    //    self.fullScreenButton.frame = CGRectMake(SCREEN_WIDTH-15-CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2,CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
     
     self.shrinkScreenButton.frame = self.fullScreenButton.frame;
     
@@ -94,9 +100,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     
     // 返回按钮
-    self.backButton.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds), CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
+    //    self.backButton.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds), CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
     // 锁定按钮
-    self.lockButton.frame = CGRectMake(CGRectGetMaxX(self.topBar.bounds) - 40 - 10, CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
+    //    self.lockButton.frame = CGRectMake(CGRectGetMaxX(self.topBar.bounds) - 40 - 10, CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
     // 缓冲进度条
     self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
     self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
@@ -107,9 +113,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     // 音量指示器
     self.volumeIndicatorView.center = self.indicatorView.center;
     // 电池条
-//    self.batteryView.frame = CGRectMake(CGRectGetMinX(self.lockButton.frame) - CGRectGetWidth(self.batteryView.bounds) - 10, CGRectGetMidY(self.topBar.bounds) - CGRectGetHeight(self.batteryView.bounds) / 2, CGRectGetWidth(self.batteryView.bounds), CGRectGetHeight(self.batteryView.bounds));
+    //    self.batteryView.frame = CGRectMake(CGRectGetMinX(self.lockButton.frame) - CGRectGetWidth(self.batteryView.bounds) - 10, CGRectGetMidY(self.topBar.bounds) - CGRectGetHeight(self.batteryView.bounds) / 2, CGRectGetWidth(self.batteryView.bounds), CGRectGetHeight(self.batteryView.bounds));
     // 标题
-    self.titleLabel.frame = CGRectMake(CGRectGetWidth(self.backButton.bounds), 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+    //    self.titleLabel.frame = CGRectMake(CGRectGetWidth(self.backButton.bounds), 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+    self.titleLabel.frame = CGRectMake(-55, 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+    //********
+    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
 }
 
 - (void)didMoveToSuperview
@@ -224,7 +233,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_fullScreenButton) {
         _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_fullScreenButton setImage:[UIImage imageNamed:@"kr-video-player-fullscreen"] forState:UIControlStateNormal];
+        [_fullScreenButton setImage:[UIImage imageNamed:@"Group 5"] forState:UIControlStateNormal];
         _fullScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
     }
     return _fullScreenButton;
@@ -352,5 +361,15 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     }
     return _titleLabel;
 }
-
-@end
+//****
+///
+- (UILabel *)eventnameLabel
+{
+    if (!_eventnameLabel) {
+        _eventnameLabel = [[UILabel alloc] init];
+        _eventnameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _eventnameLabel.textColor = [UIColor whiteColor];
+        _eventnameLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _eventnameLabel;
+}@end

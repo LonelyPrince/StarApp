@@ -67,7 +67,9 @@
     
     if (epgArr.count >1) {
         nextEpgDic = epgArr[1];
+        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
         self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+        NSLog(@"shijian时间：%@",self.event_nextTime.text);
         self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
     }
     else
@@ -92,16 +94,28 @@
 //时间戳转换
 - (NSString *)timeWithTimeIntervalString:(NSString *)timeString
 {
-    // 格式化时间
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@" HH:mm"];
+//    NSTimeInterval time=[timeString doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
+     NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
+    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+    NSLog(@"date:%@",[detaildate description]);
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"HH:mm"];
+//     [dateFormatter setDateFormat:@"现在日期：yyyy年MM月dd日 \n 现在时刻： HH:mm:ss             "];
     
-    // 毫秒值转化为秒
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
-    NSString* dateString = [formatter stringFromDate:date];
-    return dateString;
+    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+    
+    //    // 格式化时间
+//    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
+//    [formatter setDateStyle:NSDateFormatterMediumStyle];
+//    [formatter setTimeStyle:NSDateFormatterShortStyle];
+//    [formatter setDateFormat:@" HH:mm"];
+//    
+//    // 毫秒值转化为秒
+//    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+//    NSString* dateString = [formatter stringFromDate:date];
+    return currentDateStr;
 }
 @end

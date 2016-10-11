@@ -16,4 +16,7 @@
 /// 播放地址
 @property (nonatomic, copy, readwrite) NSString *playUrl;
 
+/// 播放节目名称
+@property (nonatomic, copy, readwrite) NSString *playEventName;
+
 @end

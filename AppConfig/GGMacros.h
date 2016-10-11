@@ -117,6 +117,7 @@
 
 #define SCREEN_HEIGHT MAX([UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height)
 
+#define SCREEN_STATUSHEIGHT  [[UIApplication sharedApplication] statusBarFrame].size.height
 //weakself
 #define WEAKSELF   __weak __typeof(&*self)weakSelf = self;
 #define WEAKPOST   __weak LBPostHttpRequest *httpRequest = request;
@@ -137,10 +138,12 @@ typedef void(^dictionaryBlock)(NSDictionary *results);
 
 //new
 //----TVViewController.m
-#define searchBtnX 30
+#define searchBtnX 15
 //#define searchBtnY 10+NavigationBar_HEIGHT
-#define searchBtnY 20
+#define searchBtnY 20+7.5    //一共27.5pt
 #define searchBtnWidth   SCREEN_WIDTH-2*searchBtnX
-#define searchBtnHeight  35
+#define searchBtnHeight  29
+
+#define VIDEOHEIGHT  64+0.5
 
 #define topViewHeight  50
