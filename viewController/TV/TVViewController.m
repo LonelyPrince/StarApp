@@ -9,6 +9,9 @@
 #import "TVViewController.h"
 #import "TVCell.h"
 #import "THProgressView.h"
+#import "HexColors.h"
+
+
 static const CGSize progressViewSize = {375, 1.5f };
 @interface TVViewController ()<YLSlideViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -169,7 +172,7 @@ static const CGSize progressViewSize = {375, 1.5f };
                                                                                        SCREEN_WIDTH,
                                                                                        progressViewSize.height)];
     topProgressView.borderTintColor = [UIColor whiteColor];
-    topProgressView.progressTintColor = [UIColor redColor];
+    topProgressView.progressTintColor = ProgressLineColor;// [UIColor redColor];//
     [self.view addSubview:topProgressView];
     [self.view bringSubviewToFront:topProgressView];
     
@@ -178,7 +181,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     
 }
-- (void)updateProgress :(NSTimer *)Time // lasttime :(NSString*)endTime
+- (void)updateProgress :(NSTimer *)Time
 {
     //算出时间间隔
     int timeCut = [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
@@ -186,10 +189,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     NSString *  starttime =[[Time userInfo]objectForKey:@"StarTime"];
     //    self.progress += 0.20f;
     //每次移动的距离
-    //    self.progress += SCREEN_WIDTH/timeCut;
     self.progress = timeCut;
-    //获取当前时间
-    //    NSString * nowTimeString = [GGUtil GetNowTimeString];
     
 //    NSLog(@"-----self.progress:%f",self.progress);
 //    
@@ -204,10 +204,10 @@ static const CGSize progressViewSize = {375, 1.5f };
     }];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
 //-(void) loadUI
 //{
 ////    [self creatTopScroller];   //创建scroll
@@ -291,7 +291,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.navigationController.navigationBarHidden = YES;
     UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, -30, SCREEN_WIDTH, topViewHeight)];
     topView.backgroundColor = [UIColor whiteColor];
-    //    [self.view addSubview:topView];
+        [self.view addSubview:topView];
     
     //self.navigationController.navigationBar.barTintColor = UIStatusBarStyleDefault;
     
@@ -391,17 +391,13 @@ static const CGSize progressViewSize = {375, 1.5f };
     TVTable * cell = [slideView dequeueReusableCell];
     
     if (!cell) {
-        cell = [[TVTable alloc]initWithFrame:CGRectMake(0, 0, 320, 500)
+        cell = [[TVTable alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT -_slideView.frame.origin.y-49.5)
                                        style:UITableViewStylePlain];
         cell.delegate   = self;
         cell.dataSource = self;
     }
     
     //    cell.backgroundColor = colors[index];
-    
-    
-    
-    
     //     NSLog(@"index --------:%@ ",@(index));
     return cell;
 }

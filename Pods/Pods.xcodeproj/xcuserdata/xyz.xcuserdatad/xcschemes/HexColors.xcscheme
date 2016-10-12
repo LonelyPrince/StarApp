@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DDCE26CDE8794AF8E72BAE43A355AFC1'
-               BlueprintName = 'Reachability'
+               BlueprintIdentifier = 'E9EF397B95762DDB254C71DDCB4B1381'
+               BlueprintName = 'HexColors'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libReachability.a'>
+               BuildableName = 'libHexColors.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

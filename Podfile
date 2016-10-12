@@ -6,5 +6,6 @@ pod 'SDWebImage', '~>3.8.1'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'Reachability'
 pod 'CocoaAsyncSocket', '~> 7.5.0'
+pod 'HexColors', '~> 4.0.0'
 end
 

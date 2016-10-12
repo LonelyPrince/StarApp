@@ -48,18 +48,6 @@ typedef enum{
 }service;
 
 
-//typedef enum {
-//    GGKeyboardStatusHide                    = 0,
-//    GGKeyboardStatusShow                    = 1,
-//} GGKeyboardStatus;
-
-//typedef enum {
-//    GGOrderStatusWaitForPaying                      = 1,//等待支付
-//    GGOrderStatusWaitForReceiving                   = 2,//等待接收
-//    GGOrderStatusWaitAlreadyDone                    = 3,//已经完成
-//    GGOrderStatusAll                                = 0,
-//} GGOrderStatus;
-//
 
 
 #define grobalTintColor RGB(249,249,249)
@@ -70,6 +58,8 @@ typedef enum{
 #define grobalRedColor RGB(252,60,101)
 
 #define lineBlackColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]
+#define ProgressLineColor [UIColor colorWithRed:0xFF/255.0 green:0x2d/255.0 blue:0x55/255.0 alpha:1] //[HXColor hx_colorWithHexRGBAString:@"#FF2D55"]//RGB(229,229,229)
+//#define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 ////浅色字体
 //#define grobalTextLightColor RGB(152,142,156)
 ////深色字体
