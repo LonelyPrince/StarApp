@@ -71,8 +71,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
-    
-    
+
     [self loadNav];
     [self lineView];  //一条0.5pt的线
     //new
@@ -82,10 +81,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     [self getServiceData];    //获取表数据
     [self initProgressLine];
     
-    
-    
-    self.view.backgroundColor = [UIColor greenColor];
-    
+  
     //视频部分
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -127,12 +123,10 @@ static const CGSize progressViewSize = {375, 1.5f };
         //                                                                  SCREEN_HEIGHT_YLSLIDE-64)
         //                                             forTitles:self.categorys];
         _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                  SCREEN_WIDTH_YLSLIDE,
-                                                                  SCREEN_HEIGHT_YLSLIDE-64)
+                                                                  SCREEN_WIDTH,
+                                                                  SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
                                              forTitles:self.categorys];
         
-        
-        //        NSLog(@"category:%@",self.categorys);
         
         _slideView.backgroundColor = [UIColor whiteColor];
         _slideView.delegate        = self;
@@ -142,6 +136,15 @@ static const CGSize progressViewSize = {375, 1.5f };
         
         
     }];
+    
+//    UIButton * allCateGoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    
+//    allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 64.5+kZXVideoPlayerOriginalHeight+1.5+19.5, 19, 19);
+//    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"全屏"] forState:UIControlStateNormal];
+//    
+//    [self.view addSubview:allCateGoryButton];
+//    [self.view bringSubviewToFront:allCateGoryButton ];
+//    [_slideView bringSubviewToFront:allCateGoryButton];
     
     
 }
@@ -355,6 +358,8 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.videoController.video = self.video;
     NSLog(@"video:%@",self.videoController.video.title);
     NSLog(@"video:%@",self.videoController.video.playUrl);
+    
+    
 }
 
 //搜索按钮
@@ -375,8 +380,6 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     
 }
-
-
 
 //************************************************
 //table可以滑动的次数

@@ -263,7 +263,7 @@
     
     self.mainScrollview = ({
         
-        UIScrollView * scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, YLSildeTitleViewHeight, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-YLSildeTitleViewHeight)];
+        UIScrollView * scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(-5, YLSildeTitleViewHeight, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-YLSildeTitleViewHeight)]; //此处修改了起始位置
         scrollView.bounces         = NO;
         scrollView.delegate        = self;
         scrollView.backgroundColor = [UIColor whiteColor];
@@ -277,14 +277,24 @@
     self.slideTitleView = ({
         
         CGRect slideTitleFrame;
-        slideTitleFrame.origin = CGPointMake(0, 0);
-        slideTitleFrame.size   = CGSizeMake(CGRectGetWidth(self.frame), 44);
+        slideTitleFrame.origin = CGPointMake(10, 0);
+        slideTitleFrame.size   = CGSizeMake(CGRectGetWidth(self.frame)-58, 48); //修改  xiugai  44 留出pt=48的空间放按钮
         
         YLSlideTitleView * slideTitleView = [[YLSlideTitleView alloc]initWithFrame:slideTitleFrame forTitles:_titles];
         
         slideTitleView;
     });
     [self addSubview:_slideTitleView];
+    
+    UIButton * allCateGoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 14.5, 19, 19);
+    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"全屏"] forState:UIControlStateNormal];
+    
+    [self addSubview:allCateGoryButton];
+    [self bringSubviewToFront:allCateGoryButton ];
+    [_slideTitleView bringSubviewToFront:allCateGoryButton];
+
     
     __WEAK_SELF_YLSLIDE
     // slideTitleView 栏目button 点击的监听
@@ -312,6 +322,3 @@
 }
 
 @end
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com

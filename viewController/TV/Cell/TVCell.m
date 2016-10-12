@@ -48,9 +48,12 @@
 {
     _dataDic = dataDic;
     
-    
 
-    self.channelImg.image = [UIImage imageNamed:@"11"];
+
+    UIImage * imageWithImage = [[UIImage alloc]init];
+    imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
+
+    self.channelImg.image = imageWithImage; //两张图片叠加
 
     self.event_Img.image = [UIImage imageNamed:@"play"];
     self.event_nextImg.image = [UIImage imageNamed:@"time"];
@@ -117,5 +120,24 @@
 //    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
 //    NSString* dateString = [formatter stringFromDate:date];
     return currentDateStr;
+}
+
+//将两个图片叠加
+- (UIImage *)addImage:(NSString *)imageName1 withImage:(NSString *)imageName2 {
+    
+    UIImage *image1 = [UIImage imageNamed:imageName1];
+    UIImage *image2 = [UIImage imageNamed:imageName2];
+    
+    UIGraphicsBeginImageContext(image1.size);
+    
+    [image1 drawInRect:CGRectMake(0, 0, image1.size.width, image1.size.height)];
+    
+    [image2 drawInRect:CGRectMake((image1.size.width - image2.size.width)/2,(image1.size.height - image2.size.height)/2, image2.size.width, image2.size.height)];
+    
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resultingImage;
 }
 @end

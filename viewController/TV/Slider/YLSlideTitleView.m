@@ -4,8 +4,8 @@
 
 
 static NSInteger const YLSlideTitleViewButtonTag = 28271;
-static CGFloat   const YLSlideTitleViewTitleMax  = 16.f;
-static CGFloat   const YLSlideTitleViewTitleMin  = 13.f;
+static CGFloat   const YLSlideTitleViewTitleMax  = 15.f;
+static CGFloat   const YLSlideTitleViewTitleMin  = 15.f;
 
 static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     
@@ -57,22 +57,24 @@ NSMutableArray    *_titles;
         
         [button setTitle:_titles[i] forState:UIControlStateNormal];
         
-        [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];
      
         [button.titleLabel setFont:buttonFont(button,YLSlideTitleViewTitleMin)];
+        
         
         CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
                                                         label:button.titleLabel];
         
         CGRect frame;
         frame.origin = CGPointMake(buttonWidth, 0);
-        frame.size   = CGSizeMake(titleSize.width+10, 44);
+        frame.size   = CGSizeMake(titleSize.width+20, 48);  //两个字之间的间距
+        
         [button setFrame:frame];
         
         buttonWidth += CGRectGetWidth(button.frame);
 
         button.tag             = YLSlideTitleViewButtonTag + i;
-        button.backgroundColor = [UIColor clearColor];
+        button.backgroundColor = [UIColor whiteColor];
         
         [button addTarget:self
                    action:@selector(buttonEvents:)
@@ -108,6 +110,10 @@ NSMutableArray    *_titles;
     
     };
     
+    
+ 
+
+    
 }
 
 - (void)configButtonWithOffsetx:(CGFloat)offsetx{
@@ -116,13 +122,13 @@ NSMutableArray    *_titles;
 
     NSUInteger currentPage   = offsetx/SCREEN_WIDTH_YLSLIDE;
     
-    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH_YLSLIDE];
+    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH];
     
     if (_previousPage != currentPage) {
         
         UIButton * previousButton = (UIButton*)[self viewWithTag:_previousPage +YLSlideTitleViewButtonTag];
         
-        [previousButton setTitleColor:[UIColor grayColor]
+        [previousButton setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1]
                         forState:UIControlStateNormal];
         
     }
@@ -132,7 +138,7 @@ NSMutableArray    *_titles;
    // [currentButton.titleLabel setFont:buttonFont(currentButton,
                                                  //YLSlideTitleViewTitleMax-titleSizeSpacing)];
     
-    [currentButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [currentButton setTitleColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]  forState:UIControlStateNormal];
     
     UIButton * nextButton = [self viewWithTag:currentPage+1+YLSlideTitleViewButtonTag];
     
@@ -140,7 +146,7 @@ NSMutableArray    *_titles;
     //[nextButton.titleLabel setFont:buttonFont(currentButton,
                                              // YLSlideTitleViewTitleMin+titleSizeSpacing)];
     
-    [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [nextButton setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];
 
     _previousPage = currentPage;
 }
@@ -153,6 +159,7 @@ NSMutableArray    *_titles;
     return currentScale;
 }
 
+//按钮点击
 - (void)buttonEvents:(UIButton*)button{
 
     self.isClickTitleButton = YES;
@@ -163,11 +170,11 @@ NSMutableArray    *_titles;
     
     UIButton *previousButton = [self viewWithTag:_previousPage + YLSlideTitleViewButtonTag];
     [[previousButton titleLabel]setFont:[UIFont systemFontOfSize:YLSlideTitleViewTitleMin]];
-    [previousButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [previousButton setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];
     
     UIButton *currentButton = [self viewWithTag:button.tag];
-    [[currentButton titleLabel]setFont:[UIFont systemFontOfSize:YLSlideTitleViewTitleMax]];
-    [currentButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [[currentButton titleLabel]setFont:[UIFont systemFontOfSize:YLSlideTitleViewTitleMin]];
+    [currentButton setTitleColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1] forState:UIControlStateNormal];
     
     _previousPage = button.tag - YLSlideTitleViewButtonTag;
     
@@ -193,6 +200,3 @@ NSMutableArray    *_titles;
 }
 
 @end
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com
