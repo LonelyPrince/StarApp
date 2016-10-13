@@ -289,7 +289,7 @@
     UIButton * allCateGoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 14.5, 19, 19);
-    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"全屏"] forState:UIControlStateNormal];
+    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
     
     [self addSubview:allCateGoryButton];
     [self bringSubviewToFront:allCateGoryButton ];

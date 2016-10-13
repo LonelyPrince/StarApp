@@ -9,7 +9,7 @@
 #import "TVViewController.h"
 #import "TVCell.h"
 #import "THProgressView.h"
-#import "HexColors.h"
+//#import "HexColors.h"
 
 
 static const CGSize progressViewSize = {375, 1.5f };
@@ -67,7 +67,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
@@ -140,7 +140,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 //    UIButton * allCateGoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
 //    
 //    allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 64.5+kZXVideoPlayerOriginalHeight+1.5+19.5, 19, 19);
-//    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"全屏"] forState:UIControlStateNormal];
+//    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
 //    
 //    [self.view addSubview:allCateGoryButton];
 //    [self.view bringSubviewToFront:allCateGoryButton ];
@@ -175,7 +175,7 @@ static const CGSize progressViewSize = {375, 1.5f };
                                                                                        SCREEN_WIDTH,
                                                                                        progressViewSize.height)];
     topProgressView.borderTintColor = [UIColor whiteColor];
-    topProgressView.progressTintColor = ProgressLineColor;// [UIColor redColor];//
+    topProgressView.progressTintColor = ProgressLineColor;
     [self.view addSubview:topProgressView];
     [self.view bringSubviewToFront:topProgressView];
     
@@ -184,6 +184,8 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     
 }
+
+
 - (void)updateProgress :(NSTimer *)Time
 {
     //算出时间间隔
@@ -582,6 +584,8 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     NSLog(@"---urlData%@",byteDatas);
     self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding]];
+//    self.video.playUrl = [[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding];
+
     self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
     
     self.video.playEventName = self.event_videoname;
@@ -594,7 +598,7 @@ static const CGSize progressViewSize = {375, 1.5f };
         [dict setObject:self.event_startTime forKey:@"StarTime"];
         [dict setObject:self.event_endTime forKey:@"EndTime"];
         
-        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+//        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
     }
     //**

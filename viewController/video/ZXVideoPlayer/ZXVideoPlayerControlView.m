@@ -8,7 +8,7 @@
 
 #import "ZXVideoPlayerControlView.h"
 
-static const CGFloat kVideoControlBarHeight = 20.0 + 30.0;
+static const CGFloat kVideoControlBarHeight = 50;  // 20.0 + 30.0;
 static const CGFloat kVideoControlAnimationTimeInterval = 0.3;
 static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
@@ -39,8 +39,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.topBar];
         [self addSubview:self.bottomBar];
-        [self.bottomBar addSubview:self.playButton];
-        [self.bottomBar addSubview:self.pauseButton];
+        //[self.bottomBar addSubview:self.playButton];
+//        [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton];
@@ -80,16 +80,20 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     [super layoutSubviews];
     
-    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), kVideoControlBarHeight);
+    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), SCREEN_WIDTH, 43);
+    NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
     
-    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - kVideoControlBarHeight, CGRectGetWidth(self.bounds), kVideoControlBarHeight);
+    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
     
     self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
     
     self.pauseButton.frame = self.playButton.frame;
+
+    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 34,41, 19,19);
     
-    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
-    //    self.fullScreenButton.frame = CGRectMake(SCREEN_WIDTH-15-CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2,CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
+    
+//    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
+//    //    self.fullScreenButton.frame = CGRectMake(SCREEN_WIDTH-15-CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2,CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
     
     self.shrinkScreenButton.frame = self.fullScreenButton.frame;
     
@@ -107,7 +111,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
     self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
     // 快进、快退指示器
-    self.timeIndicatorView.center = self.indicatorView.center;
+  //  self.timeIndicatorView.center = self.indicatorView.center;
     // 亮度指示器
     self.brightnessIndicatorView.center = self.indicatorView.center;
     // 音量指示器
@@ -116,9 +120,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //    self.batteryView.frame = CGRectMake(CGRectGetMinX(self.lockButton.frame) - CGRectGetWidth(self.batteryView.bounds) - 10, CGRectGetMidY(self.topBar.bounds) - CGRectGetHeight(self.batteryView.bounds) / 2, CGRectGetWidth(self.batteryView.bounds), CGRectGetHeight(self.batteryView.bounds));
     // 标题
     //    self.titleLabel.frame = CGRectMake(CGRectGetWidth(self.backButton.bounds), 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
-    self.titleLabel.frame = CGRectMake(-55, 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+//    self.titleLabel.frame = CGRectMake(-55, 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+    
+    self.titleLabel.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds)+20, 20, SCREEN_WIDTH, 9);
     //********
-    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
+//    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
+    self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
 }
 
 - (void)didMoveToSuperview
@@ -194,7 +201,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_topBar) {
         _topBar = [UIView new];
         _topBar.accessibilityIdentifier = @"TopBar";
-        _topBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+        //_topBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+        UIImageView * topControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Overlay"]];
+        topControllerImage.frame =  CGRectMake(0, 0, SCREEN_WIDTH, 43);
+        [_topBar addSubview:topControllerImage];
     }
     return _topBar;
 }
@@ -203,7 +213,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_bottomBar) {
         _bottomBar = [UIView new];
-        _bottomBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+      //  _bottomBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    
+        UIImageView * bottomControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Group 16"]];
+        bottomControllerImage.frame =  CGRectMake(0, 0, SCREEN_WIDTH, 75);
+        [_bottomBar addSubview:bottomControllerImage];
     }
     return _bottomBar;
 }
@@ -239,6 +253,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _fullScreenButton;
 }
 
+//退出全屏
 - (UIButton *)shrinkScreenButton
 {
     if (!_shrinkScreenButton) {
@@ -356,8 +371,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
+     //   _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.font = [UIFont systemFontOfSize:12];
+        
     }
     return _titleLabel;
 }
@@ -368,8 +385,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_eventnameLabel) {
         _eventnameLabel = [[UILabel alloc] init];
         _eventnameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        _eventnameLabel.textColor = [UIColor whiteColor];
-        _eventnameLabel.textAlignment = NSTextAlignmentCenter;
+        _eventnameLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
+//        _eventnameLabel.textAlignment = NSTextAlignmentCenter;
+      _eventnameLabel.font = [UIFont systemFontOfSize:17];
     }
     return _eventnameLabel;
 }@end

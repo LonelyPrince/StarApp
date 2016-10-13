@@ -13,6 +13,8 @@
 #import "sys/utsname.h"
 #import "TVViewController.h"
 
+#import <ifaddrs.h>
+#import <arpa/inet.h>
 
 // 后面NSString这是运行时能获取到的C语言的类型
 NSString * const TYPE_UINT8   = @"TC";// char是1个字节，8位
@@ -60,13 +62,15 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSLog(@"socket.port:%d",[_socket localPort]);
 
     NSError *error;
-    int port = 2048;
+    int port = 6666;
     // 绑定端口，监听连接消息
     BOOL result = [_socket acceptOnPort:port error:&error];
+    
     
     [self heartBeat];
     
   
+    
     //连接
     [Singleton sharedInstance].socketHost = @"192.168.1.1"; //host设定
     [Singleton sharedInstance].socketPort = 3000; //port设定
@@ -91,12 +95,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSString * package_Betatag = @"DIGW";
     self.beattag = [[NSMutableData alloc]init];
     self.beattag = (NSMutableData *)[package_Betatag dataUsingEncoding:NSUTF8StringEncoding];
-
-    
-    
-//    NSString * astr = @"192.168.1.2";
-//    NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
-//    NSLog(@"array:%@",array);
 
     
     cs_heatbeat.module_name= @"BEAT";
@@ -138,6 +136,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     
     cs_service.client_port = (uint32_t)[_socket localPort] ;
+  
 //    cs_service.unique_id = [SocketView GetNowTimes];
     //获取的时间戳string转int
     
@@ -147,19 +146,12 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 //    NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
 
     //    NSLog(@"数%@",[SocketView GetNowTimes]);
-//    NSLog(@"整数%d",x);
 //    int x = 1475026288;
 //    int x = 222;
 //    [self hexFromInt:x];
     cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
 //    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
     cs_service.command_type = CMD_PLAY_SERVICE;
-//    cs_service.tuner_type = 3;      //...
-//    cs_service.network_id = 222;   //...
-//    cs_service.ts_id = 4965;           //...
-//    cs_service.service_id = 1;      //.....
-//    cs_service.audio_index = 67;    //....
-//    cs_service.subt_index = 0;      //...
     //---
     
     cs_service.tuner_type = [socket_ServiceModel.service_tuner_mode intValue];
@@ -380,10 +372,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 - (NSString *)hexFromInt:(NSInteger)val {
 //    NSLog(@"int %d",val);
 //    NSLog(@"int 转16%@",[NSString stringWithFormat:@"%X", val]);
-
-//    return @"1657EB290C";
         return [NSString stringWithFormat:@"%X", val];
-//    return  @"16C7D3A218";
 }
 -(NSMutableData *)RequestSpliceAttribute:(id)obj{
     _data = [[NSMutableData alloc]init];   
@@ -423,11 +412,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
         }else if([type isEqualToString:TYPE_UINT32]){
             uint32_t i = [propertyValue intValue];// 32位
             [_data appendData:[SocketUtils bytesFromUInt32:i]];
-            
-//            NSLog(@"%@",[SocketUtils bytesFromUInt32:i]);
-//            NSLog(@"%lu",(unsigned long)_data.length);
-//            NSLog(@"conn:%@",_data);
-            
+
         }else if([type isEqualToString:TYPE_UINT64]){
             uint64_t i = [propertyValue longLongValue];// 64位
             [_data appendData:[SocketUtils bytesFromUInt64:i]];
@@ -485,14 +470,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 + (NSMutableData *)GetNowTimes
 
 {
-    
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
     
     NSTimeInterval timeInterval = [date timeIntervalSince1970];
     
     NSString *timeString = [NSString stringWithFormat:@"%.0f", timeInterval];
-    
-//    timeString = @"1231231231231";
     
     int x = [timeString intValue];
     int tmp2 = CFSwapInt32BigToHost(x);
@@ -648,9 +630,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     return data_CRC2;
 }
 
+//
 -(NSArray *)getIPArr
 {
-    NSString * astr = @"192.168.1.2";
+    NSString * astr = [self getIPAddress];
+    NSLog(@"astr %@",astr);
     NSArray *array = [astr componentsSeparatedByString:@"."]; //从字符.中分隔成2个元素的数组
     return array;
 }
@@ -661,6 +645,31 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSString * package_tag = @"DIGW";
     package_tagData = (NSMutableData *)[package_tag dataUsingEncoding:NSUTF8StringEncoding];
     return package_tagData;
+}
+- (NSString *)getIPAddress {
+    NSString *address = @"error";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = 0;
+    // retrieve the current interfaces - returns 0 on success
+    success = getifaddrs(&interfaces);
+    if (success == 0) {
+        // Loop through linked list of interfaces
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                // Check if interface is en0 which is the wifi connection on the iPhone
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    // Get NSString from C String
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                }
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // Free memory
+    freeifaddrs(interfaces);
+    return address;
 }
 @end
 

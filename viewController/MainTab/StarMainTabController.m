@@ -48,7 +48,7 @@
     monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Monitor" image:[UIImage imageNamed:@"more"] selectedImage:[UIImage imageNamed:@"more"]];
     
     
-    
+//     tvVC.backgroundColor=[UIColor whiteColor];
     
     
     [self setViewControllers:@[monVC,tvViewNav,meViewNav]];

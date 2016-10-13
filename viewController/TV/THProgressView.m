@@ -174,10 +174,6 @@ static const CGFloat kBorderWidth = 0.0f;
             animation.toValue = [NSNumber numberWithFloat:([nowTime intValue]-[startTime intValue])/progress];
         }
 
-//        animation.fromValue = [NSNumber numberWithFloat:0.3];
-//        
-//        
-//        animation.toValue = [NSNumber numberWithFloat:0.7];
         
         
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
