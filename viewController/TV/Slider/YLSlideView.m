@@ -35,7 +35,7 @@
         
 //        _titles  = [titles copy];
         _titles = [[NSMutableArray alloc]init];
-        
+        self.triangleView = [[UIImageView alloc] init];
         for (int i = 0 ; i < titles.count; i++) {
             NSDictionary *item = titles[i];
             NSString * tempArray;
@@ -53,6 +53,7 @@
                forKeyPath:@"delegate"
                   options:NSKeyValueObservingOptionNew
                   context:nil];
+       
         
     }
 
@@ -84,19 +85,19 @@
     nextPage               = MIN(nextPage, _totaiPageNumber-1);
     
     //回收 unvisible cell
-    for (TVTable * cell  in _visibleCells) {
-        
-        if (cell.index < currentPage || cell.index > nextPage) {
-
-            //保存偏移量
-            [[YGPCache sharedCache]setDataToMemoryWithData:[NSStringFromCGPoint(cell.contentOffset) dataUsingEncoding:NSUTF8StringEncoding] forKey:[@(cell.index) stringValue]];
-            
-            
-            [_recycledCells addObject:cell];
-            [cell removeFromSuperview];
-            
-        }
-    }
+//    for (TVTable * cell  in _visibleCells) {
+//        
+//        if (cell.index < currentPage || cell.index > nextPage) {
+//
+//            //保存偏移量
+//            [[YGPCache sharedCache]setDataToMemoryWithData:[NSStringFromCGPoint(cell.contentOffset) dataUsingEncoding:NSUTF8StringEncoding] forKey:[@(cell.index) stringValue]];
+//            
+//            
+//            [_recycledCells addObject:cell];
+//            [cell removeFromSuperview];
+//            
+//        }
+//    }
    
     [_visibleCells minusSet:_recycledCells];
     
@@ -238,6 +239,14 @@
             _slideTitleView.slideTitleViewScrollBlock(scrollView.contentOffset.x);
         }
     }
+    
+//    CGFloat pageWidth = scrollView.frame.size.width;
+//    // 根据当前的x坐标和页宽度计算出当前页数
+//    int currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
+    
+//    self.triangleView.frame = CGRectMake(_slideT 48-6, 14, 7);
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -295,6 +304,31 @@
     [self bringSubviewToFront:allCateGoryButton ];
     [_slideTitleView bringSubviewToFront:allCateGoryButton];
 
+    //////////////////new
+    
+   
+    self.lineview = [[UIView alloc] initWithFrame:CGRectMake(0, 48, SCREEN_WIDTH, 0.5)];
+    self.lineview .backgroundColor = lineBlackColor;
+    [self addSubview:self.lineview ];
+    [self bringSubviewToFront:self.lineview ];
+    [_slideTitleView bringSubviewToFront:self.lineview ];
+    
+    
+//    //此处销毁通知，防止一个通知被多次调用
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTriangleFrame:) name:@"portTriangleFrame" object:nil];
+    
+//    [self.socketView  serviceTouch ];
+    
+
+    
+//   self.triangleView.frame = CGRectMake(25, 48-6, 14, 7);
+//    self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
+//    [self addSubview:self.triangleView];
+//    [self bringSubviewToFront:self.triangleView];
+//    [_slideTitleView bringSubviewToFront:self.triangleView];
+//    [lineview bringSubviewToFront:self.triangleView];
     
     __WEAK_SELF_YLSLIDE
     // slideTitleView 栏目button 点击的监听
@@ -313,6 +347,26 @@
     };
 }
 
+//-(void)setTriangleFrame : (NSNotification *)text
+//{
+//    float currentBtnX = [text.userInfo[@"textOne"]floatValue];
+//    float currentBtnWidth = [text.userInfo[@"textTwo"]floatValue];
+//   float scrollContentoffsetX = [text.userInfo[@"textContentOffsetX"]floatValue];
+//    
+//    if (ISNULL(text.userInfo[@"textContentOffsetX"])) {
+//         self.triangleView.frame = CGRectMake(currentBtnX+currentBtnWidth/2, 48-6, 14, 7);
+//    }
+//    else{
+//     self.triangleView.frame = CGRectMake(currentBtnX+currentBtnWidth/2+scrollContentoffsetX, 48-6, 14, 7);
+//    }
+//    self.triangleView.frame = CGRectMake(currentBtnX+currentBtnWidth/2, 48-6, 14, 7);
+//    self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
+//    [self addSubview:self.triangleView];
+//    [self bringSubviewToFront:self.triangleView];
+//    [_slideTitleView bringSubviewToFront:self.triangleView];
+//    [self.lineview  bringSubviewToFront:self.triangleView];
+//
+//}
 
 #pragma mark Set Get
 - (void)setShowsScrollViewHorizontalScrollIndicator:(BOOL)showsScrollViewHorizontalScrollIndicator{

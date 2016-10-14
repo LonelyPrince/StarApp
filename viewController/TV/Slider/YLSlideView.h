@@ -75,7 +75,8 @@
  */
 @property (nonatomic,strong)UIScrollView     *mainScrollview;
 @property (nonatomic,strong)YLSlideTitleView *slideTitleView;
-
+@property (nonatomic,strong)UIImageView * triangleView;
+@property (nonatomic,strong) UIView * lineview;
 // default NO 是否显示滚动条
 @property (nonatomic,assign)BOOL              showsScrollViewHorizontalScrollIndicator;
 
@@ -106,6 +107,3 @@
 - (TVTable*)dequeueReusableCell;
 @end
 
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com

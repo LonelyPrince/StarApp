@@ -83,7 +83,17 @@ NSMutableArray    *_titles;
         [self configButtonWithOffsetx:0];
         
         [self addSubview:button];
+        
+//        UIImageView *triangleView = [[UIImageView alloc]init];
+//        triangleView.frame = CGRectMake(CGRectGetMinX(button.frame)+CGRectGetWidth(button.frame)/2, 48-6, 14, 7);
+//        triangleView.image =  [UIImage imageNamed:@"Group 7"];
+//        [button addSubview:triangleView];
+        //        [self addSubview:triangleView];
+//        [self bringSubviewToFront:triangleView];
+//        [_slideTitleView bringSubviewToFront:triangleView];
+//        [self.lineview  bringSubviewToFront:triangleView];
     }
+    
     
     self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
     
@@ -109,9 +119,8 @@ NSMutableArray    *_titles;
                                animated:YES];
     
     };
-    
-    
- 
+
+  
 
     
 }
@@ -122,7 +131,7 @@ NSMutableArray    *_titles;
 
     NSUInteger currentPage   = offsetx/SCREEN_WIDTH_YLSLIDE;
     
-    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH];
+//    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH];
     
     if (_previousPage != currentPage) {
         
@@ -134,7 +143,7 @@ NSMutableArray    *_titles;
     }
     
     UIButton * currentButton = (UIButton*)[self viewWithTag:currentPage+YLSlideTitleViewButtonTag];
-    [currentButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMax-titleSizeSpacing)]];
+//    [currentButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMax-titleSizeSpacing)]];
    // [currentButton.titleLabel setFont:buttonFont(currentButton,
                                                  //YLSlideTitleViewTitleMax-titleSizeSpacing)];
     
@@ -142,22 +151,35 @@ NSMutableArray    *_titles;
     
     UIButton * nextButton = [self viewWithTag:currentPage+1+YLSlideTitleViewButtonTag];
     
-    [nextButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMin+titleSizeSpacing)]];
+//    [nextButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMin+titleSizeSpacing)]];
     //[nextButton.titleLabel setFont:buttonFont(currentButton,
                                              // YLSlideTitleViewTitleMin+titleSizeSpacing)];
     
     [nextButton setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];
 
     _previousPage = currentPage;
+    
+//    //******
+//    float getCurrentBtnX = CGRectGetMinX(currentButton.frame);
+//    float getCurrentBtnWidth = CGRectGetMinX(currentButton.frame);
+//    
+//    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",getCurrentBtnX],@"textOne",[NSString stringWithFormat:@"%f",getCurrentBtnWidth],@"textTwo", nil];
+//    //创建通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    
+//    
+    
 }
 
-- (CGFloat)titleSizeSpacingWithOffsetx:(CGFloat)sx{
-  
-    NSInteger scale         = sx*100;
-    CGFloat   currentScale  = (scale % 100) * 0.01 * 3;
-    
-    return currentScale;
-}
+//- (CGFloat)titleSizeSpacingWithOffsetx:(CGFloat)sx{
+//  
+////    NSInteger scale         = sx*100;
+////    CGFloat   currentScale  = (scale % 100) * 0.01 * 3;
+//    
+//    return currentScale;
+//}
 
 //按钮点击
 - (void)buttonEvents:(UIButton*)button{
@@ -199,4 +221,16 @@ NSMutableArray    *_titles;
     
 }
 
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+////    scrollView.contentOffset.x;    //x
+////    scrollView.contentOffset.y;    //y
+//
+//    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",scrollView.contentOffset.x],@"textContentOffsetX", nil];
+//    //创建通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+//}
 @end

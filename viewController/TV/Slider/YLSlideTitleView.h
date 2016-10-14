@@ -19,7 +19,7 @@ slideTitleViewScrollBlock;
 slideViewWillScrollEndBlock;
 /*判断是否点击 Button 或 滚动 UIScrollView 进行页面的切换 */
 @property (nonatomic,assign) BOOL isClickTitleButton;
-
+@property (nonatomic,strong) NSDictionary *dict;
 //- (instancetype)initWithFrame:(CGRect)frame forTitles:(NSArray*)titles;
 - (instancetype)initWithFrame:(CGRect)frame forTitles:(NSMutableArray*)titles;
 

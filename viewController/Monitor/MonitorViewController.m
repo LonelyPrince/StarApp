@@ -17,6 +17,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //修改tabbar选中的图片颜色和字体颜色
+    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.tabBarItem.selectedImage = image;
+    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
+    
     self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view from its nib.
 }

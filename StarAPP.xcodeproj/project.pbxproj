@@ -148,6 +148,9 @@
 		706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8D1DAF5DA400DADE86 /* play@1x.png */; };
 		706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8E1DAF5DA400DADE86 /* play@2x.png */; };
 		706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8F1DAF5DA400DADE86 /* play@3x.png */; };
+		706A1C971DB0A20200DADE86 /* Group 7@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C941DB0A20200DADE86 /* Group 7@1x.png */; };
+		706A1C981DB0A20200DADE86 /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C951DB0A20200DADE86 /* Group 7@2x.png */; };
+		706A1C991DB0A20200DADE86 /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C961DB0A20200DADE86 /* Group 7@3x.png */; };
 		707FE7371DACC3C30087C361 /* background@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70D1DACC3C30087C361 /* background@1x.png */; };
 		707FE7381DACC3C30087C361 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70E1DACC3C30087C361 /* background@2x.png */; };
 		707FE7391DACC3C30087C361 /* background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70F1DACC3C30087C361 /* background@3x.png */; };
@@ -451,6 +454,9 @@
 		706A1C8D1DAF5DA400DADE86 /* play@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@1x.png"; sourceTree = "<group>"; };
 		706A1C8E1DAF5DA400DADE86 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		706A1C8F1DAF5DA400DADE86 /* play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@3x.png"; sourceTree = "<group>"; };
+		706A1C941DB0A20200DADE86 /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
+		706A1C951DB0A20200DADE86 /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
+		706A1C961DB0A20200DADE86 /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
 		707FE70D1DACC3C30087C361 /* background@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@1x.png"; sourceTree = "<group>"; };
 		707FE70E1DACC3C30087C361 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		707FE70F1DACC3C30087C361 /* background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@3x.png"; sourceTree = "<group>"; };
@@ -953,6 +959,9 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				706A1C941DB0A20200DADE86 /* Group 7@1x.png */,
+				706A1C951DB0A20200DADE86 /* Group 7@2x.png */,
+				706A1C961DB0A20200DADE86 /* Group 7@3x.png */,
 				706A1C8D1DAF5DA400DADE86 /* play@1x.png */,
 				706A1C8E1DAF5DA400DADE86 /* play@2x.png */,
 				706A1C8F1DAF5DA400DADE86 /* play@3x.png */,
@@ -1324,6 +1333,7 @@
 				7040E2351DAE12B80063DB66 /* Group 10 Copy 2@3x.png in Resources */,
 				7040E23A1DAE12B80063DB66 /* Group 15 Copy 2@2x.png in Resources */,
 				7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */,
+				706A1C971DB0A20200DADE86 /* Group 7@1x.png in Resources */,
 				707FE7521DACC3C30087C361 /* Path 2@1x.png in Resources */,
 				70170C281D74131500CC3951 /* share_btn.png in Resources */,
 				7040E2421DAE12B80063DB66 /* Viasat-Explore@1x.png in Resources */,
@@ -1335,7 +1345,9 @@
 				7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */,
 				707FE7401DACC3C30087C361 /* Group 16@1x.png in Resources */,
 				7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */,
+				706A1C981DB0A20200DADE86 /* Group 7@2x.png in Resources */,
 				707FE73F1DACC3C30087C361 /* Group 5@3x.png in Resources */,
+				706A1C991DB0A20200DADE86 /* Group 7@3x.png in Resources */,
 				707FE74C1DACC3C30087C361 /* me icon@1x.png in Resources */,
 				70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */,
 				70170C391D74156000CC3951 /* hot.png in Resources */,

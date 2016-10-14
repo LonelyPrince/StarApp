@@ -132,7 +132,7 @@
     
     [image1 drawInRect:CGRectMake(0, 0, image1.size.width, image1.size.height)];
     
-    [image2 drawInRect:CGRectMake((image1.size.width - image2.size.width)/2,(image1.size.height - image2.size.height)/2, image2.size.width, image2.size.height)];
+    [image2 drawInRect:CGRectMake((image1.size.width - image2.size.width)/2,(image1.size.height - image2.size.height)/48*19, image2.size.width, image2.size.height)]; //出去阴影部分居中
     
     UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
     

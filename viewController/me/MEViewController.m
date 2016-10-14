@@ -30,6 +30,10 @@
     [deviceSetBtn setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:deviceSetBtn];
     
+    //修改tabbar选中的图片颜色和字体颜色
+    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.tabBarItem.selectedImage = image;
+    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
 }
 -(void)deviceSetbtnClick
 {

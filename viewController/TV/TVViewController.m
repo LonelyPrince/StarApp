@@ -81,6 +81,10 @@ static const CGSize progressViewSize = {375, 1.5f };
     [self getServiceData];    //获取表数据
     [self initProgressLine];
     
+    //修改tabbar选中的图片颜色和字体颜色
+    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.tabBarItem.selectedImage = image;
+    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
   
     //视频部分
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -118,10 +122,7 @@ static const CGSize progressViewSize = {375, 1.5f };
         self.categorys = (NSMutableArray *)data;
         
         //设置滑动条
-        //        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, searchBtnY+searchBtnHeight+kZXVideoPlayerOriginalHeight,
-        //                                                                  SCREEN_WIDTH_YLSLIDE,
-        //                                                                  SCREEN_HEIGHT_YLSLIDE-64)
-        //                                             forTitles:self.categorys];
+
         _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                                                   SCREEN_WIDTH,
                                                                   SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
@@ -137,14 +138,6 @@ static const CGSize progressViewSize = {375, 1.5f };
         
     }];
     
-//    UIButton * allCateGoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    
-//    allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 64.5+kZXVideoPlayerOriginalHeight+1.5+19.5, 19, 19);
-//    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
-//    
-//    [self.view addSubview:allCateGoryButton];
-//    [self.view bringSubviewToFront:allCateGoryButton ];
-//    [_slideView bringSubviewToFront:allCateGoryButton];
     
     
 }
@@ -302,9 +295,10 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     //搜索按钮
     UIButton * searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight)];
-    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
+//    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
     [searchBtn setBackgroundColor:[UIColor whiteColor]];
-    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
+//    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
+    [searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
     [self.view addSubview:searchBtn];
     [topView bringSubviewToFront:searchBtn];
     [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -317,10 +311,8 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
     NSLog(@"video.title %@",self.video.title);
-    //    self.video.title = @"Rollin'Wild 圆滚滚的";
-    
     NSLog(@"----%@",self.video.playUrl);
-    NSLog(@"----%@",self.video.title);
+    
     
     
 }
@@ -346,6 +338,7 @@ static const CGSize progressViewSize = {375, 1.5f };
         
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             NSLog(@"切换为竖屏模式");
+         self.tabBarController.tabBar.hidden = NO;
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");

@@ -37,6 +37,7 @@
     
     tvVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Live" image:[UIImage imageNamed:@"live icon copy"] selectedImage:[UIImage imageNamed:@"live icon"]];
     
+
     
     
     MEViewController * meVC = [[MEViewController alloc]init];
