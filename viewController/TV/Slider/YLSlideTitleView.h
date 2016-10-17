@@ -20,6 +20,10 @@ slideViewWillScrollEndBlock;
 /*判断是否点击 Button 或 滚动 UIScrollView 进行页面的切换 */
 @property (nonatomic,assign) BOOL isClickTitleButton;
 @property (nonatomic,strong) NSDictionary *dict;
+
+/* 以下两个用作滑动按钮下的小三角*/
+@property (nonatomic,assign) float currentBtnX;
+@property (nonatomic,assign) float preScrollViewCut;
 //- (instancetype)initWithFrame:(CGRect)frame forTitles:(NSArray*)titles;
 - (instancetype)initWithFrame:(CGRect)frame forTitles:(NSMutableArray*)titles;
 

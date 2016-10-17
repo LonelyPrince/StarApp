@@ -314,21 +314,21 @@
     [_slideTitleView bringSubviewToFront:self.lineview ];
     
     
-//    //此处销毁通知，防止一个通知被多次调用
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTriangleFrame:) name:@"portTriangleFrame" object:nil];
-    
-//    [self.socketView  serviceTouch ];
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTriangleFrame:) name:@"portTriangleFrame" object:nil];
     
 
     
-//   self.triangleView.frame = CGRectMake(25, 48-6, 14, 7);
-//    self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
-//    [self addSubview:self.triangleView];
-//    [self bringSubviewToFront:self.triangleView];
-//    [_slideTitleView bringSubviewToFront:self.triangleView];
-//    [lineview bringSubviewToFront:self.triangleView];
+
+    
+   self.triangleView.frame = CGRectMake(25, 48-6, 14, 7);
+    self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
+    [self addSubview:self.triangleView];
+    [self bringSubviewToFront:self.triangleView];
+    [_slideTitleView bringSubviewToFront:self.triangleView];
+    [_lineview bringSubviewToFront:self.triangleView];
     
     __WEAK_SELF_YLSLIDE
     // slideTitleView 栏目button 点击的监听
@@ -367,6 +367,20 @@
 //    [self.lineview  bringSubviewToFront:self.triangleView];
 //
 //}
+
+-(void)setTriangleFrame : (NSNotification *)text
+{
+    float currentBtnX = [text.userInfo[@"currentBtnX"]floatValue];
+    
+    
+    self.triangleView.frame = CGRectMake(currentBtnX, 48-6, 14, 7);
+    self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
+    [self addSubview:self.triangleView];
+    [self bringSubviewToFront:self.triangleView];
+    [_slideTitleView bringSubviewToFront:self.triangleView];
+    [self.lineview  bringSubviewToFront:self.triangleView];
+    
+}
 
 #pragma mark Set Get
 - (void)setShowsScrollViewHorizontalScrollIndicator:(BOOL)showsScrollViewHorizontalScrollIndicator{

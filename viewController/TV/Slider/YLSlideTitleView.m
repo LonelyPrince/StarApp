@@ -43,6 +43,7 @@ NSMutableArray    *_titles;
         
     }
     
+    
     return self;
 }
 
@@ -57,9 +58,10 @@ NSMutableArray    *_titles;
         
         [button setTitle:_titles[i] forState:UIControlStateNormal];
         
-        [button setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];   //大约等于黑色
      
         [button.titleLabel setFont:buttonFont(button,YLSlideTitleViewTitleMin)];
+        
         
         
         CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
@@ -84,14 +86,7 @@ NSMutableArray    *_titles;
         
         [self addSubview:button];
         
-//        UIImageView *triangleView = [[UIImageView alloc]init];
-//        triangleView.frame = CGRectMake(CGRectGetMinX(button.frame)+CGRectGetWidth(button.frame)/2, 48-6, 14, 7);
-//        triangleView.image =  [UIImage imageNamed:@"Group 7"];
-//        [button addSubview:triangleView];
-        //        [self addSubview:triangleView];
-//        [self bringSubviewToFront:triangleView];
-//        [_slideTitleView bringSubviewToFront:triangleView];
-//        [self.lineview  bringSubviewToFront:triangleView];
+
     }
     
     
@@ -159,17 +154,23 @@ NSMutableArray    *_titles;
 
     _previousPage = currentPage;
     
-//    //******
-//    float getCurrentBtnX = CGRectGetMinX(currentButton.frame);
-//    float getCurrentBtnWidth = CGRectGetMinX(currentButton.frame);
-//    
-//    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",getCurrentBtnX],@"textOne",[NSString stringWithFormat:@"%f",getCurrentBtnWidth],@"textTwo", nil];
-//    //创建通知
-//    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//    
-//    
+
+//**************8
+ 
+    _currentBtnX = 0;
+    for (int i = 28271; i<  currentButton.tag; i++) {
+        UIButton * btn = (UIButton*)[self viewWithTag:i];
+        _currentBtnX += btn.frame.size.width;
+    }
+//    NSLog(@"currentButton1:%f",currentButton.bounds.origin.x +20 +currentButton.bounds.size.width/2- self.preScrollViewCut);
+
+        _currentBtnX = _currentBtnX  +currentButton.frame.size.width/2 - self.preScrollViewCut;
+    
+    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
+    //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
 
@@ -200,6 +201,16 @@ NSMutableArray    *_titles;
     
     _previousPage = button.tag - YLSlideTitleViewButtonTag;
     
+    
+//    NSLog(@"currentButton2:%f",currentButton.frame.origin.x);
+    _currentBtnX = currentButton.frame.origin.x  +currentButton.bounds.size.width/2 - self.preScrollViewCut;
+
+    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
 }
 
 #pragma mark
@@ -222,15 +233,23 @@ NSMutableArray    *_titles;
 }
 
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-////    scrollView.contentOffset.x;    //x
-////    scrollView.contentOffset.y;    //y
-//
-//    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",scrollView.contentOffset.x],@"textContentOffsetX", nil];
-//    //创建通知
-//    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+//    NSLog(@"currentButton3: + %f",scrollView.contentOffset.x);
+    _currentBtnX = _currentBtnX - scrollView.contentOffset.x + self.preScrollViewCut ;
+
+    
+   
+    self.preScrollViewCut = scrollView.contentOffset.x ;
+    
+    self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    
+}
+
+
 @end
