@@ -100,7 +100,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.modalPresentationCapturesStatusBarAppearance =NO;
     self.navigationController.navigationBar.translucent =NO;
     
-    //    colors = @[[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor],[UIColor redColor],[UIColor yellowColor],[UIColor blackColor]];
+    
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -181,10 +181,21 @@ static const CGSize progressViewSize = {375, 1.5f };
 
 - (void)updateProgress :(NSTimer *)Time
 {
+    int timeCut;
+    NSString *  starttime;
+    if(ISNULL([[Time userInfo] objectForKey:@"EndTime"]) || ISNULL([[Time userInfo]objectForKey:@"StarTime"]))
+    {
+        NSLog(@"结束时间或者开始时间不能为空");
+    }
+    else
+    {
+    timeCut= [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
+    starttime =[[Time userInfo]objectForKey:@"StarTime"];
+    }
     //算出时间间隔
-    int timeCut = [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
+//     = [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
     NSLog(@"timecut %d",timeCut);
-    NSString *  starttime =[[Time userInfo]objectForKey:@"StarTime"];
+//    NSString *  starttime =[[Time userInfo]objectForKey:@"StarTime"];
     //    self.progress += 0.20f;
     //每次移动的距离
     self.progress = timeCut;
@@ -339,10 +350,18 @@ static const CGSize progressViewSize = {375, 1.5f };
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             NSLog(@"切换为竖屏模式");
          self.tabBarController.tabBar.hidden = NO;
+            _slideView.frame =CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
+
+            
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");
             self.tabBarController.tabBar.hidden = YES;
+            _slideView.frame = CGRectMake(kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight+600,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
         };
         
         [self.videoController showInView:self.view];
@@ -351,9 +370,9 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     
     self.videoController.video = self.video;
-    NSLog(@"video:%@",self.videoController.video.title);
-    NSLog(@"video:%@",self.videoController.video.playUrl);
-    
+//    NSLog(@"video:%@",self.videoController.video.title);
+//    NSLog(@"video:%@",self.videoController.video.playUrl);
+//    
     
 }
 

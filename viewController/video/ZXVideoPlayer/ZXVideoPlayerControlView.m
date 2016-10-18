@@ -80,10 +80,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     [super layoutSubviews];
     
-    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), SCREEN_WIDTH, 43);
+    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);
     NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
     
-    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
+  //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
+    
+    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
     
     self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
     
@@ -204,7 +206,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _topBar.accessibilityIdentifier = @"TopBar";
         //_topBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
         UIImageView * topControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Overlay"]];
-        topControllerImage.frame =  CGRectMake(0, 0, SCREEN_WIDTH, 43);
+        topControllerImage.frame =  CGRectMake(0, 0,  CGRectGetWidth(self.bounds), 43);
         [_topBar addSubview:topControllerImage];
     }
     return _topBar;
@@ -216,8 +218,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _bottomBar = [UIView new];
       //  _bottomBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     
+        
         UIImageView * bottomControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Group 16"]];
-        bottomControllerImage.frame =  CGRectMake(0, 0, SCREEN_WIDTH, 75);
+        bottomControllerImage.frame =  CGRectMake(0, 0,  CGRectGetWidth(self.bounds), 75);
         [_bottomBar addSubview:bottomControllerImage];
     }
     return _bottomBar;

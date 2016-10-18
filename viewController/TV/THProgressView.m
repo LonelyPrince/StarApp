@@ -150,10 +150,14 @@ static const CGFloat kBorderWidth = 0.0f;
 //    self.progressLayer.progress = pinnedProgress;
 
     [self.progressLayer removeAnimationForKey:@"progress"];
-   
+    NSString * startTime;
     if (animated) {
+        if (ISNULL([USER_DEFAULT objectForKey:@"StarTime"])) {
+        }
+        else{
+           startTime = [USER_DEFAULT objectForKey:@"StarTime"];
+        }
         
-        NSString * startTime = [USER_DEFAULT objectForKey:@"StarTime"];
         NSLog(@"startime :%@",startTime);
         NSString * nowTime = [GGUtil GetNowTimeString];
         

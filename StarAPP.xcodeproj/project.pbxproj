@@ -109,6 +109,36 @@
 		70170C3E1D74156000CC3951 /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C341D74156000CC3951 /* more@2x.png */; };
 		70170C481D74234900CC3951 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170C461D74234900CC3951 /* MonitorViewController.m */; };
 		70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70170C471D74234900CC3951 /* MonitorViewController.xib */; };
+		701A989F1DB47A3100460220 /* Back Arrow Blue@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98811DB47A3100460220 /* Back Arrow Blue@1x.png */; };
+		701A98A01DB47A3100460220 /* Back Arrow Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98821DB47A3100460220 /* Back Arrow Blue@2x.png */; };
+		701A98A11DB47A3100460220 /* Back Arrow Blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98831DB47A3100460220 /* Back Arrow Blue@3x.png */; };
+		701A98A21DB47A3100460220 /* Group@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98841DB47A3100460220 /* Group@1x.png */; };
+		701A98A31DB47A3100460220 /* Group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98851DB47A3100460220 /* Group@2x.png */; };
+		701A98A41DB47A3100460220 /* Group@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98861DB47A3100460220 /* Group@3x.png */; };
+		701A98A51DB47A3100460220 /* lock@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98871DB47A3100460220 /* lock@1x.png */; };
+		701A98A61DB47A3100460220 /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98881DB47A3100460220 /* lock@2x.png */; };
+		701A98A71DB47A3100460220 /* lock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98891DB47A3100460220 /* lock@3x.png */; };
+		701A98A81DB47A3100460220 /* Rectangle 2@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A988A1DB47A3100460220 /* Rectangle 2@1x.png */; };
+		701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A988B1DB47A3100460220 /* Rectangle 2@2x.png */; };
+		701A98AA1DB47A3100460220 /* Rectangle 2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A988C1DB47A3100460220 /* Rectangle 2@3x.png */; };
+		701A98AB1DB47A3100460220 /* Rectangle@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A988D1DB47A3100460220 /* Rectangle@1x.png */; };
+		701A98AC1DB47A3100460220 /* Rectangle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A988E1DB47A3100460220 /* Rectangle@2x.png */; };
+		701A98AD1DB47A3100460220 /* Rectangle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A988F1DB47A3100460220 /* Rectangle@3x.png */; };
+		701A98AE1DB47A3100460220 /* 上一频道@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98901DB47A3100460220 /* 上一频道@1x.png */; };
+		701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98911DB47A3100460220 /* 上一频道@2x.png */; };
+		701A98B01DB47A3100460220 /* 上一频道@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98921DB47A3100460220 /* 上一频道@3x.png */; };
+		701A98B11DB47A3100460220 /* 下一频道@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98931DB47A3100460220 /* 下一频道@1x.png */; };
+		701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98941DB47A3100460220 /* 下一频道@2x.png */; };
+		701A98B31DB47A3100460220 /* 下一频道@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98951DB47A3100460220 /* 下一频道@3x.png */; };
+		701A98B41DB47A3100460220 /* 字幕@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98961DB47A3100460220 /* 字幕@1x.png */; };
+		701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98971DB47A3100460220 /* 字幕@2x.png */; };
+		701A98B61DB47A3100460220 /* 字幕@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98981DB47A3100460220 /* 字幕@3x.png */; };
+		701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98991DB47A3100460220 /* 小窗@1x.png */; };
+		701A98B81DB47A3100460220 /* 小窗@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A989A1DB47A3100460220 /* 小窗@2x.png */; };
+		701A98B91DB47A3100460220 /* 小窗@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A989B1DB47A3100460220 /* 小窗@3x.png */; };
+		701A98BA1DB47A3100460220 /* 频道列表@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A989C1DB47A3100460220 /* 频道列表@1x.png */; };
+		701A98BB1DB47A3100460220 /* 频道列表@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A989D1DB47A3100460220 /* 频道列表@2x.png */; };
+		701A98BC1DB47A3100460220 /* 频道列表@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A989E1DB47A3100460220 /* 频道列表@3x.png */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
 		7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B71DAE10890063DB66 /* categorys@2x.png */; };
 		7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B81DAE10890063DB66 /* categorys@3x.png */; };
@@ -413,6 +443,36 @@
 		70170C451D74234900CC3951 /* MonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
 		70170C461D74234900CC3951 /* MonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
 		70170C471D74234900CC3951 /* MonitorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitorViewController.xib; sourceTree = "<group>"; };
+		701A98811DB47A3100460220 /* Back Arrow Blue@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@1x.png"; sourceTree = "<group>"; };
+		701A98821DB47A3100460220 /* Back Arrow Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@2x.png"; sourceTree = "<group>"; };
+		701A98831DB47A3100460220 /* Back Arrow Blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@3x.png"; sourceTree = "<group>"; };
+		701A98841DB47A3100460220 /* Group@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group@1x.png"; sourceTree = "<group>"; };
+		701A98851DB47A3100460220 /* Group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group@2x.png"; sourceTree = "<group>"; };
+		701A98861DB47A3100460220 /* Group@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group@3x.png"; sourceTree = "<group>"; };
+		701A98871DB47A3100460220 /* lock@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@1x.png"; sourceTree = "<group>"; };
+		701A98881DB47A3100460220 /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
+		701A98891DB47A3100460220 /* lock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@3x.png"; sourceTree = "<group>"; };
+		701A988A1DB47A3100460220 /* Rectangle 2@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 2@1x.png"; sourceTree = "<group>"; };
+		701A988B1DB47A3100460220 /* Rectangle 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 2@2x.png"; sourceTree = "<group>"; };
+		701A988C1DB47A3100460220 /* Rectangle 2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 2@3x.png"; sourceTree = "<group>"; };
+		701A988D1DB47A3100460220 /* Rectangle@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle@1x.png"; sourceTree = "<group>"; };
+		701A988E1DB47A3100460220 /* Rectangle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle@2x.png"; sourceTree = "<group>"; };
+		701A988F1DB47A3100460220 /* Rectangle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle@3x.png"; sourceTree = "<group>"; };
+		701A98901DB47A3100460220 /* 上一频道@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上一频道@1x.png"; sourceTree = "<group>"; };
+		701A98911DB47A3100460220 /* 上一频道@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上一频道@2x.png"; sourceTree = "<group>"; };
+		701A98921DB47A3100460220 /* 上一频道@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上一频道@3x.png"; sourceTree = "<group>"; };
+		701A98931DB47A3100460220 /* 下一频道@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "下一频道@1x.png"; sourceTree = "<group>"; };
+		701A98941DB47A3100460220 /* 下一频道@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "下一频道@2x.png"; sourceTree = "<group>"; };
+		701A98951DB47A3100460220 /* 下一频道@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "下一频道@3x.png"; sourceTree = "<group>"; };
+		701A98961DB47A3100460220 /* 字幕@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字幕@1x.png"; sourceTree = "<group>"; };
+		701A98971DB47A3100460220 /* 字幕@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字幕@2x.png"; sourceTree = "<group>"; };
+		701A98981DB47A3100460220 /* 字幕@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "字幕@3x.png"; sourceTree = "<group>"; };
+		701A98991DB47A3100460220 /* 小窗@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小窗@1x.png"; sourceTree = "<group>"; };
+		701A989A1DB47A3100460220 /* 小窗@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小窗@2x.png"; sourceTree = "<group>"; };
+		701A989B1DB47A3100460220 /* 小窗@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "小窗@3x.png"; sourceTree = "<group>"; };
+		701A989C1DB47A3100460220 /* 频道列表@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "频道列表@1x.png"; sourceTree = "<group>"; };
+		701A989D1DB47A3100460220 /* 频道列表@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "频道列表@2x.png"; sourceTree = "<group>"; };
+		701A989E1DB47A3100460220 /* 频道列表@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "频道列表@3x.png"; sourceTree = "<group>"; };
 		7040E1B61DAE10890063DB66 /* categorys@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@1x.png"; sourceTree = "<group>"; };
 		7040E1B71DAE10890063DB66 /* categorys@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@2x.png"; sourceTree = "<group>"; };
 		7040E1B81DAE10890063DB66 /* categorys@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@3x.png"; sourceTree = "<group>"; };
@@ -834,6 +894,7 @@
 		70170BDD1D7412EE00CC3951 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				701A98801DB47A3100460220 /* FullScreen */,
 				7040E2171DAE12B80063DB66 /* ME */,
 				707FE70B1DACC3740087C361 /* Live */,
 				70130EA31D8FDFD2005F0A49 /* 11.png */,
@@ -906,6 +967,44 @@
 				70170C471D74234900CC3951 /* MonitorViewController.xib */,
 			);
 			path = Monitor;
+			sourceTree = "<group>";
+		};
+		701A98801DB47A3100460220 /* FullScreen */ = {
+			isa = PBXGroup;
+			children = (
+				701A98811DB47A3100460220 /* Back Arrow Blue@1x.png */,
+				701A98821DB47A3100460220 /* Back Arrow Blue@2x.png */,
+				701A98831DB47A3100460220 /* Back Arrow Blue@3x.png */,
+				701A98841DB47A3100460220 /* Group@1x.png */,
+				701A98851DB47A3100460220 /* Group@2x.png */,
+				701A98861DB47A3100460220 /* Group@3x.png */,
+				701A98871DB47A3100460220 /* lock@1x.png */,
+				701A98881DB47A3100460220 /* lock@2x.png */,
+				701A98891DB47A3100460220 /* lock@3x.png */,
+				701A988A1DB47A3100460220 /* Rectangle 2@1x.png */,
+				701A988B1DB47A3100460220 /* Rectangle 2@2x.png */,
+				701A988C1DB47A3100460220 /* Rectangle 2@3x.png */,
+				701A988D1DB47A3100460220 /* Rectangle@1x.png */,
+				701A988E1DB47A3100460220 /* Rectangle@2x.png */,
+				701A988F1DB47A3100460220 /* Rectangle@3x.png */,
+				701A98901DB47A3100460220 /* 上一频道@1x.png */,
+				701A98911DB47A3100460220 /* 上一频道@2x.png */,
+				701A98921DB47A3100460220 /* 上一频道@3x.png */,
+				701A98931DB47A3100460220 /* 下一频道@1x.png */,
+				701A98941DB47A3100460220 /* 下一频道@2x.png */,
+				701A98951DB47A3100460220 /* 下一频道@3x.png */,
+				701A98961DB47A3100460220 /* 字幕@1x.png */,
+				701A98971DB47A3100460220 /* 字幕@2x.png */,
+				701A98981DB47A3100460220 /* 字幕@3x.png */,
+				701A98991DB47A3100460220 /* 小窗@1x.png */,
+				701A989A1DB47A3100460220 /* 小窗@2x.png */,
+				701A989B1DB47A3100460220 /* 小窗@3x.png */,
+				701A989C1DB47A3100460220 /* 频道列表@1x.png */,
+				701A989D1DB47A3100460220 /* 频道列表@2x.png */,
+				701A989E1DB47A3100460220 /* 频道列表@3x.png */,
+			);
+			name = FullScreen;
+			path = "全屏切图";
 			sourceTree = "<group>";
 		};
 		7040E2171DAE12B80063DB66 /* ME */ = {
@@ -1316,30 +1415,39 @@
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
 				70170C3D1D74156000CC3951 /* more.png in Resources */,
+				701A98AC1DB47A3100460220 /* Rectangle@2x.png in Resources */,
 				7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */,
 				7040E2391DAE12B80063DB66 /* Group 15 Copy 2@1x.png in Resources */,
+				701A98B91DB47A3100460220 /* 小窗@3x.png in Resources */,
+				701A98B81DB47A3100460220 /* 小窗@2x.png in Resources */,
+				701A98A31DB47A3100460220 /* Group@2x.png in Resources */,
 				707FE7491DACC3C30087C361 /* me icon copy@1x.png in Resources */,
 				7040E23E1DAE12B80063DB66 /* Group 6@3x.png in Resources */,
 				707FE75F1DACC3C30087C361 /* time@2x.png in Resources */,
 				707FE7471DACC3C30087C361 /* live icon@2x.png in Resources */,
 				707FE7541DACC3C30087C361 /* Path 2@3x.png in Resources */,
 				70FC30EF1D75714E00BD06FE /* zx-video-player-rewind@2x.png in Resources */,
+				701A98AB1DB47A3100460220 /* Rectangle@1x.png in Resources */,
 				7040E2381DAE12B80063DB66 /* Group 12 Copy 2@3x.png in Resources */,
 				70170C0E1D74131500CC3951 /* guang_top.png in Resources */,
 				7040E2451DAE12B80063DB66 /* Viasat-Nature-logo@1x.png in Resources */,
 				706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
+				701A989F1DB47A3100460220 /* Back Arrow Blue@1x.png in Resources */,
 				7040E2351DAE12B80063DB66 /* Group 10 Copy 2@3x.png in Resources */,
+				701A98BB1DB47A3100460220 /* 频道列表@2x.png in Resources */,
 				7040E23A1DAE12B80063DB66 /* Group 15 Copy 2@2x.png in Resources */,
 				7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */,
 				706A1C971DB0A20200DADE86 /* Group 7@1x.png in Resources */,
 				707FE7521DACC3C30087C361 /* Path 2@1x.png in Resources */,
 				70170C281D74131500CC3951 /* share_btn.png in Resources */,
 				7040E2421DAE12B80063DB66 /* Viasat-Explore@1x.png in Resources */,
+				701A98B61DB47A3100460220 /* 字幕@3x.png in Resources */,
 				70170C271D74131500CC3951 /* right_on@2x.png in Resources */,
 				707FE73D1DACC3C30087C361 /* Group 5@1x.png in Resources */,
 				707FE73C1DACC3C30087C361 /* Group 3@3x.png in Resources */,
+				701A98B11DB47A3100460220 /* 下一频道@1x.png in Resources */,
 				707FE75D1DACC3C30087C361 /* Rectangle 149@3x.png in Resources */,
 				70170C1A1D74131500CC3951 /* login_btn.png in Resources */,
 				7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */,
@@ -1352,23 +1460,29 @@
 				70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */,
 				70170C391D74156000CC3951 /* hot.png in Resources */,
 				707FE7431DACC3C30087C361 /* live icon copy@1x.png in Resources */,
+				701A98BA1DB47A3100460220 /* 频道列表@1x.png in Resources */,
 				70170C041D74131500CC3951 /* bar_bg.png in Resources */,
+				701A98AD1DB47A3100460220 /* Rectangle@3x.png in Resources */,
 				7040E2411DAE12B80063DB66 /* Group 8 Copy 2@3x.png in Resources */,
 				707FE7421DACC3C30087C361 /* Group 16@3x.png in Resources */,
 				70170C251D74131500CC3951 /* right_default@2x.png in Resources */,
 				70170C151D74131500CC3951 /* left_on@2x.png in Resources */,
 				7040E24B1DAE12B80063DB66 /* zOOm-Logo@1x.png in Resources */,
+				701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */,
+				701A98A41DB47A3100460220 /* Group@3x.png in Resources */,
 				707FE7381DACC3C30087C361 /* background@2x.png in Resources */,
 				70FC30E71D75714E00BD06FE /* zx-video-banner-back.png in Resources */,
 				7040E2341DAE12B80063DB66 /* Group 10 Copy 2@2x.png in Resources */,
 				70170C1B1D74131500CC3951 /* login_btn@2x.png in Resources */,
 				70170C081D74131500CC3951 /* category_bg.png in Resources */,
 				7040E24A1DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@3x.png in Resources */,
+				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
 				70FC30DD1D75714E00BD06FE /* kr-video-player-fullscreen@2x.png in Resources */,
 				70FC30F41D75714E00BD06FE /* zx-video-player-volume@3x.png in Resources */,
 				7040E23F1DAE12B80063DB66 /* Group 8 Copy 2@1x.png in Resources */,
+				701A98A11DB47A3100460220 /* Back Arrow Blue@3x.png in Resources */,
 				7040E2431DAE12B80063DB66 /* Viasat-Explore@2x.png in Resources */,
 				7040E23D1DAE12B80063DB66 /* Group 6@2x.png in Resources */,
 				7040E2331DAE12B80063DB66 /* Group 10 Copy 2@1x.png in Resources */,
@@ -1381,6 +1495,7 @@
 				70170C241D74131500CC3951 /* right_default.png in Resources */,
 				70FC30F31D75714E00BD06FE /* zx-video-player-volume@2x.png in Resources */,
 				A4A66A1B1555E44100AED3AF /* MasterViewController.xib in Resources */,
+				701A98A21DB47A3100460220 /* Group@1x.png in Resources */,
 				70170C0C1D74131500CC3951 /* detail_btn.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				70170C0A1D74131500CC3951 /* category.png in Resources */,
@@ -1389,6 +1504,7 @@
 				706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */,
 				707FE7441DACC3C30087C361 /* live icon copy@2x.png in Resources */,
 				70170C131D74131500CC3951 /* left_default@2x.png in Resources */,
+				701A98A51DB47A3100460220 /* lock@1x.png in Resources */,
 				70FC30F51D75714E00BD06FE /* zx-video-player-volumeMute@2x.png in Resources */,
 				70FC30DB1D75714E00BD06FE /* kr-video-player-close@2x.png in Resources */,
 				70FC30E01D75714E00BD06FE /* kr-video-player-pause@3x.png in Resources */,
@@ -1398,18 +1514,22 @@
 				707FE74D1DACC3C30087C361 /* me icon@2x.png in Resources */,
 				707FE7531DACC3C30087C361 /* Path 2@2x.png in Resources */,
 				707FE7601DACC3C30087C361 /* time@3x.png in Resources */,
+				701A98A61DB47A3100460220 /* lock@2x.png in Resources */,
 				707FE7451DACC3C30087C361 /* live icon copy@3x.png in Resources */,
 				70FC30E81D75714E00BD06FE /* zx-video-banner-back@2x.png in Resources */,
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
 				7012953D1D80FC0A003139D5 /* TVCell.xib in Resources */,
+				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
 				7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */,
 				70170C141D74131500CC3951 /* left_on.png in Resources */,
+				701A98B31DB47A3100460220 /* 下一频道@3x.png in Resources */,
 				707FE7571DACC3C30087C361 /* Pause@3x.png in Resources */,
 				70FC30E91D75714E00BD06FE /* zx-video-player-brightness@2x.png in Resources */,
 				70170C121D74131500CC3951 /* left_default.png in Resources */,
 				707FE7561DACC3C30087C361 /* Pause@2x.png in Resources */,
 				70FC30EC1D75714E00BD06FE /* zx-video-player-fastForward@3x.png in Resources */,
+				701A98AE1DB47A3100460220 /* 上一频道@1x.png in Resources */,
 				70170C101D74131500CC3951 /* heart.png in Resources */,
 				7040E2401DAE12B80063DB66 /* Group 8 Copy 2@2x.png in Resources */,
 				70130E9E1D8FDEC8005F0A49 /* search.png in Resources */,
@@ -1417,8 +1537,12 @@
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
 				7040E2441DAE12B80063DB66 /* Viasat-Explore@3x.png in Resources */,
 				70170C0D1D74131500CC3951 /* detail_btn@2x.png in Resources */,
+				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
 				7040E2361DAE12B80063DB66 /* Group 12 Copy 2@1x.png in Resources */,
+				701A98A01DB47A3100460220 /* Back Arrow Blue@2x.png in Resources */,
+				701A98B01DB47A3100460220 /* 上一频道@3x.png in Resources */,
+				701A98AA1DB47A3100460220 /* Rectangle 2@3x.png in Resources */,
 				70FC30F01D75714E00BD06FE /* zx-video-player-rewind@3x.png in Resources */,
 				70FC30EA1D75714E00BD06FE /* zx-video-player-brightness@3x.png in Resources */,
 				70FC30E41D75714E00BD06FE /* kr-video-player-point@3x.png in Resources */,
@@ -1436,6 +1560,7 @@
 				70FC30ED1D75714E00BD06FE /* zx-video-player-lock@2x.png in Resources */,
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
+				701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */,
 				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
 				707FE7461DACC3C30087C361 /* live icon@1x.png in Resources */,
@@ -1443,6 +1568,7 @@
 				70170C231D74131500CC3951 /* password@2x.png in Resources */,
 				701295161D80F4CF003139D5 /* MBProgressHUD.bundle in Resources */,
 				70170C1C1D74131500CC3951 /* logout.png in Resources */,
+				701A98A81DB47A3100460220 /* Rectangle 2@1x.png in Resources */,
 				7040E23B1DAE12B80063DB66 /* Group 15 Copy 2@3x.png in Resources */,
 				70FC30F61D75714E00BD06FE /* zx-video-player-volumeMute@3x.png in Resources */,
 				70170C061D74131500CC3951 /* category_arrow_down.png in Resources */,
@@ -1452,8 +1578,11 @@
 				70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */,
 				70170C351D74156000CC3951 /* block_bg.png in Resources */,
 				A4A66A1E1555E44100AED3AF /* DetailViewController.xib in Resources */,
+				701A98BC1DB47A3100460220 /* 频道列表@3x.png in Resources */,
+				701A98A71DB47A3100460220 /* lock@3x.png in Resources */,
 				70170C181D74131500CC3951 /* like_btn.png in Resources */,
 				7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */,
+				701A98B41DB47A3100460220 /* 字幕@1x.png in Resources */,
 				70FC30E21D75714E00BD06FE /* kr-video-player-play@3x.png in Resources */,
 				707FE7511DACC3C30087C361 /* Overlay@3x.png in Resources */,
 				70170C071D74131500CC3951 /* category_arrow_down@2x.png in Resources */,
