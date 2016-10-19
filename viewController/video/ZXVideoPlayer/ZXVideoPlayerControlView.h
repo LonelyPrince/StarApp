@@ -31,6 +31,7 @@
 @property (nonatomic, strong, readonly) UIButton *pauseButton;
 @property (nonatomic, strong, readonly) UIButton *fullScreenButton;
 @property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;
+@property (nonatomic, strong, readonly) UIButton *shrinkScreenButton1;
 @property (nonatomic, strong, readonly) UISlider *progressSlider;
 @property (nonatomic, strong, readonly) UILabel *timeLabel;
 
@@ -57,6 +58,33 @@
 //**** 当前节目名称
 @property (nonatomic, strong, readonly) UILabel *eventnameLabel;
 //****
+//上一个频道
+@property (nonatomic, strong, readwrite) UIButton *lastChannelButton;
+////下一个频道
+@property (nonatomic, strong, readwrite) UIButton *nextChannelButton;
+
+///字幕按钮
+@property (nonatomic, strong, readwrite) UIButton *subtBtn;
+////音轨按钮
+@property (nonatomic, strong, readwrite) UIButton *audioBtn;
+////列表频道按钮
+@property (nonatomic, strong, readwrite) UIButton *channelListBtn;
+////节目时长label
+@property (nonatomic, strong, readwrite) UILabel *eventTimeLab;
+
+////频道号label
+@property (nonatomic, strong, readwrite) UILabel *channelIdLab;
+
+////频道名称label
+@property (nonatomic, strong, readwrite) UILabel *channelNameLab;
+
+////节目名称label
+@property (nonatomic, strong, readwrite) UILabel *FulleventNameLab;
+
+
+//@property (nonatomic, strong, readwrite) UIButton *lockButton;
+//@property (nonatomic, strong, readwrite) UIButton *lockButton;
+
 - (void)animateHide;
 - (void)animateShow;
 - (void)autoFadeOutControlBar;

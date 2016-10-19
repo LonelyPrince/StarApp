@@ -119,8 +119,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.shrinkScreenButton1 addTarget:self action:@selector(shrinkScreenButton1Click) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.videoControl.lockButton addTarget:self action:@selector(lockButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.backButton addTarget:self action:@selector(backButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    //////
+    [self.videoControl.lastChannelButton addTarget:self action:@selector(lastChannelButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.nextChannelButton addTarget:self action:@selector(nextChannelButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.subtBtn addTarget:self action:@selector(subtBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.audioBtn addTarget:self action:@selector(audioBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.channelListBtn addTarget:self action:@selector(channelListBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     // slider
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -261,6 +270,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.videoControl.fullScreenButton.hidden = NO;
     self.videoControl.shrinkScreenButton.hidden = YES;
+    self.videoControl.shrinkScreenButton1.hidden = YES;
+    self.videoControl.lastChannelButton.hidden = YES;
+    self.videoControl.nextChannelButton.hidden = YES;
+    self.videoControl.subtBtn.hidden = YES;
+    self.videoControl.audioBtn.hidden = YES;
+    self.videoControl.channelListBtn.hidden = YES;
+    self.videoControl.eventTimeLab.hidden = YES;
+    
+    
+//    self.videoControl.backButton.hidden = YES;
 }
 
 /// 控制视图隐藏
@@ -510,7 +529,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.videoControl.isBarShowing) {
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     } else {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     }
     
     if (self.videoPlayerWillChangeToFullScreenModeBlock) {
@@ -518,10 +537,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.frame = [UIScreen mainScreen].bounds;
-    
+    self.videoControl.bottomBar.userInteractionEnabled = YES;
     self.isFullscreenMode = YES;
     self.videoControl.fullScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton.hidden = NO;
+    self.videoControl.shrinkScreenButton1.hidden = NO;
+    self.videoControl.lastChannelButton.hidden = NO;
+    self.videoControl.nextChannelButton.hidden = NO;
+    self.videoControl.subtBtn.hidden = NO;
+    self.videoControl.audioBtn.hidden = NO;
+    self.videoControl.channelListBtn.hidden = NO;
+    self.videoControl.eventTimeLab.hidden = NO;
+    self.videoControl.backButton.hidden = NO;
+    
+     self.videoControl.channelIdLab.hidden = NO;
+     self.videoControl.channelNameLab.hidden = NO;
+     self.videoControl.FulleventNameLab.hidden = NO;
+    
+    
 }
 
 /// 切换到竖屏模式
@@ -539,13 +572,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoPlayerWillChangeToOriginalScreenModeBlock();
     }
     
-
-//    self.frame = CGRectMake(0, searchBtnY+searchBtnHeight, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
-self.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
+  self.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
     
     self.isFullscreenMode = NO;
     self.videoControl.fullScreenButton.hidden = NO;
     self.videoControl.shrinkScreenButton.hidden = YES;
+    self.videoControl.shrinkScreenButton1.hidden = YES;
+    self.videoControl.backButton.hidden = YES;
+     self.videoControl.channelIdLab.hidden = YES;
+     self.videoControl.channelNameLab.hidden = YES;
+     self.videoControl.FulleventNameLab.hidden = YES;
+    
+    self.videoControl.lastChannelButton.hidden = YES;
+    self.videoControl.nextChannelButton.hidden = YES;
+    self.videoControl.subtBtn.hidden = YES;
+    self.videoControl.audioBtn.hidden = YES;
+    self.videoControl.channelListBtn.hidden = YES;
+    self.videoControl.eventTimeLab.hidden = YES;
 }
 
 /// 手动切换设备方向
@@ -564,6 +607,32 @@ self.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPla
 
 #pragma mark -
 #pragma mark - Action Code
+
+////
+///上一个节目
+- (void)lastChannelButtonClick
+{
+    NSLog(@"shang 上一个节目");
+}
+- (void)nextChannelButtonClick
+{
+    NSLog(@"下一个节目");
+}
+- (void)subtBtnClick
+{
+    NSLog(@"sub");
+}
+
+- (void)audioBtnClick
+{
+    NSLog(@"audio");
+}
+
+- (void)channelListBtnClick
+{
+    NSLog(@"channellist");
+}
+
 
 /// 返回按钮点击
 - (void)backButtonClick
@@ -635,6 +704,23 @@ self.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPla
 /// 返回竖屏按钮点击
 - (void)shrinkScreenButtonClick
 {
+    
+    NSLog(@"aaaaaa");
+    if (!self.isFullscreenMode) {
+        return;
+    }
+    
+    if (self.isLocked) { // 解锁
+        [self lockButtonClick:self.videoControl.lockButton];
+    }
+    
+    [self changeToOrientation:UIDeviceOrientationPortrait];
+}
+
+/// 返回竖屏按钮点击1
+- (void)shrinkScreenButton1Click
+{
+    
     if (!self.isFullscreenMode) {
         return;
     }

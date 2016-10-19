@@ -14,19 +14,28 @@ static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 @interface ZXVideoPlayerControlView ()
-
+@property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIView *bottomBar;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *pauseButton;
 @property (nonatomic, strong) UIButton *fullScreenButton;
 @property (nonatomic, strong) UIButton *shrinkScreenButton;
+@property (nonatomic, strong) UIButton *shrinkScreenButton1; //new
 @property (nonatomic, strong) UISlider *progressSlider;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *eventnameLabel;
 
+@property (nonatomic, strong)  UIImageView * bottomControllerImage;
+@property (nonatomic, strong)  UIImageView * topControllerImage;
 @property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+
+////////
+//上一个频道
+//@property (nonatomic, strong) UIButton *lastChannelButton;
+//////下一个频道
+//@property (nonatomic, strong) UIButton *nextChannelButton;
 
 @end
 
@@ -43,8 +52,31 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 //        [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
-        [self.bottomBar addSubview:self.shrinkScreenButton];
+//        [self.bottomBar addSubview:self.shrinkScreenButton];
+        [self.bottomBar addSubview:self.shrinkScreenButton1];
+        [self.bottomBar addSubview:self.lastChannelButton];
+        [self.bottomBar addSubview:self.nextChannelButton];
+        [self.bottomBar addSubview:self.subtBtn];
+        [self.bottomBar addSubview:self.audioBtn];
+        [self.bottomBar addSubview:self.channelListBtn];
+        [self.bottomBar addSubview:self.eventTimeLab];
+        
+        [self.topBar addSubview:self.channelIdLab];
+        [self.topBar addSubview:self.channelNameLab];
+        [self.topBar addSubview:self.FulleventNameLab];
+        
+        self.channelIdLab.hidden = YES;
+        self.channelNameLab.hidden = YES;
+        self.FulleventNameLab.hidden = YES;
+        
         self.shrinkScreenButton.hidden = YES;
+        self.shrinkScreenButton1.hidden = YES;
+        self.lastChannelButton.hidden = YES;
+        self.nextChannelButton.hidden = YES;
+        self.subtBtn.hidden = YES;
+        self.audioBtn.hidden =YES;
+        self.channelListBtn.hidden = YES;
+        self.eventTimeLab.hidden = YES;
         //        [self.bottomBar addSubview:self.progressSlider];
         //        [self.bottomBar addSubview:self.timeLabel];
         [self addSubview:self.indicatorView];
@@ -52,7 +84,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self.bottomBar addSubview:self.eventnameLabel];
         //****
         // 返回按钮
-        //        [self.topBar addSubview:self.backButton];
+                [self.topBar addSubview:self.backButton];
+                self.backButton.hidden = YES;
         // 锁定按钮
         //        [self.topBar addSubview:self.lockButton];
         // 缓冲进度条
@@ -66,7 +99,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         // 电池条
         //        [self.topBar addSubview:self.batteryView];
         // 标题
-        [self.topBar addSubview:self.titleLabel];
+//        [self.topBar addSubview:self.titleLabel];
         
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
@@ -93,13 +126,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
     self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 34,41, 19,19);
     
-    
-//    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
-//    //    self.fullScreenButton.frame = CGRectMake(SCREEN_WIDTH-15-CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2,CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
-    
-//    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
+
     self.shrinkScreenButton.frame = self.fullScreenButton.frame;
     
+    self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 34,41, 19,19);
     self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), 0, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
     
     self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
@@ -107,7 +137,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     
     // 返回按钮
-    //    self.backButton.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds), CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
+        self.backButton.frame = CGRectMake(20, 12.5, 6, 10);
     // 锁定按钮
     //    self.lockButton.frame = CGRectMake(CGRectGetMaxX(self.topBar.bounds) - 40 - 10, CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
     // 缓冲进度条
@@ -129,6 +159,21 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //********
 //    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
     self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
+    
+    self.lastChannelButton.frame = CGRectMake(20, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17, 17, 17);
+    
+    self.nextChannelButton.frame = CGRectMake(77, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
+    self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
+    self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
+    self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
+    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 160, 17);
+
+    //*********
+    self.channelIdLab.frame = CGRectMake(48, 10, 55, 18);
+    self.channelNameLab.frame = CGRectMake(113, 10, 120, 18);
+    self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
+
+
 }
 
 - (void)didMoveToSuperview
@@ -204,26 +249,51 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_topBar) {
         _topBar = [UIView new];
         _topBar.accessibilityIdentifier = @"TopBar";
-        //_topBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-        UIImageView * topControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Overlay"]];
-        topControllerImage.frame =  CGRectMake(0, 0,  CGRectGetWidth(self.bounds), 43);
-        [_topBar addSubview:topControllerImage];
+        
+        
+            _topControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Overlay"]];
+            _topControllerImage.frame =  CGRectMake(0, 0,  [UIScreen mainScreen].bounds.size.width, 43);
+            
+
+        [_topBar addSubview:_topControllerImage];
+
+    
+    
     }
     return _topBar;
 }
 
 - (UIView *)bottomBar
-{
+{   
     if (!_bottomBar) {
         _bottomBar = [UIView new];
-      //  _bottomBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-    
+      
+       
+        //此处销毁通知，防止一个通知被多次调用
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixTopBottomImage:) name:@"fixTopBottomImage" object:nil];
+
+
+          _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Group 16"]];
+            _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
         
-        UIImageView * bottomControllerImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Group 16"]];
-        bottomControllerImage.frame =  CGRectMake(0, 0,  CGRectGetWidth(self.bounds), 75);
-        [_bottomBar addSubview:bottomControllerImage];
+
+        [_bottomBar addSubview:_bottomControllerImage];
     }
     return _bottomBar;
+}
+
+- (void)fixTopBottomImage:(NSNotification *)text{
+
+   float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
+    _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
+    _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 75);
+ 
+//    if (Imagewidth>500) {
+//        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds)+20, Imagewidth, 43);
+//    }
+    
 }
 
 - (UIButton *)playButton
@@ -246,6 +316,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _pauseButton;
 }
 
+
+
 ///全屏
 - (UIButton *)fullScreenButton
 {
@@ -262,10 +334,141 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_shrinkScreenButton) {
         _shrinkScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_shrinkScreenButton setImage:[UIImage imageNamed:@"kr-video-player-shrinkscreen"] forState:UIControlStateNormal];
+        [_shrinkScreenButton setImage:[UIImage imageNamed:@"小窗"] forState:UIControlStateNormal];
         _shrinkScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
     }
     return _shrinkScreenButton;
+}
+
+//退出全屏1
+- (UIButton *)shrinkScreenButton1
+{
+    
+    if (!_shrinkScreenButton1) {
+        _shrinkScreenButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shrinkScreenButton1 setImage:[UIImage imageNamed:@"小窗"] forState:UIControlStateNormal];
+        _shrinkScreenButton1.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+    }
+    return _shrinkScreenButton1;
+}
+///上一个频道
+- (UIButton *)lastChannelButton
+{
+    
+    if (!_lastChannelButton) {
+        _lastChannelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_lastChannelButton setImage:[UIImage imageNamed:@"上一频道"] forState:UIControlStateNormal];
+        _lastChannelButton.bounds = CGRectMake(0, 0, 17, 17);
+    }
+    return _lastChannelButton;
+}
+///下一个频道
+- (UIButton *)nextChannelButton
+{
+    
+    if (!_nextChannelButton) {
+        _nextChannelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_nextChannelButton setImage:[UIImage imageNamed:@"下一频道"] forState:UIControlStateNormal];
+        _nextChannelButton.bounds = CGRectMake(0, 0, 17, 17);
+    }
+    return _nextChannelButton;
+ 
+}
+///字幕
+- (UIButton *)subtBtn
+{
+    
+    if (!_subtBtn) {
+        _subtBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_subtBtn setImage:[UIImage imageNamed:@"字幕"] forState:UIControlStateNormal];
+        _subtBtn.bounds = CGRectMake(0, 0, 17, 17);
+    }
+    return _subtBtn;
+    
+}
+///音轨
+- (UIButton *)audioBtn
+{
+    
+    if (!_audioBtn) {
+        _audioBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_audioBtn setImage:[UIImage imageNamed:@"Group"] forState:UIControlStateNormal];
+        _audioBtn.bounds = CGRectMake(0, 0, 17, 17);
+    }
+    return _audioBtn;
+    
+}
+///频道列表
+- (UIButton *)channelListBtn
+{
+    
+    if (!_channelListBtn) {
+        _channelListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_channelListBtn setImage:[UIImage imageNamed:@"频道列表"] forState:UIControlStateNormal];
+        _channelListBtn.bounds = CGRectMake(0, 0, 17, 17);
+    }
+    return _channelListBtn;
+    
+}
+///节目时间
+- (UILabel *)eventTimeLab
+{
+    
+    if (!_eventTimeLab) {
+        _eventTimeLab = [[UILabel alloc] init];
+//        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
+        _eventTimeLab.text = @"08:00 | 30:00 " ;
+        _eventTimeLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
+        _eventTimeLab.font = [UIFont systemFontOfSize:18];
+        
+    }
+    return _eventTimeLab;
+   
+}
+///频道号
+- (UILabel *)channelIdLab
+{
+    
+    if (!_channelIdLab) {
+        _channelIdLab = [[UILabel alloc] init];
+        //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
+        _channelIdLab.text = @"02900 " ;
+        _channelIdLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
+        _channelIdLab.font = [UIFont systemFontOfSize:18];
+        
+    }
+    return _channelIdLab;
+    
+}
+///频道名称
+- (UILabel *)channelNameLab
+{
+    
+    if (!_channelNameLab) {
+        _channelNameLab = [[UILabel alloc] init];
+        //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
+        _channelNameLab.text = @" ZOOM MOON  " ;
+        _channelNameLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
+        _channelNameLab.font = [UIFont systemFontOfSize:18];
+        
+    }
+    return _channelNameLab;
+    
+}
+///节目名称
+- (UILabel *)FulleventNameLab
+{
+    
+    if (!_FulleventNameLab) {
+        _FulleventNameLab = [[UILabel alloc] init];
+        //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
+        _FulleventNameLab.text = @"Despicble Me And TOT LAL MOM " ;
+        _FulleventNameLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
+        _FulleventNameLab.font = [UIFont systemFontOfSize:18];
+        
+    }
+    return _FulleventNameLab;
+    
 }
 
 ///进度条
@@ -308,10 +511,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (UIButton *)backButton
 {
     if (!_backButton) {
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kVideoControlBarHeight , kVideoControlBarHeight)];
-        [_backButton setImage:[UIImage imageNamed:@"zx-video-banner-back"] forState:UIControlStateNormal];
-        _backButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-        _backButton.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 6 , 10)];
+        [_backButton setImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
+//[_backButton setBackgroundImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
     }
     return _backButton;
 }
@@ -376,7 +579,6 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _titleLabel.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
-     //   _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.font = [UIFont systemFontOfSize:12];
         
     }
@@ -390,7 +592,6 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _eventnameLabel = [[UILabel alloc] init];
         _eventnameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _eventnameLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
-//        _eventnameLabel.textAlignment = NSTextAlignmentCenter;
       _eventnameLabel.font = [UIFont systemFontOfSize:17];
     }
     return _eventnameLabel;

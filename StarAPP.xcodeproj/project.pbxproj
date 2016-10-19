@@ -178,9 +178,6 @@
 		706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8D1DAF5DA400DADE86 /* play@1x.png */; };
 		706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8E1DAF5DA400DADE86 /* play@2x.png */; };
 		706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8F1DAF5DA400DADE86 /* play@3x.png */; };
-		706A1C971DB0A20200DADE86 /* Group 7@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C941DB0A20200DADE86 /* Group 7@1x.png */; };
-		706A1C981DB0A20200DADE86 /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C951DB0A20200DADE86 /* Group 7@2x.png */; };
-		706A1C991DB0A20200DADE86 /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C961DB0A20200DADE86 /* Group 7@3x.png */; };
 		707FE7371DACC3C30087C361 /* background@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70D1DACC3C30087C361 /* background@1x.png */; };
 		707FE7381DACC3C30087C361 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70E1DACC3C30087C361 /* background@2x.png */; };
 		707FE7391DACC3C30087C361 /* background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70F1DACC3C30087C361 /* background@3x.png */; };
@@ -225,6 +222,10 @@
 		7097466E1D6D8A54002E7A39 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7097466B1D6D8A54002E7A39 /* AsyncUdpSocket.m */; };
 		7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */ = {isa = PBXBuildFile; fileRef = 7097466C1D6D8A54002E7A39 /* Documentation.html */; };
 		709746771D6D8E3F002E7A39 /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746761D6D8E3F002E7A39 /* Singleton.m */; };
+		70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712571DB5EE1300BD98EE /* Group 7@1x.png */; };
+		70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712581DB5EE1300BD98EE /* Group 7@2x.png */; };
+		70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712591DB5EE1300BD98EE /* Group 7@3x.png */; };
+		70E712A81DB611F800BD98EE /* FullScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E712A71DB611F800BD98EE /* FullScreenView.m */; };
 		70FC2FF41D7524C000BD06FE /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC2FF21D7524C000BD06FE /* SearchViewController.m */; };
 		70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FC2FF31D7524C000BD06FE /* SearchViewController.xib */; };
 		70FC30A71D756E2A00BD06FE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FC30A61D756E2A00BD06FE /* MediaPlayer.framework */; };
@@ -514,9 +515,6 @@
 		706A1C8D1DAF5DA400DADE86 /* play@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@1x.png"; sourceTree = "<group>"; };
 		706A1C8E1DAF5DA400DADE86 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		706A1C8F1DAF5DA400DADE86 /* play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@3x.png"; sourceTree = "<group>"; };
-		706A1C941DB0A20200DADE86 /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
-		706A1C951DB0A20200DADE86 /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
-		706A1C961DB0A20200DADE86 /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
 		707FE70D1DACC3C30087C361 /* background@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@1x.png"; sourceTree = "<group>"; };
 		707FE70E1DACC3C30087C361 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		707FE70F1DACC3C30087C361 /* background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@3x.png"; sourceTree = "<group>"; };
@@ -565,6 +563,11 @@
 		7097466C1D6D8A54002E7A39 /* Documentation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Documentation.html; sourceTree = "<group>"; };
 		709746751D6D8E3F002E7A39 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		709746761D6D8E3F002E7A39 /* Singleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
+		70E712571DB5EE1300BD98EE /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
+		70E712581DB5EE1300BD98EE /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
+		70E712591DB5EE1300BD98EE /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
+		70E712A61DB611F800BD98EE /* FullScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullScreenView.h; path = ../FullScreenView.h; sourceTree = "<group>"; };
+		70E712A71DB611F800BD98EE /* FullScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FullScreenView.m; path = ../FullScreenView.m; sourceTree = "<group>"; };
 		70FC2FF11D7524C000BD06FE /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		70FC2FF21D7524C000BD06FE /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		70FC2FF31D7524C000BD06FE /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -855,6 +858,8 @@
 				70FC2FF01D75249F00BD06FE /* Search */,
 				70170BD61D7403AC00CC3951 /* TVViewController.h */,
 				70170BD71D7403AC00CC3951 /* TVViewController.m */,
+				70E712A61DB611F800BD98EE /* FullScreenView.h */,
+				70E712A71DB611F800BD98EE /* FullScreenView.m */,
 			);
 			name = Live;
 			path = TV;
@@ -1058,9 +1063,9 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
-				706A1C941DB0A20200DADE86 /* Group 7@1x.png */,
-				706A1C951DB0A20200DADE86 /* Group 7@2x.png */,
-				706A1C961DB0A20200DADE86 /* Group 7@3x.png */,
+				70E712571DB5EE1300BD98EE /* Group 7@1x.png */,
+				70E712581DB5EE1300BD98EE /* Group 7@2x.png */,
+				70E712591DB5EE1300BD98EE /* Group 7@3x.png */,
 				706A1C8D1DAF5DA400DADE86 /* play@1x.png */,
 				706A1C8E1DAF5DA400DADE86 /* play@2x.png */,
 				706A1C8F1DAF5DA400DADE86 /* play@3x.png */,
@@ -1426,6 +1431,7 @@
 				707FE75F1DACC3C30087C361 /* time@2x.png in Resources */,
 				707FE7471DACC3C30087C361 /* live icon@2x.png in Resources */,
 				707FE7541DACC3C30087C361 /* Path 2@3x.png in Resources */,
+				70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */,
 				70FC30EF1D75714E00BD06FE /* zx-video-player-rewind@2x.png in Resources */,
 				701A98AB1DB47A3100460220 /* Rectangle@1x.png in Resources */,
 				7040E2381DAE12B80063DB66 /* Group 12 Copy 2@3x.png in Resources */,
@@ -1439,7 +1445,6 @@
 				701A98BB1DB47A3100460220 /* 频道列表@2x.png in Resources */,
 				7040E23A1DAE12B80063DB66 /* Group 15 Copy 2@2x.png in Resources */,
 				7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */,
-				706A1C971DB0A20200DADE86 /* Group 7@1x.png in Resources */,
 				707FE7521DACC3C30087C361 /* Path 2@1x.png in Resources */,
 				70170C281D74131500CC3951 /* share_btn.png in Resources */,
 				7040E2421DAE12B80063DB66 /* Viasat-Explore@1x.png in Resources */,
@@ -1453,9 +1458,7 @@
 				7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */,
 				707FE7401DACC3C30087C361 /* Group 16@1x.png in Resources */,
 				7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */,
-				706A1C981DB0A20200DADE86 /* Group 7@2x.png in Resources */,
 				707FE73F1DACC3C30087C361 /* Group 5@3x.png in Resources */,
-				706A1C991DB0A20200DADE86 /* Group 7@3x.png in Resources */,
 				707FE74C1DACC3C30087C361 /* me icon@1x.png in Resources */,
 				70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */,
 				70170C391D74156000CC3951 /* hot.png in Resources */,
@@ -1518,6 +1521,7 @@
 				707FE7451DACC3C30087C361 /* live icon copy@3x.png in Resources */,
 				70FC30E81D75714E00BD06FE /* zx-video-banner-back@2x.png in Resources */,
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
+				70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */,
 				7012953D1D80FC0A003139D5 /* TVCell.xib in Resources */,
 				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
@@ -1537,6 +1541,7 @@
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
 				7040E2441DAE12B80063DB66 /* Viasat-Explore@3x.png in Resources */,
 				70170C0D1D74131500CC3951 /* detail_btn@2x.png in Resources */,
+				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
 				7040E2361DAE12B80063DB66 /* Group 12 Copy 2@1x.png in Resources */,
@@ -1659,6 +1664,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7012951E1D80F4CF003139D5 /* UIStoryboard+Addition.m in Sources */,
+				70E712A81DB611F800BD98EE /* FullScreenView.m in Sources */,
 				70FC30D91D75714E00BD06FE /* BaseTabBarController.m in Sources */,
 				70FC30F71D75714E00BD06FE /* ZXVideo.m in Sources */,
 				A4A66A0E1555E44100AED3AF /* main.m in Sources */,

@@ -12,6 +12,7 @@
 #import "SocketView.h"
 #import "Singleton.h"
 
+#import "FullScreenView.h"
 //************
 #import <CyberLink/UPnP.h>
 
@@ -41,7 +42,7 @@
 @property(nonatomic,strong) ServiceModel * serviceModel;
 @property(nonatomic,strong) SocketView * socketView;
 
-
+@property (nonatomic, strong) FullScreenView * fullScreenView;
 //**********
 @property (nonatomic, retain) CGUpnpAvController* avController;
 //**********

@@ -63,6 +63,7 @@
 #import "TVTable.h"
 #import "YLSlideTitleView.h"
 #import "YLSlideView.h"
+#import "FullScreenView.h"
 
 
 #endif

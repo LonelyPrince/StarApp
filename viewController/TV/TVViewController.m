@@ -55,6 +55,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 @property (nonatomic) CGFloat progress;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSArray *progressViews;
+@property (nonatomic, strong)  UIButton * searchBtn;
 
 @end
 
@@ -200,12 +201,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     //每次移动的距离
     self.progress = timeCut;
     
-//    NSLog(@"-----self.progress:%f",self.progress);
-//    
-//    if (self.progress > SCREEN_WIDTH) {
-//        self.progress = SCREEN_WIDTH;
-//        
-//    }
+
     
     [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
         [USER_DEFAULT setObject:starttime forKey:@"StarTime"];
@@ -220,49 +216,6 @@ static const CGSize progressViewSize = {375, 1.5f };
 //-(void) loadUI
 //{
 ////    [self creatTopScroller];   //创建scroll
-//}
-////创建顶部滑动条
-//-(void) creatTopScroller
-//{
-//    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 230, SCREEN_WIDTH, 44)];
-//    scroller.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:scroller];
-//    scroller.showsVerticalScrollIndicator = NO;
-//    scroller.showsHorizontalScrollIndicator = NO;
-//    self.topScroller = scroller;
-//    [self.table  bringSubviewToFront:scroller];
-//
-
-//}
-////获取scroll
-//-(void) getTopCategory
-//{
-//    //获取数据的链接
-//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
-//
-//    LBGetHttpRequest *request = CreateGetHTTP(url);
-//
-//
-//    [request startAsynchronous];
-//
-//    WEAKGET
-//    [request setCompletionBlock:^{
-//        NSDictionary *response = httpRequest.responseString.JSONValue;
-//        NSLog(@"response = %@",response);
-//        NSArray *data = response[@"category"];
-//
-//        if (!isValidArray(data) || data.count == 0){
-//            return ;
-//        }
-//        self.categorys = (NSMutableArray *)data;
-//
-//
-//        //[AppDelegate shareAppDelegate].leftVC.dataSource = self.categorys;
-//
-//          [self.table reloadData];
-//        [self refreshTopScroller];
-//    }];
-//
 //}
 
 //获取table
@@ -302,17 +255,17 @@ static const CGSize progressViewSize = {375, 1.5f };
     topView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:topView];
     
-    //self.navigationController.navigationBar.barTintColor = UIStatusBarStyleDefault;
+//    self.navigationController.navigationBar.barTintColor = UIStatusBarStyleDefault;
     
     //搜索按钮
-    UIButton * searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight)];
+    self.searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight)];
 //    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
-    [searchBtn setBackgroundColor:[UIColor whiteColor]];
+    [self.searchBtn setBackgroundColor:[UIColor whiteColor]];
 //    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
-    [searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
-    [self.view addSubview:searchBtn];
-    [topView bringSubviewToFront:searchBtn];
-    [searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
+    [self.view addSubview:self.searchBtn];
+    [topView bringSubviewToFront:self.searchBtn];
+    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     //视频播放
     //----直播源
@@ -349,31 +302,81 @@ static const CGSize progressViewSize = {375, 1.5f };
         
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             NSLog(@"切换为竖屏模式");
-         self.tabBarController.tabBar.hidden = NO;
+            
+            float noewWidth = [UIScreen mainScreen].bounds.size.width;
+           
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
+            
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+          self.tabBarController.tabBar.hidden = NO;
             _slideView.frame =CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                                                       SCREEN_WIDTH,
                                                                       SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
-
+     
+            
             
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+            [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+            self.navigationController.navigationBar.translucent = NO;
+            self.extendedLayoutIncludesOpaqueBars
+            = NO;
+            
+            self.edgesForExtendedLayout =UIRectEdgeNone;
+            float noewWidth = [UIScreen mainScreen].bounds.size.width;
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
+            
+            
+            
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
             self.tabBarController.tabBar.hidden = YES;
-            _slideView.frame = CGRectMake(kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight+600,
-                                                                      SCREEN_WIDTH,
-                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
+
+            
+            
+            self.view.frame = CGRectMake(0, 0, 800, 800);
+            _slideView.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+800,
+                                          SCREEN_WIDTH,
+                                          SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
+            
+//            [self setFullScreenView];
+            
+            NSLog(@"全屏宽 ： %f",[UIScreen mainScreen].bounds.size.width);
+            
+            
         };
         
+       
         [self.videoController showInView:self.view];
+        self.navigationController.navigationBar.translucent = NO;
+        self.extendedLayoutIncludesOpaqueBars
+        = NO;
+        
+        self.edgesForExtendedLayout =UIRectEdgeNone;
+
+        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
     }
     
     
-    
     self.videoController.video = self.video;
-//    NSLog(@"video:%@",self.videoController.video.title);
-//    NSLog(@"video:%@",self.videoController.video.playUrl);
-//    
     
+}
+
+-(void)setFullScreenView
+{
+    _fullScreenView = [[FullScreenView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [self.view addSubview:_fullScreenView];
 }
 
 //搜索按钮

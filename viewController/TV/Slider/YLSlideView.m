@@ -245,7 +245,6 @@
 //    int currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
     
-//    self.triangleView.frame = CGRectMake(_slideT 48-6, 14, 7);
     
 }
 
@@ -347,26 +346,6 @@
     };
 }
 
-//-(void)setTriangleFrame : (NSNotification *)text
-//{
-//    float currentBtnX = [text.userInfo[@"textOne"]floatValue];
-//    float currentBtnWidth = [text.userInfo[@"textTwo"]floatValue];
-//   float scrollContentoffsetX = [text.userInfo[@"textContentOffsetX"]floatValue];
-//    
-//    if (ISNULL(text.userInfo[@"textContentOffsetX"])) {
-//         self.triangleView.frame = CGRectMake(currentBtnX+currentBtnWidth/2, 48-6, 14, 7);
-//    }
-//    else{
-//     self.triangleView.frame = CGRectMake(currentBtnX+currentBtnWidth/2+scrollContentoffsetX, 48-6, 14, 7);
-//    }
-//    self.triangleView.frame = CGRectMake(currentBtnX+currentBtnWidth/2, 48-6, 14, 7);
-//    self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
-//    [self addSubview:self.triangleView];
-//    [self bringSubviewToFront:self.triangleView];
-//    [_slideTitleView bringSubviewToFront:self.triangleView];
-//    [self.lineview  bringSubviewToFront:self.triangleView];
-//
-//}
 
 -(void)setTriangleFrame : (NSNotification *)text
 {
