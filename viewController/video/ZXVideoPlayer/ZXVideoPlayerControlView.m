@@ -61,12 +61,14 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self.bottomBar addSubview:self.channelListBtn];
         [self.bottomBar addSubview:self.eventTimeLab];
         
+        
+        
         [self.topBar addSubview:self.channelIdLab];
         [self.topBar addSubview:self.channelNameLab];
         [self.topBar addSubview:self.FulleventNameLab];
         
-        self.channelIdLab.hidden = YES;
-        self.channelNameLab.hidden = YES;
+//        self.channelIdLab.hidden = YES;
+//        self.channelNameLab.hidden = YES;
         self.FulleventNameLab.hidden = YES;
         
         self.shrinkScreenButton.hidden = YES;
@@ -77,6 +79,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.audioBtn.hidden =YES;
         self.channelListBtn.hidden = YES;
         self.eventTimeLab.hidden = YES;
+        
         //        [self.bottomBar addSubview:self.progressSlider];
         //        [self.bottomBar addSubview:self.timeLabel];
         [self addSubview:self.indicatorView];
@@ -99,7 +102,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         // 电池条
         //        [self.topBar addSubview:self.batteryView];
         // 标题
-//        [self.topBar addSubview:self.titleLabel];
+       // [self.topBar addSubview:self.titleLabel];
         
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
@@ -166,11 +169,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
     self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
     self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 17, 17);
-    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 160, 17);
+    
+    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
 
     //*********
-    self.channelIdLab.frame = CGRectMake(48, 10, 55, 18);
-    self.channelNameLab.frame = CGRectMake(113, 10, 120, 18);
+    self.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+    self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
     self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
 
 
@@ -195,6 +199,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
         self.topBar.alpha = 0.0;
         self.bottomBar.alpha = 0.0;
+        
+        /////// 加入通知
+        int show = 1;
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+        NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
     }];
@@ -202,16 +213,26 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)animateShow
 {
+   
+    
     if (self.isBarShowing) {
         return;
     }
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
         self.topBar.alpha = 1.0;
         self.bottomBar.alpha = 1.0;
+        
+        /////// 加入通知
+        int show = 2;
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+        NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     } completion:^(BOOL finished) {
         self.isBarShowing = YES;
         [self autoFadeOutControlBar];
     }];
+    
 }
 
 - (void)autoFadeOutControlBar
@@ -221,6 +242,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     }
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
     [self performSelector:@selector(animateHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+    
+ 
+
 }
 
 - (void)cancelAutoFadeOutControlBar
@@ -232,14 +256,25 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)onTap:(UITapGestureRecognizer *)gesture
 {
+    int show;
     if (gesture.state == UIGestureRecognizerStateRecognized) {
         if (self.isBarShowing) {
             [self animateHide];
+            show = 1;
+            NSLog(@"**%hhd",self.isBarShowing);
+            NSLog(@"点击了一下");
         } else {
             [self animateShow];
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            show = 2;
+              NSLog(@"**%hhd",self.isBarShowing);
+            NSLog(@"点击了第二下");
         }
     }
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+//    NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 #pragma mark - getters
@@ -432,9 +467,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_channelIdLab) {
         _channelIdLab = [[UILabel alloc] init];
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
-        _channelIdLab.text = @"02900 " ;
+//        _channelIdLab.text = @"02900 " ;
         _channelIdLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
-        _channelIdLab.font = [UIFont systemFontOfSize:18];
+        _channelIdLab.font = [UIFont systemFontOfSize:12];
         
     }
     return _channelIdLab;
@@ -447,15 +482,15 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_channelNameLab) {
         _channelNameLab = [[UILabel alloc] init];
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
-        _channelNameLab.text = @" ZOOM MOON  " ;
+//        _channelNameLab.text = @" ZOOM MOON  " ;
         _channelNameLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
-        _channelNameLab.font = [UIFont systemFontOfSize:18];
+        _channelNameLab.font = [UIFont systemFontOfSize:12];
         
     }
     return _channelNameLab;
     
 }
-///节目名称
+///节目名称r
 - (UILabel *)FulleventNameLab
 {
     

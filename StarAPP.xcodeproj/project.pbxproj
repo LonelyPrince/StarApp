@@ -178,6 +178,9 @@
 		706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8D1DAF5DA400DADE86 /* play@1x.png */; };
 		706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8E1DAF5DA400DADE86 /* play@2x.png */; };
 		706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8F1DAF5DA400DADE86 /* play@3x.png */; };
+		7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074D7D11DB8BA30008F8EAE /* 渐变@1x.png */; };
+		7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074D7D21DB8BA30008F8EAE /* 渐变@2x.png */; };
+		7074D7D61DB8BA30008F8EAE /* 渐变@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074D7D31DB8BA30008F8EAE /* 渐变@3x.png */; };
 		707FE7371DACC3C30087C361 /* background@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70D1DACC3C30087C361 /* background@1x.png */; };
 		707FE7381DACC3C30087C361 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70E1DACC3C30087C361 /* background@2x.png */; };
 		707FE7391DACC3C30087C361 /* background@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE70F1DACC3C30087C361 /* background@3x.png */; };
@@ -515,6 +518,9 @@
 		706A1C8D1DAF5DA400DADE86 /* play@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@1x.png"; sourceTree = "<group>"; };
 		706A1C8E1DAF5DA400DADE86 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		706A1C8F1DAF5DA400DADE86 /* play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@3x.png"; sourceTree = "<group>"; };
+		7074D7D11DB8BA30008F8EAE /* 渐变@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@1x.png"; sourceTree = "<group>"; };
+		7074D7D21DB8BA30008F8EAE /* 渐变@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@2x.png"; sourceTree = "<group>"; };
+		7074D7D31DB8BA30008F8EAE /* 渐变@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@3x.png"; sourceTree = "<group>"; };
 		707FE70D1DACC3C30087C361 /* background@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@1x.png"; sourceTree = "<group>"; };
 		707FE70E1DACC3C30087C361 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		707FE70F1DACC3C30087C361 /* background@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@3x.png"; sourceTree = "<group>"; };
@@ -977,6 +983,9 @@
 		701A98801DB47A3100460220 /* FullScreen */ = {
 			isa = PBXGroup;
 			children = (
+				7074D7D11DB8BA30008F8EAE /* 渐变@1x.png */,
+				7074D7D21DB8BA30008F8EAE /* 渐变@2x.png */,
+				7074D7D31DB8BA30008F8EAE /* 渐变@3x.png */,
 				701A98811DB47A3100460220 /* Back Arrow Blue@1x.png */,
 				701A98821DB47A3100460220 /* Back Arrow Blue@2x.png */,
 				701A98831DB47A3100460220 /* Back Arrow Blue@3x.png */,
@@ -1479,6 +1488,7 @@
 				70170C1B1D74131500CC3951 /* login_btn@2x.png in Resources */,
 				70170C081D74131500CC3951 /* category_bg.png in Resources */,
 				7040E24A1DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@3x.png in Resources */,
+				7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */,
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
@@ -1495,6 +1505,7 @@
 				70170C1E1D74131500CC3951 /* mob@2x.png in Resources */,
 				70170C1D1D74131500CC3951 /* logout@2x.png in Resources */,
 				70FC30E11D75714E00BD06FE /* kr-video-player-play@2x.png in Resources */,
+				7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */,
 				70170C241D74131500CC3951 /* right_default.png in Resources */,
 				70FC30F31D75714E00BD06FE /* zx-video-player-volume@2x.png in Resources */,
 				A4A66A1B1555E44100AED3AF /* MasterViewController.xib in Resources */,
@@ -1539,6 +1550,7 @@
 				70130E9E1D8FDEC8005F0A49 /* search.png in Resources */,
 				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
+				7074D7D61DB8BA30008F8EAE /* 渐变@3x.png in Resources */,
 				7040E2441DAE12B80063DB66 /* Viasat-Explore@3x.png in Resources */,
 				70170C0D1D74131500CC3951 /* detail_btn@2x.png in Resources */,
 				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,

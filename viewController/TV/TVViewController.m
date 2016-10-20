@@ -50,6 +50,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 @property (strong,nonatomic)NSString * event_startTime;      //video的直播节目开始时间
 @property (strong,nonatomic)NSString * event_endTime;        //video的节目名称结束时间
 
+@property (strong,nonatomic)THProgressView *topProgressView;
 //@property (strong,nonatomic) NSMutableArray *arrdata;
 //*****progressLineView
 @property (nonatomic) CGFloat progress;
@@ -139,7 +140,7 @@ static const CGSize progressViewSize = {375, 1.5f };
         
     }];
     
-    
+  
     
 }
 
@@ -164,16 +165,16 @@ static const CGSize progressViewSize = {375, 1.5f };
 }
 -(void)initProgressLine
 {
-    THProgressView *topProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(0  ,
+     self.topProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(0  ,
                                                                                        VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
                                                                                        SCREEN_WIDTH,
                                                                                        progressViewSize.height)];
-    topProgressView.borderTintColor = [UIColor whiteColor];
-    topProgressView.progressTintColor = ProgressLineColor;
-    [self.view addSubview:topProgressView];
-    [self.view bringSubviewToFront:topProgressView];
+    self.topProgressView.borderTintColor = [UIColor whiteColor];
+    self.topProgressView.progressTintColor = ProgressLineColor;
+    [self.view addSubview:self.topProgressView];
+    [self.view bringSubviewToFront:self.topProgressView];
     
-    self.progressViews = @[ topProgressView ];
+    self.progressViews = @[ self.topProgressView ];
     
     
     
@@ -267,15 +268,22 @@ static const CGSize progressViewSize = {375, 1.5f };
     [topView bringSubviewToFront:self.searchBtn];
     [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    
     //视频播放
     //----直播源
     self.video = [[ZXVideo alloc] init];
     //    video.playUrl = @"http://baobab.wdjcdn.com/1451897812703c.mp4";
     //  http://192.168.1.1/segment_delivery/delivery_0/play_tv2ip_0.m3u8
     
-    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
-    NSLog(@"video.title %@",self.video.title);
-    NSLog(@"----%@",self.video.playUrl);
+    
+    
+//    self.video.title = [NSString stringWithFormat:@"%@  %@",self.service_videoindex ,self.service_videoname];
+//    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
+   
+    self.video.channelId = self.service_videoindex;
+    self.video.channelName = self.service_videoname;
+    
     
     
     
@@ -302,7 +310,7 @@ static const CGSize progressViewSize = {375, 1.5f };
         
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             NSLog(@"切换为竖屏模式");
-            
+             self.topProgressView.hidden = NO;
             float noewWidth = [UIScreen mainScreen].bounds.size.width;
            
             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
@@ -317,6 +325,12 @@ static const CGSize progressViewSize = {375, 1.5f };
                                                                       SCREEN_WIDTH,
                                                                       SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
      
+            self.topProgressView.frame = CGRectMake(0  ,
+                                                    VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
+                                                    SCREEN_WIDTH,
+                                                    progressViewSize.height);
+            
+            
             
             
         };
@@ -347,6 +361,20 @@ static const CGSize progressViewSize = {375, 1.5f };
             _slideView.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+800,
                                           SCREEN_WIDTH,
                                           SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
+
+            
+            
+            ////////****************** 进度条
+            //此处销毁通知，防止一个通知被多次调用
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            //注册通知
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView :) name:@"fixTopBottomImage" object:nil];
+
+            self.topProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 , [UIScreen mainScreen].bounds.size.width, 2);
+            
+            
+            [self.view bringSubviewToFront:self.topProgressView];
+            [self.videoController.view bringSubviewToFront:self.topProgressView];
             
 //            [self setFullScreenView];
             
@@ -371,6 +399,33 @@ static const CGSize progressViewSize = {375, 1.5f };
     
 }
 
+//-(void)setVideoProgress
+//{
+//    self.topProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 , [UIScreen mainScreen].bounds.size.width, 2);
+//    
+//    
+//    self.video.redview = [self duplicate:self.topProgressView];
+//}
+//- (THProgressView*)duplicate:(UIView*)view
+//{
+//    NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:view];
+//    return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+//}
+-(void)fixprogressView :(NSNotification *)text{
+   int show = [text.userInfo[@"boolBarShow"] intValue];
+    if (show ==1) {
+        [UIView animateWithDuration:0.3 animations:^{
+         self.topProgressView.hidden = YES;
+        }];
+        
+    }
+    else{
+        [UIView animateWithDuration:0.3 animations:^{
+            self.topProgressView.hidden = NO;
+        }];
+    }
+    
+}
 -(void)setFullScreenView
 {
     _fullScreenView = [[FullScreenView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
@@ -542,6 +597,23 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     //********
     self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+    if(self.service_videoindex.length == 1)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"00%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 2)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 3)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length > 3)
+    {
+     self.service_videoindex = [self.service_videoindex substringToIndex:self.service_videoindex.length - 3];
+    }
+    
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
@@ -601,9 +673,15 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding]];
 //    self.video.playUrl = [[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding];
 
-    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
+//    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
     
+    self.video.channelId = self.service_videoindex;
+    self.video.channelName = self.service_videoname;
+    
+
     self.video.playEventName = self.event_videoname;
+    self.video.startTime = self.event_startTime;
+    self.video.endTime = self.event_endTime;
     
     [self playVideo];
     //** 计算进度条

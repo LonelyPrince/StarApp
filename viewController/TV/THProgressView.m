@@ -126,28 +126,7 @@ static const CGFloat kBorderWidth = 0.0f;
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated
 {
-//    [self.progressLayer removeAnimationForKey:@"progress"];
-//    CGFloat pinnedProgress = MIN(MAX(progress, 0.0f), 1.0f);
-//    NSLog(@"pinnedprogress: %f",pinnedProgress);  //1
-    
-//    if (animated) {
-//        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"progress"];
-//        animation.duration = 1; //fabsf(self.progress - pinnedProgress) + 0.1f;
-//        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        NSLog(@"self.progress :%f",self.progress);
-////        animation.fromValue = [NSNumber numberWithFloat:self.progress];
-////        animation.toValue = [NSNumber numberWithFloat:pinnedProgress];
-//          animation.fromValue = [NSNumber numberWithFloat:10.0f];
-//          animation.fromValue = [NSNumber numberWithFloat:10.0f];
-//        [self.progressLayer addAnimation:animation forKey:@"progress"];
-//    }
-//    else {
-//        [self.progressLayer setNeedsDisplay];
-//    }
-    
-    
-    
-//    self.progressLayer.progress = pinnedProgress;
+
 
     [self.progressLayer removeAnimationForKey:@"progress"];
     NSString * startTime;

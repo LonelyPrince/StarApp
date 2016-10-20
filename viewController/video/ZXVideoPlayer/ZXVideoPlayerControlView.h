@@ -82,6 +82,8 @@
 @property (nonatomic, strong, readwrite) UILabel *FulleventNameLab;
 
 
+
+
 //@property (nonatomic, strong, readwrite) UIButton *lockButton;
 //@property (nonatomic, strong, readwrite) UIButton *lockButton;
 

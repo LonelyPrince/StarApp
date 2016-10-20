@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "THProgressView.h"
 
 @interface ZXVideo : NSObject
 
@@ -18,5 +19,15 @@
 
 /// 播放节目名称
 @property (nonatomic, copy, readwrite) NSString *playEventName;
+
+///频道号
+@property (nonatomic, copy, readwrite) NSString *channelId;
+///频道名称
+@property (nonatomic, copy, readwrite) NSString *channelName;
+
+//开始时间
+@property (nonatomic, copy, readwrite) NSString *startTime;
+//结束时间
+@property (nonatomic, copy, readwrite) NSString *endTime;
 
 @end

@@ -550,11 +550,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.eventTimeLab.hidden = NO;
     self.videoControl.backButton.hidden = NO;
     
-     self.videoControl.channelIdLab.hidden = NO;
-     self.videoControl.channelNameLab.hidden = NO;
+    
+//     self.videoControl.channelIdLab.hidden = NO;
+//     self.videoControl.channelNameLab.hidden = NO;
      self.videoControl.FulleventNameLab.hidden = NO;
+    self.videoControl.eventnameLabel.hidden = YES;
     
+    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:18];
+    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:18];
+    self.videoControl.channelIdLab.frame = CGRectMake(48, 10, 55, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(113, 10, 120, 18);
     
+    self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
 }
 
 /// 切换到竖屏模式
@@ -579,8 +586,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.shrinkScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton1.hidden = YES;
     self.videoControl.backButton.hidden = YES;
-     self.videoControl.channelIdLab.hidden = YES;
-     self.videoControl.channelNameLab.hidden = YES;
+//     self.videoControl.channelIdLab.hidden = YES;
+//     self.videoControl.channelNameLab.hidden = YES;
      self.videoControl.FulleventNameLab.hidden = YES;
     
     self.videoControl.lastChannelButton.hidden = YES;
@@ -589,6 +596,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.audioBtn.hidden = YES;
     self.videoControl.channelListBtn.hidden = YES;
     self.videoControl.eventTimeLab.hidden = YES;
+    self.videoControl.eventnameLabel.hidden = NO;
+    
+    
+    self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
+    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:12];
+    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:12];
+    
 }
 
 /// 手动切换设备方向
@@ -798,6 +813,69 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.contentURL = [NSURL URLWithString:self.video.playUrl];
     //当前节目名称
     self.videoControl.eventnameLabel.text = self.video.playEventName;
+
+    self.videoControl.channelIdLab.text = self.video.channelId;
+    
+    self.videoControl.channelNameLab.text = self.video.channelName;
+    
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];
+    
+    
 }
+
+-(void)setEventTime
+{
+    float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
+    NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+   
+    
+  
+    
+    
+    int bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
+    NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+
+    self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+}
+
+//时间戳转换
+
+-(NSString *)timeWithTimeIntervalString:(NSString *)timeString
+{
+    int time1 ;
+    if ([timeString intValue] >= 0) {
+         time1 = [timeString intValue];
+    }
+    int seconds = time1 % 60;
+    int minutes = (time1 / 60) % 60;
+    int hours = time1 / 3600;
+    
+    return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
+    
+//        NSTimeInterval time=[timeString doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
+////    NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
+//    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+//    NSLog(@"date:%@",[detaildate description]);
+//    //实例化一个NSDateFormatter对象
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    //设定时间格式,这里可以设置成自己需要的格式
+//    [dateFormatter setDateFormat:@"HH:mm:ss"];
+//    //     [dateFormatter setDateFormat:@"现在日期：yyyy年MM月dd日 \n 现在时刻： HH:mm:ss             "];
+//    
+//    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+//    
+//    //    // 格式化时间
+//    //    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//    //    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
+//    //    [formatter setDateStyle:NSDateFormatterMediumStyle];
+//    //    [formatter setTimeStyle:NSDateFormatterShortStyle];
+//    //    [formatter setDateFormat:@" HH:mm"];
+//    //
+//    //    // 毫秒值转化为秒
+//    //    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+//    //    NSString* dateString = [formatter stringFromDate:date];
+//    return currentDateStr;
+}
+
 
 @end
