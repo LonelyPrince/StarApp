@@ -81,6 +81,9 @@
 ////节目名称label
 @property (nonatomic, strong, readwrite) UILabel *FulleventNameLab;
 
+////添加右侧tableview背景图片
+@property (nonatomic, strong, readonly) UIView * rightView;
+
 
 
 
@@ -91,5 +94,7 @@
 - (void)animateShow;
 - (void)autoFadeOutControlBar;
 - (void)cancelAutoFadeOutControlBar;
+
+-(void)uiTableViewHidden;
 
 @end

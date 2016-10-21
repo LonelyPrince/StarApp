@@ -17,6 +17,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property (nonatomic, strong) UIView *topBar;
 @property (nonatomic, strong) UIView *bottomBar;
+@property (nonatomic, strong) UIView *rightView;
 @property (nonatomic, strong) UIButton *playButton;
 @property (nonatomic, strong) UIButton *pauseButton;
 @property (nonatomic, strong) UIButton *fullScreenButton;
@@ -28,6 +29,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 @property (nonatomic, strong)  UIImageView * bottomControllerImage;
 @property (nonatomic, strong)  UIImageView * topControllerImage;
+@property (nonatomic, strong)  UIImageView * rightControllerImage;
 @property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
@@ -48,6 +50,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.topBar];
         [self addSubview:self.bottomBar];
+        [self addSubview:self.rightView];
+        
+        self.rightView.hidden = YES;
         //[self.bottomBar addSubview:self.playButton];
 //        [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
@@ -122,6 +127,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
   //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
     
     self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+    
+    self.rightView.frame = CGRectMake(CGRectGetWidth(self.bounds) - 145, 0, 145, CGRectGetHeight(self.bounds));
     
     self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
     
@@ -199,11 +206,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
         self.topBar.alpha = 0.0;
         self.bottomBar.alpha = 0.0;
-        
+        self.rightView.alpha = 0.0;
         /////// 加入通知
         int show = 1;
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
-        NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+        NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } completion:^(BOOL finished) {
@@ -225,7 +232,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         /////// 加入通知
         int show = 2;
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
-        NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
+        NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } completion:^(BOOL finished) {
@@ -250,6 +257,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)cancelAutoFadeOutControlBar
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
+}
+
+//右侧的tableView的滑动事件隐藏
+-(void)uiTableViewHidden
+{
+    [self animateHide];
+
 }
 
 #pragma mark - Tap Detection
@@ -329,6 +343,25 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 //        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds)+20, Imagewidth, 43);
 //    }
     
+}
+
+- (UIView *)rightView
+{
+    if (!_rightView) {
+        _rightView = [UIView new];
+        
+        
+//        _rightControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+//        _rightControllerImage.frame =  CGRectMake([UIScreen mainScreen].bounds.size.width - 145, 0, 145, [UIScreen mainScreen].bounds.size.height);
+//        
+//        
+//        [_rightView addSubview:_rightControllerImage];
+        
+
+        _rightView.backgroundColor = [UIColor whiteColor];
+        
+    }
+    return _rightView;
 }
 
 - (UIButton *)playButton

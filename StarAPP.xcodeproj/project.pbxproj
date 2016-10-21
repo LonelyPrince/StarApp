@@ -175,6 +175,12 @@
 		7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704583091D9D04CE0061C154 /* DeviceManageViewController.xib */; };
 		7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7045830D1D9D0C0B0061C154 /* DeviceManageCell.m */; };
 		704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7045830E1D9D0C0B0061C154 /* DeviceManageCell.xib */; };
+		705650641DB9B95F002DD47E /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650621DB9B95F002DD47E /* AudioCell.m */; };
+		705650651DB9B95F002DD47E /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650631DB9B95F002DD47E /* AudioCell.xib */; };
+		705650691DB9EFA2002DD47E /* subtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650671DB9EFA2002DD47E /* subtCell.m */; };
+		7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650681DB9EFA2002DD47E /* subtCell.xib */; };
+		7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7056506C1DB9F1E1002DD47E /* ChannelCell.m */; };
+		7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7056506D1DB9F1E1002DD47E /* ChannelCell.xib */; };
 		706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8D1DAF5DA400DADE86 /* play@1x.png */; };
 		706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8E1DAF5DA400DADE86 /* play@2x.png */; };
 		706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8F1DAF5DA400DADE86 /* play@3x.png */; };
@@ -515,6 +521,15 @@
 		7045830C1D9D0C0B0061C154 /* DeviceManageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageCell.h; sourceTree = "<group>"; };
 		7045830D1D9D0C0B0061C154 /* DeviceManageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManageCell.m; sourceTree = "<group>"; };
 		7045830E1D9D0C0B0061C154 /* DeviceManageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceManageCell.xib; sourceTree = "<group>"; };
+		705650611DB9B95F002DD47E /* AudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCell.h; sourceTree = "<group>"; };
+		705650621DB9B95F002DD47E /* AudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCell.m; sourceTree = "<group>"; };
+		705650631DB9B95F002DD47E /* AudioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
+		705650661DB9EFA2002DD47E /* subtCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subtCell.h; sourceTree = "<group>"; };
+		705650671DB9EFA2002DD47E /* subtCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subtCell.m; sourceTree = "<group>"; };
+		705650681DB9EFA2002DD47E /* subtCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = subtCell.xib; sourceTree = "<group>"; };
+		7056506B1DB9F1E1002DD47E /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCell.h; sourceTree = "<group>"; };
+		7056506C1DB9F1E1002DD47E /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCell.m; sourceTree = "<group>"; };
+		7056506D1DB9F1E1002DD47E /* ChannelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
 		706A1C8D1DAF5DA400DADE86 /* play@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@1x.png"; sourceTree = "<group>"; };
 		706A1C8E1DAF5DA400DADE86 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		706A1C8F1DAF5DA400DADE86 /* play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@3x.png"; sourceTree = "<group>"; };
@@ -829,6 +844,15 @@
 				701295391D80FC0A003139D5 /* TVCell.h */,
 				7012953A1D80FC0A003139D5 /* TVCell.m */,
 				7012953B1D80FC0A003139D5 /* TVCell.xib */,
+				705650611DB9B95F002DD47E /* AudioCell.h */,
+				705650621DB9B95F002DD47E /* AudioCell.m */,
+				705650631DB9B95F002DD47E /* AudioCell.xib */,
+				705650661DB9EFA2002DD47E /* subtCell.h */,
+				705650671DB9EFA2002DD47E /* subtCell.m */,
+				705650681DB9EFA2002DD47E /* subtCell.xib */,
+				7056506B1DB9F1E1002DD47E /* ChannelCell.h */,
+				7056506C1DB9F1E1002DD47E /* ChannelCell.m */,
+				7056506D1DB9F1E1002DD47E /* ChannelCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1466,6 +1490,7 @@
 				70170C1A1D74131500CC3951 /* login_btn.png in Resources */,
 				7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */,
 				707FE7401DACC3C30087C361 /* Group 16@1x.png in Resources */,
+				7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */,
 				7097466F1D6D8A54002E7A39 /* Documentation.html in Resources */,
 				707FE73F1DACC3C30087C361 /* Group 5@3x.png in Resources */,
 				707FE74C1DACC3C30087C361 /* me icon@1x.png in Resources */,
@@ -1491,6 +1516,7 @@
 				7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */,
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
+				705650651DB9B95F002DD47E /* AudioCell.xib in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
 				70FC30DD1D75714E00BD06FE /* kr-video-player-fullscreen@2x.png in Resources */,
 				70FC30F41D75714E00BD06FE /* zx-video-player-volume@3x.png in Resources */,
@@ -1578,6 +1604,7 @@
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
 				701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */,
+				7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */,
 				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
 				707FE7461DACC3C30087C361 /* live icon@1x.png in Resources */,
@@ -1712,6 +1739,7 @@
 				604F37CC159B2FDC00FF1F91 /* ServerContentViewController.m in Sources */,
 				60CAD287159C304100B7E28C /* NDLUtility.m in Sources */,
 				701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */,
+				705650641DB9B95F002DD47E /* AudioCell.m in Sources */,
 				701295191D80F4CF003139D5 /* UIActionSheet+Blocks.m in Sources */,
 				701295221D80F4CF003139D5 /* UIView+Utils.m in Sources */,
 				60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */,
@@ -1720,6 +1748,7 @@
 				7045830A1D9D04CE0061C154 /* DeviceManageViewController.m in Sources */,
 				701295151D80F4CF003139D5 /* MBProgressHUD+SimplyShow.m in Sources */,
 				701295231D80F4CF003139D5 /* UIViewController+BaseUISetting.m in Sources */,
+				705650691DB9EFA2002DD47E /* subtCell.m in Sources */,
 				7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */,
 				60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */,
 				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
@@ -1730,6 +1759,7 @@
 				70FC30FB1D75714E00BD06FE /* ZXVideoPlayerControlView.m in Sources */,
 				7012951A1D80F4CF003139D5 /* UIAlertView+Blocks.m in Sources */,
 				701295141D80F4CF003139D5 /* MBProgressHUD+Add.m in Sources */,
+				7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */,
 				700770831D829EA3003C0D68 /* YGPCacheDisk.m in Sources */,
 				707FE7641DACC5780087C361 /* THProgressView.m in Sources */,
 				70FC30FD1D75714E00BD06FE /* ZXVideoPlayerVolumeView.m in Sources */,

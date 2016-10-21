@@ -30,4 +30,16 @@
 //结束时间
 @property (nonatomic, copy, readwrite) NSString *endTime;
 
+/*
+ 字幕 音轨
+ */
+//@property (nonatomic, strong) NSMutableArray *subAudioData;
+@property (strong,nonatomic)NSMutableDictionary * dicSubAudio;
+
+@property (strong,nonatomic)NSMutableDictionary * dicChannl;
+
+@property (assign,nonatomic)int channelCount;
+
+//@property (strong,nonatomic)NSMutableDictionary * dicAudio;
+
 @end

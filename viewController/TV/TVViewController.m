@@ -50,6 +50,10 @@ static const CGSize progressViewSize = {375, 1.5f };
 @property (strong,nonatomic)NSString * event_startTime;      //video的直播节目开始时间
 @property (strong,nonatomic)NSString * event_endTime;        //video的节目名称结束时间
 
+@property (strong,nonatomic)NSDictionary * TVSubAudioDic;        //video的字幕和音轨
+
+@property (strong,nonatomic)NSDictionary * TVChannlDic;        //video的频道列表
+
 @property (strong,nonatomic)THProgressView *topProgressView;
 //@property (strong,nonatomic) NSMutableArray *arrdata;
 //*****progressLineView
@@ -58,6 +62,11 @@ static const CGSize progressViewSize = {375, 1.5f };
 @property (nonatomic, strong) NSArray *progressViews;
 @property (nonatomic, strong)  UIButton * searchBtn;
 
+///*
+// 字幕 音轨
+// */
+//@property (nonatomic, strong) NSMutableArray *subAudioData;
+//@property (strong,nonatomic)NSMutableDictionary * dicSubAudio;
 @end
 
 @implementation TVViewController
@@ -368,7 +377,7 @@ static const CGSize progressViewSize = {375, 1.5f };
             //此处销毁通知，防止一个通知被多次调用
             [[NSNotificationCenter defaultCenter] removeObserver:self];
             //注册通知
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView :) name:@"fixTopBottomImage" object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView :) name:@"fixprogressView" object:nil];
 
             self.topProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 , [UIScreen mainScreen].bounds.size.width, 2);
             
@@ -380,6 +389,17 @@ static const CGSize progressViewSize = {375, 1.5f };
             
             NSLog(@"全屏宽 ： %f",[UIScreen mainScreen].bounds.size.width);
             
+            
+              /////***** 用于设置sub字幕和audio音轨
+            [self getsubt];
+              /////*****
+//            /////***** 注册通知，勇于设置sub字幕和audio音轨
+//            //此处销毁通知，防止一个通知被多次调用
+//            [[NSNotificationCenter defaultCenter] removeObserver:self];
+//            //注册通知
+//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAndSetSubLanguage ) name:@"getAndSetSubLanguage" object:nil];
+//            
+//            ////******
             
         };
         
@@ -398,6 +418,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.videoController.video = self.video;
     
 }
+
 
 //-(void)setVideoProgress
 //{
@@ -611,7 +632,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     }
     else if (self.service_videoindex.length > 3)
     {
-     self.service_videoindex = [self.service_videoindex substringToIndex:self.service_videoindex.length - 3];
+     self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
     }
     
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
@@ -619,7 +640,10 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
-    
+    self.TVSubAudioDic = [[NSDictionary alloc]init];
+    self.TVSubAudioDic = epgDicToSocket;
+    self.TVChannlDic = [[NSDictionary alloc]init];
+    self.TVChannlDic = self.dicTemp;
     NSLog(@"eventname :%@",self.event_startTime);
     //*********
     
@@ -682,7 +706,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.video.playEventName = self.event_videoname;
     self.video.startTime = self.event_startTime;
     self.video.endTime = self.event_endTime;
-    
+//    self.video.dicSubAudio = self.TVSubAudioDic;
     [self playVideo];
     //** 计算进度条
     if(!ISNULL(self.event_startTime)&&!ISNULL(self.event_endTime))
@@ -705,5 +729,42 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     
 }
-
+//-(void)getAndSetSubLanguage {
+//    
+//    self.dicSubAudio = [[NSMutableDictionary alloc]init];
+//    self.subAudioData = [NSMutableArray array];
+//    
+//    subAudiorightCell * subAudiocell =  [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
+//    if (cell == nil){
+//        cell = [TVCell loadFromNib];
+//    }
+//}
+-(void)getsubt
+{
+//    NSDictionary * epgDictionary = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+//    
+//    
+//    //__
+//    
+//    NSArray * audio_infoArr = [[NSArray alloc]init];
+//    NSArray * subt_infoArr = [[NSArray alloc]init];
+//    
+//    NSArray * epg_infoArr = [[NSArray alloc]init];
+//    //****
+//    
+//    
+//    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+//    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+//    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+//    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+//    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+/////****
+    //此处循环给赋值
+    
+   self.video.dicSubAudio = self.TVSubAudioDic;
+    
+    self.video.dicChannl = self.TVChannlDic;
+    
+    self.video.channelCount = self.categoryModel.service_indexArr.count;
+}
 @end

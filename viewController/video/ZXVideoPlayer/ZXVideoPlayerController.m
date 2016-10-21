@@ -10,15 +10,25 @@
 #import "ZXVideoPlayerControlView.h"
 #import <AVFoundation/AVFoundation.h>
 
+#import "AudioCell.h"
+#import "subtCell.h"
+#import "ChannelCell.h"
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
     ZXPanDirectionVertical,   // 纵向移动
 };
+//typedef enum{
+//    subCell = 1,
+//    audioCell= 2,
+//    channelCell= 3,
+//  
+//}Cell;
+
 
 /// 播放器显示和消失的动画时长
 static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
-@interface ZXVideoPlayerController () <UIGestureRecognizerDelegate>
+@interface ZXVideoPlayerController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 
 /// 播放器视图
 @property (nonatomic, strong) ZXVideoPlayerControlView *videoControl;
@@ -38,7 +48,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, assign) BOOL isVolumeAdjust;
 /// 系统音量slider
 @property (nonatomic, strong) UISlider *volumeViewSlider;
+/// rightView是否在显示中
+@property (nonatomic, assign) BOOL rightViewShowing;
 
+/////此处是data的dic
+@property (nonatomic, strong) NSMutableDictionary *subAudioDic;
+
+@property (nonatomic, strong) NSMutableDictionary *channelDic;
+
+@property (nonatomic, strong) UITableView *subAudioTableView;
+
+//cell的判断条件
+@property (nonatomic, strong) NSString * cellStr;
+
+//@property (nonatomic, strong) id * TableScollTimer;
 @end
 
 @implementation ZXVideoPlayerController
@@ -68,6 +91,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configControlAction];
         [self configDeviceOrientationObserver];
         [self configVolume];
+        
+        self.rightViewShowing = NO;
+        
     }
     return self;
 }
@@ -635,18 +661,89 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)subtBtnClick
 {
-    NSLog(@"sub");
+    NSLog(@"sub字幕");
+    _cellStr = @"subt";
+    if (self.rightViewShowing == YES)
+    {
+        [self rightViewHidden];
+       
+     
+    }else if(self.rightViewShowing ==NO)
+    {
+     [self rightViewshow];
+    
+    }
+    
+    
+}
+-(void)rightViewshow
+{
+    self.videoControl.rightView.hidden = NO;
+    self.videoControl.rightView.alpha = 1;
+    self.rightViewShowing = YES;
+    
+    self.videoControl.topBar.alpha = 0;
+    self.videoControl.bottomBar.alpha = 0;
+    
+    //////tableview
+    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds)) style:UITableViewStylePlain];
+    table.delegate = self;
+    table.dataSource = self;
+    //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.videoControl.rightView addSubview:table];
+    self.subAudioTableView = table;
+    
+    self.subAudioDic = [[NSMutableDictionary alloc]init];
+    self.subAudioDic = self.video.dicSubAudio;
+    
+    
+    self.channelDic= [[NSMutableDictionary alloc]init];
+    self.channelDic = self.video.dicChannl;
+    
+   
+    
+}
+-(void)rightViewHidden
+ { self.videoControl.rightView.hidden = YES;
+    self.videoControl.rightView.alpha = 0;
+    self.rightViewShowing = NO;
 }
 
 - (void)audioBtnClick
 {
-    NSLog(@"audio");
+    _cellStr = @"audio";
+    NSLog(@"audio音轨");
+    
+    if (self.rightViewShowing == YES)
+    {
+        [self rightViewHidden];
+        
+        
+    }else if(self.rightViewShowing ==NO)
+    {
+        [self rightViewshow];
+        
+    }
 }
 
 - (void)channelListBtnClick
 {
-    NSLog(@"channellist");
+    _cellStr = @"channel";
+    NSLog(@"channellist 频道列表");
+    
+    if (self.rightViewShowing == YES)
+    {
+        [self rightViewHidden];
+        
+        
+    }else if(self.rightViewShowing ==NO)
+    {
+        [self rightViewshow];
+        
+    }
+
 }
+
 
 
 /// 返回按钮点击
@@ -720,7 +817,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)shrinkScreenButtonClick
 {
     
-    NSLog(@"aaaaaa");
+    
     if (!self.isFullscreenMode) {
         return;
     }
@@ -760,6 +857,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     [self setCurrentPlaybackTime:floor(slider.value)];
     [self play];
+   
     [self startDurationTimer];
     [self.videoControl autoFadeOutControlBar];
 }
@@ -818,6 +916,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.videoControl.channelNameLab.text = self.video.channelName;
     
+    
+//    self.subAudioDic = [[NSMutableDictionary alloc]init];
+//    self.subAudioDic = self.video.dicSubAudio;
+//    NSLog(@"self.video.dicSubAudio:%@",self.video.dicSubAudio);
+//    NSLog(@"self.video.dicSubAudio:%@",self.subAudioDic);
+    //self.video.dicSubAudio;
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];
     
     
@@ -828,8 +932,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
     NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
    
-    
-  
+
     
     
     int bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
@@ -852,30 +955,153 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     return [NSString stringWithFormat:@"%02d:%02d:%02d",hours, minutes, seconds];
     
-//        NSTimeInterval time=[timeString doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
-////    NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
-//    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
-//    NSLog(@"date:%@",[detaildate description]);
-//    //实例化一个NSDateFormatter对象
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    //设定时间格式,这里可以设置成自己需要的格式
-//    [dateFormatter setDateFormat:@"HH:mm:ss"];
-//    //     [dateFormatter setDateFormat:@"现在日期：yyyy年MM月dd日 \n 现在时刻： HH:mm:ss             "];
-//    
-//    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
-//    
-//    //    // 格式化时间
-//    //    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-//    //    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
-//    //    [formatter setDateStyle:NSDateFormatterMediumStyle];
-//    //    [formatter setTimeStyle:NSDateFormatterShortStyle];
-//    //    [formatter setDateFormat:@" HH:mm"];
-//    //
-//    //    // 毫秒值转化为秒
-//    //    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
-//    //    NSString* dateString = [formatter stringFromDate:date];
-//    return currentDateStr;
+
 }
 
+
+
+/////////////
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    if ([_cellStr isEqualToString:@"subt"]) {
+        NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
+        return subtarr.count;
+    }
+    else if ([_cellStr isEqualToString:@"audio"]) {
+        NSArray * audioarr =[self.subAudioDic  objectForKey:@"subt_info"];
+        return audioarr.count;
+        
+    }
+    else if ([_cellStr isEqualToString:@"channel"]) {
+        return self.video.channelCount;
+    }
+    
+}
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([_cellStr isEqualToString:@"subt"]) {
+        return [subtCell defaultCellHeight];
+    }
+    else if ([_cellStr isEqualToString:@"audio"]) {
+        return [AudioCell defaultCellHeight];
+        
+    }
+    else if ([_cellStr isEqualToString:@"channel"]) {
+        return [ChannelCell defaultCellHeight];
+    }
+    
+}
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([_cellStr isEqualToString:@"subt"]) {
+        subtCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subtCell"];
+        if (cell == nil){
+            cell = [subtCell loadFromNib];
+            cell.languageLab.textAlignment = UITextAlignmentCenter;
+            
+        }
+        
+        
+        
+        if (!ISEMPTY(self.video.dicSubAudio)) {
+            //        cell.dataDic
+            NSArray * subAudioArr = [[NSArray alloc]init];
+            
+            subAudioArr  =[self.subAudioDic  objectForKey:@"subt_info"];
+            
+            cell.dataDic = subAudioArr[indexPath.row];
+            
+            
+            //上下两个都可以试一下
+            //        cell.dataDic =self.subAudioDic;
+        }else{//如果为空，什么都不执行
+        }
+        
+        NSLog(@"cell.dataDic:%@",cell.dataDic);
+        
+        return cell;
+    }
+    else if ([_cellStr isEqualToString:@"audio"]) {
+        AudioCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AudioCell"];
+        if (cell == nil){
+            cell = [AudioCell loadFromNib];
+            cell.languageLab.textAlignment = UITextAlignmentCenter;
+            
+        }
+        
+        
+        
+        if (!ISEMPTY(self.video.dicSubAudio)) {
+            
+            NSArray * audioArr = [[NSArray alloc]init];
+            
+            audioArr  =[self.subAudioDic  objectForKey:@"audio_info"];
+            
+            cell.dataDic = audioArr[indexPath.row];
+            
+            
+            //上下两个都可以试一下
+            //        cell.dataDic =self.subAudioDic;
+        }else{//如果为空，什么都不执行
+        }
+        
+        NSLog(@"cell.dataDic:%@",cell.dataDic);
+        
+        return cell;
+    }
+    
+    else if ([_cellStr isEqualToString:@"channel"]) {
+         ChannelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelCell"];
+        if (cell == nil){
+            cell = [ChannelCell loadFromNib];
+            cell.channelId.textAlignment = UITextAlignmentCenter;
+            cell.channelName.textAlignment = UITextAlignmentCenter;
+            
+        }
+        
+        
+        
+        if (!ISEMPTY(self.video.dicChannl)) {
+            
+            cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+          
+        }else{//如果为空，什么都不执行
+        }
+        
+        NSLog(@"cell.dataDic:%@",cell.dataDic);
+        
+        return cell;
+    }
+
+
+    
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  
+    NSLog(@"我被选中了，哈哈哈哈哈哈哈");
+    
+}
+
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(TableViewHidden) object:nil];
+    
+    [self performSelector:@selector(TableViewHidden) withObject:nil afterDelay:5];
+    
+    NSIndexPath *path =  [self.subAudioTableView indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
+    
+    NSLog(@"这是第%i行",path.row);
+    
+
+    
+}
+
+-(void)TableViewHidden
+{
+    [self.videoControl uiTableViewHidden];
+}
 
 @end
