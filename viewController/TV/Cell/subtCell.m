@@ -47,6 +47,8 @@
     
     self.languageLab.text = [_dataDic objectForKey:@"subt_language"];
     
+//    self.languageLab.text = @"测试";
+    
     
     //字体设置
     self.languageLab.font = FONT(13);

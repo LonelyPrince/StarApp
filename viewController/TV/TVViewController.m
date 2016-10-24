@@ -8,7 +8,7 @@
 
 #import "TVViewController.h"
 #import "TVCell.h"
-#import "THProgressView.h"
+
 //#import "HexColors.h"
 
 
@@ -54,7 +54,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 
 @property (strong,nonatomic)NSDictionary * TVChannlDic;        //video的频道列表
 
-@property (strong,nonatomic)THProgressView *topProgressView;
+
 //@property (strong,nonatomic) NSMutableArray *arrdata;
 //*****progressLineView
 @property (nonatomic) CGFloat progress;
@@ -382,6 +382,14 @@ static const CGSize progressViewSize = {375, 1.5f };
             self.topProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 , [UIScreen mainScreen].bounds.size.width, 2);
             
             
+            
+//            //此处销毁通知，*防止一个通知被多次调用
+//    NSNotificationCenter a = [[NSNotificationCenter defaultCenter] removeObserver:self];
+//            //注册通知
+//            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(test) name:@"test" object:nil];
+
+            
+            
             [self.view bringSubviewToFront:self.topProgressView];
             [self.videoController.view bringSubviewToFront:self.topProgressView];
             
@@ -418,7 +426,14 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.videoController.video = self.video;
     
 }
-
+//-(void)test
+//{
+//    [UIView animateWithDuration:0.3 animations:^{
+//        self.topProgressView.hidden = YES;
+//    }];
+//    NSLog(@"teteteteeteteteteteetetetetetetetetetetetetetetetet");
+//
+//}
 
 //-(void)setVideoProgress
 //{
@@ -593,88 +608,89 @@ static const CGSize progressViewSize = {375, 1.5f };
     //    controller.dataDic = self.dataSource[indexPath.row];
     //    [self.navigationController pushViewController:controller animated:YES];
     
-    //先传输数据到socket，然后再播放视频
-    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
-    
-    
-    //__
-    
-    NSArray * audio_infoArr = [[NSArray alloc]init];
-    NSArray * subt_infoArr = [[NSArray alloc]init];
-    
-    NSArray * epg_infoArr = [[NSArray alloc]init];
-    //****
-    
-    
-    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
-    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
-    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
-    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
-    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
-    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
-    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
-    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
-    
-    //********
-    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
-    if(self.service_videoindex.length == 1)
-    {
-        self.service_videoindex = [NSString stringWithFormat:@"00%@",self.service_videoindex];
-    }
-    else if (self.service_videoindex.length == 2)
-    {
-        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
-    }
-    else if (self.service_videoindex.length == 3)
-    {
-        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
-    }
-    else if (self.service_videoindex.length > 3)
-    {
-     self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
-    }
-    
-    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
-    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
-    self.TVSubAudioDic = [[NSDictionary alloc]init];
-    self.TVSubAudioDic = epgDicToSocket;
-    self.TVChannlDic = [[NSDictionary alloc]init];
-    self.TVChannlDic = self.dicTemp;
-    NSLog(@"eventname :%@",self.event_startTime);
-    //*********
-    
-    
-    
-    
-    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
-        socketView.socket_ServiceModel.audio_pid = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
-        socketView.socket_ServiceModel.subt_pid = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
-        socketView.socket_ServiceModel.service_network_id = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
-        socketView.socket_ServiceModel.service_ts_id = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
-        socketView.socket_ServiceModel.service_tuner_mode = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
-        socketView.socket_ServiceModel.service_service_id = @"0";
-    }
-    
-    NSLog(@"------%@",socketView.socket_ServiceModel);
-    
-    
-    
-    //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
-    
-    [self.socketView  serviceTouch ];
-    
+    [self touchSelectChannel:indexPath.row];
+    //    //先传输数据到socket，然后再播放视频
+//    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+//    
+//    
+//    //__
+//    
+//    NSArray * audio_infoArr = [[NSArray alloc]init];
+//    NSArray * subt_infoArr = [[NSArray alloc]init];
+//    
+//    NSArray * epg_infoArr = [[NSArray alloc]init];
+//    //****
+//    
+//    
+//    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+//    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+//    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+//    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+//    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+//    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+//    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+//    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+//    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+//    
+//    //********
+//    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+//    if(self.service_videoindex.length == 1)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"00%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length == 2)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length == 3)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length > 3)
+//    {
+//     self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
+//    }
+//    
+//    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+//    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+//    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+//    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+//    self.TVSubAudioDic = [[NSDictionary alloc]init];
+//    self.TVSubAudioDic = epgDicToSocket;
+//    self.TVChannlDic = [[NSDictionary alloc]init];
+//    self.TVChannlDic = self.dicTemp;
+//    NSLog(@"eventname :%@",self.event_startTime);
+//    //*********
+//    
+//    
+//    
+//    
+//    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+//        socketView.socket_ServiceModel.audio_pid = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+//        socketView.socket_ServiceModel.subt_pid = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+//        socketView.socket_ServiceModel.service_network_id = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+//        socketView.socket_ServiceModel.service_ts_id = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+//        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+//        socketView.socket_ServiceModel.service_service_id = @"0";
+//    }
+//    
+//    NSLog(@"------%@",socketView.socket_ServiceModel);
+//    
+//    
+//    
+//    //此处销毁通知，防止一个通知被多次调用
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+//    
+//    [self.socketView  serviceTouch ];
+//    
     
     //    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -767,4 +783,91 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     self.video.channelCount = self.categoryModel.service_indexArr.count;
 }
+-(void)touchSelectChannel :(NSInteger)row
+{
+    //先传输数据到socket，然后再播放视频
+    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+    
+    
+    //__
+    
+    NSArray * audio_infoArr = [[NSArray alloc]init];
+    NSArray * subt_infoArr = [[NSArray alloc]init];
+    
+    NSArray * epg_infoArr = [[NSArray alloc]init];
+    //****
+    
+    
+    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+    
+    //********
+    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+    if(self.service_videoindex.length == 1)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"00%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 2)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 3)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length > 3)
+    {
+        self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
+    }
+    
+    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    self.TVSubAudioDic = [[NSDictionary alloc]init];
+    self.TVSubAudioDic = epgDicToSocket;
+    self.TVChannlDic = [[NSDictionary alloc]init];
+    self.TVChannlDic = self.dicTemp;
+    NSLog(@"eventname :%@",self.event_startTime);
+    //*********
+    
+    
+    
+    
+    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+        socketView.socket_ServiceModel.audio_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+        socketView.socket_ServiceModel.subt_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+        socketView.socket_ServiceModel.service_network_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+        socketView.socket_ServiceModel.service_ts_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+        socketView.socket_ServiceModel.service_service_id = @"0";
+    }
+    
+    NSLog(@"------%@",socketView.socket_ServiceModel);
+    
+    
+    
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+    
+    [self.socketView  serviceTouch ];
+    
+
+}
+
 @end

@@ -25,6 +25,8 @@
 /// 将要切换到全屏模式
 @property (nonatomic, copy) void(^videoPlayerWillChangeToFullScreenModeBlock)();
 
+
+@property (nonatomic, strong) UITableView *subAudioTableView;
 - (instancetype)initWithFrame:(CGRect)frame;
 /// 展示播放器
 - (void)showInView:(UIView *)view;

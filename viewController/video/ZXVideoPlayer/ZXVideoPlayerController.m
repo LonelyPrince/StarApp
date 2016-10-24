@@ -32,6 +32,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 /// 播放器视图
 @property (nonatomic, strong) ZXVideoPlayerControlView *videoControl;
+
+@property (nonatomic, strong) TVViewController *tvViewControlller;
 /// 是否已经全屏模式
 @property (nonatomic, assign) BOOL isFullscreenMode;
 /// 是否锁定
@@ -56,7 +58,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 @property (nonatomic, strong) NSMutableDictionary *channelDic;
 
-@property (nonatomic, strong) UITableView *subAudioTableView;
+//@property (nonatomic, strong) UITableView *subAudioTableView;
 
 //cell的判断条件
 @property (nonatomic, strong) NSString * cellStr;
@@ -104,7 +106,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch
 {
     // UISlider & UIButton & topBar 不需要响应手势
-    if([touch.view isKindOfClass:[UISlider class]] || [touch.view isKindOfClass:[UIButton class]] || [touch.view.accessibilityIdentifier isEqualToString:@"TopBar"]) {
+    if([touch.view isKindOfClass:[UISlider class]] || [touch.view isKindOfClass:[UIButton class]] || [touch.view.accessibilityIdentifier isEqualToString:@"TopBar"]  ) {
+//        || [touch.view.accessibilityIdentifier isEqualToString:@"RightView"] || [NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]  || [touch.view isKindOfClass:[UITableViewCell class]] || [touch.view isKindOfClass:[UIScrollView class]]  || [touch.view isKindOfClass:[UITableView class]] 
         return NO;
     } else {
         return YES;
@@ -501,7 +504,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 /// MARK: 设备方向
 
-/// 设置监听设备旋转通知
+    /// 设置监听设备旋转通知
 - (void)configDeviceOrientationObserver
 {
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -514,6 +517,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 设备旋转方向改变
 - (void)onDeviceOrientationDidChange
 {
+    self.subAudioTableView = nil;
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     
     if (!self.isLocked)
@@ -535,7 +539,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                 NSLog(@"home键在 左");
-                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+//                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
             }
                 break;
                 
@@ -666,32 +671,46 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.rightViewShowing == YES)
     {
         [self rightViewHidden];
+        
+
        
      
     }else if(self.rightViewShowing ==NO)
     {
      [self rightViewshow];
-    
+       
+////        int show = 1;
+////        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+//        NSNotification * notification =[NSNotification notificationWithName:@"test" object:nil userInfo:nil];
+        
     }
     
-    
+    [self configDeviceOrientationObserver];
 }
 -(void)rightViewshow
 {
     self.videoControl.rightView.hidden = NO;
     self.videoControl.rightView.alpha = 1;
+    
+    self.subAudioTableView.hidden = NO;
+    self.subAudioTableView.alpha = 1;
+    
     self.rightViewShowing = YES;
     
     self.videoControl.topBar.alpha = 0;
     self.videoControl.bottomBar.alpha = 0;
-    
+
     //////tableview
-    UITableView *table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds)) style:UITableViewStylePlain];
-    table.delegate = self;
-    table.dataSource = self;
+     self.subAudioTableView = [[UITableView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds)) style:UITableViewStylePlain];
+    self.subAudioTableView.delegate = self;
+    self.subAudioTableView.dataSource = self;
+    UIImageView *imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+    [self.subAudioTableView setBackgroundView:imageView1];
+     self.subAudioTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.videoControl.rightView addSubview:table];
-    self.subAudioTableView = table;
+//    [self.videoControl.rightView addSubview:self.subAudioTableView];
+    [self.view addSubview:self.subAudioTableView];
+//    self.subAudioTableView = table;
     
     self.subAudioDic = [[NSMutableDictionary alloc]init];
     self.subAudioDic = self.video.dicSubAudio;
@@ -700,14 +719,42 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.channelDic= [[NSMutableDictionary alloc]init];
     self.channelDic = self.video.dicChannl;
     
+    
+    
+    
+    int show = 1;
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    
+    
+    
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( rightViewHidden) name:@"tableviewHidden" object:nil];
    
+    
+    
     
 }
 -(void)rightViewHidden
  { self.videoControl.rightView.hidden = YES;
     self.videoControl.rightView.alpha = 0;
-    self.rightViewShowing = NO;
+    
+     self.subAudioTableView.hidden = YES;
+     self.subAudioTableView.alpha = 0;
+     self.subAudioTableView = nil;
+     
+     self.rightViewShowing = NO;
+     
+     int show = 1;
+     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+     NSNotification * notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
 }
+
 
 - (void)audioBtnClick
 {
@@ -811,6 +858,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     // FIXME: ?
     [self changeToOrientation:UIDeviceOrientationLandscapeLeft];
+//    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
 }
 
 /// 返回竖屏按钮点击
@@ -842,6 +890,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     [self changeToOrientation:UIDeviceOrientationPortrait];
+//    [self restoreOriginalScreen];
 }
 
 /// slider 按下事件
@@ -966,6 +1015,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if ([_cellStr isEqualToString:@"subt"]) {
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
         return subtarr.count;
+//        return 8;
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
         NSArray * audioarr =[self.subAudioDic  objectForKey:@"subt_info"];
@@ -998,7 +1048,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (cell == nil){
             cell = [subtCell loadFromNib];
             cell.languageLab.textAlignment = UITextAlignmentCenter;
-            
+            cell.backgroundColor=[UIColor clearColor];
+
         }
         
         
@@ -1080,6 +1131,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   
+    if ([_cellStr isEqualToString:@"subt"]) {
+        
+    }
+    else if ([_cellStr isEqualToString:@"audio"]) {
+        
+        
+    }
+    else if ([_cellStr isEqualToString:@"channel"]) {
+     
+        NSDictionary * dic ;
+        if (!ISEMPTY(self.video.dicChannl)) {
+            
+            
+            dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+            
+        }else{//如果为空，什么都不执行
+        }
+    }
+    
+
     NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     
 }
@@ -1087,21 +1158,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(TableViewHidden) object:nil];
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(TableViewHidden) object:nil];
+//    
+//    [self performSelector:@selector(TableViewHidden) withObject:nil afterDelay:5];
+
+    [self.videoControl autoFadeOutControlBar];
     
-    [self performSelector:@selector(TableViewHidden) withObject:nil afterDelay:5];
-    
-    NSIndexPath *path =  [self.subAudioTableView indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
-    
-    NSLog(@"这是第%i行",path.row);
-    
+//    NSIndexPath *path =  [self.subAudioTableView indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
+//    
+//    NSLog(@"这是第%i行",path.row);
+//    
 
     
 }
 
--(void)TableViewHidden
-{
-    [self.videoControl uiTableViewHidden];
-}
+//-(void)TableViewHidden
+//{
+////    [self.videoControl uiTableViewHidden];
+//      [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
+//}
 
 @end

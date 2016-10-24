@@ -7,6 +7,7 @@
 //
 
 #import "ZXVideoPlayerControlView.h"
+#import "ZXVideoPlayerController.h"
 
 static const CGFloat kVideoControlBarHeight = 50;  // 20.0 + 30.0;
 static const CGFloat kVideoControlAnimationTimeInterval = 0.3;
@@ -33,6 +34,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
+
+
 ////////
 //上一个频道
 //@property (nonatomic, strong) UIButton *lastChannelButton;
@@ -50,9 +53,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.topBar];
         [self addSubview:self.bottomBar];
-        [self addSubview:self.rightView];
+//        [self addSubview:self.rightView];
         
         self.rightView.hidden = YES;
+        
+        self.videoController.subAudioTableView.hidden = YES;
+        
         //[self.bottomBar addSubview:self.playButton];
 //        [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
@@ -112,6 +118,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
         [self addGestureRecognizer:tapGesture];
+        
+        
+       self.videoController = [[ZXVideoPlayerController alloc]init];
         
     }
     return self;
@@ -207,7 +216,17 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.topBar.alpha = 0.0;
         self.bottomBar.alpha = 0.0;
         self.rightView.alpha = 0.0;
-        /////// 加入通知
+        
+        self.videoController.subAudioTableView = nil;
+        
+        NSNotification *notification1 =[NSNotification notificationWithName:@"tableviewHidden" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+
+        
+        
+//        /////// 加入通知
         int show = 1;
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
         NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
@@ -229,6 +248,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.topBar.alpha = 1.0;
         self.bottomBar.alpha = 1.0;
         
+         self.videoController.subAudioTableView.alpha = 0;
+        self.videoController.subAudioTableView = nil;
         /////// 加入通知
         int show = 2;
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
@@ -250,7 +271,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
     [self performSelector:@selector(animateHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
     
- 
+    
+
 
 }
 
@@ -349,7 +371,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_rightView) {
         _rightView = [UIView new];
-        
+        _rightView.accessibilityIdentifier = @"RightView";
         
 //        _rightControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
 //        _rightControllerImage.frame =  CGRectMake([UIScreen mainScreen].bounds.size.width - 145, 0, 145, [UIScreen mainScreen].bounds.size.height);

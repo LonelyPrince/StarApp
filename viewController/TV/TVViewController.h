@@ -29,7 +29,7 @@
 @class ServerContentViewController;
 @class CGUpnpAvController;
 #import "AppDelegate.h"
-
+#import "THProgressView.h"
 
 
 
@@ -46,5 +46,5 @@
 //**********
 @property (nonatomic, retain) CGUpnpAvController* avController;
 //**********
-
+@property (strong,nonatomic)THProgressView *topProgressView;
 @end
