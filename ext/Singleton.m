@@ -83,7 +83,7 @@
 -(void)Play_ServiceSocket{
     
     // 根据服务器要求发送固定格式的数据
-    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，这也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"data_service"];

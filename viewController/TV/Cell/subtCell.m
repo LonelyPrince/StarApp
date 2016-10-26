@@ -53,8 +53,8 @@
     //字体设置
     self.languageLab.font = FONT(13);
     
-    self.languageLab.textColor = [UIColor redColor];
-    self.languageLab.tintColor = [UIColor redColor];
+    self.languageLab.textColor = [UIColor whiteColor];
+    self.languageLab.tintColor = [UIColor whiteColor];
     
 }
 

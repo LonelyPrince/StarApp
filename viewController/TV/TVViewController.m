@@ -54,7 +54,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 
 @property (strong,nonatomic)NSDictionary * TVChannlDic;        //video的频道列表
 
-
+@property (strong,nonatomic)NSMutableData * byteDatas;
 //@property (strong,nonatomic) NSMutableArray *arrdata;
 //*****progressLineView
 @property (nonatomic) CGFloat progress;
@@ -91,6 +91,8 @@ static const CGSize progressViewSize = {375, 1.5f };
     //    [self getTopCategory];
     [self getServiceData];    //获取表数据
     [self initProgressLine];
+    [self getSearchData];
+    
     
     //修改tabbar选中的图片颜色和字体颜色
     UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -156,6 +158,16 @@ static const CGSize progressViewSize = {375, 1.5f };
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}
+-(void)getSearchData
+{
+    searchViewCon = [[SearchViewController alloc]init];
+    searchViewCon.tableView = [[UITableView alloc]init];
+    searchViewCon.dataList = [[NSMutableArray alloc]init];
+    searchViewCon.dataList =  [searchViewCon getServiceArray ];
+    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
+    [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
+
 }
 //1.line
 -(UIView *) lineView
@@ -473,7 +485,13 @@ static const CGSize progressViewSize = {375, 1.5f };
 //搜索按钮
 -(void)searchBtnClick
 {
-    searchViewCon = [[SearchViewController alloc]init];
+//    searchViewCon = [[SearchViewController alloc]init];
+//    searchViewCon.tableView = [[UITableView alloc]init];
+//    searchViewCon.dataList = [[NSMutableArray alloc]init];
+//    searchViewCon.dataList =  [searchViewCon getServiceArray ];
+//    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
+//     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
+    
     [self.navigationController pushViewController:searchViewCon animated:YES];
     //
     //    //停止播放
@@ -532,7 +550,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     //获取不同类别下的节目，然后是节目下不同的cell值                10
     for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-        
+    
         int indexCat ;
         //   NSString * str;
         indexCat =[self.categoryModel.service_indexArr[i] intValue];
@@ -608,7 +626,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     //    controller.dataDic = self.dataSource[indexPath.row];
     //    [self.navigationController pushViewController:controller animated:YES];
     
-    [self touchSelectChannel:indexPath.row];
+    [self touchSelectChannel:indexPath.row diction:self.dicTemp];
     //    //先传输数据到socket，然后再播放视频
 //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
 //    
@@ -703,14 +721,24 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     //NSData --->byte[]-------NSData----->NSString
     
-    NSMutableData * byteDatas;
-    byteDatas = [[NSMutableData alloc]init];
     
-    //调用GGutil的方法
-    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
+    _byteDatas = [[NSMutableData alloc]init];
+  
+    //此处加入判断语句，判断返回的结果RET是否满足几个报错信息
+    NSData * retData = [[NSData alloc]init];
+    retData = [[USER_DEFAULT objectForKey:@"data_service11"] subdataWithRange:NSMakeRange(12, 4)];
+    NSLog(@"retData : %@",retData);
+  
+    int value = CFSwapInt32BigToHost(*(int*)([retData bytes]));
+    NSLog(@"value : %d",value);
+    //通过获得data数据减去发送的data数据得到播放连接，一下是返回数据的ret，如果ret不等于0则报错
+    [self  getLinkData :value];
+//    //调用GGutil的方法
+//    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
+//    
     
-    NSLog(@"---urlData%@",byteDatas);
-    self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding]];
+    NSLog(@"---urlData%@",_byteDatas);
+    self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
 //    self.video.playUrl = [[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding];
 
 //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
@@ -783,11 +811,13 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     self.video.channelCount = self.categoryModel.service_indexArr.count;
 }
--(void)touchSelectChannel :(NSInteger)row
+-(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
     //先传输数据到socket，然后再播放视频
-    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+//    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
     
+    NSLog(@"dic: %@",dic);
     
     //__
     
@@ -865,9 +895,150 @@ static const CGSize progressViewSize = {375, 1.5f };
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
     
+    
+    self.socketView  = [[SocketView  alloc]init];
+    [self.socketView viewDidLoad];
+    
+    self.videoController.socketView1 = self.socketView;
     [self.socketView  serviceTouch ];
     
 
 }
 
+//-(void)touchSearchData :(NSInteger)row diction :(NSDictionary *)dic
+//{
+//    //先传输数据到socket，然后再播放视频
+//    //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+//    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+//    
+//    //__
+//    
+//    NSArray * audio_infoArr = [[NSArray alloc]init];
+//    NSArray * subt_infoArr = [[NSArray alloc]init];
+//    
+//    NSArray * epg_infoArr = [[NSArray alloc]init];
+//    //****
+//    
+//    
+//    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+//    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+//    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+//    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+//    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+//    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+//    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+//    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+//    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+//    
+//    //********
+//    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+//    if(self.service_videoindex.length == 1)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"00%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length == 2)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length == 3)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length > 3)
+//    {
+//        self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
+//    }
+//    
+//    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+//    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+//    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+//    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+//    self.TVSubAudioDic = [[NSDictionary alloc]init];
+//    self.TVSubAudioDic = epgDicToSocket;
+//    self.TVChannlDic = [[NSDictionary alloc]init];
+//    self.TVChannlDic = self.dicTemp;
+//    NSLog(@"eventname :%@",self.event_startTime);
+//    //*********
+//    
+//    
+//    
+//    
+//    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+//        socketView.socket_ServiceModel.audio_pid = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+//        socketView.socket_ServiceModel.subt_pid = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+//        socketView.socket_ServiceModel.service_network_id = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+//        socketView.socket_ServiceModel.service_ts_id = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+//        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+//        socketView.socket_ServiceModel.service_service_id = @"0";
+//    }
+//    
+//    NSLog(@"------%@",socketView.socket_ServiceModel);
+//    
+//    
+//    
+//    //此处销毁通知，防止一个通知被多次调用
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+//    
+//    
+//    self.videoController.socketView1 = self.socketView;
+//    [self.socketView  serviceTouch ];
+//    
+//    
+//}
+-(void)getLinkData : (int )val
+{
+    if (val == 0)  {
+        //调用GGutil的方法
+        NSLog(@"返回数据正常");
+        _byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
+    }
+    else if(val == 1)
+    {
+        NSLog(@"CRC 错误");
+    }
+    else if(val == 2)
+    {
+        NSLog(@"通知事件");
+    }
+    else if(val == 3)
+    {
+        NSLog(@"资源连接");
+    }
+    else if(val == 4)
+    {
+        NSLog(@"播放错误"); //可能没插信号线
+    }
+    else if(val == 5)
+    {
+        NSLog(@"密码正确");
+    }
+    else if(val == 6)
+    {
+        NSLog(@"密码错误");
+    }
+    else if(val == 7)
+    {
+        NSLog(@"停止错误");
+    }
+    else if(val == 8)
+    {
+        NSLog(@"得到资源错误");
+    }
+    else if(val == 9)
+    {
+        NSLog(@"服务器停止分发");
+    }
+    else if(val == 10)
+    {
+        NSLog(@"无效");
+    }
+}
 @end

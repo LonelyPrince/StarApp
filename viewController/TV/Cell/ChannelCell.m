@@ -50,6 +50,9 @@
     
     self.channelId.text = [_dataDic objectForKey:@"service_logic_number"];
     
+//    self.channelId.text = @"aaa";
+    
+    
 
     if(self.channelId.text.length == 1)
     {
@@ -78,11 +81,11 @@
     self.channelId.font = FONT(13);
     self.channelName.font = FONT(13);
     
-    self.channelId.textColor = [UIColor redColor];
-    self.channelId.tintColor = [UIColor redColor];
+    self.channelId.textColor = [UIColor whiteColor];
+    self.channelId.tintColor = [UIColor whiteColor];
     
-    self.channelName.textColor = [UIColor redColor];
-    self.channelName.tintColor = [UIColor redColor];
+    self.channelName.textColor = [UIColor whiteColor];
+    self.channelName.tintColor = [UIColor whiteColor];
     
 }
 

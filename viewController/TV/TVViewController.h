@@ -47,4 +47,8 @@
 @property (nonatomic, retain) CGUpnpAvController* avController;
 //**********
 @property (strong,nonatomic)THProgressView *topProgressView;
+
+
+-(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
+
 @end

@@ -64,10 +64,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, strong) NSString * cellStr;
 
 //@property (nonatomic, strong) id * TableScollTimer;
+
 @end
 
 @implementation ZXVideoPlayerController
 
+@synthesize socketView1;
 #pragma mark - life cycle
 
 - (void)dealloc
@@ -95,6 +97,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configVolume];
         
         self.rightViewShowing = NO;
+        self.tvViewControlller = [[TVViewController alloc]init];
+        self.socketView1 = [[SocketView alloc]init];
         
     }
     return self;
@@ -707,6 +711,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     UIImageView *imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
     [self.subAudioTableView setBackgroundView:imageView1];
      self.subAudioTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+//    self.subAudioTableView.backgroundColor=[UIColor clearColor];
     //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    [self.videoControl.rightView addSubview:self.subAudioTableView];
     [self.view addSubview:self.subAudioTableView];
@@ -812,6 +818,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [self lockButtonClick:self.videoControl.lockButton];
         }
         [self changeToOrientation:UIDeviceOrientationPortrait];
+        [self restoreOriginalScreen];
     }
 }
 
@@ -858,7 +865,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     // FIXME: ?
     [self changeToOrientation:UIDeviceOrientationLandscapeLeft];
-//    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
 }
 
 /// 返回竖屏按钮点击
@@ -890,7 +897,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     [self changeToOrientation:UIDeviceOrientationPortrait];
-//    [self restoreOriginalScreen];
+    [self restoreOriginalScreen];
 }
 
 /// slider 按下事件
@@ -1024,6 +1031,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
         return self.video.channelCount;
+        
+//        return 8;
     }
     
 }
@@ -1077,7 +1086,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (cell == nil){
             cell = [AudioCell loadFromNib];
             cell.languageLab.textAlignment = UITextAlignmentCenter;
-            
+            cell.backgroundColor=[UIColor clearColor];
         }
         
         
@@ -1107,6 +1116,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell = [ChannelCell loadFromNib];
             cell.channelId.textAlignment = UITextAlignmentCenter;
             cell.channelName.textAlignment = UITextAlignmentCenter;
+            
+            cell.backgroundColor=[UIColor clearColor];
             
         }
         
@@ -1145,12 +1156,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
             
         }else{//如果为空，什么都不执行
         }
+   [self.socketView1  serviceTouch ];
     }
     
-
+  
     NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     
 }

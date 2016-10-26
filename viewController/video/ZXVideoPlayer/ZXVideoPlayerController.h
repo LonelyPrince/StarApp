@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ZXVideo.h"
 @import MediaPlayer;
+#import "SocketView.h"
 
 #define kZXVideoPlayerOriginalWidth  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define kZXVideoPlayerOriginalHeight (kZXVideoPlayerOriginalWidth * (9.0 / 16.0))
@@ -27,6 +28,9 @@
 
 
 @property (nonatomic, strong) UITableView *subAudioTableView;
+
+
+@property(nonatomic,strong) SocketView * socketView1;
 - (instancetype)initWithFrame:(CGRect)frame;
 /// 展示播放器
 - (void)showInView:(UIView *)view;
