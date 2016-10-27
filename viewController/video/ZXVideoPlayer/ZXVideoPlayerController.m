@@ -1185,10 +1185,5 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 
-//-(void)TableViewHidden
-//{
-////    [self.videoControl uiTableViewHidden];
-//      [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
-//}
 
 @end

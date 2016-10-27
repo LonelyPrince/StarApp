@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingCell.h"
+#import "RouteSetting.h"
+@interface MEViewController : UIViewController<UITabBarDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
-@interface MEViewController : UIViewController
+@property(nonatomic,strong) UITableView * tableView;
+@property(nonatomic,strong) RouteSetting * routeView;
 
 @end
