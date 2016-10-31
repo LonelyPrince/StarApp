@@ -597,6 +597,9 @@ static const CGSize progressViewSize = {375, 1.5f };
     TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
     if (cell == nil){
         cell = [TVCell loadFromNib];
+        
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
     }
     
     
@@ -625,7 +628,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     //    DetailViewController *controller =[[DetailViewController alloc] init];
     //    controller.dataDic = self.dataSource[indexPath.row];
     //    [self.navigationController pushViewController:controller animated:YES];
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self touchSelectChannel:indexPath.row diction:self.dicTemp];
     //    //先传输数据到socket，然后再播放视频
 //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
@@ -813,11 +816,15 @@ static const CGSize progressViewSize = {375, 1.5f };
 }
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
+   
     //先传输数据到socket，然后再播放视频
 //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
     
     NSLog(@"dic: %@",dic);
+    
+    /*此处添加一个加入历史版本的函数*/
+    [self addHistory:row diction:dic];
     
     //__
     
@@ -1041,4 +1048,89 @@ static const CGSize progressViewSize = {375, 1.5f };
         NSLog(@"无效");
     }
 }
+
+-(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
+{
+
+    // 1.获得点击的视频dictionary数据
+     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+    // 2. 初始化两个数组存放数据
+//     NSArray * historyArr = [[NSArray alloc]init];
+     NSMutableArray *mutaArray = [[NSMutableArray alloc] init];
+    //3.获得以前的点击数据
+    mutaArray = [[USER_DEFAULT objectForKey:@"historySeed"]mutableCopy];
+    
+    //4.将点击的数据加入可变数组    
+//此处进行判断看新添加的节目是否曾经添加过
+    BOOL addNewData = YES;
+//    if (mutaArray.count == 0) {
+//         [mutaArray addObject:epgDicToSocket];
+//    }
+//    else{
+    for (int i = 0; i <mutaArray.count ; i++) {
+    //原始数据
+        NSString * service_network =  [mutaArray[i] objectForKey:@"service_network_id"];
+        NSString * service_ts =  [mutaArray[i] objectForKey:@"service_ts_id"];
+        NSString * service_service =  [mutaArray[i] objectForKey:@"service_service_id"];
+        NSString * service_tuner =  [mutaArray[i] objectForKey:@"service_tuner_mode"];
+       
+     //新添加的数据
+        NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
+        NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
+        NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
+        NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
+        
+        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
+            addNewData = NO;
+            break;
+        }
+        
+//        if ([service_network isEqualToString:newservice_network]) {
+//         
+//            if ([service_ts isEqualToString:newservice_ts]) {
+//                
+//                if ([service_tuner isEqualToString:newservice_tuner]) {
+//                
+//                    if ([service_service isEqualToString:newservice_service]) {
+//                        
+//                        
+//                    }else {
+//                        [mutaArray addObject:epgDicToSocket];
+//                        break;
+//                    }
+//                    
+//                }else {
+//                    [mutaArray addObject:epgDicToSocket];
+//                    break;
+//                }
+//            }else {
+//                [mutaArray addObject:epgDicToSocket];
+//                break;
+//            }
+//            
+//        }else {
+//             [mutaArray addObject:epgDicToSocket];
+//            break;
+//        }
+        
+    
+    
+    }
+//    }
+    if (addNewData == YES) {
+     [mutaArray addObject:epgDicToSocket];
+    }
+//   [mutaArray addObject:epgDicToSocket];
+//    NSLog(@"userdefault history :%@",[USER_DEFAULT objectForKey:@"historySeed"]);
+    
+    //5。两个数组相加
+//    [ mutaArray addObject:historyArr];
+   NSArray *myArray = [NSArray arrayWithArray:mutaArray];
+    [USER_DEFAULT setObject:myArray forKey:@"historySeed"];
+//    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+//    [userDef setObject:historyArr forKey:@"historySeed"];
+//    [userDef synchronize];//把数据同步到本地
+//    NSLog(@"history : %@",historyArr);
+}
+
 @end

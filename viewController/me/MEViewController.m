@@ -19,11 +19,13 @@
 
 @property (nonatomic,assign)float allHistoryBtnHeight;
 @property (nonatomic,strong)UIScrollView * scroll;
+@property (nonatomic,strong) UIButton * hisBtn;
 @end
 
 
 @implementation MEViewController
 @synthesize scroll;
+@synthesize hisBtn;
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
 //    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,8 +37,8 @@
 //}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-  
     self.navigationController.navigationBarHidden = NO;
 //    UIFont *font = [UIFont fontWithName:@"SFUIText-Light" size:15];
     UIFont *font = FONT(15);
@@ -65,19 +67,25 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
-    
+    self.tableView.scrollsToTop = NO;
+    self.tableView.alwaysBounceVertical = NO;
+    self.tableView.bounces=NO;
+    self.tableView.bouncesZoom = NO;
     //加一个scrollview
-     scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+     scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
     [self.view addSubview:scroll];
     
 //    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
-        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614);
-    scroll.pagingEnabled=YES;
+        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105);
+//    scroll.pagingEnabled=YES;
     scroll.showsVerticalScrollIndicator=NO;
     scroll.showsHorizontalScrollIndicator=NO;
     scroll.delegate=self;
     scroll.bounces=NO;
+//    scroll.alwaysBounceVertical = NO;
+//    scroll.scrollsToTop = NO;
+//    scroll.bouncesZoom = NO;
+    
     [self loadNav];
     
 
@@ -103,11 +111,21 @@
     
     
     //history
+    hisBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [hisBtn setFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
+
+    [hisBtn addTarget:self action:@selector(button1BackGroundNormal:) forControlEvents:UIControlEventTouchDown];
+    [hisBtn addTarget:self action:@selector(button1BackGroundHighlighted:) forControlEvents:UIControlEventTouchUpInside];
+//    [hisBtn setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:hisBtn];
+//    [scroll addSubview:hisBtn];
+//    [scroll bringSubviewToFront:hisBtn];
+    
     
     UIImageView * historyImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, HISTORY_TITLE_Y, 6, 15)];
     historyImage.image = [UIImage imageNamed:@"Group 6"];
     [self.view addSubview:historyImage];
-    [scroll addSubview:historyImage];
+    [hisBtn addSubview:historyImage];
 //    UIButton * historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    historyBtn.frame = CGRectMake(0, HISTORY_TITLE_Y, 6, 15);
 //    [historyBtn setBackgroundImage:[UIImage imageNamed:@"Group 6"] forState:UIControlStateNormal];
@@ -121,7 +139,12 @@
     
     [historyLab setTextColor:RGBA(0x94, 0x94, 0x94, 1)];
     [self.view addSubview:historyLab];
-    [scroll addSubview:historyLab];
+    [hisBtn addSubview:historyLab];
+    
+    UIImageView * historyMoreImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-32, HISTORY_TITLE_Y+2.5, 6, 10)];
+    historyMoreImage.image = [UIImage imageNamed:@"Back"];
+    [self.view addSubview:historyMoreImage];
+    [hisBtn addSubview:historyMoreImage];
     
     
     UIView * grayview = [[UIView alloc]initWithFrame:CGRectMake(0, HISTORY_TITLE_Y +30 +20 + _allHistoryBtnHeight, SCREEN_WIDTH, 20)];
@@ -150,8 +173,33 @@
     
     
 }
+//  hisBtn普通状态下的背景色
+- (void)button1BackGroundNormal:(UIButton *)sender
+{
+    sender.backgroundColor = RGBA(0xF4,0xF4,0xF4,1);
+}
 
-
+//  hisBtn高亮状态下的背景色
+- (void)button1BackGroundHighlighted:(UIButton *)sender
+{
+    sender.backgroundColor = [UIColor whiteColor];
+    
+//    self.tableView.editing = YES;
+    //跳转到历史界面
+    self.historyView = [[HistoryViewController alloc]init];
+    //        [self presentModalViewController:self.routeView animated:YES];
+    [self.navigationController pushViewController:self.historyView animated:YES];
+    
+    
+    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    
+    self.historyView.navigationItem.leftBarButtonItem = myButton;
+}
+////test
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
+//}
 -(void)loadTableview
 {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HISTORY_TITLE_Y +30 +20 + _allHistoryBtnHeight+65 , SCREEN_WIDTH, 155*2) style:UITableViewStylePlain];
@@ -213,11 +261,6 @@
         
     }
 
-    
-    
-
-    
-    
         return cell;
     
     
@@ -225,7 +268,11 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row == 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
     if (indexPath.row == 1) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         self.routeView = [[RouteSetting alloc]init];
 //        [self presentModalViewController:self.routeView animated:YES];
@@ -235,12 +282,29 @@
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
         self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         
+        
 //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
         self.routeView.navigationItem.leftBarButtonItem = myButton;
         
-
+   
     
+    }  else   if (indexPath.row == 2) {
+        
+        self.routeView = [[RouteSetting alloc]init];
+        //        [self presentModalViewController:self.routeView animated:YES];
+        [self.navigationController pushViewController:self.routeView animated:YES];
+        
+        
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        self.routeView.navigationItem.leftBarButtonItem = myButton;
+        
+        
+        
     }
+    
     
     
       
@@ -253,8 +317,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
 //    if (scrollView.contentOffset.y <= 0)
 //    {
 //        CGPoint offset = scrollView.contentOffset;
@@ -267,7 +331,10 @@
 //        offset.y =self.scroll.bounds.size.height ;
 //        scrollView.contentOffset = offset;
 //    }
-//}
+    
+
+    [hisBtn setFrame:CGRectMake(0, 64 - scrollView.contentOffset.y, SCREEN_WIDTH, 45)];
+}
 
 
 

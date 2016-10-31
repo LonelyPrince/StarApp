@@ -180,6 +180,14 @@
 		70231CF71DC1DF5A00F73202 /* Back Arrow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CF41DC1DF5A00F73202 /* Back Arrow@1x.png */; };
 		70231CF81DC1DF5A00F73202 /* Back Arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CF51DC1DF5A00F73202 /* Back Arrow@2x.png */; };
 		70231CF91DC1DF5A00F73202 /* Back Arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CF61DC1DF5A00F73202 /* Back Arrow@3x.png */; };
+		70231CFD1DC1EC0F00F73202 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70231CFB1DC1EC0F00F73202 /* HistoryViewController.m */; };
+		70231CFE1DC1EC0F00F73202 /* HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70231CFC1DC1EC0F00F73202 /* HistoryViewController.xib */; };
+		70231D011DC1F4BB00F73202 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 70231D001DC1F4BB00F73202 /* loading.gif */; };
+		70231D0B1DC2E9FA00F73202 /* Back@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231D081DC2E9FA00F73202 /* Back@1x.png */; };
+		70231D0C1DC2E9FA00F73202 /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231D091DC2E9FA00F73202 /* Back@2x.png */; };
+		70231D0D1DC2E9FA00F73202 /* Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231D0A1DC2E9FA00F73202 /* Back@3x.png */; };
+		70231D111DC3026500F73202 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70231D0F1DC3026500F73202 /* HistoryCell.m */; };
+		70231D121DC3026500F73202 /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70231D101DC3026500F73202 /* HistoryCell.xib */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
 		7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B71DAE10890063DB66 /* categorys@2x.png */; };
 		7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B81DAE10890063DB66 /* categorys@3x.png */; };
@@ -567,6 +575,16 @@
 		70231CF41DC1DF5A00F73202 /* Back Arrow@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow@1x.png"; sourceTree = "<group>"; };
 		70231CF51DC1DF5A00F73202 /* Back Arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow@2x.png"; sourceTree = "<group>"; };
 		70231CF61DC1DF5A00F73202 /* Back Arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow@3x.png"; sourceTree = "<group>"; };
+		70231CFA1DC1EC0F00F73202 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		70231CFB1DC1EC0F00F73202 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		70231CFC1DC1EC0F00F73202 /* HistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryViewController.xib; sourceTree = "<group>"; };
+		70231D001DC1F4BB00F73202 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		70231D081DC2E9FA00F73202 /* Back@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@1x.png"; sourceTree = "<group>"; };
+		70231D091DC2E9FA00F73202 /* Back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
+		70231D0A1DC2E9FA00F73202 /* Back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back@3x.png"; sourceTree = "<group>"; };
+		70231D0E1DC3026400F73202 /* HistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		70231D0F1DC3026500F73202 /* HistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
+		70231D101DC3026500F73202 /* HistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		7040E1B61DAE10890063DB66 /* categorys@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@1x.png"; sourceTree = "<group>"; };
 		7040E1B71DAE10890063DB66 /* categorys@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@2x.png"; sourceTree = "<group>"; };
 		7040E1B81DAE10890063DB66 /* categorys@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@3x.png"; sourceTree = "<group>"; };
@@ -982,6 +1000,7 @@
 		70170BC81D73C1F300CC3951 /* ME */ = {
 			isa = PBXGroup;
 			children = (
+				70231CFF1DC1EC1500F73202 /* History */,
 				70231CA21DC0FD4E00F73202 /* Route */,
 				7022F8631DC085D20079C0BD /* Cell */,
 				704583051D9D049B0061C154 /* DeviceManage */,
@@ -1139,6 +1158,9 @@
 				7022F8641DC0860A0079C0BD /* SettingCell.h */,
 				7022F8651DC0860A0079C0BD /* SettingCell.m */,
 				7022F8661DC0860A0079C0BD /* SettingCell.xib */,
+				70231D0E1DC3026400F73202 /* HistoryCell.h */,
+				70231D0F1DC3026500F73202 /* HistoryCell.m */,
+				70231D101DC3026500F73202 /* HistoryCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1156,6 +1178,9 @@
 		70231CA41DC0FE8C00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				70231D081DC2E9FA00F73202 /* Back@1x.png */,
+				70231D091DC2E9FA00F73202 /* Back@2x.png */,
+				70231D0A1DC2E9FA00F73202 /* Back@3x.png */,
 				70231CEC1DC1D5AC00F73202 /* 灰.png */,
 				70231CED1DC1D5AC00F73202 /* 灰@2x.png */,
 				70231CEE1DC1D5AC00F73202 /* 灰@3x.png */,
@@ -1195,6 +1220,16 @@
 			);
 			name = Route;
 			path = "路由设置";
+			sourceTree = "<group>";
+		};
+		70231CFF1DC1EC1500F73202 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				70231CFA1DC1EC0F00F73202 /* HistoryViewController.h */,
+				70231CFB1DC1EC0F00F73202 /* HistoryViewController.m */,
+				70231CFC1DC1EC0F00F73202 /* HistoryViewController.xib */,
+			);
+			name = History;
 			sourceTree = "<group>";
 		};
 		7040E2171DAE12B80063DB66 /* ME */ = {
@@ -1351,6 +1386,7 @@
 		70FC2FED1D75207300BD06FE /* StarTime */ = {
 			isa = PBXGroup;
 			children = (
+				70231D001DC1F4BB00F73202 /* loading.gif */,
 				70130E9D1D8FDEC8005F0A49 /* search.png */,
 			);
 			path = StarTime;
@@ -1596,6 +1632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7040E2481DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@1x.png in Resources */,
+				70231D0C1DC2E9FA00F73202 /* Back@2x.png in Resources */,
 				707FE74F1DACC3C30087C361 /* Overlay@1x.png in Resources */,
 				704582F81D9A63170061C154 /* Images.xcassets in Resources */,
 				70FC30DE1D75714E00BD06FE /* kr-video-player-fullscreen@3x.png in Resources */,
@@ -1680,6 +1717,7 @@
 				7040E24A1DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@3x.png in Resources */,
 				7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */,
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
+				70231D011DC1F4BB00F73202 /* loading.gif in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				705650651DB9B95F002DD47E /* AudioCell.xib in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
@@ -1735,6 +1773,7 @@
 				70FC30E81D75714E00BD06FE /* zx-video-banner-back@2x.png in Resources */,
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
 				70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */,
+				70231D121DC3026500F73202 /* HistoryCell.xib in Resources */,
 				7012953D1D80FC0A003139D5 /* TVCell.xib in Resources */,
 				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
@@ -1788,6 +1827,7 @@
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
 				70231CC41DC0FE8C00F73202 /* off@2x.png in Resources */,
 				701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */,
+				70231D0D1DC2E9FA00F73202 /* Back@3x.png in Resources */,
 				7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */,
 				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
@@ -1823,6 +1863,7 @@
 				70170C221D74131500CC3951 /* no_login_default@2x.png in Resources */,
 				70231CEB1DC1A00100F73202 /* save@3x.png in Resources */,
 				70231CDF1DC19FEA00F73202 /* 组-55@3x.png in Resources */,
+				70231D0B1DC2E9FA00F73202 /* Back@1x.png in Resources */,
 				A48574B815A3155500294C34 /* DLNAPlaybackViewController.xib in Resources */,
 				70170C3A1D74156000CC3951 /* hot@2x.png in Resources */,
 				70FC30F11D75714E00BD06FE /* zx-video-player-unlock@2x.png in Resources */,
@@ -1832,6 +1873,7 @@
 				70170C261D74131500CC3951 /* right_on.png in Resources */,
 				707FE7501DACC3C30087C361 /* Overlay@2x.png in Resources */,
 				706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */,
+				70231CFE1DC1EC0F00F73202 /* HistoryViewController.xib in Resources */,
 				70231CE71DC1A00100F73202 /* save-不可@2x.png in Resources */,
 				70130EA41D8FDFD2005F0A49 /* 11.png in Resources */,
 				70FC30E31D75714E00BD06FE /* kr-video-player-point@2x.png in Resources */,
@@ -1942,6 +1984,7 @@
 				701295231D80F4CF003139D5 /* UIViewController+BaseUISetting.m in Sources */,
 				705650691DB9EFA2002DD47E /* subtCell.m in Sources */,
 				7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */,
+				70231CFD1DC1EC0F00F73202 /* HistoryViewController.m in Sources */,
 				60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */,
 				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
 				A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */,
@@ -1958,6 +2001,7 @@
 				701294E61D80F4A3003139D5 /* NSString+JSONCategories.m in Sources */,
 				700770821D829EA3003C0D68 /* YGPCache.m in Sources */,
 				704582F51D9A193D0061C154 /* GGUtil.m in Sources */,
+				70231D111DC3026500F73202 /* HistoryCell.m in Sources */,
 				700770791D829C30003C0D68 /* YLSlideTitleView.m in Sources */,
 				70FC30F81D75714E00BD06FE /* ZXVideoPlayerBatteryView.m in Sources */,
 				701295171D80F4CF003139D5 /* BUIControl.m in Sources */,

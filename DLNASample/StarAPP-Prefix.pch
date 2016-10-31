@@ -21,7 +21,7 @@
 #import"StarMainTabController.h"
 #import "SearchViewController.h"
 #import "RouteSetting.h"
-
+#import "HistoryViewController.h"
 #import "ZXVideo.h"
 
 #import "ZXVideoPlayerController.h"

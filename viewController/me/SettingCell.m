@@ -26,7 +26,6 @@
     // Configure the view for the selected state
 }
 
-
 + (id)loadFromNib
 {
     NSString *xibName = NSStringFromClass([self class]);

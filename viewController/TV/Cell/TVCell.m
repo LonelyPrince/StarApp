@@ -18,6 +18,7 @@
     self.channelImg.clipsToBounds = YES;
     self.channelImg.contentMode = UIViewContentModeScaleAspectFill;
     // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

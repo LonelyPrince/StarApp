@@ -7,6 +7,9 @@
 //
 
 #import "RouteSetting.h"
+#import <ImageIO/ImageIO.h>
+#import <QuartzCore/QuartzCore.h>
+#import "UIImage+GIF.h"
 
 #define TEXTFIELDIMAGE_X 40
 #define TEXTFIELDIMAGE_WIDTH  (SCREEN_WIDTH-2*40)
@@ -47,7 +50,16 @@
     self.navigationItem.title = @"Roter management";
     UIImageView * routeImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-147)/2, 84, 147, 147)];
     routeImageView.image = [UIImage imageNamed:@"组-55"];
+
+//    NSError *error = nil;
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"loading" ofType:@"gif"];
+//    
+//    NSData *data = [NSData dataWithContentsOfFile:filePath ];
+//    routeImageView.backgroundColor = [UIColor clearColor];
+//    routeImageView.image= [UIImage sd_animatedGIFWithData:data];
     [self.view addSubview:routeImageView];
+    
+  
  
     
 
@@ -139,6 +151,8 @@
 //    saveBtn.layer.cornerRadius = 20.0;
     
     [self.view addSubview:saveBtn];
+     
+   
 }
 
 
