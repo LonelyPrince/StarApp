@@ -19,6 +19,7 @@
 
 + (id)loadFromNib;
 
+
 + (NSString*)reuseIdentifier;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HistoryCell.h"
+#import "EarilyCell.h"
 @interface HistoryViewController : UIViewController<UITabBarDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;

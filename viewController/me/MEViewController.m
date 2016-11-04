@@ -11,12 +11,40 @@
 
 #define HISTORY_TITLE_Y  15 //79  15
 #define HISTORY_BTN_Y  109
+#define HISTORYBTNPIECE_HEIGHT  108
 //#define HISTORY_BTN_WIDTH  124.5
 //#define GRAYVIEW_Y  345
 
 //#define SEETING_TITLE_Y  380
 @interface MEViewController ()
+{
+    UIButton * historyBtnPiece1;
+    UIButton * historyBtnPiece2;
+    UIButton * historyBtnPiece3;
+    UIButton * historyBtnPiece4;
+    UIButton * historyBtnPiece5;
+    UIButton * historyBtnPiece6;
+    
+    UILabel * historyNameLab1;
+    UILabel * historyNameLab2;
+    UILabel * historyNameLab3;
+    UILabel * historyNameLab4;
+    UILabel * historyNameLab5;
+    UILabel * historyNameLab6;
 
+    UIView * whiteView6;
+    UIView * whiteView5;
+    UIView * whiteView4;
+    UIView * whiteView3;
+    UIView * whiteView2;
+    UIView * whiteView1;
+    NSMutableArray *  historyArr;
+    
+    UIButton * btn;
+    float historyBtn1_width ;
+    float historyBtn2_width ;
+
+}
 @property (nonatomic,assign)float allHistoryBtnHeight;
 @property (nonatomic,strong)UIScrollView * scroll;
 @property (nonatomic,strong) UIButton * hisBtn;
@@ -26,6 +54,7 @@
 @implementation MEViewController
 @synthesize scroll;
 @synthesize hisBtn;
+
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
 //    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -63,7 +92,7 @@
     self.tabBarItem.selectedImage = image;
     [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
 
-    _allHistoryBtnHeight = 216;
+    
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -71,28 +100,18 @@
     self.tableView.alwaysBounceVertical = NO;
     self.tableView.bounces=NO;
     self.tableView.bouncesZoom = NO;
-    //加一个scrollview
-     scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
-    [self.view addSubview:scroll];
-    
-//    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
-        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105);
-//    scroll.pagingEnabled=YES;
-    scroll.showsVerticalScrollIndicator=NO;
-    scroll.showsHorizontalScrollIndicator=NO;
-    scroll.delegate=self;
-    scroll.bounces=NO;
+  
 //    scroll.alwaysBounceVertical = NO;
 //    scroll.scrollsToTop = NO;
 //    scroll.bouncesZoom = NO;
     
-    [self loadNav];
+//    [self loadNav];
     
 
     
     //加载一些样式
 
-    [self loadTableview];
+    
     
 
 }
@@ -104,21 +123,60 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [scroll removeFromSuperview];
+    scroll = nil;
+    
+    historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+    
+     if (historyArr.count>3)
+    {
+        _allHistoryBtnHeight = 216;
+    }else if(historyArr.count>0 && historyArr.count <=3)
+    {
+        _allHistoryBtnHeight = 108;
+    }else
+    {
+        _allHistoryBtnHeight = 0;
+    }
+    
+    [self loadScroll];
+   [self loadNav];
+    [self loadTableview];
+    self.tableView.scrollEnabled =NO;
+}
+-(void)loadScroll
+{
+    //加一个scrollview
+    scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    [self.view addSubview:scroll];
+    
+    //    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
+    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216 +_allHistoryBtnHeight);
+    //    scroll.pagingEnabled=YES;
+    scroll.showsVerticalScrollIndicator=NO;
+    scroll.showsHorizontalScrollIndicator=NO;
+    scroll.delegate=self;
+    scroll.bounces=NO;
+
+    
+}
 -(void)loadNav
 {
     
-    
+    [self addHistoryBtn];
     
     
     //history
     hisBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [hisBtn setFrame:CGRectMake(0, 64, SCREEN_WIDTH, 45)];
+    [hisBtn setFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
 
     [hisBtn addTarget:self action:@selector(button1BackGroundNormal:) forControlEvents:UIControlEventTouchDown];
     [hisBtn addTarget:self action:@selector(button1BackGroundHighlighted:) forControlEvents:UIControlEventTouchUpInside];
 //    [hisBtn setBackgroundColor:[UIColor redColor]];
-    [self.view addSubview:hisBtn];
-//    [scroll addSubview:hisBtn];
+//    [self.view addSubview:hisBtn];
+    [scroll addSubview:hisBtn];
 //    [scroll bringSubviewToFront:hisBtn];
     
     
@@ -189,6 +247,7 @@
     self.historyView = [[HistoryViewController alloc]init];
     //        [self presentModalViewController:self.routeView animated:YES];
     [self.navigationController pushViewController:self.historyView animated:YES];
+   
     
     
     UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
@@ -257,7 +316,7 @@
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 15 Copy 2"];
         cell.blackLab.text = @"About";
-        cell.grayLab.text = @"Equipment management";
+        cell.grayLab.text = @"About management";
         
     }
 
@@ -317,26 +376,577 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+////    if (scrollView.contentOffset.y <= 0)
+////    {
+////        CGPoint offset = scrollView.contentOffset;
+////        offset.y = 0;
+////        scrollView.contentOffset = offset;
+////    }
+////    if (scrollView.contentOffset.y > self.scroll.bounds.size.height)
+////    {
+////        CGPoint offset = scrollView.contentOffset;
+////        offset.y =self.scroll.bounds.size.height ;
+////        scrollView.contentOffset = offset;
+////    }
+//    
+//
+////    [hisBtn setFrame:CGRectMake(0, 64 - scrollView.contentOffset.y, SCREEN_WIDTH, 45)];
+//}
+
+-(void)addHistoryBtn
 {
-//    if (scrollView.contentOffset.y <= 0)
-//    {
-//        CGPoint offset = scrollView.contentOffset;
-//        offset.y = 0;
-//        scrollView.contentOffset = offset;
-//    }
-//    if (scrollView.contentOffset.y > self.scroll.bounds.size.height)
-//    {
-//        CGPoint offset = scrollView.contentOffset;
-//        offset.y =self.scroll.bounds.size.height ;
-//        scrollView.contentOffset = offset;
-//    }
+     historyBtn1_width = (SCREEN_WIDTH+1)/3 - 0.5;
+     historyBtn2_width = (SCREEN_WIDTH+1)/3;
+    
+    
+    
+    [self addFirstBtn];
+    [self addSecondBtn];
+    [self addThirdBtn];
+    [self addFourBtn];
+    [self addFiveBtn];
+    [self addSixBtn];
+    [self addWhiteView];
+    
+    
+ 
+    
+   
+    
+    
+    UIImage * image = [UIImage imageNamed:@"zOOm-Logo"];
+    UIImageView * channelImage = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+    channelImage.image = image;
     
 
-    [hisBtn setFrame:CGRectMake(0, 64 - scrollView.contentOffset.y, SCREEN_WIDTH, 45)];
+    UIImageView * channelImage2 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+    channelImage2.image = image;
+    UIImageView * channelImage3 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+    channelImage3.image = image;
+    UIImageView * channelImage4 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+    channelImage4.image = image;
+    UIImageView * channelImage5 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+    channelImage5.image = image;
+    
+    
+  //6
+    if (historyArr.count >5) {
+        
+        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+        
+        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+        NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+        
+        
+        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        [historyBtnPiece1 addSubview:channelImage];
+        
+        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+        [historyBtnPiece2 addSubview:channelImage2];
+        
+        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+        [historyBtnPiece3 addSubview:channelImage3];
+        
+        historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+        [historyBtnPiece4 addSubview:channelImage4];
+        
+        historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+        [historyBtnPiece5 addSubview:channelImage5];
+        //        [historyBtnPiece6 addSubview:channelImage];
+        
+        [scroll addSubview:historyBtnPiece6];
+        //        [scroll addSubview:whiteView6];
+        [scroll addSubview:historyBtnPiece5];
+        [scroll addSubview:historyBtnPiece4];
+        [scroll addSubview:historyBtnPiece3];
+        [scroll addSubview:historyBtnPiece2];
+        [scroll addSubview:historyBtnPiece1];
+        
+    }
+    
+    if (historyArr.count ==5) {
+        
+        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+        
+        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+        NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+        
+        
+        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        [historyBtnPiece1 addSubview:channelImage];
+        
+        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+        [historyBtnPiece2 addSubview:channelImage2];
+        
+        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+        [historyBtnPiece3 addSubview:channelImage3];
+        
+        historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+        [historyBtnPiece4 addSubview:channelImage4];
+        
+        historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+        [historyBtnPiece5 addSubview:channelImage5];
+//        [historyBtnPiece6 addSubview:channelImage];
+        [historyBtnPiece6 removeFromSuperview];
+//         [scroll addSubview:historyBtnPiece6];
+//        [scroll addSubview:whiteView6];
+        [scroll addSubview:whiteView6];
+         [scroll addSubview:historyBtnPiece5];
+         [scroll addSubview:historyBtnPiece4];
+         [scroll addSubview:historyBtnPiece3];
+         [scroll addSubview:historyBtnPiece2];
+         [scroll addSubview:historyBtnPiece1];
+    
+    }
+    if (historyArr.count ==4) {
+        
+        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+//        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+        
+        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+        NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+        
+//        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+//        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+        
+        
+        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        [historyBtnPiece1 addSubview:channelImage];
+        
+        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+        [historyBtnPiece2 addSubview:channelImage2];
+        
+        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+        [historyBtnPiece3 addSubview:channelImage3];
+        
+        historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+        [historyBtnPiece4 addSubview:channelImage4];
+
+        
+        
+        
+        
+
+        
+        [historyBtnPiece5 removeFromSuperview];
+        [historyBtnPiece6 removeFromSuperview];
+//
+//        historyBtnPiece6 = nil;
+//        historyBtnPiece5 = nil;
+  
+//        [self addSixBtn];
+//        [self addFiveBtn];
+        //       historyBtnPiece6 = nil;
+    
+//        historyBtnPiece6.frame = historyBtnPiece5.frame;
+//        historyBtnPiece6.bounds = historyBtnPiece5.bounds;
+      
+        
+        [scroll addSubview:whiteView6];
+        [scroll addSubview:whiteView5];
+//        [scroll addSubview:historyBtnPiece6];
+//        [scroll addSubview:historyBtnPiece5];
+        [scroll addSubview:historyBtnPiece4];
+        [scroll addSubview:historyBtnPiece3];
+        [scroll addSubview:historyBtnPiece2];
+        [scroll addSubview:historyBtnPiece1];
+        
+        
+    }
+    if (historyArr.count ==3) {
+        
+        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+//        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3];
+        //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+        
+        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+
+        
+        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+                [historyBtnPiece1 addSubview:channelImage];
+        
+        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+                [historyBtnPiece2 addSubview:channelImage2];
+        
+        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+                [historyBtnPiece3 addSubview:channelImage3];
+        
+        
+        
+        [historyBtnPiece5 removeFromSuperview];
+        [historyBtnPiece4 removeFromSuperview];
+        [historyBtnPiece6 removeFromSuperview];
+        [whiteView6 removeFromSuperview];
+        [whiteView5 removeFromSuperview];
+        
+//        
+//        historyBtnPiece6.frame = historyBtnPiece4.frame;
+//        historyBtnPiece6.bounds = historyBtnPiece4.bounds;
+
+        
+        [scroll addSubview:whiteView6];
+        [scroll addSubview:whiteView5];
+        [scroll addSubview:whiteView4];
+
+        [scroll addSubview:historyBtnPiece3];
+        [scroll addSubview:historyBtnPiece2];
+        [scroll addSubview:historyBtnPiece1];
+       
+        
+    }
+    if (historyArr.count ==2) {
+        
+        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+       
+        
+        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+        
+        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+
+        
+        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+                [historyBtnPiece1 addSubview:channelImage];
+        
+        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+        [historyBtnPiece2 addSubview:channelImage2];
+
+        
+////        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//        dispatch_async(mainQueue,^{
+////            NSLog("MainQueue");
+//            [historyBtnPiece5 removeFromSuperview];
+//            [historyBtnPiece4 removeFromSuperview];
+//            [historyBtnPiece6 removeFromSuperview];
+//            [historyBtnPiece3 removeFromSuperview];
+//        });
+        [historyBtnPiece5 removeFromSuperview];
+        [historyBtnPiece4 removeFromSuperview];
+        [historyBtnPiece6 removeFromSuperview];
+        [historyBtnPiece3 removeFromSuperview];
+        [whiteView6 removeFromSuperview];
+        [whiteView5 removeFromSuperview];
+        [whiteView4 removeFromSuperview];
+        
+//        historyBtnPiece6.frame = historyBtnPiece3.frame;
+//        historyBtnPiece6.bounds = historyBtnPiece3.bounds;
+        
+        [scroll addSubview:whiteView6];
+        [scroll addSubview:whiteView5];
+        [scroll addSubview:whiteView4];
+        [scroll addSubview:whiteView3];
+//        [scroll addSubview:historyBtnPiece6];
+//        [scroll addSubview:historyBtnPiece5];
+//        [scroll addSubview:historyBtnPiece4];
+//        [scroll addSubview:historyBtnPiece3];
+        [scroll addSubview:historyBtnPiece2];
+        [scroll addSubview:historyBtnPiece1];
+//        [historyBtnPiece3 removeFromSuperview];
+        
+    }if (historyArr.count ==1) {
+        
+        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+        
+        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+        
+        
+        
+        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        [historyBtnPiece1 addSubview:channelImage];
+    
+        
+        [historyBtnPiece5 removeFromSuperview];
+        [historyBtnPiece4 removeFromSuperview];
+        [historyBtnPiece3 removeFromSuperview];
+        [historyBtnPiece2 removeFromSuperview];
+        [historyBtnPiece6 removeFromSuperview];
+        
+        [whiteView6 removeFromSuperview];
+        [whiteView5 removeFromSuperview];
+        [whiteView4 removeFromSuperview];
+        [whiteView3 removeFromSuperview];
+//        historyBtnPiece6.frame = historyBtnPiece2.frame;
+//        historyBtnPiece6.bounds = historyBtnPiece2.bounds;
+//        [scroll addSubview:historyBtnPiece6];
+        
+        [scroll addSubview:whiteView6];
+        [scroll addSubview:whiteView5];
+        [scroll addSubview:whiteView4];
+        [scroll addSubview:whiteView3];
+        [scroll addSubview:whiteView2];
+//        [scroll addSubview:historyBtnPiece6];
+//        [scroll addSubview:historyBtnPiece5];
+//        [scroll addSubview:historyBtnPiece4];
+//        [scroll addSubview:historyBtnPiece3];
+//        [scroll addSubview:historyBtnPiece2];
+        [scroll addSubview:historyBtnPiece1];
+      
+    }
+    
+    if (historyArr.count ==0) {
+        
+//        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0];
+//        
+//        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+//        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+//        
+//        
+//        
+//        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+//        [historyBtnPiece1 addSubview:channelImage];
+        
+        
+//        historyBtnPiece6.frame = historyBtnPiece1.frame;
+        [historyBtnPiece6 removeFromSuperview];
+        [historyBtnPiece5 removeFromSuperview];
+        [historyBtnPiece4 removeFromSuperview];
+        [historyBtnPiece3 removeFromSuperview];
+        [historyBtnPiece2 removeFromSuperview];
+        [historyBtnPiece1 removeFromSuperview];
+        [whiteView6 removeFromSuperview];
+        [whiteView5 removeFromSuperview];
+        [whiteView4 removeFromSuperview];
+        [whiteView3 removeFromSuperview];
+        [whiteView2 removeFromSuperview];
+        
+        [scroll addSubview:whiteView6];
+        [scroll addSubview:whiteView5];
+        [scroll addSubview:whiteView4];
+        [scroll addSubview:whiteView3];
+        [scroll addSubview:whiteView2];
+        [scroll addSubview:whiteView1];
+//        [scroll addSubview:historyBtnPiece6];
+        //        [scroll addSubview:historyBtnPiece5];
+        //        [scroll addSubview:historyBtnPiece4];
+        //        [scroll addSubview:historyBtnPiece3];
+        //        [scroll addSubview:historyBtnPiece2];
+//        [scroll addSubview:historyBtnPiece1];
+    }
 }
+//1
+-(void)addFirstBtn
+{
+      historyBtnPiece1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [historyBtnPiece1 setFrame:CGRectMake(0, 45, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+    [historyBtnPiece1 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
+    historyBtnPiece1.tag = 1;
+//    [scroll addSubview:historyBtnPiece1];
+    
+    
+      historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+    historyNameLab1.textColor = [UIColor whiteColor];
+    historyNameLab1.font = FONT(12);
+    historyNameLab1.textAlignment = NSTextAlignmentCenter;
+    [historyBtnPiece1 addSubview:historyNameLab1];
+}
+//2
+-(void)addSecondBtn
+{
+      historyBtnPiece2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [historyBtnPiece2 setFrame:CGRectMake(historyBtn1_width + 0.5, 45, historyBtn2_width, HISTORYBTNPIECE_HEIGHT)];
+    [historyBtnPiece2 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece2 setBackgroundImage:[UIImage imageNamed:@"矩形2"] forState:UIControlStateNormal];
+    historyBtnPiece2.tag = 2;
+//    [scroll addSubview:historyBtnPiece2];
+    
+    
+      historyNameLab2= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+    historyNameLab2.textColor = [UIColor whiteColor];
+    historyNameLab2.font = FONT(12);
+    historyNameLab2.textAlignment = NSTextAlignmentCenter;
+    [historyBtnPiece2 addSubview:historyNameLab2];
 
+}
+//3
+-(void)addThirdBtn
+{
+      historyBtnPiece3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [historyBtnPiece3 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+    [historyBtnPiece3 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece3 setBackgroundImage:[UIImage imageNamed:@"矩形3"] forState:UIControlStateNormal];
+    historyBtnPiece3.tag = 3;
+//    [scroll addSubview:historyBtnPiece3];
+    
+      historyNameLab3= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+    historyNameLab3.textColor = [UIColor whiteColor];
+    historyNameLab3.font = FONT(12);
+    historyNameLab3.textAlignment = NSTextAlignmentCenter;
+    [historyBtnPiece3 addSubview:historyNameLab3];
+    
+  
+   
+}
+//4
+-(void)addFourBtn
+{
+      historyBtnPiece4 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [historyBtnPiece4 setFrame:CGRectMake(0, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+    [historyBtnPiece4 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece4 setBackgroundImage:[UIImage imageNamed:@"矩形4"] forState:UIControlStateNormal];
+    historyBtnPiece4.tag = 4;
+//    [scroll addSubview:historyBtnPiece4];
+    
+      historyNameLab4= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+    historyNameLab4.textColor = [UIColor whiteColor];
+    historyNameLab4.font = FONT(12);
+    historyNameLab4.textAlignment = NSTextAlignmentCenter;
+    [historyBtnPiece4 addSubview:historyNameLab4];
+    
+  
+}
+//5
+-(void)addFiveBtn
+{
+      historyBtnPiece5 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [historyBtnPiece5 setFrame:CGRectMake(historyBtn1_width + 0.5, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+    [historyBtnPiece5 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece5 setBackgroundImage:[UIImage imageNamed:@"矩形5"] forState:UIControlStateNormal];
+    historyBtnPiece5.tag = 5;
+//    [scroll addSubview:historyBtnPiece5];
+    
+      historyNameLab5= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+    historyNameLab5.textColor = [UIColor whiteColor];
+    historyNameLab5.font = FONT(12);
+    historyNameLab5.textAlignment = NSTextAlignmentCenter;
+    [historyBtnPiece5 addSubview:historyNameLab5];
+    
+    
+}
+//6
+-(void)addSixBtn
+{
+      historyBtnPiece6 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [historyBtnPiece6 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+    [historyBtnPiece6 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece6 setBackgroundImage:[UIImage imageNamed:@"矩形6"] forState:UIControlStateNormal];
+    historyBtnPiece6.tag = 6;
+//    [scroll addSubview:historyBtnPiece6];
+    
+      historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(0, 45,historyBtnPiece6.bounds.size.width, 20)];
+    historyNameLab6.text = @"more";
+    historyNameLab6.textColor = [UIColor whiteColor];
+    historyNameLab6.font = FONT(16);
+    historyNameLab6.textAlignment = NSTextAlignmentCenter;
+    [historyBtnPiece6 addSubview:historyNameLab6];
 
+}
+-(void)addWhiteView
+{
+    whiteView6 = [[UIView alloc]init];
+    whiteView6.frame = historyBtnPiece6.frame;
+    whiteView6.backgroundColor = [UIColor whiteColor];
+
+    
+    whiteView5 = [[UIView alloc]init];
+    whiteView5.frame = historyBtnPiece5.frame;
+    whiteView5.backgroundColor = [UIColor whiteColor];
+    
+    whiteView4 = [[UIView alloc]init];
+    whiteView4.frame = historyBtnPiece4.frame;
+    whiteView4.backgroundColor = [UIColor whiteColor];
+    
+    whiteView3 = [[UIView alloc]init];
+    whiteView3.frame = historyBtnPiece3.frame;
+    whiteView3.backgroundColor = [UIColor whiteColor];
+    
+    whiteView2 = [[UIView alloc]init];
+    whiteView2.frame = historyBtnPiece2.frame;
+    whiteView2.backgroundColor = [UIColor whiteColor];
+    
+    whiteView1 = [[UIView alloc]init];
+    whiteView1.frame = historyBtnPiece1.frame;
+    whiteView1.backgroundColor = [UIColor whiteColor];
+    
+    
+    
+    
+}
+-(NSString * )getlogicNmuber : (NSString *)astring
+{
+  
+    if(astring.length == 1)
+    {
+        astring = [NSString stringWithFormat:@"00%@", astring];
+    }
+    else if (astring.length == 2)
+    {
+        astring = [NSString stringWithFormat:@"0%@", astring];
+    }
+    else if (astring.length == 3)
+    {
+        astring = [NSString stringWithFormat:@"%@", astring];
+    }
+    else if (astring.length > 3)
+    {
+        astring = [ astring substringFromIndex: astring.length - 3];
+    }
+    return astring;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

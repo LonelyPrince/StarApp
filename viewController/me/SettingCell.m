@@ -31,9 +31,12 @@
     NSString *xibName = NSStringFromClass([self class]);
     return [[[NSBundle mainBundle] loadNibNamed:xibName owner:nil options:nil] firstObject];
 }
+
+
 + (NSString*)reuseIdentifier
 {
     return NSStringFromClass([self class]);
 }
+
 
 @end
