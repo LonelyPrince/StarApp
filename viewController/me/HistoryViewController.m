@@ -9,7 +9,7 @@
 #import "HistoryViewController.h"
 
 //#define ONEDAY 86400
-#define ONEDAY    86400  //99999999 //81000
+#define ONEDAY    200  //99999999 //81000
 @interface HistoryViewController ()
 {
     UIButton * editButton;
@@ -17,9 +17,13 @@
     NSMutableArray * selectedArray;
     NSMutableArray * historyArr;
     
+    UIBarButtonItem *myButton;
     int todayNum;
     int earilyNum;
-    int aaaa;
+    
+    BOOL delegateBtn ;   //是否是删除按钮
+    BOOL isAllSelected ; //是否被选择
+    UIButton * redDeleteBtn;
 }
 @end
 
@@ -32,7 +36,17 @@
     [tableView reloadData];
  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
-//    
+//
+    self.tableView.allowsSelectionDuringEditing = YES;
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+ self.tableView.allowsSelection = YES;
+    self.tableView.allowsMultipleSelection = NO;
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    
+    
+    
+    
     tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -55,6 +69,9 @@
             todayNum++;
         }
     }
+
+    [self loadBarRightItem];
+    isAllSelected = NO;
 }
 //-(void)reload
 //{
@@ -65,22 +82,192 @@
 // [self addHeaderView];
 }
 
+-(void)loadBarRightItem
+{
+    delegateBtn = YES;
+    myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"left_default"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
+    self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    
+    self.navigationItem.rightBarButtonItem = myButton;
+}
+-(void)deleteAllBtn
+{
+    [self loadAllDeleteBtn];
+    if (delegateBtn == YES) {
+        delegateBtn = NO;
+        [self.tableView setEditing:YES animated:YES];
+//        [self setEditing:!self.editing animated:YES];
+        myButton = nil;
+        myButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteBtnCancel)];
+        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        self.navigationItem.rightBarButtonItem = myButton;
+    }
+    
+    NSLog(@"删除所有");
+}
+-(void)deleteBtnCancel
+{
+    [self loadAllDeleteBtn];
+    delegateBtn = YES;
+        [self.tableView setEditing:NO animated:YES];
+//    [self setEditing:!self.editing animated:YES];
+    myButton = nil;
+    myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"left_default"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
+    self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    
+    self.navigationItem.rightBarButtonItem = myButton;
+    NSLog(@"取消删除");
+}
+/**
+ *左侧删除的all按钮
+ */
+-(void)loadAllDeleteBtn
+{
+    if (self.tableView.editing == NO) {
+      
+        UIBarButtonItem *allDelegateBtn = [[UIBarButtonItem alloc] initWithTitle:@" All "style:UIBarButtonItemStyleBordered target:self action:@selector(AllDeleteClick)];
+        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        self.navigationItem.leftBarButtonItem = allDelegateBtn;
+
+        
+        self.tabBarController.tabBar.hidden  = YES;
+        
+        
+        [self loadRedDelegate];
+     
+        
+        
+        
+    } else if (self.tableView.editing ==YES)
+    {
+        UIBarButtonItem *leftBackBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftBackBtnClick)];
+        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        self.navigationItem.leftBarButtonItem = leftBackBtn;
+        
+        self.tabBarController.tabBar.hidden = NO;
+    
+        
+        [redDeleteBtn removeFromSuperview];
+    }
+    
+}
+-(void)loadRedDelegate
+{
+
+    redDeleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    redDeleteBtn.frame = CGRectMake(0, SCREEN_HEIGHT-51, SCREEN_WIDTH, 51);
+    redDeleteBtn.backgroundColor = [UIColor redColor];
+    [redDeleteBtn setTitle:@"DEL" forState:UIControlStateNormal];
+    [redDeleteBtn addTarget:self action:@selector(deleteSeletions) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:redDeleteBtn];
+    
+}
+-(void)deleteSeletions
+{
+//此处多选删除选中的
+    
+}
+/**
+ *左侧删除的all 按钮全选事件
+ */
+-(void)AllDeleteClick //点击all 按钮响应的事件
+{   //全选
+    if (isAllSelected == NO) {
+        isAllSelected = YES;
+        for (int i = 0; i<historyArr.count; i++) {
+        
+            if (todayNum>0&&earilyNum>0) {
+
+                      if (i< todayNum) {
+                      
+                          NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                      }
+                else
+                {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
+                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                }
+
+                
+                
+            }else if (todayNum==0&&earilyNum>0) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            }else if (todayNum>0&&earilyNum==0) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+            }
+            else if (todayNum==0&&earilyNum==0) {
+              
+            }
+
+        }
+    }
+    else  //取消全选
+    {
+        isAllSelected = NO;
+        for (int i = 0; i<historyArr.count; i++) {
+            
+            if (todayNum>0&&earilyNum>0) {
+                
+                if (i< todayNum) {
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                }
+                else
+                {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
+                  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                }
+                
+                
+                
+            }else if (todayNum==0&&earilyNum>0) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                 [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }else if (todayNum>0&&earilyNum==0) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                 [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            }
+            else if (todayNum==0&&earilyNum==0) {
+                
+            }
+            
+        }
+    }
+    
+   
+    //获得删除的数量
+    NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    
+    
+}
+-(void)leftBackBtnClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)addHeaderView
 {
 //    UIView * todayView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
 //    todayView.backgroundColor = [UIColor redColor];
 //    tableView.tableHeaderView = todayView;
 }
-- (void)setTableViewHeaderView{
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    editButton.frame = CGRectMake(120, 5, 80, 50);
-    [editButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [editButton setTitle:@"delete" forState:UIControlStateNormal];
-    [editButton addTarget:self action:@selector(deleteSeletions:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:editButton];
-    self.tableView.tableHeaderView = view;
-}
+//- (void)setTableViewHeaderView{
+//    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+//    editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    editButton.frame = CGRectMake(120, 5, 80, 50);
+//    [editButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [editButton setTitle:@"delete" forState:UIControlStateNormal];
+//    [editButton addTarget:self action:@selector(deleteSeletions:) forControlEvents:UIControlEventTouchUpInside];
+//    [view addSubview:editButton];
+//    self.tableView.tableHeaderView = view;
+//}
 //#pragma mark - 删除按钮的监听事件
 //- (void)deleteSeletions:(UIButton *)button{
 //    NSString * title = self.tableView.editing ? @"delete" : @"ok";
@@ -125,12 +312,17 @@
 //    
 //    return cell;
 //}
-//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
-//}
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return YES;
-//}
+    if (tableView.editing) {
+        return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
+    }
+    else
+    {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
 //#pragma mark - 选中单元格时方法
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    if ([editButton.titleLabel.text isEqualToString:@"ok"]) {
@@ -214,21 +406,23 @@
     
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     EarilyCell *earilyCell = [tableView dequeueReusableCellWithIdentifier:@"earilyCell"];
+    
     if (cell == nil){
         cell = [HistoryCell loadFromNib];
         cell.backgroundColor=[UIColor clearColor];
-        
+        cell.tintColor = [UIColor redColor];
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+        cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+        
         
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     if (earilyCell == nil){
         earilyCell = [EarilyCell loadFromNib];
         earilyCell.backgroundColor=[UIColor clearColor];
-        
+        earilyCell.tintColor = [UIColor redColor];
         earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        earilyCell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+        earilyCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
         
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -332,7 +526,7 @@
 //    }else{//如果为空，什么都不执行
     }
     
-    NSLog(@"aaaaa :%d",aaaa);
+    
 //    return  cell;
     
     
@@ -345,11 +539,22 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-      [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
          NSLog(@"section: %d,row %d ",indexPath.section,indexPath.row);
          NSLog(@"我被选中了，哈哈哈哈哈哈哈");
+    
+    //获得删除的数量
+    NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
 }
+//取消选择cell
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //获得删除的数量
+    NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
 
@@ -416,7 +621,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return @" Del ";
+    return @" DEL ";
 }
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -463,7 +668,7 @@
     return 50;
 }
 
-////判断时间是否是earily
-//-(void)
+
+
 
 @end
