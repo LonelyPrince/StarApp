@@ -9,7 +9,7 @@
 #import "HistoryViewController.h"
 
 //#define ONEDAY 86400
-#define ONEDAY    200  //99999999 //81000
+#define ONEDAY    86400  //99999999 //81000
 @interface HistoryViewController ()
 {
     UIButton * editButton;
@@ -24,6 +24,8 @@
     BOOL delegateBtn ;   //是否是删除按钮
     BOOL isAllSelected ; //是否被选择
     UIButton * redDeleteBtn;
+    
+    
 }
 @end
 
@@ -53,10 +55,7 @@
 //    [self setTableViewHeaderView];
     [self.view addSubview:tableView];
     
-//    dataArray = [[NSMutableArray alloc]initWithObjects:@"大葫芦",@"大娃",@"二娃",@"三娃",@"四娃",@"五娃",@"六娃",@"七娃", nil];
-//    selectedArray = [[NSMutableArray alloc]init]; //非ARC模式不能使用静态方法创建全局变量
-//
-//    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(reload) userInfo:nil repeats:YES];// 在longConnectToSock
+    selectedArray = [[NSMutableArray alloc]init]; //非ARC模式不能使用静态方法创建全局变量
    
     todayNum = 0;
     earilyNum = 0;
@@ -73,19 +72,16 @@
     [self loadBarRightItem];
     isAllSelected = NO;
 }
-//-(void)reload
-//{
-//    [tableView reloadData];
-//}
+
 -(void)viewWillAppear:(BOOL)animated
 {
-// [self addHeaderView];
+
 }
 
 -(void)loadBarRightItem
 {
     delegateBtn = YES;
-    myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"left_default"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
+    myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Del"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
     self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
     
     self.navigationItem.rightBarButtonItem = myButton;
@@ -113,11 +109,13 @@
         [self.tableView setEditing:NO animated:YES];
 //    [self setEditing:!self.editing animated:YES];
     myButton = nil;
-    myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"left_default"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
+    myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Del"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
     self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
     
     self.navigationItem.rightBarButtonItem = myButton;
     NSLog(@"取消删除");
+    
+    [selectedArray removeAllObjects]; //删除完或者取消删除之后
 }
 /**
  *左侧删除的all按钮
@@ -167,8 +165,95 @@
 }
 -(void)deleteSeletions
 {
+    if (selectedArray == 0) {
+        
+    }
+    else{
 //此处多选删除选中的
+     [self.tableView reloadData];
+    [tableView beginUpdates];
+
+
+
+    //刷新
+    [tableView deleteRowsAtIndexPaths:selectedArray withRowAnimation:UITableViewRowAnimationFade];
     
+    
+    for (int i = 0; i< selectedArray.count; i++) {
+        NSIndexPath * indexpath1 = selectedArray[i];
+        if(indexpath1.section == 0)
+                    {
+                        if (todayNum > 0) {   //如果今天的数量大于0
+                            todayNum = todayNum-1;
+                            [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
+                            [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                            
+                           
+                            if(todayNum == 0)
+                            {
+                             [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
+                            }
+                            
+                            
+                        }
+                        else   //只有早期的历史，没有今天的历史
+                        {
+        
+                            [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
+                            earilyNum = earilyNum-1;
+                            [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                      
+                        
+                            if(earilyNum == 0)
+                            {
+                                [tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
+                            }
+                        
+                        }
+                        
+                        
+        
+                    }
+                    else //section =1
+                    {
+        
+                        [historyArr removeObjectAtIndex:earilyNum  - indexpath1.row -1+i];
+                        earilyNum = earilyNum -1;
+                        [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                        
+                        if(earilyNum == 0)
+                        {
+                            [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
+                        }
+                    }
+    
+//        if (historyArr.count == 0)
+//            
+//        {
+//            
+//            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
+////                       deleteSections:[NSIndexSet
+////                                       indexSetWithIndex:indexPath.section]
+////                     withRowAnimation:UITableViewRowAnimationLeft];
+//            
+//        }
+    
+ }
+   
+   
+    [tableView endUpdates];
+    [tableView reloadData];
+
+    [selectedArray removeAllObjects]; //删除完之后
+    
+
+    
+    }
+    
+    //获得删除的数量
+    
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL"] forState:UIControlStateNormal];
+
 }
 /**
  *左侧删除的all 按钮全选事件
@@ -185,11 +270,20 @@
                       
                           NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                             [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                          
+                          //添加到删除数组
+                              NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                              [selectedArray addObject:path];
+
                       }
                 else
                 {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
                     [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    
+                    //添加到删除数组
+                    NSIndexPath *path = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
+                    [selectedArray addObject:path];
                 }
 
                 
@@ -197,9 +291,15 @@
             }else if (todayNum==0&&earilyNum>0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                
+                //添加到删除数组
+                [selectedArray addObject:indexPath];
             }else if (todayNum>0&&earilyNum==0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                
+                //添加到删除数组
+                [selectedArray addObject:indexPath];
             }
             else if (todayNum==0&&earilyNum==0) {
               
@@ -218,11 +318,17 @@
                     
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    
+                    //添加到删除数组
+                    [selectedArray removeObject:indexPath];
                 }
                 else
                 {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
                   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    
+                    //添加到删除数组
+                    [selectedArray removeObject:indexPath];
                 }
                 
                 
@@ -230,9 +336,15 @@
             }else if (todayNum==0&&earilyNum>0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                
+                //添加到删除数组
+                [selectedArray removeObject:indexPath];
             }else if (todayNum>0&&earilyNum==0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                  [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+                //添加到删除数组
+                [selectedArray removeObject:indexPath];
             }
             else if (todayNum==0&&earilyNum==0) {
                 
@@ -252,66 +364,8 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)addHeaderView
-{
-//    UIView * todayView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-//    todayView.backgroundColor = [UIColor redColor];
-//    tableView.tableHeaderView = todayView;
-}
-//- (void)setTableViewHeaderView{
-//    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-//    editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    editButton.frame = CGRectMake(120, 5, 80, 50);
-//    [editButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [editButton setTitle:@"delete" forState:UIControlStateNormal];
-//    [editButton addTarget:self action:@selector(deleteSeletions:) forControlEvents:UIControlEventTouchUpInside];
-//    [view addSubview:editButton];
-//    self.tableView.tableHeaderView = view;
-//}
-//#pragma mark - 删除按钮的监听事件
-//- (void)deleteSeletions:(UIButton *)button{
-//    NSString * title = self.tableView.editing ? @"delete" : @"ok";
-//    [button setTitle:title forState:UIControlStateNormal];
-//    self.tableView.editing = !self.tableView.editing;
-//    int count = selectedArray.count;
-//    if (count == 0) {
-//        return;
-//    }else {
-//        //冒泡排序  将indexPath.row 进行从小到大排序,避免删除数据时出现数组越界的BUG
-//        for (int i = 0 ; i < count - 1; i ++) {
-//            for (int j = 0 ; j < count - 1 - i; j++) {
-//                NSIndexPath * indexPath1 = [selectedArray objectAtIndex:j];
-//                NSIndexPath * indexPath2 = [selectedArray objectAtIndex:j+1];
-//                if (indexPath1.row > indexPath2.row) {
-//                    [selectedArray exchangeObjectAtIndex:j withObjectAtIndex:j+1];
-//                }
-//            }
-//        }
-//        for (int i = count-1 ; i >= 0; i--) {  //从大到小删除对应的数据
-//            NSIndexPath * indexPath = [selectedArray objectAtIndex:i];
-//            [dataArray removeObjectAtIndex:indexPath.row];
-//        }
-//        [selectedArray removeAllObjects];
-//        [self.tableView reloadData];
-//    }
-//}
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    return 1;
-//}
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return dataArray.count;
-//}
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    static NSString * cellID = @"cellID";
-//    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//    if (!cell) {
-//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-//    }
-//    cell.textLabel.text = [dataArray objectAtIndex:indexPath.row];
-//    
-//    return cell;
-//}
+
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
     if (tableView.editing) {
@@ -323,23 +377,6 @@
     }
 }
 
-//#pragma mark - 选中单元格时方法
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if ([editButton.titleLabel.text isEqualToString:@"ok"]) {
-//        [selectedArray addObject:indexPath];
-//    }
-//}
-//#pragma mark - 取消选中单元格方法
-//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if ([editButton.titleLabel.text isEqualToString:@"ok"]) {
-//        [selectedArray removeObject:indexPath];
-//    }
-//}
-//
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-// 
-//}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -351,7 +388,7 @@
     }else if (todayNum>0&&earilyNum==0) {
         return 1;
     }
-    else if (todayNum==0&&earilyNum==0) {
+    else if (todayNum<=0&&earilyNum<=0) {
         return 0;
     }
 //    return 2;
@@ -375,27 +412,15 @@
     }else if (todayNum>0&&earilyNum==0) {
         return todayNum;
     }
-    else if (todayNum==0&&earilyNum==0) {
+    else if (todayNum<=0&&earilyNum<=0) {
         return 0;
     }
     
    
     
-//    return historyArr.count;
-//    return 2;
-    
 }
 
-//-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    if (section == 1) {
-//        return @"today";
-//    }
-//    else
-//    {
-//        return @"Earily";
-//    }
-//}
+
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
@@ -453,85 +478,10 @@
             return earilyCell;
         }
         
-        //&&&&
-        
-//        int diftime =[[GGUtil GetNowTimeString]intValue] - [historyArr[historyArr.count -  indexPath.row - 1][1]intValue];
-//        if (diftime >ONEDAY) {
-//            if (todayNum>0) {   //至少today这个表头是存在的，那么earily则排在第二
-//                if (indexPath.section == 1) {
-//                    earilyCell.dataDic = historyArr[historyArr.count -  indexPath.row + todayNum- 1][0];
-//
-//                    NSLog(@"当前是earily indexpath.row: %d",indexPath.row);
-//                }
-//            }else{
-//                
-//                if (indexPath.section == 0) {
-//                    earilyCell.dataDic = historyArr[historyArr.count -  indexPath.row - 1][0];
-//                }
-//            }
-//           
-//
-//          return  earilyCell;;
-//        }
-//       
-//        else{
-//            if(earilyNum>0)
-//            {
-//                if (earilyNum >= indexPath.row) {
-////                    if (indexPath.section ==1) {
-////                                                     earilyCell.textLabel.text =[NSString stringWithFormat:@"section:  %d row%d",indexPath.section,indexPath.row];
-////                                                    }
-////                
-////                }
-////                
-////                if (indexPath.section == 0) {
-////                      earilyCell.textLabel.text =[NSString stringWithFormat:@"section:  %d row%d",indexPath.section,indexPath.row];
-//                    if (indexPath.section ==0) {
-//                        earilyCell.dataDic = historyArr[historyArr.count -  indexPath.row  - 1][0];
-//                    }
-//                    
-//                     cell.dataDic = historyArr[historyArr.count -  indexPath.row - 1][0];
-////                                    cell.textLabel.text =[NSString stringWithFormat:@"section:  %d row%d",indexPath.section,indexPath.row];
-//                }
-//            }
-//            
-//            
-////            if (indexPath.section == 0) {
-//////                cell.dataDic = historyArr[historyArr.count -  indexPath.row - 1][0];
-////                cell.textLabel.text =[NSString stringWithFormat:@"section:  %d row%d",indexPath.section,indexPath.row];
-////                if(earilyNum >0)
-////                {
-////                    if (earilyNum >= indexPath.row) {
-////                        if (indexPath.section ==1) {
-////                             earilyCell.textLabel.text =[NSString stringWithFormat:@"section:  %d row%d",indexPath.section,indexPath.row];
-////                        }
-////                       
-////                    }
-////                }
-////            }
-////            else
-////            {
-//////               earilyCell.dataDic = historyArr[historyArr.count -  indexPath.row  - 1][0];
-//
-////            }
-//         
-//        }
-//
-//        NSLog(@"history : %@",historyArr);
-//        
-//        
-//        aaaa ++;
-////        cell.dataDic = historyArr[historyArr.count -  indexPath.row - 1][0];
-//        
-//    }else{//如果为空，什么都不执行
+
     }
     
-    
-//    return  cell;
-    
-    
-    
-    
+
     
     
 }
@@ -544,15 +494,34 @@
          NSLog(@"section: %d,row %d ",indexPath.section,indexPath.row);
          NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     
+
+    
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
     [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    
+    if (tableView.editing) {  //编辑模式下选中
+         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+        [selectedArray addObject:path];
+    }
+    else //非编辑模式下使用
+    {
+    
+    }
+    
+    
 }
 //取消选择cell
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
     [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+
+    if (tableView.editing) {  //编辑模式下选中
+        NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+        [selectedArray removeObject:path];
+    }
+
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -585,15 +554,7 @@
     earilyLab.text = @"Earily";
     [earilyView addSubview:earilyLab];
     
-    
-//    if(section ==0)
-//    {
-//    return toadyView;
-//    }
-//    else
-//    {
-//        return earilyView;
-//    }
+
 
     
     if (todayNum>0&&earilyNum>0) {
@@ -616,8 +577,7 @@
     }
     
     
-//    toadyView.backgroundColor = [UIColor greenColor];
-//    return toadyView;
+
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -629,7 +589,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView beginUpdates];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
      
         if(indexPath.section == 0)
@@ -658,10 +618,16 @@
         // Delete the row from the data source.
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]  withRowAnimation:UITableViewRowAnimationFade];
         
+        if(historyArr.count == 0)
+        {
+         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+        }
+       [tableView reloadData]; 
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
+    [tableView endUpdates];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {

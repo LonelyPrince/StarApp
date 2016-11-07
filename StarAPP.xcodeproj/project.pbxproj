@@ -200,6 +200,9 @@
 		70231D0D1DC2E9FA00F73202 /* Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231D0A1DC2E9FA00F73202 /* Back@3x.png */; };
 		70231D111DC3026500F73202 /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70231D0F1DC3026500F73202 /* HistoryCell.m */; };
 		70231D121DC3026500F73202 /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70231D101DC3026500F73202 /* HistoryCell.xib */; };
+		7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5BE1DD00CAC0053F313 /* Del@1x.png */; };
+		7024C5C21DD00CAC0053F313 /* Del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5BF1DD00CAC0053F313 /* Del@2x.png */; };
+		7024C5C31DD00CAC0053F313 /* Del@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C01DD00CAC0053F313 /* Del@3x.png */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
@@ -629,6 +632,9 @@
 		70231D0E1DC3026400F73202 /* HistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
 		70231D0F1DC3026500F73202 /* HistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
 		70231D101DC3026500F73202 /* HistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
+		7024C5BE1DD00CAC0053F313 /* Del@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@1x.png"; sourceTree = "<group>"; };
+		7024C5BF1DD00CAC0053F313 /* Del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@2x.png"; sourceTree = "<group>"; };
+		7024C5C01DD00CAC0053F313 /* Del@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@3x.png"; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -934,6 +940,9 @@
 		701017541DCAD9F000F9D5FF /* History */ = {
 			isa = PBXGroup;
 			children = (
+				7024C5BE1DD00CAC0053F313 /* Del@1x.png */,
+				7024C5BF1DD00CAC0053F313 /* Del@2x.png */,
+				7024C5C01DD00CAC0053F313 /* Del@3x.png */,
 				701017621DCADA3300F9D5FF /* dian@1x.png */,
 				701017631DCADA3300F9D5FF /* dian@2x.png */,
 				701017641DCADA3300F9D5FF /* dian@3x.png */,
@@ -1777,6 +1786,7 @@
 				707FE7471DACC3C30087C361 /* live icon@2x.png in Resources */,
 				707FE7541DACC3C30087C361 /* Path 2@3x.png in Resources */,
 				70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */,
+				7024C5C21DD00CAC0053F313 /* Del@2x.png in Resources */,
 				70FC30EF1D75714E00BD06FE /* zx-video-player-rewind@2x.png in Resources */,
 				701A98AB1DB47A3100460220 /* Rectangle@1x.png in Resources */,
 				70231CCD1DC0FE8C00F73202 /* 组-54@2x.png in Resources */,
@@ -1845,6 +1855,7 @@
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				705650651DB9B95F002DD47E /* AudioCell.xib in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
+				7024C5C31DD00CAC0053F313 /* Del@3x.png in Resources */,
 				70FC30DD1D75714E00BD06FE /* kr-video-player-fullscreen@2x.png in Resources */,
 				70FC30F41D75714E00BD06FE /* zx-video-player-volume@3x.png in Resources */,
 				7040E23F1DAE12B80063DB66 /* Group 8 Copy 2@1x.png in Resources */,
@@ -1882,6 +1893,7 @@
 				706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */,
 				70231CC81DC0FE8C00F73202 /* on@3x.png in Resources */,
 				70231CEA1DC1A00100F73202 /* save@2x.png in Resources */,
+				7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */,
 				707FE7441DACC3C30087C361 /* live icon copy@2x.png in Resources */,
 				70231CF91DC1DF5A00F73202 /* Back Arrow@3x.png in Resources */,
 				70170C131D74131500CC3951 /* left_default@2x.png in Resources */,
