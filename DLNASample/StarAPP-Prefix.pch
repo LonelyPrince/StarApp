@@ -23,6 +23,7 @@
 #import "RouteSetting.h"
 #import "HistoryViewController.h"
 #import "ZXVideo.h"
+#import "LinkViewController.h"
 
 #import "ZXVideoPlayerController.h"
 #import "TVCell.h"

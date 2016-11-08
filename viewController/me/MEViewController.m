@@ -54,6 +54,7 @@
 @implementation MEViewController
 @synthesize scroll;
 @synthesize hisBtn;
+@synthesize linkView;
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -349,19 +350,23 @@
     
     }  else   if (indexPath.row == 2) {
         
-        self.routeView = [[RouteSetting alloc]init];
-        //        [self presentModalViewController:self.routeView animated:YES];
-        [self.navigationController pushViewController:self.routeView animated:YES];
-        
+//        self.routeView = [[RouteSetting alloc]init];
+//        //        [self presentModalViewController:self.routeView animated:YES];
+//        [self.navigationController pushViewController:self.routeView animated:YES];
+//        
+//        
+//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+//        
+//        //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        self.routeView.navigationItem.leftBarButtonItem = myButton;
+
+        linkView = [[LinkViewController alloc]init];
+      [self.navigationController pushViewController:linkView animated:YES];
         
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-        
-        //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        self.routeView.navigationItem.leftBarButtonItem = myButton;
-        
-        
-        
+        self.linkView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.linkView.navigationItem.leftBarButtonItem = myButton;
     }
     
     

@@ -203,6 +203,11 @@
 		7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5BE1DD00CAC0053F313 /* Del@1x.png */; };
 		7024C5C21DD00CAC0053F313 /* Del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5BF1DD00CAC0053F313 /* Del@2x.png */; };
 		7024C5C31DD00CAC0053F313 /* Del@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C01DD00CAC0053F313 /* Del@3x.png */; };
+		7024C5C91DD0B25A0053F313 /* con-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C61DD0B25A0053F313 /* con-@1x.png */; };
+		7024C5CA1DD0B25A0053F313 /* con-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C71DD0B25A0053F313 /* con-@2x.png */; };
+		7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C81DD0B25A0053F313 /* con-@3x.png */; };
+		7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5CE1DD0B2A10053F313 /* LinkViewController.m */; };
+		7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
@@ -635,6 +640,12 @@
 		7024C5BE1DD00CAC0053F313 /* Del@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@1x.png"; sourceTree = "<group>"; };
 		7024C5BF1DD00CAC0053F313 /* Del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@2x.png"; sourceTree = "<group>"; };
 		7024C5C01DD00CAC0053F313 /* Del@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@3x.png"; sourceTree = "<group>"; };
+		7024C5C61DD0B25A0053F313 /* con-@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con-@1x.png"; sourceTree = "<group>"; };
+		7024C5C71DD0B25A0053F313 /* con-@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con-@2x.png"; sourceTree = "<group>"; };
+		7024C5C81DD0B25A0053F313 /* con-@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con-@3x.png"; sourceTree = "<group>"; };
+		7024C5CD1DD0B2A10053F313 /* LinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkViewController.h; sourceTree = "<group>"; };
+		7024C5CE1DD0B2A10053F313 /* LinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkViewController.m; sourceTree = "<group>"; };
+		7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LinkViewController.xib; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -1093,6 +1104,7 @@
 		70170BC81D73C1F300CC3951 /* ME */ = {
 			isa = PBXGroup;
 			children = (
+				7024C5CC1DD0B27C0053F313 /* Link */,
 				70231CFF1DC1EC1500F73202 /* History */,
 				70231CA21DC0FD4E00F73202 /* Route */,
 				7022F8631DC085D20079C0BD /* Cell */,
@@ -1128,6 +1140,7 @@
 		70170BDD1D7412EE00CC3951 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				7024C5C51DD0B0F50053F313 /* LinkUs */,
 				701017541DCAD9F000F9D5FF /* History */,
 				70231CA41DC0FE8C00F73202 /* Route */,
 				701A98801DB47A3100460220 /* FullScreen */,
@@ -1327,6 +1340,26 @@
 				70231CFC1DC1EC0F00F73202 /* HistoryViewController.xib */,
 			);
 			name = History;
+			sourceTree = "<group>";
+		};
+		7024C5C51DD0B0F50053F313 /* LinkUs */ = {
+			isa = PBXGroup;
+			children = (
+				7024C5C61DD0B25A0053F313 /* con-@1x.png */,
+				7024C5C71DD0B25A0053F313 /* con-@2x.png */,
+				7024C5C81DD0B25A0053F313 /* con-@3x.png */,
+			);
+			name = LinkUs;
+			sourceTree = "<group>";
+		};
+		7024C5CC1DD0B27C0053F313 /* Link */ = {
+			isa = PBXGroup;
+			children = (
+				7024C5CD1DD0B2A10053F313 /* LinkViewController.h */,
+				7024C5CE1DD0B2A10053F313 /* LinkViewController.m */,
+				7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */,
+			);
+			name = Link;
 			sourceTree = "<group>";
 		};
 		7040E2171DAE12B80063DB66 /* ME */ = {
@@ -1839,6 +1872,7 @@
 				7040E24B1DAE12B80063DB66 /* zOOm-Logo@1x.png in Resources */,
 				70231CD21DC0FE8C00F73202 /* 路由设置.png in Resources */,
 				701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */,
+				7024C5CA1DD0B25A0053F313 /* con-@2x.png in Resources */,
 				701A98A41DB47A3100460220 /* Group@3x.png in Resources */,
 				707FE7381DACC3C30087C361 /* background@2x.png in Resources */,
 				70FC30E71D75714E00BD06FE /* zx-video-banner-back.png in Resources */,
@@ -1941,6 +1975,7 @@
 				70170C101D74131500CC3951 /* heart.png in Resources */,
 				7040E2401DAE12B80063DB66 /* Group 8 Copy 2@2x.png in Resources */,
 				70130E9E1D8FDEC8005F0A49 /* search.png in Resources */,
+				7024C5C91DD0B25A0053F313 /* con-@1x.png in Resources */,
 				70231CE91DC1A00100F73202 /* save.png in Resources */,
 				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
@@ -2001,8 +2036,10 @@
 				701A98BC1DB47A3100460220 /* 频道列表@3x.png in Resources */,
 				701A98A71DB47A3100460220 /* lock@3x.png in Resources */,
 				7045C4771DC715FB002647F9 /* 矩形6@1x.png in Resources */,
+				7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */,
 				7045C4791DC715FB002647F9 /* 矩形6@3x.png in Resources */,
 				70170C181D74131500CC3951 /* like_btn.png in Resources */,
+				7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */,
 				7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */,
 				70231CCB1DC0FE8C00F73202 /* password@3x.png in Resources */,
 				7045C4711DC715FB002647F9 /* 矩形4@1x.png in Resources */,
@@ -2132,6 +2169,7 @@
 				705650641DB9B95F002DD47E /* AudioCell.m in Sources */,
 				70231CD81DC0FFB800F73202 /* RouteSetting.m in Sources */,
 				701295191D80F4CF003139D5 /* UIActionSheet+Blocks.m in Sources */,
+				7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */,
 				701295221D80F4CF003139D5 /* UIView+Utils.m in Sources */,
 				60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */,
 				7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */,
