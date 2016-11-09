@@ -208,6 +208,14 @@
 		7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C81DD0B25A0053F313 /* con-@3x.png */; };
 		7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5CE1DD0B2A10053F313 /* LinkViewController.m */; };
 		7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */; };
+		7024C5D41DD1A3330053F313 /* CGUpnpDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5D31DD1A3320053F313 /* CGUpnpDeviceModel.m */; };
+		7024C5D91DD1ABCB0053F313 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5D71DD1ABCB0053F313 /* AboutViewController.m */; };
+		7024C5DA1DD1ABCB0053F313 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5D81DD1ABCB0053F313 /* AboutViewController.xib */; };
+		7024C5DF1DD1AD330053F313 /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DC1DD1AD330053F313 /* 关于.png */; };
+		7024C5E01DD1AD330053F313 /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DD1DD1AD330053F313 /* 关于@2x.png */; };
+		7024C5E11DD1AD330053F313 /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DE1DD1AD330053F313 /* 关于@3x.png */; };
+		7024C5E51DD2C5960053F313 /* DeviceManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5E31DD2C5960053F313 /* DeviceManageController.m */; };
+		7024C5E61DD2C5960053F313 /* DeviceManageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5E41DD2C5960053F313 /* DeviceManageController.xib */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
@@ -646,6 +654,17 @@
 		7024C5CD1DD0B2A10053F313 /* LinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkViewController.h; sourceTree = "<group>"; };
 		7024C5CE1DD0B2A10053F313 /* LinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkViewController.m; sourceTree = "<group>"; };
 		7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LinkViewController.xib; sourceTree = "<group>"; };
+		7024C5D21DD1A3320053F313 /* CGUpnpDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpDeviceModel.h; sourceTree = "<group>"; };
+		7024C5D31DD1A3320053F313 /* CGUpnpDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpDeviceModel.m; sourceTree = "<group>"; };
+		7024C5D61DD1ABCB0053F313 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		7024C5D71DD1ABCB0053F313 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		7024C5D81DD1ABCB0053F313 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		7024C5DC1DD1AD330053F313 /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
+		7024C5DD1DD1AD330053F313 /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
+		7024C5DE1DD1AD330053F313 /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
+		7024C5E21DD2C5960053F313 /* DeviceManageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageController.h; sourceTree = "<group>"; };
+		7024C5E31DD2C5960053F313 /* DeviceManageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManageController.m; sourceTree = "<group>"; };
+		7024C5E41DD2C5960053F313 /* DeviceManageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceManageController.xib; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -944,6 +963,8 @@
 				700770961D864491003C0D68 /* ServiceModel.m */,
 				70130EA51D8FE813005F0A49 /* SocketModel.h */,
 				70130EA61D8FE813005F0A49 /* SocketModel.m */,
+				7024C5D21DD1A3320053F313 /* CGUpnpDeviceModel.h */,
+				7024C5D31DD1A3320053F313 /* CGUpnpDeviceModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1104,6 +1125,7 @@
 		70170BC81D73C1F300CC3951 /* ME */ = {
 			isa = PBXGroup;
 			children = (
+				7024C5D51DD1ABA70053F313 /* About */,
 				7024C5CC1DD0B27C0053F313 /* Link */,
 				70231CFF1DC1EC1500F73202 /* History */,
 				70231CA21DC0FD4E00F73202 /* Route */,
@@ -1140,6 +1162,7 @@
 		70170BDD1D7412EE00CC3951 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				7024C5DB1DD1AD260053F313 /* About */,
 				7024C5C51DD0B0F50053F313 /* LinkUs */,
 				701017541DCAD9F000F9D5FF /* History */,
 				70231CA41DC0FE8C00F73202 /* Route */,
@@ -1362,6 +1385,26 @@
 			name = Link;
 			sourceTree = "<group>";
 		};
+		7024C5D51DD1ABA70053F313 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				7024C5D61DD1ABCB0053F313 /* AboutViewController.h */,
+				7024C5D71DD1ABCB0053F313 /* AboutViewController.m */,
+				7024C5D81DD1ABCB0053F313 /* AboutViewController.xib */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		7024C5DB1DD1AD260053F313 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				7024C5DC1DD1AD330053F313 /* 关于.png */,
+				7024C5DD1DD1AD330053F313 /* 关于@2x.png */,
+				7024C5DE1DD1AD330053F313 /* 关于@3x.png */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 		7040E2171DAE12B80063DB66 /* ME */ = {
 			isa = PBXGroup;
 			children = (
@@ -1407,6 +1450,9 @@
 				7045830C1D9D0C0B0061C154 /* DeviceManageCell.h */,
 				7045830D1D9D0C0B0061C154 /* DeviceManageCell.m */,
 				7045830E1D9D0C0B0061C154 /* DeviceManageCell.xib */,
+				7024C5E21DD2C5960053F313 /* DeviceManageController.h */,
+				7024C5E31DD2C5960053F313 /* DeviceManageController.m */,
+				7024C5E41DD2C5960053F313 /* DeviceManageController.xib */,
 			);
 			name = DeviceManage;
 			sourceTree = "<group>";
@@ -1836,6 +1882,7 @@
 				7040E23A1DAE12B80063DB66 /* Group 15 Copy 2@2x.png in Resources */,
 				7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */,
 				707FE7521DACC3C30087C361 /* Path 2@1x.png in Resources */,
+				7024C5DA1DD1ABCB0053F313 /* AboutViewController.xib in Resources */,
 				70231CE61DC1A00100F73202 /* save-不可.png in Resources */,
 				7045C4731DC715FB002647F9 /* 矩形4@3x.png in Resources */,
 				7045C4691DC715FB002647F9 /* 矩形1@2x.png in Resources */,
@@ -1896,6 +1943,7 @@
 				701A98A11DB47A3100460220 /* Back Arrow Blue@3x.png in Resources */,
 				7022F8681DC0860A0079C0BD /* SettingCell.xib in Resources */,
 				7040E2431DAE12B80063DB66 /* Viasat-Explore@2x.png in Resources */,
+				7024C5E61DD2C5960053F313 /* DeviceManageController.xib in Resources */,
 				7040E23D1DAE12B80063DB66 /* Group 6@2x.png in Resources */,
 				7040E2331DAE12B80063DB66 /* Group 10 Copy 2@1x.png in Resources */,
 				70170C0F1D74131500CC3951 /* guang_top@2x.png in Resources */,
@@ -1906,6 +1954,7 @@
 				70170C1E1D74131500CC3951 /* mob@2x.png in Resources */,
 				70170C1D1D74131500CC3951 /* logout@2x.png in Resources */,
 				70FC30E11D75714E00BD06FE /* kr-video-player-play@2x.png in Resources */,
+				7024C5E01DD1AD330053F313 /* 关于@2x.png in Resources */,
 				7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */,
 				7010175E1DCADA2500F9D5FF /* duihao@3x.png in Resources */,
 				70170C241D74131500CC3951 /* right_default.png in Resources */,
@@ -1916,10 +1965,12 @@
 				7045C46A1DC715FB002647F9 /* 矩形1@3x.png in Resources */,
 				70231CF01DC1D5AC00F73202 /* 灰.png in Resources */,
 				701A98A21DB47A3100460220 /* Group@1x.png in Resources */,
+				7024C5DF1DD1AD330053F313 /* 关于.png in Resources */,
 				70170C0C1D74131500CC3951 /* detail_btn.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				70170C0A1D74131500CC3951 /* category.png in Resources */,
 				70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */,
+				7024C5E11DD1AD330053F313 /* 关于@3x.png in Resources */,
 				70170C051D74131500CC3951 /* bar_bg@2x.png in Resources */,
 				70231CF11DC1D5AC00F73202 /* 灰@2x.png in Resources */,
 				707FE74B1DACC3C30087C361 /* me icon copy@3x.png in Resources */,
@@ -2175,10 +2226,12 @@
 				7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */,
 				70130EB01D8FEE8A005F0A49 /* SocketView.m in Sources */,
 				7045830A1D9D04CE0061C154 /* DeviceManageViewController.m in Sources */,
+				7024C5D41DD1A3330053F313 /* CGUpnpDeviceModel.m in Sources */,
 				701295151D80F4CF003139D5 /* MBProgressHUD+SimplyShow.m in Sources */,
 				701295231D80F4CF003139D5 /* UIViewController+BaseUISetting.m in Sources */,
 				705650691DB9EFA2002DD47E /* subtCell.m in Sources */,
 				7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */,
+				7024C5E51DD2C5960053F313 /* DeviceManageController.m in Sources */,
 				70231CFD1DC1EC0F00F73202 /* HistoryViewController.m in Sources */,
 				60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */,
 				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
@@ -2198,6 +2251,7 @@
 				700770821D829EA3003C0D68 /* YGPCache.m in Sources */,
 				704582F51D9A193D0061C154 /* GGUtil.m in Sources */,
 				70231D111DC3026500F73202 /* HistoryCell.m in Sources */,
+				7024C5D91DD1ABCB0053F313 /* AboutViewController.m in Sources */,
 				700770791D829C30003C0D68 /* YLSlideTitleView.m in Sources */,
 				70FC30F81D75714E00BD06FE /* ZXVideoPlayerBatteryView.m in Sources */,
 				701295171D80F4CF003139D5 /* BUIControl.m in Sources */,

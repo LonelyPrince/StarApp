@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "StarMainTabController.h"
+#import "CGUpnpDeviceModel.h"
+
 @class CGUpnpAvRenderer;
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,CGUpnpControlPointDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -17,6 +19,15 @@
 @property (nonatomic, retain)CGUpnpAvRenderer* avRenderer;
 
 @property(strong,nonatomic) StarMainTabController * starMainTab;
+
+
+
+//**  此处进行dms搜索用
+@property (nonatomic, retain) CGUpnpAvController* avController;
+@property (nonatomic, retain) CGUpnpDeviceModel* cgUpnpModel;   //model
+@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, retain) CGUpnpAvController* avCtrl; //搜索的类
+//******
 
 + (AppDelegate *)shareAppDelegate;
 

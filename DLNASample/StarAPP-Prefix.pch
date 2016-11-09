@@ -24,6 +24,7 @@
 #import "HistoryViewController.h"
 #import "ZXVideo.h"
 #import "LinkViewController.h"
+#import "AboutViewController.h"
 
 #import "ZXVideoPlayerController.h"
 #import "TVCell.h"

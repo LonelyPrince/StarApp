@@ -10,7 +10,7 @@
 
 @interface CategoryModel : NSObject
 
-@property (nonatomic, assign) NSString * category_id;
+@property (nonatomic, assign) NSString * deviceName;
 @property (nonatomic, strong) NSString *category_name;
 @property (nonatomic, strong) NSMutableArray *service_indexArr;
 

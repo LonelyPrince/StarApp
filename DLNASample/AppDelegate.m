@@ -15,6 +15,15 @@
 @synthesize window = _window;
 @synthesize navigationController = _navigationController;
 @synthesize avRenderer = _avRenderer;
+
+
+//**** dms 搜索用
+
+@synthesize avController;
+@synthesize cgUpnpModel;
+@synthesize avCtrl;
+//*******
+
 //- (void)dealloc
 //{
 //    [_window release];
@@ -40,7 +49,12 @@
     [NSThread sleepForTimeInterval:1.0];//设置启动页面时间
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    self.dataSource = [NSMutableArray array];
+    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
+    [self getCGData1];
+//    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+    
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -109,5 +123,87 @@ void UncaughtExceptionHandler(NSException *exception) {
      See also applicationDidEnterBackground:.
      */
 }
+-(void)getCGData1
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // 处理耗时操作的代码块...
+        //搜索
+        
+        avCtrl = [[CGUpnpAvController alloc] init];    ///进行搜索的对象
+        avCtrl.delegate = self;
+        [avCtrl search];
+        self.avController = avCtrl;
+       
+        //通知主线程刷新
+        NSLog(@"Device dispatch1");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+       
+            
+            NSLog(@"Device dispatch2");
+        });
+        
+    });
+}
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
+    NSLog(@"%@", deviceUdn);
+    self.avController = (CGUpnpAvController*)controlPoint;
+    
+    NSArray * dmsArr = [[NSArray alloc]init];
+    //此处可能产生僵尸对象
+    dmsArr = [((CGUpnpAvController*)controlPoint) servers];
+   
+    [self.dataSource removeAllObjects];
+    [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
+    
+    for (int i = 0; i<dmsArr.count ; i++) {
+      
+        CGUpnpDevice *dev = dmsArr[i];
+        cgUpnpModel.category_id =[dev friendlyName];
+        cgUpnpModel.UUID= [dev udn];
+        cgUpnpModel.ipaddress = [dev ipaddress];
+    
+        
+        //字典:
 
+        NSLog(@"cg:%@",  cgUpnpModel.UUID);
+        if (cgUpnpModel == NULL) {
+            
+        }
+        else{
+            NSDictionary * dmsDic =[NSDictionary dictionaryWithObjectsAndKeys:
+                                    cgUpnpModel.category_id, @"dmsID",
+                                    cgUpnpModel.UUID, @"dmsUUID",
+                                    cgUpnpModel.ipaddress, @"dmsIP",
+                                    nil];  ;
+        [self.dataSource addObject:dmsDic];
+        }
+        
+        
+    }
+    
+    
+    
+    
+    if (self.dataSource == NULL) {
+     
+    }
+    else
+    {
+        NSLog(@"datasource:%@",self.dataSource);
+    [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
+    NSLog(@"datasource.count %d",self.dataSource.count);
+    }
+    //    int dmsNum = 0;
+        
+    //    [self loadUI];
+
+    
+    NSLog(@"Device delegate");
+}
+-(void) judgeDmsDevice  //每五秒刷新一次数据
+{
+
+    
+}
 @end

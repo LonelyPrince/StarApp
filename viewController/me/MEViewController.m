@@ -55,7 +55,10 @@
 @synthesize scroll;
 @synthesize hisBtn;
 @synthesize linkView;
+@synthesize deviceView;
+@synthesize aboutView;
 
+@synthesize DeviceConView; //test
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
 //    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -67,6 +70,7 @@
 //}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tabBarController.tabBar.hidden = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.navigationController.navigationBarHidden = NO;
@@ -330,6 +334,19 @@
 {
     if (indexPath.row == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+//        deviceView = [[DeviceManageViewController alloc]init];
+//        [self.navigationController pushViewController:deviceView animated:YES];
+//        
+//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        self.deviceView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+//        self.deviceView.navigationItem.leftBarButtonItem = myButton;
+        DeviceConView = [[DeviceManageController alloc]init];
+        [self.navigationController pushViewController:DeviceConView animated:YES];
+        
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        self.DeviceConView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.DeviceConView.navigationItem.leftBarButtonItem = myButton;
     }
     if (indexPath.row == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -350,16 +367,6 @@
     
     }  else   if (indexPath.row == 2) {
         
-//        self.routeView = [[RouteSetting alloc]init];
-//        //        [self presentModalViewController:self.routeView animated:YES];
-//        [self.navigationController pushViewController:self.routeView animated:YES];
-//        
-//        
-//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-//        self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-//        
-//        //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-//        self.routeView.navigationItem.leftBarButtonItem = myButton;
 
         linkView = [[LinkViewController alloc]init];
       [self.navigationController pushViewController:linkView animated:YES];
@@ -368,7 +375,16 @@
         self.linkView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         self.linkView.navigationItem.leftBarButtonItem = myButton;
     }
-    
+    else   if (indexPath.row == 3) {
+        
+        
+        aboutView = [[AboutViewController alloc]init];
+        [self.navigationController pushViewController:aboutView animated:YES];
+        
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        self.aboutView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.aboutView.navigationItem.leftBarButtonItem = myButton;
+    }
     
     
       
@@ -379,6 +395,7 @@
 {
 
     [self.navigationController popViewControllerAnimated:YES];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView
