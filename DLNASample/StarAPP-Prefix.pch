@@ -25,6 +25,7 @@
 #import "ZXVideo.h"
 #import "LinkViewController.h"
 #import "AboutViewController.h"
+#import "RouteManageViewController.h"
 
 #import "ZXVideoPlayerController.h"
 #import "TVCell.h"

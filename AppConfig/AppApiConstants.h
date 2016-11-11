@@ -34,11 +34,11 @@
 //#define kSDLB_SYS_SERVER @"http://www.jiajudaren.com/index.php?m=api&"
 
 #define kSDLB_SYS_SERVER @"http://192.168.1.1/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
-#define k_image_ip @"http://www.jiajudaren.com"
+//#define k_image_ip @"http://www.jiajudaren.com"
 
-#define k_ZUIXIN @"a=getitems&p=%i&pg=33&sid=0&tid=0&o=0&keyword=&uid=0"
-
-#define k_ZUIRE @"a=getitems&p=%i&pg=33&sid=0&tid=0&o=1&keyword=&uid=0"
+//#define k_ZUIXIN @"a=getitems&p=%i&pg=33&sid=0&tid=0&o=0&keyword=&uid=0"
+//
+//#define k_ZUIRE @"a=getitems&p=%i&pg=33&sid=0&tid=0&o=1&keyword=&uid=0"
 
 
 #define k_category @"a=gettags"
@@ -49,6 +49,15 @@
 
 //new
 #define S_category @"flag=0"      //参数
+
+
+//get  online device
+
+#define G_device   @"http://192.168.1.1/test/online_devices"
+//get   online  device  pwd
+#define G_devicepwd   @"192.168.1.1/lua/settings/wifi"
+//set(post) online device pwd
+#define P_devicepwd   @"192.168.1.1/lua/settings/wifi"
 #endif
 
 /**

@@ -57,6 +57,7 @@
 @synthesize linkView;
 @synthesize deviceView;
 @synthesize aboutView;
+@synthesize routeManageView;
 
 @synthesize DeviceConView; //test
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -351,17 +352,28 @@
     if (indexPath.row == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        self.routeView = [[RouteSetting alloc]init];
-//        [self presentModalViewController:self.routeView animated:YES];
-        [self.navigationController pushViewController:self.routeView animated:YES];
- 
+//        self.routeView = [[RouteSetting alloc]init];
+////        [self presentModalViewController:self.routeView animated:YES];
+//        [self.navigationController pushViewController:self.routeView animated:YES];
+// 
+//        
+//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+//        
+//        
+////        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        self.routeView.navigationItem.leftBarButtonItem = myButton;
+        
+        self.routeManageView = [[RouteManageViewController alloc]init];
+        //        [self presentModalViewController:self.routeView animated:YES];
+        [self.navigationController pushViewController:self.routeManageView animated:YES];
+        
         
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        self.routeView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.routeManageView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         
         
-//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        self.routeView.navigationItem.leftBarButtonItem = myButton;
+        self.routeManageView.navigationItem.leftBarButtonItem = myButton;
         
    
     

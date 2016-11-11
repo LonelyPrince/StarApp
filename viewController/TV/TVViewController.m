@@ -118,6 +118,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
+    
     LBGetHttpRequest *request = CreateGetHTTP(url);
     
     
@@ -127,6 +128,8 @@ static const CGSize progressViewSize = {375, 1.5f };
     WEAKGET
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
+
+        
         //        NSLog(@"response = %@",response);
         NSArray *data = response[@"category"];
         

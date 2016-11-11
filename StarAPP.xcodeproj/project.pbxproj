@@ -216,6 +216,26 @@
 		7024C5E11DD1AD330053F313 /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DE1DD1AD330053F313 /* 关于@3x.png */; };
 		7024C5E51DD2C5960053F313 /* DeviceManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5E31DD2C5960053F313 /* DeviceManageController.m */; };
 		7024C5E61DD2C5960053F313 /* DeviceManageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5E41DD2C5960053F313 /* DeviceManageController.xib */; };
+		7024C5EC1DD3F8D60053F313 /* RouteManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5EA1DD3F8D60053F313 /* RouteManageViewController.m */; };
+		7024C5ED1DD3F8D60053F313 /* RouteManageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5EB1DD3F8D60053F313 /* RouteManageViewController.xib */; };
+		7024C5F31DD403A60053F313 /* luyou@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5F01DD403A60053F313 /* luyou@1x.png */; };
+		7024C5F41DD403A60053F313 /* luyou@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5F11DD403A60053F313 /* luyou@2x.png */; };
+		7024C5F51DD403A60053F313 /* luyou@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5F21DD403A60053F313 /* luyou@3x.png */; };
+		7024C5F91DD407AE0053F313 /* mingcheng@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5F61DD407AE0053F313 /* mingcheng@1x.png */; };
+		7024C5FA1DD407AE0053F313 /* mingcheng@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5F71DD407AE0053F313 /* mingcheng@2x.png */; };
+		7024C5FB1DD407AE0053F313 /* mingcheng@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5F81DD407AE0053F313 /* mingcheng@3x.png */; };
+		7024C6051DD4098B0053F313 /* ipad@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5FC1DD4098B0053F313 /* ipad@1x.png */; };
+		7024C6061DD4098B0053F313 /* ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5FD1DD4098B0053F313 /* ipad@2x.png */; };
+		7024C6071DD4098B0053F313 /* ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5FE1DD4098B0053F313 /* ipad@3x.png */; };
+		7024C6081DD4098B0053F313 /* iphone@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5FF1DD4098B0053F313 /* iphone@1x.png */; };
+		7024C6091DD4098B0053F313 /* iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6001DD4098B0053F313 /* iphone@2x.png */; };
+		7024C60A1DD4098B0053F313 /* iphone@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6011DD4098B0053F313 /* iphone@3x.png */; };
+		7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6021DD4098B0053F313 /* Mac@1x.png */; };
+		7024C60C1DD4098B0053F313 /* Mac@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6031DD4098B0053F313 /* Mac@2x.png */; };
+		7024C60D1DD4098B0053F313 /* Mac@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6041DD4098B0053F313 /* Mac@3x.png */; };
+		7024C6111DD441490053F313 /* bianji@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60E1DD441490053F313 /* bianji@1x.png */; };
+		7024C6121DD441490053F313 /* bianji@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60F1DD441490053F313 /* bianji@2x.png */; };
+		7024C6131DD441490053F313 /* bianji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6101DD441490053F313 /* bianji@3x.png */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
@@ -332,6 +352,11 @@
 		70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712581DB5EE1300BD98EE /* Group 7@2x.png */; };
 		70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712591DB5EE1300BD98EE /* Group 7@3x.png */; };
 		70E712A81DB611F800BD98EE /* FullScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E712A71DB611F800BD98EE /* FullScreenView.m */; };
+		70F9B99F1DD4508B00A62200 /* RouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9B99D1DD4508B00A62200 /* RouteCell.m */; };
+		70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B99E1DD4508B00A62200 /* RouteCell.xib */; };
+		70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */; };
+		70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */; };
+		70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */; };
 		70FC2FF41D7524C000BD06FE /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC2FF21D7524C000BD06FE /* SearchViewController.m */; };
 		70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FC2FF31D7524C000BD06FE /* SearchViewController.xib */; };
 		70FC30A71D756E2A00BD06FE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FC30A61D756E2A00BD06FE /* MediaPlayer.framework */; };
@@ -665,6 +690,27 @@
 		7024C5E21DD2C5960053F313 /* DeviceManageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageController.h; sourceTree = "<group>"; };
 		7024C5E31DD2C5960053F313 /* DeviceManageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManageController.m; sourceTree = "<group>"; };
 		7024C5E41DD2C5960053F313 /* DeviceManageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceManageController.xib; sourceTree = "<group>"; };
+		7024C5E91DD3F8D60053F313 /* RouteManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteManageViewController.h; sourceTree = "<group>"; };
+		7024C5EA1DD3F8D60053F313 /* RouteManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteManageViewController.m; sourceTree = "<group>"; };
+		7024C5EB1DD3F8D60053F313 /* RouteManageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteManageViewController.xib; sourceTree = "<group>"; };
+		7024C5F01DD403A60053F313 /* luyou@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "luyou@1x.png"; sourceTree = "<group>"; };
+		7024C5F11DD403A60053F313 /* luyou@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "luyou@2x.png"; sourceTree = "<group>"; };
+		7024C5F21DD403A60053F313 /* luyou@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "luyou@3x.png"; sourceTree = "<group>"; };
+		7024C5F61DD407AE0053F313 /* mingcheng@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mingcheng@1x.png"; sourceTree = "<group>"; };
+		7024C5F71DD407AE0053F313 /* mingcheng@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mingcheng@2x.png"; sourceTree = "<group>"; };
+		7024C5F81DD407AE0053F313 /* mingcheng@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mingcheng@3x.png"; sourceTree = "<group>"; };
+		7024C5FC1DD4098B0053F313 /* ipad@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad@1x.png"; sourceTree = "<group>"; };
+		7024C5FD1DD4098B0053F313 /* ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad@2x.png"; sourceTree = "<group>"; };
+		7024C5FE1DD4098B0053F313 /* ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ipad@3x.png"; sourceTree = "<group>"; };
+		7024C5FF1DD4098B0053F313 /* iphone@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone@1x.png"; sourceTree = "<group>"; };
+		7024C6001DD4098B0053F313 /* iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone@2x.png"; sourceTree = "<group>"; };
+		7024C6011DD4098B0053F313 /* iphone@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphone@3x.png"; sourceTree = "<group>"; };
+		7024C6021DD4098B0053F313 /* Mac@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mac@1x.png"; sourceTree = "<group>"; };
+		7024C6031DD4098B0053F313 /* Mac@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mac@2x.png"; sourceTree = "<group>"; };
+		7024C6041DD4098B0053F313 /* Mac@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mac@3x.png"; sourceTree = "<group>"; };
+		7024C60E1DD441490053F313 /* bianji@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@1x.png"; sourceTree = "<group>"; };
+		7024C60F1DD441490053F313 /* bianji@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@2x.png"; sourceTree = "<group>"; };
+		7024C6101DD441490053F313 /* bianji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@3x.png"; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -792,6 +838,12 @@
 		70E712591DB5EE1300BD98EE /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
 		70E712A61DB611F800BD98EE /* FullScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullScreenView.h; path = ../FullScreenView.h; sourceTree = "<group>"; };
 		70E712A71DB611F800BD98EE /* FullScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FullScreenView.m; path = ../FullScreenView.m; sourceTree = "<group>"; };
+		70F9B99C1DD4508B00A62200 /* RouteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteCell.h; sourceTree = "<group>"; };
+		70F9B99D1DD4508B00A62200 /* RouteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteCell.m; sourceTree = "<group>"; };
+		70F9B99E1DD4508B00A62200 /* RouteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteCell.xib; sourceTree = "<group>"; };
+		70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@1x.png"; sourceTree = "<group>"; };
+		70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@2x.png"; sourceTree = "<group>"; };
+		70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@3x.png"; sourceTree = "<group>"; };
 		70FC2FF11D7524C000BD06FE /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		70FC2FF21D7524C000BD06FE /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		70FC2FF31D7524C000BD06FE /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -1304,6 +1356,12 @@
 				70231CD51DC0FFB800F73202 /* RouteSetting.h */,
 				70231CD61DC0FFB800F73202 /* RouteSetting.m */,
 				70231CD71DC0FFB800F73202 /* RouteSetting.xib */,
+				7024C5E91DD3F8D60053F313 /* RouteManageViewController.h */,
+				7024C5EA1DD3F8D60053F313 /* RouteManageViewController.m */,
+				7024C5EB1DD3F8D60053F313 /* RouteManageViewController.xib */,
+				70F9B99C1DD4508B00A62200 /* RouteCell.h */,
+				70F9B99D1DD4508B00A62200 /* RouteCell.m */,
+				70F9B99E1DD4508B00A62200 /* RouteCell.xib */,
 			);
 			name = Route;
 			sourceTree = "<group>";
@@ -1311,6 +1369,7 @@
 		70231CA41DC0FE8C00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				7024C5EF1DD403910053F313 /* RouteM */,
 				70231D081DC2E9FA00F73202 /* Back@1x.png */,
 				70231D091DC2E9FA00F73202 /* Back@2x.png */,
 				70231D0A1DC2E9FA00F73202 /* Back@3x.png */,
@@ -1403,6 +1462,34 @@
 				7024C5DE1DD1AD330053F313 /* 关于@3x.png */,
 			);
 			name = About;
+			sourceTree = "<group>";
+		};
+		7024C5EF1DD403910053F313 /* RouteM */ = {
+			isa = PBXGroup;
+			children = (
+				70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */,
+				70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */,
+				70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */,
+				7024C5F01DD403A60053F313 /* luyou@1x.png */,
+				7024C5F11DD403A60053F313 /* luyou@2x.png */,
+				7024C5F21DD403A60053F313 /* luyou@3x.png */,
+				7024C5F61DD407AE0053F313 /* mingcheng@1x.png */,
+				7024C5F71DD407AE0053F313 /* mingcheng@2x.png */,
+				7024C5F81DD407AE0053F313 /* mingcheng@3x.png */,
+				7024C5FC1DD4098B0053F313 /* ipad@1x.png */,
+				7024C5FD1DD4098B0053F313 /* ipad@2x.png */,
+				7024C5FE1DD4098B0053F313 /* ipad@3x.png */,
+				7024C5FF1DD4098B0053F313 /* iphone@1x.png */,
+				7024C6001DD4098B0053F313 /* iphone@2x.png */,
+				7024C6011DD4098B0053F313 /* iphone@3x.png */,
+				7024C6021DD4098B0053F313 /* Mac@1x.png */,
+				7024C6031DD4098B0053F313 /* Mac@2x.png */,
+				7024C6041DD4098B0053F313 /* Mac@3x.png */,
+				7024C60E1DD441490053F313 /* bianji@1x.png */,
+				7024C60F1DD441490053F313 /* bianji@2x.png */,
+				7024C6101DD441490053F313 /* bianji@3x.png */,
+			);
+			name = RouteM;
 			sourceTree = "<group>";
 		};
 		7040E2171DAE12B80063DB66 /* ME */ = {
@@ -1841,6 +1928,7 @@
 				707FE73A1DACC3C30087C361 /* Group 3@1x.png in Resources */,
 				707FE75B1DACC3C30087C361 /* Rectangle 149@1x.png in Resources */,
 				707FE7481DACC3C30087C361 /* live icon@3x.png in Resources */,
+				7024C6081DD4098B0053F313 /* iphone@1x.png in Resources */,
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
@@ -1851,6 +1939,7 @@
 				7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */,
 				7040E2391DAE12B80063DB66 /* Group 15 Copy 2@1x.png in Resources */,
 				701A98B91DB47A3100460220 /* 小窗@3x.png in Resources */,
+				70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */,
 				701A98B81DB47A3100460220 /* 小窗@2x.png in Resources */,
 				70231CC11DC0FE8C00F73202 /* ip@2x.png in Resources */,
 				7045C46E1DC715FB002647F9 /* 矩形3@1x.png in Resources */,
@@ -1868,12 +1957,14 @@
 				7024C5C21DD00CAC0053F313 /* Del@2x.png in Resources */,
 				70FC30EF1D75714E00BD06FE /* zx-video-player-rewind@2x.png in Resources */,
 				701A98AB1DB47A3100460220 /* Rectangle@1x.png in Resources */,
+				7024C6051DD4098B0053F313 /* ipad@1x.png in Resources */,
 				70231CCD1DC0FE8C00F73202 /* 组-54@2x.png in Resources */,
 				701017681DCADA3300F9D5FF /* dian@1x.png in Resources */,
 				7040E2381DAE12B80063DB66 /* Group 12 Copy 2@3x.png in Resources */,
 				70170C0E1D74131500CC3951 /* guang_top.png in Resources */,
 				7040E2451DAE12B80063DB66 /* Viasat-Nature-logo@1x.png in Resources */,
 				706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */,
+				70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
 				701A989F1DB47A3100460220 /* Back Arrow Blue@1x.png in Resources */,
@@ -1885,6 +1976,7 @@
 				7024C5DA1DD1ABCB0053F313 /* AboutViewController.xib in Resources */,
 				70231CE61DC1A00100F73202 /* save-不可.png in Resources */,
 				7045C4731DC715FB002647F9 /* 矩形4@3x.png in Resources */,
+				7024C60A1DD4098B0053F313 /* iphone@3x.png in Resources */,
 				7045C4691DC715FB002647F9 /* 矩形1@2x.png in Resources */,
 				70170C281D74131500CC3951 /* share_btn.png in Resources */,
 				7040E2421DAE12B80063DB66 /* Viasat-Explore@1x.png in Resources */,
@@ -1896,6 +1988,7 @@
 				707FE75D1DACC3C30087C361 /* Rectangle 149@3x.png in Resources */,
 				70170C1A1D74131500CC3951 /* login_btn.png in Resources */,
 				7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */,
+				7024C5F51DD403A60053F313 /* luyou@3x.png in Resources */,
 				701017691DCADA3300F9D5FF /* dian@2x.png in Resources */,
 				707FE7401DACC3C30087C361 /* Group 16@1x.png in Resources */,
 				7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */,
@@ -1923,6 +2016,7 @@
 				701A98A41DB47A3100460220 /* Group@3x.png in Resources */,
 				707FE7381DACC3C30087C361 /* background@2x.png in Resources */,
 				70FC30E71D75714E00BD06FE /* zx-video-banner-back.png in Resources */,
+				7024C6091DD4098B0053F313 /* iphone@2x.png in Resources */,
 				7040E2341DAE12B80063DB66 /* Group 10 Copy 2@2x.png in Resources */,
 				70231CBD1DC0FE8C00F73202 /* Edit-256.png in Resources */,
 				70170C1B1D74131500CC3951 /* login_btn@2x.png in Resources */,
@@ -1934,6 +2028,7 @@
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
 				70231D011DC1F4BB00F73202 /* loading.gif in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
+				7024C6121DD441490053F313 /* bianji@2x.png in Resources */,
 				705650651DB9B95F002DD47E /* AudioCell.xib in Resources */,
 				70170C1F1D74131500CC3951 /* nav_back.png in Resources */,
 				7024C5C31DD00CAC0053F313 /* Del@3x.png in Resources */,
@@ -1942,6 +2037,7 @@
 				7040E23F1DAE12B80063DB66 /* Group 8 Copy 2@1x.png in Resources */,
 				701A98A11DB47A3100460220 /* Back Arrow Blue@3x.png in Resources */,
 				7022F8681DC0860A0079C0BD /* SettingCell.xib in Resources */,
+				7024C5F91DD407AE0053F313 /* mingcheng@1x.png in Resources */,
 				7040E2431DAE12B80063DB66 /* Viasat-Explore@2x.png in Resources */,
 				7024C5E61DD2C5960053F313 /* DeviceManageController.xib in Resources */,
 				7040E23D1DAE12B80063DB66 /* Group 6@2x.png in Resources */,
@@ -1963,10 +2059,12 @@
 				A4A66A1B1555E44100AED3AF /* MasterViewController.xib in Resources */,
 				70231CC61DC0FE8C00F73202 /* on.png in Resources */,
 				7045C46A1DC715FB002647F9 /* 矩形1@3x.png in Resources */,
+				7024C60C1DD4098B0053F313 /* Mac@2x.png in Resources */,
 				70231CF01DC1D5AC00F73202 /* 灰.png in Resources */,
 				701A98A21DB47A3100460220 /* Group@1x.png in Resources */,
 				7024C5DF1DD1AD330053F313 /* 关于.png in Resources */,
 				70170C0C1D74131500CC3951 /* detail_btn.png in Resources */,
+				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				70170C0A1D74131500CC3951 /* category.png in Resources */,
 				70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */,
@@ -1988,7 +2086,10 @@
 				70FC30E01D75714E00BD06FE /* kr-video-player-pause@3x.png in Resources */,
 				70170C171D74131500CC3951 /* like_btn_selected@2x.png in Resources */,
 				703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */,
+				7024C5F41DD403A60053F313 /* luyou@2x.png in Resources */,
 				70FC30E61D75714E00BD06FE /* kr-video-player-shrinkscreen@3x.png in Resources */,
+				7024C60D1DD4098B0053F313 /* Mac@3x.png in Resources */,
+				7024C6071DD4098B0053F313 /* ipad@3x.png in Resources */,
 				70FC30DF1D75714E00BD06FE /* kr-video-player-pause@2x.png in Resources */,
 				707FE74D1DACC3C30087C361 /* me icon@2x.png in Resources */,
 				707FE7531DACC3C30087C361 /* Path 2@2x.png in Resources */,
@@ -2001,7 +2102,9 @@
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
 				7045C46B1DC715FB002647F9 /* 矩形2@1x.png in Resources */,
 				70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */,
+				7024C6131DD441490053F313 /* bianji@3x.png in Resources */,
 				70231D121DC3026500F73202 /* HistoryCell.xib in Resources */,
+				7024C6111DD441490053F313 /* bianji@1x.png in Resources */,
 				7012953D1D80FC0A003139D5 /* TVCell.xib in Resources */,
 				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
@@ -2010,6 +2113,7 @@
 				7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */,
 				70170C141D74131500CC3951 /* left_on.png in Resources */,
 				7010176C1DCADA3300F9D5FF /* lan@2x.png in Resources */,
+				7024C5F31DD403A60053F313 /* luyou@1x.png in Resources */,
 				701A98B31DB47A3100460220 /* 下一频道@3x.png in Resources */,
 				70231CC21DC0FE8C00F73202 /* ip@3x.png in Resources */,
 				707FE7571DACC3C30087C361 /* Pause@3x.png in Resources */,
@@ -2042,6 +2146,7 @@
 				701A98A01DB47A3100460220 /* Back Arrow Blue@2x.png in Resources */,
 				701A98B01DB47A3100460220 /* 上一频道@3x.png in Resources */,
 				701A98AA1DB47A3100460220 /* Rectangle 2@3x.png in Resources */,
+				7024C6061DD4098B0053F313 /* ipad@2x.png in Resources */,
 				70FC30F01D75714E00BD06FE /* zx-video-player-rewind@3x.png in Resources */,
 				70FC30EA1D75714E00BD06FE /* zx-video-player-brightness@3x.png in Resources */,
 				70FC30E41D75714E00BD06FE /* kr-video-player-point@3x.png in Resources */,
@@ -2059,6 +2164,7 @@
 				70FC30DC1D75714E00BD06FE /* kr-video-player-close@3x.png in Resources */,
 				7010175D1DCADA2500F9D5FF /* duihao@2x.png in Resources */,
 				70FC30ED1D75714E00BD06FE /* zx-video-player-lock@2x.png in Resources */,
+				70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */,
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
 				70231CC41DC0FE8C00F73202 /* off@2x.png in Resources */,
@@ -2067,6 +2173,7 @@
 				7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */,
 				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
+				7024C5FB1DD407AE0053F313 /* mingcheng@3x.png in Resources */,
 				707FE7461DACC3C30087C361 /* live icon@1x.png in Resources */,
 				70231CDD1DC19FEA00F73202 /* 组-55.png in Resources */,
 				70170C3B1D74156000CC3951 /* like.png in Resources */,
@@ -2090,6 +2197,7 @@
 				7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */,
 				7045C4791DC715FB002647F9 /* 矩形6@3x.png in Resources */,
 				70170C181D74131500CC3951 /* like_btn.png in Resources */,
+				70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */,
 				7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */,
 				7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */,
 				70231CCB1DC0FE8C00F73202 /* password@3x.png in Resources */,
@@ -2112,10 +2220,12 @@
 				70170C3A1D74156000CC3951 /* hot@2x.png in Resources */,
 				70FC30F11D75714E00BD06FE /* zx-video-player-unlock@2x.png in Resources */,
 				707FE73B1DACC3C30087C361 /* Group 3@2x.png in Resources */,
+				7024C5FA1DD407AE0053F313 /* mingcheng@2x.png in Resources */,
 				70170C0B1D74131500CC3951 /* category@2x.png in Resources */,
 				70231CCC1DC0FE8C00F73202 /* 组-54.png in Resources */,
 				70170C261D74131500CC3951 /* right_on.png in Resources */,
 				707FE7501DACC3C30087C361 /* Overlay@2x.png in Resources */,
+				7024C5ED1DD3F8D60053F313 /* RouteManageViewController.xib in Resources */,
 				706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */,
 				70231CFE1DC1EC0F00F73202 /* HistoryViewController.xib in Resources */,
 				7010175F1DCADA2500F9D5FF /* quan@1x.png in Resources */,
@@ -2185,6 +2295,7 @@
 				70FC30D91D75714E00BD06FE /* BaseTabBarController.m in Sources */,
 				70FC30F71D75714E00BD06FE /* ZXVideo.m in Sources */,
 				A4A66A0E1555E44100AED3AF /* main.m in Sources */,
+				70F9B99F1DD4508B00A62200 /* RouteCell.m in Sources */,
 				A4A66A121555E44100AED3AF /* AppDelegate.m in Sources */,
 				700770971D864491003C0D68 /* ServiceModel.m in Sources */,
 				701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */,
@@ -2257,6 +2368,7 @@
 				701295171D80F4CF003139D5 /* BUIControl.m in Sources */,
 				A491FFD015B67AFA002BCAA6 /* RendererTableViewController.m in Sources */,
 				7022F8671DC0860A0079C0BD /* SettingCell.m in Sources */,
+				7024C5EC1DD3F8D60053F313 /* RouteManageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
