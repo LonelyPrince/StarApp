@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RouteSetting : UIViewController
+@interface RouteSetting : UIViewController<UITextFieldDelegate>
 
+
+@property(nonatomic,strong) UITextField *  nameText;
+@property(nonatomic,strong) NSString * nameString;
 @end

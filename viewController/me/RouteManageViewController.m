@@ -17,12 +17,14 @@
 @interface RouteManageViewController ()
 {
     NSArray * deviceArr;
+    NSString * routeName_seted;
 }
 @end
 
+
 @implementation RouteManageViewController
 @synthesize routeImage;
-@synthesize editImage;
+@synthesize editImage;   @synthesize editBtn;
 @synthesize routeNameLab;
 @synthesize routeIPLab;
 @synthesize scrollView;
@@ -31,14 +33,20 @@
 @synthesize tableView;
 @synthesize onlineDeviceDic;
 
+@synthesize wifiDic;
+@synthesize wifiName;
+@synthesize wifiIP;
+@synthesize wifiPwd;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     [self loadNav];
     [self loadScroll];
     [self loadUI];
     [self loadTableView];
     [self getOnlineDevice];
+    [self getWifi];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,6 +58,8 @@
 {
     self.title = @"Route management";
     self.tabBarController.tabBar.hidden = YES;
+    
+    self.routeSetting = [[RouteSetting alloc]init];
 }
 -(void)loadUI
 {
@@ -58,22 +68,32 @@
     routeImage = [[UIImageView alloc]initWithFrame:CGRectMake(MARGINLEFT, ROUTEMARFINTOP, ROUTEWIDTH, ROUTEWIDTH)];
     routeImage.image = [UIImage imageNamed:@"luyou"];
     [scrollView addSubview:routeImage];
+    /**/
+    //    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
+    //    editImage.image = [UIImage imageNamed:@"bianji"];
+    //    [scrollView addSubview:editImage];
     
-    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
-    editImage.image = [UIImage imageNamed:@"bianji"];
-    [scrollView addSubview:editImage];
+    
+    editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
+    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
+    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:editBtn];
+    
+    
+    
     
     routeNameLab = [[UILabel alloc]init];
     routeIPLab = [[UILabel alloc]init];
     routeNameLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y, 200, 15);
-    routeNameLab.text = @"HMC123123123";
+    
     routeNameLab.font = FONT(15);
     routeNameLab.textColor = RGBA(148, 148, 148, 1);
     
     
     routeIPLab.font = FONT(13);
     routeIPLab.textColor = RGBA(193, 193, 193, 1);
-    routeIPLab.text = @"192.168.12.112";
+    
     routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
     [scrollView addSubview:routeNameLab];
     [scrollView addSubview:routeIPLab];
@@ -103,21 +123,27 @@
     scrollView.showsHorizontalScrollIndicator=YES;
     scrollView.delegate=self;
     scrollView.bounces = NO;
-//    scrollView.backgroundColor = [UIColor redColor];
+    //    scrollView.backgroundColor = [UIColor redColor];
     NSLog(@"scroll x:%f",scrollView.bounds.origin.x);
     NSLog(@"scroll y:%f",scrollView.bounds.origin.y);
     NSLog(@"scroll w:%f",scrollView.bounds.size.width);
     NSLog(@"scroll h:%f",scrollView.bounds.size.height);
-//    scrollView.backgroundColor = [UIColor redColor];
+    //    scrollView.backgroundColor = [UIColor redColor];
 }
 -(void)loadTableView
 {
+    
+    
+    
     tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 190, SCREEN_WIDTH, 240)style:UITableViewStylePlain];
-   //tableview 的高度待定
+    //tableview 的高度待定
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.scrollEnabled = NO;
     [scrollView addSubview:tableView];
+    UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [tableView setTableFooterView:v];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -145,33 +171,33 @@
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
         
-//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-
     
-//    NSArray * arr =
+    
+    //    NSArray * arr =
     
     for (int i =0; i<deviceArr.count; i++) {
         onlineDeviceDic = deviceArr[indexPath.row];
         
         cell.dataDic = onlineDeviceDic;
     }
-
- //赋值
     
-//    cell.deviceImage.image = [UIImage imageNamed:@"routenoKnow"];
-//    
-//    cell.deviceNameLab.text = @"HMC123123123";
-//    cell.deviceIPLab.text = @"192.168.1.1";
-//    cell.deviceMacLab.text = @"01.12.a2.12.12";
-//    
-//    
-//    cell.deviceNameLab.textColor = RGBA(148, 148, 148, 1);
-//    cell.deviceIPLab.textColor = RGBA(193, 193, 193, 1);
-//    cell.deviceMacLab.textColor = RGBA(193, 193, 193, 1);
-
+    //赋值
+    
+    //    cell.deviceImage.image = [UIImage imageNamed:@"routenoKnow"];
+    //
+    //    cell.deviceNameLab.text = @"HMC123123123";
+    //    cell.deviceIPLab.text = @"192.168.1.1";
+    //    cell.deviceMacLab.text = @"01.12.a2.12.12";
+    //
+    //
+    //    cell.deviceNameLab.textColor = RGBA(148, 148, 148, 1);
+    //    cell.deviceIPLab.textColor = RGBA(193, 193, 193, 1);
+    //    cell.deviceMacLab.textColor = RGBA(193, 193, 193, 1);
+    
     return  cell;
-
+    
 }
 -(void)getOnlineDevice
 {
@@ -181,7 +207,7 @@
     ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
     
     [request startSynchronous ];
-   
+    
     NSError *error = [request error ];
     assert (!error);
     // 如果请求成功，返回 Response
@@ -190,22 +216,59 @@
     deviceArr = onlineDeviceArr;
     NSLog ( @"onlineDeviceArr:%@" ,onlineDeviceArr);
     
+    
+    
+    
+}
 
-    //    [request startAsynchronous ];
-// 
-//    
-//
-//    WEAKGET
-//    [request setCompletionBlock:^{
-//        NSArray *onlineDeviceArr = (NSArray *)httpRequest.responseData.JSONValue;
-//        
-//        NSLog(@"response:%@",onlineDeviceArr);
-//        deviceArr = [[NSArray alloc]init];
-//        deviceArr = onlineDeviceArr;
-//     
-////        return onlineDeviceArr;
-//        
-//    }];
+-(void)getWifi
+{
+    
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+    
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    
+    [request startSynchronous ];
+    
+    NSError *error = [request error ];
+    assert (!error);
+    // 如果请求成功，返回 Response
+    NSLog ( @"request:%@" ,request);
+    NSDictionary *onlineWifi = [request responseData].JSONValue;
+    NSLog ( @"onlineDeviceArr:%@" ,onlineWifi);
+    wifiDic = [[NSDictionary alloc]init];
+    wifiDic = onlineWifi;
+    
+    
+    routeNameLab.text = [wifiDic objectForKey:@"name"];
+    
+    routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+    
+    
+}
+-(void)eidtBtnClick
+{
+    [self.navigationController pushViewController:self.routeSetting animated:YES];
+    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    //    self.routeSetting.nameText = [[UITextField alloc]init];
+    //    self.routeSetting.nameText.text =routeNameLab.text;
+    
+    self.routeSetting.nameString = routeNameLab.text;
+    self.routeSetting.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    self.routeSetting.navigationItem.leftBarButtonItem = myButton;
+}
+-(void)clickEvent
+{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    //    self.tabBarController.tabBar.hidden = NO;
+    
+    routeName_seted = [USER_DEFAULT objectForKey:@"routeNameUSER"];
+    
+    
+    routeNameLab.text = routeName_seted;
+    
     
 }
 @end

@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     self.title = @"Device management";
     
     [super viewDidLoad];
@@ -35,10 +35,10 @@
     self.dataSource = [NSArray array];
     avCtrl = [[CGUpnpAvController alloc] init];    ///进行搜索的对象
     avCtrl.delegate = self;
-
+    
     [self loadNav];
     [self loadScroll];
-   [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
     NSLog(@"Device viewDidLoad");
 }
 
@@ -50,11 +50,11 @@
 //    if (DmsArr) {
 //        self.dataSource = DmsArr;
 //    }
-//    
+//
 //    dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //        // 处理耗时操作的代码块...
 //        //搜索
-//        
+//
 //        [avCtrl search];
 //        self.avController = avCtrl;
 //        //通知主线程刷新
@@ -67,7 +67,7 @@
 //            [self viewWillAppear:YES];
 //            NSLog(@"Device dispatch2");
 //        });
-//        
+//
 //    });
 //}
 
@@ -83,7 +83,7 @@
     
     
     
-//    [self getCGData];    //此处是获取数据
+    //    [self getCGData];    //此处是获取数据
     [self loadUI];
     NSLog(@"Device ViewWillApper");
 }
@@ -92,21 +92,21 @@
 //- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
 //    NSLog(@"%@", deviceUdn);
 //    self.avController = (CGUpnpAvController*)controlPoint;
-// 
+//
 //    //此处可能产生僵尸对象
 //    self.dataSource =  [((CGUpnpAvController*)controlPoint) servers];
-//    
+//
 //    //    int dmsNum = 0;
-//    
-//    
+//
+//
 ////    [self loadUI];
 //    [self viewWillAppear:YES];
-//    
+//
 //    NSLog(@"Device delegate");
 //}
 
 -(void) loadUI{
-
+    
     self.dataSource = [USER_DEFAULT objectForKey:@"DmsDevice"];
     @synchronized (self.dataSource) {
         NSLog(@"datasource :%@",self.dataSource);
@@ -118,16 +118,27 @@
             
             [scrollView addSubview:CGDeviceView];
             [scrollView bringSubviewToFront:CGDeviceView];
+            
+            //设置绿色切换按钮
+            UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [changeBtn setFrame:CGRectMake(CGDeviceView.bounds.size.width -30,15 , 18, 18)];
+            [changeBtn addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
+            
+            [CGDeviceView addSubview:changeBtn];
         }
     }
+    
+    
+    
     
 }
 -(void)loadScroll
 {
-    scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
     [self.view addSubview:scrollView];
     
-    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 20+self.dataSource.count*50+115);
     scrollView.showsVerticalScrollIndicator=NO;
     scrollView.showsHorizontalScrollIndicator=NO;
     scrollView.delegate=self;
@@ -136,7 +147,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-  
+    
 }
 
 
