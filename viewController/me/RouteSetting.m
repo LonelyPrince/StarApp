@@ -23,7 +23,7 @@
 #define SAVEBTN_Y    145+64+60+72  //84+26+147+55+55+105-88
 #define SAVEBTN_X    31.5
 //#define NAMETEXTFIELD_Y 84+26+147
-@interface RouteSetting ()
+@interface RouteSetting ()<UITextFieldDelegate>
 @property(nonatomic,strong) UIButton * pswBtn;
 @property(nonatomic,strong) UITextField *  pswText;
 @property(nonatomic,assign) bool isOn ;
@@ -53,6 +53,7 @@
 
 -(void)loadNav
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     UIColor *placeHolderColor = RGBA(192, 192, 192, 0.3);
     
@@ -80,7 +81,8 @@
     
     
     
-    
+    nameText.delegate = self;
+    nameText.autocorrectionType = UITextAutocorrectionTypeNo;
     nameText = [[UITextField alloc]initWithFrame:CGRectMake(TEXTFIELD_X-50, 2, TEXTFIELDIMAGE_WIDTH - 80.5-40, 36)];
     
     nameText.text = _nameString;
@@ -92,6 +94,12 @@
     [nameText addTarget:self action:@selector(nameLimit:) forControlEvents:UIControlEventEditingChanged];
     [nameText addTarget:self action:@selector(onChange:) forControlEvents:UIControlEventEditingDidBegin];
     [nameText addTarget:self action:@selector(endChange:) forControlEvents:UIControlEventEditingDidEnd];
+    
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                name:@"UITextFieldTextDidChangeNotification"
+                                              object:nameText];
+    
     
     UIImageView * SnameImageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10.5, 17,17)];
     SnameImageView.image = [UIImage imageNamed:@"mingcheng"];
@@ -108,6 +116,8 @@
     [self.view addSubview:pswTextFieldImage];
     
     
+    pswText.delegate = self;
+    pswText.autocorrectionType = UITextAutocorrectionTypeNo;
     pswText = [[UITextField alloc]initWithFrame:CGRectMake(TEXTFIELD_X-50, 2, TEXTFIELDIMAGE_WIDTH - 80.5-40, 36)];
     
     [pswTextFieldImage addSubview:pswText];
@@ -118,6 +128,11 @@
     [pswText addTarget:self action:@selector(limit:) forControlEvents:UIControlEventEditingChanged];
     [pswText addTarget:self action:@selector(onChangepsw:) forControlEvents:UIControlEventEditingDidBegin];
     [pswText addTarget:self action:@selector(endChangepsw:) forControlEvents:UIControlEventEditingDidEnd];
+    
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                name:@"UITextFieldTextDidChangeNotification"
+                                              object:pswText];
     
     UIImageView * SpswImageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10.5, 15.5,19)];
     SpswImageView.image = [UIImage imageNamed:@"mima"];
@@ -285,6 +300,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(BOOL)textFiledEditChanged:(NSNotification *)obj{
+    UITextField *textField = (UITextField *)obj.object;
+    
+    NSString *toBeString = textField.text;
+   
+    
+    
+    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}
+        if (character < 48)
+        {
+            
+            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+            return NO; // 48 unichar for 0..
+        }
+        if (character > 57 && character < 65)
+        {
+            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+            return NO; //
+        }
+        if (character > 90 && character < 97)
+        {
+            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+            return NO; //
+        }
+        if (character > 122)
+        {
+            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+            return NO; //
+        }
+        
+    }
+    // Check for total length
+    NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
+    if (proposedNewLength > 16) {
+         textField.text = [toBeString substringToIndex:16];
+        return NO;//限制长度
+    }
+    return YES;
+    
+
+}
 
 //6--16
 //8--16
