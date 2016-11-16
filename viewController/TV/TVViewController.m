@@ -10,6 +10,7 @@
 #import "TVCell.h"
 #import "MEViewController.h"
 
+#define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 //#import "HexColors.h"
 
 
@@ -21,6 +22,14 @@ static const CGSize progressViewSize = {375, 1.5f };
     NSArray *colors;
     NSArray *_testArray;
     NSMutableData * urlData;
+    
+    //引导页
+    UIPageControl *pageControl; //指示当前处于第几个引导页
+    UIScrollView *scrollView; //用于存放并显示引导页
+    UIImageView *imageViewOne;
+    UIImageView *imageViewTwo;
+    UIImageView *imageViewThree;
+    UIImageView *imageViewFour;
     
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
@@ -159,10 +168,10 @@ static const CGSize progressViewSize = {375, 1.5f };
     
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"展示展示展示展示展示展示展示展示");
-}
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    NSLog(@"展示展示展示展示展示展示展示展示");
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -831,6 +840,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     
     NSLog(@"dic: %@",dic);
     
+    NSLog(@"row: %d",row);
     /*此处添加一个加入历史版本的函数*/
     [self addHistory:row diction:dic];
     
@@ -857,7 +867,7 @@ static const CGSize progressViewSize = {375, 1.5f };
     self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
     if(self.service_videoindex.length == 1)
     {
-        self.service_videoindex = [NSString stringWithFormat:@"00%@",self.service_videoindex];
+        self.service_videoindex = [ NSString stringWithFormat:@"00%@",self.service_videoindex];
     }
     else if (self.service_videoindex.length == 2)
     {
@@ -1098,7 +1108,8 @@ static const CGSize progressViewSize = {375, 1.5f };
 //    }
     if (addNewData == YES) {
        NSString * seedNowTime = [GGUtil GetNowTimeString];
-        NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime, nil];
+        NSNumber *aNumber = [NSNumber numberWithInteger:row];
+        NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime,aNumber,dic,nil];
         
         [mutaArray addObject:seedNowArr];
 //     [mutaArray addObject:epgDicToSocket];
@@ -1114,5 +1125,156 @@ static const CGSize progressViewSize = {375, 1.5f };
     [meview viewDidLoad];
     
 }
+//引导页
+- (void)viewWillAppear:(BOOL)animated{
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        NSLog(@"第一次启动");
+        self.tabBarController.tabBar.hidden = YES;
+        [self addGuideView]; //添加引导图
+        
+    }else{
+        NSLog(@"不是第一次启动");
+        self.tabBarController.tabBar.hidden = NO;
+        [self viewDidLoad];
+    }
+    
+}
+- (void)addGuideView {
+    
+  
+    
+    //初始化UI控件
+    scrollView=[[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    scrollView.pagingEnabled=YES;
+    [self.view addSubview:scrollView];
+    
+    
+    pageControl=[[UIPageControl alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 10)];
+    pageControl.currentPageIndicatorTintColor=[UIColor colorWithRed:0.153 green:0.533 blue:0.796 alpha:1.0];
+    [self.view addSubview:pageControl];
+    pageControl.numberOfPages=3;
+    
+    [self createViewOne];
+    [self createViewTwo];
+    [self createViewThree];
+    [self createViewFour];
+}
+-(void)createViewOne{
+    
+    UIView *view = [[UIView alloc] initWithFrame:SCREEN_FRAME];
+    
+    imageViewOne = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
+    imageViewOne.contentMode = UIViewContentModeScaleAspectFit;
+    imageViewOne.image = [UIImage imageNamed:@"引导页1"];
+    [view addSubview:imageViewOne];
+    
+    
+    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress1:)];
+    imageViewOne.userInteractionEnabled = YES;
+    [imageViewOne addGestureRecognizer:singleTap1];
+    
+    
+    [scrollView addSubview:view];
+    
+}
 
+-(void)createViewTwo{
+    
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    imageViewTwo = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
+    imageViewTwo.contentMode = UIViewContentModeScaleAspectFit;
+    imageViewTwo.image = [UIImage imageNamed:@"引导页2"];
+    [view addSubview:imageViewTwo];
+    
+    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress2:)];
+    imageViewTwo.userInteractionEnabled = YES;
+    [imageViewTwo addGestureRecognizer:singleTap1];
+    
+    [scrollView addSubview:view];
+    
+}
+
+-(void)createViewThree{
+    
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    imageViewThree = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
+    imageViewThree.contentMode = UIViewContentModeScaleAspectFit;
+    imageViewThree.image = [UIImage imageNamed:@"引导页3"];
+    [view addSubview:imageViewThree];
+    
+    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress3:)];
+    imageViewThree.userInteractionEnabled = YES;
+    [imageViewThree addGestureRecognizer:singleTap1];
+    
+    [scrollView addSubview:view];
+}
+-(void)createViewFour{
+    
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    imageViewFour = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
+    imageViewFour.contentMode = UIViewContentModeScaleAspectFit;
+    imageViewFour.image = [UIImage imageNamed:@"引导页4无button"];
+    [view addSubview:imageViewFour];
+    
+    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress4:)];
+    imageViewFour.userInteractionEnabled = YES;
+    [imageViewFour addGestureRecognizer:singleTap1];
+    
+    [scrollView addSubview:view];
+    
+    UIButton * enterBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
+    [enterBtn setImage:[UIImage imageNamed:@"Group"] forState:UIControlStateNormal];
+    enterBtn.frame = CGRectMake((SCREEN_WIDTH-120)/2, SCREEN_HEIGHT-34, 120, 37);
+    [enterBtn addTarget:self action:@selector(enterTVView) forControlEvents:UIControlStateNormal];
+    [view addSubview:enterBtn];
+}
+-(void)buttonpress1:(id)sender
+{
+    CGFloat pageWidth = CGRectGetWidth(self.view.bounds);
+    CGPoint scrollPoint = CGPointMake(pageWidth, 0);
+    [scrollView setContentOffset:scrollPoint animated:YES];
+    
+    pageControl.currentPage = 1;
+    
+}
+
+-(void)buttonpress2:(id)sender
+{
+    CGFloat pageWidth = CGRectGetWidth(self.view.bounds);
+    CGPoint scrollPoint = CGPointMake(pageWidth*2, 0);
+    [scrollView setContentOffset:scrollPoint animated:YES];
+    
+    pageControl.currentPage = 2;
+    
+}
+-(void)buttonpress3:(id)sender
+{
+    CGFloat pageWidth = CGRectGetWidth(self.view.bounds);
+    CGPoint scrollPoint = CGPointMake(pageWidth*2, 0);
+    [scrollView setContentOffset:scrollPoint animated:YES];
+    
+    pageControl.currentPage = 3;
+    
+    
+}
+-(void)buttonpress4:(id)sender
+{
+    NSLog(@"引导页完成");
+    
+    
+    self.tabBarController.tabBar.hidden = NO;
+}
+-(void)enterTVView
+{
+    [scrollView removeFromSuperview];
+    scrollView = nil;
+    [self viewDidLoad];
+}
 @end

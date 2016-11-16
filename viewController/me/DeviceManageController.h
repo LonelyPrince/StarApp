@@ -15,4 +15,7 @@
 @property (nonatomic, retain) CGUpnpDeviceModel* cgUpnpModel;   //model
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, retain) CGUpnpAvController* avCtrl; //搜索的类
+
+
+@property(nonatomic,strong) SocketView * socketView;   //这里获取tuner信息
 @end

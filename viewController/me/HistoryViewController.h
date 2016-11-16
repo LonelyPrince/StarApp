@@ -12,4 +12,6 @@
 @interface HistoryViewController : UIViewController<UITabBarDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView * tableView;
+//@property(nonatomic,strong)UIView * separatorLine;
+@property(nonatomic,strong)TVViewController* tvViewController;
 @end

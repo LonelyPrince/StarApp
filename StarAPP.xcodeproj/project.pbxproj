@@ -68,6 +68,13 @@
 		70130EA71D8FE813005F0A49 /* SocketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70130EA61D8FE813005F0A49 /* SocketModel.m */; };
 		70130EAC1D8FEBDA005F0A49 /* SocketUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 70130EAB1D8FEBDA005F0A49 /* SocketUtils.m */; };
 		70130EB01D8FEE8A005F0A49 /* SocketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70130EAF1D8FEE8A005F0A49 /* SocketView.m */; };
+		701443301DDC7303008EAAC6 /* 引导页4无button.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443271DDC7303008EAAC6 /* 引导页4无button.png */; };
+		701443331DDC7303008EAAC6 /* Group@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014432A1DDC7303008EAAC6 /* Group@1x.png */; };
+		701443341DDC7303008EAAC6 /* Group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014432B1DDC7303008EAAC6 /* Group@2x.png */; };
+		701443351DDC7303008EAAC6 /* Group@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014432C1DDC7303008EAAC6 /* Group@3x.png */; };
+		701443391DDC7F19008EAAC6 /* 引导页1.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443361DDC7F19008EAAC6 /* 引导页1.png */; };
+		7014433A1DDC7F19008EAAC6 /* 引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443371DDC7F19008EAAC6 /* 引导页2.png */; };
+		7014433B1DDC7F19008EAAC6 /* 引导页3.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443381DDC7F19008EAAC6 /* 引导页3.png */; };
 		70170BD51D74038B00CC3951 /* StarMainTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BD41D74038B00CC3951 /* StarMainTabController.m */; };
 		70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BD71D7403AC00CC3951 /* TVViewController.m */; };
 		70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BDA1D7403C300CC3951 /* MEViewController.m */; };
@@ -569,6 +576,13 @@
 		70130EAB1D8FEBDA005F0A49 /* SocketUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketUtils.m; sourceTree = "<group>"; };
 		70130EAE1D8FEE8A005F0A49 /* SocketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketView.h; path = Slider/SocketView.h; sourceTree = "<group>"; };
 		70130EAF1D8FEE8A005F0A49 /* SocketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocketView.m; path = Slider/SocketView.m; sourceTree = "<group>"; };
+		701443271DDC7303008EAAC6 /* 引导页4无button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页4无button.png"; sourceTree = "<group>"; };
+		7014432A1DDC7303008EAAC6 /* Group@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group@1x.png"; sourceTree = "<group>"; };
+		7014432B1DDC7303008EAAC6 /* Group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group@2x.png"; sourceTree = "<group>"; };
+		7014432C1DDC7303008EAAC6 /* Group@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group@3x.png"; sourceTree = "<group>"; };
+		701443361DDC7F19008EAAC6 /* 引导页1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页1.png"; sourceTree = "<group>"; };
+		701443371DDC7F19008EAAC6 /* 引导页2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页2.png"; sourceTree = "<group>"; };
+		701443381DDC7F19008EAAC6 /* 引导页3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页3.png"; sourceTree = "<group>"; };
 		70170BCF1D7401C800CC3951 /* AppApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppApiConstants.h; sourceTree = "<group>"; };
 		70170BD01D7401C800CC3951 /* AppPerportyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPerportyConstants.h; sourceTree = "<group>"; };
 		70170BD11D7401C800CC3951 /* GGMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMacros.h; sourceTree = "<group>"; };
@@ -1243,6 +1257,20 @@
 			name = SocketView;
 			sourceTree = "<group>";
 		};
+		701443221DDC72DB008EAAC6 /* yindaoye */ = {
+			isa = PBXGroup;
+			children = (
+				701443361DDC7F19008EAAC6 /* 引导页1.png */,
+				701443371DDC7F19008EAAC6 /* 引导页2.png */,
+				701443381DDC7F19008EAAC6 /* 引导页3.png */,
+				701443271DDC7303008EAAC6 /* 引导页4无button.png */,
+				7014432A1DDC7303008EAAC6 /* Group@1x.png */,
+				7014432B1DDC7303008EAAC6 /* Group@2x.png */,
+				7014432C1DDC7303008EAAC6 /* Group@3x.png */,
+			);
+			name = yindaoye;
+			sourceTree = "<group>";
+		};
 		70170BC61D73C1E100CC3951 /* Live */ = {
 			isa = PBXGroup;
 			children = (
@@ -1300,6 +1328,7 @@
 		70170BDD1D7412EE00CC3951 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				701443221DDC72DB008EAAC6 /* yindaoye */,
 				702CE4061DDA9854000A0513 /* DeviceManage */,
 				7024C5DB1DD1AD260053F313 /* About */,
 				7024C5C51DD0B0F50053F313 /* LinkUs */,
@@ -2105,6 +2134,7 @@
 				70170C0E1D74131500CC3951 /* guang_top.png in Resources */,
 				7040E2451DAE12B80063DB66 /* Viasat-Nature-logo@1x.png in Resources */,
 				706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */,
+				7014433B1DDC7F19008EAAC6 /* 引导页3.png in Resources */,
 				70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
@@ -2263,6 +2293,7 @@
 				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
+				701443391DDC7F19008EAAC6 /* 引导页1.png in Resources */,
 				70231CCE1DC0FE8C00F73202 /* 组-54@3x.png in Resources */,
 				7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */,
 				70170C141D74131500CC3951 /* left_on.png in Resources */,
@@ -2280,6 +2311,7 @@
 				7045C4751DC715FB002647F9 /* 矩形5@2x.png in Resources */,
 				7045C4681DC715FB002647F9 /* 矩形1@1x.png in Resources */,
 				70170C121D74131500CC3951 /* left_default.png in Resources */,
+				701443331DDC7303008EAAC6 /* Group@1x.png in Resources */,
 				70231CC01DC0FE8C00F73202 /* ip.png in Resources */,
 				707FE7561DACC3C30087C361 /* Pause@2x.png in Resources */,
 				702CE4021DDA97EC000A0513 /* mima@1x.png in Resources */,
@@ -2330,7 +2362,9 @@
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
 				70231CC41DC0FE8C00F73202 /* off@2x.png in Resources */,
+				701443351DDC7303008EAAC6 /* Group@3x.png in Resources */,
 				701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */,
+				701443301DDC7303008EAAC6 /* 引导页4无button.png in Resources */,
 				70231D0D1DC2E9FA00F73202 /* Back@3x.png in Resources */,
 				7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */,
 				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
@@ -2407,8 +2441,10 @@
 				70231CFE1DC1EC0F00F73202 /* HistoryViewController.xib in Resources */,
 				7010175F1DCADA2500F9D5FF /* quan@1x.png in Resources */,
 				70231CE71DC1A00100F73202 /* save-不可@2x.png in Resources */,
+				701443341DDC7303008EAAC6 /* Group@2x.png in Resources */,
 				702CE43B1DDA9881000A0513 /* 4@3x.png in Resources */,
 				70130EA41D8FDFD2005F0A49 /* 11.png in Resources */,
+				7014433A1DDC7F19008EAAC6 /* 引导页2.png in Resources */,
 				70FC30E31D75714E00BD06FE /* kr-video-player-point@2x.png in Resources */,
 				702CE4561DDA9881000A0513 /* nor@2x.png in Resources */,
 				702CE4511DDA9881000A0513 /* 直方图@3x.png in Resources */,
@@ -2637,6 +2673,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FDEBE1EC33F8D2BB1F550C37 /* Pods-StarAPP.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -2658,6 +2695,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -2676,6 +2714,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A91E2D05F4181C9A34FCF35 /* Pods-StarAPP.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -2697,6 +2736,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

@@ -40,6 +40,8 @@
     [self loadScroll];
     [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
     NSLog(@"Device viewDidLoad");
+    
+    [self linkSocket];
 }
 
 
@@ -71,6 +73,15 @@
 //    });
 //}
 
+-(void)linkSocket
+{
+    
+    self.socketView  = [[SocketView  alloc]init];
+    [self.socketView viewDidLoad];
+    
+//    self.videoController.socketView1 = self.socketView;
+//    [self.socketView  serviceTouch ];
+}
 -(void)loadNav
 {
     
@@ -114,10 +125,20 @@
             UIView * CGDeviceView = [[UIView alloc]initWithFrame:CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45)];
             CGDeviceView.layer.cornerRadius = 5.0;
             CGDeviceView.tag = i;
-            CGDeviceView.backgroundColor = [UIColor redColor];
+            CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
             
             [scrollView addSubview:CGDeviceView];
             [scrollView bringSubviewToFront:CGDeviceView];
+            
+            
+            UILabel * nameLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 17, 200, 14)];
+            nameLab.font = FONT(13);
+            nameLab.textColor = [UIColor whiteColor];
+            nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
+            [CGDeviceView addSubview:nameLab];
+            
+            
+            
             
             //设置绿色切换按钮
             UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -150,6 +171,9 @@
     
 }
 
-
+-(void)changeBtnClick
+{
+    NSLog(@"点击了,进行切换");
+}
 
 @end

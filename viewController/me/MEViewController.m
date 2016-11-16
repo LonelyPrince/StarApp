@@ -121,6 +121,7 @@
     
 
 }
+
 -(void)deviceSetbtnClick
 {
 
@@ -567,7 +568,7 @@
     
     }
     if (historyArr.count ==4) {
-        
+        NSLog(@"historyArr: %@",historyArr);
         NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
         NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
         NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
@@ -928,6 +929,8 @@
     historyNameLab6.textAlignment = NSTextAlignmentCenter;
     [historyBtnPiece6 addSubview:historyNameLab6];
 
+    
+    
 }
 -(void)addWhiteView
 {
@@ -984,6 +987,20 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+-(void)historyBtnPieceClick
+{
+    self.historyView = [[HistoryViewController alloc]init];
+    //        [self presentModalViewController:self.routeView animated:YES];
+    [self.navigationController pushViewController:self.historyView animated:YES];
+    
+    
+    
+    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    
+    self.historyView.navigationItem.leftBarButtonItem = myButton;
 }
 
 @end

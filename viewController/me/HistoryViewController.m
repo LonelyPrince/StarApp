@@ -8,6 +8,8 @@
 
 #import "HistoryViewController.h"
 
+//#define  separatorViewTag  10456
+
 //#define ONEDAY 86400
 #define ONEDAY    86400  //99999999 //81000
 @interface HistoryViewController ()
@@ -24,9 +26,14 @@
     BOOL delegateBtn ;   //是否是删除按钮
     BOOL isAllSelected ; //是否被选择
     UIButton * redDeleteBtn;
-    
+   
+    //
+//    UIView *customSeparatorView;
+//    CGFloat separatorHight;
+    //
     
 }
+//@property (nonatomic,weak)UIView *originSeparatorView;
 @end
 
 @implementation HistoryViewController
@@ -436,20 +443,25 @@
         cell = [HistoryCell loadFromNib];
         cell.backgroundColor=[UIColor clearColor];
         cell.tintColor = [UIColor redColor];
-        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+//        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x+20, cell.frame.origin.y+20, cell.frame.size.width, cell.frame.size.height-20)];
+//        cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
         
         
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
+        
     }
     if (earilyCell == nil){
         earilyCell = [EarilyCell loadFromNib];
         earilyCell.backgroundColor=[UIColor clearColor];
         earilyCell.tintColor = [UIColor redColor];
-        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        earilyCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+//        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+//        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x, earilyCell.frame.origin.y+20, earilyCell.frame.size.width, earilyCell.frame.size.height-20)];
+//        earilyCell.selectedBackgroundView.backgroundColor = [UIColor redColor];
         
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
+
     }
     
 
@@ -507,6 +519,47 @@
     else //非编辑模式下使用
     {
     //无操作
+        
+        
+        
+        
+        
+        //______________
+        
+
+            if(indexPath.section == 0)
+            {
+                if (todayNum > 0) {   //如果今天的数量大于0
+
+                    NSArray * touchArr = historyArr[historyArr.count - indexPath.row - 1];
+
+                    NSLog(@"touchArr：%@",touchArr);
+                    [self touchToSee :touchArr];
+                    
+                }
+                else   //只有早期的历史，没有今天的历史
+                {
+                    NSArray * touchArr = historyArr[earilyNum -  indexPath.row -1];
+                    NSLog(@"touchArr：%@",touchArr);
+                [self touchToSee:touchArr];
+                }
+                
+                
+                
+            }
+            else //section =1
+            {
+                 NSArray * touchArr = historyArr[earilyNum -  indexPath.row -1];
+                NSLog(@"touchArr：%@",touchArr);
+                [self touchToSee:touchArr];
+            }
+            
+        
+//        }
+        
+        
+        
+        //_____________
     }
     
     
@@ -635,9 +688,16 @@
 }
 
 
--(void)touchToSee
+-(void)touchToSee :(NSArray* )touchArr
 {
 
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
+    
+    
+    self.tvViewController = [[TVViewController alloc]init];
+    [self.tvViewController touchSelectChannel:row diction:dic];
+//    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
 }
 
 

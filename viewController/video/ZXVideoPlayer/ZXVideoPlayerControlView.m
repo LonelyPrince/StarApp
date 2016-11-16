@@ -156,7 +156,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     
     // 返回按钮
-        self.backButton.frame = CGRectMake(20, 12.5, 6, 10);
+        self.backButton.frame = CGRectMake(10, 10, 40, 25);
     // 锁定按钮
     //    self.lockButton.frame = CGRectMake(CGRectGetMaxX(self.topBar.bounds) - 40 - 10, CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
     // 缓冲进度条
@@ -602,8 +602,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_backButton) {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 6 , 10)];
+        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40 , 25)];
         [_backButton setImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
+//        UIImageView * backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(3,3, 6, 10)];
+//        backImageView.image = [UIImage imageNamed:@"Back Arrow Blue"];
+//        [_backButton addSubview:backImageView];
 //[_backButton setBackgroundImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
     }
     return _backButton;

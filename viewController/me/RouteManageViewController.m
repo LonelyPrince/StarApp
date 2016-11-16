@@ -243,7 +243,7 @@
     
     routeNameLab.text = [wifiDic objectForKey:@"name"];
     
-    routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+    routeIPLab.text =  @"IP:192.168.1.105" ;//[wifiDic objectForKey:@"ip"];
     
     
 }
