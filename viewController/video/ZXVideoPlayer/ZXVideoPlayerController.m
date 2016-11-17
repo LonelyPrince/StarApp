@@ -1078,7 +1078,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else{//如果为空，什么都不执行
         }
         
-        NSLog(@"cell.dataDic:%@",cell.dataDic);
+//        NSLog(@"cell.dataDic:%@",cell.dataDic);
         
         return cell;
     }
@@ -1106,7 +1106,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else{//如果为空，什么都不执行
         }
         
-        NSLog(@"cell.dataDic:%@",cell.dataDic);
+//        NSLog(@"cell.dataDic:%@",cell.dataDic);
         
         return cell;
     }
@@ -1131,7 +1131,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else{//如果为空，什么都不执行
         }
         
-        NSLog(@"cell.dataDic:%@",cell.dataDic);
+//        NSLog(@"cell.dataDic:%@",cell.dataDic);
         
         return cell;
     }

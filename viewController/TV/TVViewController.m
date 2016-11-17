@@ -927,8 +927,8 @@ UITableViewDelegate,UITableViewDataSource>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
     
     
-    self.socketView  = [[SocketView  alloc]init];
-    [self.socketView viewDidLoad];
+//    self.socketView  = [[SocketView  alloc]init];
+//    [self.socketView viewDidLoad];
     
     self.videoController.socketView1 = self.socketView;
     [self.socketView  serviceTouch ];

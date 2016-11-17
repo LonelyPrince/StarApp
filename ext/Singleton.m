@@ -171,7 +171,7 @@
     
     NSData * data_ret = [data subdataWithRange:NSMakeRange(12,4)];
     uint8_t data_retTo32int = [SocketUtils uint32FromBytes:data_ret];
-    if (data_retTo32int ==1) {
+    if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
         
         [MBProgressHUD showMessag:@"CRC error" toView:nil];
     }
