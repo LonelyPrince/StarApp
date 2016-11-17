@@ -482,7 +482,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     if (!_audioBtn) {
         _audioBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_audioBtn setImage:[UIImage imageNamed:@"Group"] forState:UIControlStateNormal];
+        [_audioBtn setImage:[UIImage imageNamed:@"音轨"] forState:UIControlStateNormal];
         _audioBtn.bounds = CGRectMake(0, 0, 17, 17);
     }
     return _audioBtn;

@@ -9,13 +9,15 @@
 #import "TVViewController.h"
 #import "TVCell.h"
 #import "MEViewController.h"
+#import "KSGuideManager.h"
 
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 //#import "HexColors.h"
 
 
 static const CGSize progressViewSize = {375, 1.5f };
-@interface TVViewController ()<YLSlideViewDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface TVViewController ()<YLSlideViewDelegate,UIScrollViewDelegate,
+UITableViewDelegate,UITableViewDataSource>
 {
     
     YLSlideView * _slideView;
@@ -31,7 +33,11 @@ static const CGSize progressViewSize = {375, 1.5f };
     UIImageView *imageViewThree;
     UIImageView *imageViewFour;
     
+    BOOL firstShow;
+    
 }
+
+
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property(nonatomic,strong)SearchViewController * searchViewCon;
 
@@ -92,78 +98,78 @@ static const CGSize progressViewSize = {375, 1.5f };
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
-
-    [self loadNav];
-    [self lineView];  //一条0.5pt的线
-    //new
-    [self initData];    //table表
-    //    [self loadUI];              //加载table 和scroll
-    //    [self getTopCategory];
-    [self getServiceData];    //获取表数据
-    [self initProgressLine];
-    [self getSearchData];
-    
-    
-    //修改tabbar选中的图片颜色和字体颜色
-    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    self.tabBarItem.selectedImage = image;
-    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
-  
-    //视频部分
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self playVideo];
-    
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.extendedLayoutIncludesOpaqueBars =NO;
-    self.modalPresentationCapturesStatusBarAppearance =NO;
-    self.navigationController.navigationBar.translucent =NO;
-    
-    
-    //获取数据的链接
-    NSString *url = [NSString stringWithFormat:@"%@",S_category];
-    
-    
-    LBGetHttpRequest *request = CreateGetHTTP(url);
-    
-    
-    
-    [request startAsynchronous];
-    
-    WEAKGET
-    [request setCompletionBlock:^{
-        NSDictionary *response = httpRequest.responseString.JSONValue;
-
-        
-        //        NSLog(@"response = %@",response);
-        NSArray *data = response[@"category"];
-        
-        if (!isValidArray(data) || data.count == 0){
-            return ;
-        }
-        self.categorys = (NSMutableArray *)data;
-        
-        //设置滑动条
-
-        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                                             forTitles:self.categorys];
-        
-        
-        _slideView.backgroundColor = [UIColor whiteColor];
-        _slideView.delegate        = self;
-        
-        [self.view addSubview:_slideView];
-        
-        
-        
-    }];
-    
+    firstShow =NO;
+//    [self loadNav];
+//    [self lineView];  //一条0.5pt的线
+//    //new
+//    [self initData];    //table表
+//    //    [self loadUI];              //加载table 和scroll
+//    //    [self getTopCategory];
+//    [self getServiceData];    //获取表数据
+//    [self initProgressLine];
+//    [self getSearchData];
+//    
+//    
+//    //修改tabbar选中的图片颜色和字体颜色
+//    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    self.tabBarItem.selectedImage = image;
+//    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
+//  
+//    //视频部分
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    
+//    self.view.backgroundColor = [UIColor whiteColor];
+//    
+//    [self playVideo];
+//    
+//    
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.extendedLayoutIncludesOpaqueBars =NO;
+//    self.modalPresentationCapturesStatusBarAppearance =NO;
+//    self.navigationController.navigationBar.translucent =NO;
+//    
+//    
+//    //获取数据的链接
+//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+//    
+//    
+//    LBGetHttpRequest *request = CreateGetHTTP(url);
+//    
+//    
+//    
+//    [request startAsynchronous];
+//    
+//    WEAKGET
+//    [request setCompletionBlock:^{
+//        NSDictionary *response = httpRequest.responseString.JSONValue;
+//
+//        
+//        //        NSLog(@"response = %@",response);
+//        NSArray *data = response[@"category"];
+//        
+//        if (!isValidArray(data) || data.count == 0){
+//            return ;
+//        }
+//        self.categorys = (NSMutableArray *)data;
+//        
+//        //设置滑动条
+//
+//        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                  SCREEN_WIDTH,
+//                                                                  SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+//                                             forTitles:self.categorys];
+//        
+//        
+//        _slideView.backgroundColor = [UIColor whiteColor];
+//        _slideView.delegate        = self;
+//        
+//        [self.view addSubview:_slideView];
+//        
+//        
+//        
+//    }];
+//    
   
     
 }
@@ -1132,149 +1138,136 @@ static const CGSize progressViewSize = {375, 1.5f };
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         NSLog(@"第一次启动");
         self.tabBarController.tabBar.hidden = YES;
+        firstShow = NO;
+        [self prefersStatusBarHidden];
+
+
         [self addGuideView]; //添加引导图
         
     }else{
         NSLog(@"不是第一次启动");
+        firstShow = YES;
+             [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
         self.tabBarController.tabBar.hidden = NO;
-        [self viewDidLoad];
+
+        
+        [self prefersStatusBarHidden];
+        
+        
+        
+        
+        
+        //        [self viewDidLoad];
+        [self loadNav];
+        [self lineView];  //一条0.5pt的线
+        //new
+        [self initData];    //table表
+        //    [self loadUI];              //加载table 和scroll
+        //    [self getTopCategory];
+        [self getServiceData];    //获取表数据
+        [self initProgressLine];
+        [self getSearchData];
+        
+        
+        //修改tabbar选中的图片颜色和字体颜色
+        UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.tabBarItem.selectedImage = image;
+        [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
+        
+        //视频部分
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        
+        self.view.backgroundColor = [UIColor whiteColor];
+        
+        [self playVideo];
+        
+        
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.extendedLayoutIncludesOpaqueBars =NO;
+        self.modalPresentationCapturesStatusBarAppearance =NO;
+        self.navigationController.navigationBar.translucent =NO;
+        
+        
+        //获取数据的链接
+        NSString *url = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(url);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            //        NSLog(@"response = %@",response);
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+            //设置滑动条
+            
+            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+                                                 forTitles:self.categorys];
+            
+            
+            _slideView.backgroundColor = [UIColor whiteColor];
+            _slideView.delegate        = self;
+            
+            [self.view addSubview:_slideView];
+            
+            
+            
+        }];
+        
     }
     
 }
 - (void)addGuideView {
     
-  
+    NSMutableArray *paths = [NSMutableArray new];
     
-    //初始化UI控件
-    scrollView=[[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    scrollView.pagingEnabled=YES;
-    [self.view addSubview:scrollView];
+    [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页1" ofType:@"png"]];
+    [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页2" ofType:@"png"]];
+    [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页3" ofType:@"png"]];
+    [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页4" ofType:@"png"]];
     
+    [[KSGuideManager shared] showGuideViewWithImages:paths];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterTVView) name:@"enterTVView" object:nil];
     
-    pageControl=[[UIPageControl alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 10)];
-    pageControl.currentPageIndicatorTintColor=[UIColor colorWithRed:0.153 green:0.533 blue:0.796 alpha:1.0];
-    [self.view addSubview:pageControl];
-    pageControl.numberOfPages=3;
-    
-    [self createViewOne];
-    [self createViewTwo];
-    [self createViewThree];
-    [self createViewFour];
-}
--(void)createViewOne{
-    
-    UIView *view = [[UIView alloc] initWithFrame:SCREEN_FRAME];
-    
-    imageViewOne = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
-    imageViewOne.contentMode = UIViewContentModeScaleAspectFit;
-    imageViewOne.image = [UIImage imageNamed:@"引导页1"];
-    [view addSubview:imageViewOne];
-    
-    
-    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress1:)];
-    imageViewOne.userInteractionEnabled = YES;
-    [imageViewOne addGestureRecognizer:singleTap1];
-    
-    
-    [scrollView addSubview:view];
-    
+
 }
 
--(void)createViewTwo{
-    
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    imageViewTwo = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
-    imageViewTwo.contentMode = UIViewContentModeScaleAspectFit;
-    imageViewTwo.image = [UIImage imageNamed:@"引导页2"];
-    [view addSubview:imageViewTwo];
-    
-    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress2:)];
-    imageViewTwo.userInteractionEnabled = YES;
-    [imageViewTwo addGestureRecognizer:singleTap1];
-    
-    [scrollView addSubview:view];
-    
-}
 
--(void)createViewThree{
-    
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
-    imageViewThree = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
-    imageViewThree.contentMode = UIViewContentModeScaleAspectFit;
-    imageViewThree.image = [UIImage imageNamed:@"引导页3"];
-    [view addSubview:imageViewThree];
-    
-    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress3:)];
-    imageViewThree.userInteractionEnabled = YES;
-    [imageViewThree addGestureRecognizer:singleTap1];
-    
-    [scrollView addSubview:view];
-}
--(void)createViewFour{
-    
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
-    imageViewFour = [[UIImageView alloc] initWithFrame:SCREEN_FRAME];
-    imageViewFour.contentMode = UIViewContentModeScaleAspectFit;
-    imageViewFour.image = [UIImage imageNamed:@"引导页4无button"];
-    [view addSubview:imageViewFour];
-    
-    UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonpress4:)];
-    imageViewFour.userInteractionEnabled = YES;
-    [imageViewFour addGestureRecognizer:singleTap1];
-    
-    [scrollView addSubview:view];
-    
-    UIButton * enterBtn =  [UIButton buttonWithType:UIButtonTypeCustom];
-    [enterBtn setImage:[UIImage imageNamed:@"Group"] forState:UIControlStateNormal];
-    enterBtn.frame = CGRectMake((SCREEN_WIDTH-120)/2, SCREEN_HEIGHT-34, 120, 37);
-    [enterBtn addTarget:self action:@selector(enterTVView) forControlEvents:UIControlStateNormal];
-    [view addSubview:enterBtn];
-}
--(void)buttonpress1:(id)sender
-{
-    CGFloat pageWidth = CGRectGetWidth(self.view.bounds);
-    CGPoint scrollPoint = CGPointMake(pageWidth, 0);
-    [scrollView setContentOffset:scrollPoint animated:YES];
-    
-    pageControl.currentPage = 1;
-    
-}
 
--(void)buttonpress2:(id)sender
-{
-    CGFloat pageWidth = CGRectGetWidth(self.view.bounds);
-    CGPoint scrollPoint = CGPointMake(pageWidth*2, 0);
-    [scrollView setContentOffset:scrollPoint animated:YES];
-    
-    pageControl.currentPage = 2;
-    
-}
--(void)buttonpress3:(id)sender
-{
-    CGFloat pageWidth = CGRectGetWidth(self.view.bounds);
-    CGPoint scrollPoint = CGPointMake(pageWidth*2, 0);
-    [scrollView setContentOffset:scrollPoint animated:YES];
-    
-    pageControl.currentPage = 3;
-    
-    
-}
--(void)buttonpress4:(id)sender
-{
-    NSLog(@"引导页完成");
-    
-    
-    self.tabBarController.tabBar.hidden = NO;
-}
 -(void)enterTVView
 {
-    [scrollView removeFromSuperview];
-    scrollView = nil;
-    [self viewDidLoad];
+    
+
+    [self viewWillAppear:YES];
 }
+
+
+
+- (BOOL)prefersStatusBarHidden {
+    if (firstShow ==YES) {
+        return NO;
+    }else
+    {
+    return YES;
+    }
+}
+
 @end

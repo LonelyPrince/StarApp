@@ -709,6 +709,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.subAudioTableView.delegate = self;
     self.subAudioTableView.dataSource = self;
     UIImageView *imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+    self.subAudioTableView.backgroundColor = [UIColor clearColor];
     [self.subAudioTableView setBackgroundView:imageView1];
      self.subAudioTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
