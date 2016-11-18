@@ -35,7 +35,7 @@
 }
 + (CGFloat)defaultCellHeight
 {
-    return 90;
+    return 45;
 }
 
 //设置接口数据
@@ -51,7 +51,7 @@
     self.channelId.text = [_dataDic objectForKey:@"service_logic_number"];
     
 //    self.channelId.text = @"aaa";
-    
+//    self.channelName.text = @"bbb";
     
 
     if(self.channelId.text.length == 1)

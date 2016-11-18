@@ -1119,6 +1119,27 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell.channelName.textAlignment = UITextAlignmentCenter;
             
             cell.backgroundColor=[UIColor clearColor];
+
+            
+            UIView * viewClick = [[UIView alloc]initWithFrame:cell.frame];
+            viewClick.backgroundColor = [UIColor clearColor];
+            UIView * grayViewUP = [[UIView alloc]initWithFrame:CGRectMake(12.8, 0, cell.frame.size.width, 0.5)];
+            grayViewUP.backgroundColor = [UIColor whiteColor];
+            UIView * grayViewDown = [[UIView alloc]initWithFrame:CGRectMake(12.8, cell.frame.size.height - 1, cell.frame.size.width, 0.5)];
+            grayViewDown.backgroundColor = [UIColor whiteColor];
+            [viewClick addSubview:grayViewUP];
+            [viewClick addSubview:grayViewDown];
+            
+            cell.selectedBackgroundView=viewClick;
+//            cell.selectedBackgroundView=[[UIView alloc]initWithFrame:cell.frame];
+            
+//            cell.selectedBackgroundView.backgroundColor=[UIColor  clearColor];
+
+//            cell.backgroundView = viewClick;
+            
+            [cell.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            [cell.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+        
             
         }
         
@@ -1126,7 +1147,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         if (!ISEMPTY(self.video.dicChannl)) {
             
-            cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+            cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
           
         }else{//如果为空，什么都不执行
         }
@@ -1156,8 +1177,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (!ISEMPTY(self.video.dicChannl)) {
             
             
-            dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+            dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+            
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            tableView.separatorColor = [UIColor whiteColor];
+            
+            
             
         }else{//如果为空，什么都不执行
         }

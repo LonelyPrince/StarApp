@@ -36,7 +36,7 @@
 }
 + (CGFloat)defaultCellHeight
 {
-    return 90;
+    return 45;
 }
 
 //设置接口数据
