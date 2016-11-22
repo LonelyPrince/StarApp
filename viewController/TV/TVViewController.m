@@ -91,6 +91,7 @@ UITableViewDelegate,UITableViewDataSource>
 @synthesize avController = _avController;   //搜索dms用
 @synthesize  serviceModel;
 @synthesize socketView;
+@synthesize monitorView;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -204,6 +205,7 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void) initData
 {
+    monitorView = [[MonitorViewController alloc]init];
     self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
 }
@@ -278,6 +280,10 @@ UITableViewDelegate,UITableViewDataSource>
     WEAKGET
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
+        
+        //将数据本地化
+        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         if (!isValidArray(data1) || data1.count == 0){
@@ -837,6 +843,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     self.video.channelCount = self.categoryModel.service_indexArr.count;
 }
+
+//row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
    
@@ -1168,7 +1176,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self initProgressLine];
         [self getSearchData];
         
-        
+        [self newTunerNotific]; //新建一个tuner的通知
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = image;
@@ -1251,16 +1259,14 @@ UITableViewDelegate,UITableViewDataSource>
 }
 
 
-
+//从第一次启动的引导页进入首页
 -(void)enterTVView
 {
     
 
     [self viewWillAppear:YES];
 }
-
-
-
+//状态栏隐藏于显示
 - (BOOL)prefersStatusBarHidden {
     if (firstShow ==YES) {
         return NO;
@@ -1270,4 +1276,17 @@ UITableViewDelegate,UITableViewDataSource>
     }
 }
 
+-(void)newTunerNotific //新建一个发送tuner请求并且接受返回信息的通知
+{
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTunerInfo) name:@"tunerRevice" object:nil];
+}
+
+-(void)receiveTunerInfo
+{
+    //获取分发资源信息
+        [self.socketView csGetResource];
+}
 @end

@@ -134,7 +134,7 @@
 
 + (uint16_t)uint16FromBytes:(NSData *)fData
 {
-    NSAssert(fData.length == 2, @"uint16FromBytes: (data length != 2)");
+//    NSAssert(fData.length == 2, @"uint16FromBytes: (data length != 2)");
     NSData *data = [self dataWithReverse:fData];;
     uint16_t val0 = 0;
     uint16_t val1 = 0;

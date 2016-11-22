@@ -46,7 +46,7 @@
     
     MonitorViewController * monVC = [[MonitorViewController alloc]init];
     UINavigationController * monViewNav = [[UINavigationController alloc]initWithRootViewController:monVC];
-    monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Monitor" image:[UIImage imageNamed:@"more"] selectedImage:[UIImage imageNamed:@"more"]];
+    monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Monitor" image:[UIImage imageNamed:@"monitor"] selectedImage:[UIImage imageNamed:@"monitor-jd"]];
     
     
 //     tvVC.backgroundColor=[UIColor whiteColor];

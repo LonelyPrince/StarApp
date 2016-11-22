@@ -212,7 +212,24 @@
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
                     break;
+                
+                case 17:  //此处是获得资源信息
+                {
+                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                    [userDef setObject:data forKey:@"dataResourceInfo"];
                     
+                    [userDef synchronize];//把数据同步到本地
+                    
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
+                    
+                    
+                    
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+                    break;
                     
                 default:
                     break;

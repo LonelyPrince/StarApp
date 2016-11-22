@@ -30,17 +30,19 @@
 @class CGUpnpAvController;
 #import "AppDelegate.h"
 #import "THProgressView.h"
-
+#import "MonitorViewController.h"
 
 
 @class ZXVideo;
 @interface TVViewController : UIViewController
+
 
 @property (nonatomic, strong, readwrite) ZXVideo *video;
 
 @property(nonatomic,strong) CategoryModel * categoryModel;
 @property(nonatomic,strong) ServiceModel * serviceModel;
 @property(nonatomic,strong) SocketView * socketView;
+@property(nonatomic,strong) MonitorViewController * monitorView;
 
 @property (nonatomic, strong) FullScreenView * fullScreenView;
 //**********

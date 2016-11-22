@@ -58,6 +58,7 @@
 
     self.event_Img.image = [UIImage imageNamed:@"play"];
     self.event_nextImg.image = [UIImage imageNamed:@"time"];
+ 
     //***
     NSDictionary * epgDic;
     NSDictionary * nextEpgDic;

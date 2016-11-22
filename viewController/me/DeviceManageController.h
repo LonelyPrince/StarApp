@@ -18,4 +18,5 @@
 
 
 @property(nonatomic,strong) SocketView * socketView;   //这里获取tuner信息
+@property(nonatomic,assign) NSInteger isDmsNum;
 @end

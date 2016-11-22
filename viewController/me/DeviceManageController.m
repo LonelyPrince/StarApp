@@ -22,7 +22,7 @@
 @synthesize cgUpnpModel;
 @synthesize scrollView;
 @synthesize avCtrl;
-
+@synthesize isDmsNum;
 
 
 - (void)viewDidLoad {
@@ -118,41 +118,90 @@
 
 -(void) loadUI{
     
+    isDmsNum = 2;
+    [self loadDmsView];
+    
+    
+    
+}
+-(void)loadDmsView
+{
     self.dataSource = [USER_DEFAULT objectForKey:@"DmsDevice"];
     @synchronized (self.dataSource) {
         NSLog(@"datasource :%@",self.dataSource);
         for (int i = 0 ; i<self.dataSource.count; i++) {
-            UIView * CGDeviceView = [[UIView alloc]initWithFrame:CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45)];
-            CGDeviceView.layer.cornerRadius = 5.0;
-            CGDeviceView.tag = i;
-            CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
+            if (i != isDmsNum) {
+                UIView * CGDeviceView = [[UIView alloc]init];
+                if (i < isDmsNum) {
+                    CGDeviceView.frame = CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45);
+                }else //如果是在直方图的下面，则高度增加115
+                {
+                 CGDeviceView.frame = CGRectMake(20, 20 + 50* i +115 , SCREEN_WIDTH - 40, 45);
+                }
+                                         
+                CGDeviceView.layer.cornerRadius = 5.0;
+                CGDeviceView.tag = i;
+                CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
+                
+                [scrollView addSubview:CGDeviceView];
+                [scrollView bringSubviewToFront:CGDeviceView];
+                
+                
+                UILabel * nameLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 17, 200, 14)];
+                nameLab.font = FONT(13);
+                nameLab.textColor = [UIColor whiteColor];
+                nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
+                [CGDeviceView addSubview:nameLab];
+                
+                
+                
+                
+                //设置绿色切换按钮
+                UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                [changeBtn setFrame:CGRectMake(CGDeviceView.bounds.size.width -30,15 , 18, 18)];
+                [changeBtn addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
+                
+                [CGDeviceView addSubview:changeBtn];
+
+            }
+            else
+            {
+//                UIView * CGDeviceView = [[UIView alloc]initWithFrame:CGRectMake(20, 20 + 50* i +115, SCREEN_WIDTH - 40, 45+115)];
+//                CGDeviceView.layer.cornerRadius = 5.0;
+//                CGDeviceView.tag = i;
+//                CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
+//                
+//                [scrollView addSubview:CGDeviceView];
+//                [scrollView bringSubviewToFront:CGDeviceView];
+
+                UIImageView * HistogramImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45+115)];
+                HistogramImage.image = [UIImage imageNamed:@"直方图"];
+                [scrollView addSubview:HistogramImage];
+                
+                
+                UILabel * nameLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 17, 200, 14)];
+                nameLab.font = FONT(13);
+                nameLab.textColor = [UIColor whiteColor];
+//              nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
+                nameLab.text =@"PVR Box 6/9";
+                [HistogramImage addSubview:nameLab];
+                
+                
+                
+                
+                //设置绿色切换按钮
+                UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                [changeBtn setFrame:CGRectMake(HistogramImage.bounds.size.width -30,15 , 18, 18)];
+                [changeBtn addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
+                
+                [HistogramImage addSubview:changeBtn];
+                
             
-            [scrollView addSubview:CGDeviceView];
-            [scrollView bringSubviewToFront:CGDeviceView];
-            
-            
-            UILabel * nameLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 17, 200, 14)];
-            nameLab.font = FONT(13);
-            nameLab.textColor = [UIColor whiteColor];
-            nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
-            [CGDeviceView addSubview:nameLab];
-            
-            
-            
-            
-            //设置绿色切换按钮
-            UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [changeBtn setFrame:CGRectMake(CGDeviceView.bounds.size.width -30,15 , 18, 18)];
-            [changeBtn addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
-            
-            [CGDeviceView addSubview:changeBtn];
+            }
         }
     }
-    
-    
-    
-    
 }
 -(void)loadScroll
 {

@@ -49,6 +49,26 @@ typedef enum{
 
 
 
+typedef enum{
+    TYPE_CAB = 0,
+    TYPE_T = 1,
+    TYPE_T2 = 2,
+    TYPE_SAT = 3,
+    TYPE_T_AND_T2 = 4,
+    TYPE_UNLOCKED = 5,
+    INVALID_tuner = 6
+    
+}tunerType;
+
+typedef enum{
+    INVALID_Service = 0,
+    LIVE_PLAY = 1,
+    LIVE_RECORD = 3,
+    LIVE_TIME_SHIFT = 5,
+    DELIVERY = 8,
+    PUSH_VOD = 9
+    
+}serviceType;
 
 #define grobalTintColor RGB(249,249,249)
 #define grobalTitleColor [UIColor whiteColor]
