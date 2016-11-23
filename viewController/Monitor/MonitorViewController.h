@@ -10,7 +10,7 @@
 #import "MonitorCell.h"
 #import "SocketUtils.h"
 
-@interface MonitorViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface MonitorViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
 @property(nonatomic,strong)void(^blocktest)(NSDictionary * dic);
 @property(nonatomic,strong) UIScrollView * scrollView;
@@ -21,4 +21,6 @@
 @property(nonatomic,strong) NSMutableDictionary *monitorTableDic;
 @property(nonatomic,strong) NSMutableArray *monitorTableArr;
 @property(nonatomic,strong) SocketUtils *socketUtils;
+
+
 @end

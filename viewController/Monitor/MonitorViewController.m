@@ -12,6 +12,7 @@
 #define TopBottomNameWidth 142/2
 #define CutWidth 30/2
 #define TopBottomNameMarginLeft (SCREEN_WIDTH-4*TopBottomNameWidth-3*CutWidth)/2
+
 @interface MonitorViewController ()
 {
     NSInteger tunerNum;
@@ -26,6 +27,8 @@
     NSInteger   liveTimeShiteCount;
     NSInteger   deliveryCount;
     NSInteger   pushVodCount;
+    BOOL scrollUp;
+    int lastPosition ;
 }
 @end
 
@@ -128,6 +131,8 @@
 }
 -(void)initData
 {
+    scrollUp = NO;
+    lastPosition = 0;
     livePlayCount = 0;
     liveRecordCount = 0;
     liveTimeShiteCount = 0;
@@ -142,8 +147,12 @@
     monitorTableDic = [[NSMutableDictionary alloc]init];
     monitorTableArr = [[NSMutableArray alloc]init];
     
+    
+    ///
 //    socketUtils = [[SocketUtils alloc]init];
 }
+
+
 -(void)loadUI
 {
     NSLog(@"=======--:%d",tunerNum);
@@ -266,7 +275,7 @@
     scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.view addSubview:scrollView];
     
-    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80);
+    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
     //    scroll.pagingEnabled=YES;
     scrollView.showsVerticalScrollIndicator=NO;
     scrollView.showsHorizontalScrollIndicator=NO;
@@ -620,6 +629,89 @@
     }
     
 }
+
+
+//// 开始拖拽
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+////    NSLog(@"++开始拖拽");
+//    if (scrollView.class ==  self.tableView.class) {
+//        NSLog(@"tableview:.y");
+//        int currentPostion = scrollView.contentOffset.y;
+//    NSLog(@"tableview.contentOffset.y:%f",self.scrollView.contentOffset.y);
+//    }
+//    
+//    if (scrollView.class ==  self.scrollView.class) {
+//        NSLog(@"scroll:.y");
+//    }
+//}
+
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"scrollView.contentOffset.y:%f",self.scrollView.contentOffset.y);
+    int currentPostion = scrollView.contentOffset.y;
+    if (currentPostion - lastPosition > 30 && self.scrollView.contentOffset.y >50 && scrollUp == NO){
+        CGPoint position = CGPointMake(0, 300);
+//        [scrollView     :position animated:YES];
+        [UIView animateWithDuration:1
+                              delay:0.02
+                            options:UIViewAnimationCurveLinear
+                         animations:^{
+
+                            self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+                            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200-93);
+                             scrollUp = YES;
+                         self.tableView.scrollEnabled = YES;
+                             //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                         }
+                         completion:^(BOOL finished)
+         { NSLog(@"animate");
+             self.tableView.scrollEnabled = YES;
+         } ];
+        NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
+        self.tableView.scrollEnabled = YES;
+    }
+    
+    
+
+
+    if(scrollView.class == self.tableView.class){
+    if (self.tableView.contentOffset.y<-30&& scrollUp == YES
+//        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25
+        ){
+        CGPoint position = CGPointMake(0, 300);
+        
+        [UIView animateWithDuration:1
+                              delay:0.02
+                            options:UIViewAnimationCurveLinear
+                         animations:^{
+                             //                             [scrollView setContentOffset: position ];
+                             self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                             //                             scrollView.contentOffset = CGPointMake(0, 0);
+                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                             scrollUp = NO;
+                             //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                         self.tableView.scrollEnabled = NO;
+                         }
+                         completion:^(BOOL finished)
+         { NSLog(@"animate");
+             self.tableView.scrollEnabled = NO;
+         } ];
+        NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
+        self.tableView.scrollEnabled = NO;
+    }
+    }
+
+    
+
+
+
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
