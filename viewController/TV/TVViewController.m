@@ -415,8 +415,8 @@ UITableViewDelegate,UITableViewDataSource>
             
             
             ////////****************** 进度条
-            //此处销毁通知，防止一个通知被多次调用
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            //此处销毁通知，防止一个通知被多次调用   //5
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixprogressView" object:nil ];
             //注册通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView :) name:@"fixprogressView" object:nil];
 
@@ -929,8 +929,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     
     
-    //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
     
@@ -1177,6 +1177,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self getSearchData];
         
         [self newTunerNotific]; //新建一个tuner的通知
+        [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = image;
@@ -1251,7 +1252,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     [[KSGuideManager shared] showGuideViewWithImages:paths];
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //2
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"enterTVView" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterTVView) name:@"enterTVView" object:nil];
     
@@ -1276,17 +1278,33 @@ UITableViewDelegate,UITableViewDataSource>
     }
 }
 
--(void)newTunerNotific //新建一个发送tuner请求并且接受返回信息的通知
+-(void)newTunerNotific
 {
-    //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //新建一个发送tuner请求并且接受返回信息的通知   //3
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tunerRevice" object:nil] ;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveTunerInfo) name:@"tunerRevice" object:nil];
+    
+    
+    
+}
+-(void)deleteTunerInfoNotific
+{
+    //新建一个发送tuner删除直播消息的通知   //4
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"deleteTuner" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delegeTunerInfo) name:@"deleteTuner" object:nil];
+
 }
 
 -(void)receiveTunerInfo
 {
     //获取分发资源信息
         [self.socketView csGetResource];
+}
+-(void)delegeTunerInfo
+{
+    //停止播放，视频分发
+    [self.socketView  deliveryPlayExit];
 }
 @end

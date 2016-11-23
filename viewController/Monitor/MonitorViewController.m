@@ -298,7 +298,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectio
 {
     
-    return tunerNum;
+//    return tunerNum;
+    return monitorTableArr.count;
     
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -662,13 +663,14 @@
 
                             self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-                            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200-93);
+                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
                              scrollUp = YES;
                          self.tableView.scrollEnabled = YES;
                              //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
                          }
                          completion:^(BOOL finished)
-         { NSLog(@"animate");
+         {
+             NSLog(@"animate");
              self.tableView.scrollEnabled = YES;
          } ];
         NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
@@ -691,7 +693,7 @@
                              //                             [scrollView setContentOffset: position ];
                              self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
                              //                             scrollView.contentOffset = CGPointMake(0, 0);
-                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);//SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200);
                              scrollUp = NO;
                              //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
                          self.tableView.scrollEnabled = NO;
@@ -705,13 +707,64 @@
     }
     }
 
+}
+
+//***********删除代码
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+/*改变删除按钮的title*/
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+/*删除用到的函数*/
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+     [tableView beginUpdates];
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        /*此处处理自己的代码，如删除数据*/
+        
+        //////////////////////////// 向TV页面发送通知
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"deleteTuner" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+        
+//        //////////////////////////// 从socket返回数据
+//        //此处销毁通知，防止一个通知被多次调用
+//        [[NSNotificationCenter defaultCenter] removeObserver:self];
+//        //注册通知
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
+
+        
+        
+        
+        ///////******
+        NSLog(@"monitorTableArr:%@",monitorTableArr);
+        [monitorTableArr removeObjectAtIndex:indexPath.row];
+        //这里添加删除的socket
+        /*删除tableView中的一行*/
+        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+         [tableView reloadData];
+        
+    }
     
-
-
-
+    
+//   [self viewWillAppear:YES];
+    [tableView endUpdates];
+    
 }
 
 
+//************
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
