@@ -23,4 +23,21 @@
 @property(nonatomic,strong) SocketUtils *socketUtils;
 
 
+//loadnum
+@property(nonatomic,strong) UILabel * liveNumLab;
+@property(nonatomic,strong) UILabel * recoderLab;
+@property(nonatomic,strong) UILabel * timeShiftLab;
+@property(nonatomic,strong) UILabel * distributeLab;
+@property(nonatomic,strong) UILabel * liveNum_Lab;
+@property(nonatomic,strong) UILabel * recoder_Lab;
+@property(nonatomic,strong) UILabel * timeShift_Lab;
+@property(nonatomic,strong) UILabel * distribute_Lab;
+
+
+//loadColor Cicle
+@property(nonatomic,strong) UIImageView * cicleClearImageView;
+@property(nonatomic,strong) UIImageView * cicleBlueImageView;
+@property(nonatomic,strong) UIImageView * nineImage;
+@property(nonatomic,strong) UIImageView * numImage;
+@property(nonatomic,strong) UIImageView * labImage;
 @end

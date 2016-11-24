@@ -29,6 +29,8 @@
     NSInteger   pushVodCount;
     BOOL scrollUp;
     int lastPosition ;
+    
+    NSInteger tableInitNum;
 }
 @end
 
@@ -41,6 +43,22 @@
 @synthesize monitorTableDic;
 @synthesize monitorTableArr;
 @synthesize socketUtils;
+// loadnum
+@synthesize liveNumLab;
+@synthesize recoderLab;
+@synthesize timeShiftLab;
+@synthesize distributeLab;
+@synthesize liveNum_Lab;
+@synthesize recoder_Lab;
+@synthesize timeShift_Lab;
+@synthesize distribute_Lab;
+
+//loadColor Cicle
+@synthesize cicleClearImageView;
+@synthesize cicleBlueImageView;
+@synthesize nineImage;
+@synthesize numImage;
+@synthesize labImage;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -56,6 +74,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    tableInitNum = 0;
     [scrollView removeFromSuperview];
     scrollView = nil;
    
@@ -73,8 +92,9 @@
 //    [self.view addSubview:shadowLab1];
 //    [self getTunerInfo];
     [self initData];
+    [self loadUI];  //***
     [self getNotificInfo]; //通过发送通知给TV页，TV页通过socket获取到tuner消息
-    
+//    [self initRefresh]; //开始每隔几秒向TV页发送通知，用来收到数据并且刷新数据
 //    [self loadNav];
 //    [self loadUI];
  
@@ -82,6 +102,13 @@
 
 -(void)getNotificInfo
 {
+    tunerNum = 0; ///******
+    [monitorTableArr removeAllObjects];
+    livePlayCount = 0;
+    liveRecordCount = 0;
+    liveTimeShiteCount = 0;
+    deliveryCount = 0;
+    pushVodCount = 0;
     NSLog(@"=======================notific");
     
 //    self.blocktest = ^(NSDictionary * dic)
@@ -152,7 +179,27 @@
 //    socketUtils = [[SocketUtils alloc]init];
 }
 
+-(void)initRefresh
+{
+    NSLog(@"=======================notific");
+    
+   
+    //
+    //////////////////////////// 向TV页面发送通知
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    //////////////////////////// 从socket返回数据
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
+    
 
+
+}
 -(void)loadUI
 {
     NSLog(@"=======--:%d",tunerNum);
@@ -180,53 +227,30 @@
 {
 //    tunerNum = 3;
     
-    UIImageView * cicleClearImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 196)/2, 80 , 196, 195)];
+     cicleClearImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 196)/2, 80 , 196, 195)];
     cicleClearImageView.image = [UIImage  imageNamed:@"圆环"];
     [colorImageView addSubview:cicleClearImageView];
     
-    UIImageView * cicleBlueImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 196)/2, 80,196, 195)];
+    cicleBlueImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 196)/2, 80,196, 195)];
     cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"圆环-%d",tunerNum]];
     [colorImageView addSubview:cicleBlueImageView];
     
-    UIImageView * nineImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-5, cicleClearImageView.frame.size.height/2-25,36, 33)];
+    nineImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-5, cicleClearImageView.frame.size.height/2-25,36, 33)];
     nineImage.image = [UIImage  imageNamed:@"nine"];
     [cicleClearImageView addSubview:nineImage];
     
     
-    UIImageView * numImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2-35,36, 43)];
+     numImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2-35,36, 43)];
     numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%d",tunerNum]];
     [cicleClearImageView addSubview:numImage];
     
-    UIImageView * labImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2+10,65, 40)];
+     labImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2+10,65, 40)];
     labImage.image = [UIImage  imageNamed:@"Tunermonitor"];
     [cicleClearImageView addSubview:labImage];
 }
 -(void)loadNumLab  //底部的各项tuner的数量
 {
-    UILabel * liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft, 360, 142/2, 13)];
-    liveNumLab.text = @"TV Live";
-    liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
-    liveNumLab.font = FONT(13);
-    [colorImageView addSubview:liveNumLab];
-    
-    UILabel * recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth , 360, 142/2, 13)];
-    recoderLab.text = @"Recoder";
-    recoderLab.textColor = RGBA(245, 245, 245, 0.65);
-    recoderLab.font = FONT(13);
-    [colorImageView addSubview:recoderLab];
-    
-    UILabel * timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
-    timeShiftLab.text = @"Time Shift";
-    timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-    timeShiftLab.font = FONT(13);
-    [colorImageView addSubview:timeShiftLab];
-    
-    UILabel * distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
-    distributeLab.text = @"Time Shift";
-    distributeLab.textColor = RGBA(245, 245, 245, 0.65);
-    distributeLab.font = FONT(13);
-    [colorImageView addSubview:distributeLab];
-    
+    [self loadNumAnddelete];
     
         UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8, 325, 2, 40)];
         verticalView1.layer.cornerRadius = 1.0;
@@ -244,29 +268,58 @@
     [colorImageView addSubview:verticalView3];
     
     
-    UILabel * liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
+  
+}
+-(void)loadNumAnddelete  //加载那些全局的数字，等待刷新并且删除重新加载一遍
+{
+    liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft, 360, 142/2, 13)];
+    liveNumLab.text = @"TV Live";
+    liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
+    liveNumLab.font = FONT(13);
+    [colorImageView addSubview:liveNumLab];
+    
+    recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth , 360, 142/2, 13)];
+    recoderLab.text = @"Recoder";
+    recoderLab.textColor = RGBA(245, 245, 245, 0.65);
+    recoderLab.font = FONT(13);
+    [colorImageView addSubview:recoderLab];
+    
+    timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
+    timeShiftLab.text = @"Time Shift";
+    timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+    timeShiftLab.font = FONT(13);
+    [colorImageView addSubview:timeShiftLab];
+    
+    distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
+    distributeLab.text = @"Time Shift";
+    distributeLab.textColor = RGBA(245, 245, 245, 0.65);
+    distributeLab.font = FONT(13);
+    [colorImageView addSubview:distributeLab];
+    
+     liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
     liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
     liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
     liveNum_Lab.font = FONT(24);
     [colorImageView addSubview:liveNum_Lab];
     
-    UILabel * recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
+     recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
     recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
     recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
     recoder_Lab.font = FONT(24);
     [colorImageView addSubview:recoder_Lab];
-
-    UILabel * timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
+    
+    timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
     timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
     timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
     timeShift_Lab.font = FONT(24);
     [colorImageView addSubview:timeShift_Lab];
     
-    UILabel * distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
+    distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
     distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
     distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
     distribute_Lab.font = FONT(24);
     [colorImageView addSubview:distribute_Lab];
+    
 }
 -(void)loadScroll
 {
@@ -405,24 +458,7 @@
         char buffer4;
         int buffer_int4 =placeFigure+3;
         [effectiveData getBytes:&buffer4 range:NSMakeRange(buffer_int4, 1)];
-//        char buffer5;
-//        [effectiveData getBytes:&buffer5 range:NSMakeRange(14, 1)];
-//        char buffer6;
-//        [effectiveData getBytes:&buffer6 range:NSMakeRange(10, 4)];
-//
-//        NSString * testdatabuff = [[NSString alloc]initWithData:databuff10 encoding:NSUTF8StringEncoding];
-//        
-//        char buffer7;
-//        [effectiveData getBytes:&buffer7 range:NSMakeRange(13, 2)];
-//        [effectiveData subdataWithRange:NSMakeRange(13, 2)];
-//        NSLog(@"----len dataByte=======:%x",dataByte);
-//        NSLog(@"----len testdatabuff=======:%@",testdatabuff);
-//        NSLog(@"----len databuff10=======:%@",databuff10);
-//        NSLog(@"----len buffer1=======:%x",buffer1);
-//        NSLog(@"----len placeFigure=======:%d",placeFigure);
-//        NSLog(@"----len mutablefigure=====:%d",mutablefigure);
-//        NSLog(@"----len effectiveData=====:%@",effectiveData);
-//        NSLog(@"==buffer:%c",buffer);
+
         if( buffer1 == 0x00 && buffer2 == 0x00&& buffer3 == 0x00 && buffer4 == 0x00)
         {
             NSLog(@"11");
@@ -509,54 +545,7 @@
                     
                     [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                     
-                    
-//                    for (int d = 0; d<category1.count; d++) {
-//                        NSArray *  service_index = [category1[d] objectForKey:@"service_index"];
-//                        for (int y = 0; y<service_index.count; y++) {
-//                            if ([service_index[y] intValue] == a+1) {  //// 判断值是否等于行数
-//                                
-//                                
-//                                //                //获取不同类别下的节目，然后是节目下不同的cell值                10
-//                                for (int x = 0 ; x<service_index.count; x++) {
-//                                    //
-//                                    int indexCat ;
-//                                    //   NSString * str;
-//                                    indexCat =[service_index[x] intValue];
-//                                    data2 = self.response[@"service"];
-//                                    serviceTouch  = data2[indexCat-1];
-//                                    //                    //cell.tabledataDic = self.serviceData[indexCat -1];
-//                                    //
-//                                    [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
-//                                    //                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-//                                    //
-//                                    //
-//                                }
-//                                
-//                                
-//                                
-//                                
-//                            }
-//                        }
-//                    }
-                    
-                    
-                    
-//                    //获取不同类别下的节目，然后是节目下不同的cell值
-//                    //                                                      10
-//                    
-//                    for (int c = 0 ; c<self.categoryModel.service_indexArr.count; c++) {
-//                        
-//                        int indexCat ;
-//                        //   NSString * str;
-//                        indexCat =[self.categoryModel.service_indexArr[c] intValue];
-//                        //cell.tabledataDic = self.serviceData[indexCat -1];
-//                        
-//                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-//                        
-//                        
-//                    }
-                
-                
+             
                  [self.tableView reloadData];
                 }
                 else //此处是一种特殊情况，没有找到这个节目
@@ -592,8 +581,79 @@
         
     }
     
-    [self loadNav];
-    [self loadUI];
+//    [self loadNav];
+//    [self loadUI];
+    
+//    [self loadCicle];
+//    [self loadTableview];
+//    [self loadNumLab];
+    
+    if (tableInitNum == 0) {
+         [self loadTableview];
+        tableInitNum++;
+        
+    }
+//    else
+//    {
+//     [tableView reloadData];
+//    }
+    
+    [tableView reloadData];
+//    [self loadTableview];
+    [self changeView];
+}
+
+-(void)changeView
+{
+   
+    
+    
+    
+    cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"圆环-%ld",(long)tunerNum]];
+    
+    numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
+    
+    
+ 
+    liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+ 
+    recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+  
+    timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+   
+    distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+   
+   
+    
+    if (scrollUp == YES) {
+        self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+        
+        
+    }else
+    {
+        self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //                             scrollView.contentOffset = CGPointMake(0, 0);
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+        
+        self.tableView.editing = NO;
+    }
+    
+    
+    
+    
+//    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+   
+    self.tableView.frame =  CGRectMake(0, TopViewHeight, SCREEN_WIDTH, tunerNum*80);
+    
+//    
+//    self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+//    
+//    TopViewHeight+tunerNum*80+200-93);
+//    scrollUp = YES;
+//    self.tableView.scrollEnabled = YES;
+
 }
 
 -(void)judgeTunerClass:(NSData * )typeData
@@ -760,7 +820,17 @@
     
 //   [self viewWillAppear:YES];
     [tableView endUpdates];
-    
+//  [self getNotificInfo];  
+    [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.5];
+}
+-(void)reFreshData
+{
+
+}
+
+-(void)willReFresh
+{
+[self getNotificInfo];
 }
 
 

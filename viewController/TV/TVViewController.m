@@ -770,6 +770,7 @@ UITableViewDelegate,UITableViewDataSource>
 //    
     
     NSLog(@"---urlData%@",_byteDatas);
+    
     self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
 //    self.video.playUrl = [[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding];
 
@@ -1125,15 +1126,31 @@ UITableViewDelegate,UITableViewDataSource>
         NSNumber *aNumber = [NSNumber numberWithInteger:row];
         NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime,aNumber,dic,nil];
         
-        [mutaArray addObject:seedNowArr];
+
+                if (seedNowArr.count > 0) {
+                    [mutaArray addObject:seedNowArr];
+                    
+            }else
+             {
+                NSAssert(seedNowArr != NULL, @"提示: 此时seedNowArr.count < 0,证明其为空");
+             }
+        
+        
 //     [mutaArray addObject:epgDicToSocket];
     }
     
+    
+
     //5。两个数组相加
 //    [ mutaArray addObject:historyArr];
    NSArray *myArray = [NSArray arrayWithArray:mutaArray];
     [USER_DEFAULT setObject:myArray forKey:@"historySeed"];
 
+    
+//    NSLog(@"myarray:%@",myArray[3]);
+//    NSLog(@"myarray:%@",myArray[2]);
+//    NSLog(@"myarray:%@",myArray[2][0]);
+    
     MEViewController * meview = [[MEViewController alloc]init];
     [meview viewDidAppear:YES];
     [meview viewDidLoad];

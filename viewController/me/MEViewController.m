@@ -569,6 +569,8 @@
     }
     if (historyArr.count ==4) {
         NSLog(@"historyArr: %@",historyArr);
+//        NSArray * testArr1 = historyArr[historyArr.count - 1 - 0];
+//        NSLog(@"testArr1:%@",testArr1);
         NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
         NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
         NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
