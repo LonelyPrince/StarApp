@@ -49,7 +49,7 @@
     NSData * typedata = dataArr[1];
     NSData * clientNameData = dataArr[2];
     
-    
+    NSLog(@"clientNameData:%@",clientNameData);
     
     //图片和叠加图片
     UIImage * imageWithImage = [[UIImage alloc]init];
@@ -116,7 +116,7 @@
     int type;
     //[typeData getBytes: &type length: sizeof(type)];
     type =  [SocketUtils uint16FromBytes: typeData];
-    
+    NSLog(@"typedata :%@",typeData);
     ///////////////
     NSDictionary * epgDic;
     NSDictionary * nextEpgDic;
@@ -131,37 +131,43 @@
     
     NSString * clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
     
+    NSLog(@"clientNameStr:%@",clientNameStr);
     
 
     
     if (type == LIVE_PLAY) {
+        
         self.programeClass.image = [UIImage imageNamed:@"play"];
-       
-        if (ISNULL(clientNameStr)) {
-            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",[epgDic objectForKey:@"event_name"],clientNameStr];
-        }
-        else
-        {
-            self.nameLab.text = [NSString stringWithFormat:@"%@",[epgDic objectForKey:@"event_name"]];
-        }
+            self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
+        
         
         
         //        return 1;// @"直播";
     }else if (type == LIVE_RECORD)
     {
         self.programeClass.image = [UIImage imageNamed:@"录制"];
-         self.nameLab.text = [NSString stringWithFormat:@"%@--Recoding",[epgDic objectForKey:@"event_name"]];
+         self.nameLab.text = [NSString stringWithFormat:@"Recoding--%@",[epgDic objectForKey:@"event_name"]];
 //        return 2;//@"录制";
     }else if (type == LIVE_TIME_SHIFT)
     {
            self.programeClass.image = [UIImage imageNamed:@"时移"];
-        self.nameLab.text = [NSString stringWithFormat:@"%@--Time Shift",[epgDic objectForKey:@"event_name"]];
+        self.nameLab.text = [NSString stringWithFormat:@"Time Shift--%@",[epgDic objectForKey:@"event_name"]];
 //        return 3;//@"时移";
     }else if (type == DELIVERY)
     {
-           self.programeClass.image = [UIImage imageNamed:@"分发"];
-        self.nameLab.text = [NSString stringWithFormat:@"%@--Recoding",[epgDic objectForKey:@"Distribute"]];
-//        return 4;//@"分发";
+        
+        if (!ISNULL(clientNameStr)) {
+            self.programeClass.image = [UIImage imageNamed:@"分发"];
+            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",clientNameStr,[epgDic objectForKey:@"Distribute"]];
+        }
+        else
+        {
+            self.programeClass.image = [UIImage imageNamed:@"分发"];
+           self.nameLab.text = [NSString stringWithFormat:@"%@",[epgDic objectForKey:@"Distribute"]];
+        }
+        
+        
+        //        return 4;//@"分发";
     }else
     {
         //其他数值默认无效

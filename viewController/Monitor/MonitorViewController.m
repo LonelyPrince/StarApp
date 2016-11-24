@@ -7,6 +7,7 @@
 //
 
 #import "MonitorViewController.h"
+#import "sys/utsname.h"
 #define kShadowRadius 20
 #define TopViewHeight 400
 #define TopBottomNameWidth 142/2
@@ -291,7 +292,7 @@
     [colorImageView addSubview:timeShiftLab];
     
     distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
-    distributeLab.text = @"Time Shift";
+    distributeLab.text = @"Distribute";
     distributeLab.textColor = RGBA(245, 245, 245, 0.65);
     distributeLab.font = FONT(13);
     [colorImageView addSubview:distributeLab];
@@ -661,7 +662,7 @@
 
     int type;
 //    [typeData getBytes: &type length: sizeof(type)];
-    NSLog(@"typedata :%@",typeData);
+//    NSLog(@"typedata :%@",typeData);
     NSLog(@"type:%d",type);
     type =  [SocketUtils uint16FromBytes: typeData];
     NSLog(@"typedata :%@",typeData);
@@ -680,7 +681,7 @@
             liveTimeShiteCount ++;
             break;
         case DELIVERY:
-            livePlayCount ++;
+            deliveryCount ++;
             break;
         case PUSH_VOD:
             pushVodCount ++;
@@ -772,7 +773,30 @@
 //***********删除代码
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleDelete;
+    //>>
+    NSArray * monitorTypeArr = [[NSArray alloc]init];
+    monitorTypeArr =   monitorTableArr[indexPath.row];
+    NSData * tableTypedata = monitorTypeArr[1];
+    
+    NSData * phoneClientName = monitorTypeArr[2];
+    int type;
+    type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
+    
+    NSString * clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
+    NSString * phoneModel =  [self deviceVersion];
+    NSLog(@"手机型号:%@",phoneModel);
+    NSString* client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
+    //实际情况下此处可做修改：
+    if (type == DELIVERY ){//&&  [clientNameStr isEqualToString:client_name]) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+            return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+    
+    //>>
+    
+    
+//    return UITableViewCellEditingStyleDelete;
 }
 
 /*改变删除按钮的title*/
@@ -834,6 +858,36 @@
 }
 
 
+
+
+
+- (NSString*)deviceVersion
+{
+    // 需要#import "sys/utsname.h"
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString * deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    //iPhone
+    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"VerizoniPhone 4";
+    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
+    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6 Plus";
+    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
+    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
+    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
+    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7s Plus";
+    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7";
+    　return deviceString;
+}
 //************
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
