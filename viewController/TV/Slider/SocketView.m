@@ -166,9 +166,16 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //   NSString * phoneModel = @"iPhone6s";
     NSString * phoneModel =  [self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
-    cs_service.client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
+    //手机别名： 用户定义的名称
+//    NSString* userPhoneName = [[UIDevice currentDevice] name];
+//    NSString* userPhoneName = @"xyz的MacBook pro";
+//    NSLog(@"手机别名: %@", userPhoneName);
+//    NSString * de = @"的";
+//    NSLog(@"de.length:%d",de.length);
+    
+    cs_service.client_name = [NSString stringWithFormat:@"%@",phoneModel];  //***
     cs_service.data_len_name =cs_service.client_name.length   ;    //****
-    cs_service. data_len= cs_service.client_name.length +25;
+    cs_service. data_len= cs_service.client_name.length+25;
     cs_service.data_len_m3u8 = 0;
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
@@ -519,8 +526,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
     if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
     if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
-    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7s Plus";
-    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7";
+    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
+    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7s Plus";
+    
     　return deviceString;
 }
 

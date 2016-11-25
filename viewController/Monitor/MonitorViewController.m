@@ -369,8 +369,8 @@
         cell = [MonitorCell loadFromNib];
 //        cell.backgroundColor=[UIColor clearColor];
         
-//        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-//        cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
         
 //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
@@ -388,10 +388,10 @@
     
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"点击了");
-}
+//-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSLog(@"点击了");
+//}
 /**
  获取当前连接tuner的数量
  */
@@ -802,7 +802,7 @@
 /*改变删除按钮的title*/
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return @"删除";
+    return @" DEL ";
 }
 
 /*删除用到的函数*/
