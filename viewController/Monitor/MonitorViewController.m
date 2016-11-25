@@ -128,7 +128,7 @@
     
   //////////////////////////// 从socket返回数据
     //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getResourceInfo" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
     
@@ -194,7 +194,7 @@
     
     //////////////////////////// 从socket返回数据
     //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getResourceInfo" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
     

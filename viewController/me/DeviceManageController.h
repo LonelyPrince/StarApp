@@ -19,4 +19,12 @@
 
 @property(nonatomic,strong) SocketView * socketView;   //这里获取tuner信息
 @property(nonatomic,assign) NSInteger isDmsNum;
+
+@property(nonatomic,strong) UIImageView  * TVLiveVerticalImg;
+@property(nonatomic,strong) UIImageView  * TimeShiftVerticalImg;
+@property(nonatomic,strong) UIImageView  * RecoderVerticalImg;
+@property(nonatomic,strong) UIImageView  * DistributeVerticalImg;
+@property(nonatomic,strong) UIImageView  * HistogramImage;
+@property(nonatomic,strong) UILabel * nameLab;
+@property(nonatomic,strong) NSTimer * timer ;
 @end
