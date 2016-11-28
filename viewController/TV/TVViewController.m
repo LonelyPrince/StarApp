@@ -114,7 +114,7 @@ UITableViewDelegate,UITableViewDataSource>
                                                         SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)];
     
 
-    activeView.backgroundColor = [UIColor redColor];
+//    activeView.backgroundColor = [UIColor redColor];
     [self.view addSubview:activeView];
      MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
     

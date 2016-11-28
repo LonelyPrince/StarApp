@@ -426,8 +426,10 @@
     
     NSLog(@"datalen: %@",dataLen);
     int value;
+    value = 0;
+    NSLog(@"可能报错3");
     [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
-   
+   NSLog(@"可能报错4");
 //    [socketUtils uint16FromBytes:]
     //tuner的有效数据区
     NSData * effectiveData = [[NSData alloc]init];
