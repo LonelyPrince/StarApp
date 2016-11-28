@@ -401,8 +401,10 @@
     dataLen = [tunerAllData subdataWithRange:NSMakeRange(27, 1)];
     
     int value;
+    value = 0;
+    NSLog(@"可能报错1");
     [tunerAllData getBytes: &value length: sizeof(value)];   //获取总长度
-
+    NSLog(@"可能报错2");
    
     for (int i = 0; i<11; i++) {
         if (value == 77+i*15) {

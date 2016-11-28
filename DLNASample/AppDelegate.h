@@ -31,4 +31,8 @@
 
 + (AppDelegate *)shareAppDelegate;
 
+//设置nstimer
+@property (nonatomic, retain) NSTimer * timerCheckIP;
+@property (nonatomic, retain) NSString * ipString;
+
 @end

@@ -328,7 +328,17 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_getResource.module_name= @"MDMM";
     cs_getResource.Ret=0;
-    cs_getResource.client_ip= [self getIPArr];
+    
+    //do - while 循环
+    
+//    cs_getResource.client_ip= [self getIPArr];
+   
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_getResource.client_ip= [self getIPArr];
+    } while (ISNULL(cs_getResource.client_ip));
+    
+    
     
     cs_getResource.client_port = (uint32_t)[_socket localPort] ;
     
@@ -679,5 +689,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     freeifaddrs(interfaces);
     return address;
 }
+
+
 @end
 

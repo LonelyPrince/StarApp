@@ -51,6 +51,9 @@
 @property (strong,nonatomic)THProgressView *topProgressView;
 
 
+@property (strong,nonatomic)UIView * activeView;
+@property (strong,nonatomic)NSString * IPString;
+
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
 
 @end

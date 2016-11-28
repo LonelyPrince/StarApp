@@ -56,6 +56,9 @@
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
+      [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
+    self.ipString =  [GGUtil getIPAddress];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -204,6 +207,25 @@ void UncaughtExceptionHandler(NSException *exception) {
 -(void) judgeDmsDevice  //每五秒刷新一次数据
 {
 
+    
+}
+
+-(void)checkIPTimer
+{
+    NSString * IPstrNow = [GGUtil getIPAddress];
+    if ([IPstrNow isEqualToString:self.ipString]) {
+        
+    }else
+    {
+    
+        NSLog(@"IP 网络改变");
+        
+        self.ipString = IPstrNow;
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }
     
 }
 @end

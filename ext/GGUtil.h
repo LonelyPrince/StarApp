@@ -94,4 +94,6 @@
 //Data
 +(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData ;
 + (NSString *)GetNowTimeString;
+
++ (NSString *)getIPAddress;
 @end

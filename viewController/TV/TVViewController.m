@@ -92,14 +92,43 @@ UITableViewDelegate,UITableViewDataSource>
 @synthesize  serviceModel;
 @synthesize socketView;
 @synthesize monitorView;
+
+
+@synthesize activeView;
+@synthesize IPString;
+
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    IPString = @"";
+    
     self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
     firstShow =NO;
+   
+    
+    activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                        SCREEN_WIDTH,
+                                                        SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)];
+    
+
+    activeView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:activeView];
+     MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
+    
+    
+    //如果设置此属性则当前的view置于后台
+    
+    [HUD showAnimated:YES];
+    
+    
+    //设置对话框文字
+    
+    HUD.labelText = @"loading";
+    [self.activeView addSubview:HUD];
+    
 //    [self loadNav];
 //    [self lineView];  //一条0.5pt的线
 //    //new
@@ -185,9 +214,9 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void)getSearchData
 {
-    searchViewCon = [[SearchViewController alloc]init];
-    searchViewCon.tableView = [[UITableView alloc]init];
-    searchViewCon.dataList = [[NSMutableArray alloc]init];
+//    searchViewCon = [[SearchViewController alloc]init];
+//    searchViewCon.tableView = [[UITableView alloc]init];
+//    searchViewCon.dataList = [[NSMutableArray alloc]init];
     searchViewCon.dataList =  [searchViewCon getServiceArray ];
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
@@ -208,13 +237,18 @@ UITableViewDelegate,UITableViewDataSource>
     monitorView = [[MonitorViewController alloc]init];
     self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
+    self.topProgressView = [[THProgressView alloc] init];
+    //
+    searchViewCon = [[SearchViewController alloc]init];
+    searchViewCon.tableView = [[UITableView alloc]init];
+    searchViewCon.dataList = [[NSMutableArray alloc]init];
 }
 -(void)initProgressLine
 {
-     self.topProgressView = [[THProgressView alloc] initWithFrame:CGRectMake(0  ,
+     self.topProgressView.frame = CGRectMake(0  ,
                                                                                        VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
                                                                                        SCREEN_WIDTH,
-                                                                                       progressViewSize.height)];
+                                                                                       progressViewSize.height);
     self.topProgressView.borderTintColor = [UIColor whiteColor];
     self.topProgressView.progressTintColor = ProgressLineColor;
     [self.view addSubview:self.topProgressView];
@@ -279,6 +313,9 @@ UITableViewDelegate,UITableViewDataSource>
     
     WEAKGET
     [request setCompletionBlock:^{
+        
+       
+        
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
         //将数据本地化
@@ -287,11 +324,69 @@ UITableViewDelegate,UITableViewDataSource>
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         if (!isValidArray(data1) || data1.count == 0){
+            [self getServiceData];
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
         
         //        NSLog(@"--------%@",self.serviceData);
+        
+        
+
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+            [self getServiceData];
+        }
+        
+        [self.activeView removeFromSuperview];
+        self.activeView = nil;
+        
+        
+        //////
+        //获取数据的链接
+        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            //        NSLog(@"response = %@",response);
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+            //设置滑动条
+            
+            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+                                                 forTitles:self.categorys];
+            
+            
+            _slideView.backgroundColor = [UIColor whiteColor];
+            _slideView.delegate        = self;
+            
+            [self.view addSubview:_slideView];
+            
+            
+            
+        }];
+        
+        
+        [self initProgressLine];
+        [self getSearchData];
+        
+        
         
         [self.table reloadData];
         
@@ -585,7 +680,14 @@ UITableViewDelegate,UITableViewDataSource>
         indexCat =[self.categoryModel.service_indexArr[i] intValue];
         //cell.tabledataDic = self.serviceData[indexCat -1];
         
-        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+        
+        //此处判断是否为空，防止出错
+        if ( ISNULL(self.serviceData)) {
+            
+        }else{
+            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+            
+        }
         
         
     }
@@ -1190,8 +1292,9 @@ UITableViewDelegate,UITableViewDataSource>
         //    [self loadUI];              //加载table 和scroll
         //    [self getTopCategory];
         [self getServiceData];    //获取表数据
-        [self initProgressLine];
-        [self getSearchData];
+//        [self initProgressLine];
+//        [self getSearchData];
+        [self setIPNoific];
         
         [self newTunerNotific]; //新建一个tuner的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
@@ -1215,46 +1318,7 @@ UITableViewDelegate,UITableViewDataSource>
         self.navigationController.navigationBar.translucent =NO;
         
         
-        //获取数据的链接
-        NSString *url = [NSString stringWithFormat:@"%@",S_category];
-        
-        
-        LBGetHttpRequest *request = CreateGetHTTP(url);
-        
-        
-        
-        [request startAsynchronous];
-        
-        WEAKGET
-        [request setCompletionBlock:^{
-            NSDictionary *response = httpRequest.responseString.JSONValue;
-            
-            
-            //        NSLog(@"response = %@",response);
-            NSArray *data = response[@"category"];
-            
-            if (!isValidArray(data) || data.count == 0){
-                return ;
-            }
-            self.categorys = (NSMutableArray *)data;
-            
-            //设置滑动条
-            
-            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                      SCREEN_WIDTH,
-                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                                                 forTitles:self.categorys];
-            
-            
-            _slideView.backgroundColor = [UIColor whiteColor];
-            _slideView.delegate        = self;
-            
-            [self.view addSubview:_slideView];
-            
-            
-            
-        }];
-        
+       
     }
     
 }
@@ -1323,5 +1387,19 @@ UITableViewDelegate,UITableViewDataSource>
 {
     //停止播放，视频分发
     [self.socketView  deliveryPlayExit];
+}
+-(void)setIPNoific
+{
+    
+    //新建一个发送IP 改变的消息的通知   //
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"IPHasChanged" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IPHasChanged) name:@"IPHasChanged" object:nil];
+
+}
+-(void)IPHasChanged
+{
+    NSLog(@"执行方法");
+    [self getServiceData];
 }
 @end
