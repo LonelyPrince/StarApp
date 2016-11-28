@@ -34,7 +34,8 @@ UITableViewDelegate,UITableViewDataSource>
     UIImageView *imageViewFour;
     
     BOOL firstShow;
-    
+    BOOL playState;
+    NSTimer * timerState;
 }
 
 
@@ -101,7 +102,7 @@ UITableViewDelegate,UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     IPString = @"";
-    
+    playState = NO;
     self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
@@ -886,7 +887,17 @@ UITableViewDelegate,UITableViewDataSource>
     self.video.startTime = self.event_startTime;
     self.video.endTime = self.event_endTime;
 //    self.video.dicSubAudio = self.TVSubAudioDic;
+    
+    [self setStateNonatic];
     [self playVideo];
+    
+    playState = NO;
+    if (! playState ) {
+        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+    }
+    
+ 
+    
     //** 计算进度条
     if(!ISNULL(self.event_startTime)&&!ISNULL(self.event_endTime))
     {
@@ -1401,5 +1412,33 @@ UITableViewDelegate,UITableViewDataSource>
 {
     NSLog(@"执行方法");
     [self getServiceData];
+}
+-(void)setStateNonatic
+{
+    //新建一个发送播放通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
+}
+-(void)playClick
+{
+    NSLog(@"playState:%d",playState);
+    NSLog(@"(self.video.playUrl:%@",self.video.playUrl);
+    if ( self.video.playUrl != NULL && ! playState) {
+        [self playVideo];
+        
+        NSLog(@"播放");
+    }
+    else
+    {
+        [timerState invalidate];
+        timerState = nil;
+        
+    }
+}
+-(void)willplay
+{
+
+    playState = YES;
 }
 @end

@@ -16,6 +16,8 @@
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
     ZXPanDirectionVertical,   // 纵向移动
+    
+   
 };
 //typedef enum{
 //    subCell = 1,
@@ -29,6 +31,7 @@ typedef NS_ENUM(NSInteger, ZXPanDirection){
 static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 @interface ZXVideoPlayerController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
+
 
 /// 播放器视图
 @property (nonatomic, strong) ZXVideoPlayerControlView *videoControl;
@@ -935,7 +938,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self stop];
     [super setContentURL:contentURL];
     [self play];
+   
+
 }
+
+
 
 - (ZXVideoPlayerControlView *)videoControl
 {
