@@ -19,6 +19,8 @@
 @property (retain, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (retain, nonatomic) NSDictionary *response;
 @property (retain, nonatomic) TVViewController *tvViewController;
+
+//@property (retain, nonatomic) UITextField *searchField;
 //{
 //    NSArray *data;
 //    NSArray *filterData;

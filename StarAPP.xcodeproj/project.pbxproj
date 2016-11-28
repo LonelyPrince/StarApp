@@ -412,6 +412,7 @@
 		70FFA4E61DE7E6BE006BFE5E /* 直方图.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFA4E31DE7E6BE006BFE5E /* 直方图.png */; };
 		70FFA4E71DE7E6BE006BFE5E /* 直方图@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFA4E41DE7E6BE006BFE5E /* 直方图@2x.png */; };
 		70FFA4E81DE7E6BE006BFE5E /* 直方图@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFA4E51DE7E6BE006BFE5E /* 直方图@3x.png */; };
+		70FFA4EA1DE836DF006BFE5E /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFA4E91DE836DF006BFE5E /* white.png */; };
 		70FFE3B71DE1CA0E00223E43 /* MonitorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFE3B51DE1CA0E00223E43 /* MonitorCell.m */; };
 		70FFE3B81DE1CA0E00223E43 /* MonitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3B61DE1CA0E00223E43 /* MonitorCell.xib */; };
 		70FFE3BF1DE2D03700223E43 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3BD1DE2D03700223E43 /* 0.png */; };
@@ -969,6 +970,7 @@
 		70FFA4E31DE7E6BE006BFE5E /* 直方图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "直方图.png"; sourceTree = "<group>"; };
 		70FFA4E41DE7E6BE006BFE5E /* 直方图@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "直方图@2x.png"; sourceTree = "<group>"; };
 		70FFA4E51DE7E6BE006BFE5E /* 直方图@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "直方图@3x.png"; sourceTree = "<group>"; };
+		70FFA4E91DE836DF006BFE5E /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		70FFE3B41DE1CA0E00223E43 /* MonitorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorCell.h; sourceTree = "<group>"; };
 		70FFE3B51DE1CA0E00223E43 /* MonitorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorCell.m; sourceTree = "<group>"; };
 		70FFE3B61DE1CA0E00223E43 /* MonitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitorCell.xib; sourceTree = "<group>"; };
@@ -1738,6 +1740,7 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				70FFA4E91DE836DF006BFE5E /* white.png */,
 				70E712571DB5EE1300BD98EE /* Group 7@1x.png */,
 				70E712581DB5EE1300BD98EE /* Group 7@2x.png */,
 				70E712591DB5EE1300BD98EE /* Group 7@3x.png */,
@@ -2321,6 +2324,7 @@
 				70FFE3EA1DE2DBA200223E43 /* M9.png in Resources */,
 				70FC30E01D75714E00BD06FE /* kr-video-player-pause@3x.png in Resources */,
 				703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */,
+				70FFA4EA1DE836DF006BFE5E /* white.png in Resources */,
 				702CE44E1DDA9881000A0513 /* 圆角矩形-10@3x.png in Resources */,
 				7024C5F41DD403A60053F313 /* luyou@2x.png in Resources */,
 				70FC30E61D75714E00BD06FE /* kr-video-player-shrinkscreen@3x.png in Resources */,
@@ -2761,7 +2765,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.furu.StarAPP2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.furu.StarAPP;
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2803,7 +2807,7 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.furu.StarAPP2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.furu.StarAPP;
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

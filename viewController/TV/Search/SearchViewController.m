@@ -28,6 +28,7 @@
 @implementation SearchViewController
 @synthesize dataList = _dataList;
 @synthesize showData = _showData;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,18 +57,61 @@
 //    self.showData = [NSMutableArray arrayWithArray:_dataList];
     
     [self.searchBar setPlaceholder:@"Search"];
+    
     // 显示Cancel按钮
     self.searchBar.showsCancelButton = true;
     // 设置代理
     self.searchBar.delegate = self;
     
+//    self.searchBar.layer.cornerRadius = 15;
+//    self.searchBar.layer.masksToBounds = YES;
+    
+//    self.searchBar.backgroundColor = [UIColor whiteColor];
+       [_searchBar setBackgroundColor:[UIColor redColor]];
+    
+    self.searchBar.backgroundImage = [UIImage imageNamed:@"white"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
+self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
+    
+    
     [self.tableView reloadData];
 
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
+    
+    searchField.backgroundColor =  RGBA(108, 108, 108, 0.2);
+    if (searchField) {
+        
+//        [searchField setBackgroundColor:RGBA(108, 108, 108, 0.2)];
+        
+        
+        searchField.layer.cornerRadius = 14.0f;
+        
+//        searchField.layer.borderColor = [UIColor colorWithRed:247/255.0 green:75/255.0 blue:31/255.0 alpha:1].CGColor;
+        
+//        searchField.layer.borderWidth = 1;
+        
+        searchField.layer.masksToBounds = YES;
+        
+        searchField.textColor = RGBA(248, 248, 248, 1);
+        
+    }
+    
+    for(UIView *view in  [[[self.searchBar subviews] objectAtIndex:0] subviews]) {
+        if([view isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
+            UIButton * cancel =(UIButton *)view;
+//            [cancel setTitle:@"取消" forState:UIControlStateNormal];
+            cancel.tintColor = [UIColor blackColor];
+            
+        }
+    }
+    
+    
+}
 //获取table
 -(NSMutableArray *) getServiceArray
 {
@@ -238,6 +282,7 @@
 {
     [self searchBar:self.searchBar textDidChange:nil];
     [_searchBar resignFirstResponder];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
