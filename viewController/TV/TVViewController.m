@@ -248,6 +248,8 @@ UITableViewDelegate,UITableViewDataSource>
     searchViewCon = [[SearchViewController alloc]init];
     searchViewCon.tableView = [[UITableView alloc]init];
     searchViewCon.dataList = [[NSMutableArray alloc]init];
+
+    _slideView = [YLSlideView alloc];
 }
 -(void)initProgressLine
 {
@@ -372,11 +374,14 @@ UITableViewDelegate,UITableViewDataSource>
             self.categorys = (NSMutableArray *)data;
             
             //设置滑动条
-            
-            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                      SCREEN_WIDTH,
-                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                                                 forTitles:self.categorys];
+
+            _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                              SCREEN_WIDTH,
+                                                              SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+//            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                      SCREEN_WIDTH,
+//                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+//                                                 forTitles:self.categorys];
             
             
             _slideView.backgroundColor = [UIColor whiteColor];
