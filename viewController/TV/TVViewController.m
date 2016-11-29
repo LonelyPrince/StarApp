@@ -132,6 +132,9 @@ UITableViewDelegate,UITableViewDataSource>
     HUD.labelText = @"loading";
     [self.activeView addSubview:HUD];
     
+    //search数据的获取，只能执行一次，所以不能放到viewwillapper中
+    [self getSearchData];
+    
     //    [self loadNav];
     //    [self lineView];  //一条0.5pt的线
     //    //new
@@ -220,10 +223,11 @@ UITableViewDelegate,UITableViewDataSource>
     //    searchViewCon = [[SearchViewController alloc]init];
     //    searchViewCon.tableView = [[UITableView alloc]init];
     //    searchViewCon.dataList = [[NSMutableArray alloc]init];
-    searchViewCon.dataList =  [searchViewCon getServiceArray ];
+    searchViewCon.dataList =  [searchViewCon getServiceArray ];  //
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
     
+     NSLog(@"searchViewCon.dataList: %@",searchViewCon.dataList);
 }
 //1.line
 -(UIView *) lineView
@@ -406,7 +410,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         
         [self initProgressLine];
-        [self getSearchData];
+//        [self getSearchData];
         
         
         
@@ -945,8 +949,21 @@ UITableViewDelegate,UITableViewDataSource>
     if(!ISNULL(self.event_startTime)&&!ISNULL(self.event_endTime))
     {
         NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+          
+        }else
+        {
+            NSLog(@"此处可能报错，因为StarTime不为空 ");
         [dict setObject:self.event_startTime forKey:@"StarTime"];
-        [dict setObject:self.event_endTime forKey:@"EndTime"];
+        }
+        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+            
+        }else
+        {
+            NSLog(@"此处可能报错，因为StarTime不为空 ");
+            [dict setObject:self.event_endTime forKey:@"EndTime"];
+        }
+        
         
         //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
@@ -1004,14 +1021,15 @@ UITableViewDelegate,UITableViewDataSource>
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
+    NSLog(@"self.socket:%@",self.socketView);
     
     //先传输数据到socket，然后再播放视频
     //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
-    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
     
     NSLog(@"dic: %@",dic);
     
-    NSLog(@"row: %d",row);
+    NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
     [self addHistory:row diction:dic];
     
@@ -1094,6 +1112,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     //    self.socketView  = [[SocketView  alloc]init];
     //    [self.socketView viewDidLoad];
+    
+    NSLog(@"self.socket:%@",self.socketView);
     
     self.videoController.socketView1 = self.socketView;
     [self.socketView  serviceTouch ];
@@ -1350,7 +1370,7 @@ UITableViewDelegate,UITableViewDataSource>
         //        [self initProgressLine];
         //        [self getSearchData];
         [self setIPNoific];
-        
+        [self setVideoTouchNoific];
         [self newTunerNotific]; //新建一个tuner的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         //修改tabbar选中的图片颜色和字体颜色
@@ -1453,6 +1473,15 @@ UITableViewDelegate,UITableViewDataSource>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IPHasChanged) name:@"IPHasChanged" object:nil];
     
 }
+-(void)setVideoTouchNoific
+{
+    
+    //新建一个发送IP 改变的消息的通知   //
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"VideoTouchNoific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(VideoTouchNoificClick :) name:@"VideoTouchNoific" object:nil];
+    
+}
 -(void)IPHasChanged
 {
     NSLog(@"执行方法");
@@ -1485,5 +1514,112 @@ UITableViewDelegate,UITableViewDataSource>
 {
     
     playState = YES;
+}
+/////////////其他页面的播放通知事件
+//row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
+-(void)VideoTouchNoificClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
+{
+    
+    NSInteger row = [text.userInfo[@"textOne"]integerValue];
+    NSDictionary * dic = text.userInfo[@"textTwo"];
+    
+    NSLog(@"self.socket:%@",self.socketView);
+    
+    //先传输数据到socket，然后再播放视频
+    //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    NSLog(@"dic: %@",dic);
+    
+    NSLog(@"row: %ld",(long)row);
+    /*此处添加一个加入历史版本的函数*/
+    [self addHistory:row diction:dic];
+    
+    //__
+    
+    NSArray * audio_infoArr = [[NSArray alloc]init];
+    NSArray * subt_infoArr = [[NSArray alloc]init];
+    
+    NSArray * epg_infoArr = [[NSArray alloc]init];
+    //****
+    
+    
+    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+    
+    //********
+    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+    if(self.service_videoindex.length == 1)
+    {
+        self.service_videoindex = [ NSString stringWithFormat:@"00%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 2)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 3)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length > 3)
+    {
+        self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
+    }
+    
+    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    self.TVSubAudioDic = [[NSDictionary alloc]init];
+    self.TVSubAudioDic = epgDicToSocket;
+    self.TVChannlDic = [[NSDictionary alloc]init];
+    self.TVChannlDic = self.dicTemp;
+    NSLog(@"eventname :%@",self.event_startTime);
+    //*********
+    
+    
+    
+    
+    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+        socketView.socket_ServiceModel.audio_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+        socketView.socket_ServiceModel.subt_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+        socketView.socket_ServiceModel.service_network_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+        socketView.socket_ServiceModel.service_ts_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+        socketView.socket_ServiceModel.service_service_id = @"0";
+    }
+    
+    NSLog(@"------%@",socketView.socket_ServiceModel);
+    
+    
+    
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+    
+    
+    //    self.socketView  = [[SocketView  alloc]init];
+    //    [self.socketView viewDidLoad];
+    
+    NSLog(@"self.socket:%@",self.socketView);
+    
+    self.videoController.socketView1 = self.socketView;
+    [self.socketView  serviceTouch ];
+    
+    
 }
 @end

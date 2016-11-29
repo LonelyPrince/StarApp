@@ -39,6 +39,7 @@
     
     [self.tableView reloadData];
     self.showData = [USER_DEFAULT objectForKey:@"showData"];
+    NSLog(@"self.showData: %@",self.showData);
 //    self.showData  = [NSArray arrayWithObjects:@"Java讲义",
 //                      @"轻量级Java EE企业应用实战",
 //                      @"Android讲义",
@@ -53,7 +54,7 @@
 //                      @"Objective-C基础" ,
 //                      @"Ruby入门与精通",
 //                      @"iOS开发教程" ,  nil];
-    NSLog(@"%d",[_dataList count]);
+    NSLog(@"%lu",(unsigned long)[_dataList count]);
 //    self.showData = [NSMutableArray arrayWithArray:_dataList];
     
     [self.searchBar setPlaceholder:@"Search"];
@@ -111,6 +112,12 @@ self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
     }
     
     
+    //如果searchDataList完全为空，这里做一次添加
+    if (self.dataList == NULL || self.dataList == nil || self.dataList.count == 0) {
+        [self getServiceArray];
+        NSLog(@"self.dataList原先为空，在这里重新获取一次。但是如果没有控制好获取次数，可能导致出错");
+    }
+    
 }
 //获取table
 -(NSMutableArray *) getServiceArray
@@ -158,7 +165,7 @@ self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
             }
             
         
-            NSString * LogicName = [NSString stringWithFormat:@"%@ %@",serviceLogic,serviceName];
+            NSString * LogicName = [NSString stringWithFormat:@"%@  %@",serviceLogic,serviceName];
             
             [self.dataList addObject:LogicName];
         }
@@ -246,9 +253,20 @@ self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
         }
     }
     
-    self.tvViewController = [[TVViewController alloc]init];
-    [self.tvViewController touchSelectChannel:index1 diction:dicCategory];
+//    self.tvViewController = [[TVViewController alloc]init];
+//    [self.tvViewController touchSelectChannel:index1 diction:dicCategory];
     NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
+    
+    //将整形转换为number
+    NSNumber * numIndex = [NSNumber numberWithInt:index1];
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicCategory,@"textTwo", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 
