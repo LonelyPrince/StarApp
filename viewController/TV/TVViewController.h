@@ -53,7 +53,7 @@
 
 @property (strong,nonatomic)UIView * activeView;
 @property (strong,nonatomic)NSString * IPString;
-
+@property (strong,nonatomic) UIView * topView;
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
 
 @end

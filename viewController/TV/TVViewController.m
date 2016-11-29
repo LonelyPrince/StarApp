@@ -97,12 +97,14 @@ UITableViewDelegate,UITableViewDataSource>
 
 @synthesize activeView;
 @synthesize IPString;
+@synthesize topView;
 
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
     IPString = @"";
     playState = NO;
+    [self initData];    //table表
     self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
@@ -239,6 +241,9 @@ UITableViewDelegate,UITableViewDataSource>
     self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
     self.topProgressView = [[THProgressView alloc] init];
+    
+//    topView = [[UIView alloc]init];
+    self.searchBtn = [[UIButton alloc]init];
     //
     searchViewCon = [[SearchViewController alloc]init];
     searchViewCon.tableView = [[UITableView alloc]init];
@@ -398,20 +403,20 @@ UITableViewDelegate,UITableViewDataSource>
 {
     //顶部搜索条
     self.navigationController.navigationBarHidden = YES;
-    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, -30, SCREEN_WIDTH, topViewHeight)];
-    topView.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:topView];
+//     topView.frame = CGRectMake(0, -30, SCREEN_WIDTH, topViewHeight);
+//    topView.backgroundColor = [UIColor redColor];
+//        [self.view addSubview:topView];
     
 //    self.navigationController.navigationBar.barTintColor = UIStatusBarStyleDefault;
     
     //搜索按钮
-    self.searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight)];
+    self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
 //    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
     [self.searchBtn setBackgroundColor:[UIColor whiteColor]];
 //    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
     [self.searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
     [self.view addSubview:self.searchBtn];
-    [topView bringSubviewToFront:self.searchBtn];
+//    [topView bringSubviewToFront:self.searchBtn];
     [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     
@@ -456,6 +461,15 @@ UITableViewDelegate,UITableViewDataSource>
         
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             NSLog(@"切换为竖屏模式");
+//            //
+//            firstShow = NO;
+//            [self prefersStatusBarHidden];
+//                [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+//
+              self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
+            
+            
+            //
              self.topProgressView.hidden = NO;
             float noewWidth = [UIScreen mainScreen].bounds.size.width;
            
@@ -482,8 +496,19 @@ UITableViewDelegate,UITableViewDataSource>
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-            [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+//            //
+//            firstShow = YES;
+//            [self prefersStatusBarHidden];
+//            prefersStatusBarHidden
+          
+//
+            
+            self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY+1000, searchBtnWidth, searchBtnHeight);
+            
+            //
+            
+//            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//            [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
             self.navigationController.navigationBar.translucent = NO;
             self.extendedLayoutIncludesOpaqueBars
             = NO;
@@ -556,7 +581,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         self.edgesForExtendedLayout =UIRectEdgeNone;
 
-        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+//        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
     }
     
     
@@ -1296,10 +1321,11 @@ UITableViewDelegate,UITableViewDataSource>
         
         
         //        [self viewDidLoad];
+      
+        //new
+//        [self initData];    //table表
         [self loadNav];
         [self lineView];  //一条0.5pt的线
-        //new
-        [self initData];    //table表
         //    [self loadUI];              //加载table 和scroll
         //    [self getTopCategory];
         [self getServiceData];    //获取表数据
@@ -1363,10 +1389,10 @@ UITableViewDelegate,UITableViewDataSource>
 //状态栏隐藏于显示
 - (BOOL)prefersStatusBarHidden {
     if (firstShow ==YES) {
-        return NO;
+        return NO;  //隐藏
     }else
     {
-    return YES;
+    return YES;    //显示
     }
 }
 
