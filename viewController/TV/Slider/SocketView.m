@@ -99,7 +99,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_heatbeat.module_name= @"BEAT";
     cs_heatbeat.Ret=0;
-    cs_heatbeat.client_ip= [self getIPArr];
+//    cs_heatbeat.client_ip= [self getIPArr];
+    
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_heatbeat.client_ip= [self getIPArr];
+    } while (ISNULL(cs_heatbeat.client_ip));
+    
     cs_heatbeat. data_len= 0;
     
     //2.计算除了CRC和tag之外的值
@@ -132,7 +138,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
-    cs_service.client_ip= [self getIPArr];
+//    cs_service.client_ip= [self getIPArr];
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_service.client_ip= [self getIPArr];
+    } while (ISNULL(cs_service.client_ip));
     
     
     cs_service.client_port = (uint32_t)[_socket localPort] ;
@@ -220,7 +230,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_playExit.module_name= @"MDMM";
     cs_playExit.Ret=0;
-    cs_playExit.client_ip= [self getIPArr];
+//    cs_playExit.client_ip= [self getIPArr];
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_playExit.client_ip= [self getIPArr];
+    } while (ISNULL(cs_playExit.client_ip));
     
     cs_playExit.client_port = (uint32_t)[_socket localPort] ;
     cs_playExit.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
@@ -270,7 +284,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
    
     cs_passwordCheck.module_name= @"MDMM";
     cs_passwordCheck.Ret=0;
-    cs_passwordCheck.client_ip= [self getIPArr];
+//    cs_passwordCheck.client_ip= [self getIPArr];
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_passwordCheck.client_ip= [self getIPArr];
+    } while (ISNULL(cs_passwordCheck.client_ip));
     
     cs_passwordCheck.client_port = (uint32_t)[_socket localPort] ;
     
