@@ -39,11 +39,11 @@ static const CGFloat kBorderWidth = 0.0f;
 - (void)drawInContext:(CGContextRef)context
 {
     CGRect rect = CGRectInset(self.bounds, kBorderWidth, kBorderWidth);
-//    CGFloat radius = CGRectGetHeight(rect) / 2.0f;
-//    CGContextSetLineWidth(context, kBorderWidth);
-//    CGContextSetStrokeColorWithColor(context, self.borderTintColor.CGColor);
-//    [self drawRectangleInContext:context inRect:rect withRadius:radius];
-//    CGContextStrokePath(context);
+    //    CGFloat radius = CGRectGetHeight(rect) / 2.0f;
+    //    CGContextSetLineWidth(context, kBorderWidth);
+    //    CGContextSetStrokeColorWithColor(context, self.borderTintColor.CGColor);
+    //    [self drawRectangleInContext:context inRect:rect withRadius:radius];
+    //    CGContextStrokePath(context);
     
     
     CGContextSetFillColorWithColor(context, self.progressTintColor.CGColor);
@@ -126,15 +126,15 @@ static const CGFloat kBorderWidth = 0.0f;
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated
 {
-
-
+    
+    
     [self.progressLayer removeAnimationForKey:@"progress"];
     NSString * startTime;
     if (animated) {
-        if (ISNULL([USER_DEFAULT objectForKey:@"StarTime"])) {
+        if (ISNULL([USER_DEFAULT objectForKey:@"StarTime"]) || [USER_DEFAULT objectForKey:@"StarTime"] == nil ||  [USER_DEFAULT objectForKey:@"StarTime"] == NULL) {
         }
         else{
-           startTime = [USER_DEFAULT objectForKey:@"StarTime"];
+            startTime = [USER_DEFAULT objectForKey:@"StarTime"];
         }
         
         NSLog(@"startime :%@",startTime);
@@ -143,7 +143,7 @@ static const CGFloat kBorderWidth = 0.0f;
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"progress"];
         animation.duration = 1.0f; //fabsf(self.progress - pinnedProgress) + 0.1f;
         if (progress == 0) {
-            NSLog(@"发生错误，时间间隔不为0");
+            NSLog(@"发生错误，时间间隔不能为0");
         }
         else{
             NSLog(@"当前时间 ：%d",[nowTime intValue]);
@@ -156,7 +156,7 @@ static const CGFloat kBorderWidth = 0.0f;
             
             animation.toValue = [NSNumber numberWithFloat:([nowTime intValue]-[startTime intValue])/progress];
         }
-
+        
         
         
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -164,15 +164,15 @@ static const CGFloat kBorderWidth = 0.0f;
         animation.autoreverses = YES;
         NSLog(@"self.progress :%f",progress);
         
-       
+        
         [self.progressLayer addAnimation:animation forKey:@"progress"];
     }
     else {
         [self.progressLayer setNeedsDisplay];
     }
-
-
-
+    
+    
+    
 }
 
 - (UIColor *)progressTintColor
@@ -183,7 +183,7 @@ static const CGFloat kBorderWidth = 0.0f;
 - (void)setProgressTintColor:(UIColor *)progressTintColor
 {
     self.progressLayer.progressTintColor = progressTintColor;
-   [self.progressLayer setNeedsDisplay];
+    [self.progressLayer setNeedsDisplay];
 }
 
 - (UIColor *)borderTintColor
