@@ -468,6 +468,14 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
             
             NSLog(@"数组类型");
             
+            
+            //防止IPArr为空造成崩溃
+            while (propertyValue == NULL || propertyValue == nil ) {
+                NSArray * arr =  [[NSArray alloc]init];
+                arr = [self getIPArr];
+                propertyValue = arr;
+            }
+            
             for (int i = 0; i<4; i++) {
                 NSArray * arrtemp ;
                 arrtemp= [[NSArray alloc]init];
