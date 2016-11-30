@@ -20,6 +20,8 @@
 @property (retain, nonatomic) NSDictionary *response;
 @property (retain, nonatomic) TVViewController *tvViewController;
 
+@property(strong,nonatomic) UITableView * historySearchTableview;
+@property(strong,nonatomic) UIView * historySearchView;
 //@property (retain, nonatomic) UITextField *searchField;
 //{
 //    NSArray *data;

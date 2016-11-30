@@ -48,7 +48,7 @@
 //
     self.tableView.allowsSelectionDuringEditing = YES;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
- self.tableView.allowsSelection = YES;
+    self.tableView.allowsSelection = YES;
     self.tableView.allowsMultipleSelection = NO;
     
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
