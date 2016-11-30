@@ -215,28 +215,32 @@ self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSInteger indexForTouch;//这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
     NSMutableDictionary * dicCategory = [[NSMutableDictionary alloc]init];
     NSArray *data2  = [[NSArray alloc]init];
     NSDictionary * serviceTouch = [[NSDictionary alloc]init];
     //    NSLog(@"---->%@",[[self.LetterResultArr objectAtIndex: indexPath.section]objectAtIndex:indexPath.row]);
-    int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];
-    
-    NSLog(@"%d",index1);
-    NSArray * category1 = [self.response objectForKey:@"category"];
-    for (int i = 0; i<category1.count; i++) {
-        NSArray *  service_index = [category1[i] objectForKey:@"service_index"];
-        for (int y = 0; y<service_index.count; y++) {
-            if ([service_index[y] intValue] == index1) {  //// 判断值是否等于行数
+    int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
 
-            
+    NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
+
+    for (int i = 0; i<category1.count; i++) {   //此时category下有6个分组，第一个分组是3个数据
+        NSArray *  service_index = [category1[i] objectForKey:@"service_index"];//service_index是category分类下每个分组中service_index的数据
+        for (int y = 0; y<service_index.count; y++) {
+            NSLog(@"service_index[y] intValue ：%d",[service_index[y] intValue]);
+            if ([service_index[y] intValue] - 1 == index1) {  //// 判断值是否等于行数，如果等于，那么i就是category中的序号，我们取第i个category的service_index数据。
+                
+                indexForTouch = y;    //这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
 //                //获取不同类别下的节目，然后是节目下不同的cell值                10
                 for (int x = 0 ; x<service_index.count; x++) {
 //
+                    //indexCat 代表总的service下第几个
                     int indexCat ;
-                    //   NSString * str;
-                    indexCat =[service_index[x] intValue];
-                     data2 = self.response[@"service"];
+                    
+                    indexCat =[service_index[x] intValue] ;
+                     data2 = [self.response objectForKey: @"service" ];
+                    NSLog(@"self.response: %@",self.response);
+                    NSLog(@"data2--: %@",data2);
                       serviceTouch  = data2[indexCat-1];
 //                    //cell.tabledataDic = self.serviceData[indexCat -1];
 //
@@ -258,8 +262,9 @@ self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
     NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
     
     //将整形转换为number
-    NSNumber * numIndex = [NSNumber numberWithInt:index1];
+    NSNumber * numIndex = [NSNumber numberWithInt:indexForTouch];
     
+    NSLog(@"textTwo: %@",dicCategory);
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicCategory,@"textTwo", nil];
     //创建通知

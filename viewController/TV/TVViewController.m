@@ -1521,7 +1521,8 @@ UITableViewDelegate,UITableViewDataSource>
 {
     
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
-    NSDictionary * dic = text.userInfo[@"textTwo"];
+    NSDictionary * dic = [[NSDictionary alloc]init];
+    dic = text.userInfo[@"textTwo"];
     
     NSLog(@"self.socket:%@",self.socketView);
     
