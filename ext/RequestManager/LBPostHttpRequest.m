@@ -77,7 +77,7 @@
         if (isNeedShowWaring)
         {
 //            AddHudFailureNotice(@"网络不给力，请稍后重试");
-            [MBProgressHUD showMessag:@"请求失败" toView:nil];
+//            [MBProgressHUD showMessag:@"请求失败" toView:nil];
         }
     }
     else
@@ -87,7 +87,7 @@
             if (isNeedShowWaring)
             {
 //                AddHudFailureNotice(@"网络有问题，请检查网络");
-                [MBProgressHUD showMessag:@"请求失败" toView:nil];
+//                [MBProgressHUD showMessag:@"请求失败" toView:nil];
 
             }
         }
@@ -96,7 +96,7 @@
             if (isNeedShowWaring)
             {
 //                AddHudFailureNotice(@"网络不给力，请稍后重试");
-                [MBProgressHUD showMessag:@"请求失败" toView:nil];
+//                [MBProgressHUD showMessag:@"请求失败" toView:nil];
             }
         }
     }

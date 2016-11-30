@@ -665,6 +665,8 @@ UITableViewDelegate,UITableViewDataSource>
     //     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
     
     [self.navigationController pushViewController:searchViewCon animated:YES];
+    searchViewCon.tabBarController.tabBar.hidden = YES;
+    NSLog(@"searchViewCon: %@,",searchViewCon);
     //
     //    //停止播放
     //    [self.socketView  deliveryPlayExit];

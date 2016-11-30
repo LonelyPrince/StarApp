@@ -33,7 +33,7 @@
 {
     [super viewDidLoad];
 //    [self getServiceArray];
-   
+    [self loadNav];
     
 //    self.dataList = [[NSMutableArray alloc]init];
     
@@ -73,18 +73,25 @@
     self.searchBar.backgroundImage = [UIImage imageNamed:@"white"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
-    
+    self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     
     [self.tableView reloadData];
 
 }
+-(void)loadNav
+{
+   
+    self.tabBarController.tabBar.hidden = YES;
 
+}
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self loadNav];
     UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
-    
-    searchField.backgroundColor =  RGBA(108, 108, 108, 0.2);
+    [searchField becomeFirstResponder];
+    searchField.backgroundColor =  RGBA(108, 108, 108, 0.3);
     if (searchField) {
         
 //        [searchField setBackgroundColor:RGBA(108, 108, 108, 0.2)];
@@ -204,11 +211,17 @@ self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
         cell = [[UITableViewCell alloc]
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:TableSampleIdentifier];
+        
+        
+        cell.backgroundColor = RGBA(108, 108, 108, 0.01);
+    
     }
     if (_showData != nil && _showData.count >0) {
         NSUInteger row = [indexPath row];
         cell.textLabel.text = [_showData objectAtIndex:row];
     }
+    
+    
     NSLog(@"2222222222222222222");
     
     return cell;
