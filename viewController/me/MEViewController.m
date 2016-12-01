@@ -822,9 +822,10 @@
 //1
 -(void)addFirstBtn
 {
+    
       historyBtnPiece1 = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtnPiece1 setFrame:CGRectMake(0, 45, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece1 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece1 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
     [historyBtnPiece1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
     historyBtnPiece1.tag = 1;
 //    [scroll addSubview:historyBtnPiece1];
@@ -842,7 +843,7 @@
 {
       historyBtnPiece2 = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtnPiece2 setFrame:CGRectMake(historyBtn1_width + 0.5, 45, historyBtn2_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece2 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece2 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
     [historyBtnPiece2 setBackgroundImage:[UIImage imageNamed:@"矩形2"] forState:UIControlStateNormal];
     historyBtnPiece2.tag = 2;
 //    [scroll addSubview:historyBtnPiece2];
@@ -861,7 +862,7 @@
 {
       historyBtnPiece3 = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtnPiece3 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece3 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece3 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
     [historyBtnPiece3 setBackgroundImage:[UIImage imageNamed:@"矩形3"] forState:UIControlStateNormal];
     historyBtnPiece3.tag = 3;
 //    [scroll addSubview:historyBtnPiece3];
@@ -881,7 +882,7 @@
 {
       historyBtnPiece4 = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtnPiece4 setFrame:CGRectMake(0, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece4 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece4 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
     [historyBtnPiece4 setBackgroundImage:[UIImage imageNamed:@"矩形4"] forState:UIControlStateNormal];
     historyBtnPiece4.tag = 4;
 //    [scroll addSubview:historyBtnPiece4];
@@ -900,7 +901,7 @@
 {
       historyBtnPiece5 = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtnPiece5 setFrame:CGRectMake(historyBtn1_width + 0.5, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece5 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
     [historyBtnPiece5 setBackgroundImage:[UIImage imageNamed:@"矩形5"] forState:UIControlStateNormal];
     historyBtnPiece5.tag = 5;
 //    [scroll addSubview:historyBtnPiece5];
@@ -919,7 +920,7 @@
 {
       historyBtnPiece6 = [UIButton buttonWithType:UIButtonTypeCustom];
     [historyBtnPiece6 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece6 addTarget:self action:@selector(historyBtnPieceClick) forControlEvents:UIControlEventTouchUpInside];
+    [historyBtnPiece6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
     [historyBtnPiece6 setBackgroundImage:[UIImage imageNamed:@"矩形6"] forState:UIControlStateNormal];
     historyBtnPiece6.tag = 6;
 //    [scroll addSubview:historyBtnPiece6];
@@ -1003,6 +1004,38 @@
     self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
     
     self.historyView.navigationItem.leftBarButtonItem = myButton;
+}
+
+//点击观看历史直接播放
+-(void)touchToSee :(id)sender   //(NSArray* )touchArr
+{
+    NSInteger tagIndex = [sender tag];
+    
+    NSArray * touchArr = historyArr[historyArr.count - tagIndex];
+    NSLog(@"touchArr：%@",touchArr);
+//    [self touchToSee :touchArr];
+    
+    
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
+    
+    
+    //    self.tvViewController = [[TVViewController alloc]init];
+    //    [self.tvViewController touchSelectChannel:row diction:dic];
+    ////    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
+    //将整形转换为number
+    NSNumber * numIndex = [NSNumber numberWithInt:row];
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //    [self.navigationController popViewControllerAnimated:YES];
+    //    [self.navigationController popToViewController:_tvViewController animated:YES];
+    //    [self.navigationController pushViewController:_tvViewController animated:YES];
+    [self.tabBarController setSelectedIndex:1];
 }
 
 @end
