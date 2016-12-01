@@ -1293,6 +1293,12 @@ UITableViewDelegate,UITableViewDataSource>
         
         if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
             addNewData = NO;
+            
+            NSArray * equalArr = mutaArray[i];
+            
+            [mutaArray removeObjectAtIndex:i];
+            [mutaArray  addObject:equalArr];
+            
             break;
         }
         

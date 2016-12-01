@@ -42,7 +42,7 @@
     [self initData];
 //    self.dataList = [[NSMutableArray alloc]init];
     
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     self.showData = [USER_DEFAULT objectForKey:@"showData"];
     NSLog(@"self.showData: %@",self.showData);
 
@@ -87,6 +87,7 @@
     [self loadNav];
     UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
     [searchField becomeFirstResponder];
+    searchField.text = nil;
     searchField.backgroundColor =  RGBA(108, 108, 108, 0.3);
     if (searchField) {
         
@@ -122,6 +123,13 @@
     }
     
     [self historySearchShow];
+    
+    NSLog(@"historySearchArr: %@",historySearchArr);
+//    [historySearchTableview reloadData];
+//    [self.tableView reloadData];
+    
+    [historySearchView removeFromSuperview];
+    [self.view addSubview:historySearchView];
     
 }
 //获取table
@@ -239,14 +247,18 @@
                 //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                 [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
                 
-        
+        }
             NSLog(@"indexPath.row： %ld",(long)indexPath.row);
             //因为这里展示的数据是倒叙排列的，所以在操作的时候都是 总数 - indexpath.row-1
             //&&&&
 //            if (todayNum >0) {
 //                if (indexPath.section == 0) {
                     NSDictionary * dataDic = [[NSDictionary alloc]init];
-                dataDic = historySearchArr[indexPath.row][0];
+                
+                NSInteger XXX ;
+                XXX =historySearchArr.count -  indexPath.row -1;
+                NSLog(@"XXX:%d",XXX);
+                dataDic = historySearchArr[XXX][0];
                     NSString * historyTextString =   [dataDic objectForKey:@"service_name"];
                     NSString * historyLogicString = [dataDic objectForKey:@"service_logic_number"];
                     //historySearchArr.count  -
@@ -284,7 +296,7 @@
 //                    }
 //                    historycell.dataDic =
                     return historycell;
-                }
+                
             
 //            }
 //            else if (todayNum <= 0) {
@@ -298,7 +310,7 @@
         
         
         
-        
+//            [historySearchTableview reloadData];
         return historycell;
         
     }
@@ -323,8 +335,8 @@
         }
         
         
-        NSLog(@"2222222222222222222");
-        
+//        NSLog(@"2222222222222222222");
+//        [self.tableView reloadData];
         return cell;
         
     }
@@ -381,7 +393,16 @@
     }
     else if([tableView isEqual:self.historySearchTableview])
     {
-        NSArray * touchArr = historySearchArr[historySearchArr.count - indexPath.row - 1];
+        
+//        int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];
+        
+//        NSInteger indexTeg = index1;
+//        NSInteger indexTeg2 =  historySearchArr.count - index1 - 1;
+                NSInteger indexTeg2 =  historySearchArr.count - indexPath.row - 1;
+        
+//        NSLog(@"indexTeg: %ld",(long)indexTeg);
+        NSLog(@"indexTeg2: %ld",(long)indexTeg2);
+        NSArray * touchArr = historySearchArr[indexTeg2];
         
         NSLog(@"touchArr：%@",touchArr);
 //        [self touchToSee :touchArr];
@@ -395,7 +416,7 @@
     
 //    self.tvViewController = [[TVViewController alloc]init];
 //    [self.tvViewController touchSelectChannel:index1 diction:dicCategory];
-    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
+//    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
     
     //将整形转换为number
     NSNumber * numIndex = [NSNumber numberWithInt:indexForTouch];
@@ -404,6 +425,7 @@
     
     [self addHistorySearch:indexForTouch diction:dicCategory]; //将点击的节目加入搜索历史
     
+//    [historySearchTableview reloadData];
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicCategory,@"textTwo", nil];
     //创建通知
@@ -416,21 +438,29 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
 {
-    NSLog(@"%i",[_dataList count]);
+    NSLog(@"%lu",(unsigned long)[_dataList count]);
     if (searchText!=nil && searchText.length>0) {
         self.showData= [NSMutableArray array];
         for (NSString *tempStr in _dataList) {
             if ([tempStr rangeOfString:searchText options:NSCaseInsensitiveSearch].length >0 ) {
                 [_showData addObject:tempStr];
-                NSLog(@"%d",[_showData count]);
+                NSLog(@"%lu",(unsigned long)[_showData count]);
             }
         }
         [_tableView reloadData];
+        historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
+        [historySearchView removeFromSuperview];
+        self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        [historySearchTableview reloadData];
     }
     else
     {
         self.showData = [NSMutableArray arrayWithArray:_dataList];
+        historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        [self.view addSubview:historySearchView ];
+        self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
         [_tableView reloadData];
+        [historySearchTableview reloadData];
     }
     
 }
@@ -459,16 +489,17 @@
 //搜索历史的展示
 -(void)historySearchShow
 {
-
+    historySearchArr  =   [[USER_DEFAULT objectForKey:@"historySearchData"] mutableCopy];
+    
     if (ISEMPTY(historySearchArr)) {
         
     historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
-        self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
     else
     {
-    historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 200);
-        self.tableView.frame = CGRectMake(0, 300, SCREEN_WIDTH, SCREEN_HEIGHT);
+        historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         UILabel * historySearchLab = [[UILabel  alloc]initWithFrame:CGRectMake(10, 10, 100, 16)];
         
@@ -490,10 +521,12 @@
         
         
         
-        historySearchTableview.frame = CGRectMake(0, 50, SCREEN_WIDTH, 200);
-        self.tableView.frame = CGRectMake(0, 300, SCREEN_WIDTH, SCREEN_HEIGHT);
+        historySearchTableview.frame = CGRectMake(0, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
+//        self.tableView.frame = CGRectMake(0, 300, SCREEN_WIDTH, SCREEN_HEIGHT);
         
+        [historySearchTableview reloadData];
         [historySearchView addSubview:historySearchTableview];
+        [self.view addSubview:historySearchView];
     }
     
     
@@ -504,7 +537,8 @@
 -(void)addHistorySearch:(NSInteger)row diction :(NSDictionary *)dic
 {
     // 1.获得点击的视频dictionary数据
-    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    NSLog(@"epgDicToSocket %@",epgDicToSocket);
     // 2. 初始化两个数组存放数据
     //     NSArray * historyArr = [[NSArray alloc]init];
     NSMutableArray *mutaArray = [[NSMutableArray alloc] init];
@@ -524,15 +558,25 @@
         NSString * service_ts =  [mutaArray[i][0] objectForKey:@"service_ts_id"];
         NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
         NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
+        NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
         
         //新添加的数据
         NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
         NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
         NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
         NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
+        NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
         
-        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
+        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName]) {
             addNewData = NO;
+            
+            NSArray * equalArr = mutaArray[i];
+            
+            [mutaArray removeObjectAtIndex:i];
+            [mutaArray  addObject:equalArr];
+            
+            
+            
             break;
         }
         
@@ -579,12 +623,17 @@
 }
 -(void)deleteAllHistoryBtn
 {
+    NSLog(@"historySearchArr11-- :%@",historySearchArr);
+    
     [historySearchArr removeAllObjects];
+    [USER_DEFAULT setObject:[historySearchArr copy] forKey:@"historySearchData"];
+    NSLog(@"historySearchArr22-- :%@",historySearchArr);
     
     [historySearchTableview reloadData];
     
      historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
-     self.tableView.frame = CGRectMake(0, 300, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [historySearchView removeFromSuperview];
+     self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 @end
