@@ -530,7 +530,7 @@
                 NSString * service_network =  [service1[a]objectForKey:@"service_network_id"];
                 NSString * service_ts =  [service1[a] objectForKey:@"service_ts_id"];
                 NSString * service_service =  [service1[a] objectForKey:@"service_service_id"];
-                NSString * service_tuner =  [service1[ai] objectForKey:@"service_tuner_mode"];
+//                NSString * service_tuner =  [service1[ai] objectForKey:@"service_tuner_mode"];
                 
                 
 //                //新的数据

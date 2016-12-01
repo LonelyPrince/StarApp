@@ -22,6 +22,8 @@
 
 @property(strong,nonatomic) UITableView * historySearchTableview;
 @property(strong,nonatomic) UIView * historySearchView;
+@property(strong,nonatomic) UILabel * historySearchLab;
+@property(strong,nonatomic) UIButton * historySearchDelBtn;
 //@property (retain, nonatomic) UITextField *searchField;
 //{
 //    NSArray *data;

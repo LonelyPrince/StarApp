@@ -34,6 +34,8 @@
 @synthesize showData = _showData;
 @synthesize historySearchTableview;
 @synthesize historySearchView;
+@synthesize historySearchLab;
+@synthesize historySearchDelBtn;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,7 +72,7 @@
     self.historySearchTableview.delegate = self;
 //    self.tableView.backgroundColor = RGBA(108, 108, 108, 0.15);
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-
+    historySearchTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    self.tableView.frame =  CGRectMake(0, 200, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     [self.tableView reloadData];
@@ -128,8 +130,8 @@
 //    [historySearchTableview reloadData];
 //    [self.tableView reloadData];
     
-    [historySearchView removeFromSuperview];
-    [self.view addSubview:historySearchView];
+//    [historySearchView removeFromSuperview];
+//    [self.view addSubview:historySearchView];
     
 }
 //获取table
@@ -238,8 +240,8 @@
                 historycell = [[UITableViewCell alloc]
                                initWithStyle:UITableViewCellStyleDefault
                                reuseIdentifier:historySearchIden];
-                historycell.backgroundColor=[UIColor redColor];
-                historycell.tintColor = [UIColor redColor];
+//                historycell.backgroundColor=[UIColor redColor];
+//                historycell.tintColor = [UIColor redColor];
                 //        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x+20, cell.frame.origin.y+20, cell.frame.size.width, cell.frame.size.height-20)];
                 //        cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
                 
@@ -456,11 +458,21 @@
     else
     {
         self.showData = [NSMutableArray arrayWithArray:_dataList];
-        historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
-        [self.view addSubview:historySearchView ];
-        self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
-        [_tableView reloadData];
-        [historySearchTableview reloadData];
+        
+        if (historySearchArr.count >0) {
+            historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+            [self.view addSubview:historySearchView ];
+            self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
+            [_tableView reloadData];
+            [historySearchTableview reloadData];
+        }else{
+            historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
+            [historySearchView removeFromSuperview];
+            self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+            [_tableView reloadData];
+            [historySearchTableview reloadData];
+        }
+      
     }
     
 }
@@ -483,6 +495,9 @@
     historySearchTableview = [[UITableView alloc]init];
     historySearchArr  =   [[USER_DEFAULT objectForKey:@"historySearchData"] mutableCopy];
     
+    historySearchLab = [[UILabel alloc]init];
+//    historySearchDelBtn = [[UIButton alloc]init];
+    historySearchDelBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:historySearchView];
     
 }
@@ -491,37 +506,41 @@
 {
     historySearchArr  =   [[USER_DEFAULT objectForKey:@"historySearchData"] mutableCopy];
     
-    if (ISEMPTY(historySearchArr)) {
+    [historySearchView removeFromSuperview];
+    if (historySearchArr == NULL || historySearchArr == nil || historySearchArr.count == 0) {
         
-    historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
+        historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
+        [historySearchView removeFromSuperview];
         self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+        [self.view addSubview:self.tableView];
     }
     else
     {
+        NSLog(@"historySearchArr===:%@",historySearchArr);
         historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
         self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
         
-        UILabel * historySearchLab = [[UILabel  alloc]initWithFrame:CGRectMake(10, 10, 100, 16)];
+        historySearchLab.frame = CGRectMake(16, 10, 100, 16);
         
         historySearchLab.text = @"History";
         historySearchLab.textColor = [UIColor grayColor];
-        historySearchLab.font = FONT(14);
+        historySearchLab.font = FONT(17);
         [historySearchView addSubview:historySearchLab];
         
         
-        UIButton * historySearchDelBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
+        
         
         [historySearchDelBtn setImage:[UIImage imageNamed:@"Del"] forState:UIControlStateNormal];
         [historySearchDelBtn addTarget:self action:@selector(deleteAllHistoryBtn) forControlEvents:UIControlEventTouchUpInside];
         
-        historySearchDelBtn.frame = CGRectMake(SCREEN_WIDTH - 200, 10, 15, 15);
+        historySearchDelBtn.frame = CGRectMake(SCREEN_WIDTH - 32, 10, 15, 15);
         
         [historySearchView addSubview:historySearchDelBtn];
         
         
         
         
-        historySearchTableview.frame = CGRectMake(0, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
+        historySearchTableview.frame = CGRectMake(0, 36, SCREEN_WIDTH, SCREEN_HEIGHT);
 //        self.tableView.frame = CGRectMake(0, 300, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         [historySearchTableview reloadData];
