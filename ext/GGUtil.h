@@ -95,5 +95,6 @@
 +(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData ;
 + (NSString *)GetNowTimeString;
 
-+ (NSString *)getIPAddress;
+//+ (NSString *)getIPAddress;   //这个方法只能获取WiFi的IP地址，如果是流量的话获取不到
++ (NSString *)getIPAddress:(BOOL)preferIPv4;
 @end

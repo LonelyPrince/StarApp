@@ -57,8 +57,8 @@
     
     
       [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
-    self.ipString =  [GGUtil getIPAddress];
-    
+//    self.ipString =  [GGUtil getIPAddress];
+    self.ipString =  [GGUtil getIPAddress:YES];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -212,7 +212,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 -(void)checkIPTimer
 {
-    NSString * IPstrNow = [GGUtil getIPAddress];
+//    NSString * IPstrNow = [GGUtil getIPAddress];
+    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
     if ([IPstrNow isEqualToString:self.ipString]) {
         
     }else
