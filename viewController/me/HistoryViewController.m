@@ -435,6 +435,7 @@
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     EarilyCell *earilyCell = [tableView dequeueReusableCellWithIdentifier:@"earilyCell"];

@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/HistoryViewController.m"
-            timestampString = "500905278.085016"
+            timestampString = "502279100.999518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
+            startingLineNumber = "673"
+            endingLineNumber = "673"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/HistoryViewController.m"
-            timestampString = "500905278.085016"
+            timestampString = "502279100.999518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "694"
-            endingLineNumber = "694"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
             landmarkName = "-touchToSee:"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/HistoryViewController.m"
-            timestampString = "500905278.085016"
+            timestampString = "502279100.999518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "691"
-            endingLineNumber = "691"
+            startingLineNumber = "692"
+            endingLineNumber = "692"
             landmarkName = "-touchToSee:"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/HistoryViewController.m"
-            timestampString = "500905269.845961"
+            timestampString = "502279100.999518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/HistoryViewController.m"
-            timestampString = "500977828.141485"
+            timestampString = "502279100.999518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,12 +330,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.097791"
+                  timestampString = "502278102.63468"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
                   endingLineNumber = "731"
-                  offsetFromSymbolStart = "644">
+                  offsetFromSymbolStart = "1082">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -345,12 +345,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.099002"
+                  timestampString = "502278102.635918"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
                   endingLineNumber = "731"
-                  offsetFromSymbolStart = "672">
+                  offsetFromSymbolStart = "1116">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -360,12 +360,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.100232"
+                  timestampString = "502278102.637175"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
                   endingLineNumber = "731"
-                  offsetFromSymbolStart = "916">
+                  offsetFromSymbolStart = "1556">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -393,12 +393,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.103043"
+                  timestampString = "502278102.640055"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
                   endingLineNumber = "731"
-                  offsetFromSymbolStart = "644">
+                  offsetFromSymbolStart = "1082">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -408,12 +408,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.10442"
+                  timestampString = "502278102.641288"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
                   endingLineNumber = "731"
-                  offsetFromSymbolStart = "672">
+                  offsetFromSymbolStart = "1116">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -423,12 +423,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.105743"
+                  timestampString = "502278102.642509"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
                   endingLineNumber = "731"
-                  offsetFromSymbolStart = "916">
+                  offsetFromSymbolStart = "1556">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -456,12 +456,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.108525"
+                  timestampString = "502278102.645561"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "727"
                   endingLineNumber = "727"
-                  offsetFromSymbolStart = "520">
+                  offsetFromSymbolStart = "477">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -471,12 +471,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502270465.109749"
+                  timestampString = "502278102.64702"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "727"
                   endingLineNumber = "727"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "15">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -696,12 +696,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
-                  timestampString = "502270465.138459"
+                  timestampString = "502278102.67882"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "520"
                   endingLineNumber = "520"
-                  offsetFromSymbolStart = "1500">
+                  offsetFromSymbolStart = "2209">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -711,12 +711,12 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
-                  timestampString = "502270465.139716"
+                  timestampString = "502278102.68034"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "520"
                   endingLineNumber = "520"
-                  offsetFromSymbolStart = "1512">
+                  offsetFromSymbolStart = "2220">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -726,46 +726,14 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
-                  timestampString = "502270465.140933"
+                  timestampString = "502278102.681616"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "520"
                   endingLineNumber = "520"
-                  offsetFromSymbolStart = "1748">
+                  offsetFromSymbolStart = "2660">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/Slider/SocketView.m"
-            timestampString = "502270160.559171"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
-            landmarkName = "-RequestSpliceAttribute:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/Slider/SocketView.m"
-            timestampString = "502270160.559171"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
-            landmarkName = "-RequestSpliceAttribute:"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

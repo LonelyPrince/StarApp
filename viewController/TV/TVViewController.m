@@ -691,6 +691,7 @@ UITableViewDelegate,UITableViewDataSource>
 - (TVTable *)slideView:(YLSlideView *)slideView
      cellForRowAtIndex:(NSUInteger)index{
     
+    
     TVTable * cell = [slideView dequeueReusableCell];
     
     if (!cell) {
@@ -708,7 +709,7 @@ UITableViewDelegate,UITableViewDataSource>
     
     NSLog(@"index :%@ ",@(index));
     
-    
+    cell.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     //self.categorys[i]                          不同类别
     //self.categoryModel.service_indexArr        类别的索引数组
     //self.categoryModel.service_indexArr.count
@@ -774,6 +775,8 @@ UITableViewDelegate,UITableViewDataSource>
     return [TVCell defaultCellHeight];
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
     if (cell == nil){

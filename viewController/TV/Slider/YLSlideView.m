@@ -145,6 +145,7 @@
 
     TVTable * visibleCell = nil;
     
+    visibleCell.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     for (TVTable * cell in _visibleCells) {
         
         if (cell.index == index) {
