@@ -115,11 +115,26 @@ NSMutableArray    *_titles;
     
     };
 
-  
+    
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"categorysTouchToViews" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
 
     
 }
-
+-(void)categorysTouchToViews:(NSNotification *)text
+{
+    NSInteger currentIndex = [text.userInfo[@"currentIndex"]integerValue];
+//    [self slideViewRecycle];
+//    [self visibleViewDelegateForIndex:currentIndex];
+    
+    UIButton * btn = [[UIButton alloc]init];
+    btn.tag = currentIndex+YLSlideTitleViewButtonTag;
+    [self buttonEvents:btn];
+    
+    
+}
 - (void)configButtonWithOffsetx:(CGFloat)offsetx{
     
 #warning 在重复使用 [UIFont fontWithName:button.titleLabel.font.fontName size:titleSize]方法会占用极大的内存(已反复试验)，每次都需要对Label进行处理。在此处请谨慎使用此方法，此变换效果也是其中一种可根据自行需求进行修改。有更好的方法可告知。

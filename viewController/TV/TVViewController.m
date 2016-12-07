@@ -36,6 +36,7 @@ UITableViewDelegate,UITableViewDataSource>
     BOOL firstShow;
     BOOL playState;
     NSTimer * timerState;
+    int tableviewinit;
 }
 
 
@@ -98,10 +99,11 @@ UITableViewDelegate,UITableViewDataSource>
 @synthesize activeView;
 @synthesize IPString;
 @synthesize topView;
-
+@synthesize categoryView;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    tableviewinit = 1;
     IPString = @"";
     playState = NO;
     [self initData];    //table表
@@ -210,10 +212,6 @@ UITableViewDelegate,UITableViewDataSource>
     
 }
 
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    NSLog(@"展示展示展示展示展示展示展示展示");
-//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -241,6 +239,7 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void) initData
 {
+    categoryView = [[CategoryViewController alloc]init];
     monitorView = [[MonitorViewController alloc]init];
     self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
@@ -384,11 +383,17 @@ UITableViewDelegate,UITableViewDataSource>
             }
             self.categorys = (NSMutableArray *)data;
             
+            if (tableviewinit == 2) {
+                
+            
             //设置滑动条
             
             _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                                               SCREEN_WIDTH,
                                                               SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+            
+            NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+            [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
             
             //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
             //                                                                    SCREEN_WIDTH,
@@ -403,7 +408,11 @@ UITableViewDelegate,UITableViewDataSource>
             _slideView.delegate        = self;
             
             [self.view addSubview:_slideView];
+            }
+            else
+            {
             
+            }
             
             
         }];
@@ -1358,6 +1367,7 @@ UITableViewDelegate,UITableViewDataSource>
         
     }else{
         NSLog(@"不是第一次启动");
+        tableviewinit  = tableviewinit +1;
         firstShow = YES;
         [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
         self.tabBarController.tabBar.hidden = NO;
@@ -1384,6 +1394,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self setVideoTouchNoific];
         [self newTunerNotific]; //新建一个tuner的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
+        [self allCategorysBtnNotific];
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = image;
@@ -1463,6 +1474,33 @@ UITableViewDelegate,UITableViewDataSource>
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delegeTunerInfo) name:@"deleteTuner" object:nil];
     
+}
+
+
+-(void)allCategorysBtnNotific
+{
+    //新建一个发送tuner删除直播消息的通知   //4
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"allCategorysBtnNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(allCategorysBtnClick) name:@"allCategorysBtnNotific" object:nil];
+    
+}
+-(void)allCategorysBtnClick
+{
+    NSLog(@"点击分类了2");
+    
+    categoryView = [[CategoryViewController alloc]init];
+    [self.navigationController pushViewController:categoryView animated:YES];
+    
+    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    self.categoryView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    self.categoryView.navigationItem.leftBarButtonItem = myButton;
+}
+-(void)clickEvent
+{
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 -(void)receiveTunerInfo

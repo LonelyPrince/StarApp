@@ -248,6 +248,11 @@
 		702CE4571DDA9881000A0513 /* nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42F1DDA9881000A0513 /* nor@3x.png */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
+		703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703D5D481DF5746200C4412A /* CategoryViewController.m */; };
+		703D5D4B1DF5746200C4412A /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703D5D491DF5746200C4412A /* CategoryViewController.xib */; };
+		703D5D501DF58ED600C4412A /* Religion@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703D5D4D1DF58ED600C4412A /* Religion@1x.png */; };
+		703D5D511DF58ED600C4412A /* Religion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703D5D4E1DF58ED600C4412A /* Religion@2x.png */; };
+		703D5D521DF58ED600C4412A /* Religion@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703D5D4F1DF58ED600C4412A /* Religion@3x.png */; };
 		7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B61DAE10890063DB66 /* categorys@1x.png */; };
 		7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B71DAE10890063DB66 /* categorys@2x.png */; };
 		7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E1B81DAE10890063DB66 /* categorys@3x.png */; };
@@ -786,6 +791,12 @@
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
+		703D5D471DF5746200C4412A /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
+		703D5D481DF5746200C4412A /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
+		703D5D491DF5746200C4412A /* CategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
+		703D5D4D1DF58ED600C4412A /* Religion@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Religion@1x.png"; sourceTree = "<group>"; };
+		703D5D4E1DF58ED600C4412A /* Religion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Religion@2x.png"; sourceTree = "<group>"; };
+		703D5D4F1DF58ED600C4412A /* Religion@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Religion@3x.png"; sourceTree = "<group>"; };
 		7040E1B61DAE10890063DB66 /* categorys@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@1x.png"; sourceTree = "<group>"; };
 		7040E1B71DAE10890063DB66 /* categorys@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@2x.png"; sourceTree = "<group>"; };
 		7040E1B81DAE10890063DB66 /* categorys@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "categorys@3x.png"; sourceTree = "<group>"; };
@@ -1307,6 +1318,7 @@
 		70170BC61D73C1E100CC3951 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				703D5D401DF5741000C4412A /* Category */,
 				707FE7611DACC56A0087C361 /* ProgressLineView */,
 				70130EAD1D8FEE2F005F0A49 /* SocketView */,
 				700770701D829BED003C0D68 /* Slider */,
@@ -1361,6 +1373,7 @@
 		70170BDD1D7412EE00CC3951 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				703D5D4C1DF58EC400C4412A /* Categorys */,
 				70FFE3BC1DE2CFA400223E43 /* Monitor */,
 				701443221DDC72DB008EAAC6 /* Guider */,
 				702CE4061DDA9854000A0513 /* DeviceManage */,
@@ -1658,6 +1671,26 @@
 				702CE42F1DDA9881000A0513 /* nor@3x.png */,
 			);
 			name = DeviceManage;
+			sourceTree = "<group>";
+		};
+		703D5D401DF5741000C4412A /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				703D5D471DF5746200C4412A /* CategoryViewController.h */,
+				703D5D481DF5746200C4412A /* CategoryViewController.m */,
+				703D5D491DF5746200C4412A /* CategoryViewController.xib */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		703D5D4C1DF58EC400C4412A /* Categorys */ = {
+			isa = PBXGroup;
+			children = (
+				703D5D4D1DF58ED600C4412A /* Religion@1x.png */,
+				703D5D4E1DF58ED600C4412A /* Religion@2x.png */,
+				703D5D4F1DF58ED600C4412A /* Religion@3x.png */,
+			);
+			name = Categorys;
 			sourceTree = "<group>";
 		};
 		7040E2171DAE12B80063DB66 /* ME */ = {
@@ -2098,6 +2131,7 @@
 				TargetAttributes = {
 					A4A669FC1555E44100AED3AF = {
 						DevelopmentTeam = R8D7BE2CFZ;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -2167,6 +2201,7 @@
 				70231CC11DC0FE8C00F73202 /* ip@2x.png in Resources */,
 				7045C46E1DC715FB002647F9 /* 矩形3@1x.png in Resources */,
 				701017601DCADA2500F9D5FF /* quan@2x.png in Resources */,
+				703D5D521DF58ED600C4412A /* Religion@3x.png in Resources */,
 				70231CF81DC1DF5A00F73202 /* Back Arrow@2x.png in Resources */,
 				702CE43E1DDA9881000A0513 /* 5@3x.png in Resources */,
 				701A98A31DB47A3100460220 /* 音轨@2x.png in Resources */,
@@ -2208,6 +2243,7 @@
 				7045C4731DC715FB002647F9 /* 矩形4@3x.png in Resources */,
 				7024C60A1DD4098B0053F313 /* iphone@3x.png in Resources */,
 				7045C4691DC715FB002647F9 /* 矩形1@2x.png in Resources */,
+				703D5D511DF58ED600C4412A /* Religion@2x.png in Resources */,
 				70FFE3E11DE2DBA200223E43 /* M0.png in Resources */,
 				7040E2421DAE12B80063DB66 /* Viasat-Explore@1x.png in Resources */,
 				70FFA4E71DE7E6BE006BFE5E /* 直方图@2x.png in Resources */,
@@ -2219,6 +2255,7 @@
 				702CE4041DDA97EC000A0513 /* mima@3x.png in Resources */,
 				701A98B11DB47A3100460220 /* 下一频道@1x.png in Resources */,
 				707FE75D1DACC3C30087C361 /* Rectangle 149@3x.png in Resources */,
+				703D5D501DF58ED600C4412A /* Religion@1x.png in Resources */,
 				7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */,
 				7024C5F51DD403A60053F313 /* luyou@3x.png in Resources */,
 				701017691DCADA3300F9D5FF /* dian@2x.png in Resources */,
@@ -2447,6 +2484,7 @@
 				70FFA4E21DE7DFF4006BFE5E /* Verticalpic@3x.png in Resources */,
 				702CE44B1DDA9881000A0513 /* 设备管理.png in Resources */,
 				70FFE40C1DE421A700223E43 /* monitor-jd@2x.png in Resources */,
+				703D5D4B1DF5746200C4412A /* CategoryViewController.xib in Resources */,
 				702CE4541DDA9881000A0513 /* 组-51-拷贝@3x.png in Resources */,
 				7010175C1DCADA2500F9D5FF /* duihao@1x.png in Resources */,
 				702CE43C1DDA9881000A0513 /* 5.png in Resources */,
@@ -2584,6 +2622,7 @@
 				701295251D80F4CF003139D5 /* UIViewController+NavItem.m in Sources */,
 				700770781D829C30003C0D68 /* TVTable.m in Sources */,
 				7012951C1D80F4CF003139D5 /* UINavigationController+GGInteractiveTransition.m in Sources */,
+				703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */,
 				701295181D80F4CF003139D5 /* BUIView.m in Sources */,
 				70130EAC1D8FEBDA005F0A49 /* SocketUtils.m in Sources */,
 				70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */,
@@ -2756,6 +2795,7 @@
 				);
 				INFOPLIST_FILE = "DLNASample/StarAPP-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
@@ -2769,6 +2809,9 @@
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "viewController/TV/StarAPP-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -2798,6 +2841,7 @@
 				);
 				INFOPLIST_FILE = "DLNASample/StarAPP-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
@@ -2811,6 +2855,8 @@
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "viewController/TV/StarAPP-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;

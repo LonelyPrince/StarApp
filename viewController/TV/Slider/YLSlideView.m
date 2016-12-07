@@ -218,6 +218,7 @@
     if (_prePageIndex != index) {
         if ([_delegate respondsToSelector:@selector(slideVisibleView:forIndex:)]) {
             [_delegate slideVisibleView:[self visibleCellForIndex:index] forIndex:index];
+//            [_delegate slideVisibleView:[self visibleCellForIndex:index] forIndex:2];
         }
     }
     
@@ -299,7 +300,8 @@
     
     allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 14.5, 19, 19);
     [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
-    
+    [allCateGoryButton addTarget:self action:@selector(allCateGoryButtonClick) forControlEvents:UIControlEventTouchUpInside];
+
     [self addSubview:allCateGoryButton];
     [self bringSubviewToFront:allCateGoryButton ];
     [_slideTitleView bringSubviewToFront:allCateGoryButton];
@@ -315,13 +317,18 @@
     
     
     //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"portTriangleFrame" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTriangleFrame:) name:@"portTriangleFrame" object:nil];
     
 
     
-
+//
+//    //此处销毁通知，防止一个通知被多次调用
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"categorysTouchToViews" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
+    
     
    self.triangleView.frame = CGRectMake(25, 48-6, 14, 7);
     self.triangleView.image =  [UIImage imageNamed:@"Group 7"];
@@ -346,8 +353,31 @@
         }
     };
 }
-
-
+//-(void)categorysTouchToViews:(NSNotification *)text
+//{
+//     NSInteger currentIndex = [text.userInfo[@"currentIndex"]integerValue];
+//    [self slideViewRecycle];
+//    [self visibleViewDelegateForIndex:currentIndex];
+//    
+////    if (_prePageIndex != currentIndex) {
+////        if ([_delegate respondsToSelector:@selector(slideVisibleView:forIndex:)]) {
+////            [_delegate slideVisibleView:[self visibleCellForIndex:currentIndex] forIndex:currentIndex];
+////            
+////        }
+////    }
+////    
+////    _prePageIndex = currentIndex;
+//}
+-(void)allCateGoryButtonClick
+{
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"allCategorysBtnNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"点击分类了1");
+    
+}
 -(void)setTriangleFrame : (NSNotification *)text
 {
     float currentBtnX = [text.userInfo[@"currentBtnX"]floatValue];

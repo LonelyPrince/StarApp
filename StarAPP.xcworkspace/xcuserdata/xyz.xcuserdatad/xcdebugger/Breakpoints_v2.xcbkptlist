@@ -330,7 +330,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.63468"
+                  timestampString = "502763906.600703"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
@@ -345,7 +345,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.635918"
+                  timestampString = "502763906.603884"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
@@ -360,7 +360,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.637175"
+                  timestampString = "502763906.605895"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
@@ -393,7 +393,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.640055"
+                  timestampString = "502763906.611547"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
@@ -408,7 +408,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.641288"
+                  timestampString = "502763906.61472"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
@@ -423,7 +423,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.642509"
+                  timestampString = "502763906.617477"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "731"
@@ -456,7 +456,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.645561"
+                  timestampString = "502763906.622865"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "727"
@@ -471,7 +471,7 @@
                   moduleName = "StarAPP"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xyz/Desktop/StarApp/viewController/Monitor/MonitorViewController.m"
-                  timestampString = "502278102.64702"
+                  timestampString = "502763906.625565"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "727"
@@ -679,61 +679,94 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/Search/SearchViewController.m"
-            timestampString = "502265381.431509"
+            filePath = "viewController/TV/Slider/YLSlideView.m"
+            timestampString = "502681194.450566"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
-            landmarkName = "-historySearchShow"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SearchViewController historySearchShow]"
-                  moduleName = "StarAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
-                  timestampString = "502278102.67882"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "520"
-                  endingLineNumber = "520"
-                  offsetFromSymbolStart = "2209">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SearchViewController historySearchShow]"
-                  moduleName = "StarAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
-                  timestampString = "502278102.68034"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "520"
-                  endingLineNumber = "520"
-                  offsetFromSymbolStart = "2220">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SearchViewController historySearchShow]"
-                  moduleName = "StarAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
-                  timestampString = "502278102.681616"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "520"
-                  endingLineNumber = "520"
-                  offsetFromSymbolStart = "2660">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Slider/YLSlideView.m"
+            timestampString = "502681588.749586"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
+            landmarkName = "-setShowsScrollViewHorizontalScrollIndicator:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Slider/YLSlideView.m"
+            timestampString = "502681207.945642"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "@implementation YLSlideView"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Slider/YLSlideTitleView.m"
+            timestampString = "502763906.425149"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "-buttonEvents:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Slider/YLSlideTitleView.m"
+            timestampString = "502763906.425149"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "-configButtonWithOffsetx:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Slider/YLSlideTitleView.m"
+            timestampString = "502763906.425149"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-buttonEvents:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

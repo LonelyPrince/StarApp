@@ -31,7 +31,7 @@
 #import "AppDelegate.h"
 #import "THProgressView.h"
 #import "MonitorViewController.h"
-
+#import "CategoryViewController.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController
@@ -43,6 +43,7 @@
 @property(nonatomic,strong) ServiceModel * serviceModel;
 @property(nonatomic,strong) SocketView * socketView;
 @property(nonatomic,strong) MonitorViewController * monitorView;
+@property(nonatomic,strong) CategoryViewController * categoryView;
 
 @property (nonatomic, strong) FullScreenView * fullScreenView;
 //**********
