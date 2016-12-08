@@ -935,10 +935,11 @@ UITableViewDelegate,UITableViewDataSource>
     
     NSLog(@"---urlData%@",_byteDatas);
     
-    self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
-    //    self.video.playUrl = [[NSString alloc] initWithData:byteDatas encoding:NSUTF8StringEncoding];
+//    self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
+        self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
     
     //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
+    
     
     self.video.channelId = self.service_videoindex;
     self.video.channelName = self.service_videoname;

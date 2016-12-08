@@ -35,6 +35,7 @@ NSMutableArray    *_titles;
     if (self) {
         
         self.backgroundColor = SET_COLOS_YLSLIDE(250, 250, 250);
+        self.backgroundColor = [UIColor whiteColor];
         _titles              = [titles copy];
         _previousPage        = 0;
         self.delegate        = self;
