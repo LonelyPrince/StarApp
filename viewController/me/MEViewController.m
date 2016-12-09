@@ -121,7 +121,25 @@
     
 
 }
-
+////////
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+//
+//{
+//    
+//    return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
+//}
+//- (BOOL)shouldAutorotate
+//{
+//    return NO;
+//}
+//- (NSUInteger)supportedInterfaceOrientations
+//
+//{
+//    
+//    return UIInterfaceOrientationMaskPortrait;//只支持这一个方向(正常的方向)
+//    
+//}
+////////
 -(void)deviceSetbtnClick
 {
 

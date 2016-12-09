@@ -10,4 +10,5 @@
 
 @interface StarMainTabController : UITabBarController
 
+-(UIViewController*) currentViewController;
 @end

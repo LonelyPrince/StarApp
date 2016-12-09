@@ -10,6 +10,7 @@
 
 @interface StarMainTabController ()
 
+
 @end
 
 @implementation StarMainTabController
@@ -26,7 +27,56 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(UIViewController*) findBestViewController:(UIViewController*)vc {
+    
+    if (vc.presentedViewController) {
+        
+        // Return presented view controller
+        return [self findBestViewController:vc.presentedViewController];
+        
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        
+        // Return right hand side
+        UISplitViewController* svc = (UISplitViewController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.viewControllers.lastObject];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        
+        // Return top view
+        UINavigationController* svc = (UINavigationController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.topViewController];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        
+        // Return visible view
+        UITabBarController* svc = (UITabBarController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.selectedViewController];
+        else
+            return vc;
+        
+    } else {
+        
+        // Unknown view controller type, return last child view controller
+        return vc;
+        
+    }
+    
+}
 
+-(UIViewController*) currentViewController {
+    
+    // Find best view controller
+    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [self findBestViewController:viewController];
+    
+}
 
 -(void)loadTab
 {
@@ -55,15 +105,27 @@
     [self setViewControllers:@[monVC,tvViewNav,meViewNav]];
     
     
+    
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
+
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    UIViewController * viewNow = [self currentViewController];
+//    if ([nav isKindOfClass:[TVViewController class]]) {
+            if ([viewNow isKindOfClass:[TVViewController class]]) {
+                if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStartTransform"]){
+                    NSLog(@"第一次启动旋转");
+                  
+                    NSLog(@"第一次启动");
+               return UIInterfaceOrientationMaskPortrait;
+                }
+                
+//        return UIInterfaceOrientationMaskPortrait;
+     return UIInterfaceOrientationMaskAllButUpsideDown;
+    }
+     return UIInterfaceOrientationMaskPortrait;
+    
+}
 @end

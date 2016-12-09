@@ -57,4 +57,6 @@
 @property (strong,nonatomic) UIView * topView;
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
 
+
+-(UIViewController*) currentViewController;
 @end

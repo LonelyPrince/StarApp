@@ -38,7 +38,7 @@
 @synthesize historySearchDelBtn;
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad];    
 //    [self getServiceArray];
     [self loadNav];
     [self initData];

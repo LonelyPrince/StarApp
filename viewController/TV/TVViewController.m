@@ -554,7 +554,10 @@ UITableViewDelegate,UITableViewDataSource>
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
+            UIViewController * viewNow = [self currentViewController];
+            if ([viewNow isKindOfClass:[TVViewController class]]) {
             self.tabBarController.tabBar.hidden = YES;
+            }
             
             
             
@@ -1368,6 +1371,8 @@ UITableViewDelegate,UITableViewDataSource>
         
     }else{
         NSLog(@"不是第一次启动");
+          [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+        
         tableviewinit  = tableviewinit +1;
         firstShow = YES;
         [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
@@ -1671,6 +1676,57 @@ UITableViewDelegate,UITableViewDataSource>
     self.videoController.socketView1 = self.socketView;
     [self.socketView  serviceTouch ];
     
+    
+}
+
+-(UIViewController*) findBestViewController:(UIViewController*)vc {
+    
+    if (vc.presentedViewController) {
+        
+        // Return presented view controller
+        return [self findBestViewController:vc.presentedViewController];
+        
+    } else if ([vc isKindOfClass:[UISplitViewController class]]) {
+        
+        // Return right hand side
+        UISplitViewController* svc = (UISplitViewController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.viewControllers.lastObject];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+        
+        // Return top view
+        UINavigationController* svc = (UINavigationController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.topViewController];
+        else
+            return vc;
+        
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        
+        // Return visible view
+        UITabBarController* svc = (UITabBarController*) vc;
+        if (svc.viewControllers.count > 0)
+            return [self findBestViewController:svc.selectedViewController];
+        else
+            return vc;
+        
+    } else {
+        
+        // Unknown view controller type, return last child view controller
+        return vc;
+        
+    }
+    
+}
+
+-(UIViewController*) currentViewController {
+    
+    // Find best view controller
+    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    return [self findBestViewController:viewController];
     
 }
 @end

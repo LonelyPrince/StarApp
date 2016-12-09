@@ -511,6 +511,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 /// MARK: 设备方向
 
+//////关闭通知
+//-(void)shutDownNotific
+//{
+//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification  object:nil];
+//    
+//}
 /// 设置监听设备旋转通知
 - (void)configDeviceOrientationObserver
 {
@@ -519,6 +526,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                              selector:@selector(onDeviceOrientationDidChange)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+
+
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"shutDownOrientationNotific" object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shutDownNotific) name:@"shutDownOrientationNotific" object:nil];
+// 
 }
 
 /// 设备旋转方向改变
@@ -563,12 +575,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.isFullscreenMode) {
         return;
     }
-    
     if (self.videoControl.isBarShowing) {
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     } else {
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     }
+    
     
     if (self.videoPlayerWillChangeToFullScreenModeBlock) {
         self.videoPlayerWillChangeToFullScreenModeBlock();
@@ -742,7 +754,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableviewHidden" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( rightViewHidden) name:@"tableviewHidden" object:nil];
     
