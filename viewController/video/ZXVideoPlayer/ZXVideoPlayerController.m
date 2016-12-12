@@ -36,7 +36,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 播放器视图
 @property (nonatomic, strong) ZXVideoPlayerControlView *videoControl;
 
-@property (nonatomic, strong) TVViewController *tvViewControlller;
+//@property (nonatomic, strong) TVViewController *tvViewControlller;
 /// 是否已经全屏模式
 @property (nonatomic, assign) BOOL isFullscreenMode;
 /// 是否锁定
@@ -100,7 +100,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configVolume];
         
         self.rightViewShowing = NO;
-        self.tvViewControlller = [[TVViewController alloc]init];
+//        self.tvViewControlller = [[TVViewController alloc]init];
         self.socketView1 = [[SocketView alloc]init];
         
     }
@@ -1204,23 +1204,44 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+//            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+                       [self touchToSee :dic DicWithRow:indexPath.row];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
-            
+ 
             
         }else{//如果为空，什么都不执行
         }
-        [self.socketView1  serviceTouch ];
+//        [self.socketView1  serviceTouch ];
     }
     
     
     NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     
 }
-
+-(void)touchToSee :(NSDictionary* )dic DicWithRow:(NSInteger)row
+{
+    
+//    NSInteger row = [touchArr[2] intValue];
+//    NSDictionary * dic = touchArr [3];
+   NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
+    
+    //将整形转换为number
+    NSNumber * numIndex = [NSNumber numberWithInteger:row];
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicNow,@"textTwo", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //    [self.navigationController popViewControllerAnimated:YES];
+    //    [self.navigationController popToViewController:_tvViewController animated:YES];
+    //    [self.navigationController pushViewController:_tvViewController animated:YES];
+//    [self.tabBarController setSelectedIndex:1];
+}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
