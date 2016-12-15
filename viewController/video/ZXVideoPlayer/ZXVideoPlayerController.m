@@ -85,7 +85,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self = [super init];
     if (self) {
         self.view.frame = frame;
-        self.view.backgroundColor = [UIColor blackColor];
+        //        self.view.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor redColor];
         self.controlStyle = MPMovieControlStyleNone;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
@@ -100,7 +101,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configVolume];
         
         self.rightViewShowing = NO;
-//        self.tvViewControlller = [[TVViewController alloc]init];
+        //        self.tvViewControlller = [[TVViewController alloc]init];
         self.socketView1 = [[SocketView alloc]init];
         
     }
@@ -113,7 +114,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch
 {
     // UISlider & UIButton & topBar 不需要响应手势
-    if([touch.view isKindOfClass:[UISlider class]] || [touch.view isKindOfClass:[UIButton class]] || [touch.view.accessibilityIdentifier isEqualToString:@"TopBar"]  ) {
+    if([touch.view isKindOfClass:[UISlider class]] || [touch.view isKindOfClass:[UIButton class]] || [touch.view.accessibilityIdentifier isEqualToString:@"TopBar"] || [touch.view.accessibilityIdentifier isEqualToString:@"bottomBar"]  ) {
         //        || [touch.view.accessibilityIdentifier isEqualToString:@"RightView"] || [NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]  || [touch.view isKindOfClass:[UITableViewCell class]] || [touch.view isKindOfClass:[UIScrollView class]]  || [touch.view isKindOfClass:[UITableView class]]
         return NO;
     } else {
@@ -516,7 +517,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //{
 //    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification  object:nil];
-//    
+//
 //}
 /// 设置监听设备旋转通知
 - (void)configDeviceOrientationObserver
@@ -526,11 +527,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                              selector:@selector(onDeviceOrientationDidChange)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
-
-
-//    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"shutDownOrientationNotific" object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shutDownNotific) name:@"shutDownOrientationNotific" object:nil];
-// 
+    
+    
+    //    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"shutDownOrientationNotific" object:nil];
+    //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(shutDownNotific) name:@"shutDownOrientationNotific" object:nil];
+    //
 }
 
 /// 设备旋转方向改变
@@ -587,7 +588,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.frame = [UIScreen mainScreen].bounds;
-    self.videoControl.bottomBar.userInteractionEnabled = YES;
+    //    self.videoControl.bottomBar.userInteractionEnabled = YES;
     self.isFullscreenMode = YES;
     self.videoControl.fullScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton.hidden = NO;
@@ -1204,17 +1205,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-//            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
-                       [self touchToSee :dic DicWithRow:indexPath.row];
+            //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+            [self touchToSee :dic DicWithRow:indexPath.row];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
- 
+            
             
         }else{//如果为空，什么都不执行
         }
-//        [self.socketView1  serviceTouch ];
+        //        [self.socketView1  serviceTouch ];
     }
     
     
@@ -1224,9 +1225,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)touchToSee :(NSDictionary* )dic DicWithRow:(NSInteger)row
 {
     
-//    NSInteger row = [touchArr[2] intValue];
-//    NSDictionary * dic = touchArr [3];
-   NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
+    //    NSInteger row = [touchArr[2] intValue];
+    //    NSDictionary * dic = touchArr [3];
+    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
     
     //将整形转换为number
     NSNumber * numIndex = [NSNumber numberWithInteger:row];
@@ -1240,7 +1241,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    [self.navigationController popViewControllerAnimated:YES];
     //    [self.navigationController popToViewController:_tvViewController animated:YES];
     //    [self.navigationController pushViewController:_tvViewController animated:YES];
-//    [self.tabBarController setSelectedIndex:1];
+    //    [self.tabBarController setSelectedIndex:1];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -1252,9 +1253,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl autoFadeOutControlBar];
     
     //    NSIndexPath *path =  [self.subAudioTableView indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
-    //    
+    //
     //    NSLog(@"这是第%i行",path.row);
-    //    
+    //
     
     
 }

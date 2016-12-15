@@ -338,7 +338,26 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 	if (0 < cg_strlen(location_str)) {
 		CgNetURL *url = cg_net_url_new();
 		cg_net_url_set(url, location_str);
-		ipaddr = [[[NSString alloc] initWithUTF8String:cg_net_url_gethost(url)] autorelease];
+//		ipaddr = [[[NSString alloc] initWithUTF8String:cg_net_url_gethost(url)] autorelease];
+        if (0 < cg_strlen(location_str)) {
+            CgNetURL *url = cg_net_url_new();
+            cg_net_url_set(url, location_str);
+            NSLog(@"--ipaddr : %d",url);
+            NSLog(@"--location_str : %d",location_str);
+            if (url == NULL || url == nil) {
+                
+            }
+            else
+            {
+                //        ipaddr = [[[NSString alloc] initWithUTF8String:cg_net_url_gethost(url)] autorelease];
+                ipaddr =cg_net_url_gethost(url)?[[[NSString alloc] initWithUTF8String:cg_net_url_gethost(url)] autorelease]:nil;
+                
+                cg_net_url_delete(url);
+            }
+            NSLog(@"--ipaddr : %d",ipaddr);
+            
+            
+        }
 		cg_net_url_delete(url);
 	}
 	

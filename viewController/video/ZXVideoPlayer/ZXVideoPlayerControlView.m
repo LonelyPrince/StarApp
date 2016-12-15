@@ -260,6 +260,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
         self.topBar.alpha = 1.0;
         self.bottomBar.alpha = 1.0;
+        //        self.bottomBar.userInteractionEnabled = YES;
         
         //
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -318,6 +319,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         if (self.isBarShowing) {
             [self animateHide];
             show = 1;
+            _topBar.userInteractionEnabled = YES;
+            _bottomBar.userInteractionEnabled = YES;
             NSLog(@"**%hhd",self.isBarShowing);
             NSLog(@"点击了一下");
         } else {
@@ -325,6 +328,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             show = 2;
+            _topBar.userInteractionEnabled = YES;
+            _bottomBar.userInteractionEnabled = YES;
             NSLog(@"**%hhd",self.isBarShowing);
             NSLog(@"点击了第二下");
         }
@@ -361,9 +366,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_bottomBar) {
         _bottomBar = [UIView new];
         
-        
+        _bottomBar.accessibilityIdentifier = @"bottomBar";
         //此处销毁通知，防止一个通知被多次调用
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixTopBottomImage" object:nil];
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixTopBottomImage:) name:@"fixTopBottomImage" object:nil];
         
@@ -383,6 +388,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
     _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 75);
     
+    _bottomBar.userInteractionEnabled = YES;
+    _topBar.userInteractionEnabled = YES;
     //    if (Imagewidth>500) {
     //        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds)+20, Imagewidth, 43);
     //    }
