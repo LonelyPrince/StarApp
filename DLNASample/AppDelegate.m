@@ -149,15 +149,19 @@ void UncaughtExceptionHandler(NSException *exception) {
     });
 }
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
-    NSLog(@"%@", deviceUdn);
+    
+    NSArray * oldDmsArr =[USER_DEFAULT  objectForKey:@"DmsDevice"]; //用于获取原始的数据，如果原始数据和新数据一样，不刷新
+    NSArray * newDmsArr = [[NSArray alloc]init];
+    NSLog(@"UUID :%@", deviceUdn);   //这里输出了UUID
     self.avController = (CGUpnpAvController*)controlPoint;
     
     NSArray * dmsArr = [[NSArray alloc]init];
     //此处可能产生僵尸对象
     dmsArr = [((CGUpnpAvController*)controlPoint) servers];
    
+    NSLog(@"dmsArr :%@",dmsArr);
     [self.dataSource removeAllObjects];
-    [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
+    [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
     
     for (int i = 0; i<dmsArr.count ; i++) {
       
@@ -178,8 +182,8 @@ void UncaughtExceptionHandler(NSException *exception) {
                                     cgUpnpModel.category_id, @"dmsID",
                                     cgUpnpModel.UUID, @"dmsUUID",
                                     cgUpnpModel.ipaddress, @"dmsIP",
-                                    nil];  ;
-        [self.dataSource addObject:dmsDic];
+                                    nil];
+            [self.dataSource addObject:dmsDic];//将数据转为字典存起来
         }
         
         
@@ -193,10 +197,18 @@ void UncaughtExceptionHandler(NSException *exception) {
     }
     else
     {
-        NSLog(@"datasource:%@",self.dataSource);
-    [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
-    NSLog(@"datasource.count %d",self.dataSource.count);
+        NSLog(@"datasource==:%@",self.dataSource);
+        //此处可以判断DLNA的数据是不是变化
+        [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
+        NSLog(@"datasource.count %d",self.dataSource.count);
+        
+        
     }
+//    //此处可以判断DLNA的数据是不是变化
+    newDmsArr = [self.dataSource copy];
+//    [self judgeDmsDevice:oldDmsArr newDms:newDmsArr];
+
+    
     //    int dmsNum = 0;
         
     //    [self loadUI];
@@ -204,9 +216,53 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     NSLog(@"Device delegate");
 }
--(void) judgeDmsDevice  //每五秒刷新一次数据
+//判断新旧数据是否一样，不一样通知刷新DMS列表
+-(void) judgeDmsDevice :(NSArray *)oldDmsArr newDms:(NSArray *)newDmsArr
 {
-
+   if(oldDmsArr ==NULL && newDmsArr!=NULL)
+   {
+       //刷新
+   }else if (oldDmsArr !=NULL && newDmsArr == NULL)
+   {
+       //刷新
+   }else if (oldDmsArr !=NULL && newDmsArr != NULL)
+   {
+       if (oldDmsArr.count != newDmsArr.count) {
+           //刷新
+       }else{
+       
+       for (int a = 0; a<oldDmsArr.count; a++) {
+           //        CGUpnpDevice *oldDev = oldDmsArr[a];
+           //        CGUpnpDeviceModel* cgUpnpModel;   //model
+           NSDictionary * dicTest = [[NSDictionary alloc]init];
+           dicTest = oldDmsArr[a];
+           CGUpnpDeviceModel* cgModelTest = [[CGUpnpDeviceModel alloc]init];   //model
+           
+           cgModelTest.category_id = [dicTest objectForKey:@"dmsID"];
+           cgModelTest.UUID = [dicTest objectForKey:@"dmsUUID"];
+           cgModelTest.ipaddress = [dicTest objectForKey:@"dmsIP"];
+           
+           for (int b = 0; b<newDmsArr.count; b++) {
+               
+               NSDictionary * newDicTest = [[NSDictionary alloc]init];
+               newDicTest = newDmsArr[b];
+               CGUpnpDeviceModel* newCgModelTest = [[CGUpnpDeviceModel alloc]init];   //model
+               
+               newCgModelTest.category_id = [newDicTest objectForKey:@"dmsID"];
+               newCgModelTest.UUID = [newDicTest objectForKey:@"dmsUUID"];
+               newCgModelTest.ipaddress = [newDicTest objectForKey:@"dmsIP"];
+               
+               if ([cgModelTest.category_id isEqualToString:newCgModelTest.category_id] &&[cgModelTest.UUID isEqualToString:newCgModelTest.UUID]&&[cgModelTest.ipaddress isEqualToString:newCgModelTest.ipaddress] ) {
+                   //此时全部相等，不做处理
+               }else
+               {
+                   //刷新
+               }
+               
+           }
+       }
+       }
+   }
     
 }
 
@@ -220,6 +276,9 @@ void UncaughtExceptionHandler(NSException *exception) {
     {
     
         NSLog(@"IP 网络改变");
+        
+        [self.dataSource removeAllObjects];
+        [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
         
         self.ipString = IPstrNow;
         //创建通知

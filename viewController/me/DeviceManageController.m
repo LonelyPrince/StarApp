@@ -49,14 +49,29 @@
     avCtrl.delegate = self;
     
     [self loadNav];
-    [self loadScroll];
+//    [self loadScroll];
     self.timer =   [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
     
     NSLog(@"Device viewDidLoad");
     
     [self linkSocket];
+//    [self newNoticficRefreshDLNA];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
+-(void)newNoticficRefreshDLNA
+{
+    //////////////////////////// 从socket返回数据
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"refreshDlNATable" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshDlNATable) name:@"refreshDlNATable" object:nil];
+    
+}
+-(void)refreshDlNATable
+{
+    [self viewWillAppear:YES];
+}
 
 //-(void)getCGData
 //{
@@ -417,6 +432,10 @@
 {
     NSLog(@"nstimer了一次 ");
     [super viewWillAppear:animated];
+    
+    [scrollView removeFromSuperview];
+    scrollView = nil;
+    [self loadScroll];
     [self initData];  //初始化数据
         [self getNotificInfo];
     
@@ -426,14 +445,14 @@
     [self loadUI];
     NSLog(@"Device ViewWillApper");
 }
--(void)viewWillDisappear:(BOOL)animated
-{
-//页面消失时删除nstimer
-    　[self.timer invalidate];
-    
-    self.timer = nil;
-    NSLog(@"将要消失了一次 ");
-}
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+////页面消失时删除nstimer
+//    　[self.timer invalidate];
+//    
+//    self.timer = nil;
+//    NSLog(@"将要消失了一次 ");
+//}
 
 //- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
 //    NSLog(@"%@", deviceUdn);
@@ -586,13 +605,14 @@
 }
 -(void)loadScroll
 {
-    scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
+    scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-49)];
     [self.view addSubview:scrollView];
     
     scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 20+self.dataSource.count*50+115);
     scrollView.showsVerticalScrollIndicator=NO;
     scrollView.showsHorizontalScrollIndicator=NO;
     scrollView.delegate=self;
+    scrollView.bounces = NO;
 }
 
 
