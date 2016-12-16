@@ -160,7 +160,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     
     // 返回按钮
-    self.backButton.frame = CGRectMake(10, 10, 40, 25);
+    self.backButton.frame = CGRectMake(6, 25, 40, 28);
     // 锁定按钮
     //    self.lockButton.frame = CGRectMake(CGRectGetMaxX(self.topBar.bounds) - 40 - 10, CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
     // 缓冲进度条
@@ -385,8 +385,28 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)fixTopBottomImage:(NSNotification *)text{
     
     float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
-    _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
-    _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 75);
+    NSLog(@"Imagewidth :%f",Imagewidth);
+    NSLog(@"SCREEN_HEIGHT :%f",SCREEN_HEIGHT);
+    if (Imagewidth > SCREEN_WIDTH) {  //全屏
+        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 71);
+        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+        
+        _topControllerImage.image = [UIImage imageNamed:@"顶背景"];
+        _bottomControllerImage.image = [UIImage imageNamed:@"底背景"];
+        _topBar.frame =CGRectMake(0, 0,Imagewidth, 71);
+        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
+        
+    }else  //竖屏
+    {
+        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
+        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 75);
+        
+        _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
+        _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
+        _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
+        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 75);
+    }
+    
     
     _bottomBar.userInteractionEnabled = YES;
     _topBar.userInteractionEnabled = YES;
@@ -581,9 +601,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_FulleventNameLab) {
         _FulleventNameLab = [[UILabel alloc] init];
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
-        _FulleventNameLab.text = @"Despicble Me And TOT LAL MOM " ;
+//        _FulleventNameLab.text = @"Despicble Me And TOT LAL MOM " ;
         _FulleventNameLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
-        _FulleventNameLab.font = [UIFont systemFontOfSize:18];
+//        _FulleventNameLab.font = [UIFont systemFontOfSize:18];
         
     }
     return _FulleventNameLab;
@@ -631,7 +651,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_backButton) {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40 , 25)];
+        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 10, 40 , 25)];
         [_backButton setImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
         //        UIImageView * backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(3,3, 6, 10)];
         //        backImageView.image = [UIImage imageNamed:@"Back Arrow Blue"];

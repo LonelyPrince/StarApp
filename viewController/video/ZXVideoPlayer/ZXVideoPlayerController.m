@@ -86,7 +86,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self) {
         self.view.frame = frame;
         //        self.view.backgroundColor = [UIColor blackColor];
-        self.view.backgroundColor = [UIColor redColor];
+        self.view.backgroundColor = [UIColor whiteColor];
         self.controlStyle = MPMovieControlStyleNone;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
@@ -609,9 +609,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:18];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:18];
-    self.videoControl.channelIdLab.frame = CGRectMake(48, 10, 55, 18);
-    self.videoControl.channelNameLab.frame = CGRectMake(113, 10, 120, 18);
-    
+    self.videoControl.channelIdLab.frame = CGRectMake(48, 30, 55, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(113, 30, 120, 18);
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
 }
 
