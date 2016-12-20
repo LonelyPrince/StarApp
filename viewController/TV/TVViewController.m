@@ -1913,6 +1913,9 @@ UITableViewDelegate,UITableViewDataSource>
     //状态栏显示状态
     int statusNum;
     int touchStatusNum; //这个是在点击播放器的时候会改变的数字，用于判断全屏下状态栏的显示
+    
+    //判断是不是第一次进入首页，如果是，则自动播放第一个节目
+    int firstOpenAPP;
 }
 
 
@@ -1980,6 +1983,7 @@ UITableViewDelegate,UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     tableviewinit = 1;
+    firstOpenAPP = 0;
     IPString = @"";
     playState = NO;
     [self initData];    //table表
@@ -2729,7 +2733,20 @@ UITableViewDelegate,UITableViewDataSource>
     return cell;
     
 }
-
+-(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
+        //end of loading
+//        dispatch_async(dispatch_get_main_queue,^{
+            //for example [activityIndicator stopAnimating];
+        if (firstOpenAPP == 0) {
+            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+            firstOpenAPP = firstOpenAPP+1;
+        }
+        
+//        });
+    }
+}
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    DetailViewController *controller =[[DetailViewController alloc] init];
@@ -3306,6 +3323,7 @@ UITableViewDelegate,UITableViewDataSource>
         tableviewinit  = tableviewinit +1;
         firstShow = YES;
         statusNum = 1;
+        
         [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
         self.tabBarController.tabBar.hidden = NO;
         
@@ -3350,7 +3368,6 @@ UITableViewDelegate,UITableViewDataSource>
         self.extendedLayoutIncludesOpaqueBars =NO;
         self.modalPresentationCapturesStatusBarAppearance =NO;
         self.navigationController.navigationBar.translucent =NO;
-        
         
         
     }
@@ -3500,6 +3517,116 @@ UITableViewDelegate,UITableViewDataSource>
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
     NSDictionary * dic = [[NSDictionary alloc]init];
     dic = text.userInfo[@"textTwo"];
+    
+    NSLog(@"self.socket:%@",self.socketView);
+    
+    //先传输数据到socket，然后再播放视频
+    //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    NSLog(@"dic: %@",dic);
+    
+    NSLog(@"row: %ld",(long)row);
+    /*此处添加一个加入历史版本的函数*/
+    [self addHistory:row diction:dic];
+    
+    //__
+    
+    NSArray * audio_infoArr = [[NSArray alloc]init];
+    NSArray * subt_infoArr = [[NSArray alloc]init];
+    
+    NSArray * epg_infoArr = [[NSArray alloc]init];
+    //****
+    
+    
+    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+    socketView.socket_ServiceModel.subt_pid = [audio_infoArr[0] objectForKey:@"subt_pid"];
+    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+    
+    //********
+    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+    if(self.service_videoindex.length == 1)
+    {
+        self.service_videoindex = [ NSString stringWithFormat:@"00%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 2)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length == 3)
+    {
+        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+    }
+    else if (self.service_videoindex.length > 3)
+    {
+        self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
+    }
+    
+    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    self.TVSubAudioDic = [[NSDictionary alloc]init];
+    self.TVSubAudioDic = epgDicToSocket;
+    self.TVChannlDic = [[NSDictionary alloc]init];
+    self.TVChannlDic = self.dicTemp;
+    NSLog(@"eventname :%@",self.event_startTime);
+    //*********
+    
+    
+    
+    
+    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+        socketView.socket_ServiceModel.audio_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+        socketView.socket_ServiceModel.subt_pid = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+        socketView.socket_ServiceModel.service_network_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+        socketView.socket_ServiceModel.service_ts_id = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+        socketView.socket_ServiceModel.service_service_id = @"0";
+    }
+    
+    NSLog(@"------%@",socketView.socket_ServiceModel);
+    
+    
+    
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+    
+    
+    //    self.socketView  = [[SocketView  alloc]init];
+    //    [self.socketView viewDidLoad];
+    
+    NSLog(@"self.socket:%@",self.socketView);
+    
+    self.videoController.socketView1 = self.socketView;
+    [self.socketView  serviceTouch ];
+    
+    
+}
+
+
+/////////////本页面的显示播放，打开APP的时候自动播放第一个视频
+//row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
+-(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
+{
+    
+//    NSInteger row = [text.userInfo[@"textOne"]integerValue];
+//    NSDictionary * dic = [[NSDictionary alloc]init];
+//    dic = text.userInfo[@"textTwo"];
     
     NSLog(@"self.socket:%@",self.socketView);
     
