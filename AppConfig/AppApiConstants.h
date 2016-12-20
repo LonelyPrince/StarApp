@@ -33,7 +33,8 @@
 //常用链接
 //#define kSDLB_SYS_SERVER @"http://www.jiajudaren.com/index.php?m=api&"
 //  192.168.1.1
-#define kSDLB_SYS_SERVER @"http://192.168.1.183/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
+#define kSDLB_SYS_SERVER @"http://192.168.1.1/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
+//#define kSDLB_SYS_SERVER @"http://192.168.1.226/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
 //#define k_image_ip @"http://www.jiajudaren.com"
 
 //#define k_ZUIXIN @"a=getitems&p=%i&pg=33&sid=0&tid=0&o=0&keyword=&uid=0"
@@ -53,11 +54,14 @@
 
 //get  online device
 
-#define G_device  @"http://192.168.1.183/test/online_devices" //@"http://www.tenbre.net/test/online_devices"//
+//#define G_device  @"http://192.168.1.183/test/online_devices" //@"http://www.tenbre.net/test/online_devices"//
+#define G_device  @"http://192.168.1.1/test/online_devices" //@"http://www.tenbre.net/test/online_devices"//
 //get   online  device  pwd
-#define G_devicepwd    @"http://192.168.1.183/lua/settings/wifi" //  @"http://www.tenbre.net/lua/settings/wifi"  //
+//#define G_devicepwd    @"http://192.168.1.183/lua/settings/wifi" //  @"http://www.tenbre.net/lua/settings/wifi"  //
+#define G_devicepwd    @"http://192.168.1.1/lua/settings/wifi" //  @"http://www.tenbre.net/lua/settings/wifi"  //
 //set(post) online device pwd
-#define P_devicepwd   @"http://192.168.1.183/lua/settings/wifi" //@"http://www.tenbre.net/lua/settings/wifi"//
+//#define P_devicepwd   @"http://192.168.1.183/lua/settings/wifi" //@"http://www.tenbre.net/lua/settings/wifi"//
+#define P_devicepwd   @"http://192.168.1.1/lua/settings/wifi" //@"http://www.tenbre.net/lua/settings/wifi"//
 #endif
 
 /**

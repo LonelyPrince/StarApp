@@ -2646,6 +2646,7 @@ UITableViewDelegate,UITableViewDataSource>
     //获取EPG信息 展示
     //时间戳转换
     
+    [self.dicTemp removeAllObjects];
     //获取不同类别下的节目，然后是节目下不同的cell值                10
     for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
         
@@ -2660,10 +2661,9 @@ UITableViewDelegate,UITableViewDataSource>
             
         }else{
             [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-            
         }
         
-        
+
     }
     //        cell.tabledataDic =  self.categorys[index];
     //    }
@@ -3210,7 +3210,10 @@ UITableViewDelegate,UITableViewDataSource>
         NSString * service_ts =  [mutaArray[i][0] objectForKey:@"service_ts_id"];
         NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
         NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
-        
+//        NSLog(@"mutaArray[0] :%@",mutaArray[0]);
+//        NSLog(@"mutaArray[1] :%@",mutaArray[1]);
+//        NSLog(@"mutaArray[2] :%@",mutaArray[2]);
+//        NSLog(@"mutaArray[3] :%@",mutaArray[3]);
         //新添加的数据
         NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
         NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
@@ -3221,10 +3224,25 @@ UITableViewDelegate,UITableViewDataSource>
             addNewData = NO;
             
             NSArray * equalArr = mutaArray[i];
+            NSMutableArray * tempArr = [equalArr mutableCopy];
+//            [tempArr[3] removeLastObject];
+//            [tempArr[3] addObject:dic];
+//            [tempArr insertObject:dic atIndex:3];
+            NSString * seedNowTime = [GGUtil GetNowTimeString];
+          NSNumber *aNumber = [NSNumber numberWithInteger:row];
+            [tempArr replaceObjectAtIndex:1 withObject:aNumber];
+            [tempArr replaceObjectAtIndex:2 withObject:aNumber];
+            [tempArr replaceObjectAtIndex:3 withObject:dic];
+            NSLog(@"tempArr :%@",tempArr);
+//            equalArr = [tempArr copy];
+        
+            
             
             [mutaArray removeObjectAtIndex:i];
-            [mutaArray  addObject:equalArr];
+            [mutaArray  addObject:[tempArr copy]];
             
+            NSLog(@"mutaArray: %@",mutaArray);
+//            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
             break;
         }
         
@@ -3235,7 +3253,8 @@ UITableViewDelegate,UITableViewDataSource>
         NSString * seedNowTime = [GGUtil GetNowTimeString];
         NSNumber *aNumber = [NSNumber numberWithInteger:row];
         NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime,aNumber,dic,nil];
-        
+        NSLog(@"seedNowArr : %@",seedNowArr);
+        NSLog(@"dic : %@",dic);
         
         if (seedNowArr.count > 0) {
             [mutaArray addObject:seedNowArr];

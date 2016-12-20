@@ -86,7 +86,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self) {
         self.view.frame = frame;
         //        self.view.backgroundColor = [UIColor blackColor];
-        self.view.backgroundColor = [UIColor whiteColor];
+        self.view.backgroundColor = [UIColor redColor];
         self.controlStyle = MPMovieControlStyleNone;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
@@ -609,8 +609,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:18];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:18];
+    
     self.videoControl.channelIdLab.frame = CGRectMake(48, 30, 55, 18);
-    self.videoControl.channelNameLab.frame = CGRectMake(113, 30, 120, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(113, 30, 260, 18);
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
 }
 
@@ -678,10 +679,74 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)lastChannelButtonClick
 {
     NSLog(@"shang 上一个节目");
+    
+    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+    
+    NSArray * touchArr = historyArr[historyArr.count - 1];
+    NSLog(@"touchArr：%@",touchArr);
+    //    [self touchToSee :touchArr];
+    
+    
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
+    
+    if (row >= 1) {
+        NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
+        //添加 字典，将label的值通过key值设置传递
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+   
+    }else
+    {
+        NSLog(@"对不起，已经没有上一个节目了");
+    }
+//    NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
+    
+//    //添加 字典，将label的值通过key值设置传递
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+//    //创建通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 - (void)nextChannelButtonClick
 {
     NSLog(@"下一个节目");
+    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+    
+    NSLog(@"historyArr.count：%d",historyArr.count);
+    NSArray * touchArr = historyArr[historyArr.count - 1];
+    NSLog(@"touchArr：%@",touchArr);
+    //    [self touchToSee :touchArr];
+    
+    
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
+    NSLog(@"dic :%@",dic);
+    NSLog(@"dic。count :%lu",(unsigned long)dic.count);
+    NSLog(@"row1 :%ld",(long)row);
+    int dic_Count = dic.count -1;
+    if (row < dic_Count) {
+        NSLog(@"row2 :%ld",(long)row);
+        NSInteger tempInt = row+1;
+        NSLog(@"row3 :%ld",(long)row);
+        NSNumber * numIndex = [NSNumber numberWithInteger:tempInt];
+        //添加 字典，将label的值通过key值设置传递
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+    }else
+    {
+        NSLog(@"对不起，已经没有下一个节目了");
+    }
 }
 - (void)subtBtnClick
 {

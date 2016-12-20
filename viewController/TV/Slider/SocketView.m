@@ -78,7 +78,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
   
     
     //连接
-    [Singleton sharedInstance].socketHost = @"192.168.1.183"; //host设定
+//    [Singleton sharedInstance].socketHost = @"192.168.1.183"; //host设定
+    [Singleton sharedInstance].socketHost = @"192.168.1.1"; //host设定
     [Singleton sharedInstance].socketPort = 3000; //port设定
     
     //     在连接前先进行手动断开
