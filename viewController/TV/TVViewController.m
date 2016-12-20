@@ -3230,7 +3230,7 @@ UITableViewDelegate,UITableViewDataSource>
 //            [tempArr insertObject:dic atIndex:3];
             NSString * seedNowTime = [GGUtil GetNowTimeString];
           NSNumber *aNumber = [NSNumber numberWithInteger:row];
-            [tempArr replaceObjectAtIndex:1 withObject:aNumber];
+            [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
             [tempArr replaceObjectAtIndex:2 withObject:aNumber];
             [tempArr replaceObjectAtIndex:3 withObject:dic];
             NSLog(@"tempArr :%@",tempArr);

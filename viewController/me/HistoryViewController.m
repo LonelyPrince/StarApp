@@ -67,7 +67,9 @@
     todayNum = 0;
     earilyNum = 0;
     for (int i = 0; i<historyArr.count; i++) {
-        int diftime =[[GGUtil GetNowTimeString]intValue] - [historyArr[historyArr.count - i - 1][1]intValue];
+        int seedTime =[historyArr[historyArr.count - i - 1][1]intValue];
+        NSLog(@"seedTime :%d",seedTime);
+        int diftime =[[GGUtil GetNowTimeString]intValue] - seedTime; // [historyArr[historyArr.count - i - 1][1]intValue];
         if (diftime >ONEDAY) {
             earilyNum++;
         }
