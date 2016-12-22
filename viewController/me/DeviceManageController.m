@@ -49,14 +49,15 @@
     avCtrl.delegate = self;
     
     [self loadNav];
-//    [self loadScroll];
+    //    [self loadScroll];
     self.timer =   [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
     
     NSLog(@"Device viewDidLoad");
     
     [self linkSocket];
-//    [self newNoticficRefreshDLNA];
+    //    [self newNoticficRefreshDLNA];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)newNoticficRefreshDLNA
@@ -104,7 +105,7 @@
 -(void)getNotificInfo
 {
     tunerNum = 0; ///******
-//    [monitorTableArr removeAllObjects];
+    //    [monitorTableArr removeAllObjects];
     livePlayCount = 0;
     liveRecordCount = 0;
     liveTimeShiteCount = 0;
@@ -112,15 +113,15 @@
     pushVodCount = 0;
     
     
-//    livePlayCount = 9;
-//    liveRecordCount = 4;
-//    liveTimeShiteCount = 2;
-//    deliveryCount = 1;
-//    pushVodCount = 0;
-  
+    //    livePlayCount = 9;
+    //    liveRecordCount = 4;
+    //    liveTimeShiteCount = 2;
+    //    deliveryCount = 1;
+    //    pushVodCount = 0;
+    
     NSLog(@"=======================notific");
     
- 
+    
     //////////////////////////// 向TV页面发送通知
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
@@ -253,44 +254,44 @@
             
             
             
-//            //此处做判断，看一下属于哪个tuner
-//            TVhttpDic =  [USER_DEFAULT objectForKey:@"TVHttpAllData"];
-//            NSArray * category1 = [TVhttpDic objectForKey:@"category"];
-//            NSArray * service1 = [TVhttpDic objectForKey:@"service"];
+            //            //此处做判断，看一下属于哪个tuner
+            //            TVhttpDic =  [USER_DEFAULT objectForKey:@"TVHttpAllData"];
+            //            NSArray * category1 = [TVhttpDic objectForKey:@"category"];
+            //            NSArray * service1 = [TVhttpDic objectForKey:@"service"];
             
             
-//            for (int a = 0; a <service1.count ; a++) {
-//                //原始数据
-//                NSString * service_network =  [service1[a]objectForKey:@"service_network_id"];
-//                NSString * service_ts =  [service1[a] objectForKey:@"service_ts_id"];
-//                NSString * service_service =  [service1[a] objectForKey:@"service_service_id"];
-//                NSString * service_tuner =  [service1[ai] objectForKey:@"service_tuner_mode"];
-//                
-//                
-//                //                //新的数据
-//                NSString * newservice_network = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: networkIdData]]; //[[NSString alloc]initWithData:networkIdData encoding:NSUTF8StringEncoding];
-//                
-//                
-//                NSString * newservice_ts =   [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: tsIdData]];//[[NSString alloc]initWithData:tsIdData encoding:NSUTF8StringEncoding];
-//                NSString * newservice_service = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: serviceIdData]];
-//                
-//                if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts]  && [service_service isEqualToString:newservice_service]  //&& [service_tuner isEqualToString:newservice_tunertype]
-//                    ) {
-//                    
-//                    //这种情况下是找到了节目
-//                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:service1[a],serviceTypeData,clientNameData, nil];
-//                    
-//                    [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
-//                    
-//                    
-//                    [self.tableView reloadData];
-//                }
-//                else //此处是一种特殊情况，没有找到这个节目
-//                {
-//                    [self.tableView reloadData];
-//                }
-//                
-//            }
+            //            for (int a = 0; a <service1.count ; a++) {
+            //                //原始数据
+            //                NSString * service_network =  [service1[a]objectForKey:@"service_network_id"];
+            //                NSString * service_ts =  [service1[a] objectForKey:@"service_ts_id"];
+            //                NSString * service_service =  [service1[a] objectForKey:@"service_service_id"];
+            //                NSString * service_tuner =  [service1[ai] objectForKey:@"service_tuner_mode"];
+            //
+            //
+            //                //                //新的数据
+            //                NSString * newservice_network = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: networkIdData]]; //[[NSString alloc]initWithData:networkIdData encoding:NSUTF8StringEncoding];
+            //
+            //
+            //                NSString * newservice_ts =   [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: tsIdData]];//[[NSString alloc]initWithData:tsIdData encoding:NSUTF8StringEncoding];
+            //                NSString * newservice_service = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: serviceIdData]];
+            //
+            //                if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts]  && [service_service isEqualToString:newservice_service]  //&& [service_tuner isEqualToString:newservice_tunertype]
+            //                    ) {
+            //
+            //                    //这种情况下是找到了节目
+            //                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:service1[a],serviceTypeData,clientNameData, nil];
+            //
+            //                    [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+            //
+            //
+            //                    [self.tableView reloadData];
+            //                }
+            //                else //此处是一种特殊情况，没有找到这个节目
+            //                {
+            //                    [self.tableView reloadData];
+            //                }
+            //
+            //            }
             
             
             
@@ -314,17 +315,17 @@
     //    [self loadTableview];
     //    [self loadNumLab];
     
-//    if (tableInitNum == 0) {
-//        [self loadTableview];
-//        tableInitNum++;
-//        
-//    }
+    //    if (tableInitNum == 0) {
+    //        [self loadTableview];
+    //        tableInitNum++;
+    //
+    //    }
     //    else
     //    {
     //     [tableView reloadData];
     //    }
     
-//    [tableView reloadData];
+    //    [tableView reloadData];
     //    [self loadTableview];
     [self changeView];
 }
@@ -348,23 +349,23 @@
     DistributeVerticalImg.frame = CGRectMake(0.530*HistogramImage.frame.size.width, 84/2+10.5*(9-deliveryCount), 12.5, 10.5*deliveryCount);
     
     nameLab.text =[NSString stringWithFormat:@"PVR Box %ld/9", (long)tunerNum];
-//    TVLiveVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)livePlayCount]];
-//
-//    
-//    
-//    TimeShiftVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount]];
-//    
-//    
-//    
-//    RecoderVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)liveRecordCount]];
-//    
-//    
-//    
-//    
-//    DistributeVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)deliveryCount]];
-//    
+    //    TVLiveVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)livePlayCount]];
+    //
+    //
+    //
+    //    TimeShiftVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount]];
+    //
+    //
+    //
+    //    RecoderVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)liveRecordCount]];
+    //
+    //
+    //
+    //
+    //    DistributeVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)deliveryCount]];
+    //
     
- 
+    
     
 }
 -(void)judgeTunerClass:(NSData * )typeData
@@ -410,7 +411,7 @@
     pushVodCount = 0;
     tunerNum = 0;
     
-   
+    
 }
 
 -(void)linkSocket
@@ -419,8 +420,8 @@
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
     
-//    self.videoController.socketView1 = self.socketView;
-//    [self.socketView  serviceTouch ];
+    //    self.videoController.socketView1 = self.socketView;
+    //    [self.socketView  serviceTouch ];
 }
 -(void)loadNav
 {
@@ -437,19 +438,20 @@
     scrollView = nil;
     [self loadScroll];
     [self initData];  //初始化数据
-        [self getNotificInfo];
+    [self getNotificInfo];
     
     
     //    [self getCGData];    //此处是获取数据
     
     [self loadUI];
     NSLog(@"Device ViewWillApper");
+    self.tabBarController.tabBar.hidden = YES;
 }
 //-(void)viewWillDisappear:(BOOL)animated
 //{
 ////页面消失时删除nstimer
 //    　[self.timer invalidate];
-//    
+//
 //    self.timer = nil;
 //    NSLog(@"将要消失了一次 ");
 //}
@@ -490,9 +492,9 @@
                     CGDeviceView.frame = CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45);
                 }else //如果是在直方图的下面，则高度增加115
                 {
-                 CGDeviceView.frame = CGRectMake(20, 20 + 50* i +115 , SCREEN_WIDTH - 40, 45);
+                    CGDeviceView.frame = CGRectMake(20, 20 + 50* i +115 , SCREEN_WIDTH - 40, 45);
                 }
-                                         
+                
                 CGDeviceView.layer.cornerRadius = 5.0;
                 CGDeviceView.tag = i;
                 CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
@@ -517,27 +519,27 @@
                 [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
                 
                 [CGDeviceView addSubview:changeBtn];
-
+                
             }
             else
             {
-//                UIView * CGDeviceView = [[UIView alloc]initWithFrame:CGRectMake(20, 20 + 50* i +115, SCREEN_WIDTH - 40, 45+115)];
-//                CGDeviceView.layer.cornerRadius = 5.0;
-//                CGDeviceView.tag = i;
-//                CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
-//                
-//                [scrollView addSubview:CGDeviceView];
-//                [scrollView bringSubviewToFront:CGDeviceView];
-
-                 HistogramImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45+115)];
+                //                UIView * CGDeviceView = [[UIView alloc]initWithFrame:CGRectMake(20, 20 + 50* i +115, SCREEN_WIDTH - 40, 45+115)];
+                //                CGDeviceView.layer.cornerRadius = 5.0;
+                //                CGDeviceView.tag = i;
+                //                CGDeviceView.backgroundColor = RGBA(0x60, 0xa3, 0xec, 1);
+                //
+                //                [scrollView addSubview:CGDeviceView];
+                //                [scrollView bringSubviewToFront:CGDeviceView];
+                
+                HistogramImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45+115)];
                 HistogramImage.image = [UIImage imageNamed:@"直方图"];
                 [scrollView addSubview:HistogramImage];
                 
                 
-                 nameLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 17, 200, 14)];
+                nameLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 17, 200, 14)];
                 nameLab.font = FONT(13);
                 nameLab.textColor = [UIColor whiteColor];
-//              nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
+                //              nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
                 nameLab.text =@"PVR Box 6/9";
                 [HistogramImage addSubview:nameLab];
                 
@@ -552,9 +554,9 @@
                 
                 [HistogramImage addSubview:changeBtn];
                 
-            
                 
-                 TVLiveVerticalImg = [[UIImageView alloc]initWithFrame:CGRectMake(0.105*HistogramImage.frame.size.width, 84/2+10.5*(9-livePlayCount), 12.5, 10.5*livePlayCount)];
+                
+                TVLiveVerticalImg = [[UIImageView alloc]initWithFrame:CGRectMake(0.105*HistogramImage.frame.size.width, 84/2+10.5*(9-livePlayCount), 12.5, 10.5*livePlayCount)];
                 TVLiveVerticalImg.image = [UIImage imageNamed:@"Verticalpic"];
                 [HistogramImage addSubview:TVLiveVerticalImg];
                 NSLog(@"宽度：%f",[UIScreen mainScreen].bounds.size.width);
@@ -564,16 +566,16 @@
                 [HistogramImage addSubview:TimeShiftVerticalImg];
                 
                 RecoderVerticalImg = [[UIImageView alloc]initWithFrame:CGRectMake(0.388*HistogramImage.frame.size.width, 84/2+10.5*(9-liveRecordCount), 12.5, 10.5*liveRecordCount)];
-//                RecoderVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)liveRecordCount]];
+                //                RecoderVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)liveRecordCount]];
                 RecoderVerticalImg.image = [UIImage imageNamed:@"Verticalpic"];
                 [HistogramImage addSubview:RecoderVerticalImg];
-
+                
                 
                 DistributeVerticalImg = [[UIImageView alloc]initWithFrame:CGRectMake(0.530*HistogramImage.frame.size.width, 84/2+10.5*(9-deliveryCount), 12.5, 10.5*deliveryCount)];
-
+                
                 DistributeVerticalImg.image = [UIImage imageNamed:@"Verticalpic"];
                 [HistogramImage addSubview:DistributeVerticalImg];
-               
+                
                 
                 UILabel * TVLiveLab = [[UILabel alloc]initWithFrame:CGRectMake(25, 140, 38, 20)];
                 TVLiveLab.text = @"TV Live";
@@ -598,7 +600,7 @@
                 DistributeLab.font = FONT(9);
                 DistributeLab.textColor = [UIColor whiteColor];
                 [HistogramImage addSubview:DistributeLab];
-
+                
             }
         }
     }

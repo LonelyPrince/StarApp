@@ -10,7 +10,7 @@
 
 @interface LinkViewController ()<UIAlertViewDelegate>
 {
-NSString * tel ;
+    NSString * tel ;
 }
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)UIScrollView * scrollView;
@@ -25,16 +25,19 @@ NSString * tel ;
     // Do any additional setup after loading the view from its nib.
     
     
-    
+    self.tabBarController.tabBar.hidden = YES;
     [self loadNav];
     
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = YES;
+}
 -(void)loadNav
 {
     self.navigationController.title = @"Help Center";
     self.title =  @"Help Center";
-
+    
     [self loadScroll];
     
     UIImageView * imageView = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 930)];
@@ -48,7 +51,7 @@ NSString * tel ;
     [self.view addSubview:self.scrollView ];
     
     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 930);
-//    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216 +_allHistoryBtnHeight);
+    //    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216 +_allHistoryBtnHeight);
     //    scroll.pagingEnabled=YES;
     self.scrollView.showsVerticalScrollIndicator=NO;
     self.scrollView.showsHorizontalScrollIndicator=NO;
@@ -58,31 +61,31 @@ NSString * tel ;
     [self.view addSubview:_scrollView];
     [self loadLinkBtn];
     
-
+    
 }
 
 -(void)loadLinkBtn
 {
-//    for (int i = 0; i<9; i++) {
-//        UIButton * btn  = [[UIButton alloc]init];
-////        btn.backgroundColor = [UIColor redColor];
-////        btn.tag = i;
-////        [btn addTarget:self action:@selector(linkBtnClick :) forControlEvents:UIControlEventTouchUpInside];
-////        btn  = [UIButton buttonWithType:UIButtonTypeCustom];
-////        [btn setTitle:@"i" forState:UIControlStateNormal];
-////        [_scrollView addSubview:btn];
-////        [_scrollView bringSubviewToFront:btn];
-//        
-//        
-//        btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        btn.tag = i;
-//        btn.frame = CGRectMake(0, 20+97*i, SCREEN_WIDTH, 90);
-//        btn.backgroundColor = [UIColor redColor];
-//        [btn setTitle:@"DEL" forState:UIControlStateNormal];
-//        [btn addTarget:self action:@selector(linkBtnClick :) forControlEvents:UIControlEventTouchUpInside];
-//        [_scrollView addSubview:btn];
-//        
-//    }
+    //    for (int i = 0; i<9; i++) {
+    //        UIButton * btn  = [[UIButton alloc]init];
+    ////        btn.backgroundColor = [UIColor redColor];
+    ////        btn.tag = i;
+    ////        [btn addTarget:self action:@selector(linkBtnClick :) forControlEvents:UIControlEventTouchUpInside];
+    ////        btn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    ////        [btn setTitle:@"i" forState:UIControlStateNormal];
+    ////        [_scrollView addSubview:btn];
+    ////        [_scrollView bringSubviewToFront:btn];
+    //
+    //
+    //        btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //        btn.tag = i;
+    //        btn.frame = CGRectMake(0, 20+97*i, SCREEN_WIDTH, 90);
+    //        btn.backgroundColor = [UIColor redColor];
+    //        [btn setTitle:@"DEL" forState:UIControlStateNormal];
+    //        [btn addTarget:self action:@selector(linkBtnClick :) forControlEvents:UIControlEventTouchUpInside];
+    //        [_scrollView addSubview:btn];
+    //
+    //    }
     
     UIButton * btn0  = [[UIButton alloc]init];
     btn0 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -164,7 +167,7 @@ NSString * tel ;
     [btn8 setTitle:@"Tel" forState:UIControlStateNormal];
     [btn8 addTarget:self action:@selector(linkBtnClick :) forControlEvents:UIControlEventTouchUpInside];
     [_scrollView addSubview:btn8];
-
+    
     UIButton * btn9  = [[UIButton alloc]init];
     btn9 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn9.tag = 9;
@@ -206,10 +209,10 @@ NSString * tel ;
     
     switch (linkBtnTag) {
         case 0:
-          tel =   @"094618888";
+            tel =   @"094618888";
             break;
         case 1:
-           tel =   @"014618888";
+            tel =   @"014618888";
             break;
         case 2:
             tel =   @"0764700800";
@@ -241,7 +244,7 @@ NSString * tel ;
         case 11:
             tel =   @"014618888";
             break;
-        
+            
         default:
             break;
     }
@@ -249,8 +252,8 @@ NSString * tel ;
     
     UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",tel] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Call", nil];
     
-//    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
-
+    //    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
+    
     [linkAlert show];
     
 }
