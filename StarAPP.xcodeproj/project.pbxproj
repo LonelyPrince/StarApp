@@ -313,6 +313,9 @@
 		7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650681DB9EFA2002DD47E /* subtCell.xib */; };
 		7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7056506C1DB9F1E1002DD47E /* ChannelCell.m */; };
 		7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7056506D1DB9F1E1002DD47E /* ChannelCell.xib */; };
+		706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376111E0B5EB8004238B1 /* 网络无连接@1x.png */; };
+		706376151E0B5EB8004238B1 /* 网络无连接@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376121E0B5EB8004238B1 /* 网络无连接@2x.png */; };
+		706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376131E0B5EB8004238B1 /* 网络无连接@3x.png */; };
 		706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8D1DAF5DA400DADE86 /* play@1x.png */; };
 		706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8E1DAF5DA400DADE86 /* play@2x.png */; };
 		706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706A1C8F1DAF5DA400DADE86 /* play@3x.png */; };
@@ -871,6 +874,9 @@
 		7056506B1DB9F1E1002DD47E /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCell.h; sourceTree = "<group>"; };
 		7056506C1DB9F1E1002DD47E /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCell.m; sourceTree = "<group>"; };
 		7056506D1DB9F1E1002DD47E /* ChannelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
+		706376111E0B5EB8004238B1 /* 网络无连接@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@1x.png"; sourceTree = "<group>"; };
+		706376121E0B5EB8004238B1 /* 网络无连接@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@2x.png"; sourceTree = "<group>"; };
+		706376131E0B5EB8004238B1 /* 网络无连接@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@3x.png"; sourceTree = "<group>"; };
 		706A1C8D1DAF5DA400DADE86 /* play@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@1x.png"; sourceTree = "<group>"; };
 		706A1C8E1DAF5DA400DADE86 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		706A1C8F1DAF5DA400DADE86 /* play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@3x.png"; sourceTree = "<group>"; };
@@ -1794,6 +1800,9 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				706376111E0B5EB8004238B1 /* 网络无连接@1x.png */,
+				706376121E0B5EB8004238B1 /* 网络无连接@2x.png */,
+				706376131E0B5EB8004238B1 /* 网络无连接@3x.png */,
 				706C26301E03AF9A003AA695 /* 底背景@1x.png */,
 				706C26311E03AF9A003AA695 /* 底背景@2x.png */,
 				706C26321E03AF9A003AA695 /* 底背景@3x.png */,
@@ -2350,6 +2359,7 @@
 				70FFE3E91DE2DBA200223E43 /* M8.png in Resources */,
 				707FE73E1DACC3C30087C361 /* Group 5@2x.png in Resources */,
 				70231CD31DC0FE8C00F73202 /* 路由设置IP不可用.png in Resources */,
+				706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */,
 				702CE4471DDA9881000A0513 /* 8@3x.png in Resources */,
 				70FC30E11D75714E00BD06FE /* kr-video-player-play@2x.png in Resources */,
 				7024C5E01DD1AD330053F313 /* 关于@2x.png in Resources */,
@@ -2380,6 +2390,7 @@
 				70231CC81DC0FE8C00F73202 /* on@3x.png in Resources */,
 				70231CEA1DC1A00100F73202 /* save@2x.png in Resources */,
 				7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */,
+				706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */,
 				707FE7441DACC3C30087C361 /* live icon copy@2x.png in Resources */,
 				70231CF91DC1DF5A00F73202 /* Back Arrow@3x.png in Resources */,
 				701A98A51DB47A3100460220 /* lock@1x.png in Resources */,
@@ -2444,6 +2455,7 @@
 				707FE7561DACC3C30087C361 /* Pause@2x.png in Resources */,
 				702CE4021DDA97EC000A0513 /* mima@1x.png in Resources */,
 				7045C46F1DC715FB002647F9 /* 矩形3@2x.png in Resources */,
+				706376151E0B5EB8004238B1 /* 网络无连接@2x.png in Resources */,
 				70FC30EC1D75714E00BD06FE /* zx-video-player-fastForward@3x.png in Resources */,
 				701A98AE1DB47A3100460220 /* 上一频道@1x.png in Resources */,
 				70FFA4E81DE7E6BE006BFE5E /* 直方图@3x.png in Resources */,

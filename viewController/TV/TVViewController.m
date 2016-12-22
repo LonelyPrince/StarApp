@@ -1992,27 +1992,46 @@ UITableViewDelegate,UITableViewDataSource>
     self.socketView  = [[SocketView  alloc]init];
     [self.socketView viewDidLoad];
     firstShow =NO;
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstStartTransform"];
     
-    
-    activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//    activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                         SCREEN_WIDTH,
+//                                                         SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)];
+    activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
                                                          SCREEN_WIDTH,
-                                                         SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)];
+                                                         SCREEN_HEIGHT)];
     
     
     //    activeView.backgroundColor = [UIColor redColor];
     [self.view addSubview:activeView];    //等待loading的view
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
+//    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
     
+//    UIView * hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 616/2, 348/2)];
+    UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
+    hudImage.image = [UIImage imageNamed:@"网络无连接"];
+    //调用上面的方法，获取 字体的 Size
+    
+    CGSize size = [self sizeWithText: @"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+    hudLab.text = @"Network Error";
+    hudLab.font = FONT(15);
+    hudLab.textColor = [UIColor grayColor];
+    
+ 
+//    [hudView addSubview:hudImage];
+  
     
     //如果设置此属性则当前的view置于后台
     
-    [HUD showAnimated:YES];
+//    [HUD showAnimated:YES];
     
     
     //设置对话框文字
     
-    HUD.labelText = @"loading";
-    [self.activeView addSubview:HUD];
+//    HUD.labelText = @"loading";
+//    [self.activeView addSubview:HUD];
+    [self.activeView addSubview:hudImage];
+    [self.activeView addSubview:hudLab];
     
     //search数据的获取，只能执行一次，所以不能放到viewwillapper中
     [self getSearchData];
@@ -2092,6 +2111,11 @@ UITableViewDelegate,UITableViewDataSource>
     
 }
 
+- (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -2138,7 +2162,8 @@ UITableViewDelegate,UITableViewDataSource>
     //                                         forTitles:self.categorys];
     //
     
-    _slideView = [YLSlideView alloc];
+//    _slideView = [YLSlideView alloc];
+//    self.videoController = [[ZXVideoPlayerController alloc]init];
     
 }
 -(void)initProgressLine
@@ -2237,6 +2262,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self playVideo];
         
         
         //////
@@ -2263,11 +2289,12 @@ UITableViewDelegate,UITableViewDataSource>
             }
             self.categorys = (NSMutableArray *)data;
             
-            if (tableviewinit == 2) {
-                
+//            if (tableviewinit == 2) {
+               if (!_slideView) {
+            
                 
                 //设置滑动条
-                
+                _slideView = [YLSlideView alloc];
                 _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                                                   SCREEN_WIDTH,
                                                                   SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
@@ -2288,6 +2315,7 @@ UITableViewDelegate,UITableViewDataSource>
                 _slideView.delegate        = self;
                 
                 [self.view addSubview:_slideView];
+                   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
             }
             else
             {
@@ -2353,6 +2381,8 @@ UITableViewDelegate,UITableViewDataSource>
 {
     if (!self.videoController) {
         self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
+//         self.videoController.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
+        
         
         __weak typeof(self) weakSelf = self;
         self.videoController.videoPlayerGoBackBlock = ^{
@@ -3319,7 +3349,7 @@ UITableViewDelegate,UITableViewDataSource>
     }else{
         NSLog(@"不是第一次启动");
         
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
         tableviewinit  = tableviewinit +1;
         firstShow = YES;
         statusNum = 1;
@@ -3332,7 +3362,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         
         
-        
+//         [self playVideo];
         
         //        [self viewDidLoad];
         
@@ -3361,7 +3391,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         self.view.backgroundColor = [UIColor whiteColor];
         
-        [self playVideo];
+//        [self playVideo];
         
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
