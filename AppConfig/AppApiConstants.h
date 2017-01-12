@@ -33,7 +33,9 @@
 //常用链接
 //#define kSDLB_SYS_SERVER @"http://www.jiajudaren.com/index.php?m=api&"
 //  192.168.1.1
-#define kSDLB_SYS_SERVER @"http://192.168.1.1/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
+#define kSDLB_SYS_SERVER @"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
+
+
 //#define kSDLB_SYS_SERVER @"http://192.168.1.226/cgi-bin/cgi_channel_list.cgi?"    //服务器地址
 //#define k_image_ip @"http://www.jiajudaren.com"
 

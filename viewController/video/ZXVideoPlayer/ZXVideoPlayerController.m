@@ -264,6 +264,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
     
     if (self.playbackState == MPMoviePlaybackStatePlaying) {
+        NSLog(@"视频正在播放");
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
         [self startDurationTimer];
@@ -271,6 +272,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self.videoControl.indicatorView stopAnimating];
         [self.videoControl autoFadeOutControlBar];
     } else {
+        [self play];
+        NSLog(@"视频正在播放停止");
         self.videoControl.pauseButton.hidden = YES;
         self.videoControl.playButton.hidden = NO;
         [self stopDurationTimer];
@@ -610,11 +613,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:18];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:18];
     
-    self.videoControl.channelIdLab.frame = CGRectMake(48, 30, 55, 18);
-    self.videoControl.channelNameLab.frame = CGRectMake(113, 30, 260, 18);
+    CGSize sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    self.videoControl.channelIdLab.frame = CGRectMake(48, 30, sizeChannelId.width, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(48+sizeChannelId.width+30, 30, sizeChannelName.width, 18);
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
-}
+    self.videoControl.FulleventNameLab.frame =  CGRectMake(48+sizeChannelId.width+sizeChannelName.width+60, 30, sizeEventName.width, 18);
+    
 
+
+}
+- (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
 /// 切换到竖屏模式
 - (void)restoreOriginalScreen
 {
@@ -654,6 +668,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:12];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:12];
+
     
 }
 
@@ -1014,11 +1029,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     [self stop];
     [super setContentURL:contentURL];
+    
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(crclePlayUrl) userInfo:nil repeats:YES];
+    
     [self play];
+
+    //    self.useApplicationAudioSession = NO;
     
     
 }
-
+-(void)crclePlayUrl
+{
+    [self play];
+    NSLog(@"循环播放");
+}
 
 
 - (ZXVideoPlayerControlView *)videoControl

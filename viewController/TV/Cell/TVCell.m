@@ -72,18 +72,46 @@
     
     if (epgArr.count >1) {
         nextEpgDic = epgArr[1];
-        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
-        self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-        NSLog(@"shijian时间：%@",self.event_nextTime.text);
-        self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
+//        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
+        NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+       
+        if (![startTimeisHas isEqualToString:@""]) {
+            self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+        }else{
+        self.event_nextTime.text =@"NO Information";
+        }
+        
+            
+        
+//        NSLog(@"shijian时间：%@",self.event_nextTime.text);
+        if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+            self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
+        }else
+        {
+        self.event_nextNameLab.text =@"NO Information";
+        }
+        
     }
     else
     {
+         NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+        if(![endTimeisHas isEqualToString:@""])
+        {
         self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
-        self.event_nextNameLab.text = @"";
+        }else{
+        self.event_nextTime.text = @"NO Information";
+        }
+        
+        self.event_nextNameLab.text = @"NO Information";
     }
     
-    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+//    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+    if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+        self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+    }else
+    {
+        self.event_nameLab.text =@"NO Information";
+    }
     
     
  

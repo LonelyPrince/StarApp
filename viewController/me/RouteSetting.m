@@ -190,8 +190,17 @@
 {
     NSLog(@"点击了save按钮");
     
+    NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
+    NSString * serviceIp;
+    if (DMSIP != NULL ) {
+        serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+    }else
+    {
+        //        serviceIp =@"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?";   //服务器地址
+    }
     //获取数据的链接
-    NSString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
+    NSString *linkUrl = [NSString stringWithFormat:@"%@",serviceIp];
+//    SString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
     
     NSURL *url = [NSURL URLWithString:linkUrl];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];

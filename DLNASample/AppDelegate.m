@@ -45,13 +45,19 @@
     self.starMainTab = [[StarMainTabController alloc]init];
     self.starMainTab.selectedIndex = 1;
     self.window.rootViewController = self.starMainTab;
-    
-    [NSThread sleepForTimeInterval:1.0];//设置启动页面时间
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+    NSLog(@"00000---");
     self.dataSource = [NSMutableArray array];
     cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
-    [self getCGData1];
+    [NSThread detachNewThreadSelector:@selector(getCGData1) toTarget:self withObject:nil];
+//    [self getCGData1];
+    NSLog(@"11111---");
+    [NSThread sleepForTimeInterval:2.0];//设置启动页面时间
+    NSLog(@"22222---");
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+//    self.dataSource = [NSMutableArray array];
+//    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
+//    [self getCGData1];
 //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
@@ -59,6 +65,7 @@
       [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
 //    self.ipString =  [GGUtil getIPAddress];
     self.ipString =  [GGUtil getIPAddress:YES];
+     [USER_DEFAULT setObject:@"aa"  forKey:@"HMC_DMSIP"];   //这个可以删除，此处是做测试，默认的先让IP为aa
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -128,6 +135,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 -(void)getCGData1
 {
+//    NSLog(@"--++--");
+//    avCtrl = [[CGUpnpAvController alloc] init];    ///进行搜索的对象
+//            avCtrl.delegate = self;
+//            [avCtrl search];
+//            self.avController = avCtrl;
+    //
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 处理耗时操作的代码块...
         //搜索
@@ -149,6 +162,9 @@ void UncaughtExceptionHandler(NSException *exception) {
     });
 }
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
+    
+    NSLog(@"刷新中-----");
+    
     
     NSArray * oldDmsArr =[USER_DEFAULT  objectForKey:@"DmsDevice"]; //用于获取原始的数据，如果原始数据和新数据一样，不刷新
     NSArray * newDmsArr = [[NSArray alloc]init];
@@ -201,7 +217,49 @@ void UncaughtExceptionHandler(NSException *exception) {
         //此处可以判断DLNA的数据是不是变化
         [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
         NSLog(@"datasource.count %d",self.dataSource.count);
+       
         
+        //此处添加判断方法，如果有前缀是HMC的设备，则自动连接其IP
+        for (int i = 0 ; i<self.dataSource.count; i++) {
+            NSArray * HMCListArr = [self.dataSource copy];
+            NSDictionary * HMCDicList = [[NSDictionary alloc]init];
+            HMCDicList = HMCListArr[i];
+            NSString * HMC_DMSID = [HMCDicList objectForKey:@"dmsID"];
+             NSString *  subString= [HMC_DMSID substringWithRange:NSMakeRange(0,3)];
+            if ([subString isEqualToString:@"HMC"]) {
+                NSString * oldHMC_DMSIP =[USER_DEFAULT objectForKey:@"HMC_DMSIP"];
+                NSString * HMC_DMSIP =[HMCDicList objectForKey:@"dmsIP"];
+                 [USER_DEFAULT setObject:HMC_DMSIP  forKey:@"HMC_DMSIP"];
+           
+                 NSLog(@"DMSIP:4444");
+                NSLog(@"DMSIP:此时%@",HMC_DMSIP);
+                
+                //这里将service 地址本地存储
+                NSString * kSDLB_SYS_SERVERStr =[NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",HMC_DMSIP];    //服务器地址
+                [USER_DEFAULT setObject:kSDLB_SYS_SERVERStr  forKey:@"HMCServiceStr"];
+              
+                //这里将G_device 地址本地存储
+                NSString * G_deviceStr =[NSString stringWithFormat:@"http://%@/test/online_devices",HMC_DMSIP];    //G_device地址
+                [USER_DEFAULT setObject:G_deviceStr  forKey:@"G_deviceStr"];
+                
+//                #define G_device  @"http://192.168.1.55/test/online_devices //@"http://www.tenbre.net/test/online_devices"//
+//                #define kSDLB_SYS_SERVER(x) [NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",x]    //服务器地址
+                if (! [oldHMC_DMSIP isEqualToString: HMC_DMSIP]) {
+                    NSLog(@"IP出现一次不同");
+                     NSLog(@"DMSIP:5555");
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    
+                    //创建通知
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+
+                }
+            }
+        }
         
     }
 //    //此处可以判断DLNA的数据是不是变化

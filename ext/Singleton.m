@@ -53,7 +53,7 @@
     NSLog(@"接下来开始发送心跳");
     // 每隔30s像服务器发送心跳包
     [sock readDataWithTimeout:-1 tag:0];
-//    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
+    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
     
     [self.connectTimer fire];
     
@@ -72,7 +72,7 @@
     
     betaData1 = [USER_DEFAULT objectForKey:@"beatAllData"];
     NSLog(@"beatAllData:%@",betaData1);
-    
+    NSLog(@"发送一次心跳");
     [self.socket writeData:betaData1 withTimeout:1 tag:1];
     
     

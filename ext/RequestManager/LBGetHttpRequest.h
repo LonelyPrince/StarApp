@@ -14,6 +14,7 @@
 
 @property (nonatomic, assign) BOOL isNeedShowWaring;
 @property (nonatomic, assign) BOOL isNeedHideHud;
-
+//@property (nonatomic, retain) NSTimer * timerGetHMC;
+//@property (nonatomic, retain) id(^LoadHMCServiceurl)();
 - (id) initWithInterfaceName:(NSString *) interfaceName;
 @end

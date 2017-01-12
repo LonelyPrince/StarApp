@@ -75,13 +75,22 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     [self heartBeat];
     
+    NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
   
+    if (DMSIP != NULL ) {
+
+    }else
+    {
+  
+    }
     
     //连接
 //    [Singleton sharedInstance].socketHost = @"192.168.1.183"; //host设定
-    [Singleton sharedInstance].socketHost = @"192.168.1.1"; //host设定
+    [Singleton sharedInstance].socketHost =DMSIP; //host设定
+    NSLog(@"DMSIP:==--==%@",DMSIP);
+    NSLog(@"DMSIP:3333");
     [Singleton sharedInstance].socketPort = 3000; //port设定
-    
+    NSLog(@"socket连接了一次 fack");
     //     在连接前先进行手动断开
     [Singleton sharedInstance].socket.userData = SocketOfflineByUser;
     [[Singleton sharedInstance] cutOffSocket];
