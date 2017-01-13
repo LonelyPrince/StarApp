@@ -35,4 +35,5 @@
 @property (nonatomic, retain) NSTimer * timerCheckIP;
 @property (nonatomic, retain) NSString * ipString;
 
+@property (nonatomic, assign) NSInteger * openfirst;
 @end

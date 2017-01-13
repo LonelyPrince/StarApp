@@ -49,6 +49,8 @@ UITableViewDelegate,UITableViewDataSource>
     NSString * eventName1 ;
     NSString * eventName2 ;
     NSString * eventNameTemp ;
+    
+    BOOL firstfirst;   //第一次打开时，自动播放第一个节目，这时候需要将socket的touch事件放到viewdidload之后
 }
 
 
@@ -115,6 +117,7 @@ UITableViewDelegate,UITableViewDataSource>
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    firstfirst = YES;
     tableviewinit = 1;
     firstOpenAPP = 0;
     IPString = @"";
@@ -491,14 +494,6 @@ UITableViewDelegate,UITableViewDataSource>
                 [self.view addSubview:_slideView];
                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
 
-//                   self.socketView  = [[SocketView  alloc]init];
-                   NSLog(@"DMSIP:1111");
-//                   [self.socketView viewDidLoad];
-                   NSLog(@"DMSIP:2222");
-                   [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                   firstOpenAPP = firstOpenAPP+1;
-                   
-
             }
             else
             {
@@ -506,6 +501,19 @@ UITableViewDelegate,UITableViewDataSource>
             }
              NSLog(@"DMSIP:6666");
              [self.socketView viewDidLoad];
+            if (firstfirst == YES) {
+                
+                //                   self.socketView  = [[SocketView  alloc]init];
+                NSLog(@"DMSIP:1111");
+                //                   [self.socketView viewDidLoad];
+                NSLog(@"DMSIP:2222");
+                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                firstOpenAPP = firstOpenAPP+1;
+                
+                firstfirst = NO;
+                
+            }else
+            {}
             
         }];
         
@@ -1982,7 +1990,13 @@ UITableViewDelegate,UITableViewDataSource>
     self.videoController.socketView1 = self.socketView;
     [self.socketView  serviceTouch ];
     
+    NSTimer * touchTimer = [NSTimer timerWithTimeInterval:3 target:self selector:@selector(touchTimer) userInfo:nil repeats:NO];
     
+    
+}
+-(void)touchTimer
+{
+ [self.socketView  serviceTouch ];
 }
 -(UIViewController*) findBestViewController:(UIViewController*)vc {
     
