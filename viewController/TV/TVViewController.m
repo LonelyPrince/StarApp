@@ -1599,6 +1599,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self newTunerNotific]; //新建一个tuner的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         [self allCategorysBtnNotific];
+        [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = image;
@@ -1669,8 +1670,138 @@ UITableViewDelegate,UITableViewDataSource>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delegeTunerInfo) name:@"deleteTuner" object:nil];
     
 }
-
-
+-(void)mediaDeliveryUpdateNotific
+{
+    //新建一个通知，用来监听机顶盒发出的节目列表更新的通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"mediaDeliveryUpdateNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaDeliveryUpdate) name:@"mediaDeliveryUpdateNotific" object:nil];
+}
+-(void)mediaDeliveryUpdate
+{
+    NSLog(@"//此时应该列表刷新11");
+    
+    [_slideView removeFromSuperview];
+    _slideView = nil;
+    //重新加载
+    [self getMediaDeliverUpdate];
+    
+}
+-(void)getMediaDeliverUpdate
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        
+        
+        
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        
+        //将数据本地化
+        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        
+        //        NSLog(@"response = %@",response);
+        NSArray *data1 = response[@"service"];
+        if (!isValidArray(data1) || data1.count == 0){
+//            [self getServiceData];
+            [self getMediaDeliverUpdate];
+            return ;
+        }
+        self.serviceData = (NSMutableArray *)data1;
+        
+        //        NSLog(@"--------%@",self.serviceData);
+        
+        
+        
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+//            [self getServiceData];
+            [self getMediaDeliverUpdate];
+        }
+        
+        [self.activeView removeFromSuperview];
+        self.activeView = nil;
+//        [self playVideo];
+        
+        
+        //////
+        //获取数据的链接
+        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+            
+            if (!_slideView) {
+                
+                
+                //设置滑动条
+                _slideView = [YLSlideView alloc];
+                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                  SCREEN_WIDTH,
+                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                
+                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                
+                _slideView.backgroundColor = [UIColor whiteColor];
+                _slideView.delegate        = self;
+                
+                [self.view addSubview:_slideView];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                
+            }
+            else
+            {
+                
+            }
+            
+            [self.socketView viewDidLoad];
+            if (firstfirst == YES) {
+                
+            
+//                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                firstOpenAPP = firstOpenAPP+1;
+                
+//                firstfirst = NO;
+                
+            }else
+            {}
+            
+        }];
+        
+        
+        [self initProgressLine];
+    
+        [self.table reloadData];
+        
+    
+    }];
+}
 -(void)allCategorysBtnNotific
 {
     //新建一个发送tuner删除直播消息的通知   //4

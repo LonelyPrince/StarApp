@@ -335,12 +335,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self loadNav];
-    [self loadScroll];
-    [self loadUI];
-    [self loadTableView];
-    [self getOnlineDevice];
-    [self getWifi];
+    [self initData];    //初始化数据，new
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -348,6 +344,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self getOnlineDevice];
+    [self loadNav];
+    [self loadScroll];
+    [self loadUI];
+    [self loadTableView];    
+    [self getWifi];
+}
+-(void)initData
+{
+//  [self loadNav];
+    scrollView = [[UIScrollView alloc]init];
+    routeImage = [[UIImageView alloc]init];
+    editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    routeNameLab = [[UILabel alloc]init];
+    routeIPLab = [[UILabel alloc]init];
+    centerGrayView = [[UIView alloc]init];
+    connectDevice = [[UILabel alloc]init];
+    
+    tableView = [[UITableView alloc]init];
+}
 -(void)loadNav
 {
     self.title = @"Route management";
@@ -359,7 +377,7 @@
 {
     
     
-    routeImage = [[UIImageView alloc]initWithFrame:CGRectMake(MARGINLEFT, ROUTEMARFINTOP, ROUTEWIDTH, ROUTEWIDTH)];
+    routeImage.frame = CGRectMake(MARGINLEFT, ROUTEMARFINTOP, ROUTEWIDTH, ROUTEWIDTH);
     routeImage.image = [UIImage imageNamed:@"luyou"];
     [scrollView addSubview:routeImage];
     /**/
@@ -368,7 +386,7 @@
     //    [scrollView addSubview:editImage];
     
     
-    editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
     [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -377,8 +395,7 @@
     
     
     
-    routeNameLab = [[UILabel alloc]init];
-    routeIPLab = [[UILabel alloc]init];
+  
     routeNameLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y, 200, 15);
     
     routeNameLab.font = FONT(15);
@@ -393,12 +410,12 @@
     [scrollView addSubview:routeIPLab];
     
     
-    centerGrayView = [[UIView alloc]initWithFrame:CGRectMake(0, 298/2, SCREEN_WIDTH, 6)];
+    centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
     centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
     [scrollView addSubview:centerGrayView];
     
     
-    connectDevice = [[UILabel alloc]init];
+    
     connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
     connectDevice.text = @"Connected devices";
     connectDevice.font = FONT(15);
@@ -409,7 +426,8 @@
 }
 -(void)loadScroll
 {
-    scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT)];
+
+    scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
     [self.view addSubview:scrollView];
     
     scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 128);
@@ -429,7 +447,9 @@
     
     
     
-    tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 190, SCREEN_WIDTH, 240)style:UITableViewStylePlain];
+    tableView.frame = CGRectMake(0, 190, SCREEN_WIDTH, 240);
+//    tableView.style = UITableViewStylePlain;
+//    tableView  UITableViewStylePlain;
     //tableview 的高度待定
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -444,10 +464,11 @@
 {
     return 1;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectio
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return deviceArr.count;
+    NSLog(@"deviceArr.count: %d",deviceArr.count);
+    return  deviceArr.count;
     
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -512,6 +533,7 @@
     NSArray *onlineDeviceArr = [request responseData].JSONValue;
     deviceArr = onlineDeviceArr;
     NSLog ( @"onlineDeviceArr:%@" ,onlineDeviceArr);
+    NSLog ( @"deviceArr:%@" ,deviceArr);
     
     
     
