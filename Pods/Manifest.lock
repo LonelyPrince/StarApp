@@ -32,6 +32,7 @@ PODS:
   - CocoaAsyncSocket/GCD (7.5.0)
   - HexColors (4.0.0)
   - MBProgressHUD (1.0.0)
+  - MJRefresh (3.1.12)
   - Reachability (3.2)
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - CocoaAsyncSocket (~> 7.5.0)
   - HexColors (~> 4.0.0)
   - MBProgressHUD (~> 1.0.0)
+  - MJRefresh (~> 3.1.12)
   - Reachability
   - SDWebImage (~> 3.8.1)
 
@@ -52,9 +54,10 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
 
-PODFILE CHECKSUM: a36c2c8b44580a7f4d4bd777033e0b1d0bf7008a
+PODFILE CHECKSUM: d330b15b2d8a30b8d5ae9a6baa7e29c01b3bf952
 
 COCOAPODS: 1.0.1

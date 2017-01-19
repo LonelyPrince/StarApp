@@ -7,5 +7,6 @@ pod 'MBProgressHUD', '~> 1.0.0'
 pod 'Reachability'
 pod 'CocoaAsyncSocket', '~> 7.5.0'
 pod 'HexColors', '~> 4.0.0'
+pod 'MJRefresh', '~> 3.1.12'
 end
 
