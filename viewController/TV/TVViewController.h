@@ -55,6 +55,7 @@
 @property (strong,nonatomic)UIView * activeView;
 @property (strong,nonatomic)NSString * IPString;
 @property (strong,nonatomic) UIView * topView;
+@property (strong,nonatomic)NSMutableArray * allStartEpgTime;
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
 
 

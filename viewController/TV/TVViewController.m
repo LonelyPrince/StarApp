@@ -10,6 +10,7 @@
 #import "TVCell.h"
 #import "MEViewController.h"
 #import "KSGuideManager.h"
+#import "MJRefresh.h"
 
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 //#import "HexColors.h"
@@ -93,6 +94,9 @@ UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSArray *progressViews;
 @property (nonatomic, strong)  UIButton * searchBtn;
+@property (nonatomic, strong)  TVTable * tableForSliderView;  //首页的频道列表tableView
+@property (nonatomic, strong)  TVTable * tableForTemp;  //首页的频道列表
+@property (nonatomic, strong)  NSMutableArray *  tableForDicIndexArr;  //数组保存首页每一个table和index的字典对应关系
 
 ///*
 // 字幕 音轨
@@ -114,6 +118,8 @@ UITableViewDelegate,UITableViewDataSource>
 @synthesize IPString;
 @synthesize topView;
 @synthesize categoryView;
+@synthesize allStartEpgTime;
+@synthesize tableForSliderView;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -292,6 +298,8 @@ UITableViewDelegate,UITableViewDataSource>
     searchViewCon = [[SearchViewController alloc]init];
     searchViewCon.tableView = [[UITableView alloc]init];
     searchViewCon.dataList = [[NSMutableArray alloc]init];
+    allStartEpgTime = [[NSMutableArray alloc]init];
+    self.tableForDicIndexArr = [[NSMutableArray alloc]init];
     //
     //    _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
     //                                                              SCREEN_WIDTH,
@@ -515,6 +523,43 @@ UITableViewDelegate,UITableViewDataSource>
             }else
             {}
             
+//            //刷新EPG数据。把所有的时间信息
+//            
+//            NSArray *EPGservice_data = response[@"service"];
+//            if (!isValidArray(EPGservice_data) || EPGservice_data.count == 0){
+//            }
+//            else   //此时有数据
+//            {
+//                NSDictionary * dicEpg = [[NSDictionary alloc]init];
+//                for (int e = 0; e<EPGservice_data.count; e++) {
+//                   
+//                    dicEpg = EPGservice_data[e];
+//                    
+//                    NSArray * arrEpg = [[NSArray alloc]init];
+//                    arrEpg = [dicEpg objectForKey:@"epg_info"];   //epg 小数组
+//                    
+//                    //重新声明一个一个epg数组加载epg信息
+////                    NSDictionary * epgTimeInfo = [[NSDictionary alloc]init];
+//                    for (int f = 0; f<arrEpg.count; f++) {
+//                        NSString * startTimeString = [arrEpg[f] objectForKey:@"event_starttime"];
+//                       
+//                        
+//                            if (![allStartEpgTime containsObject:startTimeString]) {
+//                                [allStartEpgTime addObject:startTimeString];
+//                            }
+//                        
+//                        
+//                    }
+//                }
+//            
+//            
+//            }
+//            NSLog(@"allStartEpgTime:--%@",allStartEpgTime);
+//            NSLog(@"allStartEpgTime.count:--%lu",(unsigned long)allStartEpgTime.count);
+//            
+            
+            
+            
         }];
         
         
@@ -546,7 +591,7 @@ UITableViewDelegate,UITableViewDataSource>
     [self.searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
     [self.view addSubview:self.searchBtn];
     //    [topView bringSubviewToFront:self.searchBtn];
-    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick
     
     
     
@@ -851,19 +896,109 @@ UITableViewDelegate,UITableViewDataSource>
 - (TVTable *)slideView:(YLSlideView *)slideView
      cellForRowAtIndex:(NSUInteger)index{
     
+    tableForSliderView =[slideView dequeueReusableCell];
+//    TVTable * cell = [slideView dequeueReusableCell];
     
-    TVTable * cell = [slideView dequeueReusableCell];
-    
-    if (!cell) {
-        cell = [[TVTable alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT -_slideView.frame.origin.y-49.5)
+    if (!tableForSliderView) {
+        tableForSliderView = [[TVTable alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT -_slideView.frame.origin.y-49.5)
                                        style:UITableViewStylePlain];
-        cell.delegate   = self;
-        cell.dataSource = self;
+        tableForSliderView.delegate   = self;
+        tableForSliderView.dataSource = self;
+        
+    }
+    // 添加头部的下拉刷新
+    MJRefreshNormalHeader *header = [[MJRefreshNormalHeader alloc] init];
+    [header setRefreshingTarget:self refreshingAction:@selector(headerClick)];
+    tableForSliderView.mj_header = header;
+    
+//    //保存到字典中 tableView和index
+//    NSDictionary * dicTableAndIndex = [[NSDictionary alloc]init];
+    NSMutableArray * arrTemp = [[NSMutableArray alloc]init];
+    NSNumber *  indexforTableToNum = [NSNumber numberWithInteger:index];
+    [arrTemp addObject:indexforTableToNum];
+    [arrTemp addObject:tableForSliderView];
+    
+//    NSString * indexforTableToStr = [NSString stringWithFormat:@"%@",dicTableAndIndex];
+//   
+//    [dicTableAndIndex setValue:tableForSliderView forKey:indexforTableToStr]; //将table保存为字典的序号
+//
+    
+    [self.tableForDicIndexArr addObject:arrTemp];
+  
+    return tableForSliderView;
+}
+// 头部的下 拉刷新触发事件
+- (void)headerClick {
+    
+    self.tableForSliderView =  self.tableForTemp;
+    // 可在此处实现下拉刷新时要执行的代码
+    // ......
+    
+    [self tableViewDataRefresh];  //重新获取json数据
+    
+    NSLog(@"tableForDicIndexArr:%@",self.tableForDicIndexArr);
+    for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
+        
+        id idTemp = self.tableForDicIndexArr[i][1];
+        NSNumber * numTemp = self.self.tableForDicIndexArr[i][0];
+        if (idTemp == self.tableForSliderView ) {
+          
+            NSInteger index = [numTemp integerValue];
+            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+            self.categoryModel = [[CategoryModel alloc]init];
+            
+            self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+            
+            //获取EPG信息 展示
+            //时间戳转换
+            
+            [self.dicTemp removeAllObjects];
+            //获取不同类别下的节目，然后是节目下不同的cell值                10
+            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                
+                int indexCat ;
+                //   NSString * str;
+                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                //cell.tabledataDic = self.serviceData[indexCat -1];
+                
+                
+                //此处判断是否为空，防止出错
+                if ( ISNULL(self.serviceData)) {
+                    
+                }else{
+                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                }
+                
+                
+            }
+
+            
+            
+            
+            
+        }
     }
     
-    //    cell.backgroundColor = colors[index];
-    //     NSLog(@"index --------:%@ ",@(index));
-    return cell;
+  
+//    重新赋值self.dictemp
+    //uitableview reloaddata
+    
+    [self.tableForSliderView reloadData];
+    
+    // 模拟延迟2秒
+    [NSThread sleepForTimeInterval:2];
+//    [self mediaDeliveryUpdate];
+//    [tableForSliderView reloadData];
+    // 结束刷新
+
+//    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
+    [self.tableForSliderView.mj_header endRefreshing];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    self.tableForTemp = scrollView;
+    NSLog(@"self.tableForTemp%@",self.tableForTemp);
 }
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
     
@@ -902,6 +1037,9 @@ UITableViewDelegate,UITableViewDataSource>
         
 
     }
+    
+    NSLog(@"self.dicTemp:%@",self.dicTemp);
+    NSLog(@"self.dicTemp.count:%d",self.dicTemp.count);
     //        cell.tabledataDic =  self.categorys[index];
     //    }
     
@@ -987,6 +1125,7 @@ UITableViewDelegate,UITableViewDataSource>
     //    [self.navigationController pushViewController:controller animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self touchSelectChannel:indexPath.row diction:self.dicTemp];
+    NSLog(@"tableForSliderView11--tableview:%@",tableView);
     //    //先传输数据到socket，然后再播放视频
     //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
     //
@@ -1677,12 +1816,127 @@ UITableViewDelegate,UITableViewDataSource>
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaDeliveryUpdate) name:@"mediaDeliveryUpdateNotific" object:nil];
 }
+-(void)tableViewDataRefresh
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        
+        
+        
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        
+        //将数据本地化
+        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        
+        //        NSLog(@"response = %@",response);
+        NSArray *data1 = response[@"service"];
+        if (!isValidArray(data1) || data1.count == 0){
+            //            [self getServiceData];
+            [self tableViewDataRefresh];
+            return ;
+        }
+        self.serviceData = (NSMutableArray *)data1;
+        
+        
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+            //            [self getServiceData];
+            [self tableViewDataRefresh];
+        }
+        
+        [self.activeView removeFromSuperview];
+        self.activeView = nil;
+        //        [self playVideo];
+        
+        
+        //////
+        //获取数据的链接
+        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+//            
+//            if (!_slideView) {
+//                
+//                
+//                //设置滑动条
+//                _slideView = [YLSlideView alloc];
+//                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                  SCREEN_WIDTH,
+//                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+//                
+//                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+//                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+//                
+//                _slideView.backgroundColor = [UIColor whiteColor];
+//                _slideView.delegate        = self;
+//                
+//                [self.view addSubview:_slideView];
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//                
+//            }
+//            else
+//            {
+//                
+//            }
+            
+//            [self.socketView viewDidLoad];
+            if (firstfirst == YES) {
+                
+                
+                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                //                firstOpenAPP = firstOpenAPP+1;
+                
+                //                firstfirst = NO;
+                
+            }else
+            {}
+            
+        }];
+        
+        
+//        [self initProgressLine];
+        
+        [self.table reloadData];
+        
+        
+    }];
+}
 -(void)mediaDeliveryUpdate
 {
     NSLog(@"//此时应该列表刷新11");
     
     [_slideView removeFromSuperview];
     _slideView = nil;
+    
+//    [self.table  removeFromSuperview];
+//    self.table = nil;
     //重新加载
     [self getMediaDeliverUpdate];
     
@@ -1780,7 +2034,7 @@ UITableViewDelegate,UITableViewDataSource>
                 
             }
             
-            [self.socketView viewDidLoad];
+//            [self.socketView viewDidLoad];
             if (firstfirst == YES) {
                 
             
@@ -1795,7 +2049,7 @@ UITableViewDelegate,UITableViewDataSource>
         }];
         
         
-        [self initProgressLine];
+//        [self initProgressLine];
     
         [self.table reloadData];
         

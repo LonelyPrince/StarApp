@@ -130,15 +130,18 @@
 //    NSTimeInterval time=[timeString doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
      NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
     NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+    if ([[detaildate description] isEqualToString:@"1970-01-01 00:00:00 +0000"]) {
+        return @"NO Information";
+    }
     NSLog(@"date:%@",[detaildate description]);
     //实例化一个NSDateFormatter对象
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设定时间格式,这里可以设置成自己需要的格式
     [dateFormatter setDateFormat:@"HH:mm"];
 //     [dateFormatter setDateFormat:@"现在日期：yyyy年MM月dd日 \n 现在时刻： HH:mm:ss             "];
-    
+    NSLog(@"dateFormatter:%@",dateFormatter);
     NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
-    
+    NSLog(@"currentDateStr:%@",currentDateStr);
     //    // 格式化时间
 //    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
 //    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
