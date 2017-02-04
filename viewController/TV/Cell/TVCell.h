@@ -12,7 +12,7 @@
 @interface TVCell : UITableViewCell
 
 
-@property (weak, nonatomic) IBOutlet UIImageView *channelImg;
+@property (weak, nonatomic) IBOutlet UIImageView *backImage;
 
 @property (weak, nonatomic) IBOutlet UIImageView *event_Img;
 @property (weak, nonatomic) IBOutlet UIImageView *event_nextImg;
@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *event_nextTime;
 
 @property (weak, nonatomic) IBOutlet UILabel *event_nextNameLab;
+@property (weak, nonatomic) IBOutlet UIImageView *channelImg;
 
 ///数据源
 @property (nonatomic, strong) NSDictionary *dataDic;

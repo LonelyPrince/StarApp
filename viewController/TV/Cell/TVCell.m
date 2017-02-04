@@ -7,7 +7,7 @@
 //
 
 #import "TVCell.h"
-
+#import "UIImageView+WebCache.h"
 
 
 @implementation TVCell
@@ -50,12 +50,26 @@
     _dataDic = dataDic;
     
 
-
+    self.backImage.image = [UIImage imageNamed:@"background"];
     UIImage * imageWithImage = [[UIImage alloc]init];
     imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
 
-    self.channelImg.image = imageWithImage; //两张图片叠加
+//    self.channelImg.image = imageWithImage; //两张图片叠加
+//   [self.channelImg setImageWithURL:[NSURL URLWithString:@"http://192.168.1.55/channelIcon/222_4965_7102.png"] placeholderImage:[UIImage imageNamed:@"分发@2x"] ];
+    
+    
+//    self.channelImg.frame = CGRectMake(26, 10, 81, 50);
+//    self.channelImg.layer.masksToBounds = YES;
+    
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"分发@2x"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        //[_dataDic objectForKey:@"epg_info"]
+//        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
 
+        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+
+        
+    }];
     self.event_Img.image = [UIImage imageNamed:@"play"];
     self.event_nextImg.image = [UIImage imageNamed:@"time"];
  
