@@ -61,14 +61,14 @@
 //    self.channelImg.frame = CGRectMake(26, 10, 81, 50);
 //    self.channelImg.layer.masksToBounds = YES;
     
-    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"分发@2x"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
 
         self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
-
-        
+  
+    
     }];
     self.event_Img.image = [UIImage imageNamed:@"play"];
     self.event_nextImg.image = [UIImage imageNamed:@"time"];

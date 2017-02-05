@@ -304,6 +304,9 @@
 		7045C4771DC715FB002647F9 /* 矩形6@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045C4651DC715FB002647F9 /* 矩形6@1x.png */; };
 		7045C4781DC715FB002647F9 /* 矩形6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045C4661DC715FB002647F9 /* 矩形6@2x.png */; };
 		7045C4791DC715FB002647F9 /* 矩形6@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045C4671DC715FB002647F9 /* 矩形6@3x.png */; };
+		704858091E46D0E60052318D /* placeholder@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858061E46D0E60052318D /* placeholder@1x.png */; };
+		7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858071E46D0E60052318D /* placeholder@2x.png */; };
+		7048580B1E46D0E60052318D /* placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858081E46D0E60052318D /* placeholder@3x.png */; };
 		705650641DB9B95F002DD47E /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650621DB9B95F002DD47E /* AudioCell.m */; };
 		705650651DB9B95F002DD47E /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650631DB9B95F002DD47E /* AudioCell.xib */; };
 		705650691DB9EFA2002DD47E /* subtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650671DB9EFA2002DD47E /* subtCell.m */; };
@@ -905,6 +908,9 @@
 		7045C4651DC715FB002647F9 /* 矩形6@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "矩形6@1x.png"; sourceTree = "<group>"; };
 		7045C4661DC715FB002647F9 /* 矩形6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "矩形6@2x.png"; sourceTree = "<group>"; };
 		7045C4671DC715FB002647F9 /* 矩形6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "矩形6@3x.png"; sourceTree = "<group>"; };
+		704858061E46D0E60052318D /* placeholder@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@1x.png"; sourceTree = "<group>"; };
+		704858071E46D0E60052318D /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
+		704858081E46D0E60052318D /* placeholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@3x.png"; sourceTree = "<group>"; };
 		705650611DB9B95F002DD47E /* AudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCell.h; sourceTree = "<group>"; };
 		705650621DB9B95F002DD47E /* AudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCell.m; sourceTree = "<group>"; };
 		705650631DB9B95F002DD47E /* AudioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
@@ -1929,6 +1935,9 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				704858061E46D0E60052318D /* placeholder@1x.png */,
+				704858071E46D0E60052318D /* placeholder@2x.png */,
+				704858081E46D0E60052318D /* placeholder@3x.png */,
 				706376111E0B5EB8004238B1 /* 网络无连接@1x.png */,
 				706376121E0B5EB8004238B1 /* 网络无连接@2x.png */,
 				706376131E0B5EB8004238B1 /* 网络无连接@3x.png */,
@@ -2486,6 +2495,7 @@
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				7024C6121DD441490053F313 /* bianji@2x.png in Resources */,
 				705650651DB9B95F002DD47E /* AudioCell.xib in Resources */,
+				7048580B1E46D0E60052318D /* placeholder@3x.png in Resources */,
 				7024C5C31DD00CAC0053F313 /* Del@3x.png in Resources */,
 				70FC30DD1D75714E00BD06FE /* kr-video-player-fullscreen@2x.png in Resources */,
 				70FC30F41D75714E00BD06FE /* zx-video-player-volume@3x.png in Resources */,
@@ -2704,6 +2714,7 @@
 				702CE4491DDA9881000A0513 /* 9@2x.png in Resources */,
 				701A98BC1DB47A3100460220 /* 频道列表@3x.png in Resources */,
 				70FFE3CF1DE2D07600223E43 /* 圆环-3.png in Resources */,
+				704858091E46D0E60052318D /* placeholder@1x.png in Resources */,
 				701A98A71DB47A3100460220 /* lock@3x.png in Resources */,
 				7045C4771DC715FB002647F9 /* 矩形6@1x.png in Resources */,
 				7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */,
@@ -2728,6 +2739,7 @@
 				70D6B9061E2DAF3D00957A81 /* movies&series @1x.png in Resources */,
 				707FE7411DACC3C30087C361 /* Group 16@2x.png in Resources */,
 				7045C46D1DC715FB002647F9 /* 矩形2@3x.png in Resources */,
+				7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */,
 				70231CEB1DC1A00100F73202 /* save@3x.png in Resources */,
 				702CE4551DDA9881000A0513 /* nor.png in Resources */,
 				70231CDF1DC19FEA00F73202 /* 组-55@3x.png in Resources */,

@@ -53,7 +53,7 @@
     
     self.backImage.image = [UIImage imageNamed:@"background"];
     
-    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"分发@2x"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
         //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
