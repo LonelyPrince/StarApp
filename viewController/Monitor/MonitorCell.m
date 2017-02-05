@@ -51,11 +51,22 @@
     
     NSLog(@"clientNameData:%@",clientNameData);
     
-    //图片和叠加图片
-    UIImage * imageWithImage = [[UIImage alloc]init];
-    imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
+    self.backImage.image = [UIImage imageNamed:@"background"];
     
-    self.channelImageView.image = imageWithImage; //两张图片叠加
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"分发@2x"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        //[_dataDic objectForKey:@"epg_info"]
+        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+        
+        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+        
+        
+    }];
+//    //图片和叠加图片
+//    UIImage * imageWithImage = [[UIImage alloc]init];
+//    imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
+    
+//    self.channelImageView.image = imageWithImage; //两张图片叠加
     //判断tuner类型 并且设置类别的图片
     [self judgeTunerClass:typedata tunerDic:tunnerCellData clientName:clientNameData];
 //    self.programeClass.image = [UIImage imageNamed:@"play"];

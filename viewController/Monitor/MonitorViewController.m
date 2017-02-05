@@ -721,12 +721,12 @@
     if (currentPostion - lastPosition > 30 && self.scrollView.contentOffset.y >50 && scrollUp == NO){
         CGPoint position = CGPointMake(0, 300);
 //        [scrollView     :position animated:YES];
-        [UIView animateWithDuration:1
+        [UIView animateWithDuration:0.5
                               delay:0.02
                             options:UIViewAnimationCurveLinear
                          animations:^{
 
-                            self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+                            self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
 
                              self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
                              scrollUp = YES;
@@ -751,7 +751,7 @@
         ){
         CGPoint position = CGPointMake(0, 300);
         
-        [UIView animateWithDuration:1
+        [UIView animateWithDuration:0.5
                               delay:0.02
                             options:UIViewAnimationCurveLinear
                          animations:^{
@@ -791,7 +791,7 @@
     NSLog(@"手机型号:%@",phoneModel);
     NSString* client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
     //实际情况下此处可做修改：
-    if (type == DELIVERY ){//&&  [clientNameStr isEqualToString:client_name]) {
+    if (type == DELIVERY  &&[clientNameStr isEqualToString:phoneModel]){//&&  [clientNameStr isEqualToString:client_name]) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
             return UITableViewCellEditingStyleDelete;
     }
@@ -849,7 +849,7 @@
 //   [self viewWillAppear:YES];
     [tableView endUpdates];
 //  [self getNotificInfo];  
-    [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.5];
+    [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
 }
 -(void)reFreshData
 {

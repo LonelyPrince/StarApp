@@ -12,11 +12,12 @@
 
 @interface MonitorCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *channelImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *backImage;
 @property (weak, nonatomic) IBOutlet UIImageView *programeClass;
 @property (weak, nonatomic) IBOutlet UIImageView *timeImage;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UILabel *timeLab;
+@property (weak, nonatomic) IBOutlet UIImageView *channelImg;
 
 
 ///数据源
