@@ -140,8 +140,10 @@
     [pswTextFieldImage addSubview:SpswImageView];
     
     pswBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    pswBtn.frame = CGRectMake(261, 13, 19, 12.5);
-    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+    pswBtn.frame = CGRectMake(261-6, 3, 34, 34);
+//    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+    [pswBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+    
     [pswBtn addTarget:self action:@selector(pswBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [pswTextFieldImage addSubview:pswBtn];
     
@@ -232,13 +234,15 @@
     if (isOn == YES) {
         isOn = NO;
         pswText.secureTextEntry = YES;
-        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+//        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+        [pswBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
     }
     else if (isOn == NO)
     {
         isOn = YES;
         pswText.secureTextEntry = NO;
-        [pswBtn setBackgroundImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
+//        [pswBtn setBackgroundImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
+        [pswBtn setImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
     }
     
     NSLog(@"点击了眼睛按钮");

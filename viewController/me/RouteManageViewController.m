@@ -301,6 +301,7 @@
 //
 
 #import "RouteManageViewController.h"
+#import "UIButton+EnlargeTouchArea.h"
 
 #define MARGINLEFT 20
 #define ROUTEMARFINTOP 33
@@ -390,6 +391,8 @@
     editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
     [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
     [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
     [scrollView addSubview:editBtn];
     
     

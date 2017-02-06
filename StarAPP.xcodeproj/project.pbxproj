@@ -307,6 +307,7 @@
 		704858091E46D0E60052318D /* placeholder@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858061E46D0E60052318D /* placeholder@1x.png */; };
 		7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858071E46D0E60052318D /* placeholder@2x.png */; };
 		7048580B1E46D0E60052318D /* placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858081E46D0E60052318D /* placeholder@3x.png */; };
+		704858181E46DA370052318D /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */; };
 		705650641DB9B95F002DD47E /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650621DB9B95F002DD47E /* AudioCell.m */; };
 		705650651DB9B95F002DD47E /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650631DB9B95F002DD47E /* AudioCell.xib */; };
 		705650691DB9EFA2002DD47E /* subtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650671DB9EFA2002DD47E /* subtCell.m */; };
@@ -911,6 +912,8 @@
 		704858061E46D0E60052318D /* placeholder@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@1x.png"; sourceTree = "<group>"; };
 		704858071E46D0E60052318D /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		704858081E46D0E60052318D /* placeholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@3x.png"; sourceTree = "<group>"; };
+		704858161E46DA370052318D /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
+		704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
 		705650611DB9B95F002DD47E /* AudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCell.h; sourceTree = "<group>"; };
 		705650621DB9B95F002DD47E /* AudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCell.m; sourceTree = "<group>"; };
 		705650631DB9B95F002DD47E /* AudioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
@@ -1932,6 +1935,15 @@
 			path = "历史磁铁";
 			sourceTree = "<group>";
 		};
+		704858151E46D9640052318D /* button点击区域 */ = {
+			isa = PBXGroup;
+			children = (
+				704858161E46DA370052318D /* UIButton+EnlargeTouchArea.h */,
+				704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */,
+			);
+			name = "button点击区域";
+			sourceTree = "<group>";
+		};
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
@@ -2012,6 +2024,7 @@
 		709746641D6D89E6002E7A39 /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				704858151E46D9640052318D /* button点击区域 */,
 				701443551DDD4FC2008EAAC6 /* 引导 */,
 				704582F31D9A193D0061C154 /* GGUtil.h */,
 				704582F41D9A193D0061C154 /* GGUtil.m */,
@@ -2864,6 +2877,7 @@
 				70130EA71D8FE813005F0A49 /* SocketModel.m in Sources */,
 				701295201D80F4CF003139D5 /* UIView+Create.m in Sources */,
 				70170C481D74234900CC3951 /* MonitorViewController.m in Sources */,
+				704858181E46DA370052318D /* UIButton+EnlargeTouchArea.m in Sources */,
 				701295241D80F4CF003139D5 /* UIViewController+Create.m in Sources */,
 				70FC2FF41D7524C000BD06FE /* SearchViewController.m in Sources */,
 				701294EE1D80F4B5003139D5 /* LBPostHttpRequest.m in Sources */,

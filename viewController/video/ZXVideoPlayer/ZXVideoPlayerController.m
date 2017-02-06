@@ -155,7 +155,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.playButton addTarget:self action:@selector(playButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.videoControl.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.videoControl.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.shrinkScreenButton1 addTarget:self action:@selector(shrinkScreenButton1Click) forControlEvents:UIControlEventTouchUpInside];
     
     [self.videoControl.lockButton addTarget:self action:@selector(lockButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -309,7 +309,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self setProgressSliderMaxMinValues];
     
     self.videoControl.fullScreenButton.hidden = NO;
-    self.videoControl.shrinkScreenButton.hidden = YES;
+//    self.videoControl.shrinkScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton1.hidden = YES;
     self.videoControl.lastChannelButton.hidden = YES;
     self.videoControl.nextChannelButton.hidden = YES;
@@ -594,7 +594,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    self.videoControl.bottomBar.userInteractionEnabled = YES;
     self.isFullscreenMode = YES;
     self.videoControl.fullScreenButton.hidden = YES;
-    self.videoControl.shrinkScreenButton.hidden = NO;
+//    self.videoControl.shrinkScreenButton.hidden = NO;
     self.videoControl.shrinkScreenButton1.hidden = NO;
     self.videoControl.lastChannelButton.hidden = NO;
     self.videoControl.nextChannelButton.hidden = NO;
@@ -648,7 +648,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.isFullscreenMode = NO;
     self.videoControl.fullScreenButton.hidden = NO;
-    self.videoControl.shrinkScreenButton.hidden = YES;
+//    self.videoControl.shrinkScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton1.hidden = YES;
     self.videoControl.backButton.hidden = YES;
     //     self.videoControl.channelIdLab.hidden = YES;
@@ -964,21 +964,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
 }
 
-/// 返回竖屏按钮点击
-- (void)shrinkScreenButtonClick
-{
-    
-    
-    if (!self.isFullscreenMode) {
-        return;
-    }
-    
-    if (self.isLocked) { // 解锁
-        [self lockButtonClick:self.videoControl.lockButton];
-    }
-    
-    [self changeToOrientation:UIDeviceOrientationPortrait];
-}
+///// 返回竖屏按钮点击
+//- (void)shrinkScreenButtonClick
+//{
+//    
+//    
+//    if (!self.isFullscreenMode) {
+//        return;
+//    }
+//    
+//    if (self.isLocked) { // 解锁
+//        [self lockButtonClick:self.videoControl.lockButton];
+//    }
+//    
+//    [self changeToOrientation:UIDeviceOrientationPortrait];
+//}
 
 /// 返回竖屏按钮点击1
 - (void)shrinkScreenButton1Click

@@ -298,8 +298,10 @@
     
     UIButton * allCateGoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2, 14.5, 19, 19);
-    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
+    allCateGoryButton.frame = CGRectMake(SCREEN_WIDTH-(29+38)/2-13, 2, 44, 44);
+//    [allCateGoryButton setBackgroundImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
+    [allCateGoryButton setImage:[UIImage imageNamed:@"categorys"] forState:UIControlStateNormal];
+    
     [allCateGoryButton addTarget:self action:@selector(allCateGoryButtonClick) forControlEvents:UIControlEventTouchUpInside];
 
     [self addSubview:allCateGoryButton];
