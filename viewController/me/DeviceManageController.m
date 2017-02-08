@@ -8,6 +8,7 @@
 
 #import "DeviceManageController.h"
 #import "DeviceManageCell.h"
+#import "UIButton+EnlargeTouchArea.h"
 @interface DeviceManageController ()
 {
     NSInteger   tunerNum;
@@ -50,7 +51,7 @@
     
     [self loadNav];
     //    [self loadScroll];
-    self.timer =   [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
+    self.timer =   [NSTimer scheduledTimerWithTimeInterval:500000 target:self selector:@selector(viewWillAppear:) userInfo:nil repeats:YES];
     
     NSLog(@"Device viewDidLoad");
     
@@ -164,6 +165,7 @@
     NSLog(@"datalen: %@",dataLen);
     int value;
     [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
+    NSLog(@"value: %d",value);
     
     //    [socketUtils uint16FromBytes:]
     //tuner的有效数据区
@@ -348,7 +350,9 @@
     
     DistributeVerticalImg.frame = CGRectMake(0.530*HistogramImage.frame.size.width, 84/2+10.5*(9-deliveryCount), 12.5, 10.5*deliveryCount);
     
-    nameLab.text =[NSString stringWithFormat:@"PVR Box %ld/9", (long)tunerNum];
+    NSString * dms_name = [USER_DEFAULT objectForKey:@"HMC_DMSID_Name"];
+//    nameLab.text =dms_name;
+    nameLab.text =[NSString stringWithFormat:@"%@ %ld/9",dms_name, (long)tunerNum];
     //    TVLiveVerticalImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld",(long)livePlayCount]];
     //
     //
@@ -474,7 +478,21 @@
 
 -(void) loadUI{
     
-    isDmsNum = 0;   //以后可以根据名字来判断数字中哪一个是咱们的盒子
+    NSString * dms_name = [USER_DEFAULT objectForKey:@"HMC_DMSID_Name"];
+    self.dataSource = [USER_DEFAULT objectForKey:@"DmsDevice"];
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        
+        NSLog(@"isDmsNum : %d",isDmsNum);
+        NSLog(@"self.dataSource[i] :%@",[self.dataSource[i] objectForKey:@"dmsID"]);
+        NSLog(@"dms_name :%@",dms_name);
+        NSLog(@"i :%d",i);
+        
+        if ([dms_name isEqualToString:[self.dataSource[i] objectForKey:@"dmsID"]]) {
+            isDmsNum = i;
+        }
+    }
+    
+//    isDmsNum = 0;   //以后可以根据名字来判断数字中哪一个是咱们的盒子
     [self loadDmsView];
     
     
@@ -486,9 +504,15 @@
     @synchronized (self.dataSource) {
         NSLog(@"datasource :%@",self.dataSource);
         for (int i = 0 ; i<self.dataSource.count; i++) {
-            if (i != isDmsNum) {
+            NSString * dmsID_Name_Temp = [self.dataSource[i] objectForKey:@"dmsID"];
+            NSLog(@"isDmsNum : %d",isDmsNum);
+            NSLog(@"self.dataSource[isDmsNum] :%@",[self.dataSource[isDmsNum] objectForKey:@"dmsID"]);
+            NSLog(@"dmsID_Name_Temp :%@",dmsID_Name_Temp);
+            
+            NSString * dmsID_Name_now = [self.dataSource[isDmsNum] objectForKey:@"dmsID"];
+            if (i != isDmsNum && ![dmsID_Name_Temp isEqualToString:dmsID_Name_now]) {
                 UIView * CGDeviceView = [[UIView alloc]init];
-                if (i < isDmsNum) {
+                if (i < isDmsNum && ![dmsID_Name_Temp isEqualToString:dmsID_Name_now]) {
                     CGDeviceView.frame = CGRectMake(20, 20 + 50* i , SCREEN_WIDTH - 40, 45);
                 }else //如果是在直方图的下面，则高度增加115
                 {
@@ -513,12 +537,17 @@
                 
                 
                 //设置绿色切换按钮
-                UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                
+                UIButton * changeBtn = [[UIButton alloc]init];
+                 changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 [changeBtn setFrame:CGRectMake(CGDeviceView.bounds.size.width -30,15 , 18, 18)];
                 [changeBtn addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
                 [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
                 
+                [changeBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];  //增加点击区域
                 [CGDeviceView addSubview:changeBtn];
+                
+             
                 
             }
             else
@@ -540,20 +569,32 @@
                 nameLab.font = FONT(13);
                 nameLab.textColor = [UIColor whiteColor];
                 //              nameLab.text = [self.dataSource[i] objectForKey:@"dmsID"];
-                nameLab.text =@"PVR Box 6/9";
+                NSString * dms_name = [USER_DEFAULT objectForKey:@"HMC_DMSID_Name"];
+                nameLab.text =dms_name;
                 [HistogramImage addSubview:nameLab];
                 
                 
                 
                 
                 //设置绿色切换按钮
-                UIButton * changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-                [changeBtn setFrame:CGRectMake(HistogramImage.bounds.size.width -30,15 , 18, 18)];
+                UIButton * changeBtn = [[UIButton alloc]init];
+                 changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                [changeBtn setFrame:CGRectMake(HistogramImage.bounds.size.width -15,20 + 50* i+15 , 18, 18)];
                 [changeBtn addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-                [changeBtn setBackgroundImage:[UIImage imageNamed:@"nor"] forState:UIControlStateNormal];
+                [changeBtn setBackgroundImage:[UIImage imageNamed:@"组-51-拷贝"] forState:UIControlStateNormal];
                 
-                [HistogramImage addSubview:changeBtn];
-                
+                [changeBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];  //增加点击区域
+//                [HistogramImage addSubview:changeBtn];
+                [scrollView addSubview:changeBtn];
+//                UIButton * changeBtn1 = [[UIButton alloc]init];
+//                changeBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+//                [changeBtn1 setFrame:CGRectMake(HistogramImage.bounds.size.width -30,15+70 , 18, 18)];
+//                [changeBtn1 addTarget:self action:@selector(changeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//                [changeBtn1 setBackgroundColor:[UIColor redColor]];
+//                
+//                [changeBtn1 setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];  //增加点击区域
+//                [HistogramImage addSubview:changeBtn1];
+//                [scrollView addSubview:changeBtn1];
                 
                 
                 TVLiveVerticalImg = [[UIImageView alloc]initWithFrame:CGRectMake(0.105*HistogramImage.frame.size.width, 84/2+10.5*(9-livePlayCount), 12.5, 10.5*livePlayCount)];

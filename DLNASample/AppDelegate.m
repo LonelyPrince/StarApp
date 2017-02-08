@@ -206,7 +206,19 @@ void UncaughtExceptionHandler(NSException *exception) {
                                     cgUpnpModel.UUID, @"dmsUUID",
                                     cgUpnpModel.ipaddress, @"dmsIP",
                                     nil];
+            
+            
+            NSString * HMC_DMSIDTemp =cgUpnpModel.category_id;
+            NSString *  subStringTemp= [HMC_DMSIDTemp substringWithRange:NSMakeRange(0,3)];
+            if ([subStringTemp isEqualToString:@"HMC"]) {
+            
             [self.dataSource addObject:dmsDic];//将数据转为字典存起来
+            
+            }
+            else
+            {
+                NSLog(@"前缀不是HMC");
+            }
         }
         
         
@@ -238,6 +250,8 @@ void UncaughtExceptionHandler(NSException *exception) {
                 NSString * HMC_DMSIP =[HMCDicList objectForKey:@"dmsIP"];
                  [USER_DEFAULT setObject:HMC_DMSIP  forKey:@"HMC_DMSIP"];
            
+                 [USER_DEFAULT setObject:HMC_DMSID  forKey:@"HMC_DMSID_Name"];
+                
                 NSLog(@"oldHMC_DMSIP:%@",oldHMC_DMSIP);
                  NSLog(@"DMSIP:4444");
                 NSLog(@"DMSIP:此时%@",HMC_DMSIP);
