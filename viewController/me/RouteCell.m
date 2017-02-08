@@ -25,7 +25,7 @@
     _dataDic = dataDic;
 
     
-    self.deviceImage.image = [UIImage imageNamed:@"routenoKnow"];
+    self.deviceImage.image = [UIImage imageNamed:@"routenoKnow1"];
     //
         self.deviceNameLab.text = [_dataDic objectForKey:@"hostname"];
         self.deviceIPLab.text = [_dataDic objectForKey:@"ip"]  ;
