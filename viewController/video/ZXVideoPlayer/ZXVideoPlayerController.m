@@ -67,12 +67,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, strong) NSString * cellStr;
 
 //@property (nonatomic, strong) id * TableScollTimer;
+@property (nonatomic, strong) UILabel * lab ;
 
 @end
 
 @implementation ZXVideoPlayerController
 
 @synthesize socketView1;
+@synthesize lab;
 #pragma mark - life cycle
 
 - (void)dealloc
@@ -99,6 +101,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configControlAction];
         [self configDeviceOrientationObserver];
         [self configVolume];
+        
+        [self configLabNoPlayShow]; //如果视频无法播放，则显示sorry，this video cant play 的字样
+        
+        [self configLabNoPlayShowShut]; //如果视频无法播放，则显示sorry，this video cant play 的字样
         
         self.rightViewShowing = NO;
         //        self.tvViewControlller = [[TVViewController alloc]init];
@@ -486,7 +492,134 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // 监听耳机插入和拔掉通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:) name:AVAudioSessionRouteChangeNotification object:nil];
 }
-
+//如果不能播放，则显示不能播放字样
+-(void)configLabNoPlayShow
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noPlayShowNotic" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowNotic) name:@"noPlayShowNotic" object:nil];
+}
+//播放活加载状态，不显示播放字样
+-(void)configLabNoPlayShowShut
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noPlayShowShutNotic" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowShutNotic) name:@"noPlayShowShutNotic" object:nil];
+}
+-(void)noPlayShowNotic
+{
+    self.subAudioTableView.hidden = YES;
+    self.subAudioTableView = nil;
+    [self.subAudioTableView removeFromSuperview];
+    self.subAudioTableView = NULL;
+    self.subAudioTableView.alpha = 0;
+    UIDeviceOrientation orientation = self.getDeviceOrientation;
+    
+    if (!self.isLocked)
+    {
+        switch (orientation) {
+            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                NSLog(@"home键在 下");
+                [self restoreOriginalScreen];
+                
+                if ( !lab) {
+                    lab = [[UILabel alloc]init];
+                    
+                    lab.text = @"sorry, this video can't play";
+                    lab.font = FONT(17);
+                    lab.textColor = [UIColor whiteColor];
+                    [self.view addSubview:lab];
+                    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                    CGSize size=[lab.text sizeWithAttributes:attrs];
+                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    
+                    
+                }
+            }
+                break;
+            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                NSLog(@"home键在 上");
+                
+                if ( !lab) {
+                    lab = [[UILabel alloc]init];
+                    
+                    lab.text = @"sorry, this video can't play";
+                    lab.font = FONT(17);
+                    lab.textColor = [UIColor whiteColor];
+                    [self.view addSubview:lab];
+                    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                    CGSize size=[lab.text sizeWithAttributes:attrs];
+                  lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    
+                    
+                }
+            }
+                break;
+            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                NSLog(@"home键在 右");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if ( !lab) {
+                    lab = [[UILabel alloc]init];
+                    
+                    lab.text = @"sorry, this video can't play";
+                    lab.font = FONT(17);
+                    lab.textColor = [UIColor whiteColor];
+                    [self.view addSubview:lab];
+                    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                    CGSize size=[lab.text sizeWithAttributes:attrs];
+                    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    
+                    
+                }
+            }
+                break;
+            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                NSLog(@"home键在 左");
+                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if ( !lab) {
+                    lab = [[UILabel alloc]init];
+                    
+                    lab.text = @"sorry, this video can't play";
+                    lab.font = FONT(17);
+                    lab.textColor = [UIColor whiteColor];
+                    [self.view addSubview:lab];
+                    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                    CGSize size=[lab.text sizeWithAttributes:attrs];
+                    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    
+                    
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    
+    
+}
+-(void)noPlayShowShutNotic
+{
+    
+    if ( !lab) {
+        
+    }else
+    {
+        [lab removeFromSuperview];
+        lab = nil;
+        lab = NULL;
+        
+    }
+    
+    
+}
 /// 耳机插入、拔出事件
 - (void)audioRouteChangeListenerCallback:(NSNotification*)notification
 {
@@ -541,6 +674,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onDeviceOrientationDidChange
 {
     self.subAudioTableView = nil;
+    self.subAudioTableView = NULL;
+    self.subAudioTableView.hidden = YES;
+    [self.subAudioTableView removeFromSuperview];
+    self.subAudioTableView.alpha = 0;
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     
     if (!self.isLocked)
@@ -605,6 +742,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.backButton.hidden = NO;
     
     
+    lab.text = @"sorry, this video can't play";
+    lab.font = FONT(17);
+    
+    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+    CGSize size=[lab.text sizeWithAttributes:attrs];
+    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+    
     //     self.videoControl.channelIdLab.hidden = NO;
     //     self.videoControl.channelNameLab.hidden = NO;
     self.videoControl.FulleventNameLab.hidden = NO;
@@ -662,6 +806,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelListBtn.hidden = YES;
     self.videoControl.eventTimeLab.hidden = YES;
     self.videoControl.eventnameLabel.hidden = NO;
+
+    lab.text = @"sorry, this video can't play";
+    lab.font = FONT(17);
+
+    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+    CGSize size=[lab.text sizeWithAttributes:attrs];
+    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
     
     
     self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
@@ -800,7 +951,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.bottomBar.alpha = 0;
     
     //////tableview
+    if(!self.subAudioTableView)
+    {
     self.subAudioTableView = [[UITableView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds)) style:UITableViewStylePlain];
+    }
+    
     self.subAudioTableView.delegate = self;
     self.subAudioTableView.dataSource = self;
     UIImageView *imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
@@ -1137,15 +1292,39 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if ([_cellStr isEqualToString:@"subt"]) {
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
+        if (subtarr.count <=8) {
+            self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
+        }else
+        {
+            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+        }
+
         return subtarr.count;
         //        return 8;
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
-        NSArray * audioarr =[self.subAudioDic  objectForKey:@"subt_info"];
+        NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
+        
+        if (audioarr.count <=8) {
+            self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-audioarr.count*45)/2, 145,audioarr.count*46);
+        }else
+        {
+                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+            
+        }
+
         return audioarr.count;
         
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
+        
+        if (self.video.channelCount <= 8) {
+               self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
+        }else
+        {
+            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+        }
+
         return self.video.channelCount;
         
         //        return 8;
@@ -1175,6 +1354,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell.languageLab.textAlignment = UITextAlignmentCenter;
             cell.backgroundColor=[UIColor clearColor];
             
+            UIView * viewClick = [[UIView alloc]initWithFrame:cell.frame];
+            viewClick.backgroundColor = [UIColor clearColor];
+            UIView * grayViewUP = [[UIView alloc]initWithFrame:CGRectMake(12.8, 0, cell.frame.size.width, 0.5)];
+            grayViewUP.backgroundColor = [UIColor whiteColor];
+            UIView * grayViewDown = [[UIView alloc]initWithFrame:CGRectMake(12.8, cell.frame.size.height - 1, cell.frame.size.width, 0.5)];
+            grayViewDown.backgroundColor = [UIColor whiteColor];
+            [viewClick addSubview:grayViewUP];
+            [viewClick addSubview:grayViewDown];
+            
+            cell.selectedBackgroundView=viewClick;
+            
+            [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+          
+
+            
         }
         
         
@@ -1203,6 +1397,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell = [AudioCell loadFromNib];
             cell.languageLab.textAlignment = UITextAlignmentCenter;
             cell.backgroundColor=[UIColor clearColor];
+            
+            
+            UIView * viewClick = [[UIView alloc]initWithFrame:cell.frame];
+            viewClick.backgroundColor = [UIColor clearColor];
+            UIView * grayViewUP = [[UIView alloc]initWithFrame:CGRectMake(12.8, 0, cell.frame.size.width, 0.5)];
+            grayViewUP.backgroundColor = [UIColor whiteColor];
+            UIView * grayViewDown = [[UIView alloc]initWithFrame:CGRectMake(12.8, cell.frame.size.height - 1, cell.frame.size.width, 0.5)];
+            grayViewDown.backgroundColor = [UIColor whiteColor];
+            [viewClick addSubview:grayViewUP];
+            [viewClick addSubview:grayViewDown];
+            
+            cell.selectedBackgroundView=viewClick;
+            
+            [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+
+            
+
         }
         
         
@@ -1281,9 +1492,72 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if ([_cellStr isEqualToString:@"subt"]) {
         
+        NSDictionary * dic ;
+        if (!ISEMPTY(self.video.dicChannl)) {
+            NSString * channelName = self.videoControl.channelNameLab.text;
+            NSDictionary * dicChannelName  = self.video.dicChannl;
+            for (int i = 0; i<self.video.channelCount; i++) {
+                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
+                NSLog(@"nameTemp :%@",nameTemp);
+                NSLog(@"channelName :%@",channelName);
+                if ([nameTemp isEqualToString:channelName]) {
+                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+                    NSLog(@"i :%d",i);
+                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
+                    break;
+                }
+            }
+            //            NSDictionary * didName  = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+            //            self.video.channelCount
+            
+            
+            //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+            //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
+            //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
+            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:0 subt:indexPath.row];
+            
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            tableView.separatorColor = [UIColor whiteColor];
+            
+        }else{//如果为空，什么都不执行
+        }
+        //        [self.socketView1  serviceTouch ];
+        
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
-        
+      
+        NSDictionary * dic ;
+        if (!ISEMPTY(self.video.dicChannl)) {
+            NSString * channelName = self.videoControl.channelNameLab.text;
+            NSDictionary * dicChannelName  = self.video.dicChannl;
+            for (int i = 0; i<self.video.channelCount; i++) {
+                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
+                NSLog(@"nameTemp :%@",nameTemp);
+                NSLog(@"channelName :%@",channelName);
+                if ([nameTemp isEqualToString:channelName]) {
+                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+                    NSLog(@"i :%d",i);
+                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
+                    break;
+                }
+            }
+//            NSDictionary * didName  = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+//            self.video.channelCount
+            
+          
+            //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+//            NSNumber * subtNum = [NSNumber numberWithInteger:0];
+//            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
+            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:indexPath.row subt:0];
+            
+            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            tableView.separatorColor = [UIColor whiteColor];
+            
+            
+            
+        }else{//如果为空，什么都不执行
+        }
+        //        [self.socketView1  serviceTouch ];
         
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
@@ -1310,6 +1584,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     
 }
+//节目播放点击
 -(void)touchToSee :(NSDictionary* )dic DicWithRow:(NSInteger)row
 {
     
@@ -1332,6 +1607,31 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    [self.tabBarController setSelectedIndex:1];
 }
 
+//音轨字幕点击
+-(void)touchToSeeAudioSubt :(NSDictionary* )dic DicWithRow:(NSInteger)row audio:(NSInteger)audioIndex subt:(NSInteger)subtIndex
+{
+    
+    //    NSInteger row = [touchArr[2] intValue];
+    //    NSDictionary * dic = touchArr [3];
+    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
+    
+    NSLog(@"dicNow %@",dicNow);
+    //将整形转换为number
+    NSNumber * numIndex = [NSNumber numberWithInteger:row];
+    
+    NSNumber * audioNum = [NSNumber numberWithInteger:audioIndex];
+    NSNumber * subtNum = [NSNumber numberWithInteger:subtIndex];
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicNow,@"textTwo",audioNum,@"textThree",subtNum,@"textFour", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoificAudioSubt" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //    [self.navigationController popViewControllerAnimated:YES];
+    //    [self.navigationController popToViewController:_tvViewController animated:YES];
+    //    [self.navigationController pushViewController:_tvViewController animated:YES];
+    //    [self.tabBarController setSelectedIndex:1];
+}
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(TableViewHidden) object:nil];
