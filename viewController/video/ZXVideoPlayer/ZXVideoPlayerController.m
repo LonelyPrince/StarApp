@@ -673,11 +673,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 设备旋转方向改变
 - (void)onDeviceOrientationDidChange
 {
-    self.subAudioTableView = nil;
-    self.subAudioTableView = NULL;
-    self.subAudioTableView.hidden = YES;
-    [self.subAudioTableView removeFromSuperview];
-    self.subAudioTableView.alpha = 0;
+//    self.subAudioTableView = nil;
+    [self rightViewHidden];  //旋转时，将右侧列表取消掉
+    
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     
     if (!self.isLocked)
@@ -984,10 +982,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+ 
     
-    
-    
-    
+    [self.videoControl autoFadeOutControlBar];
+
+
     //此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableviewHidden" object:nil];
     //注册通知
@@ -998,7 +997,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 -(void)rightViewHidden
-{ self.videoControl.rightView.hidden = YES;
+{   self.videoControl.rightView.hidden = YES;
     self.videoControl.rightView.alpha = 0;
     
     self.subAudioTableView.hidden = YES;
