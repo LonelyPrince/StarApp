@@ -948,6 +948,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.topBar.alpha = 0;
     self.videoControl.bottomBar.alpha = 0;
     
+    
+    
+    self.subAudioDic = [[NSMutableDictionary alloc]init];
+    self.subAudioDic = self.video.dicSubAudio;
+    
+    self.channelDic= [[NSMutableDictionary alloc]init];
+    self.channelDic = self.video.dicChannl;
+    
+    
     //////tableview
     if(!self.subAudioTableView)
     {
@@ -964,16 +973,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    self.subAudioTableView.backgroundColor=[UIColor clearColor];
     //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
     //    [self.videoControl.rightView addSubview:self.subAudioTableView];
+    [self.subAudioTableView reloadData];
+    
     [self.view addSubview:self.subAudioTableView];
     //    self.subAudioTableView = table;
     
-    self.subAudioDic = [[NSMutableDictionary alloc]init];
-    self.subAudioDic = self.video.dicSubAudio;
     
-    
-    self.channelDic= [[NSMutableDictionary alloc]init];
-    self.channelDic = self.video.dicChannl;
-    
+  
     
     
     
@@ -1303,7 +1309,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
         NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
-        
+        NSLog(@"audioarr--:%@",audioarr);
         if (audioarr.count <=8) {
             self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-audioarr.count*45)/2, 145,audioarr.count*46);
         }else
@@ -1422,6 +1428,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSArray * audioArr = [[NSArray alloc]init];
             
             audioArr  =[self.subAudioDic  objectForKey:@"audio_info"];
+            
+            NSLog(@"audioArr :%@",audioArr);
+            NSLog(@"audioArr.count :%lu",(unsigned long)audioArr.count);
             
             cell.dataDic = audioArr[indexPath.row];
             

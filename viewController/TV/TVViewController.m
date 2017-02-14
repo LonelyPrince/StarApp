@@ -2323,7 +2323,7 @@ UITableViewDelegate,UITableViewDataSource>
     NSLog(@"------%@",socketView.socket_ServiceModel);
     
     
-    
+    [self getsubt];  
     //此处销毁通知，防止一个通知被多次调用    // 1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
     //注册通知
@@ -2391,6 +2391,8 @@ UITableViewDelegate,UITableViewDataSource>
     socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
     socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
     
+    
+    [self getsubt];
     //********
     self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
     if(self.service_videoindex.length == 1)
