@@ -92,7 +92,7 @@
         if (![startTimeisHas isEqualToString:@""]) {
             self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
         }else{
-        self.event_nextTime.text =@"NO Information";
+        self.event_nextTime.text =@"--:--";
         }
         
             
@@ -102,7 +102,7 @@
             self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
         }else
         {
-        self.event_nextNameLab.text =@"NO Information";
+        self.event_nextNameLab.text =@"No Event";
         }
         
     }
@@ -113,10 +113,10 @@
         {
         self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
         }else{
-        self.event_nextTime.text = @"NO Information";
+        self.event_nextTime.text = @"--:--";
         }
         
-        self.event_nextNameLab.text = @"NO Information";
+        self.event_nextNameLab.text = @"No Event";
     }
     
 //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
@@ -124,7 +124,7 @@
         self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
     }else
     {
-        self.event_nameLab.text =@"NO Information";
+        self.event_nameLab.text =@"No Event";
     }
     
     
@@ -145,7 +145,7 @@
      NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
     NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
     if ([[detaildate description] isEqualToString:@"1970-01-01 00:00:00 +0000"]) {
-        return @"NO Information";
+        return @"--:--";
     }
     NSLog(@"date:%@",[detaildate description]);
     //实例化一个NSDateFormatter对象

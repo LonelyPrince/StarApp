@@ -181,9 +181,6 @@
 		7024C5D41DD1A3330053F313 /* CGUpnpDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5D31DD1A3320053F313 /* CGUpnpDeviceModel.m */; };
 		7024C5D91DD1ABCB0053F313 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5D71DD1ABCB0053F313 /* AboutViewController.m */; };
 		7024C5DA1DD1ABCB0053F313 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5D81DD1ABCB0053F313 /* AboutViewController.xib */; };
-		7024C5DF1DD1AD330053F313 /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DC1DD1AD330053F313 /* 关于.png */; };
-		7024C5E01DD1AD330053F313 /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DD1DD1AD330053F313 /* 关于@2x.png */; };
-		7024C5E11DD1AD330053F313 /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5DE1DD1AD330053F313 /* 关于@3x.png */; };
 		7024C5E51DD2C5960053F313 /* DeviceManageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5E31DD2C5960053F313 /* DeviceManageController.m */; };
 		7024C5E61DD2C5960053F313 /* DeviceManageController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5E41DD2C5960053F313 /* DeviceManageController.xib */; };
 		7024C5EC1DD3F8D60053F313 /* RouteManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5EA1DD3F8D60053F313 /* RouteManageViewController.m */; };
@@ -434,6 +431,9 @@
 		70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */; };
 		70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */; };
 		70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */; };
+		70FAA2541E52F86100F3026F /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FAA2511E52F86100F3026F /* 关于.png */; };
+		70FAA2551E52F86100F3026F /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FAA2521E52F86100F3026F /* 关于@2x.png */; };
+		70FAA2561E52F86100F3026F /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FAA2531E52F86100F3026F /* 关于@3x.png */; };
 		70FC2FF41D7524C000BD06FE /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC2FF21D7524C000BD06FE /* SearchViewController.m */; };
 		70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FC2FF31D7524C000BD06FE /* SearchViewController.xib */; };
 		70FC30A71D756E2A00BD06FE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FC30A61D756E2A00BD06FE /* MediaPlayer.framework */; };
@@ -783,9 +783,6 @@
 		7024C5D61DD1ABCB0053F313 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		7024C5D71DD1ABCB0053F313 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		7024C5D81DD1ABCB0053F313 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
-		7024C5DC1DD1AD330053F313 /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
-		7024C5DD1DD1AD330053F313 /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
-		7024C5DE1DD1AD330053F313 /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
 		7024C5E21DD2C5960053F313 /* DeviceManageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageController.h; sourceTree = "<group>"; };
 		7024C5E31DD2C5960053F313 /* DeviceManageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManageController.m; sourceTree = "<group>"; };
 		7024C5E41DD2C5960053F313 /* DeviceManageController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeviceManageController.xib; sourceTree = "<group>"; };
@@ -1052,6 +1049,9 @@
 		70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@1x.png"; sourceTree = "<group>"; };
 		70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@2x.png"; sourceTree = "<group>"; };
 		70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@3x.png"; sourceTree = "<group>"; };
+		70FAA2511E52F86100F3026F /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
+		70FAA2521E52F86100F3026F /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
+		70FAA2531E52F86100F3026F /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
 		70FC2FF11D7524C000BD06FE /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		70FC2FF21D7524C000BD06FE /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		70FC2FF31D7524C000BD06FE /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -1714,9 +1714,9 @@
 		7024C5DB1DD1AD260053F313 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				7024C5DC1DD1AD330053F313 /* 关于.png */,
-				7024C5DD1DD1AD330053F313 /* 关于@2x.png */,
-				7024C5DE1DD1AD330053F313 /* 关于@3x.png */,
+				70FAA2511E52F86100F3026F /* 关于.png */,
+				70FAA2521E52F86100F3026F /* 关于@2x.png */,
+				70FAA2531E52F86100F3026F /* 关于@3x.png */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -2404,9 +2404,11 @@
 				70231CC11DC0FE8C00F73202 /* ip@2x.png in Resources */,
 				7045C46E1DC715FB002647F9 /* 矩形3@1x.png in Resources */,
 				701017601DCADA2500F9D5FF /* quan@2x.png in Resources */,
+				70FAA2561E52F86100F3026F /* 关于@3x.png in Resources */,
 				70231CF81DC1DF5A00F73202 /* Back Arrow@2x.png in Resources */,
 				70D6B9111E2DAF3D00957A81 /* south african @3x.png in Resources */,
 				702CE43E1DDA9881000A0513 /* 5@3x.png in Resources */,
+				70FAA2541E52F86100F3026F /* 关于.png in Resources */,
 				701A98A31DB47A3100460220 /* 音轨@2x.png in Resources */,
 				70D6B90C1E2DAF3D00957A81 /* Religion@1x.png in Resources */,
 				70FFE3E71DE2DBA200223E43 /* M6.png in Resources */,
@@ -2541,7 +2543,6 @@
 				70D6B8EF1E2DAF3D00957A81 /* 个性化@2x.png in Resources */,
 				702CE4471DDA9881000A0513 /* 8@3x.png in Resources */,
 				70FC30E11D75714E00BD06FE /* kr-video-player-play@2x.png in Resources */,
-				7024C5E01DD1AD330053F313 /* 关于@2x.png in Resources */,
 				7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */,
 				7010175E1DCADA2500F9D5FF /* duihao@3x.png in Resources */,
 				70231CCA1DC0FE8C00F73202 /* password@2x.png in Resources */,
@@ -2555,11 +2556,9 @@
 				70FFE4021DE3EF4800223E43 /* 时移1.png in Resources */,
 				70D6B8F61E2DAF3D00957A81 /* chinese channel @3x.png in Resources */,
 				701A98A21DB47A3100460220 /* 音轨@1x.png in Resources */,
-				7024C5DF1DD1AD330053F313 /* 关于.png in Resources */,
 				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */,
-				7024C5E11DD1AD330053F313 /* 关于@3x.png in Resources */,
 				702CE43F1DDA9881000A0513 /* 6.png in Resources */,
 				70231CF11DC1D5AC00F73202 /* 灰@2x.png in Resources */,
 				707FE74B1DACC3C30087C361 /* me icon copy@3x.png in Resources */,
@@ -2709,6 +2708,7 @@
 				70D6B90E1E2DAF3D00957A81 /* Religion@3x.png in Resources */,
 				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
 				70FFE3C21DE2D05700223E43 /* nine.png in Resources */,
+				70FAA2551E52F86100F3026F /* 关于@2x.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
 				7024C5FB1DD407AE0053F313 /* mingcheng@3x.png in Resources */,
 				707FE7461DACC3C30087C361 /* live icon@1x.png in Resources */,

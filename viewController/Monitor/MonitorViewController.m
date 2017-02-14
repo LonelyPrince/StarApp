@@ -631,7 +631,7 @@
    
     
     if (scrollUp == YES) {
-        self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+        self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
         
@@ -719,14 +719,14 @@
     NSLog(@"scrollView.contentOffset.y:%f",self.scrollView.contentOffset.y);
     int currentPostion = scrollView.contentOffset.y;
     if (currentPostion - lastPosition > 30 && self.scrollView.contentOffset.y >50 && scrollUp == NO){
-        CGPoint position = CGPointMake(0, 300);
+        CGPoint position = CGPointMake(0, 275);
 //        [scrollView     :position animated:YES];
         [UIView animateWithDuration:0.5
                               delay:0.02
                             options:UIViewAnimationCurveLinear
                          animations:^{
 
-                            self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
+                            self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
 
                              self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
                              scrollUp = YES;
@@ -749,7 +749,7 @@
     if (self.tableView.contentOffset.y<-30&& scrollUp == YES
 //        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25
         ){
-        CGPoint position = CGPointMake(0, 300);
+        CGPoint position = CGPointMake(0, 275);
         
         [UIView animateWithDuration:0.5
                               delay:0.02
