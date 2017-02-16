@@ -626,6 +626,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self getOnlineDevice];
+     [self getWifi];
 //    [self loadNav];
 //    [self loadScroll];
 //    [self loadUI];
@@ -886,7 +887,7 @@
         [self loadNav];
 //            [self loadScroll];
             [self loadUI];
-            [self getWifi];
+//            [self getWifi];
         [self loadTableView];
         }
     }];

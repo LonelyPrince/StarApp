@@ -23,7 +23,7 @@
 #define SAVEBTN_Y    145+64+60+72  //84+26+147+55+55+105-88
 #define SAVEBTN_X    31.5
 //#define NAMETEXTFIELD_Y 84+26+147
-@interface RouteSetting ()<UITextFieldDelegate>
+@interface RouteSetting ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property(nonatomic,strong) UIButton * pswBtn;
 @property(nonatomic,strong) UITextField *  pswText;
 @property(nonatomic,assign) bool isOn ;
@@ -32,6 +32,8 @@
 @property(nonatomic,strong) UIImageView * nameTextFieldImage;
 @property(nonatomic,strong) UIImageView * pswTextFieldImage;
 @property(nonatomic,strong)NSDictionary * wifiChangeDic;  //wifi 字典
+@property(nonatomic,strong)UIAlertView * alertViewPsw;  //对于密码的判断框
+@property(nonatomic,strong)UIAlertView * alertViewPswZero;  //对于密码的判断框
 @end
 
 @implementation RouteSetting
@@ -43,6 +45,8 @@
 @synthesize nameTextFieldImage;
 @synthesize pswTextFieldImage;
 @synthesize wifiChangeDic; //post返回的数据
+@synthesize alertViewPsw;
+@synthesize alertViewPswZero;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -50,6 +54,24 @@
     [self loadNav];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    //限制文本的输入长度不得大于10个字符长度
+    if (nameText.text.length < 6 ){  //|| pswText.text.length < 8
+        
+        [saveBtn setBackgroundImage:[UIImage imageNamed:@"save-不可"] forState:UIControlStateNormal];
+        //        //截取文本字符长度为10的内容
+        //        textField.text = [textField.text substringToIndex:10];
+        saveBtn.enabled = NO;
+    }else
+    {
+        [saveBtn setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+        //        //截取文本字符长度为10的内容
+        //        textField.text = [textField.text substringToIndex:10];
+        saveBtn.enabled = YES;
+    }
+    
+}
 
 -(void)loadNav
 {
@@ -190,8 +212,18 @@
 
 -(void)saveBtnClick
 {
-    NSLog(@"点击了save按钮");
-    
+    if (pswText.text.length == 0) {
+        alertViewPswZero = [[UIAlertView alloc]initWithTitle:@"alert"message:@"Are you sure you do not set the router password?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
+//        [alertViewPswZero addButtonWithTitle:@"OK"];
+        [alertViewPswZero show];
+    }
+    if (pswText.text.length<8 &&pswText.text.length>=1) {
+          alertViewPsw = [[UIAlertView alloc]initWithTitle:@"alert"message:@"Please enter 8 to 16 passwords" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alertViewPsw addButtonWithTitle:@"OK"];
+        [alertViewPsw show];
+    }else{
+    NSLog(@"点击了save按钮11");
+//
     NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
     NSString * serviceIp;
     if (DMSIP != NULL ) {
@@ -226,9 +258,59 @@
         NSLog(@"Test：%@",response);
         [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
     }
-    
+    }
     
 }
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView == alertViewPswZero) {
+        if (buttonIndex ==1) {
+            //执行确定操作
+            
+            NSLog(@"点击了save按钮");
+            
+            NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
+            NSString * serviceIp;
+            if (DMSIP != NULL ) {
+                serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+            }else
+            {
+                //        serviceIp =@"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?";   //服务器地址
+            }
+            //获取数据的链接
+            NSString *linkUrl = [NSString stringWithFormat:@"%@",serviceIp];
+            //    SString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
+            
+            NSURL *url = [NSURL URLWithString:linkUrl];
+            ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+            [request addRequestHeader:@"Content-Type" value:@"application/json; encoding=utf-8"];
+            [request addRequestHeader:@"Accept" value:@"application/json"];
+            [request setRequestMethod:@"POST"];
+            //     NSString *parameterString = [NSString stringWithFormat:@"name=%@&password=%@",name,psw];
+            //    NSData *data = [parameterString dataUsingEncoding:NSUTF8StringEncoding];
+            
+            NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameText.text,@"name",pswText.text,@"password",nil];//创建多个键 多个值
+            NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
+            //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
+            
+            [request setPostBody:tempJsonData];
+            [request startSynchronous];
+            NSError *error1 = [request error];
+            if (!error1) {
+                NSString *response = [request responseString];
+                NSLog(@"Test：%@",response);
+                [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
+            }
+        }
+        else
+        {
+           //执行否定操作
+        }
+    }
+}
+
 -(void)pswBtnClick
 {
     if (isOn == YES) {
@@ -251,14 +333,14 @@
 - (void)limit:(UITextField *)textField{
     
     //限制文本的输入长度不得大于10个字符长度
-    if (textField.text.length < 8 || nameText.text.length < 6){
+    if ( nameText.text.length < 6){ //textField.text.length < 8 ||
         
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"save-不可"] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
         //        textField.text = [textField.text substringToIndex:10];
         saveBtn.enabled = NO;
     }
-    if (textField.text.length >= 8  &&nameText.text.length>=6 ){
+    if (nameText.text.length>=6 ){ //textField.text.length >= 8  &&
         
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
@@ -273,14 +355,14 @@
     
     
     //限制文本的输入长度不得大于10个字符长度
-    if (textField.text.length < 6 || pswText.text.length < 8){
+    if (textField.text.length < 6 ){  //|| pswText.text.length < 8
         
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"save-不可"] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
         //        textField.text = [textField.text substringToIndex:10];
         saveBtn.enabled = NO;
     }
-    if (textField.text.length >= 6  &&pswText.text.length>=8 ){
+    if (textField.text.length >= 6   ){ //&&pswText.text.length>=8
         
         [saveBtn setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
@@ -324,8 +406,15 @@
     NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
     for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
         unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}
-        if (character < 48)
+        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+        if (character < 45)
+        {
+            
+            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+            return NO; // 48 unichar for 0..
+        }
+        
+        if (character > 45 && character < 48)
         {
             
             textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
@@ -336,7 +425,12 @@
             textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
             return NO; //
         }
-        if (character > 90 && character < 97)
+        if (character > 90 && character < 95)
+        {
+            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+            return NO; //
+        }
+        if (character > 95 && character < 97)
         {
             textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
             return NO; //
@@ -346,6 +440,7 @@
             textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
             return NO; //
         }
+
         
     }
     // Check for total length
