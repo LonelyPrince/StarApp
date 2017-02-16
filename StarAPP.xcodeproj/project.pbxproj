@@ -2329,6 +2329,7 @@
 					A4A669FC1555E44100AED3AF = {
 						DevelopmentTeam = R8D7BE2CFZ;
 						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
