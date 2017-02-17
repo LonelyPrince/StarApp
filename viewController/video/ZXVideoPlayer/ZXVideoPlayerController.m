@@ -268,9 +268,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
     NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
+    NSLog(@"MPMoviePlayer  播放状态改变");
     
     if (self.playbackState == MPMoviePlaybackStatePlaying) {
         NSLog(@"视频正在播放");
+        NSLog(@"准备开始播放");
+        NSLog(@"MPMoviePlayer  正在播放");
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
         [self startDurationTimer];
@@ -295,9 +298,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
     NSLog(@"MPMoviePlayer  LoadStateDidChange  Notification");
+    NSLog(@"MPMoviePlayer  加载");
     
     if (self.loadState & MPMovieLoadStateStalled) {
+         NSLog(@"准备开始加载");
+        NSLog(@"MPMoviePlayer  开始加载");
         [self.videoControl.indicatorView startAnimating];
+    }
+    else
+    {
+        NSLog(@"MPMoviePlayer  停止加载");
+        [self.videoControl.indicatorView stopAnimating];
     }
 }
 
@@ -305,6 +316,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMoviePlayerReadyForDisplayDidChangeNotification
 {
     NSLog(@"MPMoviePlayer  ReadyForDisplayDidChange  Notification");
+    NSLog(@"MPMoviePlayer  视频显示状态改变");
 }
 
 /// 确定了媒体播放时长
@@ -1201,7 +1213,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)crclePlayUrl
 {
     [self play];
-    NSLog(@"循环播放");
+//    NSLog(@"循环播放");
 }
 
 

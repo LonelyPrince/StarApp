@@ -658,7 +658,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (UIActivityIndicatorView *)indicatorView
 {
     if (!_indicatorView) {
-        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [_indicatorView stopAnimating];
     }
     return _indicatorView;
