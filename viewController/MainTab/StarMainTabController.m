@@ -123,7 +123,52 @@
                 }
                 
 //        return UIInterfaceOrientationMaskPortrait;
+//                [USER_DEFAULT setBool:YES forKey:@"lockedFullScreen"];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:@"lockedFullScreen"]) {
+                    
+//                    [USER_DEFAULT objectForKey:@"orientationBHor"];
+                    UIDeviceOrientation orientationBHor12 =[USER_DEFAULT integerForKey:@"orientationBHor"];
+                    UIDeviceOrientation orientationAVer12 =[USER_DEFAULT integerForKey:@"orientationAVer"];
+                    
+                    switch (orientationAVer12) {
+                        case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                            NSLog(@"此时 home键4在 下");
+//                            [self restoreOriginalScreen];
+//                            return UIInterfaceOrientationMaskLandscapeLeft;
+                        }
+                            break;
+                        case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                            NSLog(@"此时 home键4在 上");
+                        }
+                            break;
+                        case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                            NSLog(@"此时 home键4在 右");
+//                            return UIInterfaceOrientationMaskLandscapeLeft;
+                            return UIInterfaceOrientationMaskLandscapeRight;
+                        }
+                            break;
+                        case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                            NSLog(@"此时 home键4在 左");
+                            return UIInterfaceOrientationMaskLandscapeLeft;
+//                            return UIInterfaceOrientationMaskLandscapeRight;
+                            //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+//                            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+//                    NSLog(@"asdahsdhk:%d",UIInterfaceOrientationMaskLandscapeLeft);
+//                    NSLog(@"asdahsdhk11:%d",UIInterfaceOrientationLandscapeRight);
+//                    NSLog(@"asdahsdhk11:%d",UIInterfaceOrientationPortraitUpsideDown);
+                 
+                    return UIInterfaceOrientationMaskLandscapeRight;
+                }else
+                {
      return UIInterfaceOrientationMaskAllButUpsideDown;
+                }
+     
     }
      return UIInterfaceOrientationMaskPortrait;
     

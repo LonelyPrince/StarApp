@@ -1741,6 +1741,7 @@ UITableViewDelegate,UITableViewDataSource>
     }else{
         NSLog(@"不是第一次启动");
         
+        [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
 //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
         tableviewinit  = tableviewinit +1;
         firstShow = YES;

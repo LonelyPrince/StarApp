@@ -87,8 +87,6 @@
 
 
 
-//@property (nonatomic, strong, readwrite) UIButton *lockButton;
-//@property (nonatomic, strong, readwrite) UIButton *lockButton;
 
 - (void)animateHide;
 - (void)animateShow;

@@ -106,6 +106,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.backButton.hidden = YES;
         // 锁定按钮
         //        [self.topBar addSubview:self.lockButton];
+             [self addSubview:self.lockButton];
+        self.lockButton.hidden = YES;
         // 缓冲进度条
         //        [self.bottomBar insertSubview:self.bufferProgressView belowSubview:self.progressSlider];
         // 快进、快退指示器
@@ -163,9 +165,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     // 返回按钮
     self.backButton.frame = CGRectMake(0, 16, 50, 46);
     // 锁定按钮
-    //    self.lockButton.frame = CGRectMake(CGRectGetMaxX(self.topBar.bounds) - 40 - 10, CGRectGetHeight(self.topBar.bounds) - 40, 40, 40);
-    // 缓冲进度条
-    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
+        self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
+    
+    // 缓冲进度条a    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
     self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
     // 快进、快退指示器
     //  self.timeIndicatorView.center = self.indicatorView.center;
@@ -683,11 +685,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (UIButton *)lockButton
 {
     if (!_lockButton) {
-        _lockButton =[[UIButton alloc] initWithFrame:CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight)];
+        _lockButton =[[UIButton alloc] initWithFrame:CGRectMake(10, 0, 60, 60)];
         [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-unlock"] forState:UIControlStateNormal];
         [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-lock"] forState:UIControlStateHighlighted];
         [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-lock"] forState:UIControlStateSelected];
-        _lockButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+//        _lockButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     }
     return _lockButton;
 }

@@ -31,6 +31,11 @@ typedef NS_ENUM(NSInteger, ZXPanDirection){
 static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 @interface ZXVideoPlayerController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
+{
+    UIDeviceOrientation orientationAVer;  //竖
+    UIDeviceOrientation orientationBHor;  //横
+    NSInteger HorTime ;
+}
 
 
 /// 播放器视图
@@ -109,7 +114,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.rightViewShowing = NO;
         //        self.tvViewControlller = [[TVViewController alloc]init];
         self.socketView1 = [[SocketView alloc]init];
-        
+        HorTime =0;
     }
     return self;
 }
@@ -685,30 +690,82 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 设备旋转方向改变
 - (void)onDeviceOrientationDidChange
 {
-//    self.subAudioTableView = nil;
+
     [self rightViewHidden];  //旋转时，将右侧列表取消掉
     
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     
+    
+    if(orientation ==UIDeviceOrientationLandscapeLeft || orientation==UIDeviceOrientationLandscapeRight){
+        if (!self.isLocked) { //此时没有按锁屏键
+            orientationAVer = orientation;
+            [USER_DEFAULT setInteger:orientationAVer forKey:@"orientationAVer"];
+            HorTime = 0;
+            switch (orientationAVer) {
+                case 1:
+                    NSLog(@"此时 home键1 在下");
+                    break;
+                case 2:
+                    NSLog(@"此时 home键1 在上");
+                    break;
+                case 3:
+                    NSLog(@"此时 home键1 在右");
+                    break;
+                case 4:
+                    NSLog(@"此时 home键1 在左");
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        else{
+            if (HorTime == 0) {
+                orientationBHor = orientationAVer;  //记住锁屏前最后一次方向s
+                NSLog(@"此时 orientation : %d",orientationBHor);
+                switch (orientationBHor) {
+                    case 1:
+                        NSLog(@"此时 home键2 在下");
+                        break;
+                    case 2:
+                        NSLog(@"此时 home键2 在上");
+                        break;
+                    case 3:
+                        NSLog(@"此时 home键2 在右");
+                        break;
+                    case 4:
+                        NSLog(@"此时 home键2 在左");
+                        break;
+                        
+                    default:
+                        break;
+                }
+                HorTime++;
+            }
+        
+        }
+    }
+    
+    NSLog(@"self.isLocked %d",self.isLocked);
     if (!self.isLocked)
     {
         switch (orientation) {
             case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
-                NSLog(@"home键在 下");
+                NSLog(@"此时 home键3在 下");
                 [self restoreOriginalScreen];
             }
                 break;
             case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
-                NSLog(@"home键在 上");
+                NSLog(@"此时 home键3在 上");
             }
                 break;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
-                NSLog(@"home键在 右");
+                NSLog(@"此时 home键3在 右");
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
             }
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
-                NSLog(@"home键在 左");
+                NSLog(@"此时 home键3在 左");
                 //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
             }
@@ -718,6 +775,57 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
         }
     }
+    else //锁屏状态不动
+    {
+        [USER_DEFAULT setInteger:orientationBHor forKey:@"orientationBHor"];
+        switch (orientationBHor) {
+            case 1:
+                NSLog(@"home键 在下");
+                break;
+            case 2:
+                NSLog(@"home键 在上");
+                break;
+            case 3:
+                NSLog(@"home键 在右");
+                break;
+            case 4:
+                NSLog(@"home键 在左");
+                break;
+                
+            default:
+                break;
+        }
+//        switch (orientationBHor) {
+//            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+//                NSLog(@"home键在 下");
+////                [self restoreOriginalScreen];
+//                [self changeToFullScreenForOrientation:orientationBHor];
+//            }
+//                break;
+//            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+//                NSLog(@"home键在 上");
+//                [self changeToFullScreenForOrientation:orientationBHor];
+//            }
+//                break;
+//            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+//                NSLog(@"home键在 右");
+//                [self changeToFullScreenForOrientation:orientationBHor];
+////                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+//            }
+//                break;
+//            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+//                NSLog(@"home键在 左");
+//                [self changeToFullScreenForOrientation:orientationBHor];
+//                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+////                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+//            }
+//                break;
+//                
+//            default:
+//                break;
+//        }
+    }
+
 }
 
 /// 切换到全屏模式
@@ -751,6 +859,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.eventTimeLab.hidden = NO;
     self.videoControl.backButton.hidden = NO;
     
+    self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
     
     lab.text = @"sorry, this video can't play";
     lab.font = FONT(17);
@@ -816,6 +925,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelListBtn.hidden = YES;
     self.videoControl.eventTimeLab.hidden = YES;
     self.videoControl.eventnameLabel.hidden = NO;
+    
+    self.videoControl.lockButton.hidden = YES; //切换到竖屏模式，锁屏按钮消失
 
     lab.text = @"sorry, this video can't play";
     lab.font = FONT(17);
@@ -844,6 +955,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         int val = orientation;
         [invocation setArgument:&val atIndex:2];
         [invocation invoke];
+        
     }
 }
 
@@ -1114,8 +1226,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (lockBtn.selected) { // 锁定
         self.isLocked = YES;
         [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"ZXVideoPlayer_DidLockScreen"];
+        [USER_DEFAULT setBool:YES forKey:@"lockedFullScreen"];
+        
     } else { // 解除锁定
         self.isLocked = NO;
+        [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];
         [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"ZXVideoPlayer_DidLockScreen"];
     }
 }
