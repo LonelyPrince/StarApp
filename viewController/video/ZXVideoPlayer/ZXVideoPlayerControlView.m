@@ -149,7 +149,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     [super layoutSubviews];
     
-    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 71); //43);
+    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 100);//71  //43);
     NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
     
     //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
@@ -175,7 +175,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     
     // 返回按钮
-    self.backButton.frame = CGRectMake(0, 16, 50, 46);
+    self.backButton.frame = CGRectMake(0, 25, 48, 56);
     // 锁定按钮
         self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
     
@@ -486,12 +486,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     NSLog(@"Imagewidth :%f",Imagewidth);
     NSLog(@"SCREEN_HEIGHT :%f",SCREEN_HEIGHT);
     if (Imagewidth > SCREEN_WIDTH) {  //全屏
-        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 71);
+        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
         _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
         
         _topControllerImage.image = [UIImage imageNamed:@"顶背景"];
         _bottomControllerImage.image = [UIImage imageNamed:@"底背景"];
-        _topBar.frame =CGRectMake(0, 0,Imagewidth, 71);
+        _topBar.frame =CGRectMake(0, 0,Imagewidth, 100);
         _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
         
     }else  //竖屏
@@ -708,7 +708,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _channelNameLab;
     
 }
-///节目名称r
+///节目名称 全屏
 - (UILabel *)FulleventNameLab
 {
     
@@ -765,8 +765,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_backButton) {
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40 , 40)];
+        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 30, 48, 56)];
         [_backButton setImage:[UIImage imageNamed:@"Back Arrow Blue"] forState:UIControlStateNormal];
+//        Back Arrow Blue@3x
         //        UIImageView * backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(3,3, 6, 10)];
         //        backImageView.image = [UIImage imageNamed:@"Back Arrow Blue"];
         //        [_backButton addSubview:backImageView];
@@ -781,9 +782,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_lockButton) {
         _lockButton =[[UIButton alloc] initWithFrame:CGRectMake(10, 0, 60, 60)];
-        [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-unlock"] forState:UIControlStateNormal];
-        [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-lock"] forState:UIControlStateHighlighted];
-        [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-lock"] forState:UIControlStateSelected];
+        [_lockButton setImage:[UIImage imageNamed:@"未加锁 "] forState:UIControlStateNormal];
+        [_lockButton setImage:[UIImage imageNamed:@"加锁 "] forState:UIControlStateHighlighted];
+        [_lockButton setImage:[UIImage imageNamed:@"加锁 "] forState:UIControlStateSelected];
 //        _lockButton.contentEdgeInsets = UIEdgeInsetsMake(5, 0, -5, 0);
     }
     return _lockButton;

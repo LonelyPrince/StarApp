@@ -79,7 +79,7 @@
 ////频道名称label
 @property (nonatomic, strong, readwrite) UILabel *channelNameLab;
 
-////节目名称label
+////节目名称label   全屏
 @property (nonatomic, strong, readwrite) UILabel *FulleventNameLab;
 
 ////添加右侧tableview背景图片

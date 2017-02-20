@@ -874,17 +874,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.FulleventNameLab.hidden = NO;
     self.videoControl.eventnameLabel.hidden = YES;
     
-    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:18];
+    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:40.5];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:18];
     
-    CGSize sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:40.5] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGSize sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    self.videoControl.channelIdLab.frame = CGRectMake(48, 30, sizeChannelId.width, 18);
+//     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    self.videoControl.channelIdLab.frame = CGRectMake(48, 26, sizeChannelId.width, 55);
     self.videoControl.channelNameLab.frame = CGRectMake(48+sizeChannelId.width+30, 30, sizeChannelName.width, 18);
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
-    self.videoControl.FulleventNameLab.frame =  CGRectMake(48+sizeChannelId.width+sizeChannelName.width+60, 30, sizeEventName.width, 18);
+    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+   
+    self.videoControl.FulleventNameLab.hidden = NO;
     
+    self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+26, sizeEventName.width, 18);
 
 
 }
@@ -1040,6 +1043,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)subtBtnClick
 {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     NSLog(@"sub字幕");
     _cellStr = @"subt";
     if (self.rightViewShowing == YES)
@@ -1063,6 +1067,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)rightViewshow
 {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     self.videoControl.rightView.hidden = NO;
     self.videoControl.rightView.alpha = 1;
     
@@ -1146,6 +1151,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 - (void)audioBtnClick
 {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     _cellStr = @"audio";
     NSLog(@"audio音轨");
     
@@ -1163,6 +1169,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 - (void)channelListBtnClick
 {
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     _cellStr = @"channel";
     NSLog(@"channellist 频道列表");
     
@@ -1373,7 +1380,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // play url
     self.contentURL = [NSURL URLWithString:self.video.playUrl];
     //当前节目名称
-    self.videoControl.eventnameLabel.text = self.video.playEventName;
+//    self.videoControl.eventnameLabel.text = self.video.playEventName;
+    self.videoControl.eventnameLabel.text = @"LNFASDANSDNASNDLASKNDLANFANFNA";
     
     self.videoControl.channelIdLab.text = self.video.channelId;
     
