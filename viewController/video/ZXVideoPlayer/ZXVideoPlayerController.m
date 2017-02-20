@@ -860,6 +860,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.backButton.hidden = NO;
     
     self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
+    [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
     
     lab.text = @"sorry, this video can't play";
     lab.font = FONT(17);
@@ -927,7 +928,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.eventnameLabel.hidden = NO;
     
     self.videoControl.lockButton.hidden = YES; //切换到竖屏模式，锁屏按钮消失
-
+    [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];
+    
     lab.text = @"sorry, this video can't play";
     lab.font = FONT(17);
 
@@ -1218,7 +1220,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.pauseButton.hidden = YES;
 }
 
-/// 锁屏按钮点击
+///// 锁屏按钮点击
 - (void)lockButtonClick:(UIButton *)lockBtn
 {
     lockBtn.selected = !lockBtn.selected;
@@ -1228,10 +1230,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"ZXVideoPlayer_DidLockScreen"];
         [USER_DEFAULT setBool:YES forKey:@"lockedFullScreen"];
         
+        
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
+        
+        [self.videoControl animateHide];
+        
     } else { // 解除锁定
         self.isLocked = NO;
         [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];
         [[NSUserDefaults standardUserDefaults] setObject:@0 forKey:@"ZXVideoPlayer_DidLockScreen"];
+        
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
+        
+        [self.videoControl animateShow];
     }
 }
 

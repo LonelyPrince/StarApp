@@ -37,7 +37,8 @@
 
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *indicatorView;
 
-@property (nonatomic, assign, readonly) BOOL isBarShowing;
+//@property (nonatomic, assign, readonly) BOOL isBarShowing;
+@property (nonatomic, assign) BOOL isBarShowing;
 /// 返回按钮
 @property (nonatomic, strong, readwrite) UIButton *backButton;
 /// 屏幕锁定按钮

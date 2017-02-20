@@ -18,6 +18,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @interface ZXVideoPlayerControlView ()
 {
     BOOL showStatus;
+    BOOL islockShowing;
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property (nonatomic, strong) UIView *topBar;
@@ -35,9 +36,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @property (nonatomic, strong)  UIImageView * bottomControllerImage;
 @property (nonatomic, strong)  UIImageView * topControllerImage;
 @property (nonatomic, strong)  UIImageView * rightControllerImage;
-@property (nonatomic, assign) BOOL isBarShowing;
+//@property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
-
 
 
 ////////
@@ -46,10 +46,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 //////下一个频道
 //@property (nonatomic, strong) UIButton *nextChannelButton;
 
+
 @end
+
 
 @implementation ZXVideoPlayerControlView
 
+@synthesize isBarShowing;
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -129,6 +132,15 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.videoController = [[ZXVideoPlayerController alloc]init];
         
         showStatus = YES;
+        islockShowing = YES;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"lockButtonShow" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockButtonShow) name:@"lockButtonShow" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"lockButtonHide" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockButtonHide) name:@"lockButtonHide" object:nil];
     }
     return self;
 }
@@ -217,9 +229,21 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         return;
     }
     
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kZXPlayerControlViewHideNotification object:nil];
     
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
+       BOOL lockButtonIsClick =  [USER_DEFAULT boolForKey:@"lockedFullScreen"];
+        if (lockButtonIsClick) { //如果锁屏按钮已经点击
+         
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
+            [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+//            [self lockButtonHide];
+        }else
+        {
+            [self lockButtonHide];
+        }
+        
         self.topBar.alpha = 0.0;
         self.bottomBar.alpha = 0.0;
         self.rightView.alpha = 0.0;
@@ -261,6 +285,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         return;
     }
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
+       //--
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
+        [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+        //--
         self.topBar.alpha = 1.0;
         self.bottomBar.alpha = 1.0;
         //        self.bottomBar.userInteractionEnabled = YES;
@@ -317,32 +345,99 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)onTap:(UITapGestureRecognizer *)gesture
 {
-    int show;
-    if (gesture.state == UIGestureRecognizerStateRecognized) {
-        if (self.isBarShowing) {
-            [self animateHide];
-            show = 1;
-            _topBar.userInteractionEnabled = YES;
-            _bottomBar.userInteractionEnabled = YES;
-            NSLog(@"**%hhd",self.isBarShowing);
-            NSLog(@"点击了一下");
-        } else {
-            [self animateShow];
-            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-            show = 2;
-            _topBar.userInteractionEnabled = YES;
-            _bottomBar.userInteractionEnabled = YES;
-            NSLog(@"**%hhd",self.isBarShowing);
-            NSLog(@"点击了第二下");
+    //第一步先判断是不是按了锁
+    if ([USER_DEFAULT boolForKey:@"lockedFullScreen"]) {
+        //锁住状态下判断是否点击
+        if (islockShowing == YES) {
+            //将锁隐藏
+            
+            self.lockButton.hidden =YES;
+            islockShowing = NO;
+            
+        }else
+        {
+        //将其显示
+            
+//            self.lockButton.hidden = NO;
+//            islockShowing = YES;
+            [self lockButtonShow];
+        }
+        
+        
+        
+    }else   //没有锁住🔐
+    {
+        int show;
+        if (gesture.state == UIGestureRecognizerStateRecognized) {
+            if (self.isBarShowing) {
+                [self animateHide];
+                show = 1;
+                _topBar.userInteractionEnabled = YES;
+                _bottomBar.userInteractionEnabled = YES;
+                NSLog(@"**%hhd",self.isBarShowing);
+                NSLog(@"点击了一下");
+               
+                BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                if (islockShowing == YES && isFullScreenMode ) {
+                    //将锁隐藏
+                    [self lockButtonHide];
+//                    self.lockButton.hidden =YES;
+//                    islockShowing = NO;
+                    
+                }
+            } else {
+                [self animateShow];
+                [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+                show = 2;
+                _topBar.userInteractionEnabled = YES;
+                _bottomBar.userInteractionEnabled = YES;
+                NSLog(@"**%hhd",self.isBarShowing);
+                NSLog(@"点击了第二下");
+                
+                BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                if (islockShowing == NO&& isFullScreenMode)  {
+                    //将其显示
+                    
+                    [self lockButtonShow];
+//                    self.lockButton.hidden = NO;
+//                    islockShowing = YES;
+                    
+                   
+                }
+            }
         }
     }
+
     //    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
     //    NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
     //    //通过通知中心发送通知
     //    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
+-(void)lockButtonHide
+{
+    if (!islockShowing) {
+        return;
+    }
+    
+    self.lockButton.hidden =YES;
+    islockShowing = NO;
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
+//    [self performSelector:@selector(lockButtonShow) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+}
+-(void)lockButtonShow
+{
+    if (islockShowing) {
+        return;
+    }
+    self.lockButton.hidden = NO;
+    islockShowing = YES;
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
+    [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+}
 #pragma mark - getters
 
 - (UIView *)topBar
