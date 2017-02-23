@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionVertical,   // 纵向移动
     
     
+    
 };
 //typedef enum{
 //    subCell = 1,
@@ -35,6 +36,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     UIDeviceOrientation orientationAVer;  //竖
     UIDeviceOrientation orientationBHor;  //横
     NSInteger HorTime ;
+    
+    NSMutableArray * YFLabelArr;
 }
 
 
@@ -872,23 +875,106 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //     self.videoControl.channelIdLab.hidden = NO;
     //     self.videoControl.channelNameLab.hidden = NO;
     self.videoControl.FulleventNameLab.hidden = NO;
+    if (self.videoControl.FullEventYFlabel) {
+        self.videoControl.FullEventYFlabel.hidden = NO; //全屏页面跑马灯
+    }
+    
+    
+    
     self.videoControl.eventnameLabel.hidden = YES;
     
-    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:40.5];
-    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:18];
+    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
+    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
     
-    CGSize sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:40.5] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    CGSize sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
 //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    self.videoControl.channelIdLab.frame = CGRectMake(48, 26, sizeChannelId.width, 55);
-    self.videoControl.channelNameLab.frame = CGRectMake(48+sizeChannelId.width+30, 30, sizeChannelName.width, 18);
+    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, sizeChannelId.width, 55);
+    self.videoControl.channelNameLab.frame = CGRectMake(42+sizeChannelId.width+6, 34, sizeChannelName.width, 18);
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
-    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-   
-    self.videoControl.FulleventNameLab.hidden = NO;
-    
-    self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+26, sizeEventName.width, 18);
+//    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
+        YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
+//    }
+  
 
+    
+    
+    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+   
+    //初始化arr，方便后面对label赋值
+    if (! YFLabelArr) {
+        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+        
+        
+        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+        
+    }else
+    {
+        self.videoControl.FullEventYFlabel.frame = CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 250, 18);   //40字符长度是260
+        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+        
+
+    }
+    
+    
+    
+    self.videoControl.FullEventYFlabel.hidden = NO;
+//    self.videoControl.FullEventYFlabel.speed = 3;
+    self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
+    
+    self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18);
+
+    
+    
+    //此处强制销毁，再重新init一次
+//    if (self.videoControl.FullEventYFlabel) {
+        [self.videoControl.FullEventYFlabel removeFromSuperview];
+        self.videoControl.FullEventYFlabel = nil;
+        [self.videoControl.FullEventYFlabel stopTimer];
+        
+        [self abctest];
+//    }
+    
+    //test
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"abctest" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( abctest) name:@"abctest" object:nil];
+    
+
+}
+-(void)abctest
+{
+    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    
+    self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 260, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+    NSString * abcaa =self.videoControl.eventnameLabel.text;
+    NSArray * arr = [[NSArray alloc]init];
+    if(abcaa == nil|| abcaa == NULL)
+    {
+    arr = @[@"NO Event"];
+    }else
+    {
+    arr = @[abcaa];
+    }
+    
+
+    [self.videoControl.FullEventYFlabel initArr:arr];
+//[self.videoControl.FullEventYFlabel initArr:@[@"111asdasdasdasdasdASDMAMSDASDAOISDMASDMAOSIMDasdasdasdasdasdasdasdasd"]];
+    self.videoControl.FullEventYFlabel.hidden = NO;
+    [self.videoControl.topBar addSubview: self.videoControl.FullEventYFlabel];
+    double aa =1.8*sizeEventName.width/260;
+    NSLog(@"aa：%f",aa);
+    self.videoControl.FullEventYFlabel.speed = aa;
+    
+    
+//    [self FullEventYFlabel];
+//    self.FullEventYFlabel.frame = CGRectMake(80, 30+26, 100, 18);
+//    [self.FullEventYFlabel initArr:@[@"asdasdasdasdasdasdasdasdasdasdasdasdasd"]];
+//    self.FullEventYFlabel.hidden = NO;
+//    self.FullEventYFlabel.speed = 20;
+//    [self addSubview:_FullEventYFlabel];
+//    [self.topBar addSubview:_FullEventYFlabel];
 
 }
 - (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
@@ -922,6 +1008,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //     self.videoControl.channelNameLab.hidden = YES;
     self.videoControl.FulleventNameLab.hidden = YES;
     
+    if (self.videoControl.FullEventYFlabel) {
+        self.videoControl.FullEventYFlabel.hidden = YES; //全屏页面跑马灯
+    }
+    
     self.videoControl.lastChannelButton.hidden = YES;
     self.videoControl.nextChannelButton.hidden = YES;
     self.videoControl.subtBtn.hidden = YES;
@@ -945,6 +1035,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:12];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:12];
+
+    //切换到竖屏，跑马灯消失
+    if (self.videoControl.FullEventYFlabel) {
+        [self.videoControl.FullEventYFlabel removeFromSuperview];
+        self.videoControl.FullEventYFlabel = nil;
+        [self.videoControl.FullEventYFlabel stopTimer];
+    }
+   
 
     
 }
@@ -1381,7 +1479,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.contentURL = [NSURL URLWithString:self.video.playUrl];
     //当前节目名称
 //    self.videoControl.eventnameLabel.text = self.video.playEventName;
-    self.videoControl.eventnameLabel.text = @"LNFASDANSDNASNDLASKNDLANFANFNA";
+//    self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
+     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
     
     self.videoControl.channelIdLab.text = self.video.channelId;
     

@@ -8,6 +8,8 @@
 
 #import "ZXVideoPlayerControlView.h"
 #import "ZXVideoPlayerController.h"
+
+
 //#import "UIButton+EnlargeTouchArea.h"
 
 static const CGFloat kVideoControlBarHeight = 50;  // 20.0 + 30.0;
@@ -19,6 +21,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     BOOL showStatus;
     BOOL islockShowing;
+    YFRollingLabel *_label;
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property (nonatomic, strong) UIView *topBar;
@@ -84,10 +87,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self.topBar addSubview:self.channelIdLab];
         [self.topBar addSubview:self.channelNameLab];
         [self.topBar addSubview:self.FulleventNameLab];
+        [self.topBar addSubview:self.FullEventYFlabel];
         
         //        self.channelIdLab.hidden = YES;
         //        self.channelNameLab.hidden = YES;
         self.FulleventNameLab.hidden = YES;
+        self.FullEventYFlabel.hidden = YES;
         
 //        self.shrinkScreenButton.hidden = YES;
         self.shrinkScreenButton1.hidden = YES;
@@ -175,7 +180,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     
     // 返回按钮
-    self.backButton.frame = CGRectMake(0, 25, 48, 56);
+    self.backButton.frame = CGRectMake(0, 25, 54, 56);
     // 锁定按钮
         self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
     
@@ -211,7 +216,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
     self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
     self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
-    
+    self.FullEventYFlabel.frame = CGRectMake(293, 40, 200, 18);
     
 }
 
@@ -228,6 +233,20 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!self.isBarShowing) {
         return;
     }
+  
+    if (self.FullEventYFlabel) {
+        [self.FullEventYFlabel removeFromSuperview];
+        self.FullEventYFlabel = nil;
+    }
+    
+    
+//    _FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(20, 30+26, 20, 40)  textArray:@[@123] font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+//    [_FullEventYFlabel initArr:@[@"123"]];
+//    [self addSubview:_FullEventYFlabel];
+//    _label.speed = 3;
+//    
+//    
+
     
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kZXPlayerControlViewHideNotification object:nil];
@@ -284,8 +303,35 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (self.isBarShowing) {
         return;
     }
+//      NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+//    
+//    [self FullEventYFlabel];
+//    self.FullEventYFlabel.frame = CGRectMake(80, 30+26, 100, 18);
+//    [self.FullEventYFlabel initArr:@[@"asdasdasdasdasdasdasdasdasdasdasdasdasd"]];
+//    self.FullEventYFlabel.hidden = NO;
+//    self.FullEventYFlabel.speed = 20;
+//    [self addSubview:_FullEventYFlabel];
+//    [self.topBar addSubview:_FullEventYFlabel];
+//    
+//    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    
+//    self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+26, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+//    [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+//    [self.videoControl.topBar addSubview: self.videoControl.FullEventYFlabel];
+//    self.videoControl.FullEventYFlabel.speed = 3;
+    
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
-       //--
+      
+        BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+        if (isFullScreenMode) {   //如果是全屏模式并且topbar展示时才初始化新建一个跑马灯
+            NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            
+        }
+        //--
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
         [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
         //--
@@ -396,6 +442,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 NSLog(@"点击了第二下");
                 
                 BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+//                if (isFullScreenMode) {   //如果是全屏模式并且topbar展示时才初始化新建一个跑马灯
+//                    NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                    
+//
+//                }
                 if (islockShowing == NO&& isFullScreenMode)  {
                     //将其显示
                     
@@ -717,10 +769,25 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
 //        _FulleventNameLab.text = @"Despicble Me And TOT LAL MOM " ;
         _FulleventNameLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
-//        _FulleventNameLab.font = [UIFont systemFontOfSize:18];
+        _FulleventNameLab.font = [UIFont systemFontOfSize:11];
         
     }
     return _FulleventNameLab;
+    
+}
+
+///节目名称 全屏222
+- (YFRollingLabel *)FullEventYFlabel
+{
+    
+    if (!_FullEventYFlabel) {
+//        _FullEventYFlabel = [[YFRollingLabel alloc] init];
+        
+//        _FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(20, 30+26, 20, 40)  textArray:@[@"123123123123"] font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+//        
+        
+    }
+    return _FullEventYFlabel;
     
 }
 

@@ -11,6 +11,7 @@
 #import "ZXVideoPlayerBrightnessView.h"
 #import "ZXVideoPlayerVolumeView.h"
 #import "ZXVideoPlayerBatteryView.h"
+#import "YFRollingLabel.h"
 
 #define kZXPlayerControlViewHideNotification @"ZXPlayerControlViewHideNotification"
 
@@ -81,6 +82,7 @@
 
 ////节目名称label   全屏
 @property (nonatomic, strong, readwrite) UILabel *FulleventNameLab;
+@property (nonatomic, strong, readwrite) YFRollingLabel *FullEventYFlabel;
 
 ////添加右侧tableview背景图片
 @property (nonatomic, strong, readonly) UIView * rightView;

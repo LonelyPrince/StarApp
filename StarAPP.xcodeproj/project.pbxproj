@@ -311,6 +311,7 @@
 		7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858071E46D0E60052318D /* placeholder@2x.png */; };
 		7048580B1E46D0E60052318D /* placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858081E46D0E60052318D /* placeholder@3x.png */; };
 		704858181E46DA370052318D /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */; };
+		704F215F1E5D1D570062EE86 /* YFRollingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 704F215E1E5D1D570062EE86 /* YFRollingLabel.m */; };
 		705650641DB9B95F002DD47E /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650621DB9B95F002DD47E /* AudioCell.m */; };
 		705650651DB9B95F002DD47E /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650631DB9B95F002DD47E /* AudioCell.xib */; };
 		705650691DB9EFA2002DD47E /* subtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650671DB9EFA2002DD47E /* subtCell.m */; };
@@ -926,6 +927,8 @@
 		704858081E46D0E60052318D /* placeholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@3x.png"; sourceTree = "<group>"; };
 		704858161E46DA370052318D /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		704F215D1E5D1D570062EE86 /* YFRollingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFRollingLabel.h; sourceTree = "<group>"; };
+		704F215E1E5D1D570062EE86 /* YFRollingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFRollingLabel.m; sourceTree = "<group>"; };
 		705650611DB9B95F002DD47E /* AudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCell.h; sourceTree = "<group>"; };
 		705650621DB9B95F002DD47E /* AudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCell.m; sourceTree = "<group>"; };
 		705650631DB9B95F002DD47E /* AudioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
@@ -1971,6 +1974,15 @@
 			name = "button点击区域";
 			sourceTree = "<group>";
 		};
+		704F215B1E5D1D150062EE86 /* RunLabel */ = {
+			isa = PBXGroup;
+			children = (
+				704F215D1E5D1D570062EE86 /* YFRollingLabel.h */,
+				704F215E1E5D1D570062EE86 /* YFRollingLabel.m */,
+			);
+			name = RunLabel;
+			sourceTree = "<group>";
+		};
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
@@ -2051,6 +2063,7 @@
 		709746641D6D89E6002E7A39 /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				704F215B1E5D1D150062EE86 /* RunLabel */,
 				704858151E46D9640052318D /* button点击区域 */,
 				701443551DDD4FC2008EAAC6 /* 引导 */,
 				704582F31D9A193D0061C154 /* GGUtil.h */,
@@ -2909,6 +2922,7 @@
 				70130EAC1D8FEBDA005F0A49 /* SocketUtils.m in Sources */,
 				70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */,
 				7012953C1D80FC0A003139D5 /* TVCell.m in Sources */,
+				704F215F1E5D1D570062EE86 /* YFRollingLabel.m in Sources */,
 				70170BD51D74038B00CC3951 /* StarMainTabController.m in Sources */,
 				7012951D1D80F4CF003139D5 /* UINavigationController+PushSingleOne.m in Sources */,
 				70130EA71D8FE813005F0A49 /* SocketModel.m in Sources */,
