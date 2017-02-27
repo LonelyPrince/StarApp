@@ -36,7 +36,7 @@ UITableViewDelegate,UITableViewDataSource>
     
     BOOL firstShow;
     BOOL playState;
-    NSTimer * timerState;
+//    NSTimer * timerState;
     int tableviewinit;
     
     //状态栏显示状态
@@ -122,6 +122,7 @@ UITableViewDelegate,UITableViewDataSource>
 @synthesize categoryView;
 @synthesize allStartEpgTime;
 @synthesize tableForSliderView;
+@synthesize timerState; //不播放时候的计时器
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -1128,6 +1129,12 @@ UITableViewDelegate,UITableViewDataSource>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self touchSelectChannel:indexPath.row diction:self.dicTemp];
     NSLog(@"tableForSliderView11--tableview:%@",tableView);
+    
+    //加载圈动画
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     //    //先传输数据到socket，然后再播放视频
     //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
     //
@@ -1258,6 +1265,11 @@ UITableViewDelegate,UITableViewDataSource>
     [self playVideo];
     
     playState = NO;
+    
+    NSLog(@"timerState:22 %@",timerState);
+    [timerState invalidate];
+    timerState = nil;
+   NSLog(@"timerState:33 %@",timerState);
     if (! playState ) {
         
 //        NSInteger  timerIndex = 1;
@@ -1265,10 +1277,11 @@ UITableViewDelegate,UITableViewDataSource>
 //        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
         playNumCount = 1;
         timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+        NSLog(@"timerState:11 %@",timerState);
     }
     
     
- 
+   
     
     //** 计算进度条
     if(!ISNULL(self.event_startTime)&&!ISNULL(self.event_endTime))
@@ -1777,6 +1790,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         [self allCategorysBtnNotific];
         [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
+//        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = image;
@@ -2187,7 +2201,20 @@ UITableViewDelegate,UITableViewDataSource>
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
 }
-
+//-(void)timerStateInvalidateNotific
+//{
+//    //
+//    //此处销毁通知，防止一个通知被多次调用    // 1
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"timerStateInvalidate" object:nil];
+//    //注册通知,用来取消循环播放
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timerStateInvalidate) name:@"timerStateInvalidate" object:nil];
+//}
+//-(void)timerStateInvalidate
+//{
+//    [timerState invalidate];
+//    timerState = nil;
+//    NSLog(@"右侧列表asdboasbdiasbidbasidbiasbdiasbdiasbdiuas");
+//}
 -(void)playClick  //:(NSTimer *)timer
 {
 //     NSDictionary * dic =  [timer userInfo];
@@ -2195,32 +2222,78 @@ UITableViewDelegate,UITableViewDataSource>
     playNumCount ++;
     NSLog(@"playState:%d",playState);
     NSLog(@"(self.video.playUrl:%@",self.video.playUrl);
-    if ( self.video.playUrl != NULL && ! playState) {
-        
-        NSLog(@"playNumCount :%d",playNumCount);
-        if (playNumCount >= 15) {  //如果大于8次，即大于8秒，则停止播放，显示无法播放的标语
-            [timerState invalidate];
-            timerState = nil;
-            
-            //创建通知
-            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-            
-        }
-        
-        [self playVideo];
-        
-        NSLog(@"播放");
-    }
-    else
-    {
+   
+    if (playNumCount >= 10){  //如果大于次10，即大于8秒，则停止播放，循环结束，显示无法播放的标语
+        NSLog(@"timerState now:%@",timerState);
         [timerState invalidate];
         timerState = nil;
         
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        NSLog(@"右侧列表消失 playClick %ld",(long)playNumCount);
+        
+        NSLog(@"timerState :%@",timerState);
+        [timerState invalidate];
+        timerState = nil;
+        NSLog(@"timerState :%@",timerState);
+    }else {//次数小于10，判断是否播放
+        if ( self.video.playUrl != NULL && playState)
+        {
+            //如果已经播放，结束循环
+            [timerState invalidate];
+            timerState = nil;
+            
+            playNumCount = 0;
+            NSLog(@"播放");
+            
+            NSLog(@"右侧列表消失 playClick1 %ld",(long)playNumCount);
+        
+        }else{
+        //没有播放.接着循环
+            [self playVideo];
+            NSLog(@"右侧列表消失 playClick2 %ld",(long)playNumCount);
+        }
     }
-    
+//    if ( self.video.playUrl != NULL && playState) {
+//        
+//        NSLog(@"playNumCount :%d",playNumCount);
+//        if (playNumCount >= 15) {  //如果大于8次，即大于8秒，则停止播放，显示无法播放的标语
+//            [timerState invalidate];
+//            timerState = nil;
+//            
+//            //创建通知
+//            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//            //通过通知中心发送通知
+//            [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+//            NSLog(@"右侧列表消失 playClick %ld",(long)playNumCount);
+//            
+//            NSLog(@"timerState :%@",timerState);
+//            [timerState invalidate];
+//            timerState = nil;
+//            NSLog(@"timerState :%@",timerState);
+//        }
+//        else{
+////        [self playVideo];
+//            [timerState invalidate];
+//            timerState = nil;
+//
+//        NSLog(@"播放");
+//            
+//            NSLog(@"右侧列表消失 playClick1 %ld",(long)playNumCount);
+//        }
+//        [self playVideo];
+//    }
+//    else
+//    {
+////        [timerState invalidate];
+////        timerState = nil;
+//     [self playVideo];
+//    }
+
     
 }
 -(void)willplay

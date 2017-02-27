@@ -56,8 +56,10 @@
 @property (strong,nonatomic)NSString * IPString;
 @property (strong,nonatomic) UIView * topView;
 @property (strong,nonatomic)NSMutableArray * allStartEpgTime;
+@property (strong,nonatomic) NSTimer * timerState;
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
 
 
 -(UIViewController*) currentViewController;
+//-(void)timerStateInvalidate;
 @end

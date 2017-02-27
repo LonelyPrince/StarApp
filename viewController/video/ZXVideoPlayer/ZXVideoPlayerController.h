@@ -10,6 +10,7 @@
 #import "ZXVideo.h"
 @import MediaPlayer;
 #import "SocketView.h"
+//#import "TVViewController.h"
 
 #define kZXVideoPlayerOriginalWidth  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define kZXVideoPlayerOriginalHeight (kZXVideoPlayerOriginalWidth * (9.0 / 16.0))

@@ -213,7 +213,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
     
     //*********
-    self.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+    self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
     self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
     self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
     self.FullEventYFlabel.frame = CGRectMake(293, 40, 200, 18);
@@ -237,6 +237,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (self.FullEventYFlabel) {
         [self.FullEventYFlabel removeFromSuperview];
         self.FullEventYFlabel = nil;
+        [self.FullEventYFlabel stopTimer];
+        
+        NSLog(@"跑马灯销毁 1 animatehide");
     }
     
     
@@ -246,6 +249,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 //    _label.speed = 3;
 //    
 //    
+//    [self.FullEventYFlabel removeFromSuperview];
+//    self.FullEventYFlabel = nil;
+//    [self.FullEventYFlabel stopTimer];
 
     
     
@@ -278,10 +284,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         self.videoController.subAudioTableView = nil;
         
-        NSNotification *notification1 =[NSNotification notificationWithName:@"tableviewHidden" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-        
+//        //全屏页面右侧列表隐藏
+//        NSNotification *notification1 =[NSNotification notificationWithName:@"tableviewHidden" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//        
         
         
         
@@ -303,24 +310,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (self.isBarShowing) {
         return;
     }
-//      NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
-//    
-//    [self FullEventYFlabel];
-//    self.FullEventYFlabel.frame = CGRectMake(80, 30+26, 100, 18);
-//    [self.FullEventYFlabel initArr:@[@"asdasdasdasdasdasdasdasdasdasdasdasdasd"]];
-//    self.FullEventYFlabel.hidden = NO;
-//    self.FullEventYFlabel.speed = 20;
-//    [self addSubview:_FullEventYFlabel];
-//    [self.topBar addSubview:_FullEventYFlabel];
-//    
-//    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-//    
-//    self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+26, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
-//    [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-//    [self.videoControl.topBar addSubview: self.videoControl.FullEventYFlabel];
-//    self.videoControl.FullEventYFlabel.speed = 3;
+
     
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
       
@@ -371,8 +361,6 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [self performSelector:@selector(animateHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
     
     
-    
-    
 }
 
 - (void)cancelAutoFadeOutControlBar
@@ -380,10 +368,33 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
 }
 
+- (void)autoFadeRightTableView{
+//    if (!self.rightView) {
+//        return;
+//    }
+    NSLog(@"右侧列表消失111");
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rightTableViewHide) object:nil];
+    [self performSelector:@selector(rightTableViewHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+    
+    
+}
+-(void)rightTableViewHide
+{
+    NSLog(@"右侧列表消失222");
+    [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
+    //全屏页面右侧列表隐藏
+    NSNotification *notification1 =[NSNotification notificationWithName:@"tableviewHidden" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    }];
+
+
+}
 //右侧的tableView的滑动事件隐藏
 -(void)uiTableViewHidden
 {
     [self animateHide];
+    [self rightView];
     
 }
 
@@ -391,6 +402,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)onTap:(UITapGestureRecognizer *)gesture
 {
+//    [self rightTableViewHide];
     //第一步先判断是不是按了锁
     if ([USER_DEFAULT boolForKey:@"lockedFullScreen"]) {
         //锁住状态下判断是否点击
@@ -417,6 +429,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         if (gesture.state == UIGestureRecognizerStateRecognized) {
             if (self.isBarShowing) {
                 [self animateHide];
+                [self rightTableViewHide];
                 show = 1;
                 _topBar.userInteractionEnabled = YES;
                 _bottomBar.userInteractionEnabled = YES;
@@ -776,20 +789,20 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
 }
 
-///节目名称 全屏222
-- (YFRollingLabel *)FullEventYFlabel
-{
-    
-    if (!_FullEventYFlabel) {
-//        _FullEventYFlabel = [[YFRollingLabel alloc] init];
-        
-//        _FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(20, 30+26, 20, 40)  textArray:@[@"123123123123"] font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+/////节目名称 全屏222
+//- (YFRollingLabel *)FullEventYFlabel
+//{
+//    
+//    if (!_FullEventYFlabel) {
+////        _FullEventYFlabel = [[YFRollingLabel alloc] init];
 //        
-        
-    }
-    return _FullEventYFlabel;
-    
-}
+////        _FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(20, 30+26, 20, 40)  textArray:@[@"123123123123"] font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+////        
+//        
+//    }
+//    return _FullEventYFlabel;
+//    
+//}
 
 ///进度条
 - (UISlider *)progressSlider

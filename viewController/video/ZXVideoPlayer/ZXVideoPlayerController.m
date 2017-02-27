@@ -38,6 +38,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSInteger HorTime ;
     
     NSMutableArray * YFLabelArr;
+    
+    CGSize sizeChannelId;
+    CGSize sizeChannelName;
+    CGSize sizeEventName;
 }
 
 
@@ -83,6 +87,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 @synthesize socketView1;
 @synthesize lab;
+//@synthesize tvViewController;
 #pragma mark - life cycle
 
 - (void)dealloc
@@ -97,6 +102,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.view.frame = frame;
                 self.view.backgroundColor = [UIColor blackColor];
 //        self.view.backgroundColor = [UIColor redColor];
+//        tvViewController = [[TVViewController alloc]init];
         self.controlStyle = MPMovieControlStyleNone;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
@@ -111,6 +117,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configVolume];
         
         [self configLabNoPlayShow]; //如果视频无法播放，则显示sorry，this video cant play 的字样
+        [self configIndicatorView]; //视频未播放加载钱，显示进度圈
         
         [self configLabNoPlayShowShut]; //如果视频无法播放，则显示sorry，this video cant play 的字样
         
@@ -512,6 +519,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // 监听耳机插入和拔掉通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:) name:AVAudioSessionRouteChangeNotification object:nil];
 }
+
+//未播放前显示加载圈
+-(void)configIndicatorView
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"IndicatorViewShowNotic" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IndicatorViewShowNotic) name:@"IndicatorViewShowNotic" object:nil];
+}
+-(void)IndicatorViewShowNotic
+{
+    [self.videoControl.indicatorView startAnimating];
+}
 //如果不能播放，则显示不能播放字样
 -(void)configLabNoPlayShow
 {
@@ -530,6 +550,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)noPlayShowNotic
 {
+    NSLog(@"右侧列表消失 noPlayShowNotic");
     self.subAudioTableView.hidden = YES;
     self.subAudioTableView = nil;
     [self.subAudioTableView removeFromSuperview];
@@ -693,7 +714,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 设备旋转方向改变
 - (void)onDeviceOrientationDidChange
 {
-
+    NSLog(@"右侧列表消失 之 屏幕旋转");
     [self rightViewHidden];  //旋转时，将右侧列表取消掉
     
     UIDeviceOrientation orientation = self.getDeviceOrientation;
@@ -886,11 +907,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
     
-    CGSize sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    CGSize sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+     sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+     sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
 //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, sizeChannelId.width, 55);
-    self.videoControl.channelNameLab.frame = CGRectMake(42+sizeChannelId.width+6, 34, sizeChannelName.width, 18);
+    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, sizeChannelId.width+6, 55);
+    NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
+    self.videoControl.channelNameLab.frame = CGRectMake(42+sizeChannelId.width+12, 34, sizeChannelName.width+180, 18);
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
 //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
         YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
@@ -899,22 +921,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
     
     
-    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
    
-    //初始化arr，方便后面对label赋值
-    if (! YFLabelArr) {
-        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
-        
-        
-        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-        
-    }else
-    {
-        self.videoControl.FullEventYFlabel.frame = CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 250, 18);   //40字符长度是260
-        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-        
-
-    }
+//    //初始化arr，方便后面对label赋值
+//    if (! YFLabelArr) {
+//        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+//        
+//        
+//        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+//        
+//    }else
+//    {
+//        self.videoControl.FullEventYFlabel.frame = CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 250, 18);   //40字符长度是260
+//        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+//        
+//
+//    }
     
     
     
@@ -945,9 +967,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)abctest
 {
-    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+     sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     
+    NSLog(@"FullEventYFlabel lalal1 :%@",self.videoControl.FullEventYFlabel);
+    //先销毁再创建
+    [self.videoControl.FullEventYFlabel removeFromSuperview];
+    self.videoControl.FullEventYFlabel = nil;
+    [self.videoControl.FullEventYFlabel stopTimer];
+    //
+    
+    NSLog(@"FullEventYFlabel lalal3 :%@",self.videoControl.FullEventYFlabel);
     self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 260, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+    NSLog(@"FullEventYFlabel lalal2 :%@",self.videoControl.FullEventYFlabel);
     NSString * abcaa =self.videoControl.eventnameLabel.text;
     NSArray * arr = [[NSArray alloc]init];
     if(abcaa == nil|| abcaa == NULL)
@@ -1032,7 +1063,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
-    self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:12];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:12];
 
@@ -1141,6 +1172,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)subtBtnClick
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"timerStateInvalidate" object:nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     NSLog(@"sub字幕");
     _cellStr = @"subt";
@@ -1218,8 +1250,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
  
-    
-    [self.videoControl autoFadeOutControlBar];
+    NSLog(@"右侧列表消失 in show");
+    [self.videoControl autoFadeRightTableView];
 
 
     //此处销毁通知，防止一个通知被多次调用
@@ -1232,7 +1264,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 -(void)rightViewHidden
-{   self.videoControl.rightView.hidden = YES;
+{
+    NSLog(@"右侧列表消失333");
+    self.videoControl.rightView.hidden = YES;
     self.videoControl.rightView.alpha = 0;
     
     self.subAudioTableView.hidden = YES;
@@ -1249,6 +1283,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 - (void)audioBtnClick
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"timerStateInvalidate" object:nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     _cellStr = @"audio";
     NSLog(@"audio音轨");
@@ -1267,6 +1302,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 - (void)channelListBtnClick
 {
+//    [tvViewController timerStateInvalidate];
+//    self.tvViewController.timerState = nil;
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"timerStateInvalidate" object:nil];
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     _cellStr = @"channel";
     NSLog(@"channellist 频道列表");
@@ -1891,7 +1930,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //
     //    [self performSelector:@selector(TableViewHidden) withObject:nil afterDelay:5];
     
-    [self.videoControl autoFadeOutControlBar];
+//    [self.videoControl autoFadeOutControlBar];
+        [self.videoControl autoFadeRightTableView];
     
     //    NSIndexPath *path =  [self.subAudioTableView indexPathForRowAtPoint:CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y)];
     //

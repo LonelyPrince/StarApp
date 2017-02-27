@@ -98,4 +98,5 @@
 
 -(void)uiTableViewHidden;
 
+-(void)autoFadeRightTableView;
 @end
