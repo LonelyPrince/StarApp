@@ -205,10 +205,10 @@
 //                    
                     
                     
-                    //创建通知
-                    NSNotification *notification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                    //创建通知
+//                    NSNotification *notification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+//                    //通过通知中心发送通知
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
                     break;
                     

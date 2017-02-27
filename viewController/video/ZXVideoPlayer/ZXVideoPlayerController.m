@@ -118,6 +118,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self configLabNoPlayShow]; //如果视频无法播放，则显示sorry，this video cant play 的字样
         [self configIndicatorView]; //视频未播放加载钱，显示进度圈
+        [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self configLabNoPlayShowShut]; //如果视频无法播放，则显示sorry，this video cant play 的字样
         
@@ -519,7 +520,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // 监听耳机插入和拔掉通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:) name:AVAudioSessionRouteChangeNotification object:nil];
 }
+//播放失败或者开始播放，去掉加载圈
+-(void)configIndicatorViewHidden
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"IndicatorViewHiddenNotic" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IndicatorViewHiddenNotic) name:@"IndicatorViewHiddenNotic" object:nil];
 
+}
+-(void)IndicatorViewHiddenNotic
+{
+   [self.videoControl.indicatorView stopAnimating];
+}
 //未播放前显示加载圈
 -(void)configIndicatorView
 {
@@ -910,9 +923,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
      sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
      sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
 //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, sizeChannelId.width+6, 55);
+    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
     NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
-    self.videoControl.channelNameLab.frame = CGRectMake(42+sizeChannelId.width+12, 34, sizeChannelName.width+180, 18);
+    self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
     self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
 //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
         YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
@@ -1517,9 +1530,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // play url
     self.contentURL = [NSURL URLWithString:self.video.playUrl];
     //当前节目名称
-//    self.videoControl.eventnameLabel.text = self.video.playEventName;
+    self.videoControl.eventnameLabel.text = self.video.playEventName;
 //    self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
-     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
+//     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
     
     self.videoControl.channelIdLab.text = self.video.channelId;
     

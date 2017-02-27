@@ -479,7 +479,7 @@ UITableViewDelegate,UITableViewDataSource>
             
 //            if (tableviewinit == 2) {
                if (!_slideView) {
-            
+            NSLog(@"上山打老虎4");
                 
                 //设置滑动条
                 _slideView = [YLSlideView alloc];
@@ -667,7 +667,7 @@ UITableViewDelegate,UITableViewDataSource>
             _slideView.frame =CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                          SCREEN_WIDTH,
                                          SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
-            
+            NSLog(@"上山打老虎1");
             self.topProgressView.frame = CGRectMake(0  ,
                                                     VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
                                                     SCREEN_WIDTH,
@@ -726,7 +726,7 @@ UITableViewDelegate,UITableViewDataSource>
             _slideView.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
                                           SCREEN_WIDTH,
                                           SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
-            
+            NSLog(@"上山打老虎2");
             NSLog(@"目前是全屏");
             NSLog(@"目前是全屏sliderview:%f",_slideView.frame.origin.y);
             
@@ -1130,10 +1130,6 @@ UITableViewDelegate,UITableViewDataSource>
     [self touchSelectChannel:indexPath.row diction:self.dicTemp];
     NSLog(@"tableForSliderView11--tableview:%@",tableView);
     
-    //加载圈动画
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     //    //先传输数据到socket，然后再播放视频
     //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
@@ -1640,6 +1636,17 @@ UITableViewDelegate,UITableViewDataSource>
 
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
 {
+    //加载圈动画
+    //创建通知  如果视频要播放呀，则去掉不能播放的字样
+    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+    
     
     // 1.获得点击的视频dictionary数据
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
@@ -1789,7 +1796,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self newTunerNotific]; //新建一个tuner的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         [self allCategorysBtnNotific];
-        [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
+//        [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
 //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -1861,13 +1868,13 @@ UITableViewDelegate,UITableViewDataSource>
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delegeTunerInfo) name:@"deleteTuner" object:nil];
     
 }
--(void)mediaDeliveryUpdateNotific
-{
-    //新建一个通知，用来监听机顶盒发出的节目列表更新的通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"mediaDeliveryUpdateNotific" object:nil];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaDeliveryUpdate) name:@"mediaDeliveryUpdateNotific" object:nil];
-}
+//-(void)mediaDeliveryUpdateNotific
+//{
+//    //新建一个通知，用来监听机顶盒发出的节目列表更新的通知
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"mediaDeliveryUpdateNotific" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaDeliveryUpdate) name:@"mediaDeliveryUpdateNotific" object:nil];
+//}
 -(void)tableViewDataRefresh
 {
     //获取数据的链接
@@ -1980,134 +1987,134 @@ UITableViewDelegate,UITableViewDataSource>
         
     }];
 }
--(void)mediaDeliveryUpdate
-{
-    NSLog(@"//此时应该列表刷新11");
-    
-    [_slideView removeFromSuperview];
-    _slideView = nil;
-    
-//    [self.table  removeFromSuperview];
-//    self.table = nil;
-    //重新加载
-    [self getMediaDeliverUpdate];
-    
-}
--(void)getMediaDeliverUpdate
-{
-    //获取数据的链接
-    NSString *url = [NSString stringWithFormat:@"%@",S_category];
-    
-    LBGetHttpRequest *request = CreateGetHTTP(url);
-    
-    
-    
-    [request startAsynchronous];
-    
-    WEAKGET
-    [request setCompletionBlock:^{
-        
-        
-        
-        NSDictionary *response = httpRequest.responseString.JSONValue;
-        
-        //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
-        
-        //        NSLog(@"response = %@",response);
-        NSArray *data1 = response[@"service"];
-        if (!isValidArray(data1) || data1.count == 0){
-//            [self getServiceData];
-            [self getMediaDeliverUpdate];
-            return ;
-        }
-        self.serviceData = (NSMutableArray *)data1;
-        
-        //        NSLog(@"--------%@",self.serviceData);
-        
-        
-        
-        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-//            [self getServiceData];
-            [self getMediaDeliverUpdate];
-        }
-        
-        [self.activeView removeFromSuperview];
-        self.activeView = nil;
-//        [self playVideo];
-        
-        
-        //////
-        //获取数据的链接
-        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
-        
-        
-        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
-        
-        
-        
-        [request startAsynchronous];
-        
-        WEAKGET
-        [request setCompletionBlock:^{
-            NSDictionary *response = httpRequest.responseString.JSONValue;
-            
-            
-            
-            NSArray *data = response[@"category"];
-            
-            if (!isValidArray(data) || data.count == 0){
-                return ;
-            }
-            self.categorys = (NSMutableArray *)data;
-            
-            
-            if (!_slideView) {
-                
-                
-                //设置滑动条
-                _slideView = [YLSlideView alloc];
-                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                
-                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                
-                _slideView.backgroundColor = [UIColor whiteColor];
-                _slideView.delegate        = self;
-                
-                [self.view addSubview:_slideView];
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                
-            }
-            else
-            {
-                
-            }
-            
-//            [self.socketView viewDidLoad];
-            if (firstfirst == YES) {
-                
-            
-//                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-//                firstOpenAPP = firstOpenAPP+1;
-                
-//                firstfirst = NO;
-                
-            }else
-            {}
-            
-        }];
-        
-        
-//        [self initProgressLine];
-    
-        [self.table reloadData];
-        
-    
-    }];
-}
+//-(void)mediaDeliveryUpdate
+//{
+//    NSLog(@"//此时应该列表刷新11");
+//    
+//    [_slideView removeFromSuperview];
+//    _slideView = nil;
+//    
+////    [self.table  removeFromSuperview];
+////    self.table = nil;
+//    //重新加载
+//    [self getMediaDeliverUpdate];
+//    
+//}
+//-(void)getMediaDeliverUpdate
+//{
+//    //获取数据的链接
+//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+//    
+//    LBGetHttpRequest *request = CreateGetHTTP(url);
+//    
+//    
+//    
+//    [request startAsynchronous];
+//    
+//    WEAKGET
+//    [request setCompletionBlock:^{
+//        
+//        
+//        
+//        NSDictionary *response = httpRequest.responseString.JSONValue;
+//        
+//        //将数据本地化
+//        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+//        
+//        //        NSLog(@"response = %@",response);
+//        NSArray *data1 = response[@"service"];
+//        if (!isValidArray(data1) || data1.count == 0){
+////            [self getServiceData];
+//            [self getMediaDeliverUpdate];
+//            return ;
+//        }
+//        self.serviceData = (NSMutableArray *)data1;
+//        
+//        //        NSLog(@"--------%@",self.serviceData);
+//        
+//        
+//        
+//        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+////            [self getServiceData];
+//            [self getMediaDeliverUpdate];
+//        }
+//        
+//        [self.activeView removeFromSuperview];
+//        self.activeView = nil;
+////        [self playVideo];
+//        
+//        
+//        //////
+//        //获取数据的链接
+//        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+//        
+//        
+//        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+//        
+//        
+//        
+//        [request startAsynchronous];
+//        
+//        WEAKGET
+//        [request setCompletionBlock:^{
+//            NSDictionary *response = httpRequest.responseString.JSONValue;
+//            
+//            
+//            
+//            NSArray *data = response[@"category"];
+//            
+//            if (!isValidArray(data) || data.count == 0){
+//                return ;
+//            }
+//            self.categorys = (NSMutableArray *)data;
+//            
+//            
+//            if (!_slideView) {
+//                NSLog(@"上山打老虎3");
+//                
+//                //设置滑动条
+//                _slideView = [YLSlideView alloc];
+//                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                  SCREEN_WIDTH,
+//                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+//                
+//                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+//                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+//                
+//                _slideView.backgroundColor = [UIColor whiteColor];
+//                _slideView.delegate        = self;
+//                
+//                [self.view addSubview:_slideView];
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//                
+//            }
+//            else
+//            {
+//                
+//            }
+//            
+////            [self.socketView viewDidLoad];
+//            if (firstfirst == YES) {
+//                
+//            
+////                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+////                firstOpenAPP = firstOpenAPP+1;
+//                
+////                firstfirst = NO;
+//                
+//            }else
+//            {}
+//            
+//        }];
+//        
+//        
+////        [self initProgressLine];
+//    
+//        [self.table reloadData];
+//        
+//    
+//    }];
+//}
 -(void)allCategorysBtnNotific
 {
     //新建一个发送tuner删除直播消息的通知   //4
@@ -2227,6 +2234,10 @@ UITableViewDelegate,UITableViewDataSource>
         NSLog(@"timerState now:%@",timerState);
         [timerState invalidate];
         timerState = nil;
+        
+        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
         
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
