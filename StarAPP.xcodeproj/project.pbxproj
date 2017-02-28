@@ -383,48 +383,48 @@
 		70D6B8EE1E2DAF3D00957A81 /* 个性化@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C11E2DAF3D00957A81 /* 个性化@1x.png */; };
 		70D6B8EF1E2DAF3D00957A81 /* 个性化@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C21E2DAF3D00957A81 /* 个性化@2x.png */; };
 		70D6B8F01E2DAF3D00957A81 /* 个性化@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C31E2DAF3D00957A81 /* 个性化@3x.png */; };
-		70D6B8F11E2DAF3D00957A81 /* 资源 2@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C41E2DAF3D00957A81 /* 资源 2@1x.png */; };
-		70D6B8F21E2DAF3D00957A81 /* 资源 2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C51E2DAF3D00957A81 /* 资源 2@2x.png */; };
-		70D6B8F31E2DAF3D00957A81 /* 资源 2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C61E2DAF3D00957A81 /* 资源 2@3x.png */; };
-		70D6B8F41E2DAF3D00957A81 /* chinese channel @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C71E2DAF3D00957A81 /* chinese channel @1x.png */; };
-		70D6B8F51E2DAF3D00957A81 /* chinese channel @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C81E2DAF3D00957A81 /* chinese channel @2x.png */; };
-		70D6B8F61E2DAF3D00957A81 /* chinese channel @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C91E2DAF3D00957A81 /* chinese channel @3x.png */; };
-		70D6B8F71E2DAF3D00957A81 /* documentary @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CA1E2DAF3D00957A81 /* documentary @1x.png */; };
-		70D6B8F81E2DAF3D00957A81 /* documentary @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CB1E2DAF3D00957A81 /* documentary @2x.png */; };
-		70D6B8F91E2DAF3D00957A81 /* documentary @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CC1E2DAF3D00957A81 /* documentary @3x.png */; };
-		70D6B8FA1E2DAF3D00957A81 /* kids @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CD1E2DAF3D00957A81 /* kids @1x.png */; };
-		70D6B8FB1E2DAF3D00957A81 /* kids @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CE1E2DAF3D00957A81 /* kids @2x.png */; };
-		70D6B8FC1E2DAF3D00957A81 /* kids @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CF1E2DAF3D00957A81 /* kids @3x.png */; };
-		70D6B8FD1E2DAF3D00957A81 /* life style @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D01E2DAF3D00957A81 /* life style @1x.png */; };
-		70D6B8FE1E2DAF3D00957A81 /* life style @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D11E2DAF3D00957A81 /* life style @2x.png */; };
-		70D6B8FF1E2DAF3D00957A81 /* life style @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D21E2DAF3D00957A81 /* life style @3x.png */; };
-		70D6B9001E2DAF3D00957A81 /* local @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D31E2DAF3D00957A81 /* local @1x.png */; };
-		70D6B9011E2DAF3D00957A81 /* local @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D41E2DAF3D00957A81 /* local @2x.png */; };
-		70D6B9021E2DAF3D00957A81 /* local @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D51E2DAF3D00957A81 /* local @3x.png */; };
-		70D6B9031E2DAF3D00957A81 /* movies @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D61E2DAF3D00957A81 /* movies @1x.png */; };
-		70D6B9041E2DAF3D00957A81 /* movies @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D71E2DAF3D00957A81 /* movies @2x.png */; };
-		70D6B9051E2DAF3D00957A81 /* movies @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D81E2DAF3D00957A81 /* movies @3x.png */; };
-		70D6B9061E2DAF3D00957A81 /* movies&series @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D91E2DAF3D00957A81 /* movies&series @1x.png */; };
-		70D6B9071E2DAF3D00957A81 /* movies&series @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DA1E2DAF3D00957A81 /* movies&series @2x.png */; };
-		70D6B9081E2DAF3D00957A81 /* movies&series @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DB1E2DAF3D00957A81 /* movies&series @3x.png */; };
-		70D6B9091E2DAF3D00957A81 /* news @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DC1E2DAF3D00957A81 /* news @1x.png */; };
-		70D6B90A1E2DAF3D00957A81 /* news @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DD1E2DAF3D00957A81 /* news @2x.png */; };
-		70D6B90B1E2DAF3D00957A81 /* news @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DE1E2DAF3D00957A81 /* news @3x.png */; };
+		70D6B8F11E2DAF3D00957A81 /* Entertainment@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C41E2DAF3D00957A81 /* Entertainment@1x.png */; };
+		70D6B8F21E2DAF3D00957A81 /* Entertainment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C51E2DAF3D00957A81 /* Entertainment@2x.png */; };
+		70D6B8F31E2DAF3D00957A81 /* Entertainment@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C61E2DAF3D00957A81 /* Entertainment@3x.png */; };
+		70D6B8F41E2DAF3D00957A81 /* Chinese Channel@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C71E2DAF3D00957A81 /* Chinese Channel@1x.png */; };
+		70D6B8F51E2DAF3D00957A81 /* Chinese Channel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C81E2DAF3D00957A81 /* Chinese Channel@2x.png */; };
+		70D6B8F61E2DAF3D00957A81 /* Chinese Channel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C91E2DAF3D00957A81 /* Chinese Channel@3x.png */; };
+		70D6B8F71E2DAF3D00957A81 /* Documentary@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CA1E2DAF3D00957A81 /* Documentary@1x.png */; };
+		70D6B8F81E2DAF3D00957A81 /* Documentary@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CB1E2DAF3D00957A81 /* Documentary@2x.png */; };
+		70D6B8F91E2DAF3D00957A81 /* Documentary@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CC1E2DAF3D00957A81 /* Documentary@3x.png */; };
+		70D6B8FA1E2DAF3D00957A81 /* kids@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CD1E2DAF3D00957A81 /* kids@1x.png */; };
+		70D6B8FB1E2DAF3D00957A81 /* kids@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CE1E2DAF3D00957A81 /* kids@2x.png */; };
+		70D6B8FC1E2DAF3D00957A81 /* kids@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8CF1E2DAF3D00957A81 /* kids@3x.png */; };
+		70D6B8FD1E2DAF3D00957A81 /* Life Style@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D01E2DAF3D00957A81 /* Life Style@1x.png */; };
+		70D6B8FE1E2DAF3D00957A81 /* Life Style@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D11E2DAF3D00957A81 /* Life Style@2x.png */; };
+		70D6B8FF1E2DAF3D00957A81 /* Life Style@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D21E2DAF3D00957A81 /* Life Style@3x.png */; };
+		70D6B9001E2DAF3D00957A81 /* Local@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D31E2DAF3D00957A81 /* Local@1x.png */; };
+		70D6B9011E2DAF3D00957A81 /* Local@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D41E2DAF3D00957A81 /* Local@2x.png */; };
+		70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D51E2DAF3D00957A81 /* Local@3x.png */; };
+		70D6B9031E2DAF3D00957A81 /* Movies@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D61E2DAF3D00957A81 /* Movies@1x.png */; };
+		70D6B9041E2DAF3D00957A81 /* Movies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D71E2DAF3D00957A81 /* Movies@2x.png */; };
+		70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D81E2DAF3D00957A81 /* Movies@3x.png */; };
+		70D6B9061E2DAF3D00957A81 /* Movies&Series@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8D91E2DAF3D00957A81 /* Movies&Series@1x.png */; };
+		70D6B9071E2DAF3D00957A81 /* Movies&Series@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DA1E2DAF3D00957A81 /* Movies&Series@2x.png */; };
+		70D6B9081E2DAF3D00957A81 /* Movies&Series@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DB1E2DAF3D00957A81 /* Movies&Series@3x.png */; };
+		70D6B9091E2DAF3D00957A81 /* News@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DC1E2DAF3D00957A81 /* News@1x.png */; };
+		70D6B90A1E2DAF3D00957A81 /* News@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DD1E2DAF3D00957A81 /* News@2x.png */; };
+		70D6B90B1E2DAF3D00957A81 /* News@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DE1E2DAF3D00957A81 /* News@3x.png */; };
 		70D6B90C1E2DAF3D00957A81 /* Religion@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8DF1E2DAF3D00957A81 /* Religion@1x.png */; };
 		70D6B90D1E2DAF3D00957A81 /* Religion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E01E2DAF3D00957A81 /* Religion@2x.png */; };
 		70D6B90E1E2DAF3D00957A81 /* Religion@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E11E2DAF3D00957A81 /* Religion@3x.png */; };
-		70D6B90F1E2DAF3D00957A81 /* south african @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E21E2DAF3D00957A81 /* south african @1x.png */; };
-		70D6B9101E2DAF3D00957A81 /* south african @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E31E2DAF3D00957A81 /* south african @2x.png */; };
-		70D6B9111E2DAF3D00957A81 /* south african @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E41E2DAF3D00957A81 /* south african @3x.png */; };
-		70D6B9121E2DAF3D00957A81 /* special characteristics @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E51E2DAF3D00957A81 /* special characteristics @1x.png */; };
-		70D6B9131E2DAF3D00957A81 /* special characteristics @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E61E2DAF3D00957A81 /* special characteristics @2x.png */; };
-		70D6B9141E2DAF3D00957A81 /* special characteristics @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E71E2DAF3D00957A81 /* special characteristics @3x.png */; };
-		70D6B9151E2DAF3D00957A81 /* sports @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E81E2DAF3D00957A81 /* sports @1x.png */; };
-		70D6B9161E2DAF3D00957A81 /* sports @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E91E2DAF3D00957A81 /* sports @2x.png */; };
-		70D6B9171E2DAF3D00957A81 /* sports @3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EA1E2DAF3D00957A81 /* sports @3x.png */; };
-		70D6B9181E2DAF3D00957A81 /* startimes @1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EB1E2DAF3D00957A81 /* startimes @1x.png */; };
-		70D6B9191E2DAF3D00957A81 /* startimes @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EC1E2DAF3D00957A81 /* startimes @2x.png */; };
-		70D6B91A1E2DAF3D00957A81 /* startimes 4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8ED1E2DAF3D00957A81 /* startimes 4@3x.png */; };
+		70D6B90F1E2DAF3D00957A81 /* South African@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E21E2DAF3D00957A81 /* South African@1x.png */; };
+		70D6B9101E2DAF3D00957A81 /* South African@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E31E2DAF3D00957A81 /* South African@2x.png */; };
+		70D6B9111E2DAF3D00957A81 /* South African@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E41E2DAF3D00957A81 /* South African@3x.png */; };
+		70D6B9121E2DAF3D00957A81 /* Special Characteristics@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E51E2DAF3D00957A81 /* Special Characteristics@1x.png */; };
+		70D6B9131E2DAF3D00957A81 /* Special Characteristics@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E61E2DAF3D00957A81 /* Special Characteristics@2x.png */; };
+		70D6B9141E2DAF3D00957A81 /* Special Characteristics@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E71E2DAF3D00957A81 /* Special Characteristics@3x.png */; };
+		70D6B9151E2DAF3D00957A81 /* Sports@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E81E2DAF3D00957A81 /* Sports@1x.png */; };
+		70D6B9161E2DAF3D00957A81 /* Sports@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8E91E2DAF3D00957A81 /* Sports@2x.png */; };
+		70D6B9171E2DAF3D00957A81 /* Sports@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EA1E2DAF3D00957A81 /* Sports@3x.png */; };
+		70D6B9181E2DAF3D00957A81 /* Startimes@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EB1E2DAF3D00957A81 /* Startimes@1x.png */; };
+		70D6B9191E2DAF3D00957A81 /* Startimes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */; };
+		70D6B91A1E2DAF3D00957A81 /* Startimes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */; };
 		70D6B97B1E2DEA5A00957A81 /* libMJRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */; };
 		70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712571DB5EE1300BD98EE /* Group 7@1x.png */; };
 		70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712581DB5EE1300BD98EE /* Group 7@2x.png */; };
@@ -1007,48 +1007,48 @@
 		70D6B8C11E2DAF3D00957A81 /* 个性化@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个性化@1x.png"; sourceTree = "<group>"; };
 		70D6B8C21E2DAF3D00957A81 /* 个性化@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个性化@2x.png"; sourceTree = "<group>"; };
 		70D6B8C31E2DAF3D00957A81 /* 个性化@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个性化@3x.png"; sourceTree = "<group>"; };
-		70D6B8C41E2DAF3D00957A81 /* 资源 2@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "资源 2@1x.png"; sourceTree = "<group>"; };
-		70D6B8C51E2DAF3D00957A81 /* 资源 2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "资源 2@2x.png"; sourceTree = "<group>"; };
-		70D6B8C61E2DAF3D00957A81 /* 资源 2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "资源 2@3x.png"; sourceTree = "<group>"; };
-		70D6B8C71E2DAF3D00957A81 /* chinese channel @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chinese channel @1x.png"; sourceTree = "<group>"; };
-		70D6B8C81E2DAF3D00957A81 /* chinese channel @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chinese channel @2x.png"; sourceTree = "<group>"; };
-		70D6B8C91E2DAF3D00957A81 /* chinese channel @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chinese channel @3x.png"; sourceTree = "<group>"; };
-		70D6B8CA1E2DAF3D00957A81 /* documentary @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "documentary @1x.png"; sourceTree = "<group>"; };
-		70D6B8CB1E2DAF3D00957A81 /* documentary @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "documentary @2x.png"; sourceTree = "<group>"; };
-		70D6B8CC1E2DAF3D00957A81 /* documentary @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "documentary @3x.png"; sourceTree = "<group>"; };
-		70D6B8CD1E2DAF3D00957A81 /* kids @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kids @1x.png"; sourceTree = "<group>"; };
-		70D6B8CE1E2DAF3D00957A81 /* kids @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kids @2x.png"; sourceTree = "<group>"; };
-		70D6B8CF1E2DAF3D00957A81 /* kids @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kids @3x.png"; sourceTree = "<group>"; };
-		70D6B8D01E2DAF3D00957A81 /* life style @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "life style @1x.png"; sourceTree = "<group>"; };
-		70D6B8D11E2DAF3D00957A81 /* life style @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "life style @2x.png"; sourceTree = "<group>"; };
-		70D6B8D21E2DAF3D00957A81 /* life style @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "life style @3x.png"; sourceTree = "<group>"; };
-		70D6B8D31E2DAF3D00957A81 /* local @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local @1x.png"; sourceTree = "<group>"; };
-		70D6B8D41E2DAF3D00957A81 /* local @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local @2x.png"; sourceTree = "<group>"; };
-		70D6B8D51E2DAF3D00957A81 /* local @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "local @3x.png"; sourceTree = "<group>"; };
-		70D6B8D61E2DAF3D00957A81 /* movies @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "movies @1x.png"; sourceTree = "<group>"; };
-		70D6B8D71E2DAF3D00957A81 /* movies @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "movies @2x.png"; sourceTree = "<group>"; };
-		70D6B8D81E2DAF3D00957A81 /* movies @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "movies @3x.png"; sourceTree = "<group>"; };
-		70D6B8D91E2DAF3D00957A81 /* movies&series @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "movies&series @1x.png"; sourceTree = "<group>"; };
-		70D6B8DA1E2DAF3D00957A81 /* movies&series @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "movies&series @2x.png"; sourceTree = "<group>"; };
-		70D6B8DB1E2DAF3D00957A81 /* movies&series @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "movies&series @3x.png"; sourceTree = "<group>"; };
-		70D6B8DC1E2DAF3D00957A81 /* news @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news @1x.png"; sourceTree = "<group>"; };
-		70D6B8DD1E2DAF3D00957A81 /* news @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news @2x.png"; sourceTree = "<group>"; };
-		70D6B8DE1E2DAF3D00957A81 /* news @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news @3x.png"; sourceTree = "<group>"; };
+		70D6B8C41E2DAF3D00957A81 /* Entertainment@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Entertainment@1x.png"; sourceTree = "<group>"; };
+		70D6B8C51E2DAF3D00957A81 /* Entertainment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Entertainment@2x.png"; sourceTree = "<group>"; };
+		70D6B8C61E2DAF3D00957A81 /* Entertainment@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Entertainment@3x.png"; sourceTree = "<group>"; };
+		70D6B8C71E2DAF3D00957A81 /* Chinese Channel@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chinese Channel@1x.png"; sourceTree = "<group>"; };
+		70D6B8C81E2DAF3D00957A81 /* Chinese Channel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chinese Channel@2x.png"; sourceTree = "<group>"; };
+		70D6B8C91E2DAF3D00957A81 /* Chinese Channel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chinese Channel@3x.png"; sourceTree = "<group>"; };
+		70D6B8CA1E2DAF3D00957A81 /* Documentary@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Documentary@1x.png"; sourceTree = "<group>"; };
+		70D6B8CB1E2DAF3D00957A81 /* Documentary@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Documentary@2x.png"; sourceTree = "<group>"; };
+		70D6B8CC1E2DAF3D00957A81 /* Documentary@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Documentary@3x.png"; sourceTree = "<group>"; };
+		70D6B8CD1E2DAF3D00957A81 /* kids@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kids@1x.png"; sourceTree = "<group>"; };
+		70D6B8CE1E2DAF3D00957A81 /* kids@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kids@2x.png"; sourceTree = "<group>"; };
+		70D6B8CF1E2DAF3D00957A81 /* kids@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kids@3x.png"; sourceTree = "<group>"; };
+		70D6B8D01E2DAF3D00957A81 /* Life Style@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Life Style@1x.png"; sourceTree = "<group>"; };
+		70D6B8D11E2DAF3D00957A81 /* Life Style@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Life Style@2x.png"; sourceTree = "<group>"; };
+		70D6B8D21E2DAF3D00957A81 /* Life Style@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Life Style@3x.png"; sourceTree = "<group>"; };
+		70D6B8D31E2DAF3D00957A81 /* Local@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Local@1x.png"; sourceTree = "<group>"; };
+		70D6B8D41E2DAF3D00957A81 /* Local@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Local@2x.png"; sourceTree = "<group>"; };
+		70D6B8D51E2DAF3D00957A81 /* Local@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Local@3x.png"; sourceTree = "<group>"; };
+		70D6B8D61E2DAF3D00957A81 /* Movies@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies@1x.png"; sourceTree = "<group>"; };
+		70D6B8D71E2DAF3D00957A81 /* Movies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies@2x.png"; sourceTree = "<group>"; };
+		70D6B8D81E2DAF3D00957A81 /* Movies@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies@3x.png"; sourceTree = "<group>"; };
+		70D6B8D91E2DAF3D00957A81 /* Movies&Series@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies&Series@1x.png"; sourceTree = "<group>"; };
+		70D6B8DA1E2DAF3D00957A81 /* Movies&Series@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies&Series@2x.png"; sourceTree = "<group>"; };
+		70D6B8DB1E2DAF3D00957A81 /* Movies&Series@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies&Series@3x.png"; sourceTree = "<group>"; };
+		70D6B8DC1E2DAF3D00957A81 /* News@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "News@1x.png"; sourceTree = "<group>"; };
+		70D6B8DD1E2DAF3D00957A81 /* News@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "News@2x.png"; sourceTree = "<group>"; };
+		70D6B8DE1E2DAF3D00957A81 /* News@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "News@3x.png"; sourceTree = "<group>"; };
 		70D6B8DF1E2DAF3D00957A81 /* Religion@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Religion@1x.png"; sourceTree = "<group>"; };
 		70D6B8E01E2DAF3D00957A81 /* Religion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Religion@2x.png"; sourceTree = "<group>"; };
 		70D6B8E11E2DAF3D00957A81 /* Religion@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Religion@3x.png"; sourceTree = "<group>"; };
-		70D6B8E21E2DAF3D00957A81 /* south african @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "south african @1x.png"; sourceTree = "<group>"; };
-		70D6B8E31E2DAF3D00957A81 /* south african @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "south african @2x.png"; sourceTree = "<group>"; };
-		70D6B8E41E2DAF3D00957A81 /* south african @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "south african @3x.png"; sourceTree = "<group>"; };
-		70D6B8E51E2DAF3D00957A81 /* special characteristics @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "special characteristics @1x.png"; sourceTree = "<group>"; };
-		70D6B8E61E2DAF3D00957A81 /* special characteristics @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "special characteristics @2x.png"; sourceTree = "<group>"; };
-		70D6B8E71E2DAF3D00957A81 /* special characteristics @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "special characteristics @3x.png"; sourceTree = "<group>"; };
-		70D6B8E81E2DAF3D00957A81 /* sports @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sports @1x.png"; sourceTree = "<group>"; };
-		70D6B8E91E2DAF3D00957A81 /* sports @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sports @2x.png"; sourceTree = "<group>"; };
-		70D6B8EA1E2DAF3D00957A81 /* sports @3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sports @3x.png"; sourceTree = "<group>"; };
-		70D6B8EB1E2DAF3D00957A81 /* startimes @1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startimes @1x.png"; sourceTree = "<group>"; };
-		70D6B8EC1E2DAF3D00957A81 /* startimes @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startimes @2x.png"; sourceTree = "<group>"; };
-		70D6B8ED1E2DAF3D00957A81 /* startimes 4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startimes 4@3x.png"; sourceTree = "<group>"; };
+		70D6B8E21E2DAF3D00957A81 /* South African@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "South African@1x.png"; sourceTree = "<group>"; };
+		70D6B8E31E2DAF3D00957A81 /* South African@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "South African@2x.png"; sourceTree = "<group>"; };
+		70D6B8E41E2DAF3D00957A81 /* South African@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "South African@3x.png"; sourceTree = "<group>"; };
+		70D6B8E51E2DAF3D00957A81 /* Special Characteristics@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Special Characteristics@1x.png"; sourceTree = "<group>"; };
+		70D6B8E61E2DAF3D00957A81 /* Special Characteristics@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Special Characteristics@2x.png"; sourceTree = "<group>"; };
+		70D6B8E71E2DAF3D00957A81 /* Special Characteristics@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Special Characteristics@3x.png"; sourceTree = "<group>"; };
+		70D6B8E81E2DAF3D00957A81 /* Sports@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sports@1x.png"; sourceTree = "<group>"; };
+		70D6B8E91E2DAF3D00957A81 /* Sports@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sports@2x.png"; sourceTree = "<group>"; };
+		70D6B8EA1E2DAF3D00957A81 /* Sports@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sports@3x.png"; sourceTree = "<group>"; };
+		70D6B8EB1E2DAF3D00957A81 /* Startimes@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@1x.png"; sourceTree = "<group>"; };
+		70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@2x.png"; sourceTree = "<group>"; };
+		70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@3x.png"; sourceTree = "<group>"; };
 		70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMJRefresh.a; path = "../../Library/Developer/Xcode/DerivedData/StarAPP-ejkwxdgcsxhkqoerxzpfnwxbqjup/Build/Products/Debug-iphonesimulator/MJRefresh/libMJRefresh.a"; sourceTree = "<group>"; };
 		70E712571DB5EE1300BD98EE /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
 		70E712581DB5EE1300BD98EE /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
@@ -1842,48 +1842,48 @@
 				70D6B8C11E2DAF3D00957A81 /* 个性化@1x.png */,
 				70D6B8C21E2DAF3D00957A81 /* 个性化@2x.png */,
 				70D6B8C31E2DAF3D00957A81 /* 个性化@3x.png */,
-				70D6B8C41E2DAF3D00957A81 /* 资源 2@1x.png */,
-				70D6B8C51E2DAF3D00957A81 /* 资源 2@2x.png */,
-				70D6B8C61E2DAF3D00957A81 /* 资源 2@3x.png */,
-				70D6B8C71E2DAF3D00957A81 /* chinese channel @1x.png */,
-				70D6B8C81E2DAF3D00957A81 /* chinese channel @2x.png */,
-				70D6B8C91E2DAF3D00957A81 /* chinese channel @3x.png */,
-				70D6B8CA1E2DAF3D00957A81 /* documentary @1x.png */,
-				70D6B8CB1E2DAF3D00957A81 /* documentary @2x.png */,
-				70D6B8CC1E2DAF3D00957A81 /* documentary @3x.png */,
-				70D6B8CD1E2DAF3D00957A81 /* kids @1x.png */,
-				70D6B8CE1E2DAF3D00957A81 /* kids @2x.png */,
-				70D6B8CF1E2DAF3D00957A81 /* kids @3x.png */,
-				70D6B8D01E2DAF3D00957A81 /* life style @1x.png */,
-				70D6B8D11E2DAF3D00957A81 /* life style @2x.png */,
-				70D6B8D21E2DAF3D00957A81 /* life style @3x.png */,
-				70D6B8D31E2DAF3D00957A81 /* local @1x.png */,
-				70D6B8D41E2DAF3D00957A81 /* local @2x.png */,
-				70D6B8D51E2DAF3D00957A81 /* local @3x.png */,
-				70D6B8D61E2DAF3D00957A81 /* movies @1x.png */,
-				70D6B8D71E2DAF3D00957A81 /* movies @2x.png */,
-				70D6B8D81E2DAF3D00957A81 /* movies @3x.png */,
-				70D6B8D91E2DAF3D00957A81 /* movies&series @1x.png */,
-				70D6B8DA1E2DAF3D00957A81 /* movies&series @2x.png */,
-				70D6B8DB1E2DAF3D00957A81 /* movies&series @3x.png */,
-				70D6B8DC1E2DAF3D00957A81 /* news @1x.png */,
-				70D6B8DD1E2DAF3D00957A81 /* news @2x.png */,
-				70D6B8DE1E2DAF3D00957A81 /* news @3x.png */,
+				70D6B8C41E2DAF3D00957A81 /* Entertainment@1x.png */,
+				70D6B8C51E2DAF3D00957A81 /* Entertainment@2x.png */,
+				70D6B8C61E2DAF3D00957A81 /* Entertainment@3x.png */,
+				70D6B8C71E2DAF3D00957A81 /* Chinese Channel@1x.png */,
+				70D6B8C81E2DAF3D00957A81 /* Chinese Channel@2x.png */,
+				70D6B8C91E2DAF3D00957A81 /* Chinese Channel@3x.png */,
+				70D6B8CA1E2DAF3D00957A81 /* Documentary@1x.png */,
+				70D6B8CB1E2DAF3D00957A81 /* Documentary@2x.png */,
+				70D6B8CC1E2DAF3D00957A81 /* Documentary@3x.png */,
+				70D6B8CD1E2DAF3D00957A81 /* kids@1x.png */,
+				70D6B8CE1E2DAF3D00957A81 /* kids@2x.png */,
+				70D6B8CF1E2DAF3D00957A81 /* kids@3x.png */,
+				70D6B8D01E2DAF3D00957A81 /* Life Style@1x.png */,
+				70D6B8D11E2DAF3D00957A81 /* Life Style@2x.png */,
+				70D6B8D21E2DAF3D00957A81 /* Life Style@3x.png */,
+				70D6B8D31E2DAF3D00957A81 /* Local@1x.png */,
+				70D6B8D41E2DAF3D00957A81 /* Local@2x.png */,
+				70D6B8D51E2DAF3D00957A81 /* Local@3x.png */,
+				70D6B8D61E2DAF3D00957A81 /* Movies@1x.png */,
+				70D6B8D71E2DAF3D00957A81 /* Movies@2x.png */,
+				70D6B8D81E2DAF3D00957A81 /* Movies@3x.png */,
+				70D6B8D91E2DAF3D00957A81 /* Movies&Series@1x.png */,
+				70D6B8DA1E2DAF3D00957A81 /* Movies&Series@2x.png */,
+				70D6B8DB1E2DAF3D00957A81 /* Movies&Series@3x.png */,
+				70D6B8DC1E2DAF3D00957A81 /* News@1x.png */,
+				70D6B8DD1E2DAF3D00957A81 /* News@2x.png */,
+				70D6B8DE1E2DAF3D00957A81 /* News@3x.png */,
 				70D6B8DF1E2DAF3D00957A81 /* Religion@1x.png */,
 				70D6B8E01E2DAF3D00957A81 /* Religion@2x.png */,
 				70D6B8E11E2DAF3D00957A81 /* Religion@3x.png */,
-				70D6B8E21E2DAF3D00957A81 /* south african @1x.png */,
-				70D6B8E31E2DAF3D00957A81 /* south african @2x.png */,
-				70D6B8E41E2DAF3D00957A81 /* south african @3x.png */,
-				70D6B8E51E2DAF3D00957A81 /* special characteristics @1x.png */,
-				70D6B8E61E2DAF3D00957A81 /* special characteristics @2x.png */,
-				70D6B8E71E2DAF3D00957A81 /* special characteristics @3x.png */,
-				70D6B8E81E2DAF3D00957A81 /* sports @1x.png */,
-				70D6B8E91E2DAF3D00957A81 /* sports @2x.png */,
-				70D6B8EA1E2DAF3D00957A81 /* sports @3x.png */,
-				70D6B8EB1E2DAF3D00957A81 /* startimes @1x.png */,
-				70D6B8EC1E2DAF3D00957A81 /* startimes @2x.png */,
-				70D6B8ED1E2DAF3D00957A81 /* startimes 4@3x.png */,
+				70D6B8E21E2DAF3D00957A81 /* South African@1x.png */,
+				70D6B8E31E2DAF3D00957A81 /* South African@2x.png */,
+				70D6B8E41E2DAF3D00957A81 /* South African@3x.png */,
+				70D6B8E51E2DAF3D00957A81 /* Special Characteristics@1x.png */,
+				70D6B8E61E2DAF3D00957A81 /* Special Characteristics@2x.png */,
+				70D6B8E71E2DAF3D00957A81 /* Special Characteristics@3x.png */,
+				70D6B8E81E2DAF3D00957A81 /* Sports@1x.png */,
+				70D6B8E91E2DAF3D00957A81 /* Sports@2x.png */,
+				70D6B8EA1E2DAF3D00957A81 /* Sports@3x.png */,
+				70D6B8EB1E2DAF3D00957A81 /* Startimes@1x.png */,
+				70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */,
+				70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */,
 			);
 			name = Categorys;
 			sourceTree = "<group>";
@@ -2404,9 +2404,9 @@
 			files = (
 				7040E2481DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@1x.png in Resources */,
 				702218B81E5AD304005D96A0 /* 加锁 @3x.png in Resources */,
-				70D6B8F11E2DAF3D00957A81 /* 资源 2@1x.png in Resources */,
+				70D6B8F11E2DAF3D00957A81 /* Entertainment@1x.png in Resources */,
 				70231D0C1DC2E9FA00F73202 /* Back@2x.png in Resources */,
-				70D6B9081E2DAF3D00957A81 /* movies&series @3x.png in Resources */,
+				70D6B9081E2DAF3D00957A81 /* Movies&Series@3x.png in Resources */,
 				707FE74F1DACC3C30087C361 /* Overlay@1x.png in Resources */,
 				702CE4391DDA9881000A0513 /* 4.png in Resources */,
 				702CE4351DDA9881000A0513 /* 2@3x.png in Resources */,
@@ -2419,7 +2419,7 @@
 				70FFE3E81DE2DBA200223E43 /* M7.png in Resources */,
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
-				70D6B9051E2DAF3D00957A81 /* movies @3x.png in Resources */,
+				70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
 				7045C46C1DC715FB002647F9 /* 矩形2@2x.png in Resources */,
 				70170C3D1D74156000CC3951 /* more.png in Resources */,
@@ -2431,15 +2431,15 @@
 				7040E2391DAE12B80063DB66 /* Group 15 Copy 2@1x.png in Resources */,
 				701A98B91DB47A3100460220 /* 小窗@3x.png in Resources */,
 				70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */,
-				70D6B8FC1E2DAF3D00957A81 /* kids @3x.png in Resources */,
-				70D6B9181E2DAF3D00957A81 /* startimes @1x.png in Resources */,
+				70D6B8FC1E2DAF3D00957A81 /* kids@3x.png in Resources */,
+				70D6B9181E2DAF3D00957A81 /* Startimes@1x.png in Resources */,
 				701A98B81DB47A3100460220 /* 小窗@2x.png in Resources */,
 				70231CC11DC0FE8C00F73202 /* ip@2x.png in Resources */,
 				7045C46E1DC715FB002647F9 /* 矩形3@1x.png in Resources */,
 				701017601DCADA2500F9D5FF /* quan@2x.png in Resources */,
 				70FAA2561E52F86100F3026F /* 关于@3x.png in Resources */,
 				70231CF81DC1DF5A00F73202 /* Back Arrow@2x.png in Resources */,
-				70D6B9111E2DAF3D00957A81 /* south african @3x.png in Resources */,
+				70D6B9111E2DAF3D00957A81 /* South African@3x.png in Resources */,
 				702CE43E1DDA9881000A0513 /* 5@3x.png in Resources */,
 				70FAA2541E52F86100F3026F /* 关于.png in Resources */,
 				701A98A31DB47A3100460220 /* 音轨@2x.png in Resources */,
@@ -2469,7 +2469,7 @@
 				706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */,
 				7014433B1DDC7F19008EAAC6 /* 引导页3.png in Resources */,
 				70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */,
-				70D6B8FF1E2DAF3D00957A81 /* life style @3x.png in Resources */,
+				70D6B8FF1E2DAF3D00957A81 /* Life Style@3x.png in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
 				70FFA4E01DE7DFF4006BFE5E /* Verticalpic.png in Resources */,
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
@@ -2478,14 +2478,14 @@
 				7040E23A1DAE12B80063DB66 /* Group 15 Copy 2@2x.png in Resources */,
 				7045830B1D9D04CE0061C154 /* DeviceManageViewController.xib in Resources */,
 				707FE7521DACC3C30087C361 /* Path 2@1x.png in Resources */,
-				70D6B91A1E2DAF3D00957A81 /* startimes 4@3x.png in Resources */,
+				70D6B91A1E2DAF3D00957A81 /* Startimes@3x.png in Resources */,
 				7024C5DA1DD1ABCB0053F313 /* AboutViewController.xib in Resources */,
 				70231CE61DC1A00100F73202 /* save-不可.png in Resources */,
 				7045C4731DC715FB002647F9 /* 矩形4@3x.png in Resources */,
 				7024C60A1DD4098B0053F313 /* iphone@3x.png in Resources */,
 				7045C4691DC715FB002647F9 /* 矩形1@2x.png in Resources */,
 				70FFE3E11DE2DBA200223E43 /* M0.png in Resources */,
-				70D6B9091E2DAF3D00957A81 /* news @1x.png in Resources */,
+				70D6B9091E2DAF3D00957A81 /* News@1x.png in Resources */,
 				7040E2421DAE12B80063DB66 /* Viasat-Explore@1x.png in Resources */,
 				70FFA4E71DE7E6BE006BFE5E /* 直方图@2x.png in Resources */,
 				702CE4031DDA97EC000A0513 /* mima@2x.png in Resources */,
@@ -2528,25 +2528,25 @@
 				70FFE4011DE3EF4800223E43 /* 时间@3x.png in Resources */,
 				701A98A41DB47A3100460220 /* 音轨@3x.png in Resources */,
 				70FFE3CD1DE2D07600223E43 /* 圆环-1 in Resources */,
-				70D6B9031E2DAF3D00957A81 /* movies @1x.png in Resources */,
+				70D6B9031E2DAF3D00957A81 /* Movies@1x.png in Resources */,
 				70FFE3D41DE2D07600223E43 /* 圆环-8.png in Resources */,
 				707FE7381DACC3C30087C361 /* background@2x.png in Resources */,
-				70D6B9191E2DAF3D00957A81 /* startimes @2x.png in Resources */,
+				70D6B9191E2DAF3D00957A81 /* Startimes@2x.png in Resources */,
 				70FC30E71D75714E00BD06FE /* zx-video-banner-back.png in Resources */,
 				70FFE40F1DE421A700223E43 /* monitor@2x.png in Resources */,
 				7024C6091DD4098B0053F313 /* iphone@2x.png in Resources */,
 				7040E2341DAE12B80063DB66 /* Group 10 Copy 2@2x.png in Resources */,
-				70D6B8F81E2DAF3D00957A81 /* documentary @2x.png in Resources */,
+				70D6B8F81E2DAF3D00957A81 /* Documentary@2x.png in Resources */,
 				70231CBD1DC0FE8C00F73202 /* Edit-256.png in Resources */,
 				702CE4361DDA9881000A0513 /* 3.png in Resources */,
 				70231CDE1DC19FEA00F73202 /* 组-55@2x.png in Resources */,
 				70231CD91DC0FFB800F73202 /* RouteSetting.xib in Resources */,
-				70D6B8FD1E2DAF3D00957A81 /* life style @1x.png in Resources */,
+				70D6B8FD1E2DAF3D00957A81 /* Life Style@1x.png in Resources */,
 				70D6B90D1E2DAF3D00957A81 /* Religion@2x.png in Resources */,
 				7040E24A1DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@3x.png in Resources */,
 				7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */,
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
-				70D6B9041E2DAF3D00957A81 /* movies @2x.png in Resources */,
+				70D6B9041E2DAF3D00957A81 /* Movies@2x.png in Resources */,
 				70231D011DC1F4BB00F73202 /* loading.gif in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				7024C6121DD441490053F313 /* bianji@2x.png in Resources */,
@@ -2566,7 +2566,7 @@
 				7040E2331DAE12B80063DB66 /* Group 10 Copy 2@1x.png in Resources */,
 				70231CC91DC0FE8C00F73202 /* password.png in Resources */,
 				70170C3E1D74156000CC3951 /* more@2x.png in Resources */,
-				70D6B8F31E2DAF3D00957A81 /* 资源 2@3x.png in Resources */,
+				70D6B8F31E2DAF3D00957A81 /* Entertainment@3x.png in Resources */,
 				70FFE3E91DE2DBA200223E43 /* M8.png in Resources */,
 				707FE73E1DACC3C30087C361 /* Group 5@2x.png in Resources */,
 				70231CD31DC0FE8C00F73202 /* 路由设置IP不可用.png in Resources */,
@@ -2585,7 +2585,7 @@
 				70FFE4101DE421A700223E43 /* monitor@3x.png in Resources */,
 				70231CF01DC1D5AC00F73202 /* 灰.png in Resources */,
 				70FFE4021DE3EF4800223E43 /* 时移1.png in Resources */,
-				70D6B8F61E2DAF3D00957A81 /* chinese channel @3x.png in Resources */,
+				70D6B8F61E2DAF3D00957A81 /* Chinese Channel@3x.png in Resources */,
 				701A98A21DB47A3100460220 /* 音轨@1x.png in Resources */,
 				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
@@ -2595,7 +2595,7 @@
 				707FE74B1DACC3C30087C361 /* me icon copy@3x.png in Resources */,
 				7045C4741DC715FB002647F9 /* 矩形5@1x.png in Resources */,
 				702CE4521DDA9881000A0513 /* 组-51-拷贝.png in Resources */,
-				70D6B9131E2DAF3D00957A81 /* special characteristics @2x.png in Resources */,
+				70D6B9131E2DAF3D00957A81 /* Special Characteristics@2x.png in Resources */,
 				70FFE4041DE3EF4800223E43 /* 时移@3x.png in Resources */,
 				706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */,
 				70231CC81DC0FE8C00F73202 /* on@3x.png in Resources */,
@@ -2611,18 +2611,18 @@
 				70FC30E01D75714E00BD06FE /* kr-video-player-pause@3x.png in Resources */,
 				703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */,
 				70FFA4EA1DE836DF006BFE5E /* white.png in Resources */,
-				70D6B90B1E2DAF3D00957A81 /* news @3x.png in Resources */,
+				70D6B90B1E2DAF3D00957A81 /* News@3x.png in Resources */,
 				702CE44E1DDA9881000A0513 /* 圆角矩形-10@3x.png in Resources */,
 				7024C5F41DD403A60053F313 /* luyou@2x.png in Resources */,
 				70FC30E61D75714E00BD06FE /* kr-video-player-shrinkscreen@3x.png in Resources */,
-				70D6B8FE1E2DAF3D00957A81 /* life style @2x.png in Resources */,
+				70D6B8FE1E2DAF3D00957A81 /* Life Style@2x.png in Resources */,
 				70EFCAF41E0A7C22003EAE08 /* 无历史@3x.png in Resources */,
 				7024C60D1DD4098B0053F313 /* Mac@3x.png in Resources */,
 				7024C6071DD4098B0053F313 /* ipad@3x.png in Resources */,
 				70FC30DF1D75714E00BD06FE /* kr-video-player-pause@2x.png in Resources */,
 				70FFE3E21DE2DBA200223E43 /* M1.png in Resources */,
 				707FE74D1DACC3C30087C361 /* me icon@2x.png in Resources */,
-				70D6B8F91E2DAF3D00957A81 /* documentary @3x.png in Resources */,
+				70D6B8F91E2DAF3D00957A81 /* Documentary@3x.png in Resources */,
 				707FE7531DACC3C30087C361 /* Path 2@2x.png in Resources */,
 				707FE7601DACC3C30087C361 /* time@3x.png in Resources */,
 				702CE4331DDA9881000A0513 /* 2.png in Resources */,
@@ -2631,7 +2631,7 @@
 				70FC30E81D75714E00BD06FE /* zx-video-banner-back@2x.png in Resources */,
 				70FFE40D1DE421A700223E43 /* monitor-jd@3x.png in Resources */,
 				7010176D1DCADA3300F9D5FF /* lan@3x.png in Resources */,
-				70D6B8F41E2DAF3D00957A81 /* chinese channel @1x.png in Resources */,
+				70D6B8F41E2DAF3D00957A81 /* Chinese Channel@1x.png in Resources */,
 				7010176A1DCADA3300F9D5FF /* dian@3x.png in Resources */,
 				70FFE3E51DE2DBA200223E43 /* M4.png in Resources */,
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
@@ -2649,7 +2649,7 @@
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
 				701443391DDC7F19008EAAC6 /* 引导页1.png in Resources */,
-				70D6B8F21E2DAF3D00957A81 /* 资源 2@2x.png in Resources */,
+				70D6B8F21E2DAF3D00957A81 /* Entertainment@2x.png in Resources */,
 				70231CCE1DC0FE8C00F73202 /* 组-54@3x.png in Resources */,
 				7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */,
 				7010176C1DCADA3300F9D5FF /* lan@2x.png in Resources */,
@@ -2667,7 +2667,7 @@
 				702CE4311DDA9881000A0513 /* 1@2x.png in Resources */,
 				702CE4431DDA9881000A0513 /* 7@2x.png in Resources */,
 				7045C4751DC715FB002647F9 /* 矩形5@2x.png in Resources */,
-				70D6B8F51E2DAF3D00957A81 /* chinese channel @2x.png in Resources */,
+				70D6B8F51E2DAF3D00957A81 /* Chinese Channel@2x.png in Resources */,
 				7045C4681DC715FB002647F9 /* 矩形1@1x.png in Resources */,
 				702218BA1E5AD304005D96A0 /* 未加锁 @2x.png in Resources */,
 				70231CC01DC0FE8C00F73202 /* ip.png in Resources */,
@@ -2683,7 +2683,7 @@
 				70130E9E1D8FDEC8005F0A49 /* search.png in Resources */,
 				7024C5C91DD0B25A0053F313 /* con-@1x.png in Resources */,
 				70231CE91DC1A00100F73202 /* save.png in Resources */,
-				70D6B9001E2DAF3D00957A81 /* local @1x.png in Resources */,
+				70D6B9001E2DAF3D00957A81 /* Local@1x.png in Resources */,
 				706C26371E03AF9A003AA695 /* 底背景@2x.png in Resources */,
 				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
@@ -2696,12 +2696,12 @@
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
 				707C4AF41E4AB0DE008F289A /* routenoKnow1@3x.png in Resources */,
-				70D6B9101E2DAF3D00957A81 /* south african @2x.png in Resources */,
+				70D6B9101E2DAF3D00957A81 /* South African@2x.png in Resources */,
 				70FFE3E31DE2DBA200223E43 /* M2.png in Resources */,
-				70D6B90A1E2DAF3D00957A81 /* news @2x.png in Resources */,
+				70D6B90A1E2DAF3D00957A81 /* News@2x.png in Resources */,
 				7040E2361DAE12B80063DB66 /* Group 12 Copy 2@1x.png in Resources */,
 				702218B71E5AD304005D96A0 /* 加锁 @2x.png in Resources */,
-				70D6B9161E2DAF3D00957A81 /* sports @2x.png in Resources */,
+				70D6B9161E2DAF3D00957A81 /* Sports@2x.png in Resources */,
 				70231CF21DC1D5AC00F73202 /* 灰@3x.png in Resources */,
 				701A98B01DB47A3100460220 /* 上一频道@3x.png in Resources */,
 				701A98AA1DB47A3100460220 /* Rectangle 2@3x.png in Resources */,
@@ -2710,14 +2710,14 @@
 				70FC30EA1D75714E00BD06FE /* zx-video-player-brightness@3x.png in Resources */,
 				70FFE3D11DE2D07600223E43 /* 圆环-5.png in Resources */,
 				70FC30E41D75714E00BD06FE /* kr-video-player-point@3x.png in Resources */,
-				70D6B90F1E2DAF3D00957A81 /* south african @1x.png in Resources */,
+				70D6B90F1E2DAF3D00957A81 /* South African@1x.png in Resources */,
 				70FFE3FA1DE3EF4800223E43 /* 分发@2x.png in Resources */,
 				7040E2461DAE12B80063DB66 /* Viasat-Nature-logo@2x.png in Resources */,
 				70170C371D74156000CC3951 /* guang.png in Resources */,
 				7040E23C1DAE12B80063DB66 /* Group 6@1x.png in Resources */,
 				702CE4421DDA9881000A0513 /* 7.png in Resources */,
 				701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */,
-				70D6B9021E2DAF3D00957A81 /* local @3x.png in Resources */,
+				70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */,
 				7045C4761DC715FB002647F9 /* 矩形5@3x.png in Resources */,
 				7040E2471DAE12B80063DB66 /* Viasat-Nature-logo@3x.png in Resources */,
 				70FFE3F91DE3EF4800223E43 /* 分发.png in Resources */,
@@ -2732,7 +2732,7 @@
 				70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */,
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
-				70D6B8F71E2DAF3D00957A81 /* documentary @1x.png in Resources */,
+				70D6B8F71E2DAF3D00957A81 /* Documentary@1x.png in Resources */,
 				70231CC41DC0FE8C00F73202 /* off@2x.png in Resources */,
 				701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */,
 				70FFE3D61DE2D07600223E43 /* 圆环.png in Resources */,
@@ -2753,7 +2753,7 @@
 				701295161D80F4CF003139D5 /* MBProgressHUD.bundle in Resources */,
 				701A98A81DB47A3100460220 /* Rectangle 2@1x.png in Resources */,
 				7040E23B1DAE12B80063DB66 /* Group 15 Copy 2@3x.png in Resources */,
-				70D6B9121E2DAF3D00957A81 /* special characteristics @1x.png in Resources */,
+				70D6B9121E2DAF3D00957A81 /* Special Characteristics@1x.png in Resources */,
 				70FC30F61D75714E00BD06FE /* zx-video-player-volumeMute@3x.png in Resources */,
 				70FFA4E21DE7DFF4006BFE5E /* Verticalpic@3x.png in Resources */,
 				702CE44B1DDA9881000A0513 /* 设备管理.png in Resources */,
@@ -2763,7 +2763,7 @@
 				7010175C1DCADA2500F9D5FF /* duihao@1x.png in Resources */,
 				702CE43C1DDA9881000A0513 /* 5.png in Resources */,
 				7040E2371DAE12B80063DB66 /* Group 12 Copy 2@2x.png in Resources */,
-				70D6B9141E2DAF3D00957A81 /* special characteristics @3x.png in Resources */,
+				70D6B9141E2DAF3D00957A81 /* Special Characteristics@3x.png in Resources */,
 				70FC30F21D75714E00BD06FE /* zx-video-player-unlock@3x.png in Resources */,
 				70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */,
 				70170C351D74156000CC3951 /* block_bg.png in Resources */,
@@ -2777,10 +2777,10 @@
 				7045C4771DC715FB002647F9 /* 矩形6@1x.png in Resources */,
 				7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */,
 				706C26381E03AF9A003AA695 /* 底背景@3x.png in Resources */,
-				70D6B9151E2DAF3D00957A81 /* sports @1x.png in Resources */,
+				70D6B9151E2DAF3D00957A81 /* Sports@1x.png in Resources */,
 				7045C4791DC715FB002647F9 /* 矩形6@3x.png in Resources */,
 				70FFA4E11DE7DFF4006BFE5E /* Verticalpic@2x.png in Resources */,
-				70D6B8FA1E2DAF3D00957A81 /* kids @1x.png in Resources */,
+				70D6B8FA1E2DAF3D00957A81 /* kids@1x.png in Resources */,
 				702CE44C1DDA9881000A0513 /* 圆角矩形-10.png in Resources */,
 				70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */,
 				702218C01E5AE0D7005D96A0 /* Back Arrow Blue@1x.png in Resources */,
@@ -2789,7 +2789,7 @@
 				7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */,
 				70FFA4E61DE7E6BE006BFE5E /* 直方图.png in Resources */,
 				70231CCB1DC0FE8C00F73202 /* password@3x.png in Resources */,
-				70D6B8FB1E2DAF3D00957A81 /* kids @2x.png in Resources */,
+				70D6B8FB1E2DAF3D00957A81 /* kids@2x.png in Resources */,
 				702218B61E5AD304005D96A0 /* 加锁 @1x.png in Resources */,
 				7045C4711DC715FB002647F9 /* 矩形4@1x.png in Resources */,
 				70231CBE1DC0FE8C00F73202 /* Edit-256@2x.png in Resources */,
@@ -2797,7 +2797,7 @@
 				701017611DCADA2500F9D5FF /* quan@3x.png in Resources */,
 				70FC30E21D75714E00BD06FE /* kr-video-player-play@3x.png in Resources */,
 				707FE7511DACC3C30087C361 /* Overlay@3x.png in Resources */,
-				70D6B9061E2DAF3D00957A81 /* movies&series @1x.png in Resources */,
+				70D6B9061E2DAF3D00957A81 /* Movies&Series@1x.png in Resources */,
 				707FE7411DACC3C30087C361 /* Group 16@2x.png in Resources */,
 				7045C46D1DC715FB002647F9 /* 矩形2@3x.png in Resources */,
 				7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */,
@@ -2821,7 +2821,7 @@
 				702CE4301DDA9881000A0513 /* 1.png in Resources */,
 				707C4AF31E4AB0DE008F289A /* routenoKnow1@2x.png in Resources */,
 				70231CCC1DC0FE8C00F73202 /* 组-54.png in Resources */,
-				70D6B9011E2DAF3D00957A81 /* local @2x.png in Resources */,
+				70D6B9011E2DAF3D00957A81 /* Local@2x.png in Resources */,
 				702CE4571DDA9881000A0513 /* nor@3x.png in Resources */,
 				706C263A1E03AF9A003AA695 /* 顶背景@2x.png in Resources */,
 				707FE7501DACC3C30087C361 /* Overlay@2x.png in Resources */,
@@ -2834,10 +2834,10 @@
 				70231CE71DC1A00100F73202 /* save-不可@2x.png in Resources */,
 				70FFE3D21DE2D07600223E43 /* 圆环-6.png in Resources */,
 				702CE43B1DDA9881000A0513 /* 4@3x.png in Resources */,
-				70D6B9171E2DAF3D00957A81 /* sports @3x.png in Resources */,
+				70D6B9171E2DAF3D00957A81 /* Sports@3x.png in Resources */,
 				70130EA41D8FDFD2005F0A49 /* 11.png in Resources */,
 				7014433A1DDC7F19008EAAC6 /* 引导页2.png in Resources */,
-				70D6B9071E2DAF3D00957A81 /* movies&series @2x.png in Resources */,
+				70D6B9071E2DAF3D00957A81 /* Movies&Series@2x.png in Resources */,
 				70FFE4031DE3EF4800223E43 /* 时移@2x.png in Resources */,
 				70FC30E31D75714E00BD06FE /* kr-video-player-point@2x.png in Resources */,
 				70FFE3E41DE2DBA200223E43 /* M3.png in Resources */,

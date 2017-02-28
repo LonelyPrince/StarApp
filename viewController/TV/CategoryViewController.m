@@ -96,8 +96,11 @@
         //    [topView bringSubviewToFront:self.searchBtn];
         [self.scroll addSubview:categoryBtns];
         
+        
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/9, 25, SCREEN_WIDTH/9, SCREEN_WIDTH/9)];
-        imageView.image = [UIImage imageNamed:@"Religion"];
+//        imageView.image = [UIImage imageNamed:@"Religion"];
+        [self judgeName:tempStr UIImageView:imageView];
+        
         [categoryBtns addSubview:imageView];
         
         
@@ -129,6 +132,60 @@
       [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)judgeName:(NSString *)name  UIImageView: (UIImageView *)imageView
+{
+    if ([name isEqualToString:@"Entertainment"]) {
+       imageView.image = [UIImage imageNamed:@"Entertainment"];
+    }
+    else if ([name isEqualToString:@"Chinese Channel"])
+    {
+       imageView.image = [UIImage imageNamed:@"Chinese Channel"];
+    }
+    else if ([name isEqualToString:@"Documentary"])
+    {
+        imageView.image = [UIImage imageNamed:@"Documentary"];
+    }
+    else if ([name isEqualToString:@"kids"])
+    {
+        imageView.image = [UIImage imageNamed:@"kids"];
+    }
+    else if ([name isEqualToString:@"Life Style"])
+    {
+        imageView.image = [UIImage imageNamed:@"Life Style"];
+    }
+    else if ([name isEqualToString:@"Local"])
+    {
+        imageView.image = [UIImage imageNamed:@"Local"];
+    }
+    else if ([name isEqualToString:@"Movies"])
+    {
+        imageView.image = [UIImage imageNamed:@"Movies"];
+    }
+    else if ([name isEqualToString:@"Movies&Series"])
+    {
+        imageView.image = [UIImage imageNamed:@"Movies&Series"];
+    }
+    else if ([name isEqualToString:@"News"])
+    {
+        imageView.image = [UIImage imageNamed:@"News"];
+    }
+    else if ([name isEqualToString:@"Religion"])
+    {
+        imageView.image = [UIImage imageNamed:@"Religion"];
+    }
+    else if ([name isEqualToString:@"South African"])
+    {
+        imageView.image = [UIImage imageNamed:@"South African"];
+    }
+    else if ([name isEqualToString:@"Special Characteristics"])
+    {
+        imageView.image = [UIImage imageNamed:@"Special Characteristics"];
+    }
+    else
+    {
+        imageView.image = [UIImage imageNamed:@"Startimes"];
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
