@@ -81,12 +81,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //@property (nonatomic, strong) id * TableScollTimer;
 @property (nonatomic, strong) UILabel * lab ;
 
+@property (nonatomic, strong) NSTimer * timerOfEventTime;
+
 @end
 
 @implementation ZXVideoPlayerController
 
 @synthesize socketView1;
 @synthesize lab;
+@synthesize timerOfEventTime;
 //@synthesize tvViewController;
 #pragma mark - life cycle
 
@@ -126,6 +129,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        self.tvViewControlller = [[TVViewController alloc]init];
         self.socketView1 = [[SocketView alloc]init];
         HorTime =0;
+        
+        [self configTimerOfEventTimeNotific]; //timerOfEventTime
     }
     return self;
 }
@@ -320,6 +325,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
          NSLog(@"准备开始加载");
         NSLog(@"MPMoviePlayer  开始加载");
         [self.videoControl.indicatorView startAnimating];
+        
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else
     {
@@ -544,6 +554,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)IndicatorViewShowNotic
 {
     [self.videoControl.indicatorView startAnimating];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 //如果不能播放，则显示不能播放字样
 -(void)configLabNoPlayShow
@@ -563,6 +577,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)noPlayShowNotic
 {
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     NSLog(@"右侧列表消失 noPlayShowNotic");
     self.subAudioTableView.hidden = YES;
     self.subAudioTableView = nil;
@@ -589,6 +608,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     CGSize size=[lab.text sizeWithAttributes:attrs];
                     lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                     
                 }
             }
@@ -607,6 +630,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     CGSize size=[lab.text sizeWithAttributes:attrs];
                   lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                     
                 }
             }
@@ -627,6 +654,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
                     
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
             }
                 break;
@@ -646,6 +677,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     CGSize size=[lab.text sizeWithAttributes:attrs];
                     lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                     
                 }
             }
@@ -1544,7 +1579,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    NSLog(@"self.video.dicSubAudio:%@",self.video.dicSubAudio);
     //    NSLog(@"self.video.dicSubAudio:%@",self.subAudioDic);
     //self.video.dicSubAudio;
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];
+  timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
     
     
 }
@@ -1560,14 +1595,109 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //如果时间为0 ,或者没有获取到时间，则显示为0
     if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
         bb1 = 0;
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     } else
     {
         bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
+    }
+    if (bb1 <0) {
+        bb1 = 0;
     }
     
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
     
     self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+}
+-(void)configTimerOfEventTimeNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"TimerOfEventTimeNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TimerOfEventTimeNotific) name:@"TimerOfEventTimeNotific" object:nil];
+}
+
+-(void)TimerOfEventTimeNotific
+{
+    
+    [timerOfEventTime invalidate];
+    timerOfEventTime = nil;
+    timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime1) userInfo:nil repeats:YES];
+
+}
+-(void)setEventTime1
+{
+    int  EPGArrindex = 0; //先随便初始化一下
+    NSString * tempIndexStr;
+    NSArray * arr = [USER_DEFAULT objectForKey:@"NowChannelEPG"];
+    tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];
+    EPGArrindex = [tempIndexStr intValue];
+    NSLog(@"EPGArrindex lal :%d",EPGArrindex);
+    NSLog(@"arr lal :%@",arr);
+    if (EPGArrindex > arr.count-1) {
+        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }else
+    {
+        self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
+        self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
+        
+        if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue]) {
+            
+            self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
+            self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
+            
+            NSLog(@"self.video.startTime lalala22 :%@",self.video.startTime);
+            NSLog(@"endTime lalala22 :%@",self.video.endTime);
+            
+            float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
+            NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+            
+            
+            int bb1 ;
+            
+            //如果时间为0 ,或者没有获取到时间，则显示为0
+            if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
+                bb1 = 0;
+            } else
+            {
+                NSLog(@"self.video.startTime lalala :%@",self.video.startTime);
+                bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
+            }
+            if (bb1 < 0) {
+                bb1 = 0;
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            }
+            NSLog(@"bb1 bb1 :%d",bb1);
+            
+            NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+            
+            if([nowTime intValue] >= [aa intValue] )
+            {
+                NSLog(@"出错了，节目的当前时间不能大于结束时间");
+                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+            }
+            else{
+                NSLog(@"nowTime nowTime :%@",nowTime);
+                self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+            }
+            
+        }
+
+    }
+    
+    
+    
+   
 }
 
 //时间戳转换

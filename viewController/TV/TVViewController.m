@@ -89,6 +89,9 @@ UITableViewDelegate,UITableViewDataSource>
 
 @property (strong,nonatomic)NSDictionary * TVChannlDic;        //video的频道列表
 
+@property (strong,nonatomic)NSMutableArray * progressEPGArr;        //为了进度条，保存EPG，然后获取不同时间段的时间
+@property (assign,nonatomic)NSInteger  progressEPGArrIndex;  //进度条进行节目的索引
+
 @property (strong,nonatomic)NSMutableData * byteDatas;
 //@property (strong,nonatomic) NSMutableArray *arrdata;
 //*****progressLineView
@@ -123,6 +126,8 @@ UITableViewDelegate,UITableViewDataSource>
 @synthesize allStartEpgTime;
 @synthesize tableForSliderView;
 @synthesize timerState; //不播放时候的计时器
+@synthesize progressEPGArr;  //为了进度条，保存EPG，然后获取不同时间段的时间
+@synthesize progressEPGArrIndex;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -181,77 +186,6 @@ UITableViewDelegate,UITableViewDataSource>
     //search数据的获取，只能执行一次，所以不能放到viewwillapper中
     [self getSearchData];
     
-    //    [self loadNav];
-    //    [self lineView];  //一条0.5pt的线
-    //    //new
-    //    [self initData];    //table表
-    //    //    [self loadUI];              //加载table 和scroll
-    //    //    [self getTopCategory];
-    //    [self getServiceData];    //获取表数据
-    //    [self initProgressLine];
-    //    [self getSearchData];
-    //
-    //
-    //    //修改tabbar选中的图片颜色和字体颜色
-    //    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    //    self.tabBarItem.selectedImage = image;
-    //    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
-    //
-    //    //视频部分
-    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    //
-    //    self.view.backgroundColor = [UIColor whiteColor];
-    //
-    //    [self playVideo];
-    //
-    //
-    //    self.edgesForExtendedLayout = UIRectEdgeNone;
-    //    self.extendedLayoutIncludesOpaqueBars =NO;
-    //    self.modalPresentationCapturesStatusBarAppearance =NO;
-    //    self.navigationController.navigationBar.translucent =NO;
-    //
-    //
-    //    //获取数据的链接
-    //    NSString *url = [NSString stringWithFormat:@"%@",S_category];
-    //
-    //
-    //    LBGetHttpRequest *request = CreateGetHTTP(url);
-    //
-    //
-    //
-    //    [request startAsynchronous];
-    //
-    //    WEAKGET
-    //    [request setCompletionBlock:^{
-    //        NSDictionary *response = httpRequest.responseString.JSONValue;
-    //
-    //
-    //        //        NSLog(@"response = %@",response);
-    //        NSArray *data = response[@"category"];
-    //
-    //        if (!isValidArray(data) || data.count == 0){
-    //            return ;
-    //        }
-    //        self.categorys = (NSMutableArray *)data;
-    //
-    //        //设置滑动条
-    //
-    //        _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-    //                                                                  SCREEN_WIDTH,
-    //                                                                  SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-    //                                             forTitles:self.categorys];
-    //
-    //
-    //        _slideView.backgroundColor = [UIColor whiteColor];
-    //        _slideView.delegate        = self;
-    //
-    //        [self.view addSubview:_slideView];
-    //
-    //
-    //
-    //    }];
-    //
     
     
 }
@@ -313,6 +247,10 @@ UITableViewDelegate,UITableViewDataSource>
 //    _slideView = [YLSlideView alloc];
 //    self.videoController = [[ZXVideoPlayerController alloc]init];
     
+    progressEPGArr = [[NSMutableArray alloc]init];
+
+
+
 }
 -(void)initProgressLine
 {
@@ -341,6 +279,10 @@ UITableViewDelegate,UITableViewDataSource>
 
 - (void)updateProgress :(NSTimer *)Time
 {
+    NSInteger endTime =[[[Time userInfo] objectForKey:@"EndTime" ] intValue ];
+    NSInteger startTime =[[[Time userInfo] objectForKey:@"StartTime" ] intValue ];
+    NSLog(@"endTime :%d",endTime);
+    NSLog(@"startTime :%d",startTime);
     int timeCut;
     NSString *  starttime;
     if(ISNULL([[Time userInfo] objectForKey:@"EndTime"]) || ISNULL([[Time userInfo]objectForKey:@"StarTime"]))
@@ -361,11 +303,12 @@ UITableViewDelegate,UITableViewDataSource>
             [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
             [self.timer invalidate];
             self.timer = nil;  //将计时器也删除
+            [self removeProgressNotific];
         }
     }
     //算出时间间隔
     //     = [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
-    NSLog(@"timecut %d",timeCut);
+    NSLog(@"--==timecut %d",timeCut);
     //    NSString *  starttime =[[Time userInfo]objectForKey:@"StarTime"];
     //    self.progress += 0.20f;
     //每次移动的距离
@@ -1085,8 +1028,15 @@ UITableViewDelegate,UITableViewDataSource>
         
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+//UITableViewCell *cell;
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+//        [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//        [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     }
     
+  
+
     
     //
     //    TVTable * table = [[TVTable alloc]init];
@@ -1126,9 +1076,27 @@ UITableViewDelegate,UITableViewDataSource>
     //    DetailViewController *controller =[[DetailViewController alloc] init];
     //    controller.dataDic = self.dataSource[indexPath.row];
     //    [self.navigationController pushViewController:controller animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self touchSelectChannel:indexPath.row diction:self.dicTemp];
     NSLog(@"tableForSliderView11--tableview:%@",tableView);
+    
+//    //此处应该记住indexpath和是哪个UItableView
+    NSIndexPath * indexPathNow = indexPath;
+//    NSIndexPath * indexPathTemp = indexPathNow;
+//    NSDictionary * dicCellShow = self.dicTemp;
+//    [USER_DEFAULT setInteger:indexPath.row forKey:@"indexPathNow"];
+//    [USER_DEFAULT setInteger:indexPathTemp.row forKey:@"indexPathTemp"];
+//    [USER_DEFAULT setObject:dicCellShow forKey:@"dicCellShow"];
+//    
+    TVCell *cell = [tableView cellForRowAtIndexPath:indexPathNow];
+    [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    [cell.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    
+    
+    
+ 
     
     
     //    //先传输数据到socket，然后再播放视频
@@ -1278,42 +1246,85 @@ UITableViewDelegate,UITableViewDataSource>
     
     
    
+    [self.timer invalidate];
+    self.timer = nil;
     
     //** 计算进度条
-    if(!ISNULL(self.event_startTime)&&!ISNULL(self.event_endTime))
+    if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
     {
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
-        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
-            
-        }else
-        {
-            NSLog(@"此处可能报错，因为StarTime不为空 ");
-            [dict setObject:self.event_startTime forKey:@"StarTime"];
-        }
-        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
-            
-        }else
-        {
-            NSLog(@"此处可能报错，因为StarTime不为空 ");
-            [dict setObject:self.event_endTime forKey:@"EndTime"];
-        }
-       
-        //判断当前是不是一个节目
-        eventName1 = self.event_videoname;
-        eventName2 = self.event_videoname;
-//        eventNameTemp ;
-        eventNameTemp = eventName1;
-        if (eventName2 == eventNameTemp) {
-            //    @"同一个节目";
-        }else
-        {
-            //不同的节目
-            eventName2 = eventNameTemp;
-            
-            //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
-        }
+        [self.view addSubview:self.topProgressView];
+        [self.view bringSubviewToFront:self.topProgressView];
         
+        NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+        NSLog(@"self.event_startTime--==%@",self.event_startTime);
+        NSLog(@"self.event_startTime--==%@",self.event_endTime);
+        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
+            
+            NSLog(@"此处可能报错，因为StarTime不为空 ");
+            
+            [self removeProgressNotific];
+        }else
+        {
+            NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
+            NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
+            
+            [dict setObject:self.event_startTime forKey:@"StarTime"];
+            [dict setObject:self.event_endTime forKey:@"EndTime"];
+           
+            
+            
+            //判断当前是不是一个节目
+            eventName1 = self.event_videoname;
+            eventName2 = self.event_videoname;
+            //        eventNameTemp ;
+            eventNameTemp = eventName1;
+            if (!eventName2 == eventNameTemp) {
+                // 不同的节目   @"同一个节目";
+            }else
+            {
+                //@"同一个节目";
+                eventName2 = eventNameTemp;
+                
+                //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+                
+                
+                progressEPGArrIndex = 0;
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
+                
+                int tempIndex =progressEPGArrIndex;
+                NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
+                [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
+                //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+                NSInteger endTime =[self.event_endTime intValue ];
+//                NSInteger startTime =[self.event_startTime intValue ];
+                NSDate *senddate = [NSDate date];
+                
+                NSLog(@"date1时间戳 = %ld",time(NULL));
+                NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
+                NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+                
+                NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+            }
+        }
+//        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+//            
+//        }else
+//        {
+//            NSLog(@"此处可能报错，因为StarTime不为空 ");
+//           
+//        }
+       
+
+        
+        
+    }else{
+    
+        [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+        [self.timer invalidate];
+        self.timer = nil;
+
         
     }
     //**
@@ -1322,9 +1333,148 @@ UITableViewDelegate,UITableViewDataSource>
     
     NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
     
-    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alertview show];
+//    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//    [alertview show];
     
+    
+}
+-(void)progressRefresh
+{
+    progressEPGArrIndex = progressEPGArrIndex +1;
+    
+    [self.topProgressView removeFromSuperview];
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    NSLog(@"progressRefresh");
+//    progressEPGArr
+    
+    if(progressEPGArrIndex <= progressEPGArr.count-1 && ![[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"] isEqualToString:@""])  //如果索引过大，则停止
+    {
+        NSLog(@"progressEPGArrIndex lal :%d",progressEPGArrIndex);
+        int tempIndex =progressEPGArrIndex;
+        NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
+        [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
+        
+        NSLog(@"progressEPGArrIndex22 lal :%d", [tempIndexStr intValue]);
+        // 如果索引大于epg数组的长度或者没有开始时间
+        NSNotification *notification =[NSNotification notificationWithName:@"TimerOfEventTimeNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+        
+        self.event_videoname = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_name"];
+        self.event_startTime = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_starttime"];
+        self.event_endTime = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_endtime"];
+        
+        //** 计算进度条
+        if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
+        {
+            [self.view addSubview:self.topProgressView];
+            [self.view bringSubviewToFront:self.topProgressView];
+            
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+            NSLog(@"progressRefreshself.event_startTime--==%@",self.event_startTime);
+            NSLog(@"progressRefreshself.event_startTime--==%@",self.event_endTime);
+            if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
+                
+                NSLog(@"此处可能报错，因为StarTime不为空 ");
+                [self removeProgressNotific];
+            }else
+            {
+                NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
+                NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
+                
+                [dict setObject:self.event_startTime forKey:@"StarTime"];
+                [dict setObject:self.event_endTime forKey:@"EndTime"];
+                
+                
+                
+                //判断当前是不是一个节目
+                eventName1 = self.event_videoname;
+                eventName2 = self.event_videoname;
+                //        eventNameTemp ;
+                eventNameTemp = eventName1;
+                if (!eventName2 == eventNameTemp) {
+                    // 不同的节目   @"同一个节目";
+                }else
+                {
+                    //@"同一个节目";
+                    eventName2 = eventNameTemp;
+                    
+                    //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+                    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
+                    
+                    //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+                    NSInteger endTime =[self.event_endTime intValue ];
+                    NSDate *senddate = [NSDate date];
+                    
+                    NSLog(@"date1时间戳 = %ld",time(NULL));
+                    NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
+                    NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+                    
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                    [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                }
+            }
+            //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+            //
+            //        }else
+            //        {
+            //            NSLog(@"此处可能报错，因为StarTime不为空 ");
+            //
+            //        }
+            
+            
+            
+            
+        }else{
+            
+            [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+            [self.timer invalidate];
+            self.timer = nil;
+            
+            
+        }
+
+    }else
+    {
+        [self.topProgressView removeFromSuperview];
+        [self.timer invalidate];
+        self.timer = nil;
+        return;
+//        [self removeProgressNotific];
+    }
+    
+}
+-(void)removeLineProgressNotific//进度条的时间不对，发送消除的通知
+{
+//    此处销毁通知，防止一个通知被多次调用
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeProgressNotific" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeProgressNotific) name:@"removeProgressNotific" object:nil];
+    
+}
+-(void)removeProgressNotific
+{
+//    [self.topProgressView removeFromSuperview];
+//    [self.timer invalidate];
+//    self.timer = nil;
+
+    //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+    NSInteger endTime =[self.event_endTime intValue ];
+    //                NSInteger startTime =[self.event_startTime intValue ];
+    NSDate *senddate = [NSDate date];
+    
+    NSLog(@"date1时间戳 = %ld",time(NULL));
+    NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
+    NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+    
+    NSLog(@"endTimeCutStartTime :%d",endTimeCutStartTime);
+    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+    [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
     
 }
 //-(void)getAndSetSubLanguage {
@@ -1650,6 +1800,9 @@ UITableViewDelegate,UITableViewDataSource>
     
     // 1.获得点击的视频dictionary数据
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+    progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
+    
+    [USER_DEFAULT setObject:[progressEPGArr copy] forKey:@"NowChannelEPG"];
     // 2. 初始化两个数组存放数据
     //     NSArray * historyArr = [[NSArray alloc]init];
     NSMutableArray *mutaArray = [[NSMutableArray alloc] init];
@@ -1796,6 +1949,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self newTunerNotific]; //新建一个tuner的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         [self allCategorysBtnNotific];
+        [self removeLineProgressNotific]; //进度条停止的刷新通知
 //        [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
 //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
