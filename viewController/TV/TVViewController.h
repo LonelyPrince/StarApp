@@ -50,7 +50,6 @@
 @property (nonatomic, retain) CGUpnpAvController* avController;
 //**********
 @property (strong,nonatomic)THProgressView *topProgressView;
-@property (strong,nonatomic)UIProgressView *testProgressView;  //进度条测试
 
 @property (strong,nonatomic)UIView * activeView;
 @property (strong,nonatomic)NSString * IPString;

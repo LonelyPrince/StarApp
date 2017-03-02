@@ -227,7 +227,6 @@ UITableViewDelegate,UITableViewDataSource>
     self.dicTemp = [[NSMutableDictionary alloc]init];
     self.dataSource = [NSMutableArray array];
     self.topProgressView = [[THProgressView alloc] init];
-    self.testProgressView = [[UIProgressView alloc]init];  //进度条测试
     
     //    topView = [[UIView alloc]init];
     self.searchBtn = [[UIButton alloc]init];
@@ -265,15 +264,7 @@ UITableViewDelegate,UITableViewDataSource>
     
     self.progressViews = @[ self.topProgressView ];
     
-   //进度条测试
-    self.testProgressView.frame =CGRectMake(0  ,
-                                            VIDEOHEIGHT+kZXVideoPlayerOriginalHeight - 10 ,
-                                            SCREEN_WIDTH,
-                                            progressViewSize.height);
-    self.testProgressView.progressTintColor = ProgressLineColor;
-    self.testProgressView.trackTintColor = [UIColor clearColor];
-    [self.view addSubview:self.testProgressView];
-    [self.view bringSubviewToFront:self.testProgressView];
+  
 }
 
 
@@ -321,28 +312,7 @@ UITableViewDelegate,UITableViewDataSource>
         [progressView setProgress:self.progress animated:YES ];
     }];
     
-    //进度条测试
-    NSString * nowTime = [GGUtil GetNowTimeString];
-    if (ISNULL([USER_DEFAULT objectForKey:@"StarTime"]) || [USER_DEFAULT objectForKey:@"StarTime"] == nil ||  [USER_DEFAULT objectForKey:@"StarTime"] == NULL) {
-    }
-    else{
-        starttime = [USER_DEFAULT objectForKey:@"StarTime"];
-    }
-//    starttime =[[Time userInfo]objectForKey:@"StarTime"];
-    timeCut= [[[Time userInfo] objectForKey:@"EndTime" ] intValue ] - [[[Time userInfo]objectForKey:@"StarTime"] intValue];
-    if (timeCut == 0) {
-        NSLog(@"发生错误，时间间隔不能为0");
-        [self.testProgressView setProgress:0 animated:YES];
-    }
-    else{
-    self.testProgressView.progress = ([nowTime intValue]-[starttime intValue])/timeCut;
-    float testInt =([nowTime intValue]-[starttime intValue]);
-    float test =testInt/timeCut;
-    float testaa = 2422/5400;
-    NSLog(@"test :%f",test);
-    [self.testProgressView setProgress:test animated:YES];
-    }
-}
+  }
 
 //- (UIStatusBarStyle)preferredStatusBarStyle
 //{
@@ -594,9 +564,7 @@ UITableViewDelegate,UITableViewDataSource>
             self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
             
             
-            //
-            self.topProgressView.hidden = NO;
-            self.testProgressView.hidden = NO; // 进度条测试
+        
             float noewWidth = [UIScreen mainScreen].bounds.size.width;
             
             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
@@ -615,14 +583,6 @@ UITableViewDelegate,UITableViewDataSource>
                                                     VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
                                                     SCREEN_WIDTH,
                                                     progressViewSize.height);
-            
-            //进度条测试
-            self.testProgressView.frame = CGRectMake(0  ,
-                                                    VIDEOHEIGHT+kZXVideoPlayerOriginalHeight +10 ,
-                                                    SCREEN_WIDTH,
-                                                    progressViewSize.height);
-            
-            
             
             
         };
@@ -688,11 +648,6 @@ UITableViewDelegate,UITableViewDataSource>
             
             self.topProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 , [UIScreen mainScreen].bounds.size.width, 2);
            
-            //进度条测试
-             self.testProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 +10, [UIScreen mainScreen].bounds.size.width, 2);
-            [self.view bringSubviewToFront:self.testProgressView];
-            [self.videoController.view bringSubviewToFront:self.testProgressView];
-            
             
             //            //此处销毁通知，*防止一个通知被多次调用
             //    NSNotificationCenter a = [[NSNotificationCenter defaultCenter] removeObserver:self];
