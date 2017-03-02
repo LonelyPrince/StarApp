@@ -1910,6 +1910,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             
+            
+            
+            
+            //焦点
+            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+            NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+                
+                [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                
+            }else
+            {
+                [cell.channelId setTextColor:[UIColor whiteColor]];
+                [cell.channelName setTextColor:[UIColor whiteColor]];
+                
+            }
+            
+            
         }else{//如果为空，什么都不执行
         }
         
@@ -2008,6 +2028,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
+            
+            
+            //先全部变白
+            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
+                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+                
+                ChannelCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+                [cell1.channelId setTextColor:[UIColor whiteColor]];
+                [cell1.channelName setTextColor:[UIColor whiteColor]];
+            }
+            
+            
+            
+            
+            //选中的变蓝
+            ChannelCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+            [cell2.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            [cell2.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+
             
             
         }else{//如果为空，什么都不执行

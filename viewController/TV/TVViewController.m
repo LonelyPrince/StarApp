@@ -628,6 +628,13 @@ UITableViewDelegate,UITableViewDataSource>
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"切换为全屏模式");
+            
+//            
+//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//             TVCell *cell1 = [self.table cellForRowAtIndexPath:indexPath];
+//
+            
+            
             //            //
             firstShow = NO;
             statusNum = 3;
@@ -1035,7 +1042,9 @@ UITableViewDelegate,UITableViewDataSource>
 //        [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     }
     
+ 
   
+    
 
     
     //
@@ -1049,6 +1058,29 @@ UITableViewDelegate,UITableViewDataSource>
     
     if (!ISEMPTY(self.dicTemp)) {
         cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+        
+        
+        
+        //焦点
+        NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+        NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+        NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+        if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+            
+            [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            
+        }else
+        {
+            [cell.event_nextNameLab setTextColor:CellGrayColor];
+            [cell.event_nameLab setTextColor:CellBlackColor];
+            [cell.event_nextTime setTextColor:CellGrayColor];
+            
+
+        }
+
+        
     }else{//如果为空，什么都不执行
     }
     
@@ -1088,13 +1120,41 @@ UITableViewDelegate,UITableViewDataSource>
 //    [USER_DEFAULT setInteger:indexPath.row forKey:@"indexPathNow"];
 //    [USER_DEFAULT setInteger:indexPathTemp.row forKey:@"indexPathTemp"];
 //    [USER_DEFAULT setObject:dicCellShow forKey:@"dicCellShow"];
-//    
+//
+//    self.categoryModel.service_indexArr.count
+    
+    
+    //先全部变黑
+    for (NSInteger  i = 0; i<self.categoryModel.service_indexArr.count; i++) {
+        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+
+        TVCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+        [cell1.event_nextNameLab setTextColor:CellGrayColor];
+        [cell1.event_nameLab setTextColor:CellBlackColor];
+        [cell1.event_nextTime setTextColor:CellGrayColor];
+    }
+    
+    
+    
+    
+    //选中的变蓝
     TVCell *cell = [tableView cellForRowAtIndexPath:indexPathNow];
     [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     [cell.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     
     
+//    //焦点
+//    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+//    NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+//    NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+//    if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+//        
+//        [cell.event_nextNameLab setTextColor:CellGrayColor];
+//        [cell.event_nameLab setTextColor:CellBlackColor];
+//        [cell.event_nextTime setTextColor:CellGrayColor];
+//        
+//    }
     
  
     
@@ -1786,6 +1846,8 @@ UITableViewDelegate,UITableViewDataSource>
 
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
 {
+   
+    
     //加载圈动画
     //创建通知  如果视频要播放呀，则去掉不能播放的字样
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
@@ -1803,6 +1865,8 @@ UITableViewDelegate,UITableViewDataSource>
     progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
     
     [USER_DEFAULT setObject:[progressEPGArr copy] forKey:@"NowChannelEPG"];
+    [USER_DEFAULT setObject:epgDicToSocket forKey:@"NowChannelDic"];
+    //这里还用作判断播放的焦点展示
     // 2. 初始化两个数组存放数据
     //     NSArray * historyArr = [[NSArray alloc]init];
     NSMutableArray *mutaArray = [[NSMutableArray alloc] init];

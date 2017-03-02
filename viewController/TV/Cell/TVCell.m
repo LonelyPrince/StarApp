@@ -136,7 +136,9 @@
     self.event_nextNameLab.font = FONT(12);
     
     
-  
+    self.event_nameLab.textColor = CellBlackColor;
+    self.event_nextTime.textColor = CellGrayColor;
+    self.event_nextNameLab.textColor = CellGrayColor;
 }
 //时间戳转换
 - (NSString *)timeWithTimeIntervalString:(NSString *)timeString

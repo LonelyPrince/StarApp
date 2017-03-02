@@ -70,6 +70,9 @@ typedef enum{
     
 }serviceType;
 
+#define CellBlackColor RGB(21,21,21)
+#define CellGrayColor RGB(94,94,94)
+
 #define grobalTintColor RGB(249,249,249)
 #define grobalTitleColor [UIColor whiteColor]
 #define grobalItemTitleColor [UIColor whiteColor]
