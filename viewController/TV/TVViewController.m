@@ -54,6 +54,9 @@ UITableViewDelegate,UITableViewDataSource>
     BOOL firstfirst;   //第一次打开时，自动播放第一个节目，这时候需要将socket的touch事件放到viewdidload之后
     
     NSInteger  playNumCount;
+    
+    UITableView * tempTableviewForFocus;
+    NSIndexPath * tempIndexpathForFocus;
 }
 
 
@@ -248,7 +251,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     progressEPGArr = [[NSMutableArray alloc]init];
 
-
+    tempTableviewForFocus = [[UITableView alloc]init];
+    tempIndexpathForFocus = [[NSIndexPath alloc]init];
 
 }
 -(void)initProgressLine
@@ -564,7 +568,7 @@ UITableViewDelegate,UITableViewDataSource>
             self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
             
             
-        
+            self.topProgressView.hidden = NO;
             float noewWidth = [UIScreen mainScreen].bounds.size.width;
             
             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
@@ -984,6 +988,7 @@ UITableViewDelegate,UITableViewDataSource>
     
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    tempTableviewForFocus = tableView;
     TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
     if (cell == nil){
         cell = [TVCell loadFromNib];
@@ -1044,6 +1049,42 @@ UITableViewDelegate,UITableViewDataSource>
     return cell;
     
 }
+-(void)refreshTableFocus
+{
+    //这是刷主页面的table焦点的通知
+    //    此处销毁通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"refreshTableFocusNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTableFocusNotific:) name:@"refreshTableFocusNotific" object:nil];
+  
+}
+-(void)refreshTableFocusNotific: (NSNotification *)text
+{
+    
+    [tempTableviewForFocus deselectRowAtIndexPath:tempIndexpathForFocus animated:YES];
+    //先全部变黑
+    for (NSInteger  i = 0; i<self.categoryModel.service_indexArr.count; i++) {
+        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+        
+        TVCell *cell1 = [tempTableviewForFocus cellForRowAtIndexPath:indexPath1];
+        [cell1.event_nextNameLab setTextColor:CellGrayColor];
+        [cell1.event_nameLab setTextColor:CellBlackColor];
+        [cell1.event_nextTime setTextColor:CellGrayColor];
+    }
+    
+    NSIndexPath * indexPathDict =text.userInfo[@"indexPathDic"];
+    tempIndexpathForFocus = indexPathDict;
+//    NSInteger row = [text.userInfo[@"indexpathRow"]integerValue];
+//    NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:row inSection:0];
+    //选中的变蓝
+    TVCell *cell = [tempTableviewForFocus cellForRowAtIndexPath:indexPathDict];
+    NSLog(@"tableForSliderViewtableForSliderViewtableForSliderView%@",tableForSliderView);    
+    NSLog(@"tabletabletabletabletabletable%@",self.table);
+    NSLog(@"cellcellcellcellcellcell:%@",cell);
+    [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+}
 -(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
@@ -1060,6 +1101,7 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    tempIndexpathForFocus = indexPath;
     //    DetailViewController *controller =[[DetailViewController alloc] init];
     //    controller.dataDic = self.dataSource[indexPath.row];
     //    [self.navigationController pushViewController:controller animated:YES];
@@ -1098,6 +1140,7 @@ UITableViewDelegate,UITableViewDataSource>
     [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     [cell.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     
+    NSLog(@"cellcellcellcellcellcell:%@",cell);
     
 //    //焦点
 //    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
@@ -1969,6 +2012,7 @@ UITableViewDelegate,UITableViewDataSource>
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         [self allCategorysBtnNotific];
         [self removeLineProgressNotific]; //进度条停止的刷新通知
+        [self refreshTableFocus];  //刷新tableView焦点颜色的通知
 //        [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
 //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色

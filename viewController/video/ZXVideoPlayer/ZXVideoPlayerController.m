@@ -2048,6 +2048,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [cell2.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
 
             
+            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+               [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             
         }else{//如果为空，什么都不执行
         }
