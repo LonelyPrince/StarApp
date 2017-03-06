@@ -1750,6 +1750,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
         
+        NSLog(@"self.video.channelCount :%d",self.video.channelCount);
         if (self.video.channelCount <= 8) {
                self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
         }else
@@ -1757,6 +1758,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
         }
 
+        NSLog(@"self.video.channelCount %d",self.video.channelCount);
         return self.video.channelCount;
         
         //        return 8;
@@ -1910,7 +1912,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             
-            
+            NSLog(@"self.video.dicChannl %@",self.video.dicChannl);
+            NSLog(@"cell.dataDic %@",cell.dataDic);
             
             
             //焦点
