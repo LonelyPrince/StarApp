@@ -324,25 +324,25 @@
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 8 Copy 2"];
         cell.blackLab.text = @"Equipment management";
-        cell.grayLab.text = @"Equipment management";
+        cell.grayLab.text = @"HMC devices management";
         
     }  else  if(indexPath.row == 1)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 10 Copy 2"];
         cell.blackLab.text = @"Route setting";
-        cell.grayLab.text = @"Equipment management";
+        cell.grayLab.text = @"Router parameters setting";
         
     } else  if(indexPath.row == 2)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 12 Copy 2"];
         cell.blackLab.text = @"Contact us";
-        cell.grayLab.text = @"Equipment management";
+        cell.grayLab.text = @"Call center in various countries";
         
     }else  if(indexPath.row == 3)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 15 Copy 2"];
         cell.blackLab.text = @"About";
-        cell.grayLab.text = @"About management";
+        cell.grayLab.text = @"Information about app";
         
     }
     

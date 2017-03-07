@@ -179,9 +179,6 @@
 		7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5BE1DD00CAC0053F313 /* Del@1x.png */; };
 		7024C5C21DD00CAC0053F313 /* Del@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5BF1DD00CAC0053F313 /* Del@2x.png */; };
 		7024C5C31DD00CAC0053F313 /* Del@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C01DD00CAC0053F313 /* Del@3x.png */; };
-		7024C5C91DD0B25A0053F313 /* con-@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C61DD0B25A0053F313 /* con-@1x.png */; };
-		7024C5CA1DD0B25A0053F313 /* con-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C71DD0B25A0053F313 /* con-@2x.png */; };
-		7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5C81DD0B25A0053F313 /* con-@3x.png */; };
 		7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5CE1DD0B2A10053F313 /* LinkViewController.m */; };
 		7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */; };
 		7024C5D41DD1A3330053F313 /* CGUpnpDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7024C5D31DD1A3320053F313 /* CGUpnpDeviceModel.m */; };
@@ -209,6 +206,9 @@
 		7024C6111DD441490053F313 /* bianji@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60E1DD441490053F313 /* bianji@1x.png */; };
 		7024C6121DD441490053F313 /* bianji@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60F1DD441490053F313 /* bianji@2x.png */; };
 		7024C6131DD441490053F313 /* bianji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6101DD441490053F313 /* bianji@3x.png */; };
+		7029730F1E6D5B7B008CF397 /* 联系我们@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7029730C1E6D5B7B008CF397 /* 联系我们@1x.png */; };
+		702973101E6D5B7B008CF397 /* 联系我们@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7029730D1E6D5B7B008CF397 /* 联系我们@2x.png */; };
+		702973111E6D5B7B008CF397 /* 联系我们@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7029730E1E6D5B7B008CF397 /* 联系我们@3x.png */; };
 		702CE4021DDA97EC000A0513 /* mima@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE3FF1DDA97EC000A0513 /* mima@1x.png */; };
 		702CE4031DDA97EC000A0513 /* mima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE4001DDA97EC000A0513 /* mima@2x.png */; };
 		702CE4041DDA97EC000A0513 /* mima@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE4011DDA97EC000A0513 /* mima@3x.png */; };
@@ -785,9 +785,6 @@
 		7024C5BE1DD00CAC0053F313 /* Del@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@1x.png"; sourceTree = "<group>"; };
 		7024C5BF1DD00CAC0053F313 /* Del@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@2x.png"; sourceTree = "<group>"; };
 		7024C5C01DD00CAC0053F313 /* Del@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Del@3x.png"; sourceTree = "<group>"; };
-		7024C5C61DD0B25A0053F313 /* con-@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con-@1x.png"; sourceTree = "<group>"; };
-		7024C5C71DD0B25A0053F313 /* con-@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con-@2x.png"; sourceTree = "<group>"; };
-		7024C5C81DD0B25A0053F313 /* con-@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "con-@3x.png"; sourceTree = "<group>"; };
 		7024C5CD1DD0B2A10053F313 /* LinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkViewController.h; sourceTree = "<group>"; };
 		7024C5CE1DD0B2A10053F313 /* LinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkViewController.m; sourceTree = "<group>"; };
 		7024C5CF1DD0B2A10053F313 /* LinkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LinkViewController.xib; sourceTree = "<group>"; };
@@ -820,6 +817,9 @@
 		7024C60E1DD441490053F313 /* bianji@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@1x.png"; sourceTree = "<group>"; };
 		7024C60F1DD441490053F313 /* bianji@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@2x.png"; sourceTree = "<group>"; };
 		7024C6101DD441490053F313 /* bianji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@3x.png"; sourceTree = "<group>"; };
+		7029730C1E6D5B7B008CF397 /* 联系我们@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@1x.png"; sourceTree = "<group>"; };
+		7029730D1E6D5B7B008CF397 /* 联系我们@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@2x.png"; sourceTree = "<group>"; };
+		7029730E1E6D5B7B008CF397 /* 联系我们@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@3x.png"; sourceTree = "<group>"; };
 		702CE3FF1DDA97EC000A0513 /* mima@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mima@1x.png"; sourceTree = "<group>"; };
 		702CE4001DDA97EC000A0513 /* mima@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mima@2x.png"; sourceTree = "<group>"; };
 		702CE4011DDA97EC000A0513 /* mima@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mima@3x.png"; sourceTree = "<group>"; };
@@ -1705,9 +1705,9 @@
 		7024C5C51DD0B0F50053F313 /* LinkUs */ = {
 			isa = PBXGroup;
 			children = (
-				7024C5C61DD0B25A0053F313 /* con-@1x.png */,
-				7024C5C71DD0B25A0053F313 /* con-@2x.png */,
-				7024C5C81DD0B25A0053F313 /* con-@3x.png */,
+				7029730C1E6D5B7B008CF397 /* 联系我们@1x.png */,
+				7029730D1E6D5B7B008CF397 /* 联系我们@2x.png */,
+				7029730E1E6D5B7B008CF397 /* 联系我们@3x.png */,
 			);
 			name = LinkUs;
 			sourceTree = "<group>";
@@ -2412,6 +2412,7 @@
 				702CE4351DDA9881000A0513 /* 2@3x.png in Resources */,
 				704582F81D9A63170061C154 /* Images.xcassets in Resources */,
 				70FC30DE1D75714E00BD06FE /* kr-video-player-fullscreen@3x.png in Resources */,
+				702973111E6D5B7B008CF397 /* 联系我们@3x.png in Resources */,
 				707FE73A1DACC3C30087C361 /* Group 3@1x.png in Resources */,
 				707FE75B1DACC3C30087C361 /* Rectangle 149@1x.png in Resources */,
 				707FE7481DACC3C30087C361 /* live icon@3x.png in Resources */,
@@ -2518,13 +2519,13 @@
 				701A98AD1DB47A3100460220 /* Rectangle@3x.png in Resources */,
 				702CE4341DDA9881000A0513 /* 2@2x.png in Resources */,
 				7040E2411DAE12B80063DB66 /* Group 8 Copy 2@3x.png in Resources */,
+				7029730F1E6D5B7B008CF397 /* 联系我们@1x.png in Resources */,
 				702CE4441DDA9881000A0513 /* 7@3x.png in Resources */,
 				70FFE3FF1DE3EF4800223E43 /* 时间.png in Resources */,
 				707FE7421DACC3C30087C361 /* Group 16@3x.png in Resources */,
 				7040E24B1DAE12B80063DB66 /* zOOm-Logo@1x.png in Resources */,
 				70231CD21DC0FE8C00F73202 /* 路由设置.png in Resources */,
 				701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */,
-				7024C5CA1DD0B25A0053F313 /* con-@2x.png in Resources */,
 				70FFE4011DE3EF4800223E43 /* 时间@3x.png in Resources */,
 				701A98A41DB47A3100460220 /* 音轨@3x.png in Resources */,
 				70FFE3CD1DE2D07600223E43 /* 圆环-1 in Resources */,
@@ -2681,7 +2682,6 @@
 				70FFA4E81DE7E6BE006BFE5E /* 直方图@3x.png in Resources */,
 				7040E2401DAE12B80063DB66 /* Group 8 Copy 2@2x.png in Resources */,
 				70130E9E1D8FDEC8005F0A49 /* search.png in Resources */,
-				7024C5C91DD0B25A0053F313 /* con-@1x.png in Resources */,
 				70231CE91DC1A00100F73202 /* save.png in Resources */,
 				70D6B9001E2DAF3D00957A81 /* Local@1x.png in Resources */,
 				706C26371E03AF9A003AA695 /* 底背景@2x.png in Resources */,
@@ -2695,6 +2695,7 @@
 				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
+				702973101E6D5B7B008CF397 /* 联系我们@2x.png in Resources */,
 				707C4AF41E4AB0DE008F289A /* routenoKnow1@3x.png in Resources */,
 				70D6B9101E2DAF3D00957A81 /* South African@2x.png in Resources */,
 				70FFE3E31DE2DBA200223E43 /* M2.png in Resources */,
@@ -2775,7 +2776,6 @@
 				704858091E46D0E60052318D /* placeholder@1x.png in Resources */,
 				701A98A71DB47A3100460220 /* lock@3x.png in Resources */,
 				7045C4771DC715FB002647F9 /* 矩形6@1x.png in Resources */,
-				7024C5CB1DD0B25A0053F313 /* con-@3x.png in Resources */,
 				706C26381E03AF9A003AA695 /* 底背景@3x.png in Resources */,
 				70D6B9151E2DAF3D00957A81 /* Sports@1x.png in Resources */,
 				7045C4791DC715FB002647F9 /* 矩形6@3x.png in Resources */,

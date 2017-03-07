@@ -2320,6 +2320,10 @@ UITableViewDelegate,UITableViewDataSource>
     //停止播放，视频分发
     [self.socketView  deliveryPlayExit];
 }
+-(void)viewDidDisappear:(BOOL)animated
+{
+//    [self delegeTunerInfo];  
+}
 -(void)setIPNoific
 {
     
