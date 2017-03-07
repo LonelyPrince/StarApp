@@ -60,6 +60,9 @@ UITableViewDelegate,UITableViewDataSource>
     NSArray * tempArrForServiceArr;
     BOOL tempBoolForServiceArr;
     NSDictionary *  tempDicForServiceArr;
+    UIImageView * hudImage; //无网络图片
+    MBProgressHUD *HUD; //网络加载HUD
+    UILabel * hudLab ;//无网络文字
     
 }
 
@@ -161,15 +164,15 @@ UITableViewDelegate,UITableViewDataSource>
     
     //    activeView.backgroundColor = [UIColor redColor];
     [self.view addSubview:activeView];    //等待loading的view
-    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
+    HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
     
 //    UIView * hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)];
-    UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
+     hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
     hudImage.image = [UIImage imageNamed:@"网络无连接"];
     //调用上面的方法，获取 字体的 Size
     
     CGSize size = [self sizeWithText: @"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+    hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
     hudLab.text = @"Network Error";
     hudLab.font = FONT(15);
     hudLab.textColor = [UIColor grayColor];
@@ -187,6 +190,10 @@ UITableViewDelegate,UITableViewDataSource>
     
     HUD.labelText = @"loading";
     [self.activeView addSubview:HUD];
+    
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+//    [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
+    
 //    [self.activeView addSubview:hudImage];    //如果是断网状况下，解开注释，可以显示断网图片
 //    [self.activeView addSubview:hudLab];      //如果是断网状况下，解开注释，可以显示断网图片
     
@@ -195,6 +202,15 @@ UITableViewDelegate,UITableViewDataSource>
     
     
     
+}
+-(void)notHaveNetWork
+{
+    [self.activeView removeFromSuperview];
+    [HUD removeFromSuperview];
+    HUD = nil;
+    [self.activeView addSubview:hudImage];
+    [self.activeView addSubview:hudLab];
+    [self.view addSubview:activeView];
 }
 
 - (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
@@ -374,6 +390,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
         
         
@@ -1327,6 +1344,9 @@ UITableViewDelegate,UITableViewDataSource>
     
     NSLog(@"progressRefresh");
 //    progressEPGArr
+    if (progressEPGArr.count<progressEPGArrIndex)
+    {}
+    else{
     
     if(progressEPGArrIndex <= progressEPGArr.count-1 && ![[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"] isEqualToString:@""])  //如果索引过大，则停止
     {
@@ -1425,7 +1445,7 @@ UITableViewDelegate,UITableViewDataSource>
         return;
 //        [self removeProgressNotific];
     }
-    
+}
 }
 -(void)removeLineProgressNotific//进度条的时间不对，发送消除的通知
 {
@@ -1922,12 +1942,12 @@ UITableViewDelegate,UITableViewDataSource>
         statusNum = 0;
         [self prefersStatusBarHidden];
         
-        
         [self addGuideView]; //添加引导图
+        [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:60];
         
     }else{
         NSLog(@"不是第一次启动");
-        
+        [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
         [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
         [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];  //判断是不是全屏模式
 //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
@@ -2322,7 +2342,12 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-//    [self delegeTunerInfo];  
+//    [self delegeTunerInfo];
+    [self.videoController stop];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.videoController stop];
 }
 -(void)setIPNoific
 {
