@@ -200,6 +200,24 @@ UITableViewDelegate,UITableViewDataSource>
     //search数据的获取，只能执行一次，所以不能放到viewwillapper中
     [self getSearchData];
     
+    UIApplication *app = [UIApplication sharedApplication];
+    
+    [[NSNotificationCenter defaultCenter]
+     
+     addObserver:self
+     
+     selector:@selector(applicationWillResignActive:)
+     
+     name:UIApplicationWillResignActiveNotification
+     
+     object:app];
+    
+}
+- (void)applicationWillResignActive:(NSNotification *)notification
+{
+    self.video.playUrl = @"";
+    [self playVideo];
+    [self.videoController stop];
     
     
 }
@@ -2342,11 +2360,14 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-//    [self delegeTunerInfo];
+    self.video.playUrl = @"";
+    [self playVideo];
     [self.videoController stop];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
+    self.video.playUrl = @"";
+    [self playVideo];
     [self.videoController stop];
 }
 -(void)setIPNoific
