@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "ZXVideo.h"
-@import MediaPlayer;
+//@import MediaPlayer;
 #import "SocketView.h"
-//#import "TVViewController.h"
+#import <IJKMediaFramework/IJKMediaFramework.h>
+#import <IJKMediaFramework/IJKFFMoviePlayerController.h>
 
 #define kZXVideoPlayerOriginalWidth  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define kZXVideoPlayerOriginalHeight (kZXVideoPlayerOriginalWidth * (9.0 / 16.0))
 
-@interface ZXVideoPlayerController : MPMoviePlayerController
+@interface ZXVideoPlayerController : UIViewController //UIViewController// IJKFFMoviePlayerController // NSObject // UIViewController //MPMoviePlayerController
 
 @property (nonatomic, assign) CGRect frame;
 /// video model
@@ -35,5 +36,13 @@
 - (instancetype)initWithFrame:(CGRect)frame;
 /// 展示播放器
 - (void)showInView:(UIView *)view;
+
+
+
+@property (atomic, retain) id <IJKMediaPlayback> player;
+
+@property (atomic, retain) NSURL * url;
+
+@property (atomic, retain) UIView *playerView;
 
 @end

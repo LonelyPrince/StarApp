@@ -217,7 +217,7 @@ UITableViewDelegate,UITableViewDataSource>
 {
     self.video.playUrl = @"";
     [self playVideo];
-    [self.videoController stop];
+    [self.videoController.player stop];
     
     
 }
@@ -776,9 +776,16 @@ UITableViewDelegate,UITableViewDataSource>
                              //                             self. UIViewControllerWrapperView
                              if (statusNum == 3) {
                                  self.view.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+                                 
+                                 self.videoController.frame =[UIScreen mainScreen].bounds;
+                                 
+                                 NSLog(@"self.view.TV: %@",self.view);
                              }else
                              {
                                  self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                 self.videoController.frame =[UIScreen mainScreen].bounds;
+                                 
+                                 NSLog(@"self.view.TV: %@",self.view);
                              }
                              
                          }];
@@ -797,9 +804,14 @@ UITableViewDelegate,UITableViewDataSource>
                              
                              if (statusNum == 3) {
                                  self.view.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+                                 self.videoController.frame =[UIScreen mainScreen].bounds;
+                                 
+                                 NSLog(@"self.view.TV: %@",self.view);
                              }else
                              {
                                  self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                 self.videoController.frame =[UIScreen mainScreen].bounds;
+                                 NSLog(@"self.view.TV: %@",self.view);
                              }
                          }];
     }
@@ -1248,15 +1260,15 @@ UITableViewDelegate,UITableViewDataSource>
     [timerState invalidate];
     timerState = nil;
    NSLog(@"timerState:33 %@",timerState);
-    if (! playState ) {
-        
-//        NSInteger  timerIndex = 1;
-//        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
-//        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
-        playNumCount = 1;
-        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
-        NSLog(@"timerState:11 %@",timerState);
-    }
+//    if (! playState ) {
+//        
+////        NSInteger  timerIndex = 1;
+////        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
+////        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
+//        playNumCount = 1;
+//        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+//        NSLog(@"timerState:11 %@",timerState);
+//    }
     
     
    
@@ -2362,13 +2374,13 @@ UITableViewDelegate,UITableViewDataSource>
 {
     self.video.playUrl = @"";
     [self playVideo];
-    [self.videoController stop];
+    [self.videoController.player stop];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.video.playUrl = @"";
     [self playVideo];
-    [self.videoController stop];
+    [self.videoController.player stop];
 }
 -(void)setIPNoific
 {
