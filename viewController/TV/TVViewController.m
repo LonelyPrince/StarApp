@@ -212,6 +212,43 @@ UITableViewDelegate,UITableViewDataSource>
      
      object:app];
     
+    
+    //KVO
+    
+    self.kvo_NoDataPic = [[KVO_NoDataPic alloc]init];
+    
+    [self.kvo_NoDataPic addObserver:self forKeyPath:@"numberOfTable_NoData" options:NSKeyValueObservingOptionNew context:nil];
+    
+}
+#pragma mark-----KVO回调----
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    if (![keyPath isEqualToString:@"numberOfTable_NoData"]) {
+        return;
+    }
+    if ([self.categoryModel.service_indexArr count]==0) {//无数据
+//        [[BJNoDataView shareNoDataView] showCenterWithSuperView:self.tableView icon:nil iconClicked:^{
+//            //图片点击回调
+//            [self loadData];//刷新数据
+//        }];
+        
+        self.kvo_NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
+        self.kvo_NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;//CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
+        [self.tableForSliderView addSubview:self.kvo_NoDataImageview];
+        [_table bringSubviewToFront:self.kvo_NoDataImageview];
+        NSLog(@"此时数据无，添加占位图");
+        return;
+    }else
+    {
+        self.kvo_NoDataImageview = nil;
+        [self.kvo_NoDataImageview removeFromSuperview];
+        
+      NSLog(@"此时数据有，删除啦啦占位图");
+        return;
+    }
+    
+    
+    //有数据
+//    [[BJNoDataView shareNoDataView] clear];
 }
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
@@ -295,6 +332,8 @@ UITableViewDelegate,UITableViewDataSource>
     tempArrForServiceArr = [[NSArray alloc]init]; //用于保存点击后的列表数组信息
     tempBoolForServiceArr = NO;
     tempDicForServiceArr = [[NSDictionary alloc]init];
+    
+    self.kvo_NoDataImageview = [[UIImageView alloc]init];
 }
 -(void)initProgressLine
 {
@@ -1025,6 +1064,7 @@ UITableViewDelegate,UITableViewDataSource>
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSLog(@"%lu",(unsigned long)self.serviceData.count);
     
+    self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)self.categoryModel.service_indexArr.count];
     return self.categoryModel.service_indexArr.count;
     
 }
@@ -1065,7 +1105,7 @@ UITableViewDelegate,UITableViewDataSource>
     //    NSLog(@"index  cell.aaa--------:%d",cell.aaa);
     
     if (!ISEMPTY(self.dicTemp)) {
-        cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+        cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         
         

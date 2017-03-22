@@ -32,6 +32,7 @@
 #import "THProgressView.h"
 #import "MonitorViewController.h"
 #import "CategoryViewController.h"
+#import "KVO_NoDataPic.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController
@@ -56,6 +57,10 @@
 @property (strong,nonatomic) UIView * topView;
 @property (strong,nonatomic)NSMutableArray * allStartEpgTime;
 @property (strong,nonatomic) NSTimer * timerState;
+
+@property (strong,nonatomic)KVO_NoDataPic *kvo_NoDataPic;  //KVO
+@property (strong,nonatomic)UIImageView * kvo_NoDataImageview;  //底部节目列表为空，展示图片
+
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
 
 
