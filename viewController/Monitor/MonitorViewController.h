@@ -40,4 +40,6 @@
 @property(nonatomic,strong) UIImageView * nineImage;
 @property(nonatomic,strong) UIImageView * numImage;
 @property(nonatomic,strong) UIImageView * labImage;
+
+@property(nonatomic,assign) BOOL isRefreshScroll;
 @end

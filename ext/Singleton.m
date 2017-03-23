@@ -240,11 +240,32 @@
                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
                     
                     
+                    int monitorApperCount ;
+                  NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+                    monitorApperCount = [monitorApperCountStr intValue];
+                    if (monitorApperCount == 0) {
+                        //创建通知
+                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                       
+                        monitorApperCount = 1;
+                        NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
+                        [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+                    }
+                    else
+                    {
+                        //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    }
+                  
+                  
+                   
                     
-                    //创建通知
-                    NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    
                 }
                     break;
                      case 16:  //此处是停止视频播放

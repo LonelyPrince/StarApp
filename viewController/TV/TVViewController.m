@@ -64,6 +64,8 @@ UITableViewDelegate,UITableViewDataSource>
     MBProgressHUD *HUD; //网络加载HUD
     UILabel * hudLab ;//无网络文字
     
+    //为了防止[socket viewDidload]执行多次，在这里进行判断
+    int viewDidloadHasRunBool;
 }
 
 
@@ -219,6 +221,13 @@ UITableViewDelegate,UITableViewDataSource>
     
     [self.kvo_NoDataPic addObserver:self forKeyPath:@"numberOfTable_NoData" options:NSKeyValueObservingOptionNew context:nil];
     
+    
+    viewDidloadHasRunBool = 0;
+    [USER_DEFAULT setObject: [NSNumber numberWithInt:viewDidloadHasRunBool] forKey:@"viewDidloadHasRunBool"];
+    
+    NSNumber *  abc = [USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"];
+    NSLog(@"abc %d",[abc intValue]);
+    
 }
 #pragma mark-----KVO回调----
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
@@ -232,17 +241,23 @@ UITableViewDelegate,UITableViewDataSource>
 //        }];
         
         self.kvo_NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
-        self.kvo_NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;//CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
+        self.kvo_NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;
+        self.kvo_NoDataImageview.alpha = 1;
+        
+        //CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
         [self.tableForSliderView addSubview:self.kvo_NoDataImageview];
-        [_table bringSubviewToFront:self.kvo_NoDataImageview];
+//        [_table bringSubviewToFront:self.kvo_NoDataImageview];
         NSLog(@"此时数据无，添加占位图");
         return;
     }else
     {
+        self.kvo_NoDataImageview.alpha = 0;
         self.kvo_NoDataImageview = nil;
         [self.kvo_NoDataImageview removeFromSuperview];
-        
-      NSLog(@"此时数据有，删除啦啦占位图");
+        self.kvo_NoDataImageview = nil;
+        [self.kvo_NoDataImageview removeFromSuperview];
+        self.kvo_NoDataImageview.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
+      NSLog(@"此时数据有，删除啦啦占位图");  
         return;
     }
     
@@ -1293,9 +1308,10 @@ UITableViewDelegate,UITableViewDataSource>
 //        NSInteger  timerIndex = 1;
 //        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
 //        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
-        playNumCount = 1;
-        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
-        NSLog(@"timerState:11 %@",timerState);
+        //此处给禁止了
+//        playNumCount = 1;
+//        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+//        NSLog(@"timerState:11 %@",timerState);
     }
     
     
@@ -2031,7 +2047,20 @@ UITableViewDelegate,UITableViewDataSource>
         [self lineView];  //一条0.5pt的线
         //    [self loadUI];              //加载table 和scroll
         //    [self getTopCategory];
-        [self getServiceData];    //获取表数据
+        
+        viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
+        if (viewDidloadHasRunBool == 0) {
+            [self getServiceData];    //获取表数据
+            
+            
+            viewDidloadHasRunBool = 1;
+            [USER_DEFAULT setObject:[NSNumber numberWithInt:viewDidloadHasRunBool] forKey:@"viewDidloadHasRunBool"];
+            
+            
+        }else{
+            [self getServiceDataNotHaveSocket];    //获取表数据的不含有socket 的初始化方法
+        }
+        
         //        [self initProgressLine];
         //        [self getSearchData];
         [self setIPNoific];
@@ -3051,6 +3080,172 @@ UITableViewDelegate,UITableViewDataSource>
         //        return UIStatusBarStyleDefault;
     }
     
+    
+}
+-(void)getServiceDataNotHaveSocket
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        
+        
+        
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        
+        //将数据本地化
+        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        
+        //        NSLog(@"response = %@",response);
+        NSArray *data1 = response[@"service"];
+        if (!isValidArray(data1) || data1.count == 0){
+            [self getServiceDataNotHaveSocket];
+            return ;
+        }
+        self.serviceData = (NSMutableArray *)data1;
+        
+        //        NSLog(@"--------%@",self.serviceData);
+        
+        
+        
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+            [self getServiceDataNotHaveSocket];
+        }
+        
+        [self.activeView removeFromSuperview];
+        self.activeView = nil;
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
+        [self playVideo];
+        
+        
+        //////
+        //获取数据的链接
+        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            //        NSLog(@"response = %@",response);
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+            //            if (tableviewinit == 2) {
+            if (!_slideView) {
+                NSLog(@"上山打老虎4");
+                
+                //设置滑动条
+                _slideView = [YLSlideView alloc];
+                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                  SCREEN_WIDTH,
+                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                
+                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                
+                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                    SCREEN_WIDTH,
+                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                      SCREEN_WIDTH,
+                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+                //                                                 forTitles:self.categorys];
+                
+                
+                _slideView.backgroundColor = [UIColor whiteColor];
+                _slideView.delegate        = self;
+                
+                [self.view addSubview:_slideView];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                
+            }
+            else
+            {
+                
+            }
+            NSLog(@"DMSIP:6666");
+//            [self.socketView viewDidLoad];
+            if (firstfirst == YES) {
+                
+                //                   self.socketView  = [[SocketView  alloc]init];
+                NSLog(@"DMSIP:1111");
+                //                   [self.socketView viewDidLoad];
+                NSLog(@"DMSIP:2222");
+                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                firstOpenAPP = firstOpenAPP+1;
+                
+                firstfirst = NO;
+                
+            }else
+            {}
+            
+            //            //刷新EPG数据。把所有的时间信息
+            //
+            //            NSArray *EPGservice_data = response[@"service"];
+            //            if (!isValidArray(EPGservice_data) || EPGservice_data.count == 0){
+            //            }
+            //            else   //此时有数据
+            //            {
+            //                NSDictionary * dicEpg = [[NSDictionary alloc]init];
+            //                for (int e = 0; e<EPGservice_data.count; e++) {
+            //
+            //                    dicEpg = EPGservice_data[e];
+            //
+            //                    NSArray * arrEpg = [[NSArray alloc]init];
+            //                    arrEpg = [dicEpg objectForKey:@"epg_info"];   //epg 小数组
+            //
+            //                    //重新声明一个一个epg数组加载epg信息
+            ////                    NSDictionary * epgTimeInfo = [[NSDictionary alloc]init];
+            //                    for (int f = 0; f<arrEpg.count; f++) {
+            //                        NSString * startTimeString = [arrEpg[f] objectForKey:@"event_starttime"];
+            //
+            //
+            //                            if (![allStartEpgTime containsObject:startTimeString]) {
+            //                                [allStartEpgTime addObject:startTimeString];
+            //                            }
+            //
+            //
+            //                    }
+            //                }
+            //
+            //
+            //            }
+            //            NSLog(@"allStartEpgTime:--%@",allStartEpgTime);
+            //            NSLog(@"allStartEpgTime.count:--%lu",(unsigned long)allStartEpgTime.count);
+            //            
+            
+            
+            
+        }];
+        
+        
+        [self initProgressLine];
+        //        [self getSearchData];
+        
+        
+        
+        [self.table reloadData];
+        
+    }];
     
 }
 @end

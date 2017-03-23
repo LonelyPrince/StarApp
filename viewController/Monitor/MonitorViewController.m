@@ -32,6 +32,9 @@
     int lastPosition ;
     
     NSInteger tableInitNum;
+    
+    NSTimer *  refreshTimer ;  //定时刷新，暂定时间5秒
+    
 }
 @end
 
@@ -60,6 +63,7 @@
 @synthesize nineImage;
 @synthesize numImage;
 @synthesize labImage;
+@synthesize isRefreshScroll;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -71,37 +75,101 @@
    
     
     self.view.backgroundColor = [UIColor whiteColor];
-    // Do any additional setup after loading the view from its nib.
+    
+    isRefreshScroll = YES;
+    
+    int monitorApperCount = 0;
+    NSString * monitorApperCountStr = [NSString stringWithFormat:@"%d",monitorApperCount];
+    [USER_DEFAULT setObject:monitorApperCountStr forKey:@"monitorApperCountStr"];
+    
+  
+    [self initData];
+
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    tableInitNum = 0;
-    [scrollView removeFromSuperview];
-    scrollView = nil;
-   
-//    UILabel * shadowLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 230, 30)];
-//    shadowLab.text = @"测试案例";
-//    shadowLab.shadowColor = RGBA(30, 30, 30, 0.5) ;//设置文本的阴影色彩和透明度。
-//     shadowLab.shadowOffset = CGSizeMake(2.0f, 2.0f);     //设置阴影的倾斜角度。
-//    UILabel * shadowLab1 = [[UILabel alloc]initWithFrame:CGRectMake(210, 120, 230, 30)];
-//    shadowLab1.text = @"123123213123";
-//    
-//    shadowLab1.shadowColor = RGBA(130, 130, 30, 0.5);    //设置文本的阴影色彩和透明度。
-//    shadowLab1.shadowOffset = CGSizeMake(2.0f, 2.0f);     //设置阴影的倾斜角度。
-//    
-//    [self.view addSubview:shadowLab];
-//    [self.view addSubview:shadowLab1];
-//    [self getTunerInfo];
-    [self initData];
-    [self loadUI];  //***
-    [self getNotificInfo]; //通过发送通知给TV页，TV页通过socket获取到tuner消息
-//    [self initRefresh]; //开始每隔几秒向TV页发送通知，用来收到数据并且刷新数据
-//    [self loadNav];
-//    [self loadUI];
+    
+     [USER_DEFAULT setObject:[NSNumber numberWithInt:1] forKey:@"viewDidloadHasRunBool"];     // 此处做一次判断，判断是不是连接状态，如果是的，则执行live页面的时候不执行【socket viewDidload】
+    
+    if (isRefreshScroll) {
+        tableInitNum = 0;
+        [scrollView removeFromSuperview];
+        scrollView = nil;
+        
+        //    UILabel * shadowLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 230, 30)];
+        //    shadowLab.text = @"测试案例";
+        //    shadowLab.shadowColor = RGBA(30, 30, 30, 0.5) ;//设置文本的阴影色彩和透明度。
+        //     shadowLab.shadowOffset = CGSizeMake(2.0f, 2.0f);     //设置阴影的倾斜角度。
+        //    UILabel * shadowLab1 = [[UILabel alloc]initWithFrame:CGRectMake(210, 120, 230, 30)];
+        //    shadowLab1.text = @"123123213123";
+        //
+        //    shadowLab1.shadowColor = RGBA(130, 130, 30, 0.5);    //设置文本的阴影色彩和透明度。
+        //    shadowLab1.shadowOffset = CGSizeMake(2.0f, 2.0f);     //设置阴影的倾斜角度。
+        //
+        //    [self.view addSubview:shadowLab];
+        //    [self.view addSubview:shadowLab1];
+        //    [self getTunerInfo];
+//        [self initData];
+        [self loadUI];  //***
+        [self getNotificInfo]; //通过发送通知给TV页，TV页通过socket获取到tuner消息
+        //    [self initRefresh]; //开始每隔几秒向TV页发送通知，用来收到数据并且刷新数据
+        //    [self loadNav];
+        isRefreshScroll = NO;
+    }else
+    {
+        //1.获取数据，判断数据和原来的是不是一样，如果不一样，准备刷新
+        //2.删除所有的东西，加载所有的东西
+        [self refreshViewByJudgeData];  //通过获得一次tuner消息，判断tuner消息是不是发生了变化
+        
+    }
+
  
 }
+-(void)refreshViewByJudgeData    //通过获得一次tuner消息，判断tuner消息是不是发生了变化
+{
+   //1.发送消息
+   //2.判断
+    [self  getNotificInfoByMySelf]; // 发送消息给TV页面，然后通过TV页面传通知发送tuner的socket信息
+    
+}
+-(void)getNotificInfoByMySelf   //随后每隔一段时间或者打开这个页面的时候获取tuner信 BYMYSelf
+{
+    //////////////////////////// 向TV页面发送通知
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    
+    
+    //////////////////////////// 从socket返回数据
+    //此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getNotificInfoByMySelf" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNotificInfoByMySelf:) name:@"getNotificInfoByMySelf" object:nil];
 
--(void)getNotificInfo
+
+}
+-(void)getNotificInfoByMySelf:(NSNotification *)text
+{
+    
+    
+    NSData * retDataByMySelf = [[NSData alloc]init];
+    retDataByMySelf = text.userInfo[@"resourceInfoData"];    //返回的data
+    
+//    NSData * dataTemp = [[NSData alloc]init];
+//    dataTemp = [USER_DEFAULT objectForKey:@"retDataForMonitor"];
+    NSLog(@"retDataByMySelf: %@",retDataByMySelf);
+    
+    [monitorTableArr removeAllObjects];
+    
+    [self getEffectiveData:retDataByMySelf];
+    
+}
+
+-(void)getNotificInfo //第一次启动时候获取tuner信息
 {
     tunerNum = 0; ///******
     [monitorTableArr removeAllObjects];
@@ -175,6 +243,8 @@
     monitorTableDic = [[NSMutableDictionary alloc]init];
     monitorTableArr = [[NSMutableArray alloc]init];
     
+    refreshTimer = [[NSTimer alloc]init];
+    
     
     ///
 //    socketUtils = [[SocketUtils alloc]init];
@@ -203,17 +273,22 @@
 }
 -(void)loadUI
 {
-    NSLog(@"=======--:%d",tunerNum);
+    NSLog(@"=======--:%ld",(long)tunerNum);
     [self loadScroll];
-    [self loadColorView];
+    [self loadColorView];  // 加载顶部的 多彩color 以及上面的各种图片
 
    [self loadTableview];
     
+    refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(refreshViewByJudgeData) userInfo:nil repeats:YES];
+    
 }
+///
+// 加载顶部的 多彩color 以及上面的各种图片
+///
 -(void)loadColorView
 {
 
-      colorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, TopViewHeight)];
+    colorView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, TopViewHeight)];
     colorView.backgroundColor = [UIColor purpleColor];
     [scrollView addSubview:colorView];
     
@@ -221,10 +296,10 @@
     colorImageView.image = [UIImage  imageNamed:@"监控渐变背景"];
     [colorView addSubview:colorImageView];
    
-    [self loadCicle];
-    [self loadNumLab];
+    [self loadCicle];    //多彩color 图片上的各种图片添加
+    [self loadNumLab];  //底部的各项tuner的数量
 }
--(void)loadCicle
+-(void)loadCicle //多彩color 图片上的各种图片添加
 {
 //    tunerNum = 3;
     
@@ -233,7 +308,7 @@
     [colorImageView addSubview:cicleClearImageView];
     
     cicleBlueImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 196)/2, 80,196, 195)];
-    cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"圆环-%d",tunerNum]];
+    cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"圆环-%ld",(long)tunerNum]];
     [colorImageView addSubview:cicleBlueImageView];
     
     nineImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-5, cicleClearImageView.frame.size.height/2-25,36, 33)];
@@ -242,7 +317,7 @@
     
     
      numImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2-35,36, 43)];
-    numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%d",tunerNum]];
+    numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
     [cicleClearImageView addSubview:numImage];
     
      labImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2+10,65, 40)];
@@ -610,54 +685,85 @@
 
 -(void)changeView
 {
+//    NSLog(@"monitorTableArr :%@,",monitorTableArr);
    
+    int monitorApperCount ;
+    NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+    monitorApperCount = [monitorApperCountStr intValue];
+    if (monitorApperCount == 0) {
     
-    
-    
-    cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"圆环-%ld",(long)tunerNum]];
-    
-    numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
-    
-    
- 
-    liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
- 
-    recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
-  
-    timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-   
-    distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
-   
-   
-    
-    if (scrollUp == YES) {
-        self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT);
+        cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"圆环-%ld",(long)tunerNum]];
         
-        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+        numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
         
+        
+        
+        liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        
+        recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+        
+        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        
+        distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+        
+        
+        
+        if (scrollUp == YES) {
+            self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT);
+            
+            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+            
+            
+        }else
+        {
+            self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            //                             scrollView.contentOffset = CGPointMake(0, 0);
+            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+            
+            self.tableView.editing = NO;
+        }
+        
+        
+        
+        
+        //    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+        
+        self.tableView.frame =  CGRectMake(0, TopViewHeight, SCREEN_WIDTH, tunerNum*80);
+        
+        //
+        //    self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //    
+        //    TopViewHeight+tunerNum*80+200-93);
+        //    scrollUp = YES;
+        //    self.tableView.scrollEnabled = YES;
+        
+        [USER_DEFAULT setObject:monitorTableArr forKey:@"monitorTableArrTemp"];
+        
+        NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArr.count);
         
     }else
     {
-        self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        //                             scrollView.contentOffset = CGPointMake(0, 0);
-        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+        NSArray * monitorTableArrTemp = [USER_DEFAULT objectForKey:@"monitorTableArrTemp"];
+     
         
-        self.tableView.editing = NO;
+        NSLog(@"monitorTableArraaaa :%@,",monitorTableArr);
+        NSLog(@"monitorTableArrTemp :%@,",monitorTableArrTemp);
+        
+        NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArrTemp.count);
+        NSLog(@"monitorTableArr.count ；%d",monitorTableArr.count);
+        if ([monitorTableArr isEqualToArray:monitorTableArrTemp]) {
+            NSLog(@"相等相等相等相等相等相等相等");
+        }else
+        {
+            NSLog(@"不不不不相等相等相等相等相等相等相等");
+            
+            [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
+        }
+    
     }
     
     
-    
-    
-//    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-   
-    self.tableView.frame =  CGRectMake(0, TopViewHeight, SCREEN_WIDTH, tunerNum*80);
-    
-//    
-//    self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
-//    
-//    TopViewHeight+tunerNum*80+200-93);
-//    scrollUp = YES;
-//    self.tableView.scrollEnabled = YES;
+  
 
 }
 
@@ -825,6 +931,7 @@
         
         
         
+        
 //        //////////////////////////// 从socket返回数据
 //        //此处销毁通知，防止一个通知被多次调用
 //        [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -851,14 +958,14 @@
 //  [self getNotificInfo];  
     [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
 }
--(void)reFreshData
-{
-
-}
 
 -(void)willReFresh
 {
-[self getNotificInfo];
+    int monitorApperCount = 0 ;
+    NSString * monitorApperCountStr = [NSString stringWithFormat:@"%d",monitorApperCount];
+    [USER_DEFAULT setObject:monitorApperCountStr forKey:@"monitorApperCountStr"];
+    
+    [self getNotificInfo];
 }
 
 
