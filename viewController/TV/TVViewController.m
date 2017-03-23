@@ -191,6 +191,7 @@ UITableViewDelegate,UITableViewDataSource>
     //设置对话框文字
     
     HUD.labelText = @"loading";
+    self.activeView.backgroundColor = [UIColor whiteColor];
     [self.activeView addSubview:HUD];
     
 //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
@@ -235,10 +236,10 @@ UITableViewDelegate,UITableViewDataSource>
         return;
     }
     if ([self.categoryModel.service_indexArr count]==0) {//无数据
-//        [[BJNoDataView shareNoDataView] showCenterWithSuperView:self.tableView icon:nil iconClicked:^{
-//            //图片点击回调
-//            [self loadData];//刷新数据
-//        }];
+        //        [[BJNoDataView shareNoDataView] showCenterWithSuperView:self.tableView icon:nil iconClicked:^{
+        //            //图片点击回调
+        //            [self loadData];//刷新数据
+        //        }];
         
         self.kvo_NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
         self.kvo_NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;
@@ -246,7 +247,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         //CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
         [self.tableForSliderView addSubview:self.kvo_NoDataImageview];
-//        [_table bringSubviewToFront:self.kvo_NoDataImageview];
+        //        [_table bringSubviewToFront:self.kvo_NoDataImageview];
         NSLog(@"此时数据无，添加占位图");
         return;
     }else
@@ -257,7 +258,7 @@ UITableViewDelegate,UITableViewDataSource>
         self.kvo_NoDataImageview = nil;
         [self.kvo_NoDataImageview removeFromSuperview];
         self.kvo_NoDataImageview.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
-      NSLog(@"此时数据有，删除啦啦占位图");  
+      NSLog(@"此时数据有，删除啦啦占位图");
         return;
     }
     
@@ -278,6 +279,7 @@ UITableViewDelegate,UITableViewDataSource>
     [self.activeView removeFromSuperview];
     [HUD removeFromSuperview];
     HUD = nil;
+    self.activeView.backgroundColor = [UIColor whiteColor];
     [self.activeView addSubview:hudImage];
     [self.activeView addSubview:hudLab];
     [self.view addSubview:activeView];
@@ -1309,9 +1311,9 @@ UITableViewDelegate,UITableViewDataSource>
 //        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
 //        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
         //此处给禁止了
-//        playNumCount = 1;
-//        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
-//        NSLog(@"timerState:11 %@",timerState);
+        playNumCount = 1;
+        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+        NSLog(@"timerState:11 %@",timerState);
     }
     
     
@@ -2430,13 +2432,13 @@ UITableViewDelegate,UITableViewDataSource>
 -(void)viewDidDisappear:(BOOL)animated
 {
     self.video.playUrl = @"";
-    [self playVideo];
+//    [self playVideo];
     [self.videoController stop];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.video.playUrl = @"";
-    [self playVideo];
+//    [self playVideo];
     [self.videoController stop];
 }
 -(void)setIPNoific
