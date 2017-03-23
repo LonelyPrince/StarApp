@@ -269,7 +269,7 @@ UITableViewDelegate,UITableViewDataSource>
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
     self.video.playUrl = @"";
-    [self playVideo];
+//    [self playVideo];
     [self.videoController stop];
     
     
