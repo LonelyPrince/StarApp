@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2705"
-            endingLineNumber = "2705"
+            startingLineNumber = "2679"
+            endingLineNumber = "2679"
             landmarkName = "-VideoTouchNoificClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2706"
-            endingLineNumber = "2706"
+            startingLineNumber = "2680"
+            endingLineNumber = "2680"
             landmarkName = "-VideoTouchNoificClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510471358.221073"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1974"
-            endingLineNumber = "1974"
+            startingLineNumber = "1989"
+            endingLineNumber = "1989"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1880"
-            endingLineNumber = "1880"
+            startingLineNumber = "1881"
+            endingLineNumber = "1881"
             landmarkName = "-getLinkData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1867"
-            endingLineNumber = "1867"
+            startingLineNumber = "1868"
+            endingLineNumber = "1868"
             landmarkName = "-getLinkData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1855"
-            endingLineNumber = "1855"
+            startingLineNumber = "1856"
+            endingLineNumber = "1856"
             landmarkName = "-getLinkData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510110141.070508"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1727"
-            endingLineNumber = "1727"
+            startingLineNumber = "1742"
+            endingLineNumber = "1742"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510470924.463895"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1846"
-            endingLineNumber = "1846"
+            startingLineNumber = "1861"
+            endingLineNumber = "1861"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,11 +602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510044927.109185"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1426"
-            endingLineNumber = "1426"
+            startingLineNumber = "1441"
+            endingLineNumber = "1441"
             landmarkName = "-lockButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -634,11 +634,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510471358.221073"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1987"
-            endingLineNumber = "1987"
+            startingLineNumber = "2002"
+            endingLineNumber = "2002"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -650,11 +650,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510055362.66341"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1189"
-            endingLineNumber = "1189"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
             landmarkName = "-nextChannelButtonClick"
             landmarkType = "7">
          </BreakpointContent>
@@ -698,11 +698,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2619"
-            endingLineNumber = "2619"
+            startingLineNumber = "2593"
+            endingLineNumber = "2593"
             landmarkName = "-VideoTouchNoificClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -714,11 +714,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2734"
-            endingLineNumber = "2734"
+            startingLineNumber = "2708"
+            endingLineNumber = "2708"
             landmarkName = "-VideoTouchNoificAudioSubtClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -730,11 +730,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "511958995.659378"
+            timestampString = "512311814.67066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2687"
-            endingLineNumber = "2687"
+            startingLineNumber = "2661"
+            endingLineNumber = "2661"
             landmarkName = "-VideoTouchNoificClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -746,11 +746,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "510470924.463895"
+            timestampString = "512361075.282769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1754"
-            endingLineNumber = "1754"
+            startingLineNumber = "1769"
+            endingLineNumber = "1769"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -800,6 +800,22 @@
             startingLineNumber = "284"
             endingLineNumber = "284"
             landmarkName = "-notHaveNetWork"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "512311814.67066"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1308"
+            endingLineNumber = "1308"
+            landmarkName = "-getDataService:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
