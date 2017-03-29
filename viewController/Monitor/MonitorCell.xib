@@ -48,12 +48,17 @@
                         <rect key="frame" x="21" y="24" width="88" height="33"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWY-N2-c68" userLabel="placeholderImage1">
+                        <rect key="frame" x="49" y="24" width="33" height="33"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="backImage" destination="40n-rZ-pHc" id="5fW-bL-R6z"/>
                 <outlet property="channelImg" destination="kSW-fz-3dr" id="J59-Q7-EAN"/>
                 <outlet property="nameLab" destination="Hda-22-vjn" id="ZT3-YM-on5"/>
+                <outlet property="placeholderImage1" destination="OWY-N2-c68" id="yXD-T1-1yo"/>
                 <outlet property="programeClass" destination="pWn-ke-EHG" id="1oc-T0-qB4"/>
                 <outlet property="timeImage" destination="RmQ-hh-HM0" id="ypT-0w-cfs"/>
                 <outlet property="timeLab" destination="wCj-jS-LJM" id="USN-8E-Z0H"/>

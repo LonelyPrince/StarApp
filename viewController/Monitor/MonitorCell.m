@@ -53,13 +53,25 @@
     
     self.backImage.image = [UIImage imageNamed:@"background"];
     
-    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
         //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
         
         self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+        self.channelImg.clipsToBounds = YES;
+
         
+        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
+        [self.backImage bringSubviewToFront:self.placeholderImage1];
+        if (self.channelImg.image == nil) {
+            self.placeholderImage1.alpha = 1;
+            NSLog(@"placeholderImage 为空");
+        }else
+        {
+            self.placeholderImage1.alpha = 0;
+            NSLog(@"placeholderImage 为空");
+        }
         
     }];
 //    //图片和叠加图片

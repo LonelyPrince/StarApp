@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UILabel *timeLab;
 @property (weak, nonatomic) IBOutlet UIImageView *channelImg;
+@property (weak, nonatomic) IBOutlet UIImageView *placeholderImage1;
 
 
 ///数据源
