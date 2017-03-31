@@ -143,13 +143,13 @@ static const CGFloat kBorderWidth = 0.0f;
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"progress"];
         animation.duration = 1.0f; //fabsf(self.progress - pinnedProgress) + 0.1f;
         if (progress == 0) {
-            NSLog(@"发生错误，时间间隔不能为0");
+//            NSLog(@"发生错误，时间间隔不能为0");
         }
         else{
-            NSLog(@"当前时间 ：%d",[nowTime intValue]);
-            NSLog(@"开始时间 ：%d",[startTime intValue]);
-            NSLog(@"总时差 ：%f",progress);
-            NSLog(@"z除以 ：%f",([nowTime intValue]-[startTime intValue]-1)/progress);
+//            NSLog(@"当前时间 ：%d",[nowTime intValue]);
+//            NSLog(@"开始时间 ：%d",[startTime intValue]);
+//            NSLog(@"总时差 ：%f",progress);
+//            NSLog(@"z除以 ：%f",([nowTime intValue]-[startTime intValue]-1)/progress);
             
             animation.fromValue = [NSNumber numberWithFloat:([nowTime intValue]-[startTime intValue]-1)/progress];
             

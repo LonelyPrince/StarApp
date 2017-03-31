@@ -42,6 +42,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     CGSize sizeChannelId;
     CGSize sizeChannelName;
     CGSize sizeEventName;
+    int64_t strBytesTemp ;
+    int64_t temptemp ;
 }
 
 
@@ -123,7 +125,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configIndicatorView]; //视频未播放加载钱，显示进度圈
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
-        [self configLabNoPlayShowShut]; //如果视频无法播放，则显示sorry，this video cant play 的字样
+        [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
         self.rightViewShowing = NO;
         //        self.tvViewControlller = [[TVViewController alloc]init];
@@ -282,6 +284,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // 确定了媒体播放时长后
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];
     
+    // 视频播放结束时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPayerControlViewHideNotification) name:kZXPlayerControlViewHideNotification object:nil];
 }
 
@@ -291,9 +296,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
     NSLog(@"MPMoviePlayer  播放状态改变");
     
+    if (self.playbackState == MPMoviePlaybackStateInterrupted) {
+        NSLog(@"playState---=====视频中断 播放了！！");
+    }
     if (self.playbackState == MPMoviePlaybackStatePlaying) {
         NSLog(@"视频正在播放");
         NSLog(@"准备开始播放");
+        NSLog(@"playState---=====准备开始播放");
         NSLog(@"MPMoviePlayer  正在播放");
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
@@ -301,9 +310,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self.videoControl.indicatorView stopAnimating];
         [self.videoControl autoFadeOutControlBar];
+//        [self play];
     } else {
-        [self play];
+//        [self play];
+       
         NSLog(@"视频正在播放停止");
+        NSLog(@"playState---=====视频正在播放停止");
         self.videoControl.pauseButton.hidden = YES;
         self.videoControl.playButton.hidden = NO;
         [self stopDurationTimer];
@@ -311,6 +323,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [self.videoControl animateShow];
         }
     }
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(quality) name:@"" object:nil];
 }
@@ -320,10 +333,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     NSLog(@"MPMoviePlayer  LoadStateDidChange  Notification");
     NSLog(@"MPMoviePlayer  加载");
-    
+    if (MPMovieLoadStateUnknown) {
+        NSLog(@"playState---=====状态未知");
+    }
     if (self.loadState & MPMovieLoadStateStalled) {
          NSLog(@"准备开始加载");
+        NSLog(@"playState---=====正在加载中");
         NSLog(@"MPMoviePlayer  开始加载");
+        NSLog(@"playState111---.self.loadState %lu",(unsigned long)self.loadState);
         [self.videoControl.indicatorView startAnimating];
         
 //        //创建通知
@@ -332,8 +349,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else
-    {
+    {   NSLog(@"playState222---.self.loadState %lu",(unsigned long)self.loadState);
+        if (MPMovieLoadStateUnknown) {
+            NSLog(@"playState---=====状态未知");
+        }if (MPMovieLoadStatePlayable) {
+            NSLog(@"playState---=====缓存数据足够开始播放，但是视频并没有缓存完全");
+        }if (MPMovieLoadStatePlaythroughOK) {
+            NSLog(@"playState---=====已经缓存完成，如果设置了自动播放，这时会自动播放");
+        }
         NSLog(@"MPMoviePlayer  停止加载");
+        NSLog(@"playState---=====停止加载");
         [self.videoControl.indicatorView stopAnimating];
     }
 }
@@ -343,6 +368,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     NSLog(@"MPMoviePlayer  ReadyForDisplayDidChange  Notification");
     NSLog(@"MPMoviePlayer  视频显示状态改变");
+    NSLog(@"playState---=====视频显示状态改变");
 }
 
 /// 确定了媒体播放时长
@@ -364,6 +390,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     //    self.videoControl.backButton.hidden = YES;
+}
+
+//视频播放结束时
+-(void)onMPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
+{
+    NSLog(@"playState---=====视频播放结束");
+
+    NSNumber* reason = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
+    switch ([reason intValue]) {
+        case MPMovieFinishReasonPlaybackEnded:{
+            NSLog(@"playbackFinished. Reason: Playback Ended");
+        }
+            break;
+        case MPMovieFinishReasonPlaybackError:{
+            NSLog(@"playbackFinished. Reason: Playback Error");
+        }
+            break;
+        case MPMovieFinishReasonUserExited:
+            NSLog(@"playbackFinished. Reason: User Exited");
+            break;
+        default:
+            break;
+    }
 }
 
 /// 控制视图隐藏
@@ -1519,17 +1568,82 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     [self stop];
     [super setContentURL:contentURL];
+    NSLog(@"contentURL11 :%@",contentURL);
+//    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(crclePlayUrl) userInfo:nil repeats:YES];
+//    self.controlStyle = MPMovieSourceTypeStreaming;
+  [self setMovieSourceType:MPMovieSourceTypeStreaming];
+//    self.shouldAutoplay = YES;
+////////    [self prepareToPlay];
+//    [self play];
+    self.shouldAutoplay = YES;
+    [self prepareToPlay];
+//    [self stop];
+    //        self.contentURL = self.contentURL;
+//    [self play];
+//    [self play];
+//    [self stop];
+//    [super setContentURL:contentURL];
+//    NSLog(@"contentURL22 :%@",contentURL);
+//    [self play];
     
-    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(crclePlayUrl) userInfo:nil repeats:YES];
-    
-    [self play];
 
+
+//    [self setMovieSourceType:MPMovieSourceTypeStreaming];
+//    [self setShouldAutoplay:YES];//Stop it from autoplaying
+//    [self prepareToPlay];//Start preparing the video
     //    self.useApplicationAudioSession = NO;
-    
-    
+     strBytesTemp = 0 ;
+     temptemp = 0;
+    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
+}
+-(void)moviePlay
+{
+    NSArray *events = self.accessLog.events;
+    NSLog(@"events %@",events);
+    int count = events.count;
+    NSLog(@"events。count %d",events.count);
+//    if (count <= 0 ) {
+//        [self stop];
+////        self.contentURL = self.contentURL;
+//        [self play];
+//        NSLog(@"qweqweqweqwe");
+//    }
+   
+    for (int i = 0; i < count; i++)
+    {   strBytesTemp = temptemp;
+        MPMovieAccessLogEvent *currentEvent = [events objectAtIndex:i];
+        NSLog(@"currentEvent %@",currentEvent);
+        double byts = currentEvent.indicatedBitrate;
+        NSLog(@"byts %f",byts);
+        int64_t byte = currentEvent.numberOfBytesTransferred;
+        NSLog(@"byte %d",byte);
+        int64_t bytes = currentEvent.numberOfBytesTransferred >> 10;
+        NSLog(@"bytes %d",bytes);
+        NSMutableString *strBytes = [[NSMutableString alloc] initWithCapacity:100];
+        [strBytes appendFormat:@"totalSize = %d byte", bytes];
+        temptemp = byte;
+
+//        if (temptemp == strBytesTemp && strBytesTemp != 0 ) {
+//        if ( strBytesTemp == 0 ) {
+//            [self stop];
+////            self.contentURL = self.contentURL;
+//            NSLog(@"contentURL22 :%@",self.contentURL);
+//            [self play];
+//            strBytesTemp = 1;
+//        }
+        NSMutableString * bytesS;
+        if (bytes > 1024)
+        {
+            bytes = bytes >> 10;
+            [bytesS setString:@""];
+            [bytesS appendFormat:@"total = %d M", bytes];
+        }
+        NSLog(@"playstat ===byte = %f M bytes = %lld", (float)byte / (1024 * 1024), bytes);
+    }
 }
 -(void)crclePlayUrl
 {
+//    [self prepareToPlay];
     [self play];
 //    NSLog(@"循环播放");
 }
@@ -1634,8 +1748,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSArray * arr = [USER_DEFAULT objectForKey:@"NowChannelEPG"];
     tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];
     EPGArrindex = [tempIndexStr intValue];
-    NSLog(@"EPGArrindex lal :%d",EPGArrindex);
-    NSLog(@"arr lal :%@",arr);
+//    NSLog(@"EPGArrindex lal :%d",EPGArrindex);
+//    NSLog(@"arr lal :%@",arr);
     if (EPGArrindex > arr.count-1) {
         NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
         //通过通知中心发送通知

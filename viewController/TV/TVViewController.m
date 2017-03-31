@@ -466,6 +466,7 @@ UITableViewDelegate,UITableViewDataSource>
         self.activeView = nil;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
+        NSLog(@"playVideo55 :");
         
         
         //////
@@ -1144,7 +1145,6 @@ UITableViewDelegate,UITableViewDataSource>
             
 
         }
-
         
     }else{//如果为空，什么都不执行
     }
@@ -1261,7 +1261,7 @@ UITableViewDelegate,UITableViewDataSource>
 - (void)getDataService:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"playdata"]);
     NSLog(@"－－－－－接收到通知------");
-    
+    NSLog(@"playState---===TV 页接收到通知------");
     //NSData --->byte[]-------NSData----->NSString
     
     
@@ -1280,10 +1280,14 @@ UITableViewDelegate,UITableViewDataSource>
     //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
     //
     
-    NSLog(@"---urlData%@",_byteDatas);
+    NSLog(@"---urlDataTV接收%@",_byteDatas);
+    NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
     
 //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
+    self.video.playUrl = @"";
     self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
+    NSLog(@"self.video :%@",self.video);
+    NSLog(@"playState-==self.video.playUrl 22 %@ ",self.video.playUrl);
     
     //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
     
@@ -1298,15 +1302,17 @@ UITableViewDelegate,UITableViewDataSource>
     
     [self setStateNonatic];
     [self playVideo];
+    NSLog(@"playVideo11 :");
     
     playState = NO;
     
     NSLog(@"timerState:22 %@",timerState);
+    NSLog(@"playState:111111 %d",playState);
     [timerState invalidate];
     timerState = nil;
    NSLog(@"timerState:33 %@",timerState);
     if (! playState ) {
-        
+   NSLog(@"playState:2222222 %d",playState);
 //        NSInteger  timerIndex = 1;
 //        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
 //        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
@@ -1371,7 +1377,7 @@ UITableViewDelegate,UITableViewDataSource>
 //                NSInteger startTime =[self.event_startTime intValue ];
                 NSDate *senddate = [NSDate date];
                 
-                NSLog(@"date1时间戳 = %ld",time(NULL));
+//                NSLog(@"date1时间戳 = %ld",time(NULL));
                 NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
                 NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                 
@@ -1400,7 +1406,7 @@ UITableViewDelegate,UITableViewDataSource>
         
     }
     //**
-    NSLog(@"---urlData%@",self.video.playUrl);
+    NSLog(@"---urlData接收页面下面的video.playurl%@",self.video.playUrl);
     
     
     NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
@@ -1485,7 +1491,7 @@ UITableViewDelegate,UITableViewDataSource>
                     NSInteger endTime =[self.event_endTime intValue ];
                     NSDate *senddate = [NSDate date];
                     
-                    NSLog(@"date1时间戳 = %ld",time(NULL));
+//                    NSLog(@"date1时间戳 = %ld",time(NULL));
                     NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
                     NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                     
@@ -1542,12 +1548,12 @@ UITableViewDelegate,UITableViewDataSource>
     //                NSInteger startTime =[self.event_startTime intValue ];
     NSDate *senddate = [NSDate date];
     
-    NSLog(@"date1时间戳 = %ld",time(NULL));
+//    NSLog(@"date1时间戳 = %ld",time(NULL));
     NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
     NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
     
-    NSLog(@"endTimeCutStartTime :%d",endTimeCutStartTime);
-    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+//    NSLog(@"endTimeCutStartTime :%d",endTimeCutStartTime);
+//    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
     [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
     
@@ -2493,10 +2499,16 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void)setStateNonatic
 {
-    //新建一个发送播放通知
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
+//    //新建一个发送播放通知
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
+    
+    // 播放状态改变，可配合playbakcState属性获取具体状态
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+    
+    // 媒体网络加载状态改变
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
 }
 //-(void)timerStateInvalidateNotific
 //{
@@ -2517,10 +2529,12 @@ UITableViewDelegate,UITableViewDataSource>
 //     NSDictionary * dic =  [timer userInfo];
 //    NSNumber *
     playNumCount ++;
-    NSLog(@"playState:%d",playState);
+    NSLog(@"playState33333还在一遍一遍播放");
+    NSLog(@"playState33333:%d",playState);
+    NSLog(@"playState33333+playNumCount:%d", playNumCount);
     NSLog(@"(self.video.playUrl:%@",self.video.playUrl);
    
-    if (playNumCount >= 10){  //如果大于次10，即大于8秒，则停止播放，循环结束，显示无法播放的标语
+    if (playNumCount >= 8){  //如果大于次10，即大于8秒，则停止播放，循环结束，显示无法播放的标语
         NSLog(@"timerState now:%@",timerState);
         [timerState invalidate];
         timerState = nil;
@@ -2534,7 +2548,6 @@ UITableViewDelegate,UITableViewDataSource>
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
-        NSLog(@"右侧列表消失 playClick %ld",(long)playNumCount);
         
         NSLog(@"timerState :%@",timerState);
         [timerState invalidate];
@@ -2554,46 +2567,20 @@ UITableViewDelegate,UITableViewDataSource>
         
         }else{
         //没有播放.接着循环
-            [self playVideo];
-            NSLog(@"右侧列表消失 playClick2 %ld",(long)playNumCount);
+////            [self playVideo];
+            
+            
+            self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
+            self.videoController.shouldAutoplay = YES;
+           NSLog(@"playVideo 999");
+////            [self.videoController stop];
+////            [self.videoController setMovieSourceType:MPMovieSourceTypeStreaming];
+////            self.videoController.shouldAutoplay = YES;
+//            [self.videoController prepareToPlay];
+//            NSLog(@"playVideo22 :");
+//            NSLog(@"右侧列表消失 playClick2 %ld",(long)playNumCount);
         }
     }
-//    if ( self.video.playUrl != NULL && playState) {
-//        
-//        NSLog(@"playNumCount :%d",playNumCount);
-//        if (playNumCount >= 15) {  //如果大于8次，即大于8秒，则停止播放，显示无法播放的标语
-//            [timerState invalidate];
-//            timerState = nil;
-//            
-//            //创建通知
-//            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
-//            NSLog(@"右侧列表消失 playClick %ld",(long)playNumCount);
-//            
-//            NSLog(@"timerState :%@",timerState);
-//            [timerState invalidate];
-//            timerState = nil;
-//            NSLog(@"timerState :%@",timerState);
-//        }
-//        else{
-////        [self playVideo];
-//            [timerState invalidate];
-//            timerState = nil;
-//
-//        NSLog(@"播放");
-//            
-//            NSLog(@"右侧列表消失 playClick1 %ld",(long)playNumCount);
-//        }
-//        [self playVideo];
-//    }
-//    else
-//    {
-////        [timerState invalidate];
-////        timerState = nil;
-//     [self playVideo];
-//    }
 
     
 }
@@ -2603,9 +2590,57 @@ UITableViewDelegate,UITableViewDataSource>
     NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+    NSLog(@"playState44444现在正在准备播放，TV 页面willplay");
     playState = YES;
+    [timerState invalidate];
+    timerState = nil;
 }
+/// 媒体网络加载状态改变
+- (void)onMPMoviePlayerLoadStateDidChangeNotification
+{
+    NSLog(@"MPMoviePlayer  LoadStateDidChange  Notification");
+    NSLog(@"MPMoviePlayer  加载");
+    if (MPMovieLoadStateUnknown) {
+        NSLog(@"playState---=====状态未知");
+    }
+    if (self.videoController.loadState & MPMovieLoadStateStalled) {
+        NSLog(@"playState111---.self.videoController.loadState %lu",(unsigned long)self.videoController.loadState);
+        NSLog(@"playState---首页的暂停状态，就是将正在播放的暂停1111");
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
+        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.5];
+        
+    }
+    else
+    {
+        if (MPMovieLoadStateUnknown) {
+            NSLog(@"playState---=====状态未知");
+        }if (MPMovieLoadStatePlayable) {
+            NSLog(@"playState---=====缓存数据足够开始播放，但是视频并没有缓存完全");
+        }if (MPMovieLoadStatePlaythroughOK) {
+            NSLog(@"playState---=====已经缓存完成，如果设置了自动播放，这时会自动播放");
+        }
+        NSLog(@"MPMoviePlayer  停止加载");
+        NSLog(@"playState---=====停止加载");
+    }
+}
+-(void)judegeIsPlaying
+{
+    if (self.videoController.loadState & MPMovieLoadStateStalled) {
+        NSLog(@"playState111---.self.videoController.loadState %lu",(unsigned long)self.videoController.loadState);
+        NSLog(@"首页的暂停状态，就是将正在播放的暂停");
+        NSLog(@"playState---首页的暂停状态，就是将正在播放的暂停2222");
+//        [self playVideo];
+        self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
+        NSLog(@"playVideo33 :");
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
+        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.5];
+        
+    }else{
+     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
+    }
+}
+
 /////////////其他页面的播放通知事件
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
@@ -2963,8 +2998,9 @@ UITableViewDelegate,UITableViewDataSource>
     NSLog(@"self.socket:%@",self.socketView);
     
     self.videoController.socketView1 = self.socketView;
+    NSLog(@"playState---== 第一次打开发送数据111");
     [self.socketView  serviceTouch ];
-    
+    NSLog(@"playState---== 第一次打开发送数据222");
     NSTimer * touchTimer = [NSTimer timerWithTimeInterval:3 target:self selector:@selector(touchTimer) userInfo:nil repeats:NO];
     
     
@@ -3125,6 +3161,7 @@ UITableViewDelegate,UITableViewDataSource>
         self.activeView = nil;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
+        NSLog(@"playVideo44 :");
         
         
         //////

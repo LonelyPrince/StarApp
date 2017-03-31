@@ -2371,7 +2371,7 @@
 				LastUpgradeCheck = 0420;
 				TargetAttributes = {
 					A4A669FC1555E44100AED3AF = {
-						DevelopmentTeam = R8D7BE2CFZ;
+						DevelopmentTeam = KKEKQB632F;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -3093,7 +3093,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = R8D7BE2CFZ;
+				DEVELOPMENT_TEAM = KKEKQB632F;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLNASample/StarAPP-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3105,7 +3105,7 @@
 					"$(BUILT_PRODUCTS_DIR)/**",
 				);
 				INFOPLIST_FILE = "DLNASample/StarAPP-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3140,7 +3140,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = R8D7BE2CFZ;
+				DEVELOPMENT_TEAM = KKEKQB632F;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLNASample/StarAPP-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3152,7 +3152,7 @@
 					"$(BUILT_PRODUCTS_DIR)/**",
 				);
 				INFOPLIST_FILE = "DLNASample/StarAPP-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

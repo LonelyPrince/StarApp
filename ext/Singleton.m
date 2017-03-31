@@ -92,6 +92,7 @@
     
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
+    NSLog(@"playState---== socket 第一次打开发送播放命令");
 }
 //退出播放
 -(void)Play_ExitSocket{
@@ -168,7 +169,7 @@
     NSLog(@"读--");
     NSLog(@"%ld",tag);
     NSLog(@"readdata:%@",data);
-    
+//    NSLog(@"playState---== socket 接收到播放命令");
     NSData * data_ret = [data subdataWithRange:NSMakeRange(12,4)];
     uint8_t data_retTo32int = [SocketUtils uint32FromBytes:data_ret];
     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
@@ -179,16 +180,144 @@
         
         NSData * data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
         NSString * model_name = [[NSString alloc]initWithData:data_model_name encoding:NSUTF8StringEncoding];
+        NSLog(@"打印data_model_name:%@",data_model_name);
         NSLog(@"data1:%@",model_name);
         if([model_name isEqualToString:@"BEAT"])
         {
+            //这里进行判断
+            int data_length = data.length;
+            NSLog(@"data_length %d",data_length);
+            
+            
+            if (data_length > 28) { //如果大于28，则证明里面还存在数据，则需要更加深度的解析
+                int nowData_length;
+                nowData_length = 28;
+                
+                while (nowData_length < data_length) {
+                    
+            
+                    NSData * next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                    //判断下一个数据段的返回结果是否为1，如果是1则报错
+                    uint8_t data_retTo32int = [SocketUtils uint32FromBytes:next_data_ret];
+                    if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
+                        
+                        [MBProgressHUD showMessag:@"CRC error" toView:nil];
+                    }else{
+                    
+                        NSData * next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
+                        NSString * next_model_name = [[NSString alloc]initWithData:next_data_model_name encoding:NSUTF8StringEncoding];
+                        
+                        if([next_model_name isEqualToString:@"BEAT"])
+                        {
+                            //此处是心跳命令
+                            nowData_length = 28 + nowData_length;
+                            break;
+                        }else if([next_model_name isEqualToString:@"MDMM"])
+                        {
+                            NSData * next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
+                            uint8_t next_command_type = [SocketUtils uint8FromBytes:next_data2_command_type];
+                            
+                            switch (next_command_type) {
+                                case 0:
+                                {
+                                    // 更新了列表
+                                    NSLog(@"列表更新了");
+                                    
+                                }
+                                    break;
+                                    
+                                case 12:
+                                {
+                                    NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
+                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length ,data.length - nowData_length )];
+                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_service11"];
+                                    
+                                    [userDef synchronize];//把数据同步到本地
+                                    
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
+                                    
+                                    
+                                    
+                                    //创建通知
+                                    NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                }
+                                    break;
+                                    
+                                case 17:  //此处是获得资源信息
+                                {
+                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                                    [userDef setObject:data forKey:@"dataResourceInfo"];
+                                    
+                                    [userDef synchronize];//把数据同步到本地
+                                    
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
+                                    
+                                    
+                                    int monitorApperCount ;
+                                    NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+                                    monitorApperCount = [monitorApperCountStr intValue];
+                                    if (monitorApperCount == 0) {
+                                        //创建通知
+                                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                        
+                                        monitorApperCount = 1;
+                                        NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
+                                        [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+                                    }
+                                    else
+                                    {
+                                        //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
+                                        //创建通知
+                                        NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                }
+                                    break;
+                                case 16:  //此处是停止视频播放
+                                {
+                                    NSLog(@"*****停止视频播放");
+                                }
+                                    break;
+                                    
+                                default:
+                                    break;
+                            }
+                            //首先获得第二段数据的长度 （52，4）
+//                            int now_data_len_place = nowData_length + 24;
+                            
+                            NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                            uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                            NSLog(@"playstate -==now_data_lengthToInt %d",now_data_lengthToInt);
+                            nowData_length = nowData_length + now_data_lengthToInt + 28;
+                        }
+                        
+                    }
+                }
+
+                
+               
+            }
+                
         }
         else if([model_name isEqualToString:@"MDMM"])
         {
             NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
             uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
             
-            //        NSLog(@"command_type:%hhu",command_type);
+                    NSLog(@"command_type:%hhu",command_type);
             
             switch (command_type) {
                 case 0:
@@ -214,6 +343,7 @@
                     
                 case 12:
                 {
+                    NSLog(@"playState---== socket 正在播放的命令");
                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                     [userDef setObject:data forKey:@"data_service11"];
                     

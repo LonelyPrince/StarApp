@@ -593,6 +593,9 @@ static const char *getPropertyType(objc_property_t property) {
 //bNSData减去aNSData按字节获取---->指定字节数据NSMutableData
 +(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData
 {
+    NSLog(@"aData :%@",aData);
+    NSLog(@"bData :%@",bData);
+    
     
     uint8_t byteArray[[bData length]];
     NSMutableData * byteToDatas;
@@ -608,7 +611,7 @@ static const char *getPropertyType(objc_property_t property) {
     
     byteToDatas = [[NSMutableData alloc]init];
     byteToDatas =  [[NSMutableData alloc]initWithBytes:bReduceAbyteArray length:bReduceALength];
-    NSLog(@"---urlData%@",byteToDatas);
+    NSLog(@"---urlDataGGUtil%@",byteToDatas);
     return byteToDatas;
     
 }
