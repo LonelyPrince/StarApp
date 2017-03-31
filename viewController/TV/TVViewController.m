@@ -2499,14 +2499,18 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void)setStateNonatic
 {
-//    //新建一个发送播放通知
+    //新建一个发送播放通知
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
 //    //注册通知
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
+    //两者都响应一个方法
+    [NSThread sleepForTimeInterval:4];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];
     
     // 播放状态改变，可配合playbakcState属性获取具体状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
     
+   
     // 媒体网络加载状态改变
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
 }
@@ -2573,6 +2577,10 @@ UITableViewDelegate,UITableViewDataSource>
             self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
             self.videoController.shouldAutoplay = YES;
            NSLog(@"playVideo 999");
+         
+            if (self.videoController.isPreparedToPlay == YES) {
+                [self willplay];
+            }
 ////            [self.videoController stop];
 ////            [self.videoController setMovieSourceType:MPMovieSourceTypeStreaming];
 ////            self.videoController.shouldAutoplay = YES;
@@ -2608,7 +2616,7 @@ UITableViewDelegate,UITableViewDataSource>
         NSLog(@"playState---首页的暂停状态，就是将正在播放的暂停1111");
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
-        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.2];
         
     }
     else
@@ -2631,10 +2639,11 @@ UITableViewDelegate,UITableViewDataSource>
         NSLog(@"首页的暂停状态，就是将正在播放的暂停");
         NSLog(@"playState---首页的暂停状态，就是将正在播放的暂停2222");
 //        [self playVideo];
+        [self.videoController pause];
         self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
         NSLog(@"playVideo33 :");
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
-        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.5];
+        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.2];
         
     }else{
      [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
