@@ -211,7 +211,7 @@
                         {
                             //此处是心跳命令
                             nowData_length = 28 + nowData_length;
-                            break;
+                            continue;
                         }else if([next_model_name isEqualToString:@"MDMM"])
                         {
                             NSData * next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
@@ -231,13 +231,20 @@
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
                                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length ,data.length - nowData_length )];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
                                     [userDef setObject:bigDataReduceSmallData forKey:@"data_service11"];
                                     
                                     [userDef synchronize];//把数据同步到本地
                                     
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"playdata",nil];
                                     
                                     
                                     
@@ -251,11 +258,27 @@
                                 case 17:  //此处是获得资源信息
                                 {
                                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                                    [userDef setObject:data forKey:@"dataResourceInfo"];
+                                    
+                                    
+                                    //--
+                                    
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+                                    
+                                    
+                                    [userDef setObject:bigDataReduceSmallData forKey:@"dataResourceInfo"];
                                     
                                     [userDef synchronize];//把数据同步到本地
                                     
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"resourceInfoData",nil];
                                     
                                     
                                     int monitorApperCount ;
@@ -295,15 +318,16 @@
                                 default:
                                     break;
                             }
-                            //首先获得第二段数据的长度 （52，4）
-//                            int now_data_len_place = nowData_length + 24;
-                            
-                            NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
-                            uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
-                            NSLog(@"playstate -==now_data_lengthToInt %d",now_data_lengthToInt);
-                            nowData_length = nowData_length + now_data_lengthToInt + 28;
                         }
                         
+                    }
+                    //首先获得第二段数据的长度 （52，4）
+                    //                            int now_data_len_place = nowData_length + 24;
+                    
+                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                    NSLog(@"playstate -==now_data_lengthToInt %d",now_data_lengthToInt);
+                    nowData_length = nowData_length + now_data_lengthToInt + 28;
                     }
                 }
 
@@ -311,33 +335,281 @@
                
             }
                 
-        }
+//        }
         else if([model_name isEqualToString:@"MDMM"])
         {
+            
+            //new 进行判断，防止多个data合在一起
+            
+            //这里进行判断
+            int data_length = data.length;
+            NSLog(@"data_length %d",data_length);
+            
+            uint8_t MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];
+            
+            if (data_length > 28 + MDMM_Data_Length ) {
+                //证明还有其他的信息，MDMM信息和心跳都在一起了
+                int nowData_length;
+                nowData_length = 28 + MDMM_Data_Length;
+                //--先执行第一个命令
+                    
+                    NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+                    uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
+                    
+                    NSLog(@"command_type:%hhu",command_type);
+                    
+                    switch (command_type) {
+                        case 0:
+                        {
+                            // 更新了列表
+                            NSLog(@"列表更新了");
+                            
+                        }
+                            break;
+                            
+                        case 12:
+                        {
+                            NSLog(@"playState---== socket 正在播放的命令");
+                            NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                            [userDef setObject:data forKey:@"data_service11"];
+                            
+                            [userDef synchronize];//把数据同步到本地
+                            
+                            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
+                            
+                            
+                            
+                            //创建通知
+                            NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        }
+                            break;
+                            
+                        case 17:  //此处是获得资源信息
+                        {
+                            NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                            [userDef setObject:data forKey:@"dataResourceInfo"];
+                            
+                            [userDef synchronize];//把数据同步到本地
+                            
+                            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
+                            
+                            
+                            int monitorApperCount ;
+                            NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+                            monitorApperCount = [monitorApperCountStr intValue];
+                            if (monitorApperCount == 0) {
+                                //创建通知
+                                NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                
+                                monitorApperCount = 1;
+                                NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
+                                [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+                            }
+                            else
+                            {
+                                //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
+                                //创建通知
+                                NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                            }
+                            
+                            
+                            
+                            
+                            
+                        }
+                            break;
+                        case 16:  //此处是停止视频播放
+                        {
+                            NSLog(@"*****停止视频播放");
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    
+                
+                
+                
+                //  执行第一个MDMM命令后，就开始后面的命令执行
+                while (nowData_length < data_length) {
+                    
+                    
+                    NSData * next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                    //判断下一个数据段的返回结果是否为1，如果是1则报错
+                    uint8_t data_retTo32int = [SocketUtils uint32FromBytes:next_data_ret];
+                    if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
+                        
+                        [MBProgressHUD showMessag:@"CRC error" toView:nil];
+                    }else
+                    {
+                        
+                        NSData * next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
+                        NSString * next_model_name = [[NSString alloc]initWithData:next_data_model_name encoding:NSUTF8StringEncoding];
+                        
+                        if([next_model_name isEqualToString:@"BEAT"])
+                        {
+                            //此处是心跳命令
+                            nowData_length = 28 + nowData_length;
+                            continue;
+                        }else if([next_model_name isEqualToString:@"MDMM"])
+                        {
+                            NSData * next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
+                            uint8_t next_command_type = [SocketUtils uint8FromBytes:next_data2_command_type];
+                            
+                            switch (next_command_type) {
+                                case 0:
+                                {
+                                    // 更新了列表
+                                    NSLog(@"列表更新了");
+                                    
+                                }
+                                    break;
+                                    
+                                case 12:
+                                {
+                                    NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
+                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                                    
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_service11"];
+                                    
+                                    [userDef synchronize];//把数据同步到本地
+                                    
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"playdata",nil];
+                                    
+                                    
+                                    
+                                    //创建通知
+                                    NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                }
+                                    break;
+                                    
+                                case 17:  //此处是获得资源信息
+                                {
+                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                                    
+                                    
+                                    //--
+                                    
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+                                    
+                                    
+                                    [userDef setObject:bigDataReduceSmallData forKey:@"dataResourceInfo"];
+                                    
+                                    [userDef synchronize];//把数据同步到本地
+                                    
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"resourceInfoData",nil];
+                                    
+                                    
+                                    int monitorApperCount ;
+                                    NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+                                    monitorApperCount = [monitorApperCountStr intValue];
+                                    if (monitorApperCount == 0) {
+                                        //创建通知
+                                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                        
+                                        monitorApperCount = 1;
+                                        NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
+                                        [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+                                    }
+                                    else
+                                    {
+                                        //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
+                                        //创建通知
+                                        NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                    }
+                                    
+                                    
+                                    
+                                    
+                                    
+                                }
+                                    break;
+                                case 16:  //此处是停止视频播放
+                                {
+                                    NSLog(@"*****停止视频播放");
+                                }
+                                    break;
+                                    
+                                default:
+                                    break;
+                            }
+                         
+                        }
+                        
+                    }
+                    //首先获得第二段数据的长度 （52，4）
+                    //                            int now_data_len_place = nowData_length + 24;
+                    
+                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                    NSLog(@"playstate -==now_data_lengthToInt %d",now_data_lengthToInt);
+                    nowData_length = nowData_length + now_data_lengthToInt + 28;
+                
+                
+                
+                
+                
+            }
+
+         
+        }else  //如果相等，则是正常的命令
+        {
+            
             NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
             uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
             
-                    NSLog(@"command_type:%hhu",command_type);
+            NSLog(@"command_type:%hhu",command_type);
             
             switch (command_type) {
                 case 0:
                 {
-                // 更新了列表
+                    // 更新了列表
                     NSLog(@"列表更新了");
                     
-//                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-//                    [userDef setObject:data forKey:@"mediaDeliveryChange"];
-//                    
-//                    [userDef synchronize];//把数据同步到本地
-//                    
-//                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"mediaDeliveryChange",nil];
-//                    
+                    //                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                    //                    [userDef setObject:data forKey:@"mediaDeliveryChange"];
+                    //
+                    //                    [userDef synchronize];//把数据同步到本地
+                    //
+                    //                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"mediaDeliveryChange",nil];
+                    //
                     
                     
-//                    //创建通知
-//                    NSNotification *notification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-//                    //通过通知中心发送通知
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    //                    //创建通知
+                    //                    NSNotification *notification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+                    //                    //通过通知中心发送通知
+                    //                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
                     break;
                     
@@ -359,7 +631,7 @@
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
                     break;
-                
+                    
                 case 17:  //此处是获得资源信息
                 {
                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
@@ -371,14 +643,14 @@
                     
                     
                     int monitorApperCount ;
-                  NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+                    NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
                     monitorApperCount = [monitorApperCountStr intValue];
                     if (monitorApperCount == 0) {
                         //创建通知
                         NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification];
-                       
+                        
                         monitorApperCount = 1;
                         NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
                         [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
@@ -391,14 +663,14 @@
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     }
-                  
-                  
-                   
+                    
+                    
+                    
                     
                     
                 }
                     break;
-                     case 16:  //此处是停止视频播放
+                case 16:  //此处是停止视频播放
                 {
                     NSLog(@"*****停止视频播放");
                 }
@@ -407,15 +679,17 @@
                 default:
                     break;
             }
+            
         }
+            
         
         
     }
     
     
+    
+    }
     [self.socket readDataWithTimeout:30 tag:0];
 }
-
-
 
 @end

@@ -475,10 +475,11 @@
     NSData * dataLen = [[NSData alloc]init];
     dataLen = [tunerAllData subdataWithRange:NSMakeRange(27, 1)];
     
-    int value;
-    value = 0;
+//    int value;
+//    value = 0;
     NSLog(@"可能报错1");
-    [tunerAllData getBytes: &value length: sizeof(value)];   //获取总长度
+//    [tunerAllData getBytes: &value length: sizeof(value)];   //获取总长度
+      uint8_t value = [SocketUtils uint32FromBytes:tunerAllData];
     NSLog(@"可能报错2");
    
     for (int i = 0; i<11; i++) {
@@ -497,13 +498,14 @@
     NSLog(@"=======================test gettuner");
     //获取数据总长度
     NSData * dataLen = [[NSData alloc]init];
-    dataLen = [allTunerData subdataWithRange:NSMakeRange(27, 1)];
+    dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
     
     NSLog(@"datalen: %@",dataLen);
-    int value;
-    value = 0;
+//    int value;
+//    value = 0;
     NSLog(@"可能报错3");
-    [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
+//    [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
+      uint8_t value = [SocketUtils uint32FromBytes:dataLen];
    NSLog(@"可能报错4");
 //    [socketUtils uint16FromBytes:]
     //tuner的有效数据区
