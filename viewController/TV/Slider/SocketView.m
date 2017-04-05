@@ -562,9 +562,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     uname(&systemInfo);
     NSString * deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
     //iPhone
-    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
-    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
-    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+//    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+//    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+//    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
     if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
     if ([deviceString isEqualToString:@"iPhone3,2"])    return @"VerizoniPhone 4";
     if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
@@ -578,8 +578,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
     if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
     if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
+    if ([deviceString isEqualToString:@"iPhone8,4"])    return @"iPhoneSE";
     if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
-    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7s Plus";
+    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7 Plus";
     
     　return deviceString;
 }

@@ -35,6 +35,8 @@
     
     NSTimer *  refreshTimer ;  //定时刷新，暂定时间5秒
     
+    NSString * deviceString;
+    
 }
 @end
 
@@ -328,73 +330,237 @@
 {
     [self loadNumAnddelete];
     
+    
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]    ) {
+        NSLog(@"此刻是5s和4s 的大小");
+        
+        UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8+14, 325, 2, 40)];
+        verticalView1.layer.cornerRadius = 1.0;
+        verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView1];
+        
+        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1 -3, 325, 2, 40)];
+        verticalView2.layer.cornerRadius = 1.0;
+        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView2];
+        
+        UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 11, 325, 2, 40)];
+        verticalView3.layer.cornerRadius = 1.0;
+        verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView3];
+        
+
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]    || [deviceString isEqualToString:@"iPhone Simulator"] ) {
+        NSLog(@"此刻是6的大小");
+        
         UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8, 325, 2, 40)];
         verticalView1.layer.cornerRadius = 1.0;
         verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
         [colorImageView addSubview:verticalView1];
+        
+        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
+        verticalView2.layer.cornerRadius = 1.0;
+        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView2];
+        
+        UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2, 325, 2, 40)];
+        verticalView3.layer.cornerRadius = 1.0;
+        verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView3];
+        
+
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8, 325, 2, 40)];
+        verticalView1.layer.cornerRadius = 1.0;
+        verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView1];
+        
+        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
+        verticalView2.layer.cornerRadius = 1.0;
+        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView2];
+        
+        UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2, 325, 2, 40)];
+        verticalView3.layer.cornerRadius = 1.0;
+        verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
+        [colorImageView addSubview:verticalView3];
+    }
     
-    UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
-    verticalView2.layer.cornerRadius = 1.0;
-    verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
-    [colorImageView addSubview:verticalView2];
     
-    UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2, 325, 2, 40)];
-    verticalView3.layer.cornerRadius = 1.0;
-    verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
-    [colorImageView addSubview:verticalView3];
     
     
   
 }
 -(void)loadNumAnddelete  //加载那些全局的数字，等待刷新并且删除重新加载一遍
 {
-    liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft, 360, 142/2, 13)];
-    liveNumLab.text = @"TV Live";
-    liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
-    liveNumLab.font = FONT(13);
-    [colorImageView addSubview:liveNumLab];
+    deviceString = [GGUtil deviceVersion];
     
-    recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth , 360, 142/2, 13)];
-    recoderLab.text = @"Recoder";
-    recoderLab.textColor = RGBA(245, 245, 245, 0.65);
-    recoderLab.font = FONT(13);
-    [colorImageView addSubview:recoderLab];
+
     
-    timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
-    timeShiftLab.text = @"Time Shift";
-    timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-    timeShiftLab.font = FONT(13);
-    [colorImageView addSubview:timeShiftLab];
     
-    distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
-    distributeLab.text = @"Distribute";
-    distributeLab.textColor = RGBA(245, 245, 245, 0.65);
-    distributeLab.font = FONT(13);
-    [colorImageView addSubview:distributeLab];
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]   ) {
+        NSLog(@"此刻是5s和4s 的大小");
+       
+        
+        liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 360, 142/2, 13)];
+        liveNumLab.text = @"TV Live";
+        liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
+        liveNumLab.font = FONT(13);
+        [colorImageView addSubview:liveNumLab];
+        
+        
+        recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85, 360, 142/2, 13)];
+        recoderLab.text = @"Recoder";
+        recoderLab.textColor = RGBA(245, 245, 245, 0.65);
+        recoderLab.font = FONT(13);
+        [colorImageView addSubview:recoderLab];
+        
+        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(160, 360, 142/2, 13)];
+        timeShiftLab.text = @"Time Shift";
+        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+        timeShiftLab.font = FONT(13);
+        [colorImageView addSubview:timeShiftLab];
+        
+        //    distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
+        distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(240, 360, 142/2, 13)];
+        distributeLab.text = @"Distribute";
+        distributeLab.textColor = RGBA(245, 245, 245, 0.65);
+        distributeLab.font = FONT(13);
+        [colorImageView addSubview:distributeLab];
+        
+        //     liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
+         liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(35, liveNumLab.frame.origin.y-40, 16, 20)];
+        liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        liveNum_Lab.font = FONT(24);
+        [colorImageView addSubview:liveNum_Lab];
+        
+        //     recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
+          recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(100, liveNumLab.frame.origin.y-40, 16, 20)];
+        recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+        recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        recoder_Lab.font = FONT(24);
+        [colorImageView addSubview:recoder_Lab];
+        
+        //    timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
+         timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(180, liveNumLab.frame.origin.y-40, 16, 20)];
+        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        timeShift_Lab.font = FONT(24);
+        [colorImageView addSubview:timeShift_Lab];
+        
+        //    distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
+         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(260, liveNumLab.frame.origin.y-40, 16, 20)];
+        distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+        distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        distribute_Lab.font = FONT(24);
+        [colorImageView addSubview:distribute_Lab];
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft, 360, 142/2, 13)];
+        liveNumLab.text = @"TV Live";
+        liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
+        liveNumLab.font = FONT(13);
+        [colorImageView addSubview:liveNumLab];
+        
+        recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth , 360, 142/2, 13)];
+        recoderLab.text = @"Recoder";
+        recoderLab.textColor = RGBA(245, 245, 245, 0.65);
+        recoderLab.font = FONT(13);
+        [colorImageView addSubview:recoderLab];
+        
+        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
+        timeShiftLab.text = @"Time Shift";
+        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+        timeShiftLab.font = FONT(13);
+        [colorImageView addSubview:timeShiftLab];
+        
+        distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
+        distributeLab.text = @"Distribute";
+        distributeLab.textColor = RGBA(245, 245, 245, 0.65);
+        distributeLab.font = FONT(13);
+        [colorImageView addSubview:distributeLab];
+        
+        liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
+        liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        liveNum_Lab.font = FONT(24);
+        [colorImageView addSubview:liveNum_Lab];
+        
+        recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
+        recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+        recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        recoder_Lab.font = FONT(24);
+        [colorImageView addSubview:recoder_Lab];
+        
+        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
+        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        timeShift_Lab.font = FONT(24);
+        [colorImageView addSubview:timeShift_Lab];
+        
+        distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
+        distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+        distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        distribute_Lab.font = FONT(24);
+        [colorImageView addSubview:distribute_Lab];
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]     ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft, 360, 142/2, 13)];
+        liveNumLab.text = @"TV Live";
+        liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
+        liveNumLab.font = FONT(13);
+        [colorImageView addSubview:liveNumLab];
+        
+        recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth , 360, 142/2, 13)];
+        recoderLab.text = @"Recoder";
+        recoderLab.textColor = RGBA(245, 245, 245, 0.65);
+        recoderLab.font = FONT(13);
+        [colorImageView addSubview:recoderLab];
+        
+        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
+        timeShiftLab.text = @"Time Shift";
+        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+        timeShiftLab.font = FONT(13);
+        [colorImageView addSubview:timeShiftLab];
+        
+        distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
+        distributeLab.text = @"Distribute";
+        distributeLab.textColor = RGBA(245, 245, 245, 0.65);
+        distributeLab.font = FONT(13);
+        [colorImageView addSubview:distributeLab];
+        
+        liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
+        liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        liveNum_Lab.font = FONT(24);
+        [colorImageView addSubview:liveNum_Lab];
+        
+        recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
+        recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+        recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        recoder_Lab.font = FONT(24);
+        [colorImageView addSubview:recoder_Lab];
+        
+        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
+        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        timeShift_Lab.font = FONT(24);
+        [colorImageView addSubview:timeShift_Lab];
+        
+        distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
+        distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+        distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        distribute_Lab.font = FONT(24);
+        [colorImageView addSubview:distribute_Lab];
+        
+    }
     
-     liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
-    liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
-    liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
-    liveNum_Lab.font = FONT(24);
-    [colorImageView addSubview:liveNum_Lab];
-    
-     recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
-    recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
-    recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
-    recoder_Lab.font = FONT(24);
-    [colorImageView addSubview:recoder_Lab];
-    
-    timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
-    timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-    timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
-    timeShift_Lab.font = FONT(24);
-    [colorImageView addSubview:timeShift_Lab];
-    
-    distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
-    distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
-    distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
-    distribute_Lab.font = FONT(24);
-    [colorImageView addSubview:distribute_Lab];
     
 }
 -(void)loadScroll
@@ -895,7 +1061,7 @@
     type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
     
     NSString * clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
-    NSString * phoneModel =  [self deviceVersion];
+    NSString * phoneModel =  [GGUtil deviceVersion]; //[self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
     NSString* client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
     //实际情况下此处可做修改：
@@ -973,34 +1139,6 @@
 
 
 
-
-- (NSString*)deviceVersion
-{
-    // 需要#import "sys/utsname.h"
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString * deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-    //iPhone
-    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
-    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
-    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
-    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
-    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"VerizoniPhone 4";
-    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
-    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
-    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
-    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5C";
-    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5C";
-    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5S";
-    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
-    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6 Plus";
-    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
-    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
-    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
-    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7s Plus";
-    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7";
-    　return deviceString;
-}
 //************
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

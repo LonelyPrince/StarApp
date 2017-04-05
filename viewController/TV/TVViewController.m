@@ -66,6 +66,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     //为了防止[socket viewDidload]执行多次，在这里进行判断
     int viewDidloadHasRunBool;
+    
+    NSString * deviceString;
 }
 
 
@@ -602,6 +604,9 @@ UITableViewDelegate,UITableViewDataSource>
     
     //    self.navigationController.navigationBar.barTintColor = UIStatusBarStyleDefault;
     
+    deviceString = [GGUtil deviceVersion];
+  
+    
     //搜索按钮
     self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
     //    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
@@ -612,6 +617,20 @@ UITableViewDelegate,UITableViewDataSource>
     //    [topView bringSubviewToFront:self.searchBtn];
     [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick
     
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]  ) {
+        NSLog(@"此刻是5s和4s 的大小");
+       
+        self.searchBtn.frame = CGRectMake(searchBtnX-2, searchBtnY, searchBtnWidth *0.8533, searchBtnHeight *0.8533 );
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone Simulator"] ) {
+        NSLog(@"此刻是6的大小");
+        self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        self.searchBtn.frame = CGRectMake(searchBtnX+1, searchBtnY, searchBtnWidth *1.104, searchBtnHeight *1.104 );
+    }
     
     
     //视频播放

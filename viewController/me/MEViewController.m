@@ -43,7 +43,7 @@
     UIButton * btn;
     float historyBtn1_width ;
     float historyBtn2_width ;
-    
+    NSString * deviceString;
 }
 @property (nonatomic,assign)float allHistoryBtnHeight;
 @property (nonatomic,strong)UIScrollView * scroll;
@@ -476,374 +476,2342 @@
     
     
     
-    UIImage * image = [UIImage imageNamed:@"zOOm-Logo"];
-    UIImageView * channelImage = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
-    channelImage.image = image;
+   
     
     
-    UIImageView * channelImage2 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
-    channelImage2.image = image;
-    UIImageView * channelImage3 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
-    channelImage3.image = image;
-    UIImageView * channelImage4 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
-    channelImage4.image = image;
-    UIImageView * channelImage5 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
-    channelImage5.image = image;
+    deviceString = [GGUtil deviceVersion];
     
-    
-    //6
-    if (historyArr.count >5) {
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
         
-        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
-        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
-        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
-        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
-        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
-        
-        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-        NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+        UIImage * image = [UIImage imageNamed:@"placeholder"]; //@"zOOm-Logo"
         
         
-        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        [historyBtnPiece1 addSubview:channelImage];
+        UIImageView * channelImage = [[UIImageView alloc]init];
+        //    channelImage.image = image;
         
-        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
-        [historyBtnPiece2 addSubview:channelImage2];
+        channelImage.frame =  CGRectMake((106-30)/2, (50 - 30), 30, 30);
         
-        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
-        [historyBtnPiece3 addSubview:channelImage3];
         
-        historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
-        [historyBtnPiece4 addSubview:channelImage4];
         
-        historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
-        [historyBtnPiece5 addSubview:channelImage5];
-        //        [historyBtnPiece6 addSubview:channelImage];
+        UIImageView * channelImage2 = [[UIImageView alloc]initWithFrame:CGRectMake((106-30)/2, (50 - 30), 30, 30)];
+        channelImage2.image = image;
+        UIImageView * channelImage3 = [[UIImageView alloc]initWithFrame:CGRectMake((106-30)/2, (50 - 30), 30, 30)];
+        channelImage3.image = image;
+        UIImageView * channelImage4 = [[UIImageView alloc]initWithFrame:CGRectMake((106-30)/2, (50 - 30), 30, 30)];
+        channelImage4.image = image;
+        UIImageView * channelImage5 = [[UIImageView alloc]initWithFrame:CGRectMake((106-30)/2, (50 - 30), 30, 30)];
+        channelImage5.image = image;
         
-        [scroll addSubview:historyBtnPiece6];
-        //        [scroll addSubview:whiteView6];
-        [scroll addSubview:historyBtnPiece5];
-        [scroll addSubview:historyBtnPiece4];
-        [scroll addSubview:historyBtnPiece3];
-        [scroll addSubview:historyBtnPiece2];
-        [scroll addSubview:historyBtnPiece1];
+        //6
+        if (historyArr.count >5) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            
+            [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:whiteView6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        
+        if (historyArr.count ==5) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            [historyBtnPiece6 removeFromSuperview];
+            //         [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        if (historyArr.count ==4) {
+            NSLog(@"historyArr: %@",historyArr);
+            //        NSArray * testArr1 = historyArr[historyArr.count - 1 - 0];
+            //        NSLog(@"testArr1:%@",testArr1);
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            
+            
+            
+            
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            //
+            //        historyBtnPiece6 = nil;
+            //        historyBtnPiece5 = nil;
+            
+            //        [self addSixBtn];
+            //        [self addFiveBtn];
+            //       historyBtnPiece6 = nil;
+            
+            //        historyBtnPiece6.frame = historyBtnPiece5.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece5.bounds;
+            
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+            
+        }
+        if (historyArr.count ==3) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            //        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3];
+            //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            
+            //
+            //        historyBtnPiece6.frame = historyBtnPiece4.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece4.bounds;
+            
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+            
+        }
+        if (historyArr.count ==2) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            
+            ////        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_async(mainQueue,^{
+            ////            NSLog("MainQueue");
+            //            [historyBtnPiece5 removeFromSuperview];
+            //            [historyBtnPiece4 removeFromSuperview];
+            //            [historyBtnPiece6 removeFromSuperview];
+            //            [historyBtnPiece3 removeFromSuperview];
+            //        });
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            
+            //        historyBtnPiece6.frame = historyBtnPiece3.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece3.bounds;
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            //        [historyBtnPiece3 removeFromSuperview];
+            
+        }if (historyArr.count ==1) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            
+            
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [historyBtnPiece2 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            [whiteView3 removeFromSuperview];
+            //        historyBtnPiece6.frame = historyBtnPiece2.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece2.bounds;
+            //        [scroll addSubview:historyBtnPiece6];
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            [scroll addSubview:whiteView2];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            //        [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        
+        if (historyArr.count ==0) {
+            
+            //        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0];
+            //
+            //        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            //        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            //
+            //
+            //
+            //        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            //        [historyBtnPiece1 addSubview:channelImage];
+            
+            
+            //        historyBtnPiece6.frame = historyBtnPiece1.frame;
+            [historyBtnPiece6 removeFromSuperview];
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [historyBtnPiece2 removeFromSuperview];
+            [historyBtnPiece1 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            [whiteView3 removeFromSuperview];
+            [whiteView2 removeFromSuperview];
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            [scroll addSubview:whiteView2];
+            [scroll addSubview:whiteView1];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            //        [scroll addSubview:historyBtnPiece2];
+            //        [scroll addSubview:historyBtnPiece1];
+        }
+
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        UIImage * image = [UIImage imageNamed:@"placeholder"]; //@"zOOm-Logo"
+        
+        
+        UIImageView * channelImage = [[UIImageView alloc]init];
+        //    channelImage.image = image;
+        
+        channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+        
+        
+        
+        UIImageView * channelImage2 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+        channelImage2.image = image;
+        UIImageView * channelImage3 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+        channelImage3.image = image;
+        UIImageView * channelImage4 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+        channelImage4.image = image;
+        UIImageView * channelImage5 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
+        channelImage5.image = image;
+        
+        //6
+        if (historyArr.count >5) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            
+            [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:whiteView6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        
+        if (historyArr.count ==5) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            [historyBtnPiece6 removeFromSuperview];
+            //         [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        if (historyArr.count ==4) {
+            NSLog(@"historyArr: %@",historyArr);
+            //        NSArray * testArr1 = historyArr[historyArr.count - 1 - 0];
+            //        NSLog(@"testArr1:%@",testArr1);
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            
+            
+            
+            
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            //
+            //        historyBtnPiece6 = nil;
+            //        historyBtnPiece5 = nil;
+            
+            //        [self addSixBtn];
+            //        [self addFiveBtn];
+            //       historyBtnPiece6 = nil;
+            
+            //        historyBtnPiece6.frame = historyBtnPiece5.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece5.bounds;
+            
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+            
+        }
+        if (historyArr.count ==3) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            //        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3];
+            //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            
+            //
+            //        historyBtnPiece6.frame = historyBtnPiece4.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece4.bounds;
+            
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+            
+        }
+        if (historyArr.count ==2) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            
+            ////        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_async(mainQueue,^{
+            ////            NSLog("MainQueue");
+            //            [historyBtnPiece5 removeFromSuperview];
+            //            [historyBtnPiece4 removeFromSuperview];
+            //            [historyBtnPiece6 removeFromSuperview];
+            //            [historyBtnPiece3 removeFromSuperview];
+            //        });
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            
+            //        historyBtnPiece6.frame = historyBtnPiece3.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece3.bounds;
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            //        [historyBtnPiece3 removeFromSuperview];
+            
+        }if (historyArr.count ==1) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            
+            
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [historyBtnPiece2 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            [whiteView3 removeFromSuperview];
+            //        historyBtnPiece6.frame = historyBtnPiece2.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece2.bounds;
+            //        [scroll addSubview:historyBtnPiece6];
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            [scroll addSubview:whiteView2];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            //        [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        
+        if (historyArr.count ==0) {
+            
+            //        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0];
+            //
+            //        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            //        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            //
+            //
+            //
+            //        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            //        [historyBtnPiece1 addSubview:channelImage];
+            
+            
+            //        historyBtnPiece6.frame = historyBtnPiece1.frame;
+            [historyBtnPiece6 removeFromSuperview];
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [historyBtnPiece2 removeFromSuperview];
+            [historyBtnPiece1 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            [whiteView3 removeFromSuperview];
+            [whiteView2 removeFromSuperview];
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            [scroll addSubview:whiteView2];
+            [scroll addSubview:whiteView1];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            //        [scroll addSubview:historyBtnPiece2];
+            //        [scroll addSubview:historyBtnPiece1];
+        }
+ 
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6plus的大小");
+        
+        UIImage * image = [UIImage imageNamed:@"placeholder"]; //@"zOOm-Logo"
+        
+        
+        UIImageView * channelImage = [[UIImageView alloc]init];
+        //    channelImage.image = image;
+        
+        channelImage.frame =  CGRectMake((138-30)/2, (50 - 30), 30, 30);
+        
+        
+        
+        UIImageView * channelImage2 = [[UIImageView alloc]initWithFrame:CGRectMake((138-30)/2, (50 - 30), 30, 30)];
+        channelImage2.image = image;
+        UIImageView * channelImage3 = [[UIImageView alloc]initWithFrame:CGRectMake((138-30)/2, (50 - 30), 30, 30)];
+        channelImage3.image = image;
+        UIImageView * channelImage4 = [[UIImageView alloc]initWithFrame:CGRectMake((138-30)/2, (50 - 30), 30, 30)];
+        channelImage4.image = image;
+        UIImageView * channelImage5 = [[UIImageView alloc]initWithFrame:CGRectMake((138-30)/2, (50 - 30), 30, 30)];
+        channelImage5.image = image;
+        
+        //6
+        if (historyArr.count >5) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-30)/2, (50 - 30), 30, 30);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            
+            [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:whiteView6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        
+        if (historyArr.count ==5) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            [historyBtnPiece6 removeFromSuperview];
+            //         [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        if (historyArr.count ==4) {
+            NSLog(@"historyArr: %@",historyArr);
+            //        NSArray * testArr1 = historyArr[historyArr.count - 1 - 0];
+            //        NSLog(@"testArr1:%@",testArr1);
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            
+            
+            
+            
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            //
+            //        historyBtnPiece6 = nil;
+            //        historyBtnPiece5 = nil;
+            
+            //        [self addSixBtn];
+            //        [self addFiveBtn];
+            //       historyBtnPiece6 = nil;
+            
+            //        historyBtnPiece6.frame = historyBtnPiece5.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece5.bounds;
+            
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+            
+        }
+        if (historyArr.count ==3) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            //        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3];
+            //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            
+            //
+            //        historyBtnPiece6.frame = historyBtnPiece4.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece4.bounds;
+            
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+            
+        }
+        if (historyArr.count ==2) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            
+            ////        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_async(mainQueue,^{
+            ////            NSLog("MainQueue");
+            //            [historyBtnPiece5 removeFromSuperview];
+            //            [historyBtnPiece4 removeFromSuperview];
+            //            [historyBtnPiece6 removeFromSuperview];
+            //            [historyBtnPiece3 removeFromSuperview];
+            //        });
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            
+            //        historyBtnPiece6.frame = historyBtnPiece3.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece3.bounds;
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            //        [historyBtnPiece3 removeFromSuperview];
+            
+        }if (historyArr.count ==1) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            
+            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            
+            
+            
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [historyBtnPiece2 removeFromSuperview];
+            [historyBtnPiece6 removeFromSuperview];
+            
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            [whiteView3 removeFromSuperview];
+            //        historyBtnPiece6.frame = historyBtnPiece2.frame;
+            //        historyBtnPiece6.bounds = historyBtnPiece2.bounds;
+            //        [scroll addSubview:historyBtnPiece6];
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            [scroll addSubview:whiteView2];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            //        [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+        
+        if (historyArr.count ==0) {
+            
+            //        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0];
+            //
+            //        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            //        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            //
+            //
+            //
+            //        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            //        [historyBtnPiece1 addSubview:channelImage];
+            
+            
+            //        historyBtnPiece6.frame = historyBtnPiece1.frame;
+            [historyBtnPiece6 removeFromSuperview];
+            [historyBtnPiece5 removeFromSuperview];
+            [historyBtnPiece4 removeFromSuperview];
+            [historyBtnPiece3 removeFromSuperview];
+            [historyBtnPiece2 removeFromSuperview];
+            [historyBtnPiece1 removeFromSuperview];
+            [whiteView6 removeFromSuperview];
+            [whiteView5 removeFromSuperview];
+            [whiteView4 removeFromSuperview];
+            [whiteView3 removeFromSuperview];
+            [whiteView2 removeFromSuperview];
+            
+            [scroll addSubview:whiteView6];
+            [scroll addSubview:whiteView5];
+            [scroll addSubview:whiteView4];
+            [scroll addSubview:whiteView3];
+            [scroll addSubview:whiteView2];
+            [scroll addSubview:whiteView1];
+            //        [scroll addSubview:historyBtnPiece6];
+            //        [scroll addSubview:historyBtnPiece5];
+            //        [scroll addSubview:historyBtnPiece4];
+            //        [scroll addSubview:historyBtnPiece3];
+            //        [scroll addSubview:historyBtnPiece2];
+            //        [scroll addSubview:historyBtnPiece1];
+        }
+        
         
     }
     
-    if (historyArr.count ==5) {
-        
-        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
-        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
-        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
-        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
-        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
-        
-        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-        NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
-        
-        
-        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        [historyBtnPiece1 addSubview:channelImage];
-        
-        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
-        [historyBtnPiece2 addSubview:channelImage2];
-        
-        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
-        [historyBtnPiece3 addSubview:channelImage3];
-        
-        historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
-        [historyBtnPiece4 addSubview:channelImage4];
-        
-        historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
-        [historyBtnPiece5 addSubview:channelImage5];
-        //        [historyBtnPiece6 addSubview:channelImage];
-        [historyBtnPiece6 removeFromSuperview];
-        //         [scroll addSubview:historyBtnPiece6];
-        //        [scroll addSubview:whiteView6];
-        [scroll addSubview:whiteView6];
-        [scroll addSubview:historyBtnPiece5];
-        [scroll addSubview:historyBtnPiece4];
-        [scroll addSubview:historyBtnPiece3];
-        [scroll addSubview:historyBtnPiece2];
-        [scroll addSubview:historyBtnPiece1];
-        
-    }
-    if (historyArr.count ==4) {
-        NSLog(@"historyArr: %@",historyArr);
-        //        NSArray * testArr1 = historyArr[historyArr.count - 1 - 0];
-        //        NSLog(@"testArr1:%@",testArr1);
-        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
-        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
-        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
-        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
-        //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
-        
-        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-        NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
-        
-        //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-        //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
-        
-        
-        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        [historyBtnPiece1 addSubview:channelImage];
-        
-        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
-        [historyBtnPiece2 addSubview:channelImage2];
-        
-        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
-        [historyBtnPiece3 addSubview:channelImage3];
-        
-        historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
-        [historyBtnPiece4 addSubview:channelImage4];
-        
-        
-        
-        
-        
-        
-        
-        [historyBtnPiece5 removeFromSuperview];
-        [historyBtnPiece6 removeFromSuperview];
-        //
-        //        historyBtnPiece6 = nil;
-        //        historyBtnPiece5 = nil;
-        
-        //        [self addSixBtn];
-        //        [self addFiveBtn];
-        //       historyBtnPiece6 = nil;
-        
-        //        historyBtnPiece6.frame = historyBtnPiece5.frame;
-        //        historyBtnPiece6.bounds = historyBtnPiece5.bounds;
-        
-        
-        [scroll addSubview:whiteView6];
-        [scroll addSubview:whiteView5];
-        //        [scroll addSubview:historyBtnPiece6];
-        //        [scroll addSubview:historyBtnPiece5];
-        [scroll addSubview:historyBtnPiece4];
-        [scroll addSubview:historyBtnPiece3];
-        [scroll addSubview:historyBtnPiece2];
-        [scroll addSubview:historyBtnPiece1];
-        
-        
-    }
-    if (historyArr.count ==3) {
-        
-        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
-        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
-        NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
-        //        NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3];
-        //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
-        
-        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-        NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
-        
-        
-        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        [historyBtnPiece1 addSubview:channelImage];
-        
-        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
-        [historyBtnPiece2 addSubview:channelImage2];
-        
-        historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
-        [historyBtnPiece3 addSubview:channelImage3];
-        
-        
-        
-        [historyBtnPiece5 removeFromSuperview];
-        [historyBtnPiece4 removeFromSuperview];
-        [historyBtnPiece6 removeFromSuperview];
-        [whiteView6 removeFromSuperview];
-        [whiteView5 removeFromSuperview];
-        
-        //
-        //        historyBtnPiece6.frame = historyBtnPiece4.frame;
-        //        historyBtnPiece6.bounds = historyBtnPiece4.bounds;
-        
-        
-        [scroll addSubview:whiteView6];
-        [scroll addSubview:whiteView5];
-        [scroll addSubview:whiteView4];
-        
-        [scroll addSubview:historyBtnPiece3];
-        [scroll addSubview:historyBtnPiece2];
-        [scroll addSubview:historyBtnPiece1];
-        
-        
-    }
-    if (historyArr.count ==2) {
-        
-        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
-        NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
-        
-        
-        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        
-        NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-        NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
-        
-        
-        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        [historyBtnPiece1 addSubview:channelImage];
-        
-        historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
-        [historyBtnPiece2 addSubview:channelImage2];
-        
-        
-        ////        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        //        dispatch_async(mainQueue,^{
-        ////            NSLog("MainQueue");
-        //            [historyBtnPiece5 removeFromSuperview];
-        //            [historyBtnPiece4 removeFromSuperview];
-        //            [historyBtnPiece6 removeFromSuperview];
-        //            [historyBtnPiece3 removeFromSuperview];
-        //        });
-        [historyBtnPiece5 removeFromSuperview];
-        [historyBtnPiece4 removeFromSuperview];
-        [historyBtnPiece6 removeFromSuperview];
-        [historyBtnPiece3 removeFromSuperview];
-        [whiteView6 removeFromSuperview];
-        [whiteView5 removeFromSuperview];
-        [whiteView4 removeFromSuperview];
-        
-        //        historyBtnPiece6.frame = historyBtnPiece3.frame;
-        //        historyBtnPiece6.bounds = historyBtnPiece3.bounds;
-        
-        [scroll addSubview:whiteView6];
-        [scroll addSubview:whiteView5];
-        [scroll addSubview:whiteView4];
-        [scroll addSubview:whiteView3];
-        //        [scroll addSubview:historyBtnPiece6];
-        //        [scroll addSubview:historyBtnPiece5];
-        //        [scroll addSubview:historyBtnPiece4];
-        //        [scroll addSubview:historyBtnPiece3];
-        [scroll addSubview:historyBtnPiece2];
-        [scroll addSubview:historyBtnPiece1];
-        //        [historyBtnPiece3 removeFromSuperview];
-        
-    }if (historyArr.count ==1) {
-        
-        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
-        
-        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        
-        
-        
-        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        [historyBtnPiece1 addSubview:channelImage];
-        
-        
-        [historyBtnPiece5 removeFromSuperview];
-        [historyBtnPiece4 removeFromSuperview];
-        [historyBtnPiece3 removeFromSuperview];
-        [historyBtnPiece2 removeFromSuperview];
-        [historyBtnPiece6 removeFromSuperview];
-        
-        [whiteView6 removeFromSuperview];
-        [whiteView5 removeFromSuperview];
-        [whiteView4 removeFromSuperview];
-        [whiteView3 removeFromSuperview];
-        //        historyBtnPiece6.frame = historyBtnPiece2.frame;
-        //        historyBtnPiece6.bounds = historyBtnPiece2.bounds;
-        //        [scroll addSubview:historyBtnPiece6];
-        
-        [scroll addSubview:whiteView6];
-        [scroll addSubview:whiteView5];
-        [scroll addSubview:whiteView4];
-        [scroll addSubview:whiteView3];
-        [scroll addSubview:whiteView2];
-        //        [scroll addSubview:historyBtnPiece6];
-        //        [scroll addSubview:historyBtnPiece5];
-        //        [scroll addSubview:historyBtnPiece4];
-        //        [scroll addSubview:historyBtnPiece3];
-        //        [scroll addSubview:historyBtnPiece2];
-        [scroll addSubview:historyBtnPiece1];
-        
-    }
     
-    if (historyArr.count ==0) {
-        
-        //        NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0];
-        //
-        //        NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-        //        NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-        //
-        //
-        //
-        //        historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        [historyBtnPiece1 addSubview:channelImage];
-        
-        
-        //        historyBtnPiece6.frame = historyBtnPiece1.frame;
-        [historyBtnPiece6 removeFromSuperview];
-        [historyBtnPiece5 removeFromSuperview];
-        [historyBtnPiece4 removeFromSuperview];
-        [historyBtnPiece3 removeFromSuperview];
-        [historyBtnPiece2 removeFromSuperview];
-        [historyBtnPiece1 removeFromSuperview];
-        [whiteView6 removeFromSuperview];
-        [whiteView5 removeFromSuperview];
-        [whiteView4 removeFromSuperview];
-        [whiteView3 removeFromSuperview];
-        [whiteView2 removeFromSuperview];
-        
-        [scroll addSubview:whiteView6];
-        [scroll addSubview:whiteView5];
-        [scroll addSubview:whiteView4];
-        [scroll addSubview:whiteView3];
-        [scroll addSubview:whiteView2];
-        [scroll addSubview:whiteView1];
-        //        [scroll addSubview:historyBtnPiece6];
-        //        [scroll addSubview:historyBtnPiece5];
-        //        [scroll addSubview:historyBtnPiece4];
-        //        [scroll addSubview:historyBtnPiece3];
-        //        [scroll addSubview:historyBtnPiece2];
-        //        [scroll addSubview:historyBtnPiece1];
-    }
-}
+    
+    
+    
+    
+    
+    
+    
+    
+  }
 //1
 -(void)addFirstBtn
 {
@@ -856,12 +2824,46 @@
     //    [scroll addSubview:historyBtnPiece1];
     
     
-    historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
-    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-    historyNameLab1.textColor = [UIColor whiteColor];
-    historyNameLab1.font = FONT(12);
-    historyNameLab1.textAlignment = NSTextAlignmentCenter;
-    [historyBtnPiece1 addSubview:historyNameLab1];
+    
+    deviceString = [GGUtil deviceVersion];
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
+        
+        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab1.textColor = [UIColor whiteColor];
+        historyNameLab1.font = FONT(12);
+        historyNameLab1.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece1 addSubview:historyNameLab1];
+
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab1.textColor = [UIColor whiteColor];
+        historyNameLab1.font = FONT(12);
+        historyNameLab1.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece1 addSubview:historyNameLab1];
+
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab1.textColor = [UIColor whiteColor];
+        historyNameLab1.font = FONT(12);
+        historyNameLab1.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece1 addSubview:historyNameLab1];
+
+    }
+    
+    
+    
+    
+   
 }
 //2
 -(void)addSecondBtn
@@ -874,12 +2876,42 @@
     //    [scroll addSubview:historyBtnPiece2];
     
     
-    historyNameLab2= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
-    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-    historyNameLab2.textColor = [UIColor whiteColor];
-    historyNameLab2.font = FONT(12);
-    historyNameLab2.textAlignment = NSTextAlignmentCenter;
-    [historyBtnPiece2 addSubview:historyNameLab2];
+    
+    deviceString = [GGUtil deviceVersion];
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
+        
+        historyNameLab2= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab2.textColor = [UIColor whiteColor];
+        historyNameLab2.font = FONT(12);
+        historyNameLab2.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece2 addSubview:historyNameLab2];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        historyNameLab2= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab2.textColor = [UIColor whiteColor];
+        historyNameLab2.font = FONT(12);
+        historyNameLab2.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece2 addSubview:historyNameLab2];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        historyNameLab2= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab2.textColor = [UIColor whiteColor];
+        historyNameLab2.font = FONT(12);
+        historyNameLab2.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece2 addSubview:historyNameLab2];
+        
+    }
+    
     
 }
 //3
@@ -892,12 +2924,43 @@
     historyBtnPiece3.tag = 3;
     //    [scroll addSubview:historyBtnPiece3];
     
-    historyNameLab3= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
-    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-    historyNameLab3.textColor = [UIColor whiteColor];
-    historyNameLab3.font = FONT(12);
-    historyNameLab3.textAlignment = NSTextAlignmentCenter;
-    [historyBtnPiece3 addSubview:historyNameLab3];
+    
+    
+    deviceString = [GGUtil deviceVersion];
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
+        
+        historyNameLab3= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab3.textColor = [UIColor whiteColor];
+        historyNameLab3.font = FONT(12);
+        historyNameLab3.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece3 addSubview:historyNameLab3];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        historyNameLab3= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab3.textColor = [UIColor whiteColor];
+        historyNameLab3.font = FONT(12);
+        historyNameLab3.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece3 addSubview:historyNameLab3];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        historyNameLab3= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab3.textColor = [UIColor whiteColor];
+        historyNameLab3.font = FONT(12);
+        historyNameLab3.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece3 addSubview:historyNameLab3];
+        
+    }
+    
     
     
     
@@ -911,13 +2974,44 @@
     [historyBtnPiece4 setBackgroundImage:[UIImage imageNamed:@"矩形4"] forState:UIControlStateNormal];
     historyBtnPiece4.tag = 4;
     //    [scroll addSubview:historyBtnPiece4];
+   
     
-    historyNameLab4= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
-    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-    historyNameLab4.textColor = [UIColor whiteColor];
-    historyNameLab4.font = FONT(12);
-    historyNameLab4.textAlignment = NSTextAlignmentCenter;
-    [historyBtnPiece4 addSubview:historyNameLab4];
+    deviceString = [GGUtil deviceVersion];
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
+        
+        historyNameLab4= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab4.textColor = [UIColor whiteColor];
+        historyNameLab4.font = FONT(12);
+        historyNameLab4.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece4 addSubview:historyNameLab4];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        historyNameLab4= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab4.textColor = [UIColor whiteColor];
+        historyNameLab4.font = FONT(12);
+        historyNameLab4.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece4 addSubview:historyNameLab4];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        historyNameLab4= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab4.textColor = [UIColor whiteColor];
+        historyNameLab4.font = FONT(12);
+        historyNameLab4.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece4 addSubview:historyNameLab4];
+        
+    }
+    
+   
     
     
 }
@@ -931,12 +3025,44 @@
     historyBtnPiece5.tag = 5;
     //    [scroll addSubview:historyBtnPiece5];
     
-    historyNameLab5= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
-    //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-    historyNameLab5.textColor = [UIColor whiteColor];
-    historyNameLab5.font = FONT(12);
-    historyNameLab5.textAlignment = NSTextAlignmentCenter;
-    [historyBtnPiece5 addSubview:historyNameLab5];
+    
+    
+    deviceString = [GGUtil deviceVersion];
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
+        
+        historyNameLab5= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab5.textColor = [UIColor whiteColor];
+        historyNameLab5.font = FONT(12);
+        historyNameLab5.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece5 addSubview:historyNameLab5];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        historyNameLab5= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab5.textColor = [UIColor whiteColor];
+        historyNameLab5.font = FONT(12);
+        historyNameLab5.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece5 addSubview:historyNameLab5];
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        historyNameLab5= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
+        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        historyNameLab5.textColor = [UIColor whiteColor];
+        historyNameLab5.font = FONT(12);
+        historyNameLab5.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece5 addSubview:historyNameLab5];
+        
+    }
+    
+  
     
     
 }
@@ -950,14 +3076,12 @@
     historyBtnPiece6.tag = 6;
     //    [scroll addSubview:historyBtnPiece6];
     
-    historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(0, 45,historyBtnPiece6.bounds.size.width, 20)];
-    historyNameLab6.text = @"more";
-    historyNameLab6.textColor = [UIColor whiteColor];
-    historyNameLab6.font = FONT(16);
-    historyNameLab6.textAlignment = NSTextAlignmentCenter;
-    [historyBtnPiece6 addSubview:historyNameLab6];
-    
-    
+        historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(0, 45,historyBtnPiece6.bounds.size.width, 20)];
+        historyNameLab6.text = @"more";
+        historyNameLab6.textColor = [UIColor whiteColor];
+        historyNameLab6.font = FONT(16);
+        historyNameLab6.textAlignment = NSTextAlignmentCenter;
+        [historyBtnPiece6 addSubview:historyNameLab6];
     
 }
 -(void)addWhiteView
