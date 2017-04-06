@@ -52,6 +52,27 @@
     // Do any additional setup after loading the view from its nib.
     isOn = NO;
     [self loadNav];
+    
+    self.view.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
+    
+    [self.view addGestureRecognizer:singleTap];
+}
+-(BOOL) textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    
+    return YES;
+    
+}
+
+-(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer
+
+{
+    
+    [self.view endEditing:YES];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -216,15 +237,18 @@
         alertViewPswZero = [[UIAlertView alloc]initWithTitle:@"alert"message:@"Are you sure you do not set the router password?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
 //        [alertViewPswZero addButtonWithTitle:@"OK"];
         [alertViewPswZero show];
+        return;
     }
     if (pswText.text.length<8 &&pswText.text.length>=1) {
           alertViewPsw = [[UIAlertView alloc]initWithTitle:@"alert"message:@"Please enter 8 to 16 passwords" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertViewPsw addButtonWithTitle:@"OK"];
         [alertViewPsw show];
+        return;
     }else{
     NSLog(@"点击了save按钮11");
 //
-    NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
+//    NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
+        NSString * DMSIP = @"192.168.1.1";
     NSString * serviceIp;
     if (DMSIP != NULL ) {
         serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
@@ -269,7 +293,7 @@
             
             NSLog(@"点击了save按钮");
             
-            NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
+            NSString * DMSIP = @"192.168.1.1";
             NSString * serviceIp;
             if (DMSIP != NULL ) {
                 serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
@@ -289,8 +313,14 @@
             //     NSString *parameterString = [NSString stringWithFormat:@"name=%@&password=%@",name,psw];
             //    NSData *data = [parameterString dataUsingEncoding:NSUTF8StringEncoding];
             
-            NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameText.text,@"name",pswText.text,@"password",nil];//创建多个键 多个值
+//            pswText.text = @"12345678";
+//            pswText.text = @"none";
+            NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameText.text,@"name",@"none",@"password",nil];//创建多个键 多个值
+            
+            
+            
             NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
+            
             //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             
             NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
