@@ -82,6 +82,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 //@property (nonatomic, strong) id * TableScollTimer;
 @property (nonatomic, strong) UILabel * lab ;
+@property (nonatomic, strong) UIImageView * radioImageView ; //展示音频的默认图
 
 @property (nonatomic, strong) NSTimer * timerOfEventTime;
 
@@ -91,6 +92,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 @synthesize socketView1;
 @synthesize lab;
+@synthesize radioImageView; //展示音频的默认图
 @synthesize timerOfEventTime;
 //@synthesize tvViewController;
 #pragma mark - life cycle
@@ -123,6 +125,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self configLabNoPlayShow]; //如果视频无法播放，则显示sorry，this video cant play 的字样
         [self configIndicatorView]; //视频未播放加载钱，显示进度圈
+        
+        [self configRadioShow];  //判断当播放音频时，如果可以播放，则显示音频默认图
+        [self removeConfigRadioShow];  //如果不是音频节目，或者音频节目播放完成，则删除掉音频图
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
@@ -616,6 +621,108 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowNotic) name:@"noPlayShowNotic" object:nil];
 }
+
+//////如果是音频节目，则显示背景图
+-(void)configRadioShow
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"configRadioShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configRadioShowNotific) name:@"configRadioShowNotific" object:nil];
+}
+-(void)configRadioShowNotific
+{
+//    if (!radioImageView) {
+//        radioImageView = [[UIImageView alloc]init];
+//        radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
+////        [self.view addSubview:radioImageView];
+//        [self.view insertSubview:radioImageView atIndex:1];
+//    }
+//    radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+
+    NSLog(@"radioImageView.frame %@",NSStringFromCGRect(radioImageView.frame));
+    
+    UIDeviceOrientation orientation = self.getDeviceOrientation;
+    if (!self.isLocked)
+    {
+        switch (orientation) {
+            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                NSLog(@"home键在 下");
+                [self restoreOriginalScreen];
+                
+                
+                if (!radioImageView) {
+                    radioImageView = [[UIImageView alloc]init];
+                    radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
+                    //        [self.view addSubview:radioImageView];
+                    [self.view insertSubview:radioImageView atIndex:1];
+                }
+                radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+                
+//                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                
+                
+            }
+                break;
+            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                NSLog(@"home键在 上");
+                
+                if (!radioImageView) {
+                    radioImageView = [[UIImageView alloc]init];
+                    radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
+                    //        [self.view addSubview:radioImageView];
+                    [self.view insertSubview:radioImageView atIndex:1];
+                }
+                radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+            }
+                break;
+            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                NSLog(@"home键在 右");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if (!radioImageView) {
+                    radioImageView = [[UIImageView alloc]init];
+                    radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
+                    //        [self.view addSubview:radioImageView];
+                    [self.view insertSubview:radioImageView atIndex:1];
+                }
+                radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+            }
+                break;
+            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                NSLog(@"home键在 左");
+                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if (!radioImageView) {
+                    radioImageView = [[UIImageView alloc]init];
+                    radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
+                    //        [self.view addSubview:radioImageView];
+                    [self.view insertSubview:radioImageView atIndex:1];
+                }
+                radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }
+
+}
+-(void)removeConfigRadioShow  //删除掉音频图
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeConfigRadioShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeConfigRadioShowNotific) name:@"removeConfigRadioShowNotific" object:nil];
+}
+-(void)removeConfigRadioShowNotific
+{
+    [radioImageView removeFromSuperview];
+    radioImageView = nil;
+    radioImageView = NULL;
+}
 //播放活加载状态，不显示播放字样
 -(void)configLabNoPlayShowShut
 {
@@ -637,8 +744,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.subAudioTableView removeFromSuperview];
     self.subAudioTableView = NULL;
     self.subAudioTableView.alpha = 0;
+    [self removeConfigRadioShowNotific];  //删除音频图片的函数。，防止音频图片显示
     UIDeviceOrientation orientation = self.getDeviceOrientation;
-    
     if (!self.isLocked)
     {
         switch (orientation) {
@@ -648,8 +755,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if ( !lab) {
                     lab = [[UILabel alloc]init];
+                    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                    if (videoOrRadiostr != NULL) {
+                        lab.text = videoOrRadiostr;
+                    }else
+                    {
+                        lab.text = @"sorry, this video can't play";
+                    }
                     
-                    lab.text = @"sorry, this video can't play";
+                    
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
                     [self.view addSubview:lab];
@@ -671,7 +785,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 if ( !lab) {
                     lab = [[UILabel alloc]init];
                     
-                    lab.text = @"sorry, this video can't play";
+                    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                    if (videoOrRadiostr != NULL) {
+                        lab.text = videoOrRadiostr;
+                    }else
+                    {
+                        lab.text = @"sorry, this video can't play";
+                    }
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
                     [self.view addSubview:lab];
@@ -694,7 +814,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 if ( !lab) {
                     lab = [[UILabel alloc]init];
                     
-                    lab.text = @"sorry, this video can't play";
+                    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                    if (videoOrRadiostr != NULL) {
+                        lab.text = videoOrRadiostr;
+                    }else
+                    {
+                        lab.text = @"sorry, this video can't play";
+                    }
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
                     [self.view addSubview:lab];
@@ -718,7 +844,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 if ( !lab) {
                     lab = [[UILabel alloc]init];
                     
-                    lab.text = @"sorry, this video can't play";
+                    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                    if (videoOrRadiostr != NULL) {
+                        lab.text = videoOrRadiostr;
+                    }else
+                    {
+                        lab.text = @"sorry, this video can't play";
+                    }
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
                     [self.view addSubview:lab];
@@ -983,12 +1115,27 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
     [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
     
-    lab.text = @"sorry, this video can't play";
+    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+    if (videoOrRadiostr != NULL) {
+        lab.text = videoOrRadiostr;
+    }else
+    {
+        lab.text = @"sorry, this video can't play";
+    }
     lab.font = FONT(17);
     
     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
     CGSize size=[lab.text sizeWithAttributes:attrs];
     lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+    
+    
+    
+    if (radioImageView) {
+      radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+    }
+    
+    
+    
     
     //     self.videoControl.channelIdLab.hidden = NO;
     //     self.videoControl.channelNameLab.hidden = NO;
@@ -1151,13 +1298,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.lockButton.hidden = YES; //切换到竖屏模式，锁屏按钮消失
     [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];
     
-    lab.text = @"sorry, this video can't play";
+    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+    if (videoOrRadiostr != NULL) {
+        lab.text = videoOrRadiostr;
+    }else
+    {
+        lab.text = @"sorry, this video can't play";
+    }
     lab.font = FONT(17);
 
     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
     CGSize size=[lab.text sizeWithAttributes:attrs];
     lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
     
+    
+    if (radioImageView) {
+        radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+    }
     
     self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
     self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);

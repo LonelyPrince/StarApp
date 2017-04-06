@@ -1933,6 +1933,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     // 1.获得点击的视频dictionary数据
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+    
+    [self judgeNowISRadio:epgDicToSocket]; //此处价格方法，判断是不是音频
     progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
     
     [USER_DEFAULT setObject:[progressEPGArr copy] forKey:@"NowChannelEPG"];
@@ -2031,6 +2033,31 @@ UITableViewDelegate,UITableViewDataSource>
     [meview viewDidAppear:YES];
     [meview viewDidLoad];
     
+}
+-(void)judgeNowISRadio :(NSDictionary *)nowVideoDic  //判断当前播放时视频还是音频
+{
+    NSString * radioServiceType = [nowVideoDic objectForKey:@"service_type"];
+    if ([radioServiceType isEqualToString:@"4"]) { //视频是1  音频是4
+        NSLog(@"此时播放的是音频");
+        //发送通知，显示音频图片
+        //如果不能播放，则显示sorry , radio 不能播放
+        
+       
+        [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
+        [USER_DEFAULT setObject:@"sorry, this radio can't play" forKey:@"videoOrRadioTip"];
+        
+    }else { //视频是1  音频是4
+        NSLog(@"此时播放的是视频");
+        //发送通知，取消掉视频通知
+        
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"removeConfigRadioShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+        [USER_DEFAULT setObject:@"video" forKey:@"videoOrRadioPlay"];
+        [USER_DEFAULT setObject:@"sorry, this video can't play" forKey:@"videoOrRadioTip"];
+    }
 }
 //引导页
 - (void)viewWillAppear:(BOOL)animated{
@@ -2624,6 +2651,14 @@ UITableViewDelegate,UITableViewDataSource>
     playState = YES;
     [timerState invalidate];
     timerState = nil;
+    NSString * videoOrRadioPlaystr = [USER_DEFAULT objectForKey:@"videoOrRadioPlay"];
+    if ([videoOrRadioPlaystr isEqualToString:@"radio"]) {
+        //发送通知，添加radio图片
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"configRadioShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }
 }
 /// 媒体网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
