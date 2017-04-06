@@ -332,7 +332,7 @@
     }  else  if(indexPath.row == 1)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 10 Copy 2"];
-        cell.blackLab.text = @"Route setting";
+        cell.blackLab.text = @"Router setting";
         cell.grayLab.text = @"Router parameters setting";
         
     } else  if(indexPath.row == 2)

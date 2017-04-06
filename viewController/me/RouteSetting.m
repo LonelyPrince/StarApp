@@ -100,7 +100,7 @@
     
     UIColor *placeHolderColor = RGBA(192, 192, 192, 0.3);
     
-    self.navigationItem.title = @"Roter management";
+    self.navigationItem.title = @"Router management";
     UIImageView * routeImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-83.5)/2, 89, 83.5, 83.5)];
     routeImageView.image = [UIImage imageNamed:@"luyou"];
     
