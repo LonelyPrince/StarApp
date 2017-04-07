@@ -188,6 +188,7 @@
     
     NSString * serverStr =  [USER_DEFAULT   objectForKey:@"HMCServiceStr"];  //new server
     
+    NSLog(@"请求链接serverStr = %@",serverStr);
     NSString *urlString = [[NSString stringWithFormat:@"%@%@",serverStr, interfaceName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     //    NSString *urlString = [[NSString stringWithFormat:@"%@%@",kSDLB_SYS_SERVER, interfaceName] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

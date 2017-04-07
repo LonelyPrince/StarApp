@@ -27,4 +27,5 @@
 @property(nonatomic,strong) UIImageView  * HistogramImage;
 @property(nonatomic,strong) UILabel * nameLab;
 @property(nonatomic,strong) NSTimer * timer ;
+@property(nonatomic,assign) BOOL isRefreshScroll;
 @end

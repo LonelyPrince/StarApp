@@ -257,6 +257,7 @@
                                     
                                 case 17:  //此处是获得资源信息
                                 {
+                                    NSLog(@"akjsdbkabdbaskdbakjsbd");
                                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
                                     
@@ -280,30 +281,42 @@
                                     
                                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"resourceInfoData",nil];
                                     
+                                    NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
+                                    if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
+                                        int monitorApperCount ;
+                                        NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+                                        monitorApperCount = [monitorApperCountStr intValue];
+                                        NSLog(@"monitorApperCount %d",monitorApperCount);
+                                        if (monitorApperCount == 0) {
+                                            //创建通知
+                                            NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                                            //通过通知中心发送通知
+                                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                            
+                                            monitorApperCount = 1;
+                                            NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
+                                            [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+                                        }
+                                        else
+                                        {
+                                            //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
+                                            //创建通知
+                                            NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
+                                            //通过通知中心发送通知
+                                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                        }
+
+                                    }
                                     
-                                    int monitorApperCount ;
-                                    NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
-                                    monitorApperCount = [monitorApperCountStr intValue];
-                                    if (monitorApperCount == 0) {
+                                    //这里给device发送数据
+                                    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+                                    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
                                         //创建通知
-                                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+                                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
                                         //通过通知中心发送通知
                                         [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                        
-                                        monitorApperCount = 1;
-                                        NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
-                                        [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+                                        NSLog(@"akjsdbkabdbaskdbakjsbd11--");
                                     }
-                                    else
-                                    {
-                                        //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
-                                        //创建通知
-                                        NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
-                                        //通过通知中心发送通知
-                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                                    }
-                                    
-                                    
                                     
                                     
                                     
@@ -387,7 +400,7 @@
                             break;
                             
                         case 17:  //此处是获得资源信息
-                        {
+                        {NSLog(@"akjsdbkabdbaskdbakjsbd");
                             NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                             [userDef setObject:data forKey:@"dataResourceInfo"];
                             
@@ -396,9 +409,13 @@
                             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
                             
                             
+                            NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
+                            if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
+                            
                             int monitorApperCount ;
                             NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
                             monitorApperCount = [monitorApperCountStr intValue];
+                            NSLog(@"monitorApperCount %d",monitorApperCount);
                             if (monitorApperCount == 0) {
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
@@ -417,8 +434,16 @@
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification1];
                             }
-                            
-                            
+                            }
+                            //这里给device发送数据
+                            NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+                            if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
+                                //创建通知
+                                NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                NSLog(@"akjsdbkabdbaskdbakjsbd11--22");
+                            }
                             
                             
                             
@@ -502,7 +527,7 @@
                                     break;
                                     
                                 case 17:  //此处是获得资源信息
-                                {
+                                {NSLog(@"akjsdbkabdbaskdbakjsbd");
                                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
                                     
@@ -527,9 +552,14 @@
                                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"resourceInfoData",nil];
                                     
                                     
+                                    
+                                    NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
+                                    if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
+                                        
                                     int monitorApperCount ;
                                     NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
                                     monitorApperCount = [monitorApperCountStr intValue];
+                                    NSLog(@"monitorApperCount %d",monitorApperCount);
                                     if (monitorApperCount == 0) {
                                         //创建通知
                                         NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
@@ -548,9 +578,17 @@
                                         //通过通知中心发送通知
                                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
                                     }
+                                    }
                                     
-                                    
-                                    
+                                    //这里给device发送数据
+                                    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+                                    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
+                                        //创建通知
+                                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
+                                    }
                                     
                                     
                                 }
@@ -633,7 +671,7 @@
                     break;
                     
                 case 17:  //此处是获得资源信息
-                {
+                {NSLog(@"akjsdbkabdbaskdbakjsbd");
                     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                     [userDef setObject:data forKey:@"dataResourceInfo"];
                     
@@ -642,9 +680,13 @@
                     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
                     
                     
+                    
+                    NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
+                    if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
                     int monitorApperCount ;
                     NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
                     monitorApperCount = [monitorApperCountStr intValue];
+                    NSLog(@"monitorApperCount %d",monitorApperCount);
                     if (monitorApperCount == 0) {
                         //创建通知
                         NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
@@ -663,9 +705,17 @@
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     }
+                    }
                     
-                    
-                    
+                    //这里给device发送数据
+                    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+                    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    NSLog(@"akjsdbkabdbaskdbakjsbd11--44");
+                    }
                     
                     
                 }

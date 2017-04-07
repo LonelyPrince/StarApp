@@ -1320,7 +1320,7 @@ UITableViewDelegate,UITableViewDataSource>
     //    self.video.dicSubAudio = self.TVSubAudioDic;
     
     [self setStateNonatic];
-    [self playVideo];
+//    [self playVideo];
     NSLog(@"playVideo11 :");
     
     playState = NO;
@@ -1330,16 +1330,16 @@ UITableViewDelegate,UITableViewDataSource>
     [timerState invalidate];
     timerState = nil;
    NSLog(@"timerState:33 %@",timerState);
-    if (! playState ) {
-   NSLog(@"playState:2222222 %d",playState);
-//        NSInteger  timerIndex = 1;
-//        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
-//        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
-        //此处给禁止了
-        playNumCount = 1;
-        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
-        NSLog(@"timerState:11 %@",timerState);
-    }
+//    if (! playState ) {
+//   NSLog(@"playState:2222222 %d",playState);
+////        NSInteger  timerIndex = 1;
+////        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
+////        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
+//        //此处给禁止了
+//        playNumCount = 1;
+//        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+//        NSLog(@"timerState:11 %@",timerState);
+//    }
     
     
    
@@ -2550,10 +2550,10 @@ UITableViewDelegate,UITableViewDataSource>
 //    //注册通知
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
     //两者都响应一个方法
-    [NSThread sleepForTimeInterval:4];
-    if (playState == 0) {
-        [NSThread sleepForTimeInterval:1];
-    }
+//    [NSThread sleepForTimeInterval:4];
+//    if (playState == 0) {
+//        [NSThread sleepForTimeInterval:1];
+//    }
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];
     
     // 播放状态改变，可配合playbakcState属性获取具体状态

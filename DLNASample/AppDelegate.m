@@ -64,7 +64,7 @@
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
-      [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
+      [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
 //    self.ipString =  [GGUtil getIPAddress];
     self.ipString =  [GGUtil getIPAddress:YES];
 //     [USER_DEFAULT setObject:@"aa"  forKey:@"HMC_DMSIP"];   //这个可以删除，此处是做测试，默认的先让IP为aa
@@ -256,6 +256,9 @@ void UncaughtExceptionHandler(NSException *exception) {
                  NSLog(@"DMSIP:4444");
                 NSLog(@"DMSIP:此时%@",HMC_DMSIP);
                 
+                //存储当前的DMS信息（是个字典）
+                [USER_DEFAULT setObject:HMCDicList forKey:@"NowDMSDataSourceInfo"];
+                
                 //这里将service 地址本地存储
                 NSString * kSDLB_SYS_SERVERStr =[NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",HMC_DMSIP];    //服务器地址
                 [USER_DEFAULT setObject:kSDLB_SYS_SERVERStr  forKey:@"HMCServiceStr"];
@@ -309,6 +312,9 @@ void UncaughtExceptionHandler(NSException *exception) {
         }
         
     }
+    //存储总的DMS的DataSource信息
+    [USER_DEFAULT setObject:self.dataSource forKey:@"DMSDataSourceInfo"];
+    
 //    //此处可以判断DLNA的数据是不是变化
     newDmsArr = [self.dataSource copy];
 //    [self judgeDmsDevice:oldDmsArr newDms:newDmsArr];
@@ -390,6 +396,11 @@ void UncaughtExceptionHandler(NSException *exception) {
         NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        //创建通知
+        NSNotification *notificationDevice =[NSNotification notificationWithName:@"IPHasChangedDevice" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notificationDevice];
     }
     
 }

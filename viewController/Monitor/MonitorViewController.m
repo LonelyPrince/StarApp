@@ -92,7 +92,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    
+    [USER_DEFAULT setObject:@"MonitorView_Now" forKey:@"viewTOview"];
      [USER_DEFAULT setObject:[NSNumber numberWithInt:1] forKey:@"viewDidloadHasRunBool"];     // 此处做一次判断，判断是不是连接状态，如果是的，则执行live页面的时候不执行【socket viewDidload】
     
     if (isRefreshScroll) {
@@ -143,7 +143,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
+    [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];  //防止device页面接收
     
     
     //////////////////////////// 从socket返回数据
@@ -193,7 +193,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+    [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];  //防止device页面接收
     
     
   //////////////////////////// 从socket返回数据
@@ -263,6 +263,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];  //防止device页面接收
     
     //////////////////////////// 从socket返回数据
     //此处销毁通知，防止一个通知被多次调用
