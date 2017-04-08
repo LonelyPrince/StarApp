@@ -80,7 +80,7 @@
     NSDictionary *dic = @{NSFontAttributeName:font,
                           NSForegroundColorAttributeName: [UIColor blackColor]};
     self.navigationController.navigationBar.titleTextAttributes =dic;
-    self.navigationItem.title = @"ME";
+    self.navigationItem.title = @"Me";
     
     //    UINavigationController * MENavController = [[UINavigationController alloc]initWithRootViewController:self];
     //    MENavController.navigationBarHidden = YES;

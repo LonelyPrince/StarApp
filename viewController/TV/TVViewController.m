@@ -654,6 +654,7 @@ UITableViewDelegate,UITableViewDataSource>
 
 - (void)playVideo
 {
+    NSLog(@"playvideo 的线程");
     if (!self.videoController) {
         self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
 //         self.videoController.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
@@ -1320,7 +1321,16 @@ UITableViewDelegate,UITableViewDataSource>
     //    self.video.dicSubAudio = self.TVSubAudioDic;
     
     [self setStateNonatic];
-//    [self playVideo];
+    NSLog(@"playvideo 前面的线程");
+//    NSThread * thread1 = [[NSThread alloc]initWithTarget:self selector:@selector(runThread1) object:nil];
+//    [thread1 start];
+    [self playVideo];
+    
+//    [self performSelector:@selector(runThread1) withObject:nil afterDelay:2];
+    
+    
+    
+    NSLog(@"playvideo 后面的线程");
     NSLog(@"playVideo11 :");
     
     playState = NO;
@@ -1433,6 +1443,16 @@ UITableViewDelegate,UITableViewDataSource>
 //    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
 //    [alertview show];
     
+    
+}
+-(void)runThread1
+{ NSLog(@"playvideo 的--线程");
+    if (playState == NO) {
+        [self playVideo];
+        [self performSelector:@selector(runThread1) withObject:nil afterDelay:2];
+    }
+ 
+     NSLog(@"playvideo 的++线程");
     
 }
 -(void)progressRefresh
@@ -2091,7 +2111,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         
         
-//         [self playVideo];
+
         
         //        [self viewDidLoad];
         
@@ -2139,7 +2159,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         self.view.backgroundColor = [UIColor whiteColor];
         
-//        [self playVideo];
+
         
         
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -2243,7 +2263,7 @@ UITableViewDelegate,UITableViewDataSource>
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
-        //        [self playVideo];
+        
         
         
         //////

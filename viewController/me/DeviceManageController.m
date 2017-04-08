@@ -22,6 +22,8 @@
     MBProgressHUD * HUD;
     UIView *  netWorkErrorView;
     NSTimer *  refreshTimer ;  //定时刷新，暂定时间5秒
+//    BOOL tempBool1;
+//    BOOL tempBool2;
     
 }
 
@@ -240,6 +242,7 @@
 //获得有效数据的信息，不同tuner的信息
 -(void)getEffectiveData:(NSData *) allTunerData
 {
+    [self initData];
     NSLog(@"=======================test gettuner");
     //获取数据总长度
     NSData * dataLen = [[NSData alloc]init];
@@ -382,7 +385,7 @@
             
             
             //判断service_typedata,判断是不是分发，时移，录制
-            [self judgeTunerClass:serviceTypeData];
+            [self judgeTunerClass:serviceTypeData ];//flag:tempBool1];
             
             ////
             placeFigure  = placeFigure + 15+clientNameLen;
@@ -460,38 +463,78 @@
     
     
 }
--(void)judgeTunerClass:(NSData * )typeData
+-(void)judgeTunerClass:(NSData * )typeData // flag:(BOOL)flagBool
 {
+//        tempBool1 = !tempBool1; //yes
+//        tempBool2 = flagBool;
+//    if (tempBool2 == tempBool1) {
+//        tempBool2 = !tempBool2;   //no
+        int type;
+        //    [typeData getBytes: &type length: sizeof(type)];
+        //    NSLog(@"typedata :%@",typeData);
+        NSLog(@"type:%d",type);
+        type =  [SocketUtils uint16FromBytes: typeData];
+        NSLog(@"typedata :%@",typeData);
+        NSLog(@"type:%d",type);
+        switch (type) {
+            case INVALID_Service:
+                
+                break;
+            case LIVE_PLAY:
+                livePlayCount ++;
+                break;
+            case LIVE_RECORD:
+                liveRecordCount ++;
+                break;
+            case LIVE_TIME_SHIFT:
+                liveTimeShiteCount ++;
+                break;
+            case DELIVERY:
+                deliveryCount ++;
+                break;
+            case PUSH_VOD:
+                pushVodCount ++;
+                break;
+            default:
+                break;
+        }
+
+//    }else
+//    {   tempBool1 = !tempBool1;   //no
+////        tempBool2 = YES;
+//        [self initData];
+//        
+//        int type;
+//        //    [typeData getBytes: &type length: sizeof(type)];
+//        //    NSLog(@"typedata :%@",typeData);
+//        NSLog(@"type:%d",type);
+//        type =  [SocketUtils uint16FromBytes: typeData];
+//        NSLog(@"typedata :%@",typeData);
+//        NSLog(@"type:%d",type);
+//        switch (type) {
+//            case INVALID_Service:
+//                
+//                break;
+//            case LIVE_PLAY:
+//                livePlayCount ++;
+//                break;
+//            case LIVE_RECORD:
+//                liveRecordCount ++;
+//                break;
+//            case LIVE_TIME_SHIFT:
+//                liveTimeShiteCount ++;
+//                break;
+//            case DELIVERY:
+//                deliveryCount ++;
+//                break;
+//            case PUSH_VOD:
+//                pushVodCount ++;
+//                break;
+//            default:
+//                break;
+//        }
+//    }
     
-    int type;
-    //    [typeData getBytes: &type length: sizeof(type)];
-    //    NSLog(@"typedata :%@",typeData);
-    NSLog(@"type:%d",type);
-    type =  [SocketUtils uint16FromBytes: typeData];
-    NSLog(@"typedata :%@",typeData);
-    NSLog(@"type:%d",type);
-    switch (type) {
-        case INVALID_Service:
-            
-            break;
-        case LIVE_PLAY:
-            livePlayCount ++;
-            break;
-        case LIVE_RECORD:
-            liveRecordCount ++;
-            break;
-        case LIVE_TIME_SHIFT:
-            liveTimeShiteCount ++;
-            break;
-        case DELIVERY:
-            deliveryCount ++;
-            break;
-        case PUSH_VOD:
-            pushVodCount ++;
-            break;
-        default:
-            break;
-    }
     
 }
 -(void)initData
@@ -645,6 +688,8 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+//    tempBool1 = NO;
+//    tempBool2 = YES;
     [USER_DEFAULT setObject:@"DeviceView_Now" forKey:@"viewTOview"];
     int monitorApperCount = 0 ;
     NSString * monitorApperCountStr = [NSString stringWithFormat:@"%d",monitorApperCount];

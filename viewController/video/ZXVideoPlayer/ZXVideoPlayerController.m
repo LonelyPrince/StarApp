@@ -1723,7 +1723,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 - (void)setContentURL:(NSURL *)contentURL
 {
+    NSLog(@"self 线程1：%@",self);
+    NSLog(@"contentURL %@",contentURL);
     [self stop];
+//    NSString * abc = @"http://192.168.1.55/segment_delivery/delivery_0/play_tv2ip_0.m3u8";
+////    NSString * abc = @"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
+//    NSURL * urlabc = [NSURL URLWithString:abc];
+//    contentURL = urlabc;
     [super setContentURL:contentURL];
     NSLog(@"contentURL11 :%@",contentURL);
 //    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(crclePlayUrl) userInfo:nil repeats:YES];
@@ -1734,6 +1740,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    [self play];
     self.shouldAutoplay = YES;
     [self prepareToPlay];
+    NSLog(@"self 线程2：%@",self);
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
+//    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4];
 //    [self stop];
     //        self.contentURL = self.contentURL;
 //    [self play];
@@ -1753,6 +1762,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
      temptemp = 0;
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
 }
+
+//-(void)runThread1
+//{
+//    NSLog(@"线程");
+////    [self stop];
+//    self.shouldAutoplay = YES;
+//    [self play];
+////    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
+////    [self performSelector:@selector(runThread1) withObject:nil afterDelay:1];
+//}
 -(void)moviePlay
 {
     NSArray *events = self.accessLog.events;
