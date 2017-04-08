@@ -48,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Device management";
+    self.title = @"Equipment management";
     
     [super viewDidLoad];
     

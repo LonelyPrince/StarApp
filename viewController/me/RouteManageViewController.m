@@ -265,12 +265,13 @@
         
                 HUD.labelText = @"loading";
         NSLog(@"scroller : %@",scrollView);
+        NSLog(@"HUD : %@",HUD);
         [self.view addSubview:HUD];
                 
                 
             NSLog(@"请求开始的时候调用");
             }];
-    
+
 
     
     [request setCompletionBlock:^{

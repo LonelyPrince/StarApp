@@ -24,7 +24,7 @@
 @synthesize scrollView;
 @synthesize avCtrl;
 - (void)viewDidLoad {
-    self.title = @"Device management";
+    self.title = @"Equipment management";
     
     [super viewDidLoad];
     self.dataSource = [NSMutableArray array];
