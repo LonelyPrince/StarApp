@@ -222,7 +222,12 @@
                                 {
                                     // 更新了列表
                                     NSLog(@"列表更新了");
+//                                    mediaDeliveryUpdateNotific
                                     
+                                    //创建通知
+                                    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
                                 }
                                     break;
                                     
@@ -377,6 +382,11 @@
                             // 更新了列表
                             NSLog(@"列表更新了");
                             
+                            //创建通知
+                            NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+                            
                         }
                             break;
                             
@@ -493,6 +503,11 @@
                                 {
                                     // 更新了列表
                                     NSLog(@"列表更新了");
+                                    
+                                    //创建通知
+                                    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
                                     
                                 }
                                     break;
@@ -648,6 +663,11 @@
                     //                    NSNotification *notification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
                     //                    //通过通知中心发送通知
                     //                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    
+                    //创建通知
+                    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
                 }
                     break;
                     

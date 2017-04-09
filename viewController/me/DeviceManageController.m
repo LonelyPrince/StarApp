@@ -1046,7 +1046,7 @@
 }
 -(void)IPHasChanged
 {
-    
+    NSLog(@"列表更新了---IPHasChanged方法");
     [self viewWillAppear:YES];
 //    //    NSString * IPstrNow = [GGUtil getIPAddress];
 //    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
@@ -1067,5 +1067,7 @@
 //        [[NSNotificationCenter defaultCenter] postNotification:notification];
 //    }
     
+    //访问连接，看是否能访问，如果不能访问，则显示“the media center has disconnected”
+    //发送刷新列表的更新
 }
 @end

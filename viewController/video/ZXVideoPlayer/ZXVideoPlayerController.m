@@ -103,7 +103,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
-{
+{    NSLog(@"contentURL 11ZXVideo");
     self = [super init];
     if (self) {
         self.view.frame = frame;
@@ -1740,6 +1740,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    [self play];
     self.shouldAutoplay = YES;
     [self prepareToPlay];
+    [self play];
     NSLog(@"self 线程2：%@",self);
 //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
 //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4];
@@ -1847,13 +1848,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 
 - (void)setVideo:(ZXVideo *)video
-{
+{   NSLog(@"contentURL 22ZXVideo");
     _video = video;
     
     // 标题
     self.videoControl.titleLabel.text = self.video.title;
     // play url
     self.contentURL = [NSURL URLWithString:self.video.playUrl];
+    NSLog(@"contentURL 33ZXVideo");
     //当前节目名称
     self.videoControl.eventnameLabel.text = self.video.playEventName;
 //    self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
