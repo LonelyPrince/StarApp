@@ -397,6 +397,7 @@ UITableViewDelegate,UITableViewDataSource>
             [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
             [self.timer invalidate];
             self.timer = nil;  //将计时器也删除
+            NSLog(@"z在updateProgress里面调用 replaceEventNameNotific");
             [self removeProgressNotific];
         }
     }
@@ -812,6 +813,9 @@ UITableViewDelegate,UITableViewDataSource>
     }
     
     NSLog(@"contentURL 11TV");
+    NSLog(@"replaceEventNameNotific 这里是在全屏横屏的地方的地方");
+    NSLog(@"replaceEventNameNotific 这里是在全屏横屏的地方的地方  self.name %@",self.event_videoname);
+    NSLog(@"replaceEventNameNotific 这里是在全屏横屏的地方的地方  self.name %@",self.video.playEventName);
     self.videoController.video = self.video;
     NSLog(@"contentURL 22TV");
 }
@@ -1316,6 +1320,8 @@ UITableViewDelegate,UITableViewDataSource>
     
     
     self.video.playEventName = self.event_videoname;
+    NSLog(@"self.event_videoname 获取列表中 replaceEventNameNotific %@",self.event_videoname);
+    NSLog(@"replaceEventNameNotific self.video.playeventName :%@",self.video.playEventName);
     self.video.startTime = self.event_startTime;
     self.video.endTime = self.event_endTime;
     //    self.video.dicSubAudio = self.TVSubAudioDic;
@@ -1326,13 +1332,16 @@ UITableViewDelegate,UITableViewDataSource>
 ////    [thread1 start];
 //    NSLog(@"TVcontentURL play11");
 //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4]  ;
+    NSLog(@"byteValue1 TVTVTVTVTVTV");
     double delayInSeconds = 5;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
         NSLog(@"延时执行的2秒");
 //        [self runThread1];
+        NSLog(@"byteValue1 TVTVTVTVTVTV222");
         [self playVideo];
+        NSLog(@"byteValue1 TVTVTVTVTVTV333");
     });
 //    NSLog(@"TVcontentURL play22");
 //    
@@ -1410,7 +1419,7 @@ UITableViewDelegate,UITableViewDataSource>
         if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
             
             NSLog(@"此处可能报错，因为StarTime不为空 ");
-            
+            NSLog(@"z在getDataService里面调用 replaceEventNameNotific");
             [self removeProgressNotific];
         }else
         {
@@ -1427,7 +1436,7 @@ UITableViewDelegate,UITableViewDataSource>
             eventName2 = self.event_videoname;
             //        eventNameTemp ;
             eventNameTemp = eventName1;
-            if (!eventName2 == eventNameTemp) {
+            if (eventName2 != eventNameTemp) {
                 // 不同的节目   @"同一个节目";
             }else
             {
@@ -1453,8 +1462,12 @@ UITableViewDelegate,UITableViewDataSource>
                 NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                 
                 NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+                NSLog(@"replaceEventNameNotific 计算进度条的里面");
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
                 [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                
+                NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
+                
             }
         }
 //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
@@ -1528,6 +1541,7 @@ UITableViewDelegate,UITableViewDataSource>
 //}
 -(void)progressRefresh
 {
+    NSLog(@" 进入了一次progressRefresh  replaceEventNameNotific ");
     progressEPGArrIndex = progressEPGArrIndex +1;
     
     [self.topProgressView removeFromSuperview];
@@ -1536,11 +1550,22 @@ UITableViewDelegate,UITableViewDataSource>
     
     NSLog(@"progressRefresh");
 //    progressEPGArr
-    if (progressEPGArr.count<progressEPGArrIndex)
-    {}
+    NSLog(@"progressEPGArr.count %d",progressEPGArr.count);
+    if (progressEPGArr.count - 1<progressEPGArrIndex) //如果索引过大，则停止
+    {
+        NSLog(@"abcd");
+        //如果EPG的数组数少于索引数量，那么可能是超过一天的播放时长了，这里可以重新加载一次获取数据
+    }
     else{
+    NSLog(@"progressEPGArrIndex %d",progressEPGArrIndex);
+    if(progressEPGArrIndex <= progressEPGArr.count-1){
+        NSInteger abcd = progressEPGArr.count -1;
+        NSLog(@"abcd== %d",abcd);
+        if (1 <= -1) {
+            NSLog(@"func");
+        }
+    if(![[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"] isEqualToString:@""])
     
-    if(progressEPGArrIndex <= progressEPGArr.count-1 && ![[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"] isEqualToString:@""])  //如果索引过大，则停止
     {
         NSLog(@"progressEPGArrIndex lal :%d",progressEPGArrIndex);
         int tempIndex =progressEPGArrIndex;
@@ -1556,8 +1581,20 @@ UITableViewDelegate,UITableViewDataSource>
         
         
         self.event_videoname = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_name"];
+        //=======
+        //刷新节目名称
+//        self.video.playEventName = self.event_videoname;
+        self.video.playEventName = self.event_videoname;
+        NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+        NSLog(@"replaceEventNameNotific 的通知发出去了");
+        //======
+        
+        
         self.event_startTime = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_starttime"];
         self.event_endTime = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_endtime"];
+        //把节目时间通过通知发送出去
         
         //** 计算进度条
         if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
@@ -1571,6 +1608,7 @@ UITableViewDelegate,UITableViewDataSource>
             if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
                 
                 NSLog(@"此处可能报错，因为StarTime不为空 ");
+                NSLog(@"z在progressRefresh里面调用 replaceEventNameNotific");
                 [self removeProgressNotific];
             }else
             {
@@ -1605,6 +1643,7 @@ UITableViewDelegate,UITableViewDataSource>
                     NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
                     NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                     
+                    NSLog(@"pregressfresh进度条的地方replaceEventNameNotific");
                     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
                     [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
                 }
@@ -1629,6 +1668,15 @@ UITableViewDelegate,UITableViewDataSource>
             
         }
 
+    }
+    else
+    {
+        [self.topProgressView removeFromSuperview];
+        [self.timer invalidate];
+        self.timer = nil;
+        return;
+        //        [self removeProgressNotific];
+    }
     }else
     {
         [self.topProgressView removeFromSuperview];
@@ -1653,19 +1701,35 @@ UITableViewDelegate,UITableViewDataSource>
 //    [self.timer invalidate];
 //    self.timer = nil;
 
-    //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
-    NSInteger endTime =[self.event_endTime intValue ];
-    //                NSInteger startTime =[self.event_startTime intValue ];
-    NSDate *senddate = [NSDate date];
+  
     
-//    NSLog(@"date1时间戳 = %ld",time(NULL));
-    NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
-    NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+    if (self.event_endTime == NULL ) {
+        [self.topProgressView removeFromSuperview];
+        [self.timer invalidate];
+        self.timer = nil;
+    }else
+    {
+        //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+        NSInteger endTime =[self.event_endTime intValue ];
+        //                NSInteger startTime =[self.event_startTime intValue ];
+        NSDate *senddate = [NSDate date];
+        
+        //    NSLog(@"date1时间戳 = %ld",time(NULL));
+        NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
+        NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+        
+        //    NSLog(@"endTimeCutStartTime :%d",endTimeCutStartTime);
+        //    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+        
+        NSLog(@" 删除进度条的地方replaceEventNameNotific");
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+        [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+    }
     
-//    NSLog(@"endTimeCutStartTime :%d",endTimeCutStartTime);
-//    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-    [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+    
+    
+   
     
 }
 //-(void)getAndSetSubLanguage {
@@ -2025,6 +2089,7 @@ UITableViewDelegate,UITableViewDataSource>
     // 1.获得点击的视频dictionary数据
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
     
+//    [self storeNowDicForEventName :epgDicToSocket]; //epgDicToSocket是当前正在播放的节目信息，将他存储起来，用作切换eventName
     [self judgeNowISRadio:epgDicToSocket]; //此处价格方法，判断是不是音频
     progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
     
@@ -2125,6 +2190,25 @@ UITableViewDelegate,UITableViewDataSource>
     [meview viewDidLoad];
     
 }
+//-(void)storeNowDicForEventName :(NSDictionary *)Nowdic  //存储名称和时间，时间到了刷新名称
+//{
+//    
+//    NSArray * epg_infoArr = [Nowdic objectForKey:@"epg_info"];
+//    //发送通知
+//    
+//    NSMutableArray * epg;
+//    for (int i = 0; i<epg_infoArr.count; i++) {
+////        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+////        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//    }
+////    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+////    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+////    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+//    
+//    //[USER_DEFAULT setObject:Nowdic forKey:@"NowDicForEventName"];
+//    
+//    
+//}
 -(void)judgeNowISRadio :(NSDictionary *)nowVideoDic  //判断当前播放时视频还是音频
 {
     NSString * radioServiceType = [nowVideoDic objectForKey:@"service_type"];
@@ -2576,7 +2660,7 @@ UITableViewDelegate,UITableViewDataSource>
     NSLog(@"history Arr6: %@",arrHistoryNow[arrHistoryNow.count -1][0]);  //历史中正在播放的第一个节目
     NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
     
-    
+    BOOL allisNO = YES ; //表示当前播放的节目不存在新的列表中，证明节目被刷新没了，所以需要重新播放第一个节目
     for (int i = 0; i<self.dicTemp.count; i++) {
         [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
         NSLog(@"i - 1%d",(i));
@@ -2595,11 +2679,12 @@ UITableViewDelegate,UITableViewDataSource>
         NSString * newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
         
         if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
-            //有这个节目不做处理
+            //证明节目存在，不需要刷新
          NSLog(@"aaabbbb");
+            allisNO = NO;
         }
         else{
-            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
             NSLog(@"asdasdasdasdasdasdasdasdasdasdas");
         }
         
@@ -2613,6 +2698,13 @@ UITableViewDelegate,UITableViewDataSource>
 //            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
 //            NSLog(@"asdasdasdasdasdasdasdasdasdasdas");
 //        }
+    }
+    if (allisNO == NO) {
+        NSLog(@"不刷新");
+    }else
+    {
+    //刷新
+        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
     }
 }
 -(void)allCategorysBtnNotific
@@ -3181,6 +3273,7 @@ UITableViewDelegate,UITableViewDataSource>
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+    NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
     self.TVSubAudioDic = [[NSDictionary alloc]init];

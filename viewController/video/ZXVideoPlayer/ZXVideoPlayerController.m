@@ -44,6 +44,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     CGSize sizeEventName;
     int64_t strBytesTemp ;
     int64_t temptemp ;
+    
+    
+    int64_t byte;
+    int64_t byteValue1;   //视频缓存1
+    int64_t byteValue2;   //视频缓存2
 }
 
 
@@ -1762,8 +1767,56 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
      strBytesTemp = 0 ;
      temptemp = 0;
     [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
-}
+    
+//    NSLog(@"byteValue1 ZXZXZXXZ 111");
+//    double delayInSeconds = 5;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"延时执行的2秒");
+//       NSLog(@"byteValue1 ZXZXZXXZ 222");
+//                [self judgeVideoStop];
+//        NSLog(@"byteValue1 ZXZXZXXZ 333");
+//    });
+//    
 
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
+//        [self performSelector:@selector(playplay) withObject:nil afterDelay:2];
+}
+-(void)playplay
+{
+//    [self stop];
+//    [self pause];
+      NSLog(@"lalalal");
+    self.shouldAutoplay = YES;
+    [self prepareToPlay];
+    [self play];
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
+//    [self performSelector:@selector(playplay) withObject:nil afterDelay:2];
+}
+-(void)judgeVideoStop
+{   NSLog(@"byteValue1 ZXZXZXXZ 444");
+    byteValue1 = byte;
+    NSLog(@" byte %lld",byte);
+    
+    double delayInSeconds = 2;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"延时执行的2秒");
+        //        [self runThread1];
+        byteValue2 = byte;
+        NSLog(@"byteValue1 %lld",byteValue1);
+        NSLog(@"byteValue2 %lld",byteValue2);
+        if ((float)byteValue2 / (1024 * 1024 * 1024) == (float)byteValue1 / (1024 * 1024 * 1024)) {
+            NSLog(@"byteValue1 ZXZXZXXZ 555");
+            [self play];
+            NSLog(@"byteValue1 ZXZXZXXZ 666");
+        }
+    });
+    
+    
+}
 //-(void)runThread1
 //{
 //    NSLog(@"线程");
@@ -1792,7 +1845,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"currentEvent %@",currentEvent);
         double byts = currentEvent.indicatedBitrate;
         NSLog(@"byts %f",byts);
-        int64_t byte = currentEvent.numberOfBytesTransferred;
+         byte = currentEvent.numberOfBytesTransferred;
         NSLog(@"byte %d",byte);
         int64_t bytes = currentEvent.numberOfBytesTransferred >> 10;
         NSLog(@"bytes %d",bytes);
@@ -1815,7 +1868,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [bytesS setString:@""];
             [bytesS appendFormat:@"total = %d M", bytes];
         }
-        NSLog(@"playstat ===byte = %f M bytes = %lld", (float)byte / (1024 * 1024), bytes);
+        NSLog(@"playstat ===byte = %f M bytes = %lld", (float)byte / (1024 * 1024 * 1024), bytes);
+        NSLog(@"byte :%f",byte);
+        
+//        byteValue1 = byte;
+        
+//       int a =
     }
 }
 -(void)crclePlayUrl
@@ -1860,7 +1918,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.eventnameLabel.text = self.video.playEventName;
 //    self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
 //     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
-    
+    [self newReplaceEventNameNotific];
     self.videoControl.channelIdLab.text = self.video.channelId;
     
     self.videoControl.channelNameLab.text = self.video.channelName;
@@ -1875,7 +1933,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
 }
-
+-(void)newReplaceEventNameNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    刷新节目名称的通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"replaceEventNameNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replaceEventNameNotific) name:@"replaceEventNameNotific" object:nil];
+}
+-(void)replaceEventNameNotific
+{
+    self.videoControl.eventnameLabel.text = self.video.playEventName;
+}
 -(void)setEventTime
 {
     float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
