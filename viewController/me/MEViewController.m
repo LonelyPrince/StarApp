@@ -3159,32 +3159,50 @@
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr
 {
     NSInteger tagIndex = [sender tag];
+    if (tagIndex == 6) {
+        //进入历史界面
+        //    self.tableView.editing = YES;
+        //跳转到历史界面
+        self.historyView = [[HistoryViewController alloc]init];
+        //        [self presentModalViewController:self.routeView animated:YES];
+        [self.navigationController pushViewController:self.historyView animated:YES];
+        
+        
+        
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        self.historyView.navigationItem.leftBarButtonItem = myButton;
+    }else
+    {
+        NSArray * touchArr = historyArr[historyArr.count - tagIndex];
+        NSLog(@"touchArr：%@",touchArr);
+        //    [self touchToSee :touchArr];
+        
+        
+        NSInteger row = [touchArr[2] intValue];
+        NSDictionary * dic = touchArr [3];
+        
+        
+        //    self.tvViewController = [[TVViewController alloc]init];
+        //    [self.tvViewController touchSelectChannel:row diction:dic];
+        ////    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
+        //将整形转换为number
+        NSNumber * numIndex = [NSNumber numberWithInt:row];
+        
+        //添加 字典，将label的值通过key值设置传递
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        //    [self.navigationController popViewControllerAnimated:YES];
+        //    [self.navigationController popToViewController:_tvViewController animated:YES];
+        //    [self.navigationController pushViewController:_tvViewController animated:YES];
+        [self.tabBarController setSelectedIndex:1];
+
+    }
     
-    NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-    NSLog(@"touchArr：%@",touchArr);
-    //    [self touchToSee :touchArr];
-    
-    
-    NSInteger row = [touchArr[2] intValue];
-    NSDictionary * dic = touchArr [3];
-    
-    
-    //    self.tvViewController = [[TVViewController alloc]init];
-    //    [self.tvViewController touchSelectChannel:row diction:dic];
-    ////    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
-    //将整形转换为number
-    NSNumber * numIndex = [NSNumber numberWithInt:row];
-    
-    //添加 字典，将label的值通过key值设置传递
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-    //创建通知
-    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    //    [self.navigationController popViewControllerAnimated:YES];
-    //    [self.navigationController popToViewController:_tvViewController animated:YES];
-    //    [self.navigationController pushViewController:_tvViewController animated:YES];
-    [self.tabBarController setSelectedIndex:1];
 }
 
 @end

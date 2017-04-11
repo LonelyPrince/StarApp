@@ -55,7 +55,7 @@
     _currentIndex = 0;
     _textRectArray = [NSMutableArray arrayWithCapacity:_textArray.count];
     
-    self.offsetX = 300;
+    self.offsetX =  0; //300;
     self.internalWidth = KSelfWith / 3;
     self.speed = 0.1f;
     self.orientation = RollingOrientationNone;
@@ -149,8 +149,18 @@
 }
 
 -(void)startTimer{
-    _timer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    [self timerAction:0];
+    double delayInSeconds = 1;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            NSLog(@"延时执行的1秒");
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+            [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+        });
+//    _timer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(timerAction:) userInfo:nil repeats:YES];
+//    [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    
 }
 
 -(void)pauseTimer{
@@ -159,7 +169,7 @@
 //    }
     [_timer invalidate];
     _timer = nil;
-    [self startTimer];
+//    [self startTimer];
     
     self.offsetX = 300 ;
     
@@ -178,8 +188,8 @@
     
     NSInteger sign; //sign for From Left To Right or From Right To Left.
     sign = (self.orientation == RollingOrientationLeft) ? 1 : -1;
-    self.offsetX =  self.offsetX - sign * self.speed;   //frame.origin.X of first Rect
-    
+    self.offsetX =  self.offsetX - sign * 0.4*sqrtf(sqrtf(sqrtf(self.speed))) ;   //frame.origin.X of first Rect
+    NSLog(@"self.offsetX== %f",self.offsetX);
     // Next Label's OffsetX:
     // There is always internalWith's distance between Two Labels in Width.
     // Like : [firstLabel][internalWidth][lastLabel] or Left-side right
