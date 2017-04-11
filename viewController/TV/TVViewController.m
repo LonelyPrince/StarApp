@@ -2780,13 +2780,13 @@ UITableViewDelegate,UITableViewDataSource>
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-//    self.video.playUrl = @"";
+    self.video.playUrl = @"";
 //    [self playVideo];
     [self.videoController stop];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-//    self.video.playUrl = @"";
+    self.video.playUrl = @"";
 //    [self playVideo];
     [self.videoController stop];
 }

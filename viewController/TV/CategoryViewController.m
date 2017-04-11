@@ -65,13 +65,20 @@
     scroll.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroll];
     
-        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
+//        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
+    if (categorysArr.count/3 == 0) {
+        scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (categorysArr.count/3)*(SCREEN_WIDTH/3));
+    }else
+    {
+    scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (categorysArr.count/3)*(SCREEN_WIDTH/3)+(SCREEN_WIDTH/3));
+    }
+    
 //    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216);
     //    scroll.pagingEnabled=YES;
     scroll.showsVerticalScrollIndicator=NO;
     scroll.showsHorizontalScrollIndicator=NO;
     scroll.delegate=self;
-    scroll.bounces=NO;
+    scroll.bounces=YES;
 }
 
 -(void)loadBtn
