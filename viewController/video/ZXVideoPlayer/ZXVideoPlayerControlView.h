@@ -72,7 +72,9 @@
 ////列表频道按钮
 @property (nonatomic, strong, readwrite) UIButton *channelListBtn;
 ////节目时长label
-@property (nonatomic, strong, readwrite) UILabel *eventTimeLab;
+//@property (nonatomic, strong, readwrite) UILabel *eventTimeLab;
+@property (nonatomic, strong, readwrite) UILabel *eventTimeLabNow; //当前时长
+@property (nonatomic, strong, readwrite) UILabel *eventTimeLabAll;  //总时长
 
 ////频道号label
 @property (nonatomic, strong, readwrite) UILabel *channelIdLab;

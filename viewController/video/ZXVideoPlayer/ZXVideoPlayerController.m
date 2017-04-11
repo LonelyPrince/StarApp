@@ -49,6 +49,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int64_t byte;
     int64_t byteValue1;   //视频缓存1
     int64_t byteValue2;   //视频缓存2
+    
 }
 
 
@@ -396,7 +397,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.subtBtn.hidden = YES;
     self.videoControl.audioBtn.hidden = YES;
     self.videoControl.channelListBtn.hidden = YES;
-    self.videoControl.eventTimeLab.hidden = YES;
+    self.videoControl.eventTimeLabNow.hidden = YES;
+    self.videoControl.eventTimeLabAll.hidden = YES;
     
     
     //    self.videoControl.backButton.hidden = YES;
@@ -1114,7 +1116,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.subtBtn.hidden = NO;
     self.videoControl.audioBtn.hidden = NO;
     self.videoControl.channelListBtn.hidden = NO;
-    self.videoControl.eventTimeLab.hidden = NO;
+    self.videoControl.eventTimeLabNow.hidden = NO;
+    self.videoControl.eventTimeLabAll.hidden = NO;
     self.videoControl.backButton.hidden = NO;
     
     self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
@@ -1297,7 +1300,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.subtBtn.hidden = YES;
     self.videoControl.audioBtn.hidden = YES;
     self.videoControl.channelListBtn.hidden = YES;
-    self.videoControl.eventTimeLab.hidden = YES;
+//    self.videoControl.eventTimeLab.hidden = YES;
+    self.videoControl.eventTimeLabNow.hidden = YES;
+    self.videoControl.eventTimeLabAll.hidden = YES;
     self.videoControl.eventnameLabel.hidden = NO;
     
     self.videoControl.lockButton.hidden = YES; //切换到竖屏模式，锁屏按钮消失
@@ -1973,7 +1978,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
     
-    self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+  
+    self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+    self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+  
+    
 }
 -(void)configTimerOfEventTimeNotific
 {
@@ -2052,7 +2061,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             }
             else{
                 NSLog(@"nowTime nowTime :%@",nowTime);
-                self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+//                self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+                self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+                self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
             }
             
         }

@@ -22,6 +22,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     BOOL showStatus;
     BOOL islockShowing;
     YFRollingLabel *_label;
+    NSString * deviceString;
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property (nonatomic, strong) UIView *topBar;
@@ -80,7 +81,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self.bottomBar addSubview:self.subtBtn];
         [self.bottomBar addSubview:self.audioBtn];
         [self.bottomBar addSubview:self.channelListBtn];
-        [self.bottomBar addSubview:self.eventTimeLab];
+//        [self.bottomBar addSubview:self.eventTimeLab];
+        [self.bottomBar addSubview:self.eventTimeLabNow];
+        [self.bottomBar addSubview:self.eventTimeLabAll];
         
         
         
@@ -101,7 +104,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.subtBtn.hidden = YES;
         self.audioBtn.hidden =YES;
         self.channelListBtn.hidden = YES;
-        self.eventTimeLab.hidden = YES;
+//        self.eventTimeLab.hidden = YES;
+        self.eventTimeLabNow.hidden = YES;
+        self.eventTimeLabAll.hidden = YES;
         
         //        [self.bottomBar addSubview:self.progressSlider];
         //        [self.bottomBar addSubview:self.timeLabel];
@@ -203,14 +208,63 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
     self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
     
-    self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
     
-    self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-    self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-    self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
-    self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
     
-    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+    
+    
+    deviceString = [GGUtil deviceVersion];
+    if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是5s和4s的大小");
+        
+//        self.eventTimeLab.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+        self.eventTimeLabNow.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.eventTimeLabAll.frame = CGRectMake(128-10+5+66, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+        
+        self.nextChannelButton.frame = CGRectMake(72-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-2+10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-2+10, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-2+5, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+        
+    }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        NSLog(@"此刻是6的大小");
+        
+        self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.eventTimeLabAll.frame = CGRectMake(134+77, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+        
+        self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+        
+    }
+    else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  ) {
+        NSLog(@"此刻是6的大小");
+        
+        self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.eventTimeLabAll.frame = CGRectMake(134+80, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+        
+        self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+        
+    }else{
+//    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+        self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.eventTimeLabAll.frame = CGRectMake(134+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+        
+        self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+    }
+    
+    
+    
     
     //*********
     self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
@@ -728,19 +782,82 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _channelListBtn;
     
 }
+/////节目时间
+//- (UILabel *)eventTimeLab
+//{
+//    
+//    if (!_eventTimeLab) {
+//        _eventTimeLab = [[UILabel alloc] init];
+//        //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
+//        _eventTimeLab.text = @"08:00 | 30:00 " ;
+//        _eventTimeLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
+//        
+//        deviceString = [GGUtil deviceVersion];
+//        if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+//            NSLog(@"此刻是5s和4s的大小");
+//            
+//        _eventTimeLab.font = [UIFont systemFontOfSize:15];
+//            
+//        }else{
+//        _eventTimeLab.font = [UIFont systemFontOfSize:18];
+//        }
+//        
+//        
+//        
+//    }
+//    return _eventTimeLab;
+//    
+//}
 ///节目时间
-- (UILabel *)eventTimeLab
+- (UILabel *)eventTimeLabNow
 {
     
-    if (!_eventTimeLab) {
-        _eventTimeLab = [[UILabel alloc] init];
+    if (!_eventTimeLabNow) {
+        _eventTimeLabNow = [[UILabel alloc] init];
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
-        _eventTimeLab.text = @"08:00 | 30:00 " ;
-        _eventTimeLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
-        _eventTimeLab.font = [UIFont systemFontOfSize:18];
+        _eventTimeLabNow.text = @"08:00 " ;
+        _eventTimeLabNow.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
+        
+        deviceString = [GGUtil deviceVersion];
+        if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+            NSLog(@"此刻是5s和4s的大小");
+            
+            _eventTimeLabNow.font = [UIFont systemFontOfSize:15];
+            
+        }else{
+            _eventTimeLabNow.font = [UIFont systemFontOfSize:18];
+        }
+        
+        
         
     }
-    return _eventTimeLab;
+    return _eventTimeLabNow;
+    
+}
+///节目时间
+- (UILabel *)eventTimeLabAll
+{
+    
+    if (!_eventTimeLabAll) {
+        _eventTimeLabAll = [[UILabel alloc] init];
+        //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
+        _eventTimeLabAll.text = @"| 30:00 " ;
+        _eventTimeLabAll.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
+        
+        deviceString = [GGUtil deviceVersion];
+        if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+            NSLog(@"此刻是5s和4s的大小");
+            
+            _eventTimeLabAll.font = [UIFont systemFontOfSize:15];
+            
+        }else{
+            _eventTimeLabAll.font = [UIFont systemFontOfSize:18];
+        }
+        
+        
+        
+    }
+    return _eventTimeLabAll;
     
 }
 ///频道号

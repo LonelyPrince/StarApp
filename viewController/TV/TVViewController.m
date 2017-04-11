@@ -3117,6 +3117,16 @@ UITableViewDelegate,UITableViewDataSource>
     [self.socketView  serviceTouch ];
     
     
+//    double delayInSeconds = 0.5;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"延时执行的2秒");
+//        ZXVideoPlayerController * abcdef = [[ZXVideoPlayerController alloc]init];
+//        [abcdef  fullScreenButtonClick];
+//    });
+    
+    
 }
 
 /////////////全屏状态切换音轨字幕通知
