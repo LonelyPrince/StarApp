@@ -174,6 +174,13 @@
     [self loadNav];
     [self loadTableview];
     self.tableView.scrollEnabled =NO;
+    [self TVViewAppear]; //TV 页面进去即开始播放
+    
+    
+}
+-(void)TVViewAppear
+{
+    [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 -(void)loadScroll
 {
@@ -3203,6 +3210,13 @@
 
     }
     
+    [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
+    
+    
+}
+-(void)TVViewAppearNO
+{
+    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 
 @end

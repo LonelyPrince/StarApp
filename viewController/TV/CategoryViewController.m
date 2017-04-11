@@ -47,8 +47,12 @@
     NSLog(@"categorysArr:--%@",categorysArr);
     [self loadScroll];
     [self loadBtn];
+    [self TVViewAppear];
 
-
+}
+-(void)TVViewAppear
+{
+    [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 -(void)loadScroll
 {

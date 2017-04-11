@@ -135,6 +135,7 @@
     //[typeData getBytes: &type length: sizeof(type)];
     type =  [SocketUtils uint16FromBytes: typeData];
     NSLog(@"typedata :%@",typeData);
+    NSLog(@"typedatatype :%d",type);
     ///////////////
     NSDictionary * epgDic;
     NSDictionary * nextEpgDic;
@@ -169,9 +170,9 @@
     
     NSLog(@"clientNameStr:%@",clientNameStr);
     
-
+    NSLog(@"type :%d",type);
     
-    if (type == LIVE_PLAY) {
+    if (type == LIVE_PLAY) {  //        return 1;// @"直播";
         
         self.programeClass.image = [UIImage imageNamed:@"play"];
         
@@ -187,8 +188,8 @@
         
         
         
-        //        return 1;// @"直播";
-    }else if (type == LIVE_RECORD)
+        
+    }else if (type == LIVE_RECORD)  //        return 3;//@"录制";
     {
         self.programeClass.image = [UIImage imageNamed:@"录制"];
         
@@ -201,8 +202,8 @@
         
         
         
-//        return 2;//@"录制";
-    }else if (type == LIVE_TIME_SHIFT)
+
+    }else if (type == LIVE_TIME_SHIFT)  //        return 5;//@"时移";
     {
            self.programeClass.image = [UIImage imageNamed:@"时移"];
         
@@ -214,8 +215,8 @@
               self.nameLab.text = [NSString stringWithFormat:@"Time Shift--No Event"];
         }
         
-//        return 3;//@"时移";
-    }else if (type == DELIVERY)
+
+    }else if (type == DELIVERY)  //        return 8;//@"分发";
     {
         
         if (!ISNULL(clientNameStr)) {
@@ -256,7 +257,7 @@
         }
         
         
-        //        return 4;//@"分发";
+        
     }else
     {
         //其他数值默认无效

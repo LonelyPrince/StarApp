@@ -487,6 +487,8 @@
     [self searchBar:self.searchBar textDidChange:nil];
     [_searchBar resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
+    
+    [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 
 -(void)initData

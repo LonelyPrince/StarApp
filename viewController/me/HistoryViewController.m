@@ -114,6 +114,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     
+    [self TVViewAppear];
+    
+    
+}
+-(void)TVViewAppear
+{
+    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 
 -(void)loadBarRightItem
