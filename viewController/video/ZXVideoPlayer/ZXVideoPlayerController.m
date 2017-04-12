@@ -1215,7 +1215,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( abctest) name:@"abctest" object:nil];
     
+    [self judgeLastBtnIsGray];
+    [self judgeNextBtnIsGray];
+    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
+    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
+    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+    if (judgeIsNull == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.subtBtn setEnabled:NO];
+        
+    }else
+    {
+        [self.videoControl.subtBtn setEnabled:YES];
+    }
+    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+    if (judgeIsNull1 == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.audioBtn setEnabled:NO];
 
+        
+    }else
+    {
+        [self.videoControl.audioBtn setEnabled:YES];
+    }
 }
 -(void)abctest
 {
@@ -1378,6 +1400,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSDictionary * dic = touchArr [3];
     
     if (row >= 1) {
+        self.videoControl.lastChannelButton.enabled = YES;
+        self.videoControl.nextChannelButton.enabled = YES;
         NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
         //添加 字典，将label的值通过key值设置传递
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
@@ -1385,19 +1409,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-   
+        [self judgeLastBtnIsGray];
+        
     }else
     {
         NSLog(@"对不起，已经没有上一个节目了");
+        self.videoControl.lastChannelButton.enabled = NO;
     }
-//    NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
+    //    NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
     
-//    //添加 字典，将label的值通过key值设置传递
-//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-//    //创建通知
-//    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //    //添加 字典，将label的值通过key值设置传递
+    //    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+    //    //创建通知
+    //    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 - (void)nextChannelButtonClick
 {
@@ -1405,9 +1431,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
-    NSLog(@"historyArr.count：%d",historyArr.count);
-    NSArray * touchArr = historyArr[historyArr.count - 1];
-    NSLog(@"touchArr：%@",touchArr);
+    NSArray * touchArr = historyArr[historyArr.count - 1];   //最后一个历史
+    
+    NSLog(@"touchArr。count：%lu",(unsigned long)touchArr.count);
+//    NSLog(@"historyArr.count：%d",[historyArr[3] count]);
+    //    NSLog(@"touchArr。count：%d",touchArr[3]);
+    
     //    [self touchToSee :touchArr];
     
     
@@ -1416,8 +1445,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"dic :%@",dic);
     NSLog(@"dic。count :%lu",(unsigned long)dic.count);
     NSLog(@"row1 :%ld",(long)row);
-    int dic_Count = dic.count -1;
+    int dic_Count = [[dic allKeys] count] -1;
     if (row < dic_Count) {
+        self.videoControl.lastChannelButton.enabled = YES;
+        self.videoControl.nextChannelButton.enabled = YES;
         NSLog(@"row2 :%ld",(long)row);
         NSInteger tempInt = row+1;
         NSLog(@"row3 :%ld",(long)row);
@@ -1429,10 +1460,64 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
+        [self judgeNextBtnIsGray];
     }else
     {
         NSLog(@"对不起，已经没有下一个节目了");
+        self.videoControl.nextChannelButton.enabled = NO;
     }
+}
+-(void)judgeLastBtnIsGray
+{
+    //上一个节目
+    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+    
+    NSArray * touchArr = historyArr[historyArr.count - 1];
+    NSLog(@"touchArr：%@",touchArr);
+    //    [self touchToSee :touchArr];
+    
+    
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
+    if (row >= 1) {
+        self.videoControl.lastChannelButton.enabled = YES;
+        
+    }else
+    {
+        NSLog(@"对不起，已经没有上一个节目了");
+        self.videoControl.lastChannelButton.enabled = NO;
+    }
+    
+}
+//static int abb = 2;
+-(void)judgeNextBtnIsGray
+{
+    NSLog(@"下一个节目");
+    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];   //总的数据
+    int historyArrCount = historyArr.count - 1;
+    NSArray * touchArr = historyArr[historyArrCount];
+    
+   
+    NSLog(@"historyArr：%@",historyArr);
+    NSLog(@"touchArr：%@",touchArr);
+    NSLog(@"touchArr3：%@",touchArr[3]);
+    
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
+    NSLog(@"dic :%@",dic);
+    NSLog(@"dic。count :%lu",(unsigned long)dic.count);
+    NSLog(@"row1 :%ld",(long)row);
+    int dic_Count = [dic count] -1;
+    if (row < dic_Count) {
+        //        self.videoControl.lastChannelButton.enabled = YES;
+        self.videoControl.nextChannelButton.enabled = YES;
+    }else
+    {
+        self.videoControl.nextChannelButton.enabled = NO;
+    }
+    
 }
 - (void)subtBtnClick
 {
@@ -2092,35 +2177,68 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 
-
+-(BOOL)judgeAudioOrSubtIsNull :(NSArray *)audioOrSubtArr
+{
+    if (audioOrSubtArr.count == 1) {
+        NSString * subtOrAudioPidStr = [audioOrSubtArr[0] objectForKey:@"subt_pid"];
+        NSString * subtOrAudiolanguageStr = [audioOrSubtArr[0] objectForKey:@"subt_language"];
+        if ([subtOrAudioPidStr isEqualToString:@""] || [subtOrAudiolanguageStr isEqualToString:@""] ) {
+            NSLog(@"数值为空，所以此时应该直接返回");
+            return YES;
+        }
+    }else
+    {
+        return NO;
+    }
+}
 
 /////////////
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if ([_cellStr isEqualToString:@"subt"]) {
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
-        if (subtarr.count <=8) {
-            self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
+        BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+        if (judgeIsNull == YES) {
+            NSLog(@"数值为空，所以此时应该直接返回");
+            [self.videoControl.subtBtn setEnabled:NO];
+            return 0;
+            
         }else
         {
-            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+            NSLog(@"subtarr--:%@",subtarr);
+            if (subtarr.count <=8) {
+                self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
+            }else
+            {
+                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+            }
+            
+            [self.videoControl.subtBtn setEnabled:YES];
+            return subtarr.count;
+            //        return 8;
         }
-
-        return subtarr.count;
-        //        return 8;
+      
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
         NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
-        NSLog(@"audioarr--:%@",audioarr);
-        if (audioarr.count <=8) {
-            self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-audioarr.count*45)/2, 145,audioarr.count*46);
+        BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:audioarr];
+        if (judgeIsNull == YES) {
+            [self.videoControl.audioBtn setEnabled:NO];
+            NSLog(@"数值为空，所以此时应该直接返回");
+            return 0;
         }else
         {
+            NSLog(@"audioarr--:%@",audioarr);
+            if (audioarr.count <=8) {
+                self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-audioarr.count*45)/2, 145,audioarr.count*46);
+            }else
+            {
                 self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
-            
+                
+            }
+            [self.videoControl.audioBtn setEnabled:YES];
+            return audioarr.count;
         }
-
-        return audioarr.count;
         
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
@@ -2434,23 +2552,53 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [self.socketView1  serviceTouch ];
     }
     
-    
+    [self judgeLastBtnIsGray];
+    [self judgeNextBtnIsGray];
+    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
+    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
+    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+    if (judgeIsNull == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.subtBtn setEnabled:NO];
+        
+    }else
+    {
+        [self.videoControl.subtBtn setEnabled:YES];
+    }
+    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+    if (judgeIsNull1 == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.audioBtn setEnabled:NO];
+        
+        
+    }else
+    {
+        [self.videoControl.audioBtn setEnabled:YES];
+    }
     NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     
 }
 //节目播放点击
 -(void)touchToSee :(NSDictionary* )dic DicWithRow:(NSInteger)row
 {
+    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
+    NSArray * touchArr = historyArr[historyArr.count - 1];
+    NSLog(@"touchArr：%@",touchArr);
+    NSDictionary * dicAll = touchArr [3];
+
+    
+    NSLog(@"dicdicdicdic %@",dicAll);
     //    NSInteger row = [touchArr[2] intValue];
     //    NSDictionary * dic = touchArr [3];
-    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
+//    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
     
     //将整形转换为number
     NSNumber * numIndex = [NSNumber numberWithInteger:row];
     
     //添加 字典，将label的值通过key值设置传递
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicNow,@"textTwo", nil];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo", nil];
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
     //通过通知中心发送通知
@@ -2465,18 +2613,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)touchToSeeAudioSubt :(NSDictionary* )dic DicWithRow:(NSInteger)row audio:(NSInteger)audioIndex subt:(NSInteger)subtIndex
 {
     
+    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+    
+    NSArray * touchArr = historyArr[historyArr.count - 1];
+    NSLog(@"touchArr：%@",touchArr);
+    NSDictionary * dicAll = touchArr [3];
+    
     //    NSInteger row = [touchArr[2] intValue];
     //    NSDictionary * dic = touchArr [3];
-    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
+//    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
     
-    NSLog(@"dicNow %@",dicNow);
+//    NSLog(@"dicNow %@",dicNow);
     //将整形转换为number
     NSNumber * numIndex = [NSNumber numberWithInteger:row];
     
     NSNumber * audioNum = [NSNumber numberWithInteger:audioIndex];
     NSNumber * subtNum = [NSNumber numberWithInteger:subtIndex];
     //添加 字典，将label的值通过key值设置传递
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicNow,@"textTwo",audioNum,@"textThree",subtNum,@"textFour", nil];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo",audioNum,@"textThree",subtNum,@"textFour", nil];
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoificAudioSubt" object:nil userInfo:dict];
     //通过通知中心发送通知
