@@ -13,6 +13,8 @@
 {
 //    NSInteger historySearchViewHeight;  //搜索历史的高度
     NSMutableArray *  historySearchArr ;
+    UILabel * noHistorylab;
+    UILabel * noResultlab;
 }
 @end
 //UITableView* tableView;
@@ -86,6 +88,9 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+//    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+//    historySearchTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+//        [self.tableView reloadData];
     [self loadNav];
     UITextField *searchField = [self.searchBar valueForKey:@"searchField"];
     [searchField becomeFirstResponder];
@@ -132,6 +137,7 @@
     
 //    [historySearchView removeFromSuperview];
 //    [self.view addSubview:historySearchView];
+    
     
 }
 //获取table
@@ -454,6 +460,42 @@
         [historySearchView removeFromSuperview];
         self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
         [historySearchTableview reloadData];
+        
+        if (self.showData.count == 0) {
+            
+            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"NO Search Result" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            noResultlab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
+            noResultlab.text = @"NO Search Result";
+            noResultlab.font = FONT(18);
+            noResultlab.textColor = [UIColor blackColor];
+            [self.view addSubview:noResultlab];
+            
+        }else
+        {
+        [noResultlab removeFromSuperview];
+        }
+        [noHistorylab removeFromSuperview];
+    }else if (searchText.length == 0)  //当搜索框为空时，如果有搜索历史，则展示历史，否则展示为空
+    {
+        if (historySearchArr.count >0) {
+            historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+            [self.view addSubview:historySearchView ];
+            self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
+            [_tableView reloadData];
+            [historySearchTableview reloadData];
+        }else
+        {
+            [_showData removeAllObjects];
+            [_tableView reloadData];
+            
+           CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"NO Search History" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            noHistorylab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
+            noHistorylab.text = @"NO Search History";
+            noHistorylab.font = FONT(18);
+            noHistorylab.textColor = [UIColor blackColor];
+            [self.view addSubview:noHistorylab];
+            [noResultlab removeFromSuperview];
+        }
     }
     else
     {
@@ -478,7 +520,7 @@
 }
 
 -(void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [self searchBar:self.searchBar textDidChange:nil];
+    [self searchBar:self.searchBar textDidChange:searchBar.text];
     [_searchBar resignFirstResponder];
 }
 
@@ -501,6 +543,8 @@
 //    historySearchDelBtn = [[UIButton alloc]init];
     historySearchDelBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:historySearchView];
+    noHistorylab = [[UILabel alloc]init];
+    noResultlab = [[UILabel alloc]init];
     
 }
 //搜索历史的展示
@@ -515,6 +559,7 @@
         [historySearchView removeFromSuperview];
         self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
         [self.view addSubview:self.tableView];
+        [self searchBar:self.searchBar textDidChange:nil];
     }
     else
     {
@@ -522,7 +567,7 @@
         historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
         self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
         
-        historySearchLab.frame = CGRectMake(16, 10, 100, 16);
+        historySearchLab.frame = CGRectMake(16, 10, 100, 20);
         
         historySearchLab.text = @"History";
         historySearchLab.textColor = [UIColor grayColor];
@@ -655,6 +700,7 @@
      historySearchView.frame =  CGRectMake(0, 64, SCREEN_WIDTH, 0);
     [historySearchView removeFromSuperview];
      self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
+    [self searchBar:self.searchBar textDidChange:nil];
 }
 
 @end

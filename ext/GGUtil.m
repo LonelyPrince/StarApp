@@ -796,4 +796,9 @@ static const char *getPropertyType(objc_property_t property) {
     if ([deviceString isEqualToString:@"x86_64"])    return @"iPhone Simulator";
     　return deviceString;
 }
++ (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
 @end
