@@ -8,7 +8,7 @@
 //
 
 #import "MJRefreshHeader.h"
-
+#import "sys/utsname.h" //获取设备版本信息时候要用
 @interface MJRefreshHeader()
 @property (assign, nonatomic) CGFloat insetTDelta;
 @end
@@ -28,16 +28,83 @@
     return cmp;
 }
 
+//获取设备的版本信息
+- (NSString*)deviceVersion
+{
+    // 需要#import "sys/utsname.h"
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString * deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    //iPhone
+    //    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+    //    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+    //    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+    if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"iPhone4";
+    if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
+    if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";
+    if ([deviceString isEqualToString:@"iPhone5,3"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone5,4"])    return @"iPhone5C";
+    if ([deviceString isEqualToString:@"iPhone6,1"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
+    if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6 Plus";
+    if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
+    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
+    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
+    if ([deviceString isEqualToString:@"iPhone8,4"])    return @"iPhoneSE";
+    if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
+    if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7 Plus";
+    if ([deviceString isEqualToString:@"iPod1,1"])   return @"iPod Touch 1G";
+    if ([deviceString isEqualToString:@"iPod2,1"])   return @"iPod Touch 2G";
+    if ([deviceString isEqualToString:@"iPod3,1"])   return @"iPod Touch 3G";
+    if ([deviceString isEqualToString:@"iPod4,1"])   return @"iPod Touch 4G";
+    if ([deviceString isEqualToString:@"iPod5,1"])   return @"iPod Touch 5G";
+    if ([deviceString isEqualToString:@"iPad1,1"])   return @"iPad 1G";
+    if ([deviceString isEqualToString:@"iPad2,1"])   return @"iPad 2";
+    if ([deviceString isEqualToString:@"iPad2,2"])   return @"iPad 2";
+    if ([deviceString isEqualToString:@"iPad2,3"])   return @"iPad 2";
+    if ([deviceString isEqualToString:@"iPad2,4"])   return @"iPad 2";
+    if ([deviceString isEqualToString:@"iPad2,5"])   return @"iPad Mini 1G";
+    if ([deviceString isEqualToString:@"iPad2,6"])   return @"iPad Mini 1G";
+    if ([deviceString isEqualToString:@"iPad2,7"])   return @"iPad Mini 1G";
+    if ([deviceString isEqualToString:@"iPad3,1"])   return @"iPad 3";
+    if ([deviceString isEqualToString:@"iPad3,2"])   return @"iPad 3";
+    if ([deviceString isEqualToString:@"iPad3,3"])   return @"iPad 3";
+    if ([deviceString isEqualToString:@"iPad3,4"])   return @"iPad 4";
+    if ([deviceString isEqualToString:@"iPad3,5"])   return @"iPad 4";
+    if ([deviceString isEqualToString:@"iPad3,6"])   return @"iPad 4";
+    if ([deviceString isEqualToString:@"iPad4,1"])   return @"iPad Air";
+    if ([deviceString isEqualToString:@"iPad4,2"])   return @"iPad Air";
+    if ([deviceString isEqualToString:@"iPad4,3"])   return @"iPad Air";
+    if ([deviceString isEqualToString:@"iPad4,4"])   return @"iPad Mini 2G";
+    if ([deviceString isEqualToString:@"iPad4,5"])   return @"iPad Mini 2G";
+    if ([deviceString isEqualToString:@"iPad4,6"])   return @"iPad Mini 2G";
+    if ([deviceString isEqualToString:@"i386"])      return @"iPhone Simulator";
+    if ([deviceString isEqualToString:@"x86_64"])    return @"iPhone Simulator";
+    　return deviceString;
+}
 #pragma mark - 覆盖父类的方法
 - (void)prepare
 {
     [super prepare];
     
     // 设置key
-    self.lastUpdatedTimeKey = MJRefreshHeaderLastUpdatedTimeKey;
+    self.
+    lastUpdatedTimeKey = MJRefreshHeaderLastUpdatedTimeKey;
     
-    // 设置高度
-    self.mj_h = MJRefreshHeaderHeight;
+    NSString * deviceString = [self deviceVersion];
+    if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+        NSLog(@"此刻是4s的大小");
+        
+       self.mj_h = 36;
+        
+    }else
+    {
+        // 设置高度
+        self.mj_h = MJRefreshHeaderHeight;
+    }
+    
 }
 
 - (void)placeSubviews
