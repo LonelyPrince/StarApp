@@ -1284,6 +1284,7 @@ UITableViewDelegate,UITableViewDataSource>
 
 - (void)getDataService:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"playdata"]);
+    NSLog(@"哦按都按搜到那是你大劫案申冬奥房那是大放悲声");
     NSLog(@"－－－－－接收到通知------");
     NSLog(@"playState---===TV 页接收到通知------");
     //NSData --->byte[]-------NSData----->NSString
@@ -2089,6 +2090,10 @@ UITableViewDelegate,UITableViewDataSource>
     // 1.获得点击的视频dictionary数据
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
     
+    
+    NSLog(@"epgDicToSocket %@",epgDicToSocket );
+    NSLog(@"audio_Pid  %@",[[epgDicToSocket objectForKey:@"audio_info"][0]objectForKey:@"audio_pid"]);
+    NSLog(@"audio_language  %@",[[epgDicToSocket objectForKey:@"audio_info"][0]objectForKey:@"audio_language"]);
 //    [self storeNowDicForEventName :epgDicToSocket]; //epgDicToSocket是当前正在播放的节目信息，将他存储起来，用作切换eventName
     [self judgeNowISRadio:epgDicToSocket]; //此处价格方法，判断是不是音频
     progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据

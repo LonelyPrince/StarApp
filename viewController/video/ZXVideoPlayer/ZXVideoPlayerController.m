@@ -50,6 +50,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int64_t byteValue1;   //视频缓存1
     int64_t byteValue2;   //视频缓存2
     
+    int subtRow;
+    int audioRow;
+    
 }
 
 
@@ -144,6 +147,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         HorTime =0;
         
         [self configTimerOfEventTimeNotific]; //timerOfEventTime
+        
+        subtRow = 0;
+        audioRow = 0;
     }
     return self;
 }
@@ -1386,6 +1392,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///上一个节目
 - (void)lastChannelButtonClick
 {
+    audioRow = 0;
+    subtRow = 0;
     NSLog(@"shang 上一个节目");
     
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -1427,6 +1435,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)nextChannelButtonClick
 {
+    audioRow = 0;
+    subtRow = 0;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
@@ -2309,6 +2319,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell.dataDic = subAudioArr[indexPath.row];
             
             
+            
+            //焦点
+            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+            NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+            //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+            NSDictionary * subtDicBlue = [fourceDic objectForKey:@"subt_info"][subtRow];
+            NSLog(@"cell.dataDic fourceDic: %@",subtDicBlue);
+            if ([cell.dataDic isEqual:subtDicBlue]) {
+                
+                [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                
+            }else
+            {
+                [cell.languageLab setTextColor:[UIColor whiteColor]];
+                
+            }
+            
+            
             //上下两个都可以试一下
             //        cell.dataDic =self.subAudioDic;
         }else{//如果为空，什么都不执行
@@ -2355,6 +2383,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"audioArr.count :%lu",(unsigned long)audioArr.count);
             
             cell.dataDic = audioArr[indexPath.row];
+            
+            
+            //焦点
+            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+            NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+//            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+            NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+            NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
+            if ([cell.dataDic isEqual:audioDicBlue]) {
+                
+                [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                
+            }else
+            {
+                [cell.languageLab setTextColor:[UIColor whiteColor]];
+                
+            }
             
             
             //上下两个都可以试一下
@@ -2465,11 +2510,33 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
             //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
             //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
-            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:0 subt:indexPath.row];
+            subtRow = indexPath.row;
+            audioRow = 0;
+            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
+            
+            //先全部变白
+            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
+                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+                
+                subtCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+                [cell1.languageLab setTextColor:[UIColor whiteColor]];
+                
+            }
+            
+            
+            
+            
+            //选中的变蓝
+            subtCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            
+            
+            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
         }else{//如果为空，什么都不执行
         }
         //        [self.socketView1  serviceTouch ];
@@ -2499,11 +2566,35 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
 //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
 //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
-            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:indexPath.row subt:0];
+            
+            subtRow = 0;
+            audioRow = indexPath.row;
+            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
+            
+            
+            //先全部变白
+            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
+                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+                
+                AudioCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+                [cell1.languageLab setTextColor:[UIColor whiteColor]];
+                
+            }
+            
+            
+            
+            
+            //选中的变蓝
+            AudioCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            
+            
+            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             
             
         }else{//如果为空，什么都不执行
@@ -2515,6 +2606,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
+            audioRow = 0;
+            subtRow = 0;
             
             
             dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
