@@ -13,6 +13,7 @@
 //    NSArray      *_titles;
     NSMutableArray      *_titles;
     NSUInteger   _prePageIndex;
+    TVTable * tableViewForSliderView;
 }
 
 //
@@ -32,7 +33,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        
+        tableViewForSliderView = [[UITableView alloc]init];
 //        _titles  = [titles copy];
         _titles = [[NSMutableArray alloc]init];
         self.triangleView = [[UIImageView alloc] init];
@@ -180,8 +181,47 @@
         }
     }];
     
+    tableViewForSliderView = cell;
+    
+//    此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableViewChangeBlue" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewChangeBlue:) name:@"tableViewChangeBlue" object:nil];
 }
+-(void)tableViewChangeBlue : (NSNotification *)text
+{    NSInteger row = [text.userInfo[@"textOne"]integerValue];
+    NSInteger row2 = [text.userInfo[@"textTwo"]integerValue];
+    NSInteger row3 = [text.userInfo[@"textThree"]integerValue];
+    
+//    NSArray * newArray = [array objectsAtIndexes:indexSet];
+    tableViewForSliderView =   [self visibleCellForIndex:row];
+    
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:row2 inSection:0];
+    //
+    [tableViewForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 
+    //先全部变黑
+    for (NSInteger  i = 0; i<row3; i++) {
+        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+        
+        TVCell *cell1 = [tableViewForSliderView cellForRowAtIndexPath:indexPath1];
+        
+        [cell1.event_nextNameLab setTextColor:CellGrayColor]; //CellGrayColor
+        [cell1.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
+        [cell1.event_nextTime setTextColor:CellGrayColor]; //CellGrayColor
+        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+        if(i == row2)
+        {
+            [cell1.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
+            [cell1.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //CellBlackColor
+            [cell1.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
+            cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+            cell1.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+        }
+    }
+    [tableViewForSliderView reloadData];
+    
+}
 #pragma make reloadData
 
 - (void)reloadData{

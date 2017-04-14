@@ -68,6 +68,7 @@ UITableViewDelegate,UITableViewDataSource>
     int viewDidloadHasRunBool;
     
     NSString * deviceString;
+    int indexOfServiceToRefreshTable;
 }
 
 
@@ -609,14 +610,14 @@ UITableViewDelegate,UITableViewDataSource>
   
     
     //搜索按钮
-    self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
+//    self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
     //    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
     [self.searchBtn setBackgroundColor:[UIColor whiteColor]];
     //    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
     [self.searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
     [self.view addSubview:self.searchBtn];
     //    [topView bringSubviewToFront:self.searchBtn];
-    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick //judgeJumpFromOtherView
+    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick //judgeJumpFromOtherView //tableViewCellToBlue
     
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]  ) {
         NSLog(@"此刻是5s和4s 的大小");
@@ -652,6 +653,23 @@ UITableViewDelegate,UITableViewDataSource>
     
     
 }
+-(void)tableViewCellToBlue :(NSInteger)numberOfIndex  indexhah :(NSInteger)numberOfIndexForService AllNumberOfService:(NSInteger)AllNumberOfServiceIndex
+{
+    NSNumber * numIndex = [NSNumber numberWithInteger:numberOfIndex];
+    NSNumber * numIndex2 = [NSNumber numberWithInteger:numberOfIndexForService];
+    NSNumber * numIndex3 = [NSNumber numberWithInteger:AllNumberOfServiceIndex];
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",numIndex2,@"textTwo", numIndex3,@"textThree",nil];
+    //创建通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoificAudioSubt" object:nil userInfo:dict];
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"tableViewChangeBlue" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+ 
+}
 
 - (void)playVideo
 {
@@ -685,8 +703,21 @@ UITableViewDelegate,UITableViewDataSource>
             self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             //                [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
             //
-            self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
-            
+//            self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
+            if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]  ) {
+                NSLog(@"此刻是5s和4s 的大小");
+                
+                self.searchBtn.frame = CGRectMake(searchBtnX-2, searchBtnY, searchBtnWidth *0.8533, searchBtnHeight *0.8533 );
+                
+            }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone Simulator"] ) {
+                NSLog(@"此刻是6的大小");
+                self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
+                
+            }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+                NSLog(@"此刻是6 plus的大小");
+                
+                self.searchBtn.frame = CGRectMake(searchBtnX+1, searchBtnY, searchBtnWidth *1.104, searchBtnHeight *1.104 );
+            }
             
             self.topProgressView.hidden = NO;
             float noewWidth = [UIScreen mainScreen].bounds.size.width;
@@ -1135,7 +1166,6 @@ UITableViewDelegate,UITableViewDataSource>
  
   
     
-
     
     //
     //    TVTable * table = [[TVTable alloc]init];
@@ -1155,20 +1185,31 @@ UITableViewDelegate,UITableViewDataSource>
         NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
         NSLog(@"cell.dataDic 11:%@",cell.dataDic);
         NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
-        if ([cell.dataDic isEqualToDictionary:fourceDic]) {
-            
-            [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            
-        }else
-        {
-            [cell.event_nextNameLab setTextColor:CellGrayColor];
-            [cell.event_nameLab setTextColor:CellBlackColor];
-            [cell.event_nextTime setTextColor:CellGrayColor];
-            
-
-        }
+//        NSArray * serviceArrForJudge =  self.serviceData;
+//        for (int i = 0; i< serviceArrForJudge.count; i++) {
+//            NSDictionary * serviceForJudgeDic = serviceArrForJudge[i];
+       
+            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+                
+//                int indexForJudgeService = i;
+//                 NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                
+                
+            }else
+            {
+                [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
+                [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
+                [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
+                
+                
+            }
+        
+//        }
+//        [self judgeServiceArrIndex :serviceArrForJudgeInd];
+ 
         
     }else{//如果为空，什么都不执行
     }
@@ -1177,6 +1218,10 @@ UITableViewDelegate,UITableViewDataSource>
     
     return cell;
     
+}
+-(void)judgeServiceArrIndex :(NSArray *)serviceArrForJudge
+{
+
 }
 -(void)refreshTableFocus
 {
@@ -1276,10 +1321,10 @@ UITableViewDelegate,UITableViewDataSource>
     [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
     [cell.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     NSLog(@"cellcellcellcellcellcell:%@",cell);
     
-
+    [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 - (void)getDataService:(NSNotification *)text{
@@ -2242,6 +2287,37 @@ UITableViewDelegate,UITableViewDataSource>
 //引导页
 - (void)viewWillAppear:(BOOL)animated{
     
+//            NSArray * serviceArrForJudge =  self.serviceData;
+//            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
+//        NSLog(@"aaaaaa=====  %@",fourceDic);
+//            for (int i = 0; i< serviceArrForJudge.count; i++) {
+//                NSDictionary * serviceForJudgeDic = serviceArrForJudge[i];
+//    
+//                if ([serviceForJudgeDic isEqualToDictionary:fourceDic]) {
+//    
+//                    int indexForJudgeService = i;
+//                    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexForJudgeService inSection:0];
+//    
+//                    [tableForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//                }
+//            }
+ 
+//    NSArray * serviceArrForJudge =  self.serviceData;
+//    //    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
+//    NSArray * arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+//    for (int i = 0; i< arrForServiceByCategory.count; i++) {
+//        NSDictionary * serviceForJudgeDic = arrForServiceByCategory[i];
+//        
+//        if ([serviceForJudgeDic isEqualToDictionary:epgDicToSocket]) {
+//            
+//            int indexForJudgeService = i;
+//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexForJudgeService inSection:0];
+//            
+//            [tableForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        }
+//    }
+    
+    
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         NSLog(@"第一次启动");
@@ -2344,24 +2420,30 @@ UITableViewDelegate,UITableViewDataSource>
     if([jumpFormOtherView isEqualToString:@"YES"])
     {
         NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
-        NSArray * touchArr = historyArr[historyArr.count - 1];
+        if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
+            
+        }else
+        {
+            NSArray * touchArr = historyArr[historyArr.count - 1];
+            
+            NSInteger row = [touchArr[2] intValue];
+            NSDictionary * dic = touchArr [3];
+            
+            NSNumber * numIndex = [NSNumber numberWithInt:row];
+            
+            //添加 字典，将label的值通过key值设置传递
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            NSLog(@"目前是judgeJumpFromOtherView");
+            
+            //        [self.videoController play];
+            
+            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+        }
         
-        NSInteger row = [touchArr[2] intValue];
-        NSDictionary * dic = touchArr [3];
-        
-        NSNumber * numIndex = [NSNumber numberWithInt:row];
-        
-        //添加 字典，将label的值通过key值设置传递
-        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        NSLog(@"目前是judgeJumpFromOtherView");
-        
-//        [self.videoController play];
-        
-        [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
     }
         
     
@@ -3131,9 +3213,115 @@ UITableViewDelegate,UITableViewDataSource>
 //        [abcdef  fullScreenButtonClick];
 //    });
     
+    int indexOfCategory = [self judgeCategoryType:epgDicToSocket]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
+    NSNumber * currentIndexForCategory = [NSNumber numberWithInt:indexOfCategory];
+    NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self.tableForSliderView reloadData];
+    [self.table reloadData];
+//    self.table celltorow
+//    NSIndexPath * hahah = [NSIndexPath indexPathForRow:2 inSection:0];
+//    [_tableForTemp scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//    [tableForSliderView scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
+    NSArray * serviceArrForJudge =  self.serviceData;
+//    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
+    NSArray * arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+//    for (int i = 0; i< arrForServiceByCategory.count; i++) {
+//        NSDictionary * serviceForJudgeDic = self.serviceData[[arrForServiceByCategory[i] intValue]-1];
+//
+//        
+//        if ([serviceForJudgeDic isEqualToDictionary:epgDicToSocket]) {
+//            
+//            int indexForJudgeService = i;
+//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexForJudgeService inSection:0];
+//            
+//            [tableForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//        }
+//    }
+    
+    
+//            NSArray * serviceArrForJudge =  self.serviceData;
+//            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
+            for (int i = 0; i< arrForServiceByCategory.count; i++) {
+                NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
+    
+                if ([serviceForJudgeDic isEqualToDictionary:epgDicToSocket]) {
+    
+                    int indexForJudgeService = i;
+                    indexOfServiceToRefreshTable =indexForJudgeService;
+//                    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexForJudgeService inSection:0];
+//    
+//                    [tableForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                    
+//                    [self tableViewCellToBlue:indexForJudgeService];
+                    [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
+                 
+                }
+            }
+    
+    
+    [tableForSliderView reloadData];
+//     [self refreshTableFocusNotific:epgDicToSocket];
+    
+    
+    //先全部变黑
+    for (NSInteger  i = 0; i<arrForServiceByCategory.count; i++) {
+        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+        
+        TVCell *cell1 = [tableForSliderView cellForRowAtIndexPath:indexPath1];
+        
+        [cell1.event_nextNameLab setTextColor:CellGrayColor]; //CellGrayColor
+        [cell1.event_nameLab setTextColor:CellBlackColor];  //  [UIColor redColor]
+        [cell1.event_nextTime setTextColor:CellGrayColor]; //CellGrayColor
+    }
+    
+    
+    
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexOfServiceToRefreshTable inSection:0];
+    //选中的变蓝
+    TVCell *cell2 = [tableForSliderView cellForRowAtIndexPath:scrollIndexPath];
+    [cell2.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    [cell2.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //RGBA(0x60, 0xa3, 0xec, 1)
+    [cell2.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //[UIColor blueColor]
+    
+    
+//    TVCell *cell = [tableForSliderView dequeueReusableCellWithIdentifier:@"TVCell"];
+//    if (cell == nil){
+//        cell = [TVCell loadFromNib];
+//        
+//        [cell.event_nextNameLab setTextColor:CellGrayColor];
+//        [cell.event_nameLab setTextColor:CellBlackColor];
+//        [cell.event_nextTime setTextColor:CellGrayColor];
+//    }
+//    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexOfServiceToRefreshTable inSection:0];
+//    
+//    cell =  [tableForSliderView cellForRowAtIndexPath:scrollIndexPath];
+//    [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//    [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//    [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+}
+-(int)judgeCategoryType:(NSDictionary *)NowServiceDic
+{
+    NSLog(@"进入了判断方法");
+    NSString * service_indexForJudgeType = [NowServiceDic objectForKey:@"service_index"];
+    NSArray  * categoryArrForJudgeType = self.categorys;
+    for (int i = 0; i < categoryArrForJudgeType.count; i++) {
+        NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
+        NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
+        for (int y = 0; y < categoryServiceIndexArr.count; y++) {
+            NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
+            if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
+                return i;
+            }
+        }
+        
+    }
     
 }
-
 /////////////全屏状态切换音轨字幕通知
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificAudioSubtClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
