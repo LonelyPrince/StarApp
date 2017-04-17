@@ -66,7 +66,7 @@
     [self.view addSubview:scroll];
     
 //        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
-    if (categorysArr.count/3 == 0) {
+    if (categorysArr.count%3 == 0) {
         scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (categorysArr.count/3)*(SCREEN_WIDTH/3));
     }else
     {
