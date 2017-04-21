@@ -793,14 +793,54 @@
     
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-    //创建通知
-    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    //    [self.navigationController popViewControllerAnimated:YES];
-    //    [self.navigationController popToViewController:_tvViewController animated:YES];
-    //    [self.navigationController pushViewController:_tvViewController animated:YES];
-    [self.tabBarController setSelectedIndex:1];
+    
+    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+         NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+    
+    
+        if (characterStr != NULL && characterStr != nil) {
+
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                // 此处代表需要记性机顶盒加密验证
+                //弹窗
+                //发送通知
+                
+                //        [self popSTBAlertView];
+                //        [self popCAAlertView];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                    //创建通知
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                    [self.tabBarController setSelectedIndex:1];
+                
+                }else //正常播放的步骤
+                {
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+                [self.tabBarController setSelectedIndex:1];
+                }
+            
+
+            }else //正常播放的步骤
+            {
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                //    [self.navigationController popViewControllerAnimated:YES];
+                //    [self.navigationController popToViewController:_tvViewController animated:YES];
+                //    [self.navigationController pushViewController:_tvViewController animated:YES];
+                [self.tabBarController setSelectedIndex:1];
+            }
+    
 }
 
 

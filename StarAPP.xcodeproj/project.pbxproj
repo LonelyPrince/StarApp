@@ -2377,7 +2377,7 @@
 				LastUpgradeCheck = 0420;
 				TargetAttributes = {
 					A4A669FC1555E44100AED3AF = {
-						DevelopmentTeam = KKEKQB632F;
+						DevelopmentTeam = R8D7BE2CFZ;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -3101,7 +3101,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KKEKQB632F;
+				DEVELOPMENT_TEAM = R8D7BE2CFZ;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLNASample/StarAPP-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3148,7 +3148,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KKEKQB632F;
+				DEVELOPMENT_TEAM = R8D7BE2CFZ;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLNASample/StarAPP-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

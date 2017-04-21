@@ -35,7 +35,7 @@
 #import "KVO_NoDataPic.h"
 
 @class ZXVideo;
-@interface TVViewController : UIViewController
+@interface TVViewController : UIViewController<UITextFieldDelegate>
 
 
 @property (nonatomic, strong, readwrite) ZXVideo *video;

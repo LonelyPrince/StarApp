@@ -99,4 +99,7 @@
 + (NSString *)getIPAddress:(BOOL)preferIPv4;
 + (NSString*)deviceVersion;
 + (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize;
++(BOOL)isSTBDEncrypt :(NSString *)characterStr;
++(BOOL)isCADEncrypt :(NSString *)characterStr;
++(NSString *)judgeIsNeedSTBDecrypt :(NSInteger)row  serviceListDic :(NSDictionary *)dic;
 @end

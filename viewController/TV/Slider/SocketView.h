@@ -39,7 +39,8 @@ extern NSString * const TYPE_ARRAY;
 -(void)heartBeat;
 -(void)serviceTouch;
 -(void)deliveryPlayExit;
--(void)passwordCheck;
+//-(void)passwordCheck;
+-(void)passwordCheck :(NSString *)passWordStr  passwordType:(int)passwd_type_int;
 -(void)csGetResource;
 
 -(int)getCRC : (NSData *)data ;

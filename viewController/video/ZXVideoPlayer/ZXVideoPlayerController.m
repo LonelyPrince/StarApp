@@ -139,6 +139,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self removeConfigRadioShow];  //如果不是音频节目，或者音频节目播放完成，则删除掉音频图
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
+        [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
         self.rightViewShowing = NO;
@@ -358,7 +359,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"playState---=====正在加载中");
         NSLog(@"MPMoviePlayer  开始加载");
         NSLog(@"playState111---.self.loadState %lu",(unsigned long)self.loadState);
-        [self.videoControl.indicatorView startAnimating];
+
+        //如果URL为空，则不进行播放
+        if(self.video.playUrl == NULL || [self.video.playUrl isEqualToString:@""] ||self.video.playUrl == nil)
+        {
+            [self.videoControl.indicatorView stopAnimating];
+        }else
+        {
+            [self.videoControl.indicatorView startAnimating];
+        }
         
 //        //创建通知
 //        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
@@ -610,6 +619,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
    [self.videoControl.indicatorView stopAnimating];
 }
+//设置节目名称和其他信息的通知
+-(void)setChannelNameOrOtherInfo
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setChannelNameOrOtherInfoNotic" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setChannelNameOrOtherInfoNotic:) name:@"setChannelNameOrOtherInfoNotic" object:nil];
+}
+-(void)setChannelNameOrOtherInfoNotic :(NSNotification *)text{
+
+    NSString * channelIdLabStr = text.userInfo[@"channelIdStr"];
+    NSString * channelNameLabStr = text.userInfo[@"channelNameStr"];
+    self.video.channelId =channelIdLabStr;
+    self.video.channelName =channelNameLabStr;
+    self.videoControl.channelIdLab.text = self.video.channelId;
+    
+    self.videoControl.channelNameLab.text = self.video.channelName;
+}
 //未播放前显示加载圈
 -(void)configIndicatorView
 {
@@ -619,8 +646,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IndicatorViewShowNotic) name:@"IndicatorViewShowNotic" object:nil];
 }
 -(void)IndicatorViewShowNotic
+{   //如果URL为空，则不进行播放
+    if(self.video.playUrl == NULL || [self.video.playUrl isEqualToString:@""] ||self.video.playUrl == nil)
+{
+   [self.videoControl.indicatorView stopAnimating];
+}else
 {
     [self.videoControl.indicatorView startAnimating];
+}
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
@@ -1094,9 +1127,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 }
 
-/// 切换到全屏模式
+///// 切换到全屏模式
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
+    NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
+    NSLog(@"self.view.frame.size.width %f",self.view.frame.size.width);
+    NSLog(@"self.view.frame.size.SCREEN_HEIGHT %f",SCREEN_HEIGHT);
+    NSLog(@"self.view.frame.size.SCREEN_WIDTH %f",SCREEN_WIDTH);
+    NSLog(@"self.view.frame.bounds.height %f",[UIScreen mainScreen].bounds.size.height);
+    NSLog(@"self.view.frame.bounds.width %f",[UIScreen mainScreen].bounds.size.width);
+    
+    
+    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.x);
+    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.y);
+    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.height);
+    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.width);
+    
     if (self.isFullscreenMode) {
         return;
     }
@@ -1245,6 +1291,149 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self.videoControl.audioBtn setEnabled:YES];
     }
 }
+/// 切换到全屏模式
+//- (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
+//{
+//    NSLog(@"self.view.frame fangxiang: %d",UIDeviceOrientationLandscapeLeft);
+//    NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
+//    NSLog(@"self.view.frame.size.width %f",self.view.frame.size.width);
+//    NSLog(@"self.view.frame.size.SCREEN_HEIGHT %f",SCREEN_HEIGHT);
+//    NSLog(@"self.view.frame.size.SCREEN_WIDTH %f",SCREEN_WIDTH);
+//    NSLog(@"self.view.frame.bounds.height %f",[UIScreen mainScreen].bounds.size.height);
+//    NSLog(@"self.view.frame.bounds.width %f",[UIScreen mainScreen].bounds.size.width);
+//    NSLog(@"self.view.frame.sharedApplicationbounds.height %f",[UIApplication sharedApplication].keyWindow.bounds.size.height);
+//    NSLog(@"self.view.frame.sharedApplicationbounds.width %f",[UIApplication sharedApplication].keyWindow.bounds.size.width);// [UIApplcation sharedApplication].keyWindow.bounds
+//    
+//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.x);
+//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.y);
+//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.height);
+//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.width);
+//    
+//    if (self.isFullscreenMode) {
+//        return;
+//    }
+//    if (self.videoControl.isBarShowing) {
+//        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+//    } else {
+//        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+//    }
+//    
+//    
+//    //    if (self.videoPlayerWillChangeToFullScreenModeBlock) {
+//    //        self.videoPlayerWillChangeToFullScreenModeBlock();
+//    //    }
+//    
+//    self.frame = [UIScreen mainScreen].bounds;
+//    //    self.videoControl.bottomBar.userInteractionEnabled = YES;
+//    self.isFullscreenMode = YES;
+//    self.videoControl.fullScreenButton.hidden = YES;
+//    //    self.videoControl.shrinkScreenButton.hidden = NO;
+//    self.videoControl.shrinkScreenButton1.hidden = NO;
+//    self.videoControl.lastChannelButton.hidden = NO;
+//    self.videoControl.nextChannelButton.hidden = NO;
+//    self.videoControl.subtBtn.hidden = NO;
+//    self.videoControl.audioBtn.hidden = NO;
+//    self.videoControl.channelListBtn.hidden = NO;
+//    self.videoControl.eventTimeLabNow.hidden = NO;
+//    self.videoControl.eventTimeLabAll.hidden = NO;
+//    self.videoControl.backButton.hidden = NO;
+//    
+//    self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
+//    [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
+//    
+//    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+//    if (videoOrRadiostr != NULL) {
+//        lab.text = videoOrRadiostr;
+//    }else
+//    {
+//        lab.text = @"sorry, this video can't play";
+//    }
+//    lab.font = FONT(17);
+//    
+//    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+//    CGSize size=[lab.text sizeWithAttributes:attrs];
+//    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, ([UIScreen mainScreen].bounds.size.height - size.height )/2, size.width, size.height);
+//    
+//    
+//    
+//    if (radioImageView) {
+//        radioImageView.frame = CGRectMake(0,0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+//    }
+//    
+//  
+//    self.videoControl.FulleventNameLab.hidden = NO;
+//    if (self.videoControl.FullEventYFlabel) {
+//        self.videoControl.FullEventYFlabel.hidden = NO; //全屏页面跑马灯
+//    }
+//    
+//    
+//    
+//    self.videoControl.eventnameLabel.hidden = YES;
+//    
+//    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
+//    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
+//    
+//    sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
+//    NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
+//    self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+//    self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
+//    //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
+//    YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
+//    //    }
+//   
+//    
+//    
+//    
+//    self.videoControl.FullEventYFlabel.hidden = NO;
+//    //    self.videoControl.FullEventYFlabel.speed = 3;
+//    self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
+//    
+//    self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18);
+//    
+//    
+//    
+//    //此处强制销毁，再重新init一次
+//    //    if (self.videoControl.FullEventYFlabel) {
+//    [self.videoControl.FullEventYFlabel removeFromSuperview];
+//    self.videoControl.FullEventYFlabel = nil;
+//    [self.videoControl.FullEventYFlabel stopTimer];
+//    
+//    [self abctest];
+//    //    }
+//    
+//    //test
+//    //此处销毁通知，防止一个通知被多次调用
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"abctest" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( abctest) name:@"abctest" object:nil];
+//    
+//    [self judgeLastBtnIsGray];
+//    [self judgeNextBtnIsGray];
+//    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
+//    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
+//    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+//    if (judgeIsNull == YES) {
+//        NSLog(@"数值为空，所以此时应该直接返回");
+//        [self.videoControl.subtBtn setEnabled:NO];
+//        
+//    }else
+//    {
+//        [self.videoControl.subtBtn setEnabled:YES];
+//    }
+//    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+//    if (judgeIsNull1 == YES) {
+//        NSLog(@"数值为空，所以此时应该直接返回");
+//        [self.videoControl.audioBtn setEnabled:NO];
+//        
+//        
+//    }else
+//    {
+//        [self.videoControl.audioBtn setEnabled:YES];
+//    }
+//}
 -(void)abctest
 {
      sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
@@ -1413,11 +1602,54 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
         //添加 字典，将label的值通过key值设置传递
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        
+        
+        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        
+        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+        
+        
+        if (characterStr != NULL && characterStr != nil) {
+            
+            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+            if (judgeIsSTBDecrypt == YES) {
+                // 此处代表需要记性机顶盒加密验证
+                //弹窗
+                //发送通知
+                
+                //        [self popSTBAlertView];
+                //        [self popCAAlertView];
+                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                NSLog(@"POPPOPPOPPOP66666666666");
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                [self judgeLastBtnIsGray];
+//                [self.tabBarController setSelectedIndex:1];
+                
+            }else //正常播放的步骤
+            {
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                [self judgeLastBtnIsGray];
+//                [self.tabBarController setSelectedIndex:1];
+            }
+            
+            
+        }else //正常播放的步骤
+        {
+        
+        
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         [self judgeLastBtnIsGray];
+        }
         
     }else
     {
@@ -1465,12 +1697,56 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSNumber * numIndex = [NSNumber numberWithInteger:tempInt];
         //添加 字典，将label的值通过key值设置传递
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        
+        
+        
+        
+        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        
+        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+        
+        
+        if (characterStr != NULL && characterStr != nil) {
+            
+            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+            if (judgeIsSTBDecrypt == YES) {
+                // 此处代表需要记性机顶盒加密验证
+                //弹窗
+                //发送通知
+                
+                //        [self popSTBAlertView];
+                //        [self popCAAlertView];
+                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                NSLog(@"POPPOPPOPPOP77777777777771");
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                [self judgeNextBtnIsGray];
+                
+                
+            }else //正常播放的步骤
+            {
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                [self judgeNextBtnIsGray];
+                
+            }
+            
+            
+        }else //正常播放的步骤
+        {
+        
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
         [self judgeNextBtnIsGray];
+        }
     }else
     {
         NSLog(@"对不起，已经没有下一个节目了");
@@ -2029,6 +2305,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     //    self.subAudioDic = [[NSMutableDictionary alloc]init];
+    
     //    self.subAudioDic = self.video.dicSubAudio;
     //    NSLog(@"self.video.dicSubAudio:%@",self.video.dicSubAudio);
     //    NSLog(@"self.video.dicSubAudio:%@",self.subAudioDic);
@@ -2445,7 +2722,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         
         
-        
+        NSLog(@"self.video.dicChannl   %@",self.video.dicChannl);
         if (!ISEMPTY(self.video.dicChannl)) {
             
             cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
@@ -2472,6 +2749,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
         }else{//如果为空，什么都不执行
+            NSLog(@"self.video.dicChannl   %@",self.video.dicChannl);
         }
         
         //        NSLog(@"cell.dataDic:%@",cell.dataDic);
@@ -2692,6 +2970,51 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo", nil];
+    
+    
+    
+    
+    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+    NSDictionary * epgDicToSocket = [dicAll objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+    
+    
+    if (characterStr != NULL && characterStr != nil) {
+        
+        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+        if (judgeIsSTBDecrypt == YES) {
+            // 此处代表需要记性机顶盒加密验证
+            //弹窗
+            //发送通知
+            
+            //        [self popSTBAlertView];
+            //        [self popCAAlertView];
+            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo", @"otherTouch",@"textThree",nil];
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            NSLog(@"POPPOPPOPPOP888888888");
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            
+        }else //正常播放的步骤
+        {
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+            
+        }
+        
+        
+    }else //正常播放的步骤
+    {
+
+    
+    
+    
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
     //通过通知中心发送通知
@@ -2700,6 +3023,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    [self.navigationController popToViewController:_tvViewController animated:YES];
     //    [self.navigationController pushViewController:_tvViewController animated:YES];
     //    [self.tabBarController setSelectedIndex:1];
+    }
 }
 
 //音轨字幕点击
@@ -2717,6 +3041,44 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    NSDictionary * dic = touchArr [3];
 //    NSDictionary *dicNow =[[NSDictionary alloc] initWithObjectsAndKeys:dic,[NSString stringWithFormat:@"%ld",(long)row], nil];
     
+    
+    
+    
+    //=======机顶盒加密
+    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dicAll];
+    if (characterStr != NULL && characterStr != nil) {
+        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+        if (judgeIsSTBDecrypt == YES) {
+            // 此处代表需要记性机顶盒加密验证
+            NSNumber * numIndex = [NSNumber numberWithInteger:row];
+            
+            NSNumber * audioNum = [NSNumber numberWithInteger:audioIndex];
+            NSNumber * subtNum = [NSNumber numberWithInteger:subtIndex];
+            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo", @"AudioSubtTouch",@"textThree",audioNum,@"textFour",subtNum,@"textFive",nil];
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            NSLog(@"POPPOPPOPPOP99999999999991");
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        }else //正常播放的步骤
+        {
+            NSNumber * numIndex = [NSNumber numberWithInteger:row];
+            
+            NSNumber * audioNum = [NSNumber numberWithInteger:audioIndex];
+            NSNumber * subtNum = [NSNumber numberWithInteger:subtIndex];
+            //添加 字典，将label的值通过key值设置传递
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo",audioNum,@"textThree",subtNum,@"textFour", nil];
+            
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoificAudioSubt" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
+    }else //正常播放的步骤
+    {
+        //======机顶盒加密
+    
 //    NSLog(@"dicNow %@",dicNow);
     //将整形转换为number
     NSNumber * numIndex = [NSNumber numberWithInteger:row];
@@ -2733,6 +3095,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    [self.navigationController popToViewController:_tvViewController animated:YES];
     //    [self.navigationController pushViewController:_tvViewController animated:YES];
     //    [self.tabBarController setSelectedIndex:1];
+    }
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     

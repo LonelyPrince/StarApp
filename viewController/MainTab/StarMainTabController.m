@@ -28,7 +28,8 @@
     // Dispose of any resources that can be recreated.
 }
 -(UIViewController*) findBestViewController:(UIViewController*)vc {
-    
+    NSLog(@"vc.viewController222== %@",vc);
+    NSLog(@"vc.presentedViewController   %@",vc.presentedViewController);
     if (vc.presentedViewController) {
         
         // Return presented view controller
@@ -61,7 +62,11 @@
         else
             return vc;
         
-    } else {
+    }else if ([vc.presentedViewController isKindOfClass:[UIAlertController class]]) {
+        return vc;
+    }
+    
+    else {
         
         // Unknown view controller type, return last child view controller
         return vc;
@@ -73,7 +78,11 @@
 -(UIViewController*) currentViewController {
     
     // Find best view controller
-    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//    UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    UIViewController* viewController = appdelegate.window.rootViewController;
+    NSLog(@"[self findBestViewController:viewController] :%@",[self findBestViewController:viewController]) ;// [self findBestViewController:viewController];;
     return [self findBestViewController:viewController];
     
 }
@@ -113,13 +122,14 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     UIViewController * viewNow = [self currentViewController];
+    NSLog(@"vc.viewNow== %@",viewNow);
 //    if ([nav isKindOfClass:[TVViewController class]]) {
             if ([viewNow isKindOfClass:[TVViewController class]]) {
                 if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStartTransform"]){
                     NSLog(@"第一次启动旋转");
                   
                     NSLog(@"第一次启动");
-               return UIInterfaceOrientationMaskPortrait;
+               return UIInterfaceOrientationMaskPortrait;   //不旋转
                 }
                 
 //        return UIInterfaceOrientationMaskPortrait;
@@ -170,7 +180,7 @@
                 }
      
     }
-     return UIInterfaceOrientationMaskPortrait;
+     return UIInterfaceOrientationMaskPortrait;    //不旋转
     
 }
 @end

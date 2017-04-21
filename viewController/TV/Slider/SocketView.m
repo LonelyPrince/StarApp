@@ -295,7 +295,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
 }
 //密码校验
--(void)passwordCheck
+-(void)passwordCheck :(NSString *)passWordStr  passwordType:(int)passwd_type_int
 {
    
     cs_passwordCheck.module_name= @"MDMM";
@@ -310,13 +310,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_passwordCheck.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
     cs_passwordCheck.command_type = CMD_VERIFY_PASSWORD;
-    cs_passwordCheck.passwd_type = 1;
+    cs_passwordCheck.passwd_type = passwd_type_int;//1;
     
     if(cs_passwordCheck.passwd_type == 1){
-        cs_passwordCheck.passwd_string =@"000000";
+        cs_passwordCheck.passwd_string = passWordStr;//@"000000";
         cs_passwordCheck. data_len= 16;
     }else if(cs_passwordCheck.passwd_type == 1){
-        cs_passwordCheck.passwd_string =@"123a";
+        cs_passwordCheck.passwd_string =passWordStr;//@"123a";
         cs_passwordCheck. data_len= 14;
     }
 

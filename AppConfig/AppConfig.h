@@ -97,3 +97,6 @@ typedef enum{
 ////
 //#define kNeedForceUpdateApplication @"NeedForceUpdateApplication"
 
+#define CANOTINPUT @"Please Decoder PIN"
+//#define CA @"Please Decoder PIN"
+//#define CANOTINPUT @"Please Decoder PIN"

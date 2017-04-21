@@ -331,6 +331,21 @@
                                 {
                                     NSLog(@"*****停止视频播放");
                                 }
+                                case 13:  //此处是验证机顶盒密码
+                                {
+                                    //此处是验证机顶盒密码
+                                    NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 + nowData_length,4)];
+                                    uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                                    
+                                    if(data_STB_Ret_int == 5) //正确
+                                    {
+                                    //发送播放命令
+                                    }else if(data_STB_Ret_int == 6) //验证错误
+                                    {
+                                    //显示文字：请输入密码
+                                    }
+                                    NSLog(@"*****判断机顶盒加锁验证正确与否");
+                                }
                                     break;
                                     
                                 default:
@@ -465,10 +480,28 @@
                         }
                             break;
                             
+                        case 13:  //此处是验证机顶盒密码
+                        {
+                            //此处是验证机顶盒密码
+                            NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 + nowData_length,4)];
+                            uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                            
+                            if(data_STB_Ret_int == 5) //正确
+                            {
+                                //发送播放命令
+                            }else if(data_STB_Ret_int == 6) //验证错误
+                            {
+                                //显示文字：请输入密码
+                            }
+                            NSLog(@"*****判断机顶盒加锁验证正确与否");
+                        }
+                            break;
+                            
                         default:
                             break;
+
                     }
-                    
+                
                 
                 
                 
@@ -614,6 +647,23 @@
                                 }
                                     break;
                                     
+                                case 13:  //此处是验证机顶盒密码
+                                {
+                                    //此处是验证机顶盒密码
+                                    NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 + nowData_length,4)];
+                                    uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                                    
+                                    if(data_STB_Ret_int == 5) //正确
+                                    {
+                                        //发送播放命令
+                                    }else if(data_STB_Ret_int == 6) //验证错误
+                                    {
+                                        //显示文字：请输入密码
+                                    }
+                                    NSLog(@"*****判断机顶盒加锁验证正确与否");
+                                }
+                                    break;
+                                    
                                 default:
                                     break;
                             }
@@ -746,8 +796,34 @@
                 }
                     break;
                     
+                case 13:  //此处是验证机顶盒密码
+                {
+                    //此处是验证机顶盒密码
+                    NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12,4)];
+                    uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                    NSLog(@"data_STB_Ret_int %d",data_STB_Ret_int);
+                    if(data_STB_Ret_int == 5) //正确
+                    {
+                        //发送播放命令
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+
+//                        STBDencryptVideoTouchNotific
+                        NSLog(@"验证正确");
+                    }else if(data_STB_Ret_int == 6) //验证错误
+                    {
+                        //显示文字：请输入密码
+                        NSLog(@"验证失败");
+                    }
+                    NSLog(@"*****判断机顶盒加锁验证正确与否");
+                }
+                    break;
+                    
                 default:
                     break;
+
             }
             
         }

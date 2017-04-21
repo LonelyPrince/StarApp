@@ -801,4 +801,58 @@ static const char *getPropertyType(objc_property_t property) {
     NSDictionary *attrs = @{NSFontAttributeName : font};
     return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
++(BOOL)isSTBDEncrypt :(NSString *)characterStr
+{
+    uint32_t character10 = [characterStr intValue];  //转换成10进制的数
+    NSLog(@"character10 :%d",character10);
+    
+    uint32_t character2_And =  character10 &  0x02;
+    NSLog(@"character2 与运算 %d",character2_And);
+    
+    
+    if (character2_And > 0) {
+        // 此处代表需要记性机顶盒加密验证
+        //弹窗
+        //发送通知
+        return YES;
+        //        [self popSTBAlertView];
+        //        [self popCAAlertView];
+        
+        
+    }else
+    {
+        return NO;
+    }
+}
++(BOOL)isCADEncrypt :(NSString *)characterStr
+{
+    uint32_t character10 = [characterStr intValue];  //转换成10进制的数
+    NSLog(@"character10 :%d",character10);
+    
+    uint32_t character2_And =  character10 &  0x04;
+    NSLog(@"character2 与运算 %d",character2_And);
+    
+    
+    if (character2_And > 0) {
+        // 此处代表需要记性机顶盒加密验证
+        //弹窗
+        //发送通知
+        return YES;
+        //        [self popSTBAlertView];
+        //        [self popCAAlertView];
+        
+        
+    }else
+    {
+        return NO;
+    }
+}
++(NSString *)judgeIsNeedSTBDecrypt :(NSInteger)row  serviceListDic :(NSDictionary *)dic
+{
+    NSDictionary * videDicNow = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    NSString * characterStr  = [videDicNow objectForKey:@"service_character"];
+    
+    return characterStr;
+}
 @end
