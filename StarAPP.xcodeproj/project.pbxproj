@@ -3139,7 +3139,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
-					"$(PROJECT_DIR)/libCtlClientLibFat.a",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ext/ctlFrameWork",
 				);
@@ -3191,7 +3190,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
-					"$(PROJECT_DIR)/libCtlClientLibFat.a",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ext/ctlFrameWork",
 				);
