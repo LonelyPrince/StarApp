@@ -868,7 +868,6 @@
 		702CE42F1DDA9881000A0513 /* nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nor@3x.png"; sourceTree = "<group>"; };
 		7033AA2D1E8209EB005C2A43 /* KVO_NoDataPic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVO_NoDataPic.h; sourceTree = "<group>"; };
 		7033AA2E1E8209EB005C2A43 /* KVO_NoDataPic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVO_NoDataPic.m; sourceTree = "<group>"; };
-		703983751EAD7EF300D9561A /* libCtlClientLibFat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCtlClientLibFat.a; path = ext/ctlFrameWork/libCtlClientLibFat.a; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -1063,7 +1062,6 @@
 		70E226E11EA9EEA5007B09D8 /* CTLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTLProtocol.swift; sourceTree = "<group>"; };
 		70E226E21EA9EEA5007B09D8 /* ctlClientLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ctlClientLib.h; sourceTree = "<group>"; };
 		70E226E31EA9EEA5007B09D8 /* StarAPP-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StarAPP-Bridging-Header.h"; sourceTree = "<group>"; };
-		70E226E51EA9EEEE007B09D8 /* libCtlClientLibFat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCtlClientLibFat.a; path = "../../Downloads/ctl 3/1.2.0/iOS-obf/libCtlClientLibFat.a"; sourceTree = "<group>"; };
 		70E712571DB5EE1300BD98EE /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
 		70E712581DB5EE1300BD98EE /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
 		70E712591DB5EE1300BD98EE /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
@@ -2313,8 +2311,6 @@
 		A4A66A001555E44100AED3AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				703983751EAD7EF300D9561A /* libCtlClientLibFat.a */,
-				70E226E51EA9EEEE007B09D8 /* libCtlClientLibFat.a */,
 				70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */,
 				701295321D80F51F003139D5 /* libz.1.2.5.tbd */,
 				701295261D80F513003139D5 /* libAFNetworking.a */,
