@@ -252,7 +252,6 @@
 		702CE4561DDA9881000A0513 /* nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42E1DDA9881000A0513 /* nor@2x.png */; };
 		702CE4571DDA9881000A0513 /* nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42F1DDA9881000A0513 /* nor@3x.png */; };
 		7033AA2F1E8209EB005C2A43 /* KVO_NoDataPic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7033AA2E1E8209EB005C2A43 /* KVO_NoDataPic.m */; };
-		703983761EAD7EF300D9561A /* libCtlClientLibFat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703983751EAD7EF300D9561A /* libCtlClientLibFat.a */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703D5D481DF5746200C4412A /* CategoryViewController.m */; };
@@ -1213,7 +1212,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				703983761EAD7EF300D9561A /* libCtlClientLibFat.a in Frameworks */,
 				70D6B97B1E2DEA5A00957A81 /* libMJRefresh.a in Frameworks */,
 				701295331D80F51F003139D5 /* libz.1.2.5.tbd in Frameworks */,
 				7012952C1D80F513003139D5 /* libAFNetworking.a in Frameworks */,
