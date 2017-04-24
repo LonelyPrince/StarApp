@@ -252,6 +252,7 @@
 		702CE4561DDA9881000A0513 /* nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42E1DDA9881000A0513 /* nor@2x.png */; };
 		702CE4571DDA9881000A0513 /* nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42F1DDA9881000A0513 /* nor@3x.png */; };
 		7033AA2F1E8209EB005C2A43 /* KVO_NoDataPic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7033AA2E1E8209EB005C2A43 /* KVO_NoDataPic.m */; };
+		703983761EAD7EF300D9561A /* libCtlClientLibFat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 703983751EAD7EF300D9561A /* libCtlClientLibFat.a */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703D5D481DF5746200C4412A /* CategoryViewController.m */; };
@@ -429,6 +430,7 @@
 		70D6B9191E2DAF3D00957A81 /* Startimes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */; };
 		70D6B91A1E2DAF3D00957A81 /* Startimes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */; };
 		70D6B97B1E2DEA5A00957A81 /* libMJRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */; };
+		70E226E41EA9EEA5007B09D8 /* CTLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E226E11EA9EEA5007B09D8 /* CTLProtocol.swift */; };
 		70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712571DB5EE1300BD98EE /* Group 7@1x.png */; };
 		70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712581DB5EE1300BD98EE /* Group 7@2x.png */; };
 		70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712591DB5EE1300BD98EE /* Group 7@3x.png */; };
@@ -867,6 +869,7 @@
 		702CE42F1DDA9881000A0513 /* nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nor@3x.png"; sourceTree = "<group>"; };
 		7033AA2D1E8209EB005C2A43 /* KVO_NoDataPic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVO_NoDataPic.h; sourceTree = "<group>"; };
 		7033AA2E1E8209EB005C2A43 /* KVO_NoDataPic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVO_NoDataPic.m; sourceTree = "<group>"; };
+		703983751EAD7EF300D9561A /* libCtlClientLibFat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCtlClientLibFat.a; path = ext/ctlFrameWork/libCtlClientLibFat.a; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -1057,6 +1060,11 @@
 		70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@2x.png"; sourceTree = "<group>"; };
 		70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@3x.png"; sourceTree = "<group>"; };
 		70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMJRefresh.a; path = "../../Library/Developer/Xcode/DerivedData/StarAPP-ejkwxdgcsxhkqoerxzpfnwxbqjup/Build/Products/Debug-iphonesimulator/MJRefresh/libMJRefresh.a"; sourceTree = "<group>"; };
+		70E226E01EA9EEA5007B09D8 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		70E226E11EA9EEA5007B09D8 /* CTLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTLProtocol.swift; sourceTree = "<group>"; };
+		70E226E21EA9EEA5007B09D8 /* ctlClientLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ctlClientLib.h; sourceTree = "<group>"; };
+		70E226E31EA9EEA5007B09D8 /* StarAPP-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StarAPP-Bridging-Header.h"; sourceTree = "<group>"; };
+		70E226E51EA9EEEE007B09D8 /* libCtlClientLibFat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCtlClientLibFat.a; path = "../../Downloads/ctl 3/1.2.0/iOS-obf/libCtlClientLibFat.a"; sourceTree = "<group>"; };
 		70E712571DB5EE1300BD98EE /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
 		70E712581DB5EE1300BD98EE /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
 		70E712591DB5EE1300BD98EE /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
@@ -1205,6 +1213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				703983761EAD7EF300D9561A /* libCtlClientLibFat.a in Frameworks */,
 				70D6B97B1E2DEA5A00957A81 /* libMJRefresh.a in Frameworks */,
 				701295331D80F51F003139D5 /* libz.1.2.5.tbd in Frameworks */,
 				7012952C1D80F513003139D5 /* libAFNetworking.a in Frameworks */,
@@ -2121,6 +2130,17 @@
 			path = RunLoop;
 			sourceTree = "<group>";
 		};
+		70E226DF1EA9EE98007B09D8 /* CTL */ = {
+			isa = PBXGroup;
+			children = (
+				70E226E01EA9EEA5007B09D8 /* module.modulemap */,
+				70E226E11EA9EEA5007B09D8 /* CTLProtocol.swift */,
+				70E226E21EA9EEA5007B09D8 /* ctlClientLib.h */,
+				70E226E31EA9EEA5007B09D8 /* StarAPP-Bridging-Header.h */,
+			);
+			name = CTL;
+			sourceTree = "<group>";
+		};
 		70FC2FED1D75207300BD06FE /* StarTime */ = {
 			isa = PBXGroup;
 			children = (
@@ -2268,6 +2288,7 @@
 		A4A669F21555E44100AED3AF = {
 			isa = PBXGroup;
 			children = (
+				70E226DF1EA9EE98007B09D8 /* CTL */,
 				7007708A1D8642DA003C0D68 /* Model */,
 				70170BDD1D7412EE00CC3951 /* images */,
 				70170BCD1D74019800CC3951 /* AppConfig */,
@@ -2294,6 +2315,8 @@
 		A4A66A001555E44100AED3AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				703983751EAD7EF300D9561A /* libCtlClientLibFat.a */,
+				70E226E51EA9EEEE007B09D8 /* libCtlClientLibFat.a */,
 				70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */,
 				701295321D80F51F003139D5 /* libz.1.2.5.tbd */,
 				701295261D80F513003139D5 /* libAFNetworking.a */,
@@ -2389,6 +2412,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = A4A669F21555E44100AED3AF;
 			productRefGroup = A4A669FE1555E44100AED3AF /* Products */;
@@ -2965,6 +2989,7 @@
 				60CAD287159C304100B7E28C /* NDLUtility.m in Sources */,
 				701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */,
 				705650641DB9B95F002DD47E /* AudioCell.m in Sources */,
+				70E226E41EA9EEA5007B09D8 /* CTLProtocol.swift in Sources */,
 				70231CD81DC0FFB800F73202 /* RouteSetting.m in Sources */,
 				701295191D80F4CF003139D5 /* UIActionSheet+Blocks.m in Sources */,
 				7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */,
@@ -3101,7 +3126,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = R8D7BE2CFZ;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLNASample/StarAPP-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3118,6 +3145,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
+					"$(PROJECT_DIR)/libCtlClientLibFat.a",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ext/ctlFrameWork",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3128,7 +3158,7 @@
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "viewController/TV/StarAPP-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "StarAPP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3148,7 +3178,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = R8D7BE2CFZ;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DLNASample/StarAPP-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -3165,6 +3197,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/DLNASample-bhqiwmqslbikkebmskahgxjadenu/Build/Products/Debug-iphoneos\"",
+					"$(PROJECT_DIR)/libCtlClientLibFat.a",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ext/ctlFrameWork",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3175,7 +3210,7 @@
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "viewController/TV/StarAPP-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "StarAPP-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "";
