@@ -855,4 +855,22 @@ static const char *getPropertyType(objc_property_t property) {
     
     return characterStr;
 }
++ (BOOL)judgeTwoEpgDicIsEqual: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic
+{
+    NSString * service_network_id1 = [firstDic objectForKey:@"service_network_id"];
+    NSString * service_ts_id1 = [firstDic objectForKey:@"service_ts_id"];
+    NSString * service_service_id1 = [firstDic objectForKey:@"service_service_id"];
+    
+    NSString * service_network_id2 = [twoDic objectForKey:@"service_network_id"];
+    NSString * service_ts_id2 = [twoDic objectForKey:@"service_ts_id"];
+    NSString * service_service_id2 = [twoDic objectForKey:@"service_service_id"];
+    
+    if ([service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2]) {
+        return YES;
+    }else
+    {
+        return NO;
+    }
+    
+}
 @end

@@ -15,6 +15,7 @@
     NSMutableArray *  historySearchArr ;
     UILabel * noHistorylab;
     UILabel * noResultlab;
+    int indexOfServiceToRefreshTable;
 }
 @end
 //UITableView* tableView;
@@ -444,6 +445,69 @@
     
     NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
     
+    //*******//////////////////////////////////
+    int indexOfCategory = 0;
+     indexOfCategory = [self judgeCategoryType:epgDicToSocket]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
+    NSLog(@"判断方法== %d",indexOfCategory);
+    NSNumber * currentIndexForCategory = [NSNumber numberWithInt:indexOfCategory];
+    NSLog(@"numIndexindexOfCategory1 %d",indexOfCategory);
+    NSDictionary * dict12 =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict12];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+  
+    
+    NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
+    //    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
+    NSArray * arrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][indexOfCategory] objectForKey:@"service_index"];
+   
+    for (int i = 0; i< arrForServiceByCategory.count; i++) {
+        NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
+        
+        BOOL * twoChannelDicIsEqual = [GGUtil judgeTwoEpgDicIsEqual:serviceForJudgeDic TwoDic:epgDicToSocket];
+        if (twoChannelDicIsEqual) {
+            
+            int indexForJudgeService = i;
+            indexOfServiceToRefreshTable =indexForJudgeService;
+            
+            NSLog(@"numIndexindexOfCategory %d",indexOfCategory);
+            NSLog(@"numIndexindexForJudgeService %d",indexForJudgeService);
+            NSLog(@"numIndexarrForServiceByCategory %d",arrForServiceByCategory.count);
+            [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
+            
+        }
+    }
+    
+    
+//    [tableForSliderView reloadData];
+    //     [self refreshTableFocusNotific:epgDicToSocket];
+    
+    
+//    //先全部变黑
+//    for (NSInteger  i = 0; i<arrForServiceByCategory.count; i++) {
+//        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+//        
+//        TVCell *cell1 = [tableForSliderView cellForRowAtIndexPath:indexPath1];
+//        
+//        [cell1.event_nextNameLab setTextColor:CellGrayColor]; //CellGrayColor
+//        [cell1.event_nameLab setTextColor:CellBlackColor];  //  [UIColor redColor]
+//        [cell1.event_nextTime setTextColor:CellGrayColor]; //CellGrayColor
+//    }
+//    
+//    
+//    
+//    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexOfServiceToRefreshTable inSection:0];
+//    //选中的变蓝
+//    TVCell *cell2 = [tableForSliderView cellForRowAtIndexPath:scrollIndexPath];
+//    [cell2.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//    [cell2.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //RGBA(0x60, 0xa3, 0xec, 1)
+//    [cell2.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //[UIColor blueColor]
+    
+     
+    // *******/
+    
     
     if (characterStr != NULL && characterStr != nil) {
         
@@ -456,6 +520,8 @@
             //        [self popSTBAlertView];
             //        [self popCAAlertView];
             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicCategory,@"textTwo", @"otherTouch",@"textThree",nil];
+            NSLog(@"numIndex %@",numIndex);
+            NSLog(@"numIndexdicCategory %@",dicCategory);
             //创建通知
             NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
             //通过通知中心发送通知
@@ -486,7 +552,75 @@
     }
 
 }
-
+-(int)judgeCategoryType:(NSDictionary *)NowServiceDic
+{
+ //获取全部的channel数据，判断当前点击的channel是哪一个dic
+    NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
+    NSDictionary * serviceArrForJudge_dic ;
+    for (int i = 0; i<serviceArrForJudge.count; i++) {
+        serviceArrForJudge_dic = serviceArrForJudge[i];
+        if ([GGUtil judgeTwoEpgDicIsEqual:serviceArrForJudge_dic TwoDic:NowServiceDic]) {
+            //此时的service就是真正的service
+            //进行后续操作
+            int nowServiceIndex = i+1;
+            NSString * service_indexForJudgeType = [NSString  stringWithFormat:@"%d",nowServiceIndex];   //返回当前的i,作为节目的service_index值
+            NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+            for (int i = 0; i < categoryArrForJudgeType.count; i++) {
+                NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
+                NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
+                for (int y = 0; y < categoryServiceIndexArr.count; y++) {
+                    NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
+                    NSLog(@"没有进入判断方法1 %@",serviceIndexForJundgeStr);
+                    NSLog(@"没有进入判断方法2 %@",service_indexForJudgeType);
+                    if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
+                        NSLog(@"没有进入判断方法这里要输出 i %d",i);
+                        return i;
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    //否则什么都不是
+    return 0;
+    
+//    NSString * service_indexForJudgeType = [NowServiceDic objectForKey:@"service_index"];
+//    NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+//    for (int i = 0; i < categoryArrForJudgeType.count; i++) {
+//        NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
+//        NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
+//        for (int y = 0; y < categoryServiceIndexArr.count; y++) {
+//            NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
+//            NSLog(@"没有进入判断方法1 %@",serviceIndexForJundgeStr);
+//            NSLog(@"没有进入判断方法2 %@",service_indexForJudgeType);
+//            if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
+//                NSLog(@"没有进入判断方法这里要输出 i %d",i);
+//                return i;
+//            }
+//        
+//        }
+//        
+//    }
+//    return 0;
+}
+-(void)tableViewCellToBlue :(NSInteger)numberOfIndex  indexhah :(NSInteger)numberOfIndexForService AllNumberOfService:(NSInteger)AllNumberOfServiceIndex
+{
+    NSNumber * numIndex = [NSNumber numberWithInteger:numberOfIndex];
+    NSNumber * numIndex2 = [NSNumber numberWithInteger:numberOfIndexForService];
+    NSNumber * numIndex3 = [NSNumber numberWithInteger:AllNumberOfServiceIndex];
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",numIndex2,@"textTwo", numIndex3,@"textThree",nil];
+    //创建通知
+    //    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoificAudioSubt" object:nil userInfo:dict];
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"tableViewChangeBlue" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+}
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText;
 {
     NSLog(@"%lu",(unsigned long)[_dataList count]);
@@ -666,17 +800,17 @@
         NSString * service_network =  [mutaArray[i][0] objectForKey:@"service_network_id"];
         NSString * service_ts =  [mutaArray[i][0] objectForKey:@"service_ts_id"];
         NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
-        NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
+//        NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
         NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
         
         //新添加的数据
         NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
         NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
         NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
-        NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
+//        NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
         NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
         
-        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName]) {
+        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName]) {
             addNewData = NO;
             
             NSArray * equalArr = mutaArray[i];

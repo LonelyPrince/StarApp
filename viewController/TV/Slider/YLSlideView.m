@@ -198,9 +198,11 @@
     
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:row2 inSection:0];
     //
-    [tableViewForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+//    [tableViewForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 
-    //先全部变黑
+    [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    
+      //先全部变黑
     for (NSInteger  i = 0; i<row3; i++) {
         NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
         
@@ -209,16 +211,42 @@
         [cell1.event_nextNameLab setTextColor:CellGrayColor]; //CellGrayColor
         [cell1.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
         [cell1.event_nextTime setTextColor:CellGrayColor]; //CellGrayColor
+//        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+//        cell1.selectedBackgroundView.backgroundColor = [UIColor blueColor]; //RGBA(
+        cell1.backgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+        cell1.backgroundView.backgroundColor = [UIColor whiteColor];
+        cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+        cell1.selectedBackgroundView.backgroundColor = [UIColor whiteColor]; //RGBA
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         if(i == row2)
         {
             [cell1.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
             [cell1.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //CellBlackColor
             [cell1.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
+            cell1.backgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+            cell1.backgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1); //RGBA(0xf8, 0xf8, 0xf8, 1);//[UIColor whiteColor];//
             cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
-            cell1.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+            cell1.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1); //RGBA
+            
+            cell1.selected = YES;
         }
     }
+    
+    //附加==
+    TVCell *cell1 = [tableViewForSliderView cellForRowAtIndexPath:scrollIndexPath];
+    
+    cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+    cell1.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+    [cell1.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
+    [cell1.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //CellBlackColor
+    [cell1.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+    //            cell1.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+
+    //==
+    [tableViewForSliderView reloadData];
+    [tableViewForSliderView reloadRowsAtIndexPaths:[NSArray arrayWithObject:scrollIndexPath
+                                                    ] withRowAnimation:UITableViewRowAnimationNone];
     [tableViewForSliderView reloadData];
     
 }

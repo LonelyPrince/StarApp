@@ -54,6 +54,10 @@
 {
     [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
+-(void)TVViewAppearNO
+{
+    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+}
 -(void)loadScroll
 {
 
@@ -131,6 +135,7 @@
 
 -(void)categoryBtnsClick :(UIButton *)sender
 {
+    [self TVViewAppearNO];
     NSLog(@"点击了%ld",(long)sender.tag);
     
     NSNumber * currentIndex = [NSNumber numberWithInt:sender.tag];

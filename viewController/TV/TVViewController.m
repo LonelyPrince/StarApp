@@ -480,7 +480,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
-        
+        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //        NSLog(@"--------%@",self.serviceData);
         
         
@@ -1133,56 +1133,65 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"index :%@ ",@(index));
     
-    cell.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    //self.categorys[i]                          不同类别
-    //self.categoryModel.service_indexArr        类别的索引数组
-    //self.categoryModel.service_indexArr.count
-    //给不同的table赋值
-    //    for (int i = 0 ; i<self.categorys.count; i++) {
-    NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
-    self.categoryModel = [[CategoryModel alloc]init];
-    
- 
+    if(index < 100000)
+    { self.category_index = index;
+        cell.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        //self.categorys[i]                          不同类别
+        //self.categoryModel.service_indexArr        类别的索引数组
+        //self.categoryModel.service_indexArr.count
+        //给不同的table赋值
+        //    for (int i = 0 ; i<self.categorys.count; i++) {
+
+        NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+        self.categoryModel = [[CategoryModel alloc]init];
+        
+        
         self.categoryModel.service_indexArr = item[@"service_index"];
-    NSLog(@"self.TVChannlDic 2:%d",self.TVChannlDic.count);
-    
-//    self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
-    
-    //获取EPG信息 展示
-    //时间戳转换
-
-    [self.dicTemp removeAllObjects];
- 
-    //获取不同类别下的节目，然后是节目下不同的cell值                10
-    for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+        NSLog(@"self.TVChannlDic 2:%d",self.TVChannlDic.count);
         
-        int indexCat ;
-        //   NSString * str;
-        indexCat =[self.categoryModel.service_indexArr[i] intValue];
-        NSLog(@"self.TVChannlDic 5:%lu",(unsigned long)self.TVChannlDic.count);
-        //cell.tabledataDic = self.serviceData[indexCat -1];
+        //    self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
         
+        //获取EPG信息 展示
+        //时间戳转换
         
-        //此处判断是否为空，防止出错
-        if ( ISNULL(self.serviceData)) {
+        [self.dicTemp removeAllObjects];
+        
+        //获取不同类别下的节目，然后是节目下不同的cell值                10
+        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
             
-        }else{
-            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+            int indexCat ;
+            //   NSString * str;
+            indexCat =[self.categoryModel.service_indexArr[i] intValue];
+            NSLog(@"self.TVChannlDic 5:%lu",(unsigned long)self.TVChannlDic.count);
+            //cell.tabledataDic = self.serviceData[indexCat -1];
+            
+            
+            //此处判断是否为空，防止出错
+            if ( ISNULL(self.serviceData)) {
+                
+            }else{
+                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+            }
+            
         }
+        
+        //    tempDicForServiceArr = self.TVChannlDic;
+        
+        //        cell.tabledataDic =  self.categorys[index];
+        //    }
+        
+        //    self.a = index;
+        //    NSLog(@"index  self.a--------:%@ ",@(index));
+        [cell reloadData]; //刷新TableView
+        //    NSLog(@"刷新数据");
+        //    [self getsubt];
 
+    }else
+    {
+        self.category_index = 0;
+        NSLog(@"index 的长度出错了，不应该这么长");
     }
-    
-//    tempDicForServiceArr = self.TVChannlDic;
-  
-    //        cell.tabledataDic =  self.categorys[index];
-    //    }
-    
-    //    self.a = index;
-    //    NSLog(@"index  self.a--------:%@ ",@(index));
-    [cell reloadData]; //刷新TableView
-    //    NSLog(@"刷新数据");
-//    [self getsubt];
-}
+ }
 
 - (void)slideViewInitiatedComplete:(TVTable *)cell forIndex:(NSUInteger)index{
     
@@ -1219,6 +1228,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+        
 //UITableViewCell *cell;
 //        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -1252,7 +1262,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        for (int i = 0; i< serviceArrForJudge.count; i++) {
 //            NSDictionary * serviceForJudgeDic = serviceArrForJudge[i];
 //       [GGUtil judgeTwoChannelDicIs]
-            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+            if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) { //[cell.dataDic isEqualToDictionary:fourceDic]
                 
 //                int indexForJudgeService = i;
 //                 NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
@@ -1435,26 +1445,31 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //    self.categoryModel.service_indexArr.count
     
     
-    //先全部变黑
-    for (NSInteger  i = 0; i<self.categoryModel.service_indexArr.count; i++) {
-        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-
-        TVCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-        [cell1.event_nextNameLab setTextColor:CellGrayColor];
-        [cell1.event_nameLab setTextColor:CellBlackColor];
-        [cell1.event_nextTime setTextColor:CellGrayColor];
-    }
+//    //先全部变黑
+//    for (NSInteger  i = 0; i<self.categoryModel.service_indexArr.count; i++) {
+//        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+//
+//        TVCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+//        [cell1.event_nextNameLab setTextColor:CellGrayColor];
+//        [cell1.event_nameLab setTextColor:CellBlackColor];
+//        [cell1.event_nextTime setTextColor:CellGrayColor];
+//    }
+//    
+//    
+//    
+//    
+//    //选中的变蓝
+//    TVCell *cell = [tableView cellForRowAtIndexPath:indexPathNow];
+//    [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//    [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//    [cell.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+//    NSLog(@"cellcellcellcellcellcell:%@",cell);
     
-    
-    
-    
-    //选中的变蓝
-    TVCell *cell = [tableView cellForRowAtIndexPath:indexPathNow];
-    [cell.event_nextNameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-    [cell.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-    [cell.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    NSLog(@"cellcellcellcellcellcell:%@",cell);
+    //new ==
+    int indexOfCategory =  self.category_index;  //[self judgeCategoryType:[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
+    NSArray * allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+    [self tableViewCellToBlue:indexOfCategory indexhah:indexPath.row AllNumberOfService:allNumberOfServiceArr.count];
     
     [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
@@ -2529,6 +2544,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self refreshTableFocus];  //刷新tableView焦点颜色的通知
         [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
         [self STBDencryptNotific];   //机顶盒加密的通知
+        [self CADencryptNotific];   //机顶盒加密的通知
         [self STBDencryptVideoTouchNotific];   //机顶盒加密后的播放通知
 //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
@@ -2678,6 +2694,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
+        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
@@ -2803,6 +2820,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
+        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         //        NSLog(@"--------%@",self.serviceData);
         
@@ -3425,7 +3443,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             for (int i = 0; i< arrForServiceByCategory.count; i++) {
                 NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
     
-                if ([serviceForJudgeDic isEqualToDictionary:epgDicToSocket]) {
+                //此处需要验证epg节目中的三个值是否相等
+                BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
+                
+                if (isEqualForTwoDic) {
     
                     int indexForJudgeService = i;
                     indexOfServiceToRefreshTable =indexForJudgeService;
@@ -3482,21 +3503,55 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(int)judgeCategoryType:(NSDictionary *)NowServiceDic
 {
-    NSLog(@"进入了判断方法");
-    NSString * service_indexForJudgeType = [NowServiceDic objectForKey:@"service_index"];
-    NSArray  * categoryArrForJudgeType = self.categorys;
-    for (int i = 0; i < categoryArrForJudgeType.count; i++) {
-        NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
-        NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
-        for (int y = 0; y < categoryServiceIndexArr.count; y++) {
-            NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
-            if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
-                return i;
+    //获取全部的channel数据，判断当前点击的channel是哪一个dic
+    NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
+    NSDictionary * serviceArrForJudge_dic ;
+    for (int i = 0; i<serviceArrForJudge.count; i++) {
+        serviceArrForJudge_dic = serviceArrForJudge[i];
+        if ([GGUtil judgeTwoEpgDicIsEqual:serviceArrForJudge_dic TwoDic:NowServiceDic]) {
+            //此时的service就是真正的service
+            //进行后续操作    
+            int nowServiceIndex = i+1;
+            NSString * service_indexForJudgeType = [NSString  stringWithFormat:@"%d",nowServiceIndex];   //返回当前的i,作为节目的service_index值
+            NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+            for (int i = 0; i < categoryArrForJudgeType.count; i++) {
+                NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
+                NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
+                for (int y = 0; y < categoryServiceIndexArr.count; y++) {
+                    NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
+                    NSLog(@"没有进入判断方法1 %@",serviceIndexForJundgeStr);
+                    NSLog(@"没有进入判断方法2 %@",service_indexForJudgeType);
+                    if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
+                        NSLog(@"没有进入判断方法这里要输出 i %d",i);
+                        return i;
+                    }
+                    
+                }
+                
             }
         }
-        
     }
+    //否则什么都不是
+    return 0;
     
+    //    NSString * service_indexForJudgeType = [NowServiceDic objectForKey:@"service_index"];
+    //    NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+    //    for (int i = 0; i < categoryArrForJudgeType.count; i++) {
+    //        NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
+    //        NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
+    //        for (int y = 0; y < categoryServiceIndexArr.count; y++) {
+    //            NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
+    //            NSLog(@"没有进入判断方法1 %@",serviceIndexForJundgeStr);
+    //            NSLog(@"没有进入判断方法2 %@",service_indexForJudgeType);
+    //            if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
+    //                NSLog(@"没有进入判断方法这里要输出 i %d",i);
+    //                return i;
+    //            }
+    //
+    //        }
+    //        
+    //    }
+    //    return 0;
 }
 /////////////全屏状态切换音轨字幕通知
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
@@ -3899,6 +3954,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
+        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         //        NSLog(@"--------%@",self.serviceData);
         
@@ -4068,6 +4124,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 
 #pragma mark-- 密码校验 / 机顶盒密码加锁  /  CA验证
+-(void)CADencryptNotific
+{
+    //新建一个通知，用来监听机顶盒加密
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CADencryptNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popCAAlertView:) name:@"CADencryptNotific" object:nil];
+    
+}
 -(void)STBDencryptNotific
 {
     //新建一个通知，用来监听机顶盒加密
@@ -4238,21 +4302,50 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                 name:@"UITextFieldTextDidChangeNotification"
                                               object:STBTextField_Encrypt];
 }
--(void)popCAAlertView
+-(void)popCAAlertView : (NSNotification *)text
 {
+    NSData * CAThreeData = text.userInfo[@"CAThreedata"];
+    NSData * CANetwork_idData = [CAThreeData subdataWithRange:NSMakeRange(0,2)];
+    NSData * CATs_idData = [CAThreeData subdataWithRange:NSMakeRange(2,2)];
+    NSData * CAService_idData = [CAThreeData subdataWithRange:NSMakeRange(4,2)];
+    
+    NSString * CANetwork_idStr = [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
+    NSString * CATs_idStr = [[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
+    NSString * CAService_idStr = [[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
+    //判断当前节目是不是CA弹窗节目
+    
+    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_ts_id) ;
+    NSLog(@"socketView.socket_ServiceModel.service_net_id :%@",socketView.socket_ServiceModel.service_network_id) ;
+    NSLog(@"socketView.socket_ServiceModel.service_service_id :%@",socketView.socket_ServiceModel.service_service_id) ;
+    
+    if ([CANetwork_idStr isEqualToString:socketView.socket_ServiceModel.service_network_id] && [CATs_idStr isEqualToString:socketView.socket_ServiceModel.service_ts_id] && [CAService_idStr isEqualToString:socketView.socket_ServiceModel.service_service_id]) {
+        //证明一致，是这个CA节目
+        
+        [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+        CAAlert.delegate =  self;
+        [CAAlert show];
+        
+        
+        CATextField_Encrypt.delegate = self;
+        CATextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
+        CATextField_Encrypt = [CAAlert textFieldAtIndex:0];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                    name:@"UITextFieldTextDidChangeNotification"
+                                                  object:CATextField_Encrypt];
+
+    }else
+    {
+    //不一致，不弹窗。===或者将窗口取消掉
+        
+        if(CAAlert){
+            [CAAlert dismissWithClickedButtonIndex:[CAAlert cancelButtonIndex] animated:YES];
+        }
+    }
+    
+    
+    
 //    CAAlert = [[UIAlertView alloc] initWithTitle:@"请输入CA密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-    [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-    CAAlert.delegate =  self;
-    [CAAlert show];
-    
-    
-    CATextField_Encrypt.delegate = self;
-    CATextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
-    CATextField_Encrypt = [CAAlert textFieldAtIndex:0];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-                                                name:@"UITextFieldTextDidChangeNotification"
-                                              object:CATextField_Encrypt];
-}
+  }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 //    textField_Encrypt.delegate = self;

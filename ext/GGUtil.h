@@ -102,4 +102,5 @@
 +(BOOL)isSTBDEncrypt :(NSString *)characterStr;
 +(BOOL)isCADEncrypt :(NSString *)characterStr;
 +(NSString *)judgeIsNeedSTBDecrypt :(NSInteger)row  serviceListDic :(NSDictionary *)dic;
++ (BOOL)judgeTwoEpgDicIsEqual: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic;
 @end
