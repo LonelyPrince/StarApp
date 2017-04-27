@@ -315,7 +315,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     if(cs_passwordCheck.passwd_type == 1){
         cs_passwordCheck.passwd_string = passWordStr;//@"000000";
         cs_passwordCheck. data_len= 16;
-    }else if(cs_passwordCheck.passwd_type == 1){
+    }else if(cs_passwordCheck.passwd_type == 0){
         cs_passwordCheck.passwd_string =passWordStr;//@"123a";
         cs_passwordCheck. data_len= 14;
     }

@@ -1037,7 +1037,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     // 添加头部的下拉刷新
     MJRefreshNormalHeader *header = [[MJRefreshNormalHeader alloc] init];
-    [header setRefreshingTarget:self refreshingAction:@selector(headerClick)];
+    [header setRefreshingTarget:self refreshingAction:@selector(headerClick)];  //下拉触发
     tableForSliderView.mj_header = header;
     
 //    //保存到字典中 tableView和index
@@ -1115,6 +1115,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.tableForSliderView reloadData];
     
     // 模拟延迟2秒
+    
+    double delayInSeconds = 2;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"延时执行的2秒");
+        //        [self runThread1];
+        NSLog(@"byteValue1 TVTVTVTVTVTV222");
+        [self.tableForSliderView reloadData];
+        NSLog(@"byteValue1 TVTVTVTVTVTV333");
+    });
     [NSThread sleepForTimeInterval:2];
 //    [self mediaDeliveryUpdate];
 //    [tableForSliderView reloadData];
@@ -1133,7 +1144,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"index :%@ ",@(index));
     
-    if(index < 100000)
+    if(index < 10000)
     { self.category_index = index;
         cell.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         //self.categorys[i]                          不同类别
@@ -4309,16 +4320,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * CATs_idData = [CAThreeData subdataWithRange:NSMakeRange(2,2)];
     NSData * CAService_idData = [CAThreeData subdataWithRange:NSMakeRange(4,2)];
     
-    NSString * CANetwork_idStr = [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
-    NSString * CATs_idStr = [[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
-    NSString * CAService_idStr = [[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
+    uint16_t  CANetwork_idStr = [SocketUtils uint16FromBytes:CANetwork_idData]; // [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
+    uint16_t  CATs_idStr =  [SocketUtils uint16FromBytes:CATs_idData]; //[[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
+    uint16_t  CAService_idStr =  [SocketUtils uint16FromBytes:CAService_idData];//[[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
     //判断当前节目是不是CA弹窗节目
     
     NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_ts_id) ;
     NSLog(@"socketView.socket_ServiceModel.service_net_id :%@",socketView.socket_ServiceModel.service_network_id) ;
     NSLog(@"socketView.socket_ServiceModel.service_service_id :%@",socketView.socket_ServiceModel.service_service_id) ;
     
-    if ([CANetwork_idStr isEqualToString:socketView.socket_ServiceModel.service_network_id] && [CATs_idStr isEqualToString:socketView.socket_ServiceModel.service_ts_id] && [CAService_idStr isEqualToString:socketView.socket_ServiceModel.service_service_id]) {
+    if (CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
         //证明一致，是这个CA节目
         
         [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];

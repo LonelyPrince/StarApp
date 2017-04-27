@@ -161,7 +161,6 @@
 
 
 
-
 -(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     // 对得到的data值进行解析与转换即可
@@ -175,6 +174,7 @@
     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
         
         [MBProgressHUD showMessag:@"CRC error" toView:nil];
+        NSLog(@"CRC error %@",data);
     }
     else{
         
@@ -201,7 +201,7 @@
                     uint8_t data_retTo32int = [SocketUtils uint32FromBytes:next_data_ret];
                     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
                         
-                        [MBProgressHUD showMessag:@"CRC error" toView:nil];
+                        [MBProgressHUD showMessag:@"CRC error111" toView:nil];
                     }else{
                     
                         NSData * next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
@@ -218,6 +218,7 @@
                             uint8_t next_command_type = [SocketUtils uint8FromBytes:next_data2_command_type];
                             
                             switch (next_command_type) {
+                                    NSLog(@"next_command_type  %d",next_command_type);
                                 case 0:
                                 {
                                     // 更新了列表
@@ -331,18 +332,70 @@
                                 {
                                     NSLog(@"*****停止视频播放");
                                 }
+                                    break;
+                                case 8:  //CA 加扰
+                                {
+                                    NSLog(@"*****此处是CA加扰验证1");
+                                    //这里可以获得CA信息
+                                    //第一步：获得必要的CA消息
+                                    
+                                    
+                                    
+                                    
+                                    //======
+                                    //获得数据区的长度
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+                                    
+                                    //此处是验证机顶盒密码，将会这个消息传到TV页面
+                                    NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37 + nowData_length,6)];
+                                    
+                                    
+                                    //发送弹窗消息
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
+                                    //创建通知
+                                    NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                    
+                                }
+                                    break;
                                 case 13:  //此处是验证机顶盒密码
                                 {
+                                    
+                                    
+                                    //获得数据区的长度
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+
                                     //此处是验证机顶盒密码
-                                    NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 + nowData_length,4)];
+                                    NSData * data_STB_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(12 + nowData_length,4)];
                                     uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                                    
+
                                     
                                     if(data_STB_Ret_int == 5) //正确
                                     {
-                                    //发送播放命令
+                                        //发送播放命令
+                                        //创建通知
+                                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                        
+                                        //                        STBDencryptVideoTouchNotific
+                                        NSLog(@"验证正确");
                                     }else if(data_STB_Ret_int == 6) //验证错误
                                     {
-                                    //显示文字：请输入密码
+                                        //显示文字：请输入密码
+                                        NSLog(@"验证失败");
                                     }
                                     NSLog(@"*****判断机顶盒加锁验证正确与否");
                                 }
@@ -375,12 +428,12 @@
             //new 进行判断，防止多个data合在一起
             
             //这里进行判断
-            int data_length = data.length;
+            int data_length = data.length;   //总长度
             NSLog(@"data_length %d",data_length);
             
-            uint8_t MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];
+            uint8_t MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];   //第一段数据区总长度
             
-            if (data_length > 28 + MDMM_Data_Length ) {
+            if (data_length > 28 + MDMM_Data_Length ) {  //如果总数据长度大于第一段数据的长度
                 //证明还有其他的信息，MDMM信息和心跳都在一起了
                 int nowData_length;
                 nowData_length = 28 + MDMM_Data_Length;
@@ -391,7 +444,8 @@
                     
                     NSLog(@"command_type:%hhu",command_type);
                     
-                    switch (command_type) {
+                    switch (command_type) {   //这里代表第一段的MDMM，所以不需要加nowData_length
+                            NSLog(@"command_type %d",command_type);
                         case 0:
                         {
                             // 更新了列表
@@ -479,19 +533,43 @@
                             NSLog(@"*****停止视频播放");
                         }
                             break;
+                        case 8:  //CA 加扰
+                        {
+                            NSLog(@"*****此处是CA加扰验证2");
+                            //这里可以获得CA信息
+                            //第一步：获得必要的CA消息
+                            //此处是验证机顶盒密码，将会这个消息传到TV页面
+                            NSData * data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+
                             
+                            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
+                            //创建通知
+                            NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                            
+                        }
+                            break;
                         case 13:  //此处是验证机顶盒密码
                         {
                             //此处是验证机顶盒密码
-                            NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 + nowData_length,4)];
+                            NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 ,4)];
                             uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
                             
                             if(data_STB_Ret_int == 5) //正确
                             {
                                 //发送播放命令
+                                //创建通知
+                                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                
+                                //                        STBDencryptVideoTouchNotific
+                                NSLog(@"验证正确");
                             }else if(data_STB_Ret_int == 6) //验证错误
                             {
                                 //显示文字：请输入密码
+                                NSLog(@"验证失败");
                             }
                             NSLog(@"*****判断机顶盒加锁验证正确与否");
                         }
@@ -505,7 +583,7 @@
                 
                 
                 
-                //  执行第一个MDMM命令后，就开始后面的命令执行
+                //  执行第一个MDMM数据命令后，就开始后面的命令执行
                 while (nowData_length < data_length) {
                     
                     
@@ -514,7 +592,7 @@
                     uint8_t data_retTo32int = [SocketUtils uint32FromBytes:next_data_ret];
                     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
                         
-                        [MBProgressHUD showMessag:@"CRC error" toView:nil];
+                        [MBProgressHUD showMessag:@"CRC error222" toView:nil];
                     }else
                     {
                         
@@ -532,6 +610,7 @@
                             uint8_t next_command_type = [SocketUtils uint8FromBytes:next_data2_command_type];
                             
                             switch (next_command_type) {
+                                    NSLog(@"next_command_type %d",next_command_type);
                                 case 0:
                                 {
                                     // 更新了列表
@@ -646,19 +725,60 @@
                                     NSLog(@"*****停止视频播放");
                                 }
                                     break;
+                                case 8:  //CA 加扰
+                                {
+                                    NSLog(@"*****此处是CA加扰验证3");
+                                    
+                                    
+                                    
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
+                                    
+                                    NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                    
+                                  //发送弹窗消息
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
+                                    //创建通知
+                                    NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                }
+                                    break;
                                     
                                 case 13:  //此处是验证机顶盒密码
                                 {
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint8_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    
+                                    
                                     //此处是验证机顶盒密码
-                                    NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 + nowData_length,4)];
+                                    NSData * data_STB_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(12,4)];
                                     uint8_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
                                     
                                     if(data_STB_Ret_int == 5) //正确
                                     {
                                         //发送播放命令
+                                        //创建通知
+                                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+                                        //通过通知中心发送通知
+                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                        
+                                        //                        STBDencryptVideoTouchNotific
+                                        NSLog(@"验证正确");
                                     }else if(data_STB_Ret_int == 6) //验证错误
                                     {
                                         //显示文字：请输入密码
+                                        NSLog(@"验证失败");
                                     }
                                     NSLog(@"*****判断机顶盒加锁验证正确与否");
                                 }
@@ -695,6 +815,7 @@
             NSLog(@"command_type:%hhu",command_type);
             
             switch (command_type) {
+                    NSLog(@"command_type %d",command_type);
                 case 0:
                 {
                     // 更新了列表
@@ -795,7 +916,20 @@
                     NSLog(@"*****停止视频播放");
                 }
                     break;
+                case 8:  //CA 加扰
+                {
+                    NSLog(@"*****此处是CA加扰验证4");
                     
+                    NSData * data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                    
+                    //发送弹窗消息
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+                    break;
                 case 13:  //此处是验证机顶盒密码
                 {
                     //此处是验证机顶盒密码

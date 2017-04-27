@@ -688,7 +688,7 @@
     [toadyView addSubview:todayLab];
     
     UILabel * earilyLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 20, 50, 20)];
-    earilyLab.text = @"Earily";
+    earilyLab.text = @"Early";
     [earilyView addSubview:earilyLab];
     
     
