@@ -23,7 +23,7 @@ static const CGSize progressViewSize = {375, 1.5f };
 UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
 {
     
-    YLSlideView * _slideView;
+    YLSlideView * _slideView;   //它可以直接操作各个表，对表进行刷新
     NSArray *colors;
     NSArray *_testArray;
     NSMutableData * urlData;
@@ -82,6 +82,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * STBTouchType_Str;  //STB 加锁后的通知中的字符串参数，勇于判断属于哪种播放类型
     NSInteger STBTouch_Audio ;  //STB 加锁后的通知中的audio参数
     NSInteger STBTouch_Subt ;  //STB 加锁后的通知中的subt参数
+    NSMutableSet * channelStartimesList ; //用于保存开始时间的集合
+    BOOL isNeedRefreshChannelListForStartTime;     //创建时间管理channelList
+    int  manageRefreshTimeFor;   //管理NSSet刷新时间的，防止用户刷新NSSet，导致页面卡死，这里用时间做一次判断，就好比每过30s才刷新一次
+    NSString * nwoTimeBreakStr;  //获得当前时间戳
+    BOOL isEventStartTimeBiger_NowTime;
 }
 
 
@@ -104,7 +109,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //table的data
 @property (strong,nonatomic) NSMutableArray *serviceTableData;
 
-@property (nonatomic, assign) NSInteger category_index;
+@property (nonatomic, assign) NSInteger category_index;  //能够获得当前页面的category的index索引
 @property (strong,nonatomic)NSMutableDictionary * dicTemp;
 
 @property (strong,nonatomic)NSString * service_videoindex;     //video的频道索引
@@ -376,6 +381,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     STBAlert = STBAlert = [[UIAlertView alloc] initWithTitle:@"请输入机顶盒密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     CAAlert = CAAlert = [[UIAlertView alloc] initWithTitle:@"请输入CA密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    channelStartimesList = [[NSMutableSet alloc]init];
     
 }
 -(void)initProgressLine
@@ -475,6 +481,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
+        
+        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //异步执行队列任务
+        dispatch_async(globalQueue, ^{
+            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+        });
+        
+        
         if (!isValidArray(data1) || data1.count == 0){
             [self getServiceData];
             return ;
@@ -671,7 +685,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
     [self.view addSubview:self.searchBtn];
     //    [topView bringSubviewToFront:self.searchBtn];
-    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick //judgeJumpFromOtherView //tableViewCellToBlue
+    [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick //judgeJumpFromOtherView //tableViewCellToBlue //refreshTableviewByEPGTime
     
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]  ) {
         NSLog(@"此刻是5s和4s 的大小");
@@ -706,6 +720,67 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
+}
+-(void)refreshTableviewByEPGTime //由于EPG时间要发生变化，所以此处要刷新他
+{
+//        NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:1 inSection:0];
+//        
+//        TVCell *cell1 = [self.tableForSliderView cellForRowAtIndexPath:indexPath1];
+//    
+//    NSLog(@"cell1 shi :%@",cell1);
+//    cell1.event_nextNameLab.text = @"woca";
+//    cell1.event_nameLab.text = @"woca";
+//    cell1.event_nextTime.text = @"woca";
+//        [cell1.event_nextNameLab setTextColor:[UIColor redColor]]; //CellGrayColor
+//        [cell1.event_nameLab setTextColor:[UIColor redColor]];  //CellBlackColor
+//        [cell1.event_nextTime setTextColor:[UIColor redColor]]; //CellGrayColor
+    
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.dicTemp = NULL;
+//        self.dicTemp = nil;
+        NSInteger beforeRefreshIndex = self.category_index; //由于刷新后，列表的index会迅速变换为0，所以这里要做一个等级
+        [_slideView reloadData];
+        [self.tableForTemp reloadData];
+        [tableForSliderView reloadData];
+        NSLog(@"self.category_index :%d",beforeRefreshIndex);
+        NSNumber * currentIndex = [NSNumber numberWithInteger:beforeRefreshIndex];
+        NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex,@"currentIndex", nil];
+        //创建通知，防止刷新后跳转错页面
+        NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    });
+    
+        //        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+        //        cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+        //        cell1.selectedBackgroundView.backgroundColor = [UIColor blueColor]; //RGBA(
+//        cell1.backgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+//        cell1.backgroundView.backgroundColor = [UIColor whiteColor];
+//        cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+//        cell1.selectedBackgroundView.backgroundColor = [UIColor whiteColor]; //RGBA
+//        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
+//        if(i == row2)
+//        {
+//            [cell1.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
+//            [cell1.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //CellBlackColor
+//            [cell1.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //CellGrayColor
+//            cell1.backgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+//            cell1.backgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1); //RGBA(0xf8, 0xf8, 0xf8, 1);//[UIColor whiteColor];//
+//            cell1.selectedBackgroundView = [[UIView alloc] initWithFrame:cell1.frame];
+//            cell1.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1); //RGBA
+//            
+//            cell1.selected = YES;
+//        }
+//    }
+//    double abcd = 100;
+//    for (int i = 0 ; i< 365*10; i++) {
+//        double shouyi = 300.0/370000;
+////        double abcd = 37;
+//        abcd = abcd*(1+shouyi);
+//        NSLog(@"第 %d 天 每日结算总额：%f 万",i+1,abcd);
+//    }
 }
 -(void)tableViewCellToBlue :(NSInteger)numberOfIndex  indexhah :(NSInteger)numberOfIndexForService AllNumberOfService:(NSInteger)AllNumberOfServiceIndex
 {
@@ -1063,76 +1138,79 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     // 可在此处实现下拉刷新时要执行的代码
     // ......
     
-    [self tableViewDataRefresh];  //重新获取json数据
-    
+    [self tableViewDataRefreshForMjRefresh];  //重新获取json数据
+//    [self tableViewDataRefresh];
     NSLog(@"tableForDicIndexArr:%@",self.tableForDicIndexArr);
-    for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
-        
-        id idTemp = self.tableForDicIndexArr[i][1];
-        NSNumber * numTemp = self.self.tableForDicIndexArr[i][0];
-        if (idTemp == self.tableForSliderView ) {
-          
-            NSInteger index = [numTemp integerValue];
-            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
-            self.categoryModel = [[CategoryModel alloc]init];
-            
-            self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
-            
-            //获取EPG信息 展示
-            //时间戳转换
-            
-            [self.dicTemp removeAllObjects];
-            //获取不同类别下的节目，然后是节目下不同的cell值                10
-            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                
-                int indexCat ;
-                //   NSString * str;
-                indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                //cell.tabledataDic = self.serviceData[indexCat -1];
-                
-                
-                //此处判断是否为空，防止出错
-                if ( ISNULL(self.serviceData)) {
-                    
-                }else{
-                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                }
-                
-                
-            }
-
-            
-            
-            
-            
-        }
-    }
+//    for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
+//        
+//        id idTemp = self.tableForDicIndexArr[i][1];
+//        NSNumber * numTemp = self.self.tableForDicIndexArr[i][0];
+//        
+//        if (idTemp == self.tableForSliderView ) {
+//          
+//            NSInteger index = [numTemp integerValue];
+//            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+//            self.categoryModel = [[CategoryModel alloc]init];
+//            
+//            self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+//            
+//            //获取EPG信息 展示
+//            //时间戳转换
+//            
+//            [self.dicTemp removeAllObjects];
+//            //获取不同类别下的节目，然后是节目下不同的cell值                10
+//            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+//                
+//                int indexCat ;
+//                //   NSString * str;
+//                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+//                //cell.tabledataDic = self.serviceData[indexCat -1];
+//                
+//                
+//                //此处判断是否为空，防止出错
+//                if ( ISNULL(self.serviceData)) {
+//                    
+//                }else{
+//                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//                }
+//                
+//                
+//            }
+//
+//            
+//            
+//            
+//            
+//        }
+//    }
     
-  
+    NSLog(@"self.dicTemp==--== :%@",self.dicTemp);
 //    重新赋值self.dictemp
     //uitableview reloaddata
     
-    [self.tableForSliderView reloadData];
-    
-    // 模拟延迟2秒
-    
-    double delayInSeconds = 2;
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, mainQueue, ^{
-        NSLog(@"延时执行的2秒");
-        //        [self runThread1];
-        NSLog(@"byteValue1 TVTVTVTVTVTV222");
-        [self.tableForSliderView reloadData];
-        NSLog(@"byteValue1 TVTVTVTVTVTV333");
-    });
-    [NSThread sleepForTimeInterval:2];
-//    [self mediaDeliveryUpdate];
-//    [tableForSliderView reloadData];
-    // 结束刷新
-
-//    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
-    [self.tableForSliderView.mj_header endRefreshing];
+//    [self.tableForSliderView reloadData];
+//    [self refreshTableviewByEPGTime];
+//    // 模拟延迟2秒
+//    
+//    double delayInSeconds = 2;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"延时执行的2秒");
+//        //        [self runThread1];
+//        NSLog(@"byteValue1 TVTVTVTVTVTV222");
+//        [self.tableForSliderView reloadData];
+////        [_slideView reloadData];  //新加的刷新
+//        [self refreshTableviewByEPGTime];
+//        NSLog(@"byteValue1 TVTVTVTVTVTV333");
+//    });
+//    [NSThread sleepForTimeInterval:2];
+////    [self mediaDeliveryUpdate];
+////    [tableForSliderView reloadData];
+//    // 结束刷新
+//
+////    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
+//    [self.tableForSliderView.mj_header endRefreshing];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -1143,6 +1221,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
     
     NSLog(@"index :%@ ",@(index));
+    NSLog(@"self.category_index :%d",index);
     
     if(index < 10000)
     { self.category_index = index;
@@ -1208,7 +1287,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //可以在这里做数据的预加载（缓存数据）
     NSLog(@"缓存数据 %@",@(index));
-    
+    NSLog(@"self.category_index2 :%d",index);
     dispatch_async(dispatch_get_main_queue(), ^{
         [cell reloadData];
         
@@ -1219,7 +1298,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSLog(@"%lu",(unsigned long)self.serviceData.count);
-    
+    NSLog(@"当前tableView个数 :%lu",self.categoryModel.service_indexArr.count);
+    nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
     self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)self.categoryModel.service_indexArr.count];
     return self.categoryModel.service_indexArr.count;
     
@@ -1229,13 +1309,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     return [TVCell defaultCellHeight];
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    static NSString *TableSampleIdentifier = @"TVCell";
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    
+    NSLog(@"当前tableView 的cell方法");
     tempTableviewForFocus = tableView;
-    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TVCell"];
+    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
     if (cell == nil){
         cell = [TVCell loadFromNib];
+//        cell = [[TVCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
         
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
@@ -1261,6 +1342,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    NSLog(@"index  cell.aaa--------:%d",cell.aaa);
     
     if (!ISEMPTY(self.dicTemp)) {
+        cell.nowTimeStr = nwoTimeBreakStr;  //这里的nwoTimeBreakStr 是在numbeOfrows获取的当前时间
         cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         
@@ -1296,6 +1378,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
  
         
     }else{//如果为空，什么都不执行
+        NSLog(@"==");
     }
     
     NSLog(@"cell.dataDic:%@",cell.dataDic);
@@ -1390,6 +1473,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     tempBoolForServiceArr = YES;
     tempArrForServiceArr =  self.categoryModel.service_indexArr;
     tempDicForServiceArr = self.TVChannlDic;
@@ -1635,7 +1719,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
            
             
             
-            //判断当前是不是一个节目
+            //判断当前是不是一个节目（此处应该没有实质价值）
             eventName1 = self.event_videoname;
             eventName2 = self.event_videoname;
             //        eventNameTemp ;
@@ -1743,14 +1827,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        [self playVideo];
 //    });
 //}
+#pragma 进度条刷新
 -(void)progressRefresh
 {
     NSLog(@" 进入了一次progressRefresh  replaceEventNameNotific ");
     progressEPGArrIndex = progressEPGArrIndex +1;
-    
     [self.topProgressView removeFromSuperview];
     [self.timer invalidate];
     self.timer = nil;
+    
+    if(isEventStartTimeBiger_NowTime == YES) //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
+    {
+        progressEPGArrIndex = progressEPGArrIndex - 1;
+    }else
+    {
+    
+    }
+   
+    
     
     NSLog(@"progressRefresh");
 //    progressEPGArr
@@ -1929,7 +2023,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@" 删除进度条的地方replaceEventNameNotific");
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-        [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+        [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];  //记录一个结束时间，到达这个时间点后需要刷新进度条
     }
     
     
@@ -2075,6 +2169,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
             self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
             self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    isEventStartTimeBiger_NowTime = NO;
+    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+    if (isEventStartTimeBigNowTime == YES) {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+    }
 //            self.TVSubAudioDic = [[NSDictionary alloc]init];
             self.TVSubAudioDic = epgDicToSocket;
 //            self.TVChannlDic = [[NSDictionary alloc]init];
@@ -2699,6 +2800,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
+        
+        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //异步执行队列任务
+        dispatch_async(globalQueue, ^{
+            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+        });
+        
+        
+        
+        
         if (!isValidArray(data1) || data1.count == 0){
             //            [self getServiceData];
             [self tableViewDataRefresh];
@@ -2825,6 +2936,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
+        
+//        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        //异步执行队列任务
+//        dispatch_async(globalQueue, ^{
+//            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+//        });
+        
         if (!isValidArray(data1) || data1.count == 0){
 //            [self getServiceData];
             [self getMediaDeliverUpdate];
@@ -3362,6 +3480,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    isEventStartTimeBiger_NowTime = NO;
+    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+    if (isEventStartTimeBigNowTime == YES) {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+    }
 //    self.TVSubAudioDic = [[NSDictionary alloc]init];
     self.TVSubAudioDic = epgDicToSocket;
 //    self.TVChannlDic = [[NSDictionary alloc]init];
@@ -3638,6 +3763,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    isEventStartTimeBiger_NowTime = NO;
+    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+    if (isEventStartTimeBigNowTime == YES) {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+    }
 //    self.TVSubAudioDic = [[NSDictionary alloc]init];
     self.TVSubAudioDic = epgDicToSocket;
 //    self.TVChannlDic = [[NSDictionary alloc]init];
@@ -3756,6 +3888,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    isEventStartTimeBiger_NowTime = NO;
+    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+    if (isEventStartTimeBigNowTime == YES) {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+    }
 //    self.TVSubAudioDic = [[NSDictionary alloc]init];
     self.TVSubAudioDic = epgDicToSocket;
 //    self.TVChannlDic = [[NSDictionary alloc]init];
@@ -3960,6 +4099,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
+        
+//        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        //异步执行队列任务
+//        dispatch_async(globalQueue, ^{
+//            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+//        });
+        
         if (!isValidArray(data1) || data1.count == 0){
             [self getServiceDataNotHaveSocket];
             return ;
@@ -4651,6 +4797,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    isEventStartTimeBiger_NowTime = NO;
+    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+    if (isEventStartTimeBigNowTime == YES) {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+    }
     //    self.TVSubAudioDic = [[NSDictionary alloc]init];
     self.TVSubAudioDic = epgDicToSocket;
     //    self.TVChannlDic = [[NSDictionary alloc]init];
@@ -4712,5 +4865,302 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
     
     
+}
+//获取EPG中的每个节目的开始时间
+-(void)getStartTimeFromchannelListArr :(NSArray *)channelListArr
+//{}
+{
+    NSLog(@"在这里获取 开始获取ListArr");
+     //channelStartimesList = [NSSet alloc];
+    for (int i = 0; i< channelListArr.count; i++) {
+        
+   NSArray * epg_info_ArrForStartTime = [channelListArr[i] objectForKey:@"epg_info"];
+    
+        
+        for (int y = 0; y< epg_info_ArrForStartTime.count; y++) {
+
+            NSString * startTimeStr = [epg_info_ArrForStartTime[y] objectForKey:@"event_endtime"];  //注意，这里把开始时间都换成了结束时间
+            if(startTimeStr == nil ||  startTimeStr == NULL || [startTimeStr isEqualToString:@""])
+            {
+             //如果为空，不能放入集合
+//                NSLog(@"epg_info_ArrForStartTime[y] objectForKey:event_startime %@",startTimeStr);
+            }else
+            {
+                NSLog(@"epg_info_ArrForStartTime[y] objectForKey:event_startime %@",startTimeStr);
+                [channelStartimesList  addObject: startTimeStr];
+
+            }
+
+        }
+    }
+    
+    
+    
+    
+    
+    
+        NSLog(@"channelStartimesList :%@",channelStartimesList);
+
+    [self nssetSortToArr:channelStartimesList];
+    NSLog(@"在这里获取 发送到判断Nsset");
+}
+
+-(void)nssetSortToArr :(NSSet *)set //NSSet排序
+{
+    NSLog(@"在这里获取 这里接收到排序");
+//    NSSet *set = [NSSet setWithArray:arr];
+    NSArray *sortDesc = @[[[NSSortDescriptor alloc] initWithKey:nil ascending:YES]];
+    NSArray *sortSetArray = [set sortedArrayUsingDescriptors:sortDesc];
+    
+    NSString * tempArrStr;
+    NSString * nowTimeStr = [GGUtil GetNowTimeString];
+    for (int i = 0; i< sortSetArray.count; i++) {
+        tempArrStr = sortSetArray[i];
+//        nowTimeStr 
+        if ([tempArrStr intValue] > [nowTimeStr intValue] ) {
+            //如果时间小于当前时间，那么几秒后刷新
+            int delayTime = [tempArrStr intValue] - [nowTimeStr intValue] ;
+//            int delayTime = [nowTimeStr intValue] - [tempArrStr intValue];
+            if (delayTime != 0 && delayTime >0) {
+                NSLog(@"在这里获取 delayTime：%d",delayTime);
+//                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(twoFunctionOftableviewDataRefresh) object:nil];
+//                [self performSelector:@selector(twoFunctionOftableviewDataRefresh) withObject:nil afterDelay:delayTime];
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(twoFunctionOftableviewDataRefresh) object:nil];
+                [self performSelector:@selector(twoFunctionOftableviewDataRefresh) withObject:nil afterDelay:delayTime];
+               [[NSRunLoop currentRunLoop] run];
+                
+              NSLog(@"在这里获取 delayTime后开始自动刷新");
+//                if (i+1 < sortSetArray.count) {  //如果第二个数据小于总数量
+//                    NSString * tempArrStr2 = sortSetArray[i+1];
+//                    if ([tempArrStr2 intValue] < [nowTimeStr intValue] ) {
+//                        
+//                        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(twoFunctionOftableviewDataRefresh2) object:nil];
+//                        [self performSelector:@selector(twoFunctionOftableviewDataRefresh2) withObject:nil afterDelay:delayTime];
+//                    }
+//                }
+                
+                
+                
+                
+                
+            }
+           
+            //
+            //CD 几秒
+//            [self  twoFunctionOftableviewDataRefresh];
+            
+            break;
+        }else
+        {
+        
+        }
+    }
+    
+}
+-(void)twoFunctionOftableviewDataRefresh   //这个方法只用作判断EPG时间，然后自动刷新表的方法中（nssetSortToArr）
+{
+//    [self tableViewDataRefresh];   //获得数据
+//    [self refreshTableviewByEPGTime]; //刷新表
+    [self tableViewDataRefreshForMjRefresh];  //重新获取json数据
+}
+-(void)twoFunctionOftableviewDataRefresh2   //这个方法只用作判断EPG时间，然后自动刷新表的方法中（nssetSortToArr）
+{
+//    [self tableViewDataRefresh];   //获得数据
+//    [self refreshTableviewByEPGTime]; //刷新表
+    [self tableViewDataRefreshForMjRefresh];  //重新获取json数据
+}
+//-(NSString *)getNowTimeStr //获得当前时间的时间戳
+//{
+//    NSString * nowTimeStr =[GGUtil GetNowTimeString]; //获得当前时间的时间戳
+//    return nowTimeStr;
+//    
+//}
+-(BOOL )judgeEventStartTime :(NSString *)videoName startTime :(NSString *)startTime endTime :(NSString *)endTime
+{
+    NSString * nowTimeStr =[GGUtil GetNowTimeString]; //获得当前时间的时间戳
+    
+    if ([startTime intValue] > [nowTimeStr intValue]) {
+//        self.event_videoname = @"";
+//        self.event_startTime = @"";
+//        self.event_endTime = @"";
+//        NSArray * arr = @[self.event_videoname,self.event_startTime,self.event_endTime];
+//        return  arr;
+        isEventStartTimeBiger_NowTime = YES;
+        return YES;
+    }else
+    {
+        isEventStartTimeBiger_NowTime = NO;
+        return NO;
+    }
+
+}
+-(void)tableViewDataRefreshForMjRefresh
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        
+        
+        
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        
+        //将数据本地化
+        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        
+        //        NSLog(@"response = %@",response);
+        NSArray *data1 = response[@"service"];
+        
+        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //异步执行队列任务
+        dispatch_async(globalQueue, ^{
+            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+            NSLog(@"在这里获取 准备跳转到获取List方法中");
+        });
+        
+        
+        
+        
+        if (!isValidArray(data1) || data1.count == 0){
+            //            [self getServiceData];
+            [self tableViewDataRefreshForMjRefresh];
+            return ;
+        }
+        self.serviceData = (NSMutableArray *)data1;
+        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+        
+        
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+            //            [self getServiceData];
+            [self tableViewDataRefreshForMjRefresh];
+        }
+        
+        [self.activeView removeFromSuperview];
+        self.activeView = nil;
+        
+        
+        
+        //
+        for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
+            
+                    id idTemp = self.tableForDicIndexArr[i][1];
+                    NSNumber * numTemp = self.self.tableForDicIndexArr[i][0];
+            
+                    if (idTemp == self.tableForSliderView ) {
+            
+                        NSInteger index = [numTemp integerValue];
+                        NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+                        self.categoryModel = [[CategoryModel alloc]init];
+            
+                        self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+            
+                        //获取EPG信息 展示
+                        //时间戳转换
+            
+                        [self.dicTemp removeAllObjects];
+                        //获取不同类别下的节目，然后是节目下不同的cell值                10
+                        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+            
+                            int indexCat ;
+                            //   NSString * str;
+                            indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                            //cell.tabledataDic = self.serviceData[indexCat -1];
+            
+            
+                            //此处判断是否为空，防止出错
+                            if ( ISNULL(self.serviceData)) {
+            
+                            }else{
+                                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                            }
+                            
+                            
+                        }
+            
+                        
+                        
+                        
+                        
+                    }
+                }
+        
+        
+        [self.tableForSliderView reloadData];
+        [self refreshTableviewByEPGTime];
+        // 模拟延迟2秒
+        
+        double delayInSeconds = 2;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            NSLog(@"延时执行的2秒");
+            //        [self runThread1];
+            NSLog(@"byteValue1 TVTVTVTVTVTV222");
+            [self.tableForSliderView reloadData];
+            
+            [self refreshTableviewByEPGTime];
+            NSLog(@"byteValue1 TVTVTVTVTVTV333");
+        });
+        [NSThread sleepForTimeInterval:2];
+        //    [self mediaDeliveryUpdate];
+        //    [tableForSliderView reloadData];
+        // 结束刷新
+        
+        //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
+        [self.tableForSliderView.mj_header endRefreshing];
+        
+        
+        //////
+        //获取数据的链接
+        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+           
+            if (firstfirst == YES) {
+                
+                
+                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                //                firstOpenAPP = firstOpenAPP+1;
+                
+                //                firstfirst = NO;
+                
+            }else
+            {}
+            
+        }];
+        
+        
+        //        [self initProgressLine];
+        
+        [self.table reloadData];
+        
+        
+    }];
 }
 @end

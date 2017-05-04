@@ -113,6 +113,7 @@
         
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/9, 25, SCREEN_WIDTH/9, SCREEN_WIDTH/9)];
+        
 //        imageView.image = [UIImage imageNamed:@"Religion"];
         [self judgeName:tempStr UIImageView:imageView];
         
@@ -150,53 +151,89 @@
 
 -(void)judgeName:(NSString *)name  UIImageView: (UIImageView *)imageView
 {
-    if ([name isEqualToString:@"Entertainment"]) {
+    if ([name isEqualToString:@"Entertainment"] && [name isEqualToString:@"Ent"] && [name isEqualToString:@"GEC"]) {  //OK 
        imageView.image = [UIImage imageNamed:@"Entertainment"];
     }
-    else if ([name isEqualToString:@"Chinese Channel"])
+    else if ([name isEqualToString:@"Chinese Channel"])  //OK
     {
        imageView.image = [UIImage imageNamed:@"Chinese Channel"];
     }
-    else if ([name isEqualToString:@"Documentary"])
+    else if ([name isEqualToString:@"Doc"] && [name isEqualToString:@"Documentary"])  //OK 
     {
         imageView.image = [UIImage imageNamed:@"Documentary"];
     }
-    else if ([name isEqualToString:@"kids"])
+    else if ([name isEqualToString:@"kids"] && [name isEqualToString:@"Children's/Youth Programmes"])  //OK 
     {
         imageView.image = [UIImage imageNamed:@"kids"];
     }
-    else if ([name isEqualToString:@"Life Style"])
+    else if ([name isEqualToString:@"Life Style"] && [name isEqualToString:@"Life-style"]) //OK
     {
         imageView.image = [UIImage imageNamed:@"Life Style"];
     }
-    else if ([name isEqualToString:@"Local"])
+    else if ([name isEqualToString:@"Local"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Local"];
     }
-    else if ([name isEqualToString:@"Movies"])
+    else if ([name isEqualToString:@"Movies"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Movies"];
     }
-    else if ([name isEqualToString:@"Movies&Series"])
+    else if ([name isEqualToString:@"Movies & Series"] && [name isEqualToString:@"Movies and Series"]) //OK
     {
-        imageView.image = [UIImage imageNamed:@"Movies&Series"];
+        imageView.image = [UIImage imageNamed:@"Movies & Series"];
     }
-    else if ([name isEqualToString:@"News"])
+    else if ([name isEqualToString:@"News"]  && [name isEqualToString:@"Current Affairs"] && [name isEqualToString:@"Economics"] )  //OK
     {
         imageView.image = [UIImage imageNamed:@"News"];
     }
-    else if ([name isEqualToString:@"Religion"])
+    else if ([name isEqualToString:@"Religion"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Religion"];
     }
-    else if ([name isEqualToString:@"South African"])
+    else if ([name isEqualToString:@"South African"]) //OK
     {
         imageView.image = [UIImage imageNamed:@"South African"];
     }
-    else if ([name isEqualToString:@"Special Characteristics"])
+    else if ([name isEqualToString:@"Special Characteristics"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Special Characteristics"];
     }
+    else if ([name isEqualToString:@"Sports"]  && [name isEqualToString:@"Sport"])  //OK
+    {
+        imageView.image = [UIImage imageNamed:@"Sports"];
+    }
+    else if ([name isEqualToString:@"Factual"] )  //OK
+    {
+        imageView.image = [UIImage imageNamed:@"Factual"];
+    }
+    else if ([name isEqualToString:@"Education"] )  //OK 
+    {
+        imageView.image = [UIImage imageNamed:@"Education"];
+    }
+    else if ([name isEqualToString:@"Music"] )  //OK
+    {
+        imageView.image = [UIImage imageNamed:@"Music"];
+    }
+    else if ([name isEqualToString:@"Series"])  //OK
+    {
+        imageView.image = [UIImage imageNamed:@"Series"];
+    }
+    else if ([name isEqualToString:@"Guide"])  //OK 
+    {
+        imageView.image = [UIImage imageNamed:@"Guide"];
+    }
+    else if ([name isEqualToString:@"Indian"])  //OK
+    {
+        imageView.image = [UIImage imageNamed:@"Indian"];
+    }
+//    else if ([name isEqualToString:@"dtt"])  //test
+//    {
+//        imageView.image = [UIImage imageNamed:@"Entertainment11"];
+//    }
+//    else if ([name isEqualToString:@"radio"])  //test
+//    {
+//        imageView.image = [UIImage imageNamed:@"Religion"];
+//    }
     else
     {
         imageView.image = [UIImage imageNamed:@"Startimes"];

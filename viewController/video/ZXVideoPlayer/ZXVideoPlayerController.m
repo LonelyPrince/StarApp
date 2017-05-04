@@ -2398,9 +2398,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"self.video.startTime lalala22 :%@",self.video.startTime);
             NSLog(@"endTime lalala22 :%@",self.video.endTime);
             
-            float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
+            float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];  //时间差
             NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
-            
+            NSLog(@"nowTime %@",aa);
             
             int bb1 ;
             
@@ -2410,7 +2410,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             } else
             {
                 NSLog(@"self.video.startTime lalala :%@",self.video.startTime);
-                bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
+                bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];  //当前时间和开始时间比较
             }
             if (bb1 < 0) {
                 bb1 = 0;
@@ -2422,8 +2422,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"bb1 bb1 :%d",bb1);
             
             NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+            NSLog(@"nowTime %@",nowTime);
             
-            if([nowTime intValue] >= [aa intValue] )
+//            if([nowTime intValue] >= [aa intValue] )
+            if(bb1 >= aa1  )
             {
                 NSLog(@"出错了，节目的当前时间不能大于结束时间");
                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
@@ -2433,6 +2435,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             }
             else{
                 NSLog(@"nowTime nowTime :%@",nowTime);
+                NSLog(@"nowTime nowTime :%@",aa);
 //                self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
                 self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
                 self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];

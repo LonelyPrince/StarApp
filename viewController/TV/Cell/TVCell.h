@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *placeholderImage1;
 
 ///数据源
+@property (nonatomic, strong) NSString *nowTimeStr;
 @property (nonatomic, strong) NSDictionary *dataDic;
 
 @property (nonatomic, strong) CategoryModel *categorymodel;
