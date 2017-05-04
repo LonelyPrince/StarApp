@@ -386,16 +386,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)initProgressLine
 {
-    self.topProgressView.frame = CGRectMake(-2 ,
-                                            VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
-                                            SCREEN_WIDTH,
-                                            progressViewSize.height);
-    self.topProgressView.borderTintColor = [UIColor whiteColor];
-    self.topProgressView.progressTintColor = ProgressLineColor;
-    [self.view addSubview:self.topProgressView];
-    [self.view bringSubviewToFront:self.topProgressView];
-    
-    self.progressViews = @[ self.topProgressView ];
+//    self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
+//        NSLog(@"切换为竖屏模式");
+//      b
+//    };
+//    self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
+//        NSLog(@"切换为全屏模式");
+//    };
+    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+    if (isFullScreen == NO) {
+        self.topProgressView.frame = CGRectMake(-2 ,
+                                                VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
+                                                SCREEN_WIDTH,
+                                                progressViewSize.height);
+        self.topProgressView.borderTintColor = [UIColor whiteColor];
+        self.topProgressView.progressTintColor = ProgressLineColor;
+        [self.view addSubview:self.topProgressView];
+        [self.view bringSubviewToFront:self.topProgressView];
+        
+        self.progressViews = @[ self.topProgressView ];
+        
+
+    }else
+    {
+    }
     
   
 }
@@ -535,14 +549,46 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.categorys = (NSMutableArray *)data;
             
 //            if (tableviewinit == 2) {
+            NSLog(@"_slideView %@",_slideView);
                if (!_slideView) {
             NSLog(@"上山打老虎4");
                 
-                //设置滑动条
-                _slideView = [YLSlideView alloc];
-                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                   
+                   
+                   
+                   
+                   //判断是不是全屏
+                   BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                   if (isFullScreen == NO) {   //竖屏状态
+                       
+                       
+                       //设置滑动条
+                       _slideView = [YLSlideView alloc];
+                       _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                         SCREEN_WIDTH,
+                                                                         SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                       
+                       
+                   }else //横屏状态，不刷新
+                   {
+                       
+                       //设置滑动条
+                       _slideView = [YLSlideView alloc];
+                       _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+                                                                         SCREEN_WIDTH,
+                                                                         SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                   }
+                   
+                   
+                   
+                   
+                   
+                   
+//                //设置滑动条
+//                _slideView = [YLSlideView alloc];
+//                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                  SCREEN_WIDTH,
+//                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                 
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
@@ -2904,13 +2950,29 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@"//此时应该列表刷新11");
     
-    [_slideView removeFromSuperview];
-    _slideView = nil;
     
-//    [self.table  removeFromSuperview];
-//    self.table = nil;
-    //重新加载
-    [self getMediaDeliverUpdate];
+    
+    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+    if (isFullScreen == NO) {   //竖屏状态
+        [_slideView removeFromSuperview];
+        _slideView = nil;
+        
+        //    [self.table  removeFromSuperview];
+        //    self.table = nil;
+        //重新加载
+        [self getMediaDeliverUpdate];
+        
+        
+    }else //竖屏状态，不刷新
+    {
+    }
+
+    
+    
+    
+    
+    
+  
     
 }
 -(void)getMediaDeliverUpdate
@@ -2937,11 +2999,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
-//        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        //异步执行队列任务
-//        dispatch_async(globalQueue, ^{
-//            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-//        });
+        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //异步执行队列任务
+        dispatch_async(globalQueue, ^{
+            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+        });
         
         if (!isValidArray(data1) || data1.count == 0){
 //            [self getServiceData];
@@ -2992,22 +3054,50 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (!_slideView) {
                 NSLog(@"上山打老虎3");
+                //判断是不是全屏
+                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                if (isFullScreen == NO) {   //竖屏状态
+                  
+                    
+                    //设置滑动条
+                    _slideView = [YLSlideView alloc];
+                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    
+                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
+                    NSLog(@"self.dicTemp %@",self.dicTemp);
+                    _slideView.backgroundColor = [UIColor whiteColor];
+                    _slideView.delegate        = self;
+                    
+                    [self.view addSubview:_slideView];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                    
+                    
+                }else //横屏状态，不刷新
+                {
+                    
+                    //设置滑动条
+                    _slideView = [YLSlideView alloc];
+                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    
+                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
+                    NSLog(@"self.dicTemp %@",self.dicTemp);
+                    _slideView.backgroundColor = [UIColor whiteColor];
+                    _slideView.delegate        = self;
+                    
+                    [self.view addSubview:_slideView];
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                }
                 
-                //设置滑动条
-                _slideView = [YLSlideView alloc];
-                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                 
-                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                NSLog(@"ArrayTocategory %@",ArrayTocategory);
-                NSLog(@"self.dicTemp %@",self.dicTemp);
-                _slideView.backgroundColor = [UIColor whiteColor];
-                _slideView.delegate        = self;
-                
-                [self.view addSubview:_slideView];
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+              
                 
             }
             else
@@ -3474,6 +3564,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
     }
+    //此处获得该EPG的当前信息，否则我们播放的信息还是它之前的信息
+    for (int i = 0; i<self.serviceData.count; i++) {
+        
+       BOOL isYes =  [GGUtil judgeTwoEpgDicIsEqual:self.serviceData[i] TwoDic:epgDicToSocket]; //此处通过判断两个EPG信息是否相等来找到两个一样的EPG信息
+        if(isYes == YES)
+        {
+            epgDicToSocket = self.serviceData[i];   //给epgDicToSocket 赋新值
+        }
+        else //没有找到
+        {
+            
+        }
+    }
+    
+    
     
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
@@ -4100,11 +4205,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
-//        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        //异步执行队列任务
-//        dispatch_async(globalQueue, ^{
-//            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-//        });
+        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //异步执行队列任务
+        dispatch_async(globalQueue, ^{
+            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+        });
         
         if (!isValidArray(data1) || data1.count == 0){
             [self getServiceDataNotHaveSocket];
@@ -4156,11 +4261,43 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (!_slideView) {
                 NSLog(@"上山打老虎4");
                 
-                //设置滑动条
-                _slideView = [YLSlideView alloc];
-                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                
+                
+                
+                
+               
+                    //判断是不是全屏
+                    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                    if (isFullScreen == NO) {   //竖屏状态
+                        
+                        
+                        //设置滑动条
+                        _slideView = [YLSlideView alloc];
+                        _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                          SCREEN_WIDTH,
+                                                                          SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                        
+                        
+                    }else //横屏状态，不刷新
+                    {
+                        
+                        //设置滑动条
+                        _slideView = [YLSlideView alloc];
+                        _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+                                                                          SCREEN_WIDTH,
+                                                                          SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    }
+                    
+                    
+                    
+                    
+   
+                
+//                //设置滑动条
+//                _slideView = [YLSlideView alloc];
+//                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                  SCREEN_WIDTH,
+//                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                 
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
@@ -4925,8 +5062,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"在这里获取 delayTime：%d",delayTime);
 //                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(twoFunctionOftableviewDataRefresh) object:nil];
 //                [self performSelector:@selector(twoFunctionOftableviewDataRefresh) withObject:nil afterDelay:delayTime];
-                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(twoFunctionOftableviewDataRefresh) object:nil];
-                [self performSelector:@selector(twoFunctionOftableviewDataRefresh) withObject:nil afterDelay:delayTime];
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(getMediaDeliverUpdate) object:nil];
+                [self performSelector:@selector(getMediaDeliverUpdate) withObject:nil afterDelay:10]; //getServiceData  //twoFunctionOftableviewDataRefresh //tableViewDataRefresh //getMediaDeliverUpdate //getServiceDataNotHaveSocket
                [[NSRunLoop currentRunLoop] run];
                 
               NSLog(@"在这里获取 delayTime后开始自动刷新");
