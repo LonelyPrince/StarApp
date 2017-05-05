@@ -9,7 +9,7 @@
 #import "SearchViewController.h"
 
 
-@interface SearchViewController ()
+@interface SearchViewController ()<UIAlertViewDelegate>
 {
 //    NSInteger historySearchViewHeight;  //搜索历史的高度
     NSMutableArray *  historySearchArr ;
@@ -418,8 +418,97 @@
         
         indexForTouch = [touchArr[2] intValue];
         dicCategory = touchArr [3];
-        
+        NSLog(@"indexForTouch %d",indexForTouch);
+        NSLog(@"indexForTouch dicCategory %@",dicCategory);
 
+        //寻找是哪一个历史，防止以前的节目被替换掉了，没法正常播放
+//        NSArray * serviceDataArr = [USER_DEFAULT objectForKey:@"serviceData_Default"];
+        
+        NSDictionary * tempDic = [dicCategory objectForKey:[NSString stringWithFormat:@"%ld",(long)indexForTouch]];  //当前点击的历史
+        
+        
+        
+        int tempindexOfCategory = 0;
+        tempindexOfCategory = [self judgeCategoryType:tempDic]; //先判断是什么类别
+        NSArray * tempserviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
+        
+        NSArray * temparrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][tempindexOfCategory] objectForKey:@"service_index"];
+        BOOL  twoChannelDicIsEqual;
+        BOOL   twoChannelDicIsEqualTemp;
+        for (int i = 0; i< temparrForServiceByCategory.count; i++) {
+            NSDictionary * tempserviceForJudgeDic = tempserviceArrForJudge[[temparrForServiceByCategory[i] intValue]-1];
+            
+             twoChannelDicIsEqual = [GGUtil judgeTwoEpgDicIsEqual:tempserviceForJudgeDic TwoDic:tempDic];
+            NSLog(@"tempserviceForJudgeDic %@",tempserviceForJudgeDic);
+            NSLog(@"tempserviceForJudgeDic tempDic%@",tempDic);
+//            tempDic = tempserviceForJudgeDic;
+            if (twoChannelDicIsEqual) {
+                twoChannelDicIsEqualTemp = YES;
+                break;
+            }
+            
+            
+            
+//                //indexCat 代表总的service下第几个
+//                int indexCat ;
+//                
+//                indexCat =[service_index[i] intValue] ;
+//                data2 = [self.response objectForKey: @"service" ];
+//            
+//                serviceTouch  = data2[indexCat-1];
+//
+//                [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",i]];
+//            
+//            
+//            
+            
+            
+            
+        }
+//        int indexOfCategoryTemp = 0;
+        if (twoChannelDicIsEqualTemp) {  //如果相等，则删除原来的值，替换成新的值。这样做可以防止节目更新，但是搜索历史没有更新
+            twoChannelDicIsEqualTemp = NO;
+//              indexOfCategoryTemp =  [self judgeCategoryType:tempDic];
+//            int tempindexForJudgeService = i;
+//            indexOfServiceToRefreshTable =tempindexForJudgeService;
+                NSLog(@"dicCategory--: %@",dicCategory);
+            dicCategory = [dicCategory mutableCopy];
+            [dicCategory removeAllObjects];
+            for (int x = 0 ; x<temparrForServiceByCategory.count; x++) {
+                //
+                //indexCat 代表总的service下第几个
+                int indexCat ;
+                
+                indexCat =[temparrForServiceByCategory[x] intValue] ;
+                data2 = [self.response objectForKey: @"service" ];
+                NSLog(@"self.response: %@",self.response);
+                NSLog(@"data2--: %@",data2);
+                serviceTouch  = data2[indexCat-1];
+                //                    //cell.tabledataDic = self.serviceData[indexCat -1];
+                //
+                [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
+             
+            }
+            
+            
+        }
+//        NSString * tempService_network_id  = [tempDic objectForKey:@"service_network_id"];
+//        NSString * tempService_ts_id  = [tempDic objectForKey:@"service_ts_id"];
+//        NSString * tempService_service_id  = [tempDic objectForKey:@"service_service_id"];
+//        
+        
+        else
+        {
+        //搜索失败，证明没有这个历史了
+            NSLog(@"没有这个节目了");
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"alert" message:@"sorry,can't serarch this video" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alertView show];
+            
+            return; //返回
+        }
+        
+        
+        
     }
 
     
@@ -727,7 +816,7 @@
 //搜索历史的展示
 -(void)historySearchShow
 {
-    historySearchArr  =   [[USER_DEFAULT objectForKey:@"historySearchData"] mutableCopy];
+    historySearchArr = [[USER_DEFAULT objectForKey:@"historySearchData"] mutableCopy];
     
     [historySearchView removeFromSuperview];
     if (historySearchArr == NULL || historySearchArr == nil || historySearchArr.count == 0) {
@@ -801,16 +890,16 @@
         NSString * service_ts =  [mutaArray[i][0] objectForKey:@"service_ts_id"];
         NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
 //        NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
-        NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
+//        NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
         
         //新添加的数据
         NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
         NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
         NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
 //        NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
-        NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
+//        NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
         
-        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName]) {
+        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] ) { //&& [service_logicName isEqualToString:newservice_logicName]
             addNewData = NO;
             
             NSArray * equalArr = mutaArray[i];
@@ -879,5 +968,25 @@
      self.tableView.frame = CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self searchBar:self.searchBar textDidChange:nil];
 }
-
+//-(NSMutableDictionary *)setDicCategory:(NSArray*)allCategoryArr //service一个分类下的所有数组
+//{
+//    NSMutableDictionary * mutableCategoryDic = [[NSMutableDictionary alloc]init];
+//    NSArray *dataArr  = [[NSArray alloc]init];
+//    NSDictionary * serviceTouchDic = [[NSDictionary alloc]init];
+//    for (int x = 0 ; x<allCategoryArr.count; x++) {
+//        //
+//        //indexCat 代表总的service下第几个
+//        int setIndexCat ;
+//        
+//        setIndexCat =[allCategoryArr[x] intValue] ;
+//        dataArr = [self.response objectForKey: @"service" ];
+//
+//        serviceTouchDic  = dataArr[setIndexCat-1];
+//
+//        [mutableCategoryDic setObject:serviceTouchDic forKey:[NSString stringWithFormat:@"%d",x]];
+//        
+//    }
+//    
+//    return mutableCategoryDic;
+//}
 @end
