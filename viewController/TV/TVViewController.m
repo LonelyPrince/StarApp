@@ -2110,7 +2110,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //此处循环给赋值
     
     self.video.dicSubAudio = self.TVSubAudioDic;
-    
+    NSLog(@"self.video.dicSubAudio :%",self.video.dicSubAudio);
     
 //    NSLog(@"self.TVChannlDic 4:%lu",(unsigned long)self.TVChannlDic.count);
 //    if (tempBoolForServiceArr == YES) {
@@ -2249,7 +2249,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"------%@",socketView.socket_ServiceModel);
             
             
-            
+            [self getsubt];
             //此处销毁通知，防止一个通知被多次调用    // 1
             [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
             //注册通知
@@ -3911,7 +3911,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"------%@",socketView.socket_ServiceModel);
     
     
-    
+    [self getsubt];
     //此处销毁通知，防止一个通知被多次调用    // 1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
     //注册通知
