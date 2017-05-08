@@ -32,8 +32,11 @@
 @property(nonatomic,strong) UIImageView * nameTextFieldImage;
 @property(nonatomic,strong) UIImageView * pswTextFieldImage;
 @property(nonatomic,strong)NSDictionary * wifiChangeDic;  //wifi 字典
+//@property(nonatomic,strong)UIAlertController * alertViewPsw;  //对于密码的判断框
+//@property(nonatomic,strong)UIAlertController * alertViewPswZero;  //对于密码的判断框
 @property(nonatomic,strong)UIAlertView * alertViewPsw;  //对于密码的判断框
 @property(nonatomic,strong)UIAlertView * alertViewPswZero;  //对于密码的判断框
+
 @end
 
 @implementation RouteSetting
@@ -234,15 +237,61 @@
 -(void)saveBtnClick
 {
     if (pswText.text.length == 0) {
-        alertViewPswZero = [[UIAlertView alloc]initWithTitle:@"alert"message:@"Are you sure you do not set the router password?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
+        alertViewPswZero = [[UIAlertView alloc]initWithTitle:@"" message:@"Are you sure you do not set the router password?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
 //        [alertViewPswZero addButtonWithTitle:@"OK"];
         [alertViewPswZero show];
+        
+        
+        //==========
+//        alertViewPswZero = [UIAlertController alertControllerWithTitle:nil  message:@"Are you sure you do not set the router password?" preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        
+//        NSMutableAttributedString *alertMessageStr = [[NSMutableAttributedString alloc] initWithString:@"Are you sure you do not set the router password?"];
+//        [alertMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, [[alertMessageStr string] length])];
+//        [alertMessageStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, [[alertMessageStr string] length])];
+//        [alertViewPswZero setValue:alertMessageStr forKey:@"attributedMessage"];
+//        //修改按钮的颜色，同上可以使用同样的方法修改内容，样式
+//        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        //            [defaultAction setValue:[UIColor blueColor] forKey:@"_titleTextColor"];
+//        
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+//        //
+//        //            [cancelAction setValue:[UIColor greenColor] forKey:@"_titleTextColor"];
+//        
+//        [alertViewPswZero addAction:defaultAction];
+//        [alertViewPswZero addAction:cancelAction];
+//        
+//        [self presentViewController:alertViewPswZero animated:YES completion:nil];
+        
+
         return;
     }
     if (pswText.text.length<8 &&pswText.text.length>=1) {
-          alertViewPsw = [[UIAlertView alloc]initWithTitle:@"alert"message:@"Please enter 8 to 16 passwords" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+          alertViewPsw = [[UIAlertView alloc]initWithTitle:@"" message:@"Please enter 8 to 16 passwords" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertViewPsw addButtonWithTitle:@"OK"];
         [alertViewPsw show];
+        
+        //====
+//        alertViewPsw = [UIAlertController alertControllerWithTitle:nil  message:@"Please enter 8 to 16 passwords" preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        
+//        NSMutableAttributedString *alertMessageStr = [[NSMutableAttributedString alloc] initWithString:@"Please enter 8 to 16 passwords"];
+//        [alertMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, [[alertMessageStr string] length])];
+//        [alertMessageStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, [[alertMessageStr string] length])];
+//        [alertViewPsw setValue:alertMessageStr forKey:@"attributedMessage"];
+//        //修改按钮的颜色，同上可以使用同样的方法修改内容，样式
+//        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        //            [defaultAction setValue:[UIColor blueColor] forKey:@"_titleTextColor"];
+//        
+//        //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+//        //
+//        //            [cancelAction setValue:[UIColor greenColor] forKey:@"_titleTextColor"];
+//        
+//        [alertViewPsw addAction:defaultAction];
+//        //            [alertController addAction:cancelAction];
+//        
+//        [self presentViewController:alertViewPsw animated:YES completion:nil];
+//        
         return;
     }else{
     NSLog(@"点击了save按钮11");

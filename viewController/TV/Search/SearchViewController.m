@@ -501,8 +501,33 @@
         {
         //搜索失败，证明没有这个历史了
             NSLog(@"没有这个节目了");
-            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"alert" message:@"sorry,can't serarch this video" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@""  message:@"sorry,can't serarch this video" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            
             [alertView show];
+            
+            
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil  message:@"sorry,can't serarch this video" preferredStyle:UIAlertControllerStyleAlert];
+//            
+//            
+//            NSMutableAttributedString *alertMessageStr = [[NSMutableAttributedString alloc] initWithString:@"sorry,can't serarch this video"];
+//                        [alertMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, [[alertMessageStr string] length])];
+//                        [alertMessageStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, [[alertMessageStr string] length])];
+//                        [alertController setValue:alertMessageStr forKey:@"attributedMessage"];
+//            //修改按钮的颜色，同上可以使用同样的方法修改内容，样式
+//            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+////            [defaultAction setValue:[UIColor blueColor] forKey:@"_titleTextColor"];
+//            
+////            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+////            
+////            [cancelAction setValue:[UIColor greenColor] forKey:@"_titleTextColor"];
+//            
+//            [alertController addAction:defaultAction];
+////            [alertController addAction:cancelAction];
+//            
+//            [self presentViewController:alertController animated:YES completion:nil];
+
+            
+            
             
             return; //返回
         }
