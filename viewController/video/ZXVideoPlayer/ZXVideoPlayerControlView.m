@@ -331,8 +331,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
         showStatus = NO;
-        [self prefersStatusBarHidden];
-        //
+[self prefersStatusBarHidden];
+                //
         
         NSLog(@"123123123123123123123123=====-----");
         
@@ -355,6 +355,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
     }];
+    [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
 }
 
 - (void)animateShow
@@ -404,6 +405,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self autoFadeOutControlBar];
     }];
     
+    [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
 }
 
 - (void)autoFadeOutControlBar
@@ -498,7 +500,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 //                    islockShowing = NO;
                     
                 }
+                [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
             } else {
+                [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
                 [self animateShow];
                 [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                 [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -524,6 +528,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                     
                    
                 }
+                
             }
         }
     }

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StarMainTabController.h"
 #import "CGUpnpDeviceModel.h"
+#import "Reachability.h"  //判断网络连接状态用
+#import <arpa/inet.h>
 
 @class CGUpnpAvRenderer;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,CGUpnpControlPointDelegate>
@@ -36,4 +38,7 @@
 @property (nonatomic, retain) NSString * ipString;
 
 @property (nonatomic, assign) NSInteger * openfirst;
+
+@property (nonatomic, strong) Reachability *routerReachability;  //判断网络连接状态用
+@property (nonatomic, strong) Reachability *hostReachability; //判断网络连接状态用
 @end

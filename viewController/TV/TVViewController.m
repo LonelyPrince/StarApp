@@ -87,6 +87,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int  manageRefreshTimeFor;   //管理NSSet刷新时间的，防止用户刷新NSSet，导致页面卡死，这里用时间做一次判断，就好比每过30s才刷新一次
     NSString * nwoTimeBreakStr;  //获得当前时间戳
     BOOL isEventStartTimeBiger_NowTime;
+    BOOL isBarIsShowNow;
 }
 
 
@@ -896,7 +897,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.searchBtn.frame = CGRectMake(searchBtnX+1, searchBtnY, searchBtnWidth *1.104, searchBtnHeight *1.104 );
             }
             
-            self.topProgressView.hidden = NO;
+//            self.topProgressView.hidden = NO;
+            self.topProgressView.alpha = 1;
             float noewWidth = [UIScreen mainScreen].bounds.size.width;
             
             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
@@ -915,7 +917,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                     VIDEOHEIGHT+kZXVideoPlayerOriginalHeight ,
                                                     SCREEN_WIDTH,
                                                     progressViewSize.height);
-            
+            [self judgeProgressIsNeedHide:NO]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
             
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
@@ -998,6 +1000,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.view bringSubviewToFront:self.topProgressView];
             [self.videoController.view bringSubviewToFront:self.topProgressView];
             
+            [self judgeProgressIsNeedHide:YES]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
             //            [self setFullScreenView];
             
             NSLog(@"全屏宽 ： %f",[UIScreen mainScreen].bounds.size.width);
@@ -1059,9 +1062,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int show = [text.userInfo[@"boolBarShow"] intValue];
     touchStatusNum = show;
     if (show ==1) {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.topProgressView.hidden = YES;
-        }];
+        BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+        if (isFullScreen == YES) {
+          //此刻是全屏，隐藏进度条
+            [UIView animateWithDuration:0.3 animations:^{
+//                self.topProgressView.hidden = YES;
+                self.topProgressView.alpha = 0;
+            }];
+        }else
+        {//此刻是竖屏，不隐藏进度条
+          
+        }
+       [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
         [self prefersStatusBarHidden];
         NSLog(@"SCREEN_WIDTH 1 :%f",SCREEN_WIDTH);
         NSLog(@"SCREEN_HEIGHT 1 :%f",SCREEN_HEIGHT);
@@ -1082,8 +1094,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else{
         [UIView animateWithDuration:0.3 animations:^{
-            self.topProgressView.hidden = NO;
+//            self.topProgressView.hidden = NO;
+            self.topProgressView.alpha = 1;
         }];
+        [USER_DEFAULT setBool:YES  forKey:@"isBarIsShowNow"]; //阴影此时是显示
         [self prefersStatusBarHidden];
         NSLog(@"SCREEN_WIDTH 2 :%f",SCREEN_WIDTH);
         NSLog(@"SCREEN_HEIGHT 2 :%f",SCREEN_HEIGHT);
@@ -1740,6 +1754,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
    
     [self.timer invalidate];
     self.timer = nil;
+    
+//    self.video.startTime =@"1494299017";
+//    self.event_startTime = @"1494299017";
+//    self.video.endTime = @"1494328517";
+//    self.event_endTime = @"1494328517";
     
     //** 计算进度条
     if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
@@ -3163,9 +3182,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"];   //播放的历史老师
     
-    NSLog(@"history Arr6: %@",arrHistoryNow[arrHistoryNow.count -1][0]);  //历史中正在播放的第一个节目
-    NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
-    
+//    NSLog(@"history Arr6: %@",arrHistoryNow[arrHistoryNow.count -1][0]);  //历史中正在播放的第一个节目
+//    NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
+    NSLog(@"history Arr22:");    
     BOOL allisNO = YES ; //表示当前播放的节目不存在新的列表中，证明节目被刷新没了，所以需要重新播放第一个节目
     for (int i = 0; i<self.dicTemp.count; i++) {
         [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
@@ -3178,11 +3197,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSString * service_service =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_service_id"];
         NSString * service_tuner =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_tuner_mode"];
         
+        NSString * newservice_network ;
+        NSString * newservice_ts ;
+        NSString * newservice_service ;
+        NSString * newservice_tuner ;
         //新添加的数据
-        NSString * newservice_network =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_network_id"];
-        NSString * newservice_ts =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_ts_id"];
-        NSString * newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
-        NSString * newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
+        if(arrHistoryNow.count >= 1)
+        {
+              newservice_network =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_network_id"];
+              newservice_ts =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_ts_id"];
+              newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
+              newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
+        
+       
         
         if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
             //证明节目存在，不需要刷新
@@ -3194,7 +3221,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"asdasdasdasdasdasdasdasdasdasdas");
         }
         
-        
+        }
         
         
 //        if ([arrHistoryNow[6][0] isEqual: [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]]) { //此处判断，如果被播放的视频被删除了，则播放第一个
@@ -3330,15 +3357,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)HMCHasChanged
 {
-    NSLog(@"执行方法");
-    [self getServiceData];
+    NSLog(@"执行方法 HMC 改变了");
+//    [self getServiceData];
+    [self getServiceDataForIPChange];
+
 }
 -(void)IPHasChanged
 {
   
     
-    NSLog(@"执行方法");
-    [self getServiceData];
+    NSLog(@"执行方法  IP地址改变了");
+//    [self getServiceData];
+    [self getServiceDataForIPChange];
 }
 -(void)setStateNonatic
 {
@@ -4176,7 +4206,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.view.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
         
         return UIStatusBarStyleLightContent;
-        //        return UIStatusBarStyleDefault;
+//                return UIStatusBarStyleDefault;
     }
     
     
@@ -5300,4 +5330,283 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }];
 }
+#pragma mark - IP改变后的刷新方法
+//IP改变后或者是HMC改变后的刷新方法  ,类似于getServiceData
+-(void) getServiceDataForIPChange
+{
+    //获取数据的链接
+    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+    
+    LBGetHttpRequest *request = CreateGetHTTP(url);
+    
+    
+    
+    [request startAsynchronous];
+    
+    WEAKGET
+    [request setCompletionBlock:^{
+        
+        
+        
+        NSDictionary *response = httpRequest.responseString.JSONValue;
+        
+        //将数据本地化
+        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        
+        //        NSLog(@"response = %@",response);
+        NSArray *data1 = response[@"service"];
+        
+        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //异步执行队列任务
+        dispatch_async(globalQueue, ^{
+            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+        });
+        
+        
+        if (!isValidArray(data1) || data1.count == 0){
+            [self getServiceDataForIPChange];
+            return ;
+        }
+        self.serviceData = (NSMutableArray *)data1;
+        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+        //        NSLog(@"--------%@",self.serviceData);
+        
+        
+        
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+            [self getServiceDataForIPChange];
+        }
+        
+        [self.activeView removeFromSuperview];
+        self.activeView = nil;
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
+        [self playVideo];
+        NSLog(@"playVideo55 :");
+        
+        
+        //////
+        //获取数据的链接
+        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+        
+        
+        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+        
+        
+        
+        [request startAsynchronous];
+        
+        WEAKGET
+        [request setCompletionBlock:^{
+            NSDictionary *response = httpRequest.responseString.JSONValue;
+            
+            
+            //        NSLog(@"response = %@",response);
+            NSArray *data = response[@"category"];
+            
+            if (!isValidArray(data) || data.count == 0){
+                return ;
+            }
+            self.categorys = (NSMutableArray *)data;
+            
+            //            if (tableviewinit == 2) {
+            NSLog(@"_slideView %@",_slideView);
+            
+            //先判断是竖屏还是横屏，如果是竖屏   则竖屏，则刷新。如果是横屏，则不刷新
+            //判断是不是全屏
+//            BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+//            if (isFullScreen == NO) {   //竖屏状态
+//                [_slideView removeFromSuperview];
+//                _slideView = nil;
+//                
+//            }else
+//            {
+//            
+//            }
+            [_slideView removeFromSuperview];
+            _slideView = nil;
+            
+            if (!_slideView) {
+                NSLog(@"上山打老虎4");
+                
+                
+                
+                
+                
+                //判断是不是全屏
+                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                if (isFullScreen == NO) {   //竖屏状态
+                    
+                    
+                    //设置滑动条
+                    _slideView = [YLSlideView alloc];
+                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    
+                    
+                }else //横屏状态，不刷新
+                {
+                    
+                    //设置滑动条
+                    _slideView = [YLSlideView alloc];
+                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                }
+                
+                
+                
+                
+                
+                
+                //                //设置滑动条
+                //                _slideView = [YLSlideView alloc];
+                //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                  SCREEN_WIDTH,
+                //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                
+                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                
+                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                    SCREEN_WIDTH,
+                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                      SCREEN_WIDTH,
+                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+                //                                                 forTitles:self.categorys];
+                
+                
+                _slideView.backgroundColor = [UIColor whiteColor];
+                _slideView.delegate        = self;
+                
+                [self.view addSubview:_slideView];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                
+            }
+            else
+            {
+                
+            }
+            NSLog(@"DMSIP:6666");
+            [self.socketView viewDidLoad];
+            if (firstfirst == YES) {
+                
+                //                   self.socketView  = [[SocketView  alloc]init];
+                NSLog(@"DMSIP:1111");
+                //                   [self.socketView viewDidLoad];
+                NSLog(@"DMSIP:2222");
+                
+                //=======机顶盒加密
+                NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
+                if (characterStr != NULL && characterStr != nil) {
+                    BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                    if (judgeIsSTBDecrypt == YES) {
+                        // 此处代表需要记性机顶盒加密验证
+                        NSNumber  *numIndex = [NSNumber numberWithInteger:0];
+                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                        NSLog(@"POPPOPPOPPOP1111111111111111111");
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                        
+                    }else //正常播放的步骤
+                    {
+                        //======
+                        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }
+                }else //正常播放的步骤
+                {
+                    //======机顶盒加密
+                    
+                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    firstfirst = NO;
+                }
+            }else
+            {}
+            
+            //            //刷新EPG数据。把所有的时间信息
+            //
+            //            NSArray *EPGservice_data = response[@"service"];
+            //            if (!isValidArray(EPGservice_data) || EPGservice_data.count == 0){
+            //            }
+            //            else   //此时有数据
+            //            {
+            //                NSDictionary * dicEpg = [[NSDictionary alloc]init];
+            //                for (int e = 0; e<EPGservice_data.count; e++) {
+            //
+            //                    dicEpg = EPGservice_data[e];
+            //
+            //                    NSArray * arrEpg = [[NSArray alloc]init];
+            //                    arrEpg = [dicEpg objectForKey:@"epg_info"];   //epg 小数组
+            //
+            //                    //重新声明一个一个epg数组加载epg信息
+            ////                    NSDictionary * epgTimeInfo = [[NSDictionary alloc]init];
+            //                    for (int f = 0; f<arrEpg.count; f++) {
+            //                        NSString * startTimeString = [arrEpg[f] objectForKey:@"event_starttime"];
+            //
+            //
+            //                            if (![allStartEpgTime containsObject:startTimeString]) {
+            //                                [allStartEpgTime addObject:startTimeString];
+            //                            }
+            //
+            //
+            //                    }
+            //                }
+            //
+            //
+            //            }
+            //            NSLog(@"allStartEpgTime:--%@",allStartEpgTime);
+            //            NSLog(@"allStartEpgTime.count:--%lu",(unsigned long)allStartEpgTime.count);
+            //            
+            
+            
+            
+        }];
+        
+        
+        [self initProgressLine];
+        //        [self getSearchData];
+        
+        
+        
+        [self.table reloadData];
+        
+    }];
+    
+}
+#pragma mark -判断进度条是否需要隐藏
+-(void)judgeProgressIsNeedHide :(BOOL)isFullSreen//判断进度条是否需要隐藏 //isFullSreen 代表是否是全屏
+{
+     isBarIsShowNow = [USER_DEFAULT boolForKey:@"isBarIsShowNow"]; //当前的播放阴影是否在显示，如果没有显示，那么跳转到全屏状态下，进度条需要隐藏。否则，进度条不隐藏
+    
+    if (isFullSreen) { //如果是全屏
+        if (isBarIsShowNow) { //如果阴影在在显示
+            self.topProgressView.alpha = 1;   //显示
+        }else//如果阴影隐藏
+        {
+        self.topProgressView.alpha = 0;   //隐藏
+        }
+    }
+    else
+    {
+        self.topProgressView.alpha = 1;   //显示
+    }
+
+}
+//-(void)testIP
+//{
+//    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
+//    NSLog(@"self.ipString IPstrNow====---=== %@",IPstrNow);
+//}
 @end
