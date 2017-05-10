@@ -228,11 +228,15 @@
     }
 //    else if ([name isEqualToString:@"dtt"])  //test
 //    {
-//        imageView.image = [UIImage imageNamed:@"Entertainment11"];
+//        imageView.image = [UIImage imageNamed:@"abcd"];
 //    }
 //    else if ([name isEqualToString:@"radio"])  //test
 //    {
-//        imageView.image = [UIImage imageNamed:@"Religion"];
+//        imageView.image = [UIImage imageNamed:@"music1"];
+//    }
+//    else if ([name isEqualToString:@"dth"])  //test
+//    {
+//        imageView.image = [UIImage imageNamed:@"Indian"];
 //    }
     else
     {
