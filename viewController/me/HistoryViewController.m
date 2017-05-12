@@ -228,6 +228,7 @@
     [self.view addSubview:redDeleteBtn];
     
 }
+#pragma mark --红色的删除按钮点击删除
 -(void)deleteSeletions
 {
     if (selectedArray == 0) {
@@ -253,7 +254,8 @@
                     [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
                     [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
                     
-                    
+//                    NSArray * abcd =[USER_DEFAULT objectForKey:@"historySeed"];
+//                    NSLog(@"historyArr33 %@",historyArr);
                     if(todayNum == 0)
                     {
                         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
