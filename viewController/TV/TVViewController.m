@@ -1658,7 +1658,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"---urlDataTV接收%@",_byteDatas);
     NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
     
-//        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
+    //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
     self.video.playUrl = @"";
     self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
     NSLog(@"self.video :%@",self.video);
@@ -1678,58 +1678,70 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    self.video.dicSubAudio = self.TVSubAudioDic;
     
     [self setStateNonatic];
-//    NSLog(@"playvideo 前面的线程");
-////    NSThread * thread1 = [[NSThread alloc]initWithTarget:self selector:@selector(runThread1) object:nil];
-////    [thread1 start];
-//    NSLog(@"TVcontentURL play11");
-//    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4]  ;
+    //    NSLog(@"playvideo 前面的线程");
+    ////    NSThread * thread1 = [[NSThread alloc]initWithTarget:self selector:@selector(runThread1) object:nil];
+    ////    [thread1 start];
+    //    NSLog(@"TVcontentURL play11");
+    //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4]  ;
     NSLog(@"byteValue1 TVTVTVTVTVTV");
+    
+    
+    [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+    
+    
+    //==========正文
     double delayInSeconds = 5;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
         NSLog(@"延时执行的2秒");
-//        [self runThread1];
+        //        [self runThread1];
         NSLog(@"byteValue1 TVTVTVTVTVTV222");
+        
+        [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+        
         [self playVideo];
         NSLog(@"byteValue1 TVTVTVTVTVTV333");
     });
-//    NSLog(@"TVcontentURL play22");
-//    
-//    [self performSelector:@selector(runThread1) withObject:nil afterDelay:2];
+    //==========正文
+    //    [self playVideo];
+    
+    //    NSLog(@"TVcontentURL play22");
+    //
+    //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:2];
     
     
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    dispatch_async(mainQueue, ^{
-//        NSLog(@"aa1");
-//        [self setStateNonatic];
-//    });
-//    dispatch_async(mainQueue, ^{
-//        NSLog(@"aa2");
-//        [self playVideo];
-//    });
-//    dispatch_async(mainQueue, ^{
-//        NSLog(@"aa3");
-//    });
-//    dispatch_async(mainQueue, ^{
-//        NSLog(@"aa4");
-//    });
+    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    //    dispatch_async(mainQueue, ^{
+    //        NSLog(@"aa1");
+    //        [self setStateNonatic];
+    //    });
+    //    dispatch_async(mainQueue, ^{
+    //        NSLog(@"aa2");
+    //        [self playVideo];
+    //    });
+    //    dispatch_async(mainQueue, ^{
+    //        NSLog(@"aa3");
+    //    });
+    //    dispatch_async(mainQueue, ^{
+    //        NSLog(@"aa4");
+    //    });
     
-//    dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);    //并行
-//    dispatch_async(defaultQueue, ^{
-//        NSLog(@"1");
-//        [self setStateNonatic];
-//    });
-//    dispatch_async(defaultQueue, ^{
-//        NSLog(@"2");
-//        [self playVideo];
-//    });
-//    dispatch_async(defaultQueue, ^{
-//        NSLog(@"3");
-//    });
-//    dispatch_async(defaultQueue, ^{
-//        NSLog(@"4");
-//    });
+    //    dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);    //并行
+    //    dispatch_async(defaultQueue, ^{
+    //        NSLog(@"1");
+    //        [self setStateNonatic];
+    //    });
+    //    dispatch_async(defaultQueue, ^{
+    //        NSLog(@"2");
+    //        [self playVideo];
+    //    });
+    //    dispatch_async(defaultQueue, ^{
+    //        NSLog(@"3");
+    //    });
+    //    dispatch_async(defaultQueue, ^{
+    //        NSLog(@"4");
+    //    });
     
     
     NSLog(@"playvideo 后面的线程");
@@ -1741,27 +1753,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"playState:111111 %d",playState);
     [timerState invalidate];
     timerState = nil;
-   NSLog(@"timerState:33 %@",timerState);
-//    if (! playState ) {
-//   NSLog(@"playState:2222222 %d",playState);
-////        NSInteger  timerIndex = 1;
-////        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
-////        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
-//        //此处给禁止了
-//        playNumCount = 1;
-//        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
-//        NSLog(@"timerState:11 %@",timerState);
-//    }
+    NSLog(@"timerState:33 %@",timerState);
+    //    if (! playState ) {
+    //   NSLog(@"playState:2222222 %d",playState);
+    ////        NSInteger  timerIndex = 1;
+    ////        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
+    ////        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
+    //        //此处给禁止了
+    //        playNumCount = 1;
+    //        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+    //        NSLog(@"timerState:11 %@",timerState);
+    //    }
     
     
-   
+    
     [self.timer invalidate];
     self.timer = nil;
     
-//    self.video.startTime =@"1494299017";
-//    self.event_startTime = @"1494299017";
-//    self.video.endTime = @"1494328517";
-//    self.event_endTime = @"1494328517";
+    //    self.video.startTime =@"1494299017";
+    //    self.event_startTime = @"1494299017";
+    //    self.video.endTime = @"1494328517";
+    //    self.event_endTime = @"1494328517";
     
     //** 计算进度条
     if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
@@ -1784,7 +1796,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [dict setObject:self.event_startTime forKey:@"StarTime"];
             [dict setObject:self.event_endTime forKey:@"EndTime"];
-           
+            
             
             
             //判断当前是不是一个节目（此处应该没有实质价值）
@@ -1810,10 +1822,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
                 //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
                 NSInteger endTime =[self.event_endTime intValue ];
-//                NSInteger startTime =[self.event_startTime intValue ];
+                //                NSInteger startTime =[self.event_startTime intValue ];
                 NSDate *senddate = [NSDate date];
                 
-//                NSLog(@"date1时间戳 = %ld",time(NULL));
+                //                NSLog(@"date1时间戳 = %ld",time(NULL));
                 NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
                 NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                 
@@ -1826,23 +1838,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }
         }
-//        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
-//            
-//        }else
-//        {
-//            NSLog(@"此处可能报错，因为StarTime不为空 ");
-//           
-//        }
-       
-
+        //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+        //
+        //        }else
+        //        {
+        //            NSLog(@"此处可能报错，因为StarTime不为空 ");
+        //
+        //        }
+        
+        
         
         
     }else{
-    
+        
         [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
         [self.timer invalidate];
         self.timer = nil;
-
+        
         
     }
     //**
@@ -1851,8 +1863,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
     
-//    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//    [alertview show];
+    //    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    //    [alertview show];
     
     
 }
@@ -2569,7 +2581,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    [ mutaArray addObject:historyArr];
     NSArray *myArray = [NSArray arrayWithArray:mutaArray];
     //获取播放的第一个节目信息
+    if (myArray.count <1) {   //第一次打开APP的时候，历史为空
+        storeLastChannelArr = nil;
+    }else
+    {
     storeLastChannelArr = myArray[myArray.count - 1];
+    }
+    
     NSLog(@"获取播放的第一个节目信息 成功");
     [USER_DEFAULT setObject:myArray forKey:@"historySeed"];
     
@@ -5813,9 +5831,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
-//-(void)testIP
-//{
-//    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
-//    NSLog(@"self.ipString IPstrNow====---=== %@",IPstrNow);
-//}
+-(void)testIP
+{
+        self.videoController.shouldAutoplay = YES;
+        [self.videoController prepareToPlay];
+        [self.videoController play];
+
+}
 @end

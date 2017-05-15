@@ -120,7 +120,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
-{    NSLog(@"contentURL 11ZXVideo");
+{
     self = [super init];
     if (self) {
         self.view.frame = frame;
@@ -339,6 +339,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self.videoControl.indicatorView stopAnimating];
         [self.videoControl autoFadeOutControlBar];
+        NSLog(@"视频正在播放，圆圈暂停");
         //        [self play];
     } else {
         //        [self play];
@@ -349,7 +350,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.playButton.hidden = NO;
         [self stopDurationTimer];
         if (self.playbackState == MPMoviePlaybackStateStopped) {
+            [self.videoControl.indicatorView startAnimating];
             [self.videoControl animateShow];
+            
         }
     }
     
@@ -375,6 +378,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if(self.video.playUrl == NULL || [self.video.playUrl isEqualToString:@""] ||self.video.playUrl == nil)
         {
             [self.videoControl.indicatorView stopAnimating];
+            NSLog(@"数据开始加载，圆圈暂停");
         }else
         {
             [self.videoControl.indicatorView startAnimating];
@@ -396,7 +400,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         NSLog(@"MPMoviePlayer  停止加载");
         NSLog(@"playState---=====停止加载");
-        [self.videoControl.indicatorView stopAnimating];
+        
+        //获取当前是否正在播放的信息
+        NSString * isVideoPlaying = [USER_DEFAULT objectForKey: @"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+        
+        if ([isVideoPlaying isEqualToString:@"YES"]) {
+            [self.videoControl.indicatorView stopAnimating];
+        }else
+        {
+            //        [self.videoControl.indicatorView stopAnimating];
+        }
+        
+        NSLog(@"数据停止加载，圆圈暂停");
     }
 }
 
@@ -629,6 +644,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)IndicatorViewHiddenNotic
 {
     [self.videoControl.indicatorView stopAnimating];
+    NSLog(@"圆圈停止的通知，圆圈暂停");
 }
 //设置节目名称和其他信息的通知
 -(void)setChannelNameOrOtherInfo
@@ -3211,6 +3227,5 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
 }
-
 
 @end
