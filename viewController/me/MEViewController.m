@@ -182,6 +182,7 @@
 {
     [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
+#pragma mark - 修改了高度，做出了牺牲 -40
 -(void)loadScroll
 {
     //加一个scrollview
@@ -189,7 +190,7 @@
     [self.view addSubview:scroll];
     
     //    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
-    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216 +_allHistoryBtnHeight);
+    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216 +_allHistoryBtnHeight-40); //修改了高度 - 40
     //    scroll.pagingEnabled=YES;
     scroll.showsVerticalScrollIndicator=NO;
     scroll.showsHorizontalScrollIndicator=NO;
@@ -308,7 +309,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectio
 {
     
-    return 4;
+//    return 4;
+    return 3;
     
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -330,25 +332,26 @@
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     
-    if(indexPath.row == 0)
-    {
-        cell.settingImage.image = [UIImage imageNamed:@"Group 8 Copy 2"];
-        cell.blackLab.text = @"Equipment management";
-        cell.grayLab.text = @"HMC devices management";
-        
-    }  else  if(indexPath.row == 1)
+//    if(indexPath.row == 0)
+//    {
+//        cell.settingImage.image = [UIImage imageNamed:@"Group 8 Copy 2"];
+//        cell.blackLab.text = @"Equipment management";
+//        cell.grayLab.text = @"HMC devices management";
+//        
+//    }  else
+        if(indexPath.row == 0)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 10 Copy 2"];
         cell.blackLab.text = @"Router setting";
         cell.grayLab.text = @"Router parameters setting";
         
-    } else  if(indexPath.row == 2)
+    } else  if(indexPath.row == 1)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 12 Copy 2"];
         cell.blackLab.text = @"Contact us";
         cell.grayLab.text = @"Call center in various countries";
         
-    }else  if(indexPath.row == 3)
+    }else  if(indexPath.row == 2)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 15 Copy 2"];
         cell.blackLab.text = @"About";
@@ -363,24 +366,24 @@
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    if (indexPath.row == 0) {
+//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//        
+//        //        deviceView = [[DeviceManageViewController alloc]init];
+//        //        [self.navigationController pushViewController:deviceView animated:YES];
+//        //
+//        //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        //        self.deviceView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+//        //        self.deviceView.navigationItem.leftBarButtonItem = myButton;
+//        DeviceConView = [[DeviceManageController alloc]init];
+//        [self.navigationController pushViewController:DeviceConView animated:YES];
+//        
+//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+//        self.DeviceConView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+//        self.DeviceConView.navigationItem.leftBarButtonItem = myButton;
+//        self.DeviceConView.tabBarController.tabBar.hidden = YES;
+//    }
     if (indexPath.row == 0) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        //        deviceView = [[DeviceManageViewController alloc]init];
-        //        [self.navigationController pushViewController:deviceView animated:YES];
-        //
-        //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        //        self.deviceView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-        //        self.deviceView.navigationItem.leftBarButtonItem = myButton;
-        DeviceConView = [[DeviceManageController alloc]init];
-        [self.navigationController pushViewController:DeviceConView animated:YES];
-        
-        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        self.DeviceConView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-        self.DeviceConView.navigationItem.leftBarButtonItem = myButton;
-        self.DeviceConView.tabBarController.tabBar.hidden = YES;
-    }
-    if (indexPath.row == 1) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         //        self.routeView = [[RouteSetting alloc]init];
@@ -408,7 +411,7 @@
         self.routeManageView.tabBarController.tabBar.hidden = YES;
         
         
-    }  else   if (indexPath.row == 2) {
+    }  else   if (indexPath.row == 1) {
         
         
         linkView = [[LinkViewController alloc]init];
@@ -419,7 +422,7 @@
         self.linkView.navigationItem.leftBarButtonItem = myButton;
         self.linkView.tabBarController.tabBar.hidden = YES;
     }
-    else   if (indexPath.row == 3) {
+    else   if (indexPath.row == 2) {
         
         
         aboutView = [[AboutViewController alloc]init];
