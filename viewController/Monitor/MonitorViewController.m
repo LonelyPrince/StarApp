@@ -4225,8 +4225,8 @@
     //    [tunerAllData getBytes: &value length: sizeof(value)];   //获取总长度
     uint32_t value = [SocketUtils uint32FromBytes:tunerAllData];
     NSLog(@"可能报错2");
-    
-    for (int i = 0; i<11; i++) {
+#pragma mark  将11 改成了4
+    for (int i = 0; i<4; i++) {
         if (value == 77+i*15) {
             tunerNum = i;
         }else
@@ -4260,7 +4260,8 @@
     
     //定位数据，用于看位于第几个字节，起始位置是在
     int placeFigure = 3;
-    for (int ai = 0; ai < 11; ai++ ) {  //目前会返回11条数据
+#pragma mark  将11 改成了4
+    for (int ai = 0; ai < 4; ai++ ) {  //目前会返回11条数据
         
         
         //       NSMutableData * tunerDataone = [NSMutableData dataWithData:allTunerData];
@@ -4301,6 +4302,9 @@
             //这里获取service_type类型
             NSData * serviceTypeData = [[NSData alloc]init];
             NSLog(@"effectiveData: %@",effectiveData);
+            NSLog(@"placeFigure: %d",placeFigure);
+            
+            NSLog(@"错误代码在这里");
             serviceTypeData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+4, 4)];
             NSLog(@"serviceTypeData: %@",serviceTypeData);
             //这里获取network_id

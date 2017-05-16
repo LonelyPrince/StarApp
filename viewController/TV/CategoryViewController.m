@@ -41,6 +41,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
 //    [scroll removeFromSuperview];
 //    scroll = nil;
     categorysArr = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
