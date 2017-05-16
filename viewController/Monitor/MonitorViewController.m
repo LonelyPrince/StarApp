@@ -3662,6 +3662,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
     [USER_DEFAULT setObject:@"MonitorView_Now" forKey:@"viewTOview"];
     [USER_DEFAULT setObject:[NSNumber numberWithInt:1] forKey:@"viewDidloadHasRunBool"];     // 此处做一次判断，判断是不是连接状态，如果是的，则执行live页面的时候不执行【socket viewDidload】
     
@@ -4222,7 +4223,7 @@
     //    value = 0;
     NSLog(@"可能报错1");
     //    [tunerAllData getBytes: &value length: sizeof(value)];   //获取总长度
-    uint8_t value = [SocketUtils uint32FromBytes:tunerAllData];
+    uint32_t value = [SocketUtils uint32FromBytes:tunerAllData];
     NSLog(@"可能报错2");
     
     for (int i = 0; i<11; i++) {
@@ -4239,6 +4240,7 @@
 -(void)getEffectiveData:(NSData *) allTunerData
 {
     NSLog(@"=======================test gettuner");
+    NSLog(@"allTunerData :%@",allTunerData);
     //获取数据总长度
     NSData * dataLen = [[NSData alloc]init];
     dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
@@ -4248,11 +4250,12 @@
     //    value = 0;
     NSLog(@"可能报错3");
     //    [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
-    uint8_t value = [SocketUtils uint32FromBytes:dataLen];
+    uint32_t value = [SocketUtils uint32FromBytes:dataLen];
     NSLog(@"可能报错4");
     //    [socketUtils uint16FromBytes:]
     //tuner的有效数据区
     NSData * effectiveData = [[NSData alloc]init];
+    
     effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
     
     //定位数据，用于看位于第几个字节，起始位置是在
@@ -4268,6 +4271,7 @@
         //        char buffer;
         //        [effectiveData getBytes:&buffer range:NSMakeRange(mutablefigure, 4)];
         
+        NSLog(@"effectiveData: %@",effectiveData);
         NSData * databuff = [effectiveData subdataWithRange:NSMakeRange(mutablefigure, 4)];
         //        Byte *buffer = (Byte *)[databuff bytes];
         
@@ -4296,7 +4300,9 @@
             
             //这里获取service_type类型
             NSData * serviceTypeData = [[NSData alloc]init];
+            NSLog(@"effectiveData: %@",effectiveData);
             serviceTypeData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+4, 4)];
+            NSLog(@"serviceTypeData: %@",serviceTypeData);
             //这里获取network_id
             NSData * networkIdData = [[NSData alloc]init];
             networkIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+12, 2)];

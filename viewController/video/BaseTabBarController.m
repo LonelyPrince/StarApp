@@ -37,12 +37,28 @@
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
     UINavigationController *nav = self.viewControllers[0];
-if ([nav.topViewController isKindOfClass:[TVViewController class]]) {
-    //    if ([nav.topViewController isKindOfClass:[ViewController class]]) {
-        return UIInterfaceOrientationMaskPortrait;
-    }
     
-    return UIInterfaceOrientationMaskAllButUpsideDown;
+    //new====
+//    NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
+//    
+//    if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
+//        return UIInterfaceOrientationMaskPortrait;
+//    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
+//    {
+    //new====
+        if ([nav.topViewController isKindOfClass:[TVViewController class]]) {
+            //    if ([nav.topViewController isKindOfClass:[ViewController class]]) {
+            return UIInterfaceOrientationMaskPortrait;
+        }
+        
+        return UIInterfaceOrientationMaskAllButUpsideDown;
+
+        //new====
+//    }else
+//    {
+//    return UIInterfaceOrientationMaskPortrait;
+//    }
+        //new====
 }
 
 @end

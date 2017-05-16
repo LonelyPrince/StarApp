@@ -124,6 +124,15 @@
     UIViewController * viewNow = [self currentViewController];
     NSLog(@"vc.viewNow== %@",viewNow);
 //    if ([nav isKindOfClass:[TVViewController class]]) {
+    
+    //new====
+//    NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
+//    
+//    if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
+//        return UIInterfaceOrientationMaskPortrait;
+//    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
+//    {
+    //new====
             if ([viewNow isKindOfClass:[TVViewController class]]) {
                 if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStartTransform"]){
                     NSLog(@"第一次启动旋转");
@@ -181,6 +190,11 @@
      
     }
      return UIInterfaceOrientationMaskPortrait;    //不旋转
-    
+    //new====
+//    }else
+//    {
+//     return UIInterfaceOrientationMaskPortrait;    //不旋转
+//    }
+    //new====
 }
 @end

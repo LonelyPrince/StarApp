@@ -924,6 +924,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
+          
+            //new====
+            NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
+            
+            if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
+                
+            }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
+            {
+            //new====
             NSLog(@"切换为全屏模式");
             NSLog(@"sel.view.frame21 %f",self.view.frame.size.height);
             NSLog(@"sel.view.frame22 %f",self.view.frame.size.width);
@@ -1020,7 +1029,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //
             //            ////******
             
-        };
+       //new=====
+            }else
+            {
+            }
+        //new=====
+            };
         
         
         [self.videoController showInView:self.view];
@@ -2695,6 +2709,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
         [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
         [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];  //判断是不是全屏模式
+        [self preventTVViewOnceFullScreen];
 //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
         tableviewinit  = tableviewinit +1;
         firstShow = YES;
@@ -3359,6 +3374,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.video.playUrl = @"";
 //    [self playVideo];
     [self.videoController stop];
+
 }
 -(void)setIPNoific
 {
@@ -5837,5 +5853,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.videoController prepareToPlay];
         [self.videoController play];
 
+}
+#pragma mark - 防止在刚转到TV页面时就全屏展示，需要至少先等待0.1秒
+-(void)preventTVViewOnceFullScreen
+{   [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(modeifyTVViewRevolve) object:nil];
+    [self performSelector:@selector(modeifyTVViewRevolve) withObject:nil afterDelay:0.1];
+//    [[NSRunLoop currentRunLoop] run];
+}
+-(void)modeifyTVViewRevolve
+{
+    [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"];
 }
 @end

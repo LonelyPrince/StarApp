@@ -151,6 +151,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     
+    [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
     [USER_DEFAULT setObject:[NSNumber numberWithInt:1] forKey:@"viewDidloadHasRunBool"];    // 此处做一次判断，判断是不是连接状态，如果是的，则执行live页面的时候不执行【socket viewDidload】
     
     self.tabBarController.tabBar.hidden = NO;

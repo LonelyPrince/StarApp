@@ -110,4 +110,6 @@
 //#define PiwikActionCartQtyIndex       @"13"
 
 
+#pragma mark -------------------- userDefault 信息 --------------------
+ //modeifyTVViewRevolve   用于跳转到主页时，判断是否需要立即横屏
 #endif

@@ -1157,6 +1157,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///// 切换到全屏模式
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
+    //new====
+        NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
+    
+        if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
+            
+        }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
+        {
+    //new====
+    
     NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
     NSLog(@"self.view.frame.size.width %f",self.view.frame.size.width);
     NSLog(@"self.view.frame.size.SCREEN_HEIGHT %f",SCREEN_HEIGHT);
@@ -1317,6 +1326,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         [self.videoControl.audioBtn setEnabled:YES];
     }
+            
+    //new====
+        }else
+        {
+        }
+    //new====
 }
 /// 切换到全屏模式
 //- (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
@@ -1786,20 +1801,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
-    NSArray * touchArr = historyArr[historyArr.count - 1];
-    NSLog(@"touchArr：%@",touchArr);
-    //    [self touchToSee :touchArr];
-    
-    
-    NSInteger row = [touchArr[2] intValue];
-    NSDictionary * dic = touchArr [3];
-    if (row >= 1) {
-        self.videoControl.lastChannelButton.enabled = YES;
+    if (historyArr.count > 1) {
+        NSArray * touchArr = historyArr[historyArr.count - 1];
+        NSLog(@"touchArr：%@",touchArr);
+        //    [self touchToSee :touchArr];
         
+        
+        NSInteger row = [touchArr[2] intValue];
+        NSDictionary * dic = touchArr [3];
+        if (row >= 1) {
+            self.videoControl.lastChannelButton.enabled = YES;
+            
+        }else
+        {
+            NSLog(@"对不起，已经没有上一个节目了");
+            self.videoControl.lastChannelButton.enabled = NO;
+        }
+
     }else
     {
-        NSLog(@"对不起，已经没有上一个节目了");
-        self.videoControl.lastChannelButton.enabled = NO;
+     //历史为空，不操作
     }
     
 }
@@ -1809,6 +1830,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];   //总的数据
+     if (historyArr.count > 1) {
+         
     int historyArrCount = historyArr.count - 1;
     NSArray * touchArr = historyArr[historyArrCount];
     
@@ -1829,6 +1852,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }else
     {
         self.videoControl.nextChannelButton.enabled = NO;
+    }
+      }
+    else
+    {
+    //历史数据为空，不操作
     }
     
 }
