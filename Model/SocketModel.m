@@ -42,5 +42,9 @@
 @implementation Cs_GetResource
 @end
 
+//8.客户端向服务器发送获取路由IP地址 
+@implementation Cs_GetRouteIPAddress
+@end
+
 @implementation Sc_20001
 @end

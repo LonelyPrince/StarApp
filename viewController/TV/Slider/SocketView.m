@@ -48,6 +48,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  cs_updateChannel;      //5
 @synthesize  cs_CAMatureLock;       //6
 @synthesize  cs_getResource;        //7
+@synthesize  cs_getRouteIPAddress;  //8
 @synthesize socket_ServiceModel;  //给service传值用
 - (void)viewDidLoad
 {
@@ -62,6 +63,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_updateChannel = [[Cs_UpdateChannel alloc]init];
     cs_CAMatureLock = [[Cs_CAMatureLock alloc]init];
     cs_getResource = [[Cs_GetResource alloc]init];
+    cs_getRouteIPAddress = [[Cs_GetRouteIPAddress alloc]init];
     
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
@@ -177,7 +179,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 //    [self hexFromInt:x];
     cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
 //    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
-    cs_service.command_type = CMD_PLAY_SERVICE;
+    cs_service.command_type =DTV_SERVICE_MD_PLAY_SERVICE;// CMD_PLAY_SERVICE;
     //---
     
     cs_service.tuner_type = [socket_ServiceModel.service_tuner_mode intValue];
@@ -254,7 +256,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_playExit.client_port = (uint32_t)[_socket localPort] ;
     cs_playExit.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
-    cs_playExit.command_type = CMD_EXIT_PLAY;
+    cs_playExit.command_type = DTV_SERVICE_MD_PLAY_EXIT;  //CMD_EXIT_PLAY;
 
     cs_playExit. data_len= 9;
     
@@ -309,7 +311,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_passwordCheck.client_port = (uint32_t)[_socket localPort] ;
     
     cs_passwordCheck.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
-    cs_passwordCheck.command_type = CMD_VERIFY_PASSWORD;
+    cs_passwordCheck.command_type = DTV_SERVICE_MD_PASSWD_CHECK;  // CMD_VERIFY_PASSWORD;
     cs_passwordCheck.passwd_type = passwd_type_int;//1;
     
     if(cs_passwordCheck.passwd_type == 1){
@@ -377,7 +379,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_getResource.client_port = (uint32_t)[_socket localPort] ;
     
     cs_getResource.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
-    cs_getResource.command_type = CMD_GET_RESOURCE_INFO;
+    cs_getResource.command_type = DTV_SERVICE_MD_GET_RESOURCE ; //CMD_GET_RESOURCE_INFO;
     cs_getResource. data_len= 9;
     
 
@@ -417,6 +419,70 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     [[Singleton sharedInstance] GetResource_socket];
 }
+
+#pragma mark - 获取路由器IP地址
+//获取资源信息
+-(void)csGetRouteIPAddress
+{
+    
+    cs_getRouteIPAddress.module_name= @"MDMM";
+    cs_getRouteIPAddress.Ret=0;
+    
+    //do - while 循环
+    
+    //    cs_getRouteIPAddress.client_ip= [self getIPArr];
+    
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_getRouteIPAddress.client_ip= [self getIPArr];
+    } while (ISNULL(cs_getRouteIPAddress.client_ip));
+    
+    
+    
+    cs_getRouteIPAddress.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_getRouteIPAddress.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_getRouteIPAddress.command_type = DTV_SERVICE_MD_GET_ROUTE_IP ;  //获取IP地址 24
+    cs_getRouteIPAddress. data_len= 9;
+    
+    
+    
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_getRouteIPAddress];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_getRouteIPAddress]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_getIPAddress"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] GetIPAddress_socket];
+}
+
 
 
 //int 转16进制
@@ -566,7 +632,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 //    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
 //    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
     if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
-    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"VerizoniPhone 4";
+    if ([deviceString isEqualToString:@"iPhone3,2"])    return @"iPhone4";
     if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
     if ([deviceString isEqualToString:@"iPhone5,1"])    return @"iPhone5";
     if ([deviceString isEqualToString:@"iPhone5,2"])    return @"iPhone5";

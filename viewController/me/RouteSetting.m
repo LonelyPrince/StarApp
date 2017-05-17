@@ -24,6 +24,9 @@
 #define SAVEBTN_X    31.5
 //#define NAMETEXTFIELD_Y 84+26+147
 @interface RouteSetting ()<UITextFieldDelegate,UIAlertViewDelegate>
+{
+    NSString * DMSIP;
+}
 @property(nonatomic,strong) UIButton * pswBtn;
 @property(nonatomic,strong) UITextField *  pswText;
 @property(nonatomic,assign) bool isOn ;
@@ -54,13 +57,49 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     isOn = NO;
-    [self loadNav];
+//    [self loadNav];
     
     self.view.userInteractionEnabled = YES;
     
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
     
     [self.view addGestureRecognizer:singleTap];
+    
+    //////////////////////////// 从socket返回数据
+    //此处接收到路由器IP地址的消息
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getSocketIpInfoNotice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getSocketIpInfo:) name:@"getSocketIpInfoNotice" object:nil];
+
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"socketGetIPAddressNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    
+}
+- (void)getSocketIpInfo:(NSNotification *)text{
+    
+    NSData * socketIPData = text.userInfo[@"socketIPAddress"];
+    NSData * ipStrData ;
+    NSLog(@"socketIPData :%@",socketIPData);
+    
+    if (socketIPData != NULL  && socketIPData != nil  &&  socketIPData.length > 0 ) {
+        
+        if (socketIPData.length >38) {
+          
+            ipStrData = [socketIPData subdataWithRange:NSMakeRange(1 + 37,socketIPData.length - 38)];
+            NSLog(@"ipStrData %@",ipStrData);
+            
+            DMSIP =  [[NSString alloc] initWithData:ipStrData  encoding:NSUTF8StringEncoding];
+            NSLog(@" DMSIP %@",DMSIP);
+            
+            [self loadNav];
+        }
+        
+    }
+    
+    
 }
 -(BOOL) textFieldShouldReturn:(UITextField *)textField {
     
@@ -297,7 +336,7 @@
     NSLog(@"点击了save按钮11");
 //
 //    NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
-        NSString * DMSIP = @"192.168.1.1";
+//        DMSIP = @"192.168.1.1";
     NSString * serviceIp;
     if (DMSIP != NULL ) {
         serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
@@ -342,7 +381,7 @@
             
             NSLog(@"点击了save按钮");
             
-            NSString * DMSIP = @"192.168.1.1";
+//            NSString * DMSIP = @"192.168.1.1";
             NSString * serviceIp;
             if (DMSIP != NULL ) {
                 serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];

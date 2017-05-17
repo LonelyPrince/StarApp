@@ -34,6 +34,8 @@ extern NSString * const TYPE_ARRAY;
 
 @property(nonatomic,strong)Cs_GetResource * cs_getResource;         //7
 
+@property(nonatomic,strong)Cs_GetRouteIPAddress * cs_getRouteIPAddress;         //8
+
 @property(nonatomic,strong)ServiceModel *socket_ServiceModel;
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
@@ -42,6 +44,7 @@ extern NSString * const TYPE_ARRAY;
 //-(void)passwordCheck;
 -(void)passwordCheck :(NSString *)passWordStr  passwordType:(int)passwd_type_int;
 -(void)csGetResource;
+-(void)csGetRouteIPAddress;
 
 -(int)getCRC : (NSData *)data ;
 + (NSMutableData *)GetNowTimes;

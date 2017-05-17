@@ -23,6 +23,8 @@
     
      MBProgressHUD * HUD;
     UIView *  netWorkErrorView;
+    
+    NSString * DMSIP;
 }
 @end
 
@@ -48,8 +50,44 @@
     
     [self initData];    //初始化数据，new
     [self loadScroll];
+    
+    
+    //////////////////////////// 从socket返回数据
+    //此处接收到路由器IP地址的消息
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getSocketIpInfoNotice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getSocketIpInfo:) name:@"getSocketIpInfoNotice" object:nil];
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"socketGetIPAddressNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
+- (void)getSocketIpInfo:(NSNotification *)text{
+    
+    NSData * socketIPData = text.userInfo[@"socketIPAddress"];
+    NSData * ipStrData ;
+    NSLog(@"socketIPData :%@",socketIPData);
+    
+    if (socketIPData != NULL  && socketIPData != nil  &&  socketIPData.length > 0 ) {
+        
+        if (socketIPData.length >38) {
+            
+            ipStrData = [socketIPData subdataWithRange:NSMakeRange(1 + 37,socketIPData.length - 38)];
+            NSLog(@"ipStrData %@",ipStrData);
+            
+            DMSIP =  [[NSString alloc] initWithData:ipStrData  encoding:NSUTF8StringEncoding];
+            NSLog(@" DMSIP %@",DMSIP);
+            
+//            [self loadNav];
+            [self viewWillAppear:YES];
+        }
+        
+    }
+    
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -57,8 +95,11 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self getOnlineDevice];
-     [self getWifi];
+    if (DMSIP != nil && DMSIP != NULL && DMSIP.length > 0) {
+        [self getOnlineDevice];
+        [self getWifi];
+    }
+    
 //    [self loadNav];
 //    [self loadScroll];
 //    [self loadUI];
@@ -238,10 +279,12 @@
 }
 -(void)getOnlineDevice
 {
-    NSString * GdeviceStr = [USER_DEFAULT objectForKey:@"G_deviceStr"];   //获取本地化的GDevice
+    
+//    NSString * GdeviceStr = [USER_DEFAULT objectForKey:@"G_deviceStr"];   //获取本地化的GDevice
     
     //获取数据的链接
-    NSString *url = [NSString stringWithFormat:@"%@",G_device];
+    NSString * url =     [NSString stringWithFormat:@"http://%@/test/online_devices",DMSIP];
+//    NSString *url = [NSString stringWithFormat:@"%@",G_device];
     //    NSString *url = [NSString stringWithFormat:@"%@",G_device];
     
     ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
@@ -351,7 +394,8 @@
 {
     
     //获取数据的链接
-    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+//    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
     
     ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
     
@@ -372,7 +416,8 @@
         
         routeNameLab.text = [wifiDic objectForKey:@"name"];
         
-        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+//        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
     }];
     
   

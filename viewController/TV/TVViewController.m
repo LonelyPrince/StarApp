@@ -1717,6 +1717,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self playVideo];
         NSLog(@"byteValue1 TVTVTVTVTVTV333");
     });
+    
+//    [self playClick];
     //==========正文
     //    [self playVideo];
     
@@ -2705,6 +2707,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:60];
         
     }else{
+        //        [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
         NSLog(@"不是第一次启动");
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
         [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
@@ -2754,6 +2757,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self setVideoTouchNoific];   //其他页面的点击播放视频的通知
         [self setVideoTouchNoificAudioSubt]; //全屏页面音轨字幕切换的通知
         [self newTunerNotific]; //新建一个tuner的通知
+        [self socketGetIPAddressNotific]; //新建一个socket 获取IP地址的通知
         [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
         [self allCategorysBtnNotific];
         [self removeLineProgressNotific]; //进度条停止的刷新通知
@@ -2874,6 +2878,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self viewWillAppear:YES];
 }
 
+#pragma mark - 通过socket获取路由器的IP地址
+-(void)socketGetIPAddressNotific
+{
+    //新建一个发送tuner请求并且接受返回信息的通知   //3
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"socketGetIPAddressNotific" object:nil] ;
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socketGetIPAddress) name:@"socketGetIPAddressNotific" object:nil];
+    
+    
+    
+}
 -(void)newTunerNotific
 {
     //新建一个发送tuner请求并且接受返回信息的通知   //3
@@ -3353,6 +3368,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.tabBarController.tabBar.hidden = NO;
 }
 
+#pragma mark - 通过socket获取机顶盒路由器
+-(void)socketGetIPAddress
+{
+    //获取分发资源信息
+    [self.socketView csGetRouteIPAddress];
+}
 -(void)receiveTunerInfo
 {
     //获取分发资源信息

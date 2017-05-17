@@ -170,6 +170,23 @@
 
 
 
+//8888888
+// 客户端向服务器发送获取路由IP地址  枚举类型： DTV_SERVICE_MD_GET_ROUTE_IP  大概是24
+@interface Cs_GetRouteIPAddress : NSObject
+
+@property (nonatomic, strong) NSString *  module_name;
+@property (nonatomic, assign) uint32_t  Ret;
+@property (nonatomic, assign) uint32_t  Reserved;
+@property (nonatomic, strong) NSArray *   client_ip;
+@property (nonatomic, assign) uint32_t  data_len;
+
+//data区域
+@property (nonatomic, assign) uint32_t  client_port;
+@property (nonatomic, assign) uint32_t  unique_id;        //系统时间  唯一标识
+@property (nonatomic, assign) uint8_t  command_type;       //类型枚举
+
+@end
+
 
 
 

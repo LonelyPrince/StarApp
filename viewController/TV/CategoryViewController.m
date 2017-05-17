@@ -152,22 +152,22 @@
 
 -(void)judgeName:(NSString *)name  UIImageView: (UIImageView *)imageView
 {
-    if ([name isEqualToString:@"Entertainment"] && [name isEqualToString:@"Ent"] && [name isEqualToString:@"GEC"]) {  //OK 
+    if ([name isEqualToString:@"Entertainment"] || [name isEqualToString:@"Ent"] || [name isEqualToString:@"GEC"]) {  //OK
        imageView.image = [UIImage imageNamed:@"Entertainment"];
     }
     else if ([name isEqualToString:@"Chinese Channel"])  //OK
     {
        imageView.image = [UIImage imageNamed:@"Chinese Channel"];
     }
-    else if ([name isEqualToString:@"Doc"] && [name isEqualToString:@"Documentary"])  //OK 
+    else if ([name isEqualToString:@"Doc"] || [name isEqualToString:@"Documentary"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Documentary"];
     }
-    else if ([name isEqualToString:@"kids"] && [name isEqualToString:@"Children's/Youth Programmes"])  //OK 
+    else if ([name isEqualToString:@"kids"] || [name isEqualToString:@"Children's/Youth Programmes"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"kids"];
     }
-    else if ([name isEqualToString:@"Life Style"] && [name isEqualToString:@"Life-style"]) //OK
+    else if ([name isEqualToString:@"Life Style"] || [name isEqualToString:@"Life-style"]) //OK
     {
         imageView.image = [UIImage imageNamed:@"Life Style"];
     }
@@ -179,11 +179,11 @@
     {
         imageView.image = [UIImage imageNamed:@"Movies"];
     }
-    else if ([name isEqualToString:@"Movies & Series"] && [name isEqualToString:@"Movies and Series"]) //OK
+    else if ([name isEqualToString:@"Movies & Series"] || [name isEqualToString:@"Movies and Series"]) //OK
     {
         imageView.image = [UIImage imageNamed:@"Movies & Series"];
     }
-    else if ([name isEqualToString:@"News"]  && [name isEqualToString:@"Current Affairs"] && [name isEqualToString:@"Economics"] )  //OK
+    else if ([name isEqualToString:@"News"]  || [name isEqualToString:@"Current Affairs"] || [name isEqualToString:@"Economics"] )  //OK
     {
         imageView.image = [UIImage imageNamed:@"News"];
     }
@@ -199,7 +199,7 @@
     {
         imageView.image = [UIImage imageNamed:@"Special Characteristics"];
     }
-    else if ([name isEqualToString:@"Sports"]  && [name isEqualToString:@"Sport"])  //OK
+    else if ([name isEqualToString:@"Sports"]  || [name isEqualToString:@"Sport"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Sports"];
     }

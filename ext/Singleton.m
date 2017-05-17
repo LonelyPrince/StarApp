@@ -133,6 +133,20 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
+#pragma mark - 获取IP地址
+//获取IP地址
+-(void)GetIPAddress_socket{
+    
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_getIPAddress"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
 // 切断socket
 -(void)cutOffSocket{
     
@@ -256,6 +270,35 @@
                                     
                                     //创建通知
                                     NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                }
+                                    break;
+                                    
+                                case 24:
+                                {
+                                    NSLog(@"playState---== socket 获取IP地址的消息");
+                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                                    
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_socketGetIpAddress"];
+                                    
+                                    [userDef synchronize];//把数据同步到本地
+                                    
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"socketIPAddress",nil];
+                                    
+                                    
+                                    
+                                    //创建通知
+                                    NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
                                     //通过通知中心发送通知
                                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                                 }
@@ -485,6 +528,26 @@
                         [[NSNotificationCenter defaultCenter] postNotification:notification];
                     }
                         break;
+                     
+                    case 24:
+                    {
+                        NSLog(@"playState---== socket 获取IP地址的消息");
+                       
+                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                        [userDef setObject:data forKey:@"data_socketGetIpAddress"];
+                        
+                        [userDef synchronize];//把数据同步到本地
+                        
+                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"socketIPAddress",nil];
+                        
+                        
+                        
+                        //创建通知
+                        NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    }
+                        break;
                         
                     case 17:  //此处是获得资源信息
                     {NSLog(@"akjsdbkabdbaskdbakjsbd");
@@ -658,6 +721,36 @@
                                     NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
                                     //通过通知中心发送通知
                                     [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                }
+                                    break;
+                                    
+                                case 24:
+                                {
+                                    NSLog(@"playState---== socket 获取IP地址的消息");
+                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                                    
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_socketGetIpAddress"];
+                                    
+                                    [userDef synchronize];//把数据同步到本地
+                                    
+                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"socketIPAddress",nil];
+                                    
+                                    
+                                    
+                                    //创建通知
+                                    NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                    
                                 }
                                     break;
                                     
@@ -868,6 +961,28 @@
                         [[NSNotificationCenter defaultCenter] postNotification:notification];
                     }
                         break;
+                        
+                        
+                        
+                    case 24:
+                    {
+                        NSLog(@"playState---== socket 获取IP地址的消息");
+                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+                        [userDef setObject:data forKey:@"data_socketGetIpAddress"];
+                        
+                        [userDef synchronize];//把数据同步到本地
+                        
+                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"socketIPAddress",nil];
+                        
+                        
+                        
+                        //创建通知
+                        NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    }
+                        break;
+                        
                         
                     case 17:  //此处是获得资源信息
                     {NSLog(@"akjsdbkabdbaskdbakjsbd");
