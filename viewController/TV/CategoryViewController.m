@@ -155,7 +155,7 @@
     if ([name isEqualToString:@"Entertainment"] || [name isEqualToString:@"Ent"] || [name isEqualToString:@"GEC"]) {  //OK
        imageView.image = [UIImage imageNamed:@"Entertainment"];
     }
-    else if ([name isEqualToString:@"Chinese Channel"])  //OK
+    else if ([name isEqualToString:@"Chinese Channel"] || [name isEqualToString:@"Chinese"])  //OK
     {
        imageView.image = [UIImage imageNamed:@"Chinese Channel"];
     }
@@ -224,6 +224,10 @@
         imageView.image = [UIImage imageNamed:@"Guide"];
     }
     else if ([name isEqualToString:@"Indian"])  //OK
+    {
+        imageView.image = [UIImage imageNamed:@"Indian"];
+    }
+    else if ([name isEqualToString:@"ALL"] || [name isEqualToString:@"All Channel"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Indian"];
     }
