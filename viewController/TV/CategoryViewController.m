@@ -227,9 +227,9 @@
     {
         imageView.image = [UIImage imageNamed:@"Indian"];
     }
-    else if ([name isEqualToString:@"ALL"] || [name isEqualToString:@"All Channel"])  //OK
+    else if ([name isEqualToString:@"ALL"] || [name isEqualToString:@"All Channel"] || [name isEqualToString:@"All Channels"])  //OK
     {
-        imageView.image = [UIImage imageNamed:@"Indian"];
+        imageView.image = [UIImage imageNamed:@"All Channel"];
     }
 //    else if ([name isEqualToString:@"dtt"])  //test
 //    {

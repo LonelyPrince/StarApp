@@ -4194,7 +4194,8 @@
         //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     
-    if (! ISNULL(monitorTableArr)) {
+//    if (! ISNULL(monitorTableArr)) {
+    if (monitorTableArr != NULL && monitorTableArr != nil && monitorTableArr.count > 0) {
         cell.dataArr = monitorTableArr[indexPath.row];
     }else
     {
