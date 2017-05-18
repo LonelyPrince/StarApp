@@ -44,30 +44,38 @@
     self.backImage.image = [UIImage imageNamed:@"background"];
     UIImage * imageWithImage = [[UIImage alloc]init];
     
-    self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        //[UIImage imageNamed:@"placeholder"]
+//    self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
+//    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        //[UIImage imageNamed:@"placeholder"]
+//        
+//        //[_dataDic objectForKey:@"epg_info"]
+//        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+//        
+//        self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
+//        self.channelImage.clipsToBounds = YES;
+//        
+//        
+//        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
+//        [self.backImage bringSubviewToFront:self.placeholderImage1];
+//        if (self.channelImage.image == nil) {
+//            self.placeholderImage1.alpha = 1;
+//            NSLog(@"placeholderImage 为空");
+//        }else
+//        {
+//            self.placeholderImage1.alpha = 0;
+//            NSLog(@"placeholderImage 为空");
+//        }
+//        
+//    }];
+    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
         //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
         
         self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
-        self.channelImage.clipsToBounds = YES;
         
-        
-        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-        [self.backImage bringSubviewToFront:self.placeholderImage1];
-        if (self.channelImage.image == nil) {
-            self.placeholderImage1.alpha = 1;
-            NSLog(@"placeholderImage 为空");
-        }else
-        {
-            self.placeholderImage1.alpha = 0;
-            NSLog(@"placeholderImage 为空");
-        }
         
     }];
-    
     
     
     

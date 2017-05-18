@@ -60,28 +60,37 @@
     
 //    self.channelImg.frame = CGRectMake(26, 10, 81, 50);
 //    self.channelImg.layer.masksToBounds = YES;
-    
-    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-         //[UIImage imageNamed:@"placeholder"]
+    NSLog(@"占位图111 %@",self.event_nameLab.text);
+//    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//         //[UIImage imageNamed:@"placeholder"]
+//        
+//        //[_dataDic objectForKey:@"epg_info"]
+////        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+//
+//        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+//        self.channelImg.clipsToBounds = YES;
+//
+//        NSLog(@"占位图222 %@",self.event_nameLab.text);
+//        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder1"];
+//        [self.backImage bringSubviewToFront:self.placeholderImage1];
+//        if (self.channelImg.image == nil) {
+//            self.placeholderImage1.alpha = 1;
+//            NSLog(@"placeholderImage 为空");
+//        }else
+//        {
+//            self.placeholderImage1.alpha = 0;
+//            NSLog(@"placeholderImage 为空");
+//        }
+//
+//    }];
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
-//        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-
-        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
-        self.channelImg.clipsToBounds = YES;
-
+        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
         
-        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-        [self.backImage bringSubviewToFront:self.placeholderImage1];
-        if (self.channelImg.image == nil) {
-            self.placeholderImage1.alpha = 1;
-            NSLog(@"placeholderImage 为空");
-        }else
-        {
-            self.placeholderImage1.alpha = 0;
-            NSLog(@"placeholderImage 为空");
-        }
-
+        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+        
+        
     }];
     self.event_Img.image = [UIImage imageNamed:@"play"];
     self.event_nextImg.image = [UIImage imageNamed:@"time"];
