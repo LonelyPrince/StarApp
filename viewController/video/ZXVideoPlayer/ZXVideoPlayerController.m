@@ -1158,179 +1158,179 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
     //new====
-        NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
+    NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
     
-        if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
-            
-        }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
-        {
-    //new====
-    
-    NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
-    NSLog(@"self.view.frame.size.width %f",self.view.frame.size.width);
-    NSLog(@"self.view.frame.size.SCREEN_HEIGHT %f",SCREEN_HEIGHT);
-    NSLog(@"self.view.frame.size.SCREEN_WIDTH %f",SCREEN_WIDTH);
-    NSLog(@"self.view.frame.bounds.height %f",[UIScreen mainScreen].bounds.size.height);
-    NSLog(@"self.view.frame.bounds.width %f",[UIScreen mainScreen].bounds.size.width);
-    
-    
-    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.x);
-    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.y);
-    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.height);
-    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.width);
-    
-    if (self.isFullscreenMode) {
-        return;
-    }
-    if (self.videoControl.isBarShowing) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    } else {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    }
-    
-    
-    if (self.videoPlayerWillChangeToFullScreenModeBlock) {
-        self.videoPlayerWillChangeToFullScreenModeBlock();
-    }
-    
-    self.frame = [UIScreen mainScreen].bounds;
-    //    self.videoControl.bottomBar.userInteractionEnabled = YES;
-    self.isFullscreenMode = YES;
-    self.videoControl.fullScreenButton.hidden = YES;
-    //    self.videoControl.shrinkScreenButton.hidden = NO;
-    self.videoControl.shrinkScreenButton1.hidden = NO;
-    self.videoControl.lastChannelButton.hidden = NO;
-    self.videoControl.nextChannelButton.hidden = NO;
-    self.videoControl.subtBtn.hidden = NO;
-    self.videoControl.audioBtn.hidden = NO;
-    self.videoControl.channelListBtn.hidden = NO;
-    self.videoControl.eventTimeLabNow.hidden = NO;
-    self.videoControl.eventTimeLabAll.hidden = NO;
-    self.videoControl.backButton.hidden = NO;
-    
-    self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
-    [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
-    
-    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
-    if (videoOrRadiostr != NULL) {
-        lab.text = videoOrRadiostr;
-    }else
-    {
-        lab.text = @"sorry, this video can't play";
-    }
-    lab.font = FONT(17);
-    
-    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
-    CGSize size=[lab.text sizeWithAttributes:attrs];
-    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-    
-    
-    
-    if (radioImageView) {
-        radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
-    }
-    
-    
-    
-    
-    //     self.videoControl.channelIdLab.hidden = NO;
-    //     self.videoControl.channelNameLab.hidden = NO;
-    self.videoControl.FulleventNameLab.hidden = NO;
-    if (self.videoControl.FullEventYFlabel) {
-        self.videoControl.FullEventYFlabel.hidden = NO; //全屏页面跑马灯
-    }
-    
-    
-    
-    self.videoControl.eventnameLabel.hidden = YES;
-    
-    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
-    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
-    
-    sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
-    NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
-    self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
-    self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
-    //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
-    YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
-    //    }
-    
-    
-    
-    
-    //    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    
-    //    //初始化arr，方便后面对label赋值
-    //    if (! YFLabelArr) {
-    //        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
-    //
-    //
-    //        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-    //
-    //    }else
-    //    {
-    //        self.videoControl.FullEventYFlabel.frame = CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 250, 18);   //40字符长度是260
-    //        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-    //
-    //
-    //    }
-    
-    
-    
-    self.videoControl.FullEventYFlabel.hidden = NO;
-    //    self.videoControl.FullEventYFlabel.speed = 3;
-    self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
-    
-    self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18);
-    
-    
-    
-    //此处强制销毁，再重新init一次
-    //    if (self.videoControl.FullEventYFlabel) {
-    [self.videoControl.FullEventYFlabel removeFromSuperview];
-    self.videoControl.FullEventYFlabel = nil;
-    [self.videoControl.FullEventYFlabel stopTimer];
-    
-    [self abctest];
-    //    }
-    
-    //test
-    //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"abctest" object:nil];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( abctest) name:@"abctest" object:nil];
-    
-    [self judgeLastBtnIsGray];
-    [self judgeNextBtnIsGray];
-    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
-    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
-    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
-    if (judgeIsNull == YES) {
-        NSLog(@"数值为空，所以此时应该直接返回");
-        [self.videoControl.subtBtn setEnabled:NO];
+    if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
         
-    }else
+    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
     {
-        [self.videoControl.subtBtn setEnabled:YES];
-    }
-    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
-    if (judgeIsNull1 == YES) {
-        NSLog(@"数值为空，所以此时应该直接返回");
-        [self.videoControl.audioBtn setEnabled:NO];
+        //new====
+        
+        NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
+        NSLog(@"self.view.frame.size.width %f",self.view.frame.size.width);
+        NSLog(@"self.view.frame.size.SCREEN_HEIGHT %f",SCREEN_HEIGHT);
+        NSLog(@"self.view.frame.size.SCREEN_WIDTH %f",SCREEN_WIDTH);
+        NSLog(@"self.view.frame.bounds.height %f",[UIScreen mainScreen].bounds.size.height);
+        NSLog(@"self.view.frame.bounds.width %f",[UIScreen mainScreen].bounds.size.width);
         
         
-    }else
-    {
-        [self.videoControl.audioBtn setEnabled:YES];
-    }
-            
-    //new====
+        NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.x);
+        NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.y);
+        NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.height);
+        NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.width);
+        
+        if (self.isFullscreenMode) {
+            return;
+        }
+        if (self.videoControl.isBarShowing) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        }
+        
+        
+        if (self.videoPlayerWillChangeToFullScreenModeBlock) {
+            self.videoPlayerWillChangeToFullScreenModeBlock();
+        }
+        
+        self.frame = [UIScreen mainScreen].bounds;
+        //    self.videoControl.bottomBar.userInteractionEnabled = YES;
+        self.isFullscreenMode = YES;
+        self.videoControl.fullScreenButton.hidden = YES;
+        //    self.videoControl.shrinkScreenButton.hidden = NO;
+        self.videoControl.shrinkScreenButton1.hidden = NO;
+        self.videoControl.lastChannelButton.hidden = NO;
+        self.videoControl.nextChannelButton.hidden = NO;
+        self.videoControl.subtBtn.hidden = NO;
+        self.videoControl.audioBtn.hidden = NO;
+        self.videoControl.channelListBtn.hidden = NO;
+        self.videoControl.eventTimeLabNow.hidden = NO;
+        self.videoControl.eventTimeLabAll.hidden = NO;
+        self.videoControl.backButton.hidden = NO;
+        
+        self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
+        [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
+        
+        NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+        if (videoOrRadiostr != NULL) {
+            lab.text = videoOrRadiostr;
         }else
         {
+            lab.text = @"sorry, this video can't play";
         }
+        lab.font = FONT(17);
+        
+        NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+        CGSize size=[lab.text sizeWithAttributes:attrs];
+        lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+        
+        
+        
+        if (radioImageView) {
+            radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+        }
+        
+        
+        
+        
+        //     self.videoControl.channelIdLab.hidden = NO;
+        //     self.videoControl.channelNameLab.hidden = NO;
+        self.videoControl.FulleventNameLab.hidden = NO;
+        if (self.videoControl.FullEventYFlabel) {
+            self.videoControl.FullEventYFlabel.hidden = NO; //全屏页面跑马灯
+        }
+        
+        
+        
+        self.videoControl.eventnameLabel.hidden = YES;
+        
+        self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
+        self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
+        
+        sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
+        NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
+        self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+        self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
+        //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
+        YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
+        //    }
+        
+        
+        
+        
+        //    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        
+        //    //初始化arr，方便后面对label赋值
+        //    if (! YFLabelArr) {
+        //        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+        //
+        //
+        //        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+        //
+        //    }else
+        //    {
+        //        self.videoControl.FullEventYFlabel.frame = CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 250, 18);   //40字符长度是260
+        //        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
+        //
+        //
+        //    }
+        
+        
+        
+        self.videoControl.FullEventYFlabel.hidden = NO;
+        //    self.videoControl.FullEventYFlabel.speed = 3;
+        self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
+        
+        self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18);
+        
+        
+        
+        //此处强制销毁，再重新init一次
+        //    if (self.videoControl.FullEventYFlabel) {
+        [self.videoControl.FullEventYFlabel removeFromSuperview];
+        self.videoControl.FullEventYFlabel = nil;
+        [self.videoControl.FullEventYFlabel stopTimer];
+        
+        [self abctest];
+        //    }
+        
+        //test
+        //此处销毁通知，防止一个通知被多次调用
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"abctest" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( abctest) name:@"abctest" object:nil];
+        
+        [self judgeLastBtnIsGray];
+        [self judgeNextBtnIsGray];
+        NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
+        NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
+        BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+        if (judgeIsNull == YES) {
+            NSLog(@"数值为空，所以此时应该直接返回");
+            [self.videoControl.subtBtn setEnabled:NO];
+            
+        }else
+        {
+            [self.videoControl.subtBtn setEnabled:YES];
+        }
+        BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+        if (judgeIsNull1 == YES) {
+            NSLog(@"数值为空，所以此时应该直接返回");
+            [self.videoControl.audioBtn setEnabled:NO];
+            
+            
+        }else
+        {
+            [self.videoControl.audioBtn setEnabled:YES];
+        }
+        
+        //new====
+    }else
+    {
+    }
     //new====
 }
 /// 切换到全屏模式
@@ -1817,10 +1817,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"对不起，已经没有上一个节目了");
             self.videoControl.lastChannelButton.enabled = NO;
         }
-
+        
     }else
     {
-     //历史为空，不操作
+        //历史为空，不操作
     }
     
 }
@@ -1830,33 +1830,33 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];   //总的数据
-     if (historyArr.count > 1) {
-         
-    int historyArrCount = historyArr.count - 1;
-    NSArray * touchArr = historyArr[historyArrCount];
-    
-    
-    NSLog(@"historyArr：%@",historyArr);
-    NSLog(@"touchArr：%@",touchArr);
-    NSLog(@"touchArr3：%@",touchArr[3]);
-    
-    NSInteger row = [touchArr[2] intValue];
-    NSDictionary * dic = touchArr [3];
-    NSLog(@"dic :%@",dic);
-    NSLog(@"dic。count :%lu",(unsigned long)dic.count);
-    NSLog(@"row1 :%ld",(long)row);
-    int dic_Count = [dic count] -1;
-    if (row < dic_Count) {
-        //        self.videoControl.lastChannelButton.enabled = YES;
-        self.videoControl.nextChannelButton.enabled = YES;
-    }else
-    {
-        self.videoControl.nextChannelButton.enabled = NO;
+    if (historyArr.count > 1) {
+        
+        int historyArrCount = historyArr.count - 1;
+        NSArray * touchArr = historyArr[historyArrCount];
+        
+        
+        NSLog(@"historyArr：%@",historyArr);
+        NSLog(@"touchArr：%@",touchArr);
+        NSLog(@"touchArr3：%@",touchArr[3]);
+        
+        NSInteger row = [touchArr[2] intValue];
+        NSDictionary * dic = touchArr [3];
+        NSLog(@"dic :%@",dic);
+        NSLog(@"dic。count :%lu",(unsigned long)dic.count);
+        NSLog(@"row1 :%ld",(long)row);
+        int dic_Count = [dic count] -1;
+        if (row < dic_Count) {
+            //        self.videoControl.lastChannelButton.enabled = YES;
+            self.videoControl.nextChannelButton.enabled = YES;
+        }else
+        {
+            self.videoControl.nextChannelButton.enabled = NO;
+        }
     }
-      }
     else
     {
-    //历史数据为空，不操作
+        //历史数据为空，不操作
     }
     
 }
@@ -2363,7 +2363,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     stopPlayTimeOne++;
     
     NSLog(@"stopPlayTimeOne %d",stopPlayTimeOne);
-    if (stopPlayTimeOne%5 == 4) {  //代表间隔24s没有播放视频，一次两秒
+    if (stopPlayTimeOne%4 == 3) {  //代表间隔24s没有播放视频，一次两秒
         isPlayIng = !isPlayIng;   //防止tempOne 重复记录
         if (isPlayIng == YES) {
             tempOne = countBytes1; //第十秒
