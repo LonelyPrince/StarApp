@@ -13,10 +13,14 @@
 //#import <AVKit/AVPlayerViewController.h>
 //#import <AVFoundation/AVFoundation.h>
 
+#import <IJKMediaFramework/IJKMediaFramework.h>
+#import <IJKMediaFramework/IJKFFMoviePlayerController.h>
+#import "XIJKView.h"
+
 #define kZXVideoPlayerOriginalWidth  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define kZXVideoPlayerOriginalHeight (kZXVideoPlayerOriginalWidth * (9.0 / 16.0))
 
-@interface ZXVideoPlayerController :  MPMoviePlayerController
+@interface ZXVideoPlayerController : XIJKView // MPMoviePlayerController
 
 @property (nonatomic, assign) CGRect frame;
 /// video model

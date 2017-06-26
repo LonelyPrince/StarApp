@@ -293,7 +293,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     self.video.playUrl = @"";
     //    [self playVideo];
-    [self.videoController stop];
+    [self.videoController.player stop];
     
     
 }
@@ -930,6 +930,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                     progressViewSize.height);
             [self judgeProgressIsNeedHide:NO]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
             
+            _lineView.frame = CGRectMake(0, 64, SCREEN_WIDTH, 0.5);
+            
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             
@@ -1036,7 +1038,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAndSetSubLanguage ) name:@"getAndSetSubLanguage" object:nil];
                 //
                 //            ////******
-                
+                _lineView.frame = CGRectMake(0, -64, 0, 0);
                 //new=====
             }else
             {
@@ -1713,7 +1715,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     //==========正文
-    double delayInSeconds = 5;
+    double delayInSeconds = 0;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
@@ -3398,13 +3400,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     self.video.playUrl = @"";
     //    [self playVideo];
-    [self.videoController stop];
+    [self.videoController.player stop];
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.video.playUrl = @"";
     //    [self playVideo];
-    [self.videoController stop];
+    [self.videoController.player stop];
     
 }
 -(void)setIPNoific
@@ -3540,7 +3543,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             ////            [self playVideo];
             
             
-            self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
+            self.videoController.url = [NSURL URLWithString:self.video.playUrl];
             self.videoController.shouldAutoplay = YES;
             NSLog(@"playVideo 999");
             
@@ -5886,7 +5889,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)testIP
 {
     self.videoController.shouldAutoplay = YES;
-    [self.videoController prepareToPlay];
+    [self.videoController prepareToPlay:0];
     [self.videoController play];
     
 }
