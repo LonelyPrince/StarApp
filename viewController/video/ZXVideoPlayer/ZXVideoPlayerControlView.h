@@ -99,6 +99,5 @@
 - (void)cancelAutoFadeOutControlBar;
 
 -(void)uiTableViewHidden;
-
 -(void)autoFadeRightTableView;
 @end

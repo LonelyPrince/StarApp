@@ -11,7 +11,7 @@
 //#define  separatorViewTag  10456
 
 //#define ONEDAY 86400
-#define ONEDAY    86400  //99999999 //81000
+#define ONEDAY    20//86400  //99999999 //81000
 @interface HistoryViewController ()
 {
     UIButton * editButton;
@@ -230,7 +230,106 @@
 }
 #pragma mark --红色的删除按钮点击删除
 -(void)deleteSeletions
-{
+//{
+//    if (selectedArray == 0) {
+//
+//    }
+//    else{
+//        //此处多选删除选中的
+//        [self.tableView reloadData];
+//        [tableView beginUpdates];
+//
+//
+//
+//        //刷新
+//        [tableView deleteRowsAtIndexPaths:selectedArray withRowAnimation:UITableViewRowAnimationFade];
+//
+//
+//        for (int i = 0; i< selectedArray.count; i++) {
+//            NSIndexPath * indexpath1 = selectedArray[i];
+//            if(indexpath1.section == 0)
+//            {
+//                if (todayNum > 0) {   //如果今天的数量大于0
+//                    todayNum = todayNum-1;
+//                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
+//                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+//
+//                    //                    NSArray * abcd =[USER_DEFAULT objectForKey:@"historySeed"];
+//                    //                    NSLog(@"historyArr33 %@",historyArr);
+//                    if(todayNum == 0)
+//                    {
+//                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
+//                    }
+//
+//
+//                }
+//                else   //只有早期的历史，没有今天的历史
+//                {
+//
+//                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
+//                    earilyNum = earilyNum-1;
+//                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+//
+//
+//                    if(earilyNum == 0)
+//                    {
+//                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
+//                    }
+//
+//                }
+//
+//
+//
+//            }
+//            else //section =1
+//            {
+//
+//                [historyArr removeObjectAtIndex:earilyNum  - indexpath1.row -1+i];
+//                earilyNum = earilyNum -1;
+//                [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+//
+//                if(earilyNum == 0)
+//                {
+//                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
+//                }
+//            }
+//
+//            //        if (historyArr.count == 0)
+//            //
+//            //        {
+//            //
+//            //            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
+//            ////                       deleteSections:[NSIndexSet
+//            ////                                       indexSetWithIndex:indexPath.section]
+//            ////                     withRowAnimation:UITableViewRowAnimationLeft];
+//            //
+//            //        }
+//
+//        }
+//
+//
+//        [tableView endUpdates];
+//        [tableView reloadData];
+//
+//        [selectedArray removeAllObjects]; //删除完之后
+//
+//
+//
+//    }
+//
+//    //获得删除的数量
+//
+//    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL"] forState:UIControlStateNormal];
+//
+//    if(historyArr.count == 0 || historyArr == NULL)
+//    {
+//        [self deleteBtnCancelAndNOHistory];
+//    }
+//}
+{//selectedArray 被选中的数组
+    int eairlyNameByReduce = 0;            //早期历史
+    int todayNameByReduce = 0;          //今天的历史
+    int eairlyNameByReduceForOnly = 0;   //只有早期历史
     if (selectedArray == 0) {
         
     }
@@ -240,33 +339,59 @@
         [tableView beginUpdates];
         
         
-        
+        NSLog(@"selectedArray11 %@",selectedArray);
         //刷新
         [tableView deleteRowsAtIndexPaths:selectedArray withRowAnimation:UITableViewRowAnimationFade];
-        
-        
+        NSLog(@"tableView11 %@",tableView);
+        NSLog(@"selectedArray22 %@",selectedArray);
         for (int i = 0; i< selectedArray.count; i++) {
             NSIndexPath * indexpath1 = selectedArray[i];
             if(indexpath1.section == 0)
             {
                 if (todayNum > 0) {   //如果今天的数量大于0
                     todayNum = todayNum-1;
-                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
+                    NSLog(@"historyArr.count3 %lu",(unsigned long)historyArr.count);
+                    NSLog(@"indexpath1.row %ld",(long)indexpath1.row);
+                    
+                    //做倒序删除==
+                    NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
+                    if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
+                        return;  //防止删除时数组数量不对称的bug
+                    }else
+                    {
+                        [reversedArrayToday removeObjectAtIndex:indexpath1.row - todayNameByReduce];
+                    }
+                    
+                    //                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
+                    [historyArr removeAllObjects];
+                    historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
+                    //做倒序删除==
                     [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
                     
-//                    NSArray * abcd =[USER_DEFAULT objectForKey:@"historySeed"];
-//                    NSLog(@"historyArr33 %@",historyArr);
+                    //                    NSArray * abcd =[USER_DEFAULT objectForKey:@"historySeed"];
+                    //                    NSLog(@"historyArr33 %@",historyArr);
                     if(todayNum == 0)
                     {
                         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
                     }
                     
-                    
+                    todayNameByReduce = todayNameByReduce +1;
                 }
                 else   //只有早期的历史，没有今天的历史
                 {
-                    
-                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
+                    NSLog(@"historyArr.count1 %d",historyArr.count);
+                    //                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
+                    //做倒序删除==
+                    NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
+                    if (reversedArrayToday.count < indexpath1.row - eairlyNameByReduceForOnly ) {
+                        return;  //防止删除时数组数量不对称的bug
+                    }else
+                    {
+                        [reversedArrayToday removeObjectAtIndex:indexpath1.row - eairlyNameByReduceForOnly];
+                    }
+                    [historyArr removeAllObjects];
+                    historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
+                    //做倒序删除==
                     earilyNum = earilyNum-1;
                     [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
                     
@@ -275,6 +400,7 @@
                     {
                         [tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
                     }
+                    eairlyNameByReduceForOnly = eairlyNameByReduceForOnly +1;
                     
                 }
                 
@@ -283,8 +409,17 @@
             }
             else //section =1
             {
-                
-                [historyArr removeObjectAtIndex:earilyNum  - indexpath1.row -1+i];
+                NSLog(@"earilyNum %d",earilyNum);
+                NSLog(@"indexpath1.row %d",indexpath1.row);
+                NSInteger removeNum = earilyNum  - indexpath1.row -1 + eairlyNameByReduce;
+                NSLog(@"removeNum %d",removeNum);
+                NSLog(@"historyArr.count2 %d",historyArr.count);
+                if (historyArr.count < removeNum ) {
+                    return;  //防止删除时数组数量不对称的bug
+                }else
+                {
+                    [historyArr removeObjectAtIndex:removeNum];
+                }
                 earilyNum = earilyNum -1;
                 [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
                 
@@ -292,6 +427,7 @@
                 {
                     [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
                 }
+                eairlyNameByReduce = eairlyNameByReduce +1;
             }
             
             //        if (historyArr.count == 0)
@@ -799,49 +935,49 @@
     //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
     
-         NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
     
     
-        if (characterStr != NULL && characterStr != nil) {
-
-                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                if (judgeIsSTBDecrypt == YES) {
-                // 此处代表需要记性机顶盒加密验证
-                //弹窗
-                //发送通知
-                
-                //        [self popSTBAlertView];
-                //        [self popCAAlertView];
-                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                    //创建通知
-                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    
-                    [self.tabBarController setSelectedIndex:1];
-                
-                }else //正常播放的步骤
-                {
-                //创建通知
-                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-                [self.tabBarController setSelectedIndex:1];
-                }
+    if (characterStr != NULL && characterStr != nil) {
+        
+        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+        if (judgeIsSTBDecrypt == YES) {
+            // 此处代表需要记性机顶盒加密验证
+            //弹窗
+            //发送通知
             
-
-            }else //正常播放的步骤
-            {
-                //创建通知
-                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                //    [self.navigationController popViewControllerAnimated:YES];
-                //    [self.navigationController popToViewController:_tvViewController animated:YES];
-                //    [self.navigationController pushViewController:_tvViewController animated:YES];
-                [self.tabBarController setSelectedIndex:1];
-            }
+            //        [self popSTBAlertView];
+            //        [self popCAAlertView];
+            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            [self.tabBarController setSelectedIndex:1];
+            
+        }else //正常播放的步骤
+        {
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            [self.tabBarController setSelectedIndex:1];
+        }
+        
+        
+    }else //正常播放的步骤
+    {
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        //    [self.navigationController popViewControllerAnimated:YES];
+        //    [self.navigationController popToViewController:_tvViewController animated:YES];
+        //    [self.navigationController pushViewController:_tvViewController animated:YES];
+        [self.tabBarController setSelectedIndex:1];
+    }
     
 }
 

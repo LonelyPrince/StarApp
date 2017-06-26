@@ -26,7 +26,7 @@
     self.tabBarController.tabBar.hidden = YES;
     self.title = @"Category";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor blackColor]}];
-
+    
     [self initData];
     
 }
@@ -36,20 +36,20 @@
 {
     scroll = [[UIScrollView alloc]init];
     
-//    categoryBtns = [[UIButton alloc]init];
+    //    categoryBtns = [[UIButton alloc]init];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
-//    [scroll removeFromSuperview];
-//    scroll = nil;
+    //    [scroll removeFromSuperview];
+    //    scroll = nil;
     categorysArr = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
     NSLog(@"categorysArr:--%@",categorysArr);
     [self loadScroll];
     [self loadBtn];
     [self TVViewAppear];
-
+    
 }
 -(void)TVViewAppear
 {
@@ -61,24 +61,24 @@
 }
 -(void)loadScroll
 {
-
     
     
     
-//    //加一个scrollview
+    
+    //    //加一个scrollview
     scroll.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-49);
     scroll.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroll];
     
-//        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
+    //        scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 788);
     if (categorysArr.count%3 == 0) {
         scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (categorysArr.count/3)*(SCREEN_WIDTH/3));
     }else
     {
-    scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (categorysArr.count/3)*(SCREEN_WIDTH/3)+(SCREEN_WIDTH/3));
+        scroll.contentSize = CGSizeMake(SCREEN_WIDTH, (categorysArr.count/3)*(SCREEN_WIDTH/3)+(SCREEN_WIDTH/3));
     }
     
-//    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216);
+    //    scroll.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216);
     //    scroll.pagingEnabled=YES;
     scroll.showsVerticalScrollIndicator=NO;
     scroll.showsHorizontalScrollIndicator=NO;
@@ -94,17 +94,17 @@
         NSString * tempStr;
         tempStr =item[@"category_name"];
         
-//        [_titles addObject:tempArray];
-  
+        //        [_titles addObject:tempArray];
+        
         int a = i%3;
         int b = i/3;
-    
+        
         UIButton * categoryBtns = [UIButton buttonWithType:UIButtonTypeCustom];
         categoryBtns.frame = CGRectMake(a*(SCREEN_WIDTH/3),b*SCREEN_WIDTH/3, SCREEN_WIDTH/3, SCREEN_WIDTH/3);
-    [categoryBtns setBackgroundColor:[UIColor whiteColor]];
+        [categoryBtns setBackgroundColor:[UIColor whiteColor]];
         categoryBtns.tag = i;
         [categoryBtns addTarget:self action:@selector(categoryBtnsClick:) forControlEvents:UIControlEventTouchUpInside];
-      //    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
+        //    [searchBtn setTitle:@"search" forState:UIControlStateNormal];
         //    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
         //    [self.categoryBtns setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
         //        [categoryBtns setTitle:tempStr forState:UIControlStateNormal  ];
@@ -115,7 +115,7 @@
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/9, 25, SCREEN_WIDTH/9, SCREEN_WIDTH/9)];
         
-//        imageView.image = [UIImage imageNamed:@"Religion"];
+        //        imageView.image = [UIImage imageNamed:@"Religion"];
         [self judgeName:tempStr UIImageView:imageView];
         
         [categoryBtns addSubview:imageView];
@@ -147,17 +147,17 @@
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
-      [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)judgeName:(NSString *)name  UIImageView: (UIImageView *)imageView
 {
     if ([name isEqualToString:@"Entertainment"] || [name isEqualToString:@"Ent"] || [name isEqualToString:@"GEC"]) {  //OK
-       imageView.image = [UIImage imageNamed:@"Entertainment"];
+        imageView.image = [UIImage imageNamed:@"Entertainment"];
     }
     else if ([name isEqualToString:@"Chinese Channel"] || [name isEqualToString:@"Chinese"])  //OK
     {
-       imageView.image = [UIImage imageNamed:@"Chinese Channel"];
+        imageView.image = [UIImage imageNamed:@"Chinese Channel"];
     }
     else if ([name isEqualToString:@"Doc"] || [name isEqualToString:@"Documentary"])  //OK
     {
@@ -207,7 +207,7 @@
     {
         imageView.image = [UIImage imageNamed:@"Factual"];
     }
-    else if ([name isEqualToString:@"Education"] )  //OK 
+    else if ([name isEqualToString:@"Education"] )  //OK
     {
         imageView.image = [UIImage imageNamed:@"Education"];
     }
@@ -219,7 +219,7 @@
     {
         imageView.image = [UIImage imageNamed:@"Series"];
     }
-    else if ([name isEqualToString:@"Guide"])  //OK 
+    else if ([name isEqualToString:@"Guide"])  //OK
     {
         imageView.image = [UIImage imageNamed:@"Guide"];
     }
@@ -231,18 +231,18 @@
     {
         imageView.image = [UIImage imageNamed:@"All Channel"];
     }
-//    else if ([name isEqualToString:@"dtt"])  //test
-//    {
-//        imageView.image = [UIImage imageNamed:@"abcd"];
-//    }
-//    else if ([name isEqualToString:@"radio"])  //test
-//    {
-//        imageView.image = [UIImage imageNamed:@"music1"];
-//    }
-//    else if ([name isEqualToString:@"dth"])  //test
-//    {
-//        imageView.image = [UIImage imageNamed:@"Indian"];
-//    }
+    //    else if ([name isEqualToString:@"dtt"])  //test
+    //    {
+    //        imageView.image = [UIImage imageNamed:@"abcd"];
+    //    }
+    //    else if ([name isEqualToString:@"radio"])  //test
+    //    {
+    //        imageView.image = [UIImage imageNamed:@"music1"];
+    //    }
+    //    else if ([name isEqualToString:@"dth"])  //test
+    //    {
+    //        imageView.image = [UIImage imageNamed:@"Indian"];
+    //    }
     else
     {
         imageView.image = [UIImage imageNamed:@"Startimes"];

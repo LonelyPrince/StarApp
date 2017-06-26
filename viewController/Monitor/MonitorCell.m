@@ -13,8 +13,8 @@
 //awakeFromNib 从xib或者storyboard加载完毕就会调用
 - (void)awakeFromNib {
     [super awakeFromNib];
-//    self.channelImg.clipsToBounds = YES;
-//    self.channelImg.contentMode = UIViewContentModeScaleAspectFill;
+    //    self.channelImg.clipsToBounds = YES;
+    //    self.channelImg.contentMode = UIViewContentModeScaleAspectFill;
     // Initialization code
     
 }
@@ -53,27 +53,28 @@
     
     self.backImage.image = [UIImage imageNamed:@"background"];
     
-//    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//        //[_dataDic objectForKey:@"epg_info"]
-//        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-//        
-//        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
-//        self.channelImg.clipsToBounds = YES;
-//
-//        
-//        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-//        [self.backImage bringSubviewToFront:self.placeholderImage1];
-//        if (self.channelImg.image == nil) {
-//            self.placeholderImage1.alpha = 1;
-//            NSLog(@"placeholderImage 为空");
-//        }else
-//        {
-//            self.placeholderImage1.alpha = 0;
-//            NSLog(@"placeholderImage 为空");
-//        }
-//        
-//    }];
+    //    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    //
+    //        //[_dataDic objectForKey:@"epg_info"]
+    //        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+    //
+    //        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+    //        self.channelImg.clipsToBounds = YES;
+    //
+    //
+    //        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
+    //        [self.backImage bringSubviewToFront:self.placeholderImage1];
+    //        if (self.channelImg.image == nil) {
+    //            self.placeholderImage1.alpha = 1;
+    //            NSLog(@"placeholderImage 为空");
+    //        }else
+    //        {
+    //            self.placeholderImage1.alpha = 0;
+    //            NSLog(@"placeholderImage 为空");
+    //        }
+    //
+    //
+    //    }];
     [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
@@ -83,14 +84,15 @@
         
         
     }];
-//    //图片和叠加图片
-//    UIImage * imageWithImage = [[UIImage alloc]init];
-//    imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
     
-//    self.channelImageView.image = imageWithImage; //两张图片叠加
+    //    //图片和叠加图片
+    //    UIImage * imageWithImage = [[UIImage alloc]init];
+    //    imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
+    
+    //    self.channelImageView.image = imageWithImage; //两张图片叠加
     //判断tuner类型 并且设置类别的图片
     [self judgeTunerClass:typedata tunerDic:tunnerCellData clientName:clientNameData];
-//    self.programeClass.image = [UIImage imageNamed:@"play"];
+    //    self.programeClass.image = [UIImage imageNamed:@"play"];
     self.timeImage.image = [UIImage imageNamed:@"时间"];
     
     
@@ -113,8 +115,8 @@
     NSLog(@"dateFormatter:%@",dateFormatter);
     NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
     NSLog(@"currentDateStr:%@",currentDateStr);
- 
- 
+    
+    
     return currentDateStr;
 }
 
@@ -144,7 +146,6 @@
     //[typeData getBytes: &type length: sizeof(type)];
     type =  [SocketUtils uint16FromBytes: typeData];
     NSLog(@"typedata :%@",typeData);
-    NSLog(@"typedatatype :%d",type);
     ///////////////
     NSDictionary * epgDic;
     NSDictionary * nextEpgDic;
@@ -161,7 +162,7 @@
     NSString * endTime1 =  [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]];
     
     if (![startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]) {
-       self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
+        self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
     }else if(![startTime1 isEqualToString:@""] && [endTime1 isEqualToString:@""]){
         
         self.timeLab.text = [NSString stringWithFormat:@"%@/--:--",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]]];
@@ -173,32 +174,32 @@
         self.timeLab.text = [NSString stringWithFormat:@"--:--/--:--"];
     }
     
-//    self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
+    //    self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
     
     NSString * clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
     
     NSLog(@"clientNameStr:%@",clientNameStr);
     
-    NSLog(@"type :%d",type);
     
-    if (type == LIVE_PLAY) {  //        return 1;// @"直播";
+    
+    if (type == LIVE_PLAY) {
         
         self.programeClass.image = [UIImage imageNamed:@"play"];
         
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""])
         {
-          self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
         }else{
             self.nameLab.text = [NSString stringWithFormat:@"TV Live--No Event"];
         }
         
         
-//        self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
+        //        self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
         
         
         
-        
-    }else if (type == LIVE_RECORD)  //        return 3;//@"录制";
+        //        return 1;// @"直播";
+    }else if (type == LIVE_RECORD)
     {
         self.programeClass.image = [UIImage imageNamed:@"录制"];
         
@@ -206,31 +207,31 @@
         {
             self.nameLab.text = [NSString stringWithFormat:@"Recoding--%@",[epgDic objectForKey:@"event_name"]];
         }else{
-          self.nameLab.text = [NSString stringWithFormat:@"Recoding--No Event"];
+            self.nameLab.text = [NSString stringWithFormat:@"Recoding--No Event"];
         }
         
         
         
-
-    }else if (type == LIVE_TIME_SHIFT)  //        return 5;//@"时移";
+        //        return 2;//@"录制";
+    }else if (type == LIVE_TIME_SHIFT)
     {
-           self.programeClass.image = [UIImage imageNamed:@"时移"];
+        self.programeClass.image = [UIImage imageNamed:@"时移"];
         
         
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""])
         {
-        self.nameLab.text = [NSString stringWithFormat:@"Time Shift--%@",[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--%@",[epgDic objectForKey:@"event_name"]];
         }else{
-              self.nameLab.text = [NSString stringWithFormat:@"Time Shift--No Event"];
+            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--No Event"];
         }
         
-
-    }else if (type == DELIVERY)  //        return 8;//@"分发";
+        //        return 3;//@"时移";
+    }else if (type == DELIVERY)
     {
         
         if (!ISNULL(clientNameStr)) {
             self.programeClass.image = [UIImage imageNamed:@"分发"];
-           
+            
             
             if(![epgDic objectForKey:@"event_name"])
             {
@@ -243,8 +244,8 @@
                 self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",clientNameStr];
                 
             }
-    
-           
+            
+            
         }
         else
         {
@@ -260,20 +261,20 @@
                 self.nameLab.text = [NSString stringWithFormat:@"No Device Name--No Event"];
                 
             }
-//
-//           self.nameLab.text = [NSString stringWithFormat:@"No Device Name"];
-//            NSLog(@"epgDic :%@",epgDic);
+            //
+            //           self.nameLab.text = [NSString stringWithFormat:@"No Device Name"];
+            //            NSLog(@"epgDic :%@",epgDic);
         }
         
         
-        
+        //        return 4;//@"分发";
     }else
     {
         //其他数值默认无效
-//        return 0;
+        //        return 0;
     }
- 
-   
+    
+    
     
 }
 @end

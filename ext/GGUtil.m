@@ -762,8 +762,8 @@ static const char *getPropertyType(objc_property_t property) {
     if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
     if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6 Plus";
     if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
-    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
-    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
+    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6S";
+    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6S Plus";
     if ([deviceString isEqualToString:@"iPhone8,4"])    return @"iPhoneSE";
     if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
     if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7 Plus";

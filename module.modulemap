@@ -1,5 +1,0 @@
-module ctlClientLib [system] [extern_c]
-{
-    header "ctlClientLib.h"
-    export *
-}

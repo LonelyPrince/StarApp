@@ -10,13 +10,13 @@
 #import "ZXVideo.h"
 @import MediaPlayer;
 #import "SocketView.h"
-#import <MediaPlayer/MediaPlayer.h>
-//#import "TVViewController.h"
+//#import <AVKit/AVPlayerViewController.h>
+//#import <AVFoundation/AVFoundation.h>
 
 #define kZXVideoPlayerOriginalWidth  MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)
 #define kZXVideoPlayerOriginalHeight (kZXVideoPlayerOriginalWidth * (9.0 / 16.0))
 
-@interface ZXVideoPlayerController : MPMoviePlayerController
+@interface ZXVideoPlayerController :  MPMoviePlayerController
 
 @property (nonatomic, assign) CGRect frame;
 /// video model

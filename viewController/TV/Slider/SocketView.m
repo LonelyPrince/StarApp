@@ -55,7 +55,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [super viewDidLoad];
     
     //初始化
-    _data = [[NSMutableData alloc]init];   
+    _data = [[NSMutableData alloc]init];
     cs_heatbeat = [[Cs_Hearbeat alloc]init];
     cs_service = [[Cs_Service alloc]init];
     cs_playExit = [[Cs_PlayExit alloc]init];
@@ -68,7 +68,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
     NSLog(@"socket.port:%d",[_socket localPort]);
-
+    
     NSError *error;
     int port = 6666;
     // 绑定端口，监听连接消息
@@ -78,16 +78,16 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [self heartBeat];
     
     NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
-  
+    
     if (DMSIP != NULL ) {
-
+        
     }else
     {
-  
+        
     }
     
     //连接
-//    [Singleton sharedInstance].socketHost = @"192.168.1.183"; //host设定
+    //    [Singleton sharedInstance].socketHost = @"192.168.1.183"; //host设定
     [Singleton sharedInstance].socketHost =DMSIP; //host设定
     NSLog(@"DMSIP:==--==%@",DMSIP);
     NSLog(@"DMSIP:3333");
@@ -113,11 +113,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSString * package_Betatag = @"DIGW";
     self.beattag = [[NSMutableData alloc]init];
     self.beattag = (NSMutableData *)[package_Betatag dataUsingEncoding:NSUTF8StringEncoding];
-
+    
     
     cs_heatbeat.module_name= @"BEAT";
     cs_heatbeat.Ret=0;
-//    cs_heatbeat.client_ip= [self getIPArr];
+    //    cs_heatbeat.client_ip= [self getIPArr];
     
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
@@ -129,7 +129,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //2.计算除了CRC和tag之外的值
     self.data_beat = [[NSMutableData alloc]init];
     self.data_beat = [self RequestSpliceAttribute:cs_heatbeat];
-     //CRC是除了tag和service
+    //CRC是除了tag和service
     
     //3.计算CRC
     //4.重置data_service，将tag,CRC,和其他数据加起来
@@ -144,11 +144,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [userDef setObject:self.beatAllData forKey:@"beatAllData"];
     
     [userDef synchronize];//把数据同步到本地
-
+    
     NSLog(@"self.beatAllData  %@",self.beatAllData);
     
     
-
+    
 }
 
 -(void)serviceTouch{
@@ -156,7 +156,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
-//    cs_service.client_ip= [self getIPArr];
+    //    cs_service.client_ip= [self getIPArr];
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_service.client_ip= [self getIPArr];
@@ -164,21 +164,21 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     
     cs_service.client_port = (uint32_t)[_socket localPort] ;
-  
-//    cs_service.unique_id = [SocketView GetNowTimes];
+    
+    //    cs_service.unique_id = [SocketView GetNowTimes];
     //获取的时间戳string转int
     
-//    int x = [[SocketView GetNowTimes] intValue];
-//
-//    int tmp2 = CFSwapInt32BigToHost(x);
-//    NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
-
+    //    int x = [[SocketView GetNowTimes] intValue];
+    //
+    //    int tmp2 = CFSwapInt32BigToHost(x);
+    //    NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
+    
     //    NSLog(@"数%@",[SocketView GetNowTimes]);
-//    int x = 1475026288;
-//    int x = 222;
-//    [self hexFromInt:x];
+    //    int x = 1475026288;
+    //    int x = 222;
+    //    [self hexFromInt:x];
     cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
-//    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
+    //    cs_service.unique_id = [SocketUtils uint32FromBytes:[SocketUtils dataFromHexString:[self hexFromInt:x]]];
     cs_service.command_type =DTV_SERVICE_MD_PLAY_SERVICE;// CMD_PLAY_SERVICE;
     //---
     
@@ -190,16 +190,16 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.subt_index = [socket_ServiceModel.subt_pid intValue];
     
     //---
-
+    
     //   NSString * phoneModel = @"iPhone6s";
     NSString * phoneModel =  [self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
     //手机别名： 用户定义的名称
-//    NSString* userPhoneName = [[UIDevice currentDevice] name];
-//    NSString* userPhoneName = @"xyz的MacBook pro";
-//    NSLog(@"手机别名: %@", userPhoneName);
-//    NSString * de = @"的";
-//    NSLog(@"de.length:%d",de.length);
+    //    NSString* userPhoneName = [[UIDevice currentDevice] name];
+    //    NSString* userPhoneName = @"xyz的MacBook pro";
+    //    NSLog(@"手机别名: %@", userPhoneName);
+    //    NSString * de = @"的";
+    //    NSLog(@"de.length:%d",de.length);
     
     cs_service.client_name = [NSString stringWithFormat:@"%@",phoneModel];  //***
     cs_service.data_len_name =cs_service.client_name.length   ;    //****
@@ -219,13 +219,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     data_service = [self RequestSpliceAttribute:cs_service];
     
     [serviceCRCData appendData:data_service];   //CRC是除了tag和service
-
+    
     NSLog(@"计算CRC：%@",serviceCRCData);
-   
-//4.重置data_service，将tag,CRC,和其他数据加起来
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
     data_service = [[NSMutableData alloc]init];
     [data_service appendData:[self getPackageTagData]];
-//3.计算CRC
+    //3.计算CRC
     [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_service]];
     NSLog(@"finaldata: %@",data_service);
@@ -235,10 +235,10 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_service"];
     [userDef synchronize];//把数据同步到本地
-   
+    
     
     [[Singleton sharedInstance] Play_ServiceSocket];
-   
+    
 }
 
 
@@ -248,7 +248,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_playExit.module_name= @"MDMM";
     cs_playExit.Ret=0;
-//    cs_playExit.client_ip= [self getIPArr];
+    //    cs_playExit.client_ip= [self getIPArr];
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_playExit.client_ip= [self getIPArr];
@@ -257,7 +257,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_playExit.client_port = (uint32_t)[_socket localPort] ;
     cs_playExit.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
     cs_playExit.command_type = DTV_SERVICE_MD_PLAY_EXIT;  //CMD_EXIT_PLAY;
-
+    
     cs_playExit. data_len= 9;
     
     //除了CRC和tag其他数据
@@ -299,10 +299,10 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 //密码校验
 -(void)passwordCheck :(NSString *)passWordStr  passwordType:(int)passwd_type_int
 {
-   
+    
     cs_passwordCheck.module_name= @"MDMM";
     cs_passwordCheck.Ret=0;
-//    cs_passwordCheck.client_ip= [self getIPArr];
+    //    cs_passwordCheck.client_ip= [self getIPArr];
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_passwordCheck.client_ip= [self getIPArr];
@@ -321,7 +321,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
         cs_passwordCheck.passwd_string =passWordStr;//@"123a";
         cs_passwordCheck. data_len= 14;
     }
-
+    
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
@@ -367,8 +367,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     //do - while 循环
     
-//    cs_getResource.client_ip= [self getIPArr];
-   
+    //    cs_getResource.client_ip= [self getIPArr];
+    
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_getResource.client_ip= [self getIPArr];
@@ -382,8 +382,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_getResource.command_type = DTV_SERVICE_MD_GET_RESOURCE ; //CMD_GET_RESOURCE_INFO;
     cs_getResource. data_len= 9;
     
-
-
+    
+    
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
@@ -392,8 +392,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSMutableData * serviceCRCData;
     serviceCRCData = [[NSMutableData alloc]init];
     
-   //1.tag转data
-  
+    //1.tag转data
+    
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_getResource];
     
@@ -487,12 +487,12 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 
 //int 转16进制
 - (NSString *)hexFromInt:(NSInteger)val {
-//    NSLog(@"int %d",val);
-//    NSLog(@"int 转16%@",[NSString stringWithFormat:@"%X", val]);
-        return [NSString stringWithFormat:@"%X", val];
+    //    NSLog(@"int %d",val);
+    //    NSLog(@"int 转16%@",[NSString stringWithFormat:@"%X", val]);
+    return [NSString stringWithFormat:@"%X", val];
 }
 -(NSMutableData *)RequestSpliceAttribute:(id)obj{
-    _data = [[NSMutableData alloc]init];   
+    _data = [[NSMutableData alloc]init];
     if (obj == nil) {
         self.object = _data;
     }
@@ -507,43 +507,43 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
         objc_property_t thisProperty = propertys[i];
         
         name = [NSString stringWithUTF8String:property_getName(thisProperty)];
-//        NSLog(@"%d.name:%@",i,name);
+        //        NSLog(@"%d.name:%@",i,name);
         type = [[[NSString stringWithUTF8String:property_getAttributes(thisProperty)] componentsSeparatedByString:@","] objectAtIndex:0]; //获取成员变量的数据类型
-//        NSLog(@"%d.type:%@",i,type);
+        //        NSLog(@"%d.type:%@",i,type);
         
         id propertyValue = [obj valueForKey:[(NSString *)name substringFromIndex:0]];
-//        NSLog(@"%d.propertyValue:%@",i,propertyValue);
-//        
-//        NSLog(@"\n");
+        //        NSLog(@"%d.propertyValue:%@",i,propertyValue);
+        //
+        //        NSLog(@"\n");
         
         if ([type isEqualToString:TYPE_UINT8]) {
             uint8_t i = [propertyValue charValue];// 8位
             [_data appendData:[SocketUtils byteFromUInt8:i]];
-//            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+            //            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
             
         }else if([type isEqualToString:TYPE_UINT16]){
             uint16_t i = [propertyValue shortValue];// 16位
             [_data appendData:[SocketUtils bytesFromUInt16:i]];
-//            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+            //            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
             
         }else if([type isEqualToString:TYPE_UINT32]){
             uint32_t i = [propertyValue intValue];// 32位
             [_data appendData:[SocketUtils bytesFromUInt32:i]];
-
+            
         }else if([type isEqualToString:TYPE_UINT64]){
             uint64_t i = [propertyValue longLongValue];// 64位
             [_data appendData:[SocketUtils bytesFromUInt64:i]];
-//            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
+            //            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
             
         }else if([type isEqualToString:TYPE_STRING]){
             NSData *data = [(NSString*)propertyValue \
                             dataUsingEncoding:NSUTF8StringEncoding];// 通过utf-8转为data
-//            NSLog(@"conn:%@",_data);
+            //            NSLog(@"conn:%@",_data);
             // 然后拼接字符串
             [_data appendData:data];
-//            NSLog(@"conn:%@",_data);
+            //            NSLog(@"conn:%@",_data);
             //            NSLog(@"%lu",(unsigned long)[SocketUtils bytesFromUInt32:i].length);
-//            NSLog(@"%lu",(unsigned long)_data.length);
+            //            NSLog(@"%lu",(unsigned long)_data.length);
             
             
         }else if ([type isEqualToString: TYPE_ARRAY]){
@@ -567,21 +567,21 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
                 NSLog(@"arrint: %d",arrint);
                 [_data appendData:[SocketUtils byteFromUInt8:arrint]];
             }
-
+            
             
         }else {
             NSLog(@"RequestSpliceAttribute:未知类型");
             NSAssert(YES, @"RequestSpliceAttribute:未知类型");
         }
-
+        
         
     }
     
-//    NSLog(@"-Data1:%@",_data);
-//    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
-//    [userDef setObject:_data forKey:@"betaData"];
-//    NSLog(@"-Data2:%@",_data);
-//    [userDef synchronize];//把数据同步到本地
+    //    NSLog(@"-Data1:%@",_data);
+    //    NSUserDefaults *userDef=[NSUserDefaults standardUserDefaults];//这个对象其实类似字典，着也是一个单例的例子
+    //    [userDef setObject:_data forKey:@"betaData"];
+    //    NSLog(@"-Data2:%@",_data);
+    //    [userDef synchronize];//把数据同步到本地
     
     // hy: 记得释放C语言的结构体指针
     free(propertys);
@@ -628,9 +628,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     uname(&systemInfo);
     NSString * deviceString = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
     //iPhone
-//    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
-//    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
-//    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
+    //    if ([deviceString isEqualToString:@"iPhone1,1"])    return @"iPhone1G";
+    //    if ([deviceString isEqualToString:@"iPhone1,2"])    return @"iPhone3G";
+    //    if ([deviceString isEqualToString:@"iPhone2,1"])    return @"iPhone3GS";
     if ([deviceString isEqualToString:@"iPhone3,1"])    return @"iPhone4";
     if ([deviceString isEqualToString:@"iPhone3,2"])    return @"iPhone4";
     if ([deviceString isEqualToString:@"iPhone4,1"])    return @"iPhone4S";
@@ -642,8 +642,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     if ([deviceString isEqualToString:@"iPhone6,2"])    return @"iPhone5S";
     if ([deviceString isEqualToString:@"iPhone7,1"])    return @"iPhone6 Plus";
     if ([deviceString isEqualToString:@"iPhone7,2"])    return @"iPhone6";
-    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6s";
-    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6s Plus";
+    if ([deviceString isEqualToString:@"iPhone8,1"])    return @"iPhone6S";
+    if ([deviceString isEqualToString:@"iPhone8,2"])    return @"iPhone6S Plus";
     if ([deviceString isEqualToString:@"iPhone8,4"])    return @"iPhoneSE";
     if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
     if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7 Plus";
@@ -653,7 +653,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 
 //CRC 的计算
 -(int)getCRC : (NSData *)data  {
-
+    
     long crc32_table[] = {
         0x00000000L, 0x77073096L, 0xee0e612cL, 0x990951baL,
         0x076dc419L, 0x706af48fL, 0xe963a535L, 0x9e6495a3L,
@@ -721,18 +721,18 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
         0xb40bbe37L, 0xc30c8ea1L, 0x5a05df1bL, 0x2d02ef8dL
     };
     int crc32 = 0xFFFFFFFF;
-   
+    
     uint8_t byteArray[[data length]];
     
     [data getBytes:&byteArray length:[data length]];
     
     for (int i = 0; i < [data length] ; i++ ) {
         Byte byte = byteArray[i];
-//        NSLog(@"--byte%x",byte);
+        //        NSLog(@"--byte%x",byte);
         crc32 = (crc32 >> 8) ^ ((int)crc32_table[((crc32) ^ byte) & 0xFF]);
     }
     NSLog(@"crc32 ^ 0xFFFFFFFF: %u",crc32 ^ 0xFFFFFFFF);
- return (int)(crc32 ^ 0xFFFFFFFF);
+    return (int)(crc32 ^ 0xFFFFFFFF);
     
 }
 
@@ -741,17 +741,17 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 {
     int result= [self getCRC:aData];
     int tmp2 = CFSwapInt32BigToHost(result);
-//     NSMutableData* data_CRC1 = (NSMutableData *)[NSData dataWithBytes:&result length:sizeof(result)];
-     NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
-//    NSString * CRChexstring = [self hexFromInt:result];
-//    NSLog(@"--获取到的CRC16进制CRC: %@",CRChexstring);
+    //     NSMutableData* data_CRC1 = (NSMutableData *)[NSData dataWithBytes:&result length:sizeof(result)];
+    NSMutableData* data_CRC2 = (NSMutableData *)[NSData dataWithBytes:&tmp2 length:sizeof(tmp2)];
+    //    NSString * CRChexstring = [self hexFromInt:result];
+    //    NSLog(@"--获取到的CRC16进制CRC: %@",CRChexstring);
     
-//    NSMutableData * data_CRC = [[NSMutableData alloc]init];
-  
-//    data_CRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
-
-//    NSLog(@"--CRC: %@",data_CRC);
-//    NSLog(@"--data_CRC1: %@",data_CRC1);
+    //    NSMutableData * data_CRC = [[NSMutableData alloc]init];
+    
+    //    data_CRC = (NSMutableData *)[SocketUtils dataFromHexString:CRChexstring];
+    
+    //    NSLog(@"--CRC: %@",data_CRC);
+    //    NSLog(@"--data_CRC1: %@",data_CRC1);
     NSLog(@"--data_CRC2: %@",data_CRC2);
     
     return data_CRC2;
@@ -760,7 +760,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 //
 -(NSArray *)getIPArr
 {
-//    NSString * astr = [self getIPAddress];
+    //    NSString * astr = [self getIPAddress];
     bool getIPV4 = YES;
     NSString * astr = [self getIPAddress:getIPV4];
     NSLog(@"astr %@",astr);

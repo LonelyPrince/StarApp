@@ -334,9 +334,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (!_lineView){
         _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 0.5)];
         _lineView.backgroundColor = lineBlackColor;
-        [self.view addSubview:_lineView];
+        //        [self.view addSubview:_lineView];
     }
     return _lineView;
+}
+#pragma mark --防止刚开始没有网络的时候时候显示一天线和搜索框，可能会造成崩溃
+-(void)lineAndSearchBtnShow
+{
+    [self.view addSubview:self.searchBtn];
+    [self.view addSubview:_lineView];
 }
 -(void) initData
 {
@@ -522,6 +528,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self lineAndSearchBtnShow];
+        
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
         NSLog(@"playVideo55 :");
@@ -732,7 +740,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.searchBtn setBackgroundColor:[UIColor whiteColor]];
     //    [searchBtn setImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal];
     [self.searchBtn setBackgroundImage:[UIImage imageNamed:@"Group 3"] forState:UIControlStateNormal]  ;
-    [self.view addSubview:self.searchBtn];
+    //    [self.view addSubview:self.searchBtn];
     //    [topView bringSubviewToFront:self.searchBtn];
     [self.searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];//mediaDeliveryUpdate //searchBtnClick //judgeJumpFromOtherView //tableViewCellToBlue //refreshTableviewByEPGTime
     
@@ -1666,7 +1674,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //通过获得data数据减去发送的data数据得到播放连接，一下是返回数据的ret，如果ret不等于0则报错
     [self  getLinkData :value];
     //    //调用GGutil的方法
-    //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT objectForKey:@"data_service11"]];
+    //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT  objectForKey:@"data_service11"]];
     //
     
     NSLog(@"---urlDataTV接收%@",_byteDatas);
@@ -1675,6 +1683,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
     self.video.playUrl = @"";
     self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
+    //    self.video.playUrl =@"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
     NSLog(@"self.video :%@",self.video);
     NSLog(@"playState-==self.video.playUrl 22 %@ ",self.video.playUrl);
     
@@ -2963,7 +2972,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
-        
+        [self lineAndSearchBtnShow];
         
         
         //////
@@ -3116,6 +3125,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self lineAndSearchBtnShow];
         //        [self playVideo];
         
         
@@ -4338,6 +4348,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self lineAndSearchBtnShow];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
         NSLog(@"playVideo44 :");
@@ -5291,6 +5302,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self lineAndSearchBtnShow];
         
         
         
@@ -5459,6 +5471,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self lineAndSearchBtnShow];
+        
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
         NSLog(@"playVideo55 :");
@@ -5735,6 +5749,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
+        [self lineAndSearchBtnShow];
         //        [self playVideo];
         
         

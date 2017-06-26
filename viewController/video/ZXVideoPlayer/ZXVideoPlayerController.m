@@ -344,12 +344,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     } else {
         //        [self play];
         
-        NSLog(@"视频正在播放停止");
-        NSLog(@"playState---=====视频正在播放停止");
+        //        NSLog(@"视频正在播放停止");
+        //        NSLog(@"playState---=====视频正在播放停止");
         self.videoControl.pauseButton.hidden = YES;
         self.videoControl.playButton.hidden = NO;
         [self stopDurationTimer];
         if (self.playbackState == MPMoviePlaybackStateStopped) {
+            NSLog(@"playState---=====视频stop 了！！");
             [self.videoControl.indicatorView startAnimating];
             [self.videoControl animateShow];
             
@@ -458,6 +459,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             break;
         case MPMovieFinishReasonPlaybackError:{
             NSLog(@"playbackFinished. Reason: Playback Error");
+            //new
+            //            [self stop];
+            //            [self prepareToPlay];
+            //            [self play];
+            //            NSLog(@"stopPlayTimeOne 重新开始");
+            //            isPlayIng = NO;  //这里对判断是否播放的值赋初值
+            //            stopPlayTimeOne = 0;
+            //            stopPlayTimeTwo = 0;
+            //            tempOne = 0.0;
+            //            tempTwo = 0.0;
+            
         }
             break;
         case MPMovieFinishReasonUserExited:
@@ -2363,7 +2375,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     stopPlayTimeOne++;
     
     NSLog(@"stopPlayTimeOne %d",stopPlayTimeOne);
-    if (stopPlayTimeOne%4 == 3) {  //代表间隔24s没有播放视频，一次两秒
+    if (stopPlayTimeOne%5 == 4) {  //代表间隔24s没有播放视频，一次两秒
         isPlayIng = !isPlayIng;   //防止tempOne 重复记录
         if (isPlayIng == YES) {
             tempOne = countBytes1; //第十秒
