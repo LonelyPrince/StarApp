@@ -111,6 +111,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @synthesize lab;
 @synthesize radioImageView; //展示音频的默认图
 @synthesize timerOfEventTime;
+@synthesize operationQueue;
 //@synthesize tvViewController;
 #pragma mark - life cycle
 
@@ -124,7 +125,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self = [super init:frame];
     if (self) {
         self.view.frame = frame;
-        self.view.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor blackColor]; //blackColor
         //        self.view.backgroundColor = [UIColor redColor];
         //        tvViewController = [[TVViewController alloc]init];
 //        self.controlStyle = MPMovieControlStyleNone;
@@ -162,7 +163,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
 //        [self configObserver];
         [self installMovieNotificationObservers];
-        
+        operationQueue = [[NSOperationQueue alloc]init];
     }
     return self;
 }
@@ -1951,7 +1952,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.subAudioTableView.delegate = self;
     self.subAudioTableView.dataSource = self;
     UIImageView *imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
-    self.subAudioTableView.backgroundColor = [UIColor clearColor];
+    self.subAudioTableView.backgroundColor = [UIColor clearColor]; //clearColor
     [self.subAudioTableView setBackgroundView:imageView1];
     self.subAudioTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
@@ -2206,45 +2207,72 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    [self.view addSubview:playerView];
     //    self.player = [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:self.playerView];
     
-    if (url == nil) {
-        
-    }else
-    {
-        [self.player shutdown];
-        [self.player.view removeFromSuperview];
-        self.player = nil;
-        
-        
-        //        self.view  = nil;
-        //        [self.view removeFromSuperview];
-        
-        
-//        self.view.backgroundColor = [UIColor  redColor];
-        
-        NSLog(@"self.View %@",self.view);
-        //    if (self.player) {
-        //        self.player = [self.player initWithContentURL:url withOptions:nil playView:nil];
-        
-        //    }
-        
-        self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
-        //    UIView *playerView = [self.player view];
-        //    playerView.frame = self.PlayerView.frame;
-        NSLog(@"self.playerView %@",self.player);
-        self.player.view.frame = self.view.bounds;
-        //    playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        
-        //    [self.view insertSubview:self.playerView atIndex:1];
-        [self.view insertSubview:self.player.view atIndex:0];
-        
-        //    [self.view addSubview:self.player.view];
-        
-        [self.player prepareToPlay:0];
-        [self.player play];
-        
-        
-    }
-    
+  
+//    [operationQueue cancelAllOperations];
+//    
+//    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
+//    
+//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//            // 处理耗时操作的代码块...
+            if (url == nil) {
+                
+            }else
+            {
+                [self.player shutdown];
+                [self.player.view removeFromSuperview];
+                self.player = nil;
+                
+                
+                //        self.view  = nil;
+                //        [self.view removeFromSuperview];
+                
+                
+                //        self.view.backgroundColor = [UIColor  redColor];
+                
+                NSLog(@"self.View %@",self.view);
+                //    if (self.player) {
+                //        self.player = [self.player initWithContentURL:url withOptions:nil playView:nil];
+                
+                //    }
+                
+                self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
+                //    UIView *playerView = [self.player view];
+                //    playerView.frame = self.PlayerView.frame;
+                NSLog(@"self.playerView %@",self.player);
+                self.player.view.frame = self.view.bounds;
+                //    playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+                
+                //    [self.view insertSubview:self.playerView atIndex:1];
+                [self.view insertSubview:self.player.view atIndex:0];
+                
+                //    [self.view addSubview:self.player.view];
+                
+                [self.player prepareToPlay:0];
+                [self.player play];
+                
+                NSLog(@"执行中0000000");
+            }
+//
+//            
+//            
+//            //通知主线程刷新
+//            NSLog(@"Device dispatch1");
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                //回调或者说是通知主线程刷新，
+//                
+//                
+//                NSLog(@"Device dispatch2");
+//            });
+//            
+//        });
+//    
+//    }];
+////
+////    
+//    [operationQueue addOperation:op1];
+//    NSLog(@"执行中1111111");
+//
+   
     
 }
 
@@ -2716,6 +2744,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if ([_cellStr isEqualToString:@"subt"]) {
+           NSLog(@"self.subAudioDic--:%@",self.subAudioDic);
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
         BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
         if (judgeIsNull == YES) {
@@ -2724,7 +2753,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             return 0;
             
         }else
-        {
+        {NSLog(@"subtarr--:%d",subtarr.count);
+
             NSLog(@"subtarr--:%@",subtarr);
             if (subtarr.count <=8) {
                 self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
@@ -2996,24 +3026,50 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-            NSString * channelName = self.videoControl.channelNameLab.text;
-            NSDictionary * dicChannelName  = self.video.dicChannl;
-            for (int i = 0; i<self.video.channelCount; i++) {
-                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
-                NSLog(@"nameTemp :%@",nameTemp);
-                NSLog(@"channelName :%@",channelName);
-                if ([nameTemp isEqualToString:channelName]) {
-                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-                    NSLog(@"i :%d",i);
-                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
-                    break;
-                }
-            }
+//            NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+//            NSLog(@"nameTemp :%@",self.videoControl);
+//            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab);
+//            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab.text);
+//            
+//            NSString * channelName = self.videoControl.channelNameLab.text;
+//            NSDictionary * dicChannelName  = self.video.dicChannl;
+//            for (int i = 0; i<self.video.channelCount; i++) {
+//                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
+//                NSLog(@"nameTemp :%@",nameTemp);
+//                NSLog(@"channelName :%@",channelName);
+//                if ([nameTemp isEqualToString:channelName]) {
+//                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+//                    NSLog(@"i :%d",i);
+//                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
+//                    rowIndex = i;
+//                    break;
+//                }
+//            }
+            
+            
+            
+            
+            NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+            historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+            
+            NSArray * touchArr = historyArr[historyArr.count - 1];
+            NSLog(@"touchArr：%@",touchArr);
+            //    [self touchToSee :touchArr];
+            
+            
+            rowIndex = [touchArr[2] intValue];
+            NSDictionary * dic = touchArr [3];
+            
+            
+            
+            
+            
+            
             //            NSDictionary * didName  = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             //            self.video.channelCount
             
@@ -3022,8 +3078,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
             //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
             subtRow = indexPath.row;
-            audioRow = 0;
-            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:audioRow subt:subtRow];
+//            audioRow = 0;
+            [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
@@ -3057,19 +3113,37 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-            NSString * channelName = self.videoControl.channelNameLab.text;
-            NSDictionary * dicChannelName  = self.video.dicChannl;
-            for (int i = 0; i<self.video.channelCount; i++) {
-                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
-                NSLog(@"nameTemp :%@",nameTemp);
-                NSLog(@"channelName :%@",channelName);
-                if ([nameTemp isEqualToString:channelName]) {
-                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-                    NSLog(@"i :%d",i);
-                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
-                    break;
-                }
-            }
+//            NSString * channelName = self.videoControl.channelNameLab.text;
+//            NSDictionary * dicChannelName  = self.video.dicChannl;
+//            for (int i = 0; i<self.video.channelCount; i++) {
+//                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
+//                NSLog(@"nameTemp :%@",nameTemp);
+//                NSLog(@"channelName :%@",channelName);
+//                if ([nameTemp isEqualToString:channelName]) {
+//                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+//                    NSLog(@"i :%d",i);
+//                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
+//                    break;
+//                }
+//            }
+            
+            
+            NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+            historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+            
+            NSArray * touchArr = historyArr[historyArr.count - 1];
+            NSLog(@"touchArr：%@",touchArr);
+            //    [self touchToSee :touchArr];
+            
+            
+            rowIndex = [touchArr[2] intValue];
+            NSDictionary * dic = touchArr [3];
+            
+            
+            
+            
+            
+            
             //            NSDictionary * didName  = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             //            self.video.channelCount
             
@@ -3078,9 +3152,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
             //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
             
-            subtRow = 0;
+//            subtRow = 0;
             audioRow = indexPath.row;
-            [self touchToSeeAudioSubt :dic DicWithRow:indexPath.row  audio:audioRow subt:subtRow];
+            [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
