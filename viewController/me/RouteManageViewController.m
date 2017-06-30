@@ -426,7 +426,13 @@
 }
 -(void)eidtBtnClick
 {
-    [self.navigationController pushViewController:self.routeSetting animated:YES];
+    if(![self.navigationController.topViewController isKindOfClass:[self.routeSetting class]]) {
+        [self.navigationController pushViewController:self.routeSetting animated:YES];
+    }else
+    {
+        NSLog(@"此处可能会由于页面跳转过快报错");
+    }
+//    [self.navigationController pushViewController:self.routeSetting animated:YES];
     UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
     //    self.routeSetting.nameText = [[UITextField alloc]init];
     //    self.routeSetting.nameText.text =routeNameLab.text;

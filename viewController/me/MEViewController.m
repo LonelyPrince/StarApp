@@ -144,7 +144,14 @@
 {
     
     DeviceManageViewController * deviceManageViewController = [[DeviceManageViewController alloc]init];
-    [self.navigationController pushViewController:deviceManageViewController animated:YES];
+//    [self.navigationController pushViewController:deviceManageViewController animated:YES];
+    if(![self.navigationController.topViewController isKindOfClass:[deviceManageViewController class]]) {
+        [self.navigationController pushViewController:deviceManageViewController animated:YES];
+    }else
+    {
+        NSLog(@"此处可能会由于页面跳转过快报错");
+    }
+
     
 }
 
@@ -284,7 +291,13 @@
     //跳转到历史界面
     self.historyView = [[HistoryViewController alloc]init];
     //        [self presentModalViewController:self.routeView animated:YES];
-    [self.navigationController pushViewController:self.historyView animated:YES];
+//    [self.navigationController pushViewController:self.historyView animated:YES];
+    if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
+        [self.navigationController pushViewController:self.historyView animated:YES];
+    }else
+    {
+        NSLog(@"此处可能会由于页面跳转过快报错");
+    }
     
     
     
@@ -401,7 +414,13 @@
         
         self.routeManageView = [[RouteManageViewController alloc]init];
         //        [self presentModalViewController:self.routeView animated:YES];
-        [self.navigationController pushViewController:self.routeManageView animated:YES];
+//        [self.navigationController pushViewController:self.routeManageView animated:YES];
+        if(![self.navigationController.topViewController isKindOfClass:[self.routeManageView class]]) {
+            [self.navigationController pushViewController:self.routeManageView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
         
         
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
@@ -416,7 +435,13 @@
         
         
         linkView = [[LinkViewController alloc]init];
-        [self.navigationController pushViewController:linkView animated:YES];
+//        [self.navigationController pushViewController:linkView animated:YES];
+        if(![self.navigationController.topViewController isKindOfClass:[linkView class]]) {
+            [self.navigationController pushViewController:linkView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
         
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
         self.linkView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
@@ -427,7 +452,13 @@
         
         
         aboutView = [[AboutViewController alloc]init];
-        [self.navigationController pushViewController:aboutView animated:YES];
+//        [self.navigationController pushViewController:aboutView animated:YES];
+        if(![self.navigationController.topViewController isKindOfClass:[aboutView class]]) {
+            [self.navigationController pushViewController:aboutView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
         
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
         self.aboutView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
@@ -3156,7 +3187,13 @@
 {
     self.historyView = [[HistoryViewController alloc]init];
     //        [self presentModalViewController:self.routeView animated:YES];
-    [self.navigationController pushViewController:self.historyView animated:YES];
+//    [self.navigationController pushViewController:self.historyView animated:YES];
+    if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
+        [self.navigationController pushViewController:self.historyView animated:YES];
+    }else
+    {
+        NSLog(@"此处可能会由于页面跳转过快报错");
+    }
     
     
     
@@ -3176,7 +3213,13 @@
         //跳转到历史界面
         self.historyView = [[HistoryViewController alloc]init];
         //        [self presentModalViewController:self.routeView animated:YES];
-        [self.navigationController pushViewController:self.historyView animated:YES];
+//        [self.navigationController pushViewController:self.historyView animated:YES];
+        if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
+            [self.navigationController pushViewController:self.historyView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
         
         
         

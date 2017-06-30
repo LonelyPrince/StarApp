@@ -1160,7 +1160,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
     //     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
     
-    [self.navigationController pushViewController:searchViewCon animated:YES];
+//    [self.navigationController pushViewController:searchViewCon animated:YES];
+    if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
+        [self.navigationController pushViewController:searchViewCon animated:YES];
+    }else
+    {
+        NSLog(@"此处可能会由于页面跳转过快报错");
+    }
     searchViewCon.tabBarController.tabBar.hidden = YES;
     NSLog(@"searchViewCon: %@,",searchViewCon);
     //
@@ -3367,7 +3373,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"点击分类了2");
     
     categoryView = [[CategoryViewController alloc]init];
-    [self.navigationController pushViewController:categoryView animated:YES];
+//    [self.navigationController pushViewController:categoryView animated:YES];
+    if(![self.navigationController.topViewController isKindOfClass:[categoryView class]]) {
+        [self.navigationController pushViewController:categoryView animated:YES];
+    }else
+    {
+        NSLog(@"此处可能会由于页面跳转过快报错");
+    }
     
     UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
     self.categoryView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
