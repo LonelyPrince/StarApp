@@ -152,82 +152,82 @@
 
 -(void)judgeName:(NSString *)name  UIImageView: (UIImageView *)imageView
 {
-    if ([name isEqualToString:@"Entertainment"] || [name isEqualToString:@"Ent"] || [name isEqualToString:@"GEC"]) {  //OK
+    if ([name isEqualToString:@"Entertainment"] || [name isEqualToString:@"entertainment"] || [name isEqualToString:@"Ent"] || [name isEqualToString:@"ent"] || [name isEqualToString:@"GEC"] || [name isEqualToString:@"gEC"]) {  //OK1
         imageView.image = [UIImage imageNamed:@"Entertainment"];
     }
-    else if ([name isEqualToString:@"Chinese Channel"] || [name isEqualToString:@"Chinese"]  || [name isEqualToString:@"Chinese channel"])  //OK
+    else if ([name isEqualToString:@"Chinese Channel"] ||[name isEqualToString:@"chinese Channel"] || [name isEqualToString:@"chinese channel"] || [name isEqualToString:@"Chinese channel"] || [name isEqualToString:@"Chinese_Channel"] ||[name isEqualToString:@"chinese_Channel"] || [name isEqualToString:@"chinese_channel"] || [name isEqualToString:@"Chinese _channel"] || [name isEqualToString:@"Chinese"] || [name isEqualToString:@"chinese"]  )  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Chinese Channel"];
     }
-    else if ([name isEqualToString:@"Doc"] || [name isEqualToString:@"Documentary"])  //OK
+    else if ([name isEqualToString:@"Doc"] || [name isEqualToString:@"Documentary"] || [name isEqualToString:@"doc"] || [name isEqualToString:@"documentary"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Documentary"];
     }
-    else if ([name isEqualToString:@"kids"] || [name isEqualToString:@"Children's/Youth Programmes"] || [name isEqualToString:@"Children's"]  || [name isEqualToString:@"Youth Programmes"])  //OK
+    else if ([name isEqualToString:@"kids"] ||[name isEqualToString:@"Kids"] || [name isEqualToString:@"Children's/Youth Programmes"] || [name isEqualToString:@"Children's"] || [name isEqualToString:@"children's"]  || [name isEqualToString:@"Youth Programmes"] || [name isEqualToString:@"youth programmes"] || [name isEqualToString:@"Youth_Programmes"] || [name isEqualToString:@"youth_programmes"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"kids"];
     }
-    else if ([name isEqualToString:@"Life Style"] || [name isEqualToString:@"Life-style"]) //OK
+    else if ([name isEqualToString:@"Life Style"] || [name isEqualToString:@"life Style"] || [name isEqualToString:@"life style"] || [name isEqualToString:@"Life style"]  || [name isEqualToString:@"Life_Style"] || [name isEqualToString:@"life_Style"] || [name isEqualToString:@"life_style"] || [name isEqualToString:@"Life_style"]|| [name isEqualToString:@"Life-style"]) //OK1
     {
         imageView.image = [UIImage imageNamed:@"Life Style"];
     }
-    else if ([name isEqualToString:@"Local"])  //OK
+    else if ([name isEqualToString:@"Local"] || [name isEqualToString:@"local"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Local"];
     }
-    else if ([name isEqualToString:@"Movies"])  //OK
+    else if ([name isEqualToString:@"Movies"] || [name isEqualToString:@"movies"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Movies"];
     }
-    else if ([name isEqualToString:@"Movies & Series"] || [name isEqualToString:@"Movies and Series"]) //OK
+    else if ([name isEqualToString:@"Movies & Series"] || [name isEqualToString:@"Movies and Series"] || [name isEqualToString:@"movies & series"] || [name isEqualToString:@"movies and series"] || [name isEqualToString:@"Movies & series"] || [name isEqualToString:@"Movies and series"] || [name isEqualToString:@"movies & Series"] || [name isEqualToString:@"movies and Series"]) //OK
     {
         imageView.image = [UIImage imageNamed:@"Movies & Series"];
     }
-    else if ([name isEqualToString:@"News"]  || [name isEqualToString:@"Current Affairs"] || [name isEqualToString:@"Economics"] )  //OK
+    else if ([name isEqualToString:@"News"] || [name isEqualToString:@"news"]  || [name isEqualToString:@"Current Affairs"] || [name isEqualToString:@"current Affairs"] || [name isEqualToString:@"Current affairs"] || [name isEqualToString:@"current affairs"] || [name isEqualToString:@"Current_Affairs"] || [name isEqualToString:@"current_Affairs"] || [name isEqualToString:@"Current_affairs"] || [name isEqualToString:@"current_affairs"]|| [name isEqualToString:@"Economics"] || [name isEqualToString:@"economics"] )  //OK1
     {
         imageView.image = [UIImage imageNamed:@"News"];
     }
-    else if ([name isEqualToString:@"Religion"])  //OK
+    else if ([name isEqualToString:@"Religion"] || [name isEqualToString:@"religion"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Religion"];
     }
-    else if ([name isEqualToString:@"South African"]) //OK
+    else if ([name isEqualToString:@"South African"] || [name isEqualToString:@"South african"] || [name isEqualToString:@"south African"] || [name isEqualToString:@"south african"] || [name isEqualToString:@"South_African"] || [name isEqualToString:@"South_african"] || [name isEqualToString:@"south_African"] || [name isEqualToString:@"south_african"]) //OK1
     {
         imageView.image = [UIImage imageNamed:@"South African"];
     }
-    else if ([name isEqualToString:@"Special Characteristics"])  //OK
+    else if ([name isEqualToString:@"Special Characteristics"] || [name isEqualToString:@"special Characteristics"] || [name isEqualToString:@"Special characteristics"] || [name isEqualToString:@"special characteristics"] || [name isEqualToString:@"Special_Characteristics"] || [name isEqualToString:@"special_Characteristics"] || [name isEqualToString:@"Special_characteristics"] || [name isEqualToString:@"special_characteristics"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Special Characteristics"];
     }
-    else if ([name isEqualToString:@"Sports"]  || [name isEqualToString:@"Sport"])  //OK
+    else if ([name isEqualToString:@"Sports"] || [name isEqualToString:@"sports"]  || [name isEqualToString:@"Sport"] || [name isEqualToString:@"sport"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Sports"];
     }
-    else if ([name isEqualToString:@"Factual"] )  //OK
+    else if ([name isEqualToString:@"Factual"] || [name isEqualToString:@"factual"] )  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Factual"];
     }
-    else if ([name isEqualToString:@"Education"] )  //OK
+    else if ([name isEqualToString:@"Education"] || [name isEqualToString:@"education"] )  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Education"];
     }
-    else if ([name isEqualToString:@"Music"] )  //OK
+    else if ([name isEqualToString:@"Music"] || [name isEqualToString:@"music"] )  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Music"];
     }
-    else if ([name isEqualToString:@"Series"])  //OK
+    else if ([name isEqualToString:@"Series"] || [name isEqualToString:@"series"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Series"];
     }
-    else if ([name isEqualToString:@"Guide"])  //OK
+    else if ([name isEqualToString:@"Guide"] || [name isEqualToString:@"guide"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Guide"];
     }
-    else if ([name isEqualToString:@"Indian"])  //OK
+    else if ([name isEqualToString:@"Indian"] || [name isEqualToString:@"indian"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Indian"];
     }
-    else if ([name isEqualToString:@"ALL"] || [name isEqualToString:@"All Channel"] || [name isEqualToString:@"All Channels"])  //OK
+    else if ([name isEqualToString:@"ALL"] || [name isEqualToString:@"all"] || [name isEqualToString:@"All Channel"] || [name isEqualToString:@"all Channel"] || [name isEqualToString:@"All channel"] || [name isEqualToString:@"all channel"] || [name isEqualToString:@"All_Channel"] || [name isEqualToString:@"all_Channel"] || [name isEqualToString:@"All_channel"] || [name isEqualToString:@"all_channel"] || [name isEqualToString:@"All Channels"] || [name isEqualToString:@"all Channels"] || [name isEqualToString:@"All channels"] || [name isEqualToString:@"all channels"] || [name isEqualToString:@"All_Channels"] || [name isEqualToString:@"all_Channels"] || [name isEqualToString:@"All_channels"] || [name isEqualToString:@"all_channels"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"All Channel"];
     }

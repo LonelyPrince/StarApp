@@ -88,7 +88,8 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 		return nil;
 	const char* name = cg_upnp_device_getfriendlyname(cObject);
     
-    NSLog(@"friendlyname：--------%@",[NSString stringWithUTF8String:name]);
+   // NSLog(@"friendlyname：--------%@",[NSString stringWithUTF8String:name]);
+    //防止Name的 NSString为空
 	if (name) {
 		return [NSString stringWithUTF8String:name];
 	}
