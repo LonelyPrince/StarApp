@@ -955,15 +955,19 @@
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
             [self.tabBarController setSelectedIndex:1];
-            
+            [self.navigationController popViewControllerAnimated:YES];
         }else //正常播放的步骤
         {
+
+            
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             [self.tabBarController setSelectedIndex:1];
+            [self.navigationController popViewControllerAnimated:YES];
+
         }
         
         
@@ -977,6 +981,7 @@
         //    [self.navigationController popToViewController:_tvViewController animated:YES];
         //    [self.navigationController pushViewController:_tvViewController animated:YES];
         [self.tabBarController setSelectedIndex:1];
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
 }
