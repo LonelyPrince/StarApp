@@ -388,7 +388,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     STBTouch_Dic  = [[NSDictionary alloc]init];
     
     STBAlert = STBAlert = [[UIAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
-    CAAlert = CAAlert = [[UIAlertView alloc] initWithTitle:@"请输入CA密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    CAAlert = CAAlert = [[UIAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
     channelStartimesList = [[NSMutableSet alloc]init];
     storeLastChannelArr = [[NSMutableArray alloc]init];
     
