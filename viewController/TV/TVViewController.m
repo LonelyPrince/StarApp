@@ -1616,13 +1616,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             firstfirst = NO;
         }else //正常播放的步骤
         {
-            //======
-//            [self touchSelectChannel:indexPath.row diction:self.dicTemp];
+             //======
+            [self touchSelectChannel:indexPath.row diction:self.dicTemp];
 //            [self stopOldVideoAndGetInfo:indexPath.row diction:self.dicTemp]; //可以删除这个方法
-            [self serviceEPGSetData:indexPath.row diction:self.dicTemp];
-//
-            self.videoController.socketView1 = self.socketView;
-            [self.socketView  serviceTouch ];
+//            [self serviceEPGSetData:indexPath.row diction:self.dicTemp];
+////
+//            self.videoController.socketView1 = self.socketView;
+//            [self.socketView  serviceTouch ];
             
             firstOpenAPP = firstOpenAPP+1;
             
@@ -2205,134 +2205,134 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 
 #pragma mark -- 切换节目，在节目未播放前取得前先暂停上一个视频播放，并且获得新数据
-//row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
--(void)stopOldVideoAndGetInfo:(NSInteger)row diction :(NSDictionary *)dic
-{
-    tempBoolForServiceArr = YES;
-    tempArrForServiceArr =  self.categoryModel.service_indexArr;
-    tempDicForServiceArr = self.TVChannlDic;
-    
-    NSLog(@"self.socket:%@",self.socketView);
-    
-    //先传输数据到socket，然后再播放视频
-    //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
-    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-    
-    //     socketView.socket_ServiceModel.service_character = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-    
-    //    if (socketView.socket_ServiceModel.service_character != NULL && socketView.socket_ServiceModel.service_character != nil) {
-    //        BOOL isJudgeEncrypt = NO;
-    //         isJudgeEncrypt=  [self isSTBDEncrypt:socketView.socket_ServiceModel.service_character];
-    //        if (isJudgeEncrypt == YES) {
-    //            [self popSTBAlertView]; //此时执行弹窗
-    //        }else //正常播放的步骤
-    //        {
-    NSLog(@"dic: %@",dic);
-    
-    NSLog(@"row: %ld",(long)row);
-    /*此处添加一个加入历史版本的函数*/
-    [self addHistory:row diction:dic];
-    
-    //__
-    
-    NSArray * audio_infoArr = [[NSArray alloc]init];
-    NSArray * subt_infoArr = [[NSArray alloc]init];
-    
-    NSArray * epg_infoArr = [[NSArray alloc]init];
-    //****
-    
-    
-    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
-    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
-    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
-    socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
-    
-    NSLog(@"socketView.socket_ServiceModel.subt_pid :%@",socketView.socket_ServiceModel.subt_pid );
-    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
-    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
-    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
-    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
-    
-    
-    //********
-    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
-    if(self.service_videoindex.length == 1)
-    {
-        self.service_videoindex = [ NSString stringWithFormat:@"00%@",self.service_videoindex];
-    }
-    else if (self.service_videoindex.length == 2)
-    {
-        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
-    }
-    else if (self.service_videoindex.length == 3)
-    {
-        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
-    }
-    else if (self.service_videoindex.length > 3)
-    {
-        self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
-    }
-    
-    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
-    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
-    isEventStartTimeBiger_NowTime = NO;
-    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
-    if (isEventStartTimeBigNowTime == YES) {
-        self.event_videoname = @"";
-        self.event_startTime = @"";
-        self.event_endTime = @"";
-    }
-    //            self.TVSubAudioDic = [[NSDictionary alloc]init];
-    self.TVSubAudioDic = epgDicToSocket;
-    //            self.TVChannlDic = [[NSDictionary alloc]init];
-    self.TVChannlDic = self.dicTemp;
-    NSLog(@"eventname :%@",self.event_startTime);
-    //*********
-    
-    
-    
-    
-    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
-        socketView.socket_ServiceModel.audio_pid = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
-        socketView.socket_ServiceModel.subt_pid = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
-        socketView.socket_ServiceModel.service_network_id = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
-        socketView.socket_ServiceModel.service_ts_id = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
-        socketView.socket_ServiceModel.service_tuner_mode = @"0";
-    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
-        socketView.socket_ServiceModel.service_service_id = @"0";
-    }
-    
-    NSLog(@"------%@",socketView.socket_ServiceModel);
-    
-    
-    [self getsubt];
-//    //此处销毁通知，防止一个通知被多次调用    // 1
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
-//    
-//    
-//    //    self.socketView  = [[SocketView  alloc]init];
-//    //    [self.socketView viewDidLoad];
+////row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
+//-(void)stopOldVideoAndGetInfo:(NSInteger)row diction :(NSDictionary *)dic
+//{
+//    tempBoolForServiceArr = YES;
+//    tempArrForServiceArr =  self.categoryModel.service_indexArr;
+//    tempDicForServiceArr = self.TVChannlDic;
 //    
 //    NSLog(@"self.socket:%@",self.socketView);
 //    
-//    self.videoController.socketView1 = self.socketView;
-//    [self.socketView  serviceTouch ];
+//    //先传输数据到socket，然后再播放视频
+//    //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
+//    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
 //    
-    
-    //        }
-    //    }
-    
-}
+//    //     socketView.socket_ServiceModel.service_character = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+//    
+//    //    if (socketView.socket_ServiceModel.service_character != NULL && socketView.socket_ServiceModel.service_character != nil) {
+//    //        BOOL isJudgeEncrypt = NO;
+//    //         isJudgeEncrypt=  [self isSTBDEncrypt:socketView.socket_ServiceModel.service_character];
+//    //        if (isJudgeEncrypt == YES) {
+//    //            [self popSTBAlertView]; //此时执行弹窗
+//    //        }else //正常播放的步骤
+//    //        {
+//    NSLog(@"dic: %@",dic);
+//    
+//    NSLog(@"row: %ld",(long)row);
+//    /*此处添加一个加入历史版本的函数*/
+//    [self addHistory:row diction:dic];
+//    
+//    //__
+//    
+//    NSArray * audio_infoArr = [[NSArray alloc]init];
+//    NSArray * subt_infoArr = [[NSArray alloc]init];
+//    
+//    NSArray * epg_infoArr = [[NSArray alloc]init];
+//    //****
+//    
+//    
+//    socketView.socket_ServiceModel = [[ServiceModel alloc]init];
+//    audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
+//    subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+//    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+//    socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+//    
+//    NSLog(@"socketView.socket_ServiceModel.subt_pid :%@",socketView.socket_ServiceModel.subt_pid );
+//    socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
+//    socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
+//    socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
+//    socketView.socket_ServiceModel.service_service_id = [epgDicToSocket objectForKey:@"service_service_id"];
+//    
+//    
+//    //********
+//    self.service_videoindex = [epgDicToSocket objectForKey:@"service_logic_number"];
+//    if(self.service_videoindex.length == 1)
+//    {
+//        self.service_videoindex = [ NSString stringWithFormat:@"00%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length == 2)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"0%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length == 3)
+//    {
+//        self.service_videoindex = [NSString stringWithFormat:@"%@",self.service_videoindex];
+//    }
+//    else if (self.service_videoindex.length > 3)
+//    {
+//        self.service_videoindex = [self.service_videoindex substringFromIndex:self.service_videoindex.length - 3];
+//    }
+//    
+//    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+//    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+//    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+//    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+//    isEventStartTimeBiger_NowTime = NO;
+//    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+//    if (isEventStartTimeBigNowTime == YES) {
+//        self.event_videoname = @"";
+//        self.event_startTime = @"";
+//        self.event_endTime = @"";
+//    }
+//    //            self.TVSubAudioDic = [[NSDictionary alloc]init];
+//    self.TVSubAudioDic = epgDicToSocket;
+//    //            self.TVChannlDic = [[NSDictionary alloc]init];
+//    self.TVChannlDic = self.dicTemp;
+//    NSLog(@"eventname :%@",self.event_startTime);
+//    //*********
+//    
+//    
+//    
+//    
+//    if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
+//        socketView.socket_ServiceModel.audio_pid = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
+//        socketView.socket_ServiceModel.subt_pid = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_network_id)){
+//        socketView.socket_ServiceModel.service_network_id = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_ts_id)){
+//        socketView.socket_ServiceModel.service_ts_id = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_tuner_mode)){
+//        socketView.socket_ServiceModel.service_tuner_mode = @"0";
+//    }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
+//        socketView.socket_ServiceModel.service_service_id = @"0";
+//    }
+//    
+//    NSLog(@"------%@",socketView.socket_ServiceModel);
+//    
+//    
+//    [self getsubt];
+////    //此处销毁通知，防止一个通知被多次调用    // 1
+////    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
+////    //注册通知
+////    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
+////    
+////    
+////    //    self.socketView  = [[SocketView  alloc]init];
+////    //    [self.socketView viewDidLoad];
+////    
+////    NSLog(@"self.socket:%@",self.socketView);
+////    
+////    self.videoController.socketView1 = self.socketView;
+////    [self.socketView  serviceTouch ];
+////    
+//    
+//    //        }
+//    //    }
+//    
+//}
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
@@ -2345,6 +2345,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //先传输数据到socket，然后再播放视频
     //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+
+    NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+    
+    //创建通知
+    NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+    NSLog(@"POPPOPPOPPOP==setchannelNameOrOtherInfo");
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
     
     //     socketView.socket_ServiceModel.service_character = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
     
@@ -4283,6 +4292,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //先传输数据到socket，然后再播放视频
     //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    
+    //快速切换频道名称和节目名称
+    NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+    
+    //创建通知
+    NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+    NSLog(@"POPPOPPOPPOP==setchannelNameOrOtherInfo");
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
     
     NSLog(@"dic: %@",dic);
     
@@ -6628,4 +6647,5 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"searchViewCon.response == %@",searchViewCon.response);
 }
+
 @end

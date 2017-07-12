@@ -155,6 +155,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
+        [self setChannelNameAndEventName];   //快速设置频道名称和节目名称等信息
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
         self.rightViewShowing = NO;
@@ -3541,10 +3542,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo", nil];
     
     
-    
-    
     //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
     NSDictionary * epgDicToSocket = [dicAll objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    
+    //快速切换频道名称和节目名称
+    NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+    
+    //创建通知
+    NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+    NSLog(@"POPPOPPOPPOP==setchannelNameOrOtherInfo");
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
+    
     
     NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
     
@@ -3771,5 +3781,55 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             break;
         }
     }
+}
+
+#pragma mark - 快速设置频道名称和节目名称等信息，并且
+//快速设置频道名称和节目名称等信息
+-(void)setChannelNameAndEventName
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setChannelNameAndEventNameNotic" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setChannelNameAndEventNameNotic:) name:@"setChannelNameAndEventNameNotic" object:nil];
+}
+-(void)setChannelNameAndEventNameNotic :(NSNotification *)text{
+    
+    //先获取当前正在播放的节目字典
+    NSDictionary * nowPlayingDic = text.userInfo[@"nowPlayingDic"];
+    
+    NSString * channelIdLabStr = [nowPlayingDic objectForKey:@"service_logic_number"];
+    
+    
+    if(channelIdLabStr.length == 1)
+    {
+        channelIdLabStr = [NSString stringWithFormat:@"00%@", channelIdLabStr];
+    }
+    else if (channelIdLabStr.length == 2)
+    {
+        channelIdLabStr = [NSString stringWithFormat:@"0%@", channelIdLabStr];
+    }
+    else if (channelIdLabStr.length == 3)
+    {
+        channelIdLabStr = [NSString stringWithFormat:@"%@", channelIdLabStr];
+    }
+    else if (channelIdLabStr.length > 3)
+    {
+        channelIdLabStr= [ channelIdLabStr substringFromIndex: channelIdLabStr.length - 3];
+    }
+    
+    
+    NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
+    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+    
+    
+    self.video.channelId =channelIdLabStr;
+    self.video.channelName =channelNameLabStr;
+    self.video.playEventName =eventNameLabStr;
+    
+    self.videoControl.channelIdLab.text = self.video.channelId;
+    
+    self.videoControl.channelNameLab.text = self.video.channelName;
+    
+    self.videoControl.eventnameLabel.text = self.video.playEventName;
 }
 @end
