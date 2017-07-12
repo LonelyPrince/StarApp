@@ -48,8 +48,8 @@
 //    self.dataList = [[NSMutableArray alloc]init];
     
 //    [self.tableView reloadData];
-    self.showData = [USER_DEFAULT objectForKey:@"showData"];
-    NSLog(@"self.showData: %@",self.showData);
+//    self.showData = [USER_DEFAULT objectForKey:@"showData"];
+//    NSLog(@"self.showData: %@",self.showData);
 
     NSLog(@"%lu",(unsigned long)[_dataList count]);
 //    self.showData = [NSMutableArray arrayWithArray:_dataList];
@@ -89,6 +89,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.showData = [USER_DEFAULT objectForKey:@"showData"];
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
 //    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    historySearchTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -191,6 +192,7 @@
             NSString * LogicName = [NSString stringWithFormat:@"%@  %@",serviceLogic,serviceName];
             
             [self.dataList addObject:LogicName];
+            NSLog(@"self.dataList == %@",self.dataList);
         }
         
         
@@ -365,6 +367,7 @@
     if ([tableView isEqual:self.tableView]) {
         //    NSLog(@"---->%@",[[self.LetterResultArr objectAtIndex: indexPath.section]objectAtIndex:indexPath.row]);
         int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
+        NSLog(@"self.dataList == %@",self.dataList);
         
         NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
         

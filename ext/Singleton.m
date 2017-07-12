@@ -173,8 +173,7 @@
     
 }
 
-
-
+#pragma  mark - 读取机顶盒传来的数据
 -(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
     // 对得到的data值进行解析与转换即可
@@ -205,10 +204,10 @@
             
             if (data_length > 28) { //如果大于28，则证明里面还存在数据，则需要更加深度的解析
                 int nowData_length;
-                nowData_length = 28;
+                 nowData_length = 28;
                 
-                while (nowData_length < data_length) {
-                    
+                
+                while (nowData_length <= data_length - 28) {
                     
                     NSData * next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
                     //判断下一个数据段的返回结果是否为1，如果是1则报错
@@ -218,6 +217,7 @@
                         [MBProgressHUD showMessag:@"CRC error111" toView:nil];
                     }else{
                         
+                        //判断下一个消息的类型
                         NSData * next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
                         NSString * next_model_name = [[NSString alloc]initWithData:next_data_model_name encoding:NSUTF8StringEncoding];
                         
@@ -235,21 +235,13 @@
                                     NSLog(@"next_command_type  %d",next_command_type);
                                 case 0:
                                 {
-                                    // 更新了列表
-                                    NSLog(@"列表更新了");
-                                    //                                    mediaDeliveryUpdateNotific
-                                    
-                                    //创建通知
-                                    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+                                    [self readSocketCommandTypeISZero];
                                 }
                                     break;
                                     
                                 case 12:
                                 {
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
-                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
@@ -260,25 +252,14 @@
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
-                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_service11"];
-                                    
-                                    [userDef synchronize];//把数据同步到本地
-                                    
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"playdata",nil];
-                                    
-                                    
-                                    
-                                    //创建通知
-                                    NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                 
+                                    [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
                                 }
                                     break;
                                     
                                 case 24:
                                 {
                                     NSLog(@"playState---== socket 获取IP地址的消息");
-                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
@@ -289,26 +270,14 @@
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
-                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_socketGetIpAddress"];
                                     
-                                    [userDef synchronize];//把数据同步到本地
+                                    [self readSocketCommandTypeISTwentyFour:bigDataReduceSmallData];
                                     
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"socketIPAddress",nil];
-                                    
-                                    
-                                    
-                                    //创建通知
-                                    NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                                 }
                                     break;
                                     
                                 case 17:  //此处是获得资源信息
                                 {
-                                    NSLog(@"akjsdbkabdbaskdbakjsbd");
-                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                                    
                                     
                                     //--
                                     
@@ -326,55 +295,13 @@
                                     {
                                         bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
                                         
-                                        [userDef setObject:bigDataReduceSmallData forKey:@"dataResourceInfo"];
-                                        
-                                        [userDef synchronize];//把数据同步到本地
-                                        
-                                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"resourceInfoData",nil];
-                                        
-                                        NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
-                                        if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
-                                            int monitorApperCount ;
-                                            NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
-                                            monitorApperCount = [monitorApperCountStr intValue];
-                                            NSLog(@"monitorApperCount %d",monitorApperCount);
-                                            if (monitorApperCount == 0) {
-                                                //创建通知
-                                                NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
-                                                //通过通知中心发送通知
-                                                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                                
-                                                monitorApperCount = 1;
-                                                NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
-                                                [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
-                                            }
-                                            else
-                                            {
-                                                //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
-                                                //创建通知
-                                                NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
-                                                //通过通知中心发送通知
-                                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                                            }
-                                            
-                                        }
-                                        
-                                        //这里给device发送数据
-                                        NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
-                                        if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
-                                            //创建通知
-                                            NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
-                                            //通过通知中心发送通知
-                                            [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                            NSLog(@"akjsdbkabdbaskdbakjsbd11--");
-                                        }
+                                      
+                                        [self readSocketCommandTypeISSeventeen:bigDataReduceSmallData];
+
                                         
                                     }
                                     
                                     //--
-                                    
-                                    
-                                    
                                     
                                     
                                 }
@@ -403,15 +330,10 @@
                                     //--
                                     
                                     //此处是验证机顶盒密码，将会这个消息传到TV页面
-                                    NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37 + nowData_length,6)];
+                                    NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
                                     
-                                    
-                                    //发送弹窗消息
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
-                                    //创建通知
-                                    NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                    [self readSocketCommandTypeISEight:data_CA_Ret];
+
                                     
                                 }
                                     break;
@@ -428,27 +350,28 @@
                                     //--
                                     
                                     //此处是验证机顶盒密码
-                                    NSData * data_STB_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(12 + nowData_length,4)];
-                                    uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                                    //在验证机顶盒的时候报的错 这里报错一次（40，4）超过37
+                                    //删除掉了nowData_length ，这样就可以防止越界
+                                  
+                                    [self readSocketCommandTypeISThirteenth:bigDataReduceSmallData];
+                                }
+                                    break;
+                                case 22:  //此处是验证节目列表刷新，机顶盒对节目进行了加锁
+                                {
                                     
                                     
+                                    //获得数据区的长度
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
-                                    if(data_STB_Ret_int == 5) //正确
-                                    {
-                                        //发送播放命令
-                                        //创建通知
-                                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-                                        //通过通知中心发送通知
-                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                                        
-                                        //                        STBDencryptVideoTouchNotific
-                                        NSLog(@"验证正确");
-                                    }else if(data_STB_Ret_int == 6) //验证错误
-                                    {
-                                        //显示文字：请输入密码
-                                        NSLog(@"验证失败");
-                                    }
-                                    NSLog(@"*****判断机顶盒加锁验证正确与否");
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+                                    
+                                    //此处是验证节目列表刷新，机顶盒对节目进行了加锁
+                                    
+                                    
+                                    [self readSocketCommandTypeISTwentytwo:bigDataReduceSmallData];
                                 }
                                     break;
                                     
@@ -499,13 +422,7 @@
                         NSLog(@"command_type %d",command_type);
                     case 0:
                     {
-                        // 更新了列表
-                        NSLog(@"列表更新了");
-                        
-                        //创建通知
-                        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+                        [self readSocketCommandTypeISZero];
                         
                     }
                         break;
@@ -513,19 +430,8 @@
                     case 12:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
-                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        [userDef setObject:data forKey:@"data_service11"];
-                        
-                        [userDef synchronize];//把数据同步到本地
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
-                        
-                        
-                        
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        [self readSocketCommandTypeISTwelve:data];
+
                     }
                         break;
                         
@@ -533,69 +439,15 @@
                     {
                         NSLog(@"playState---== socket 获取IP地址的消息");
                         
-                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        [userDef setObject:data forKey:@"data_socketGetIpAddress"];
-                        
-                        [userDef synchronize];//把数据同步到本地
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"socketIPAddress",nil];
-                        
-                        
-                        
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        [self readSocketCommandTypeISTwentyFour:data];
+
                     }
                         break;
                         
                     case 17:  //此处是获得资源信息
-                    {NSLog(@"akjsdbkabdbaskdbakjsbd");
-                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        [userDef setObject:data forKey:@"dataResourceInfo"];
+                    {
                         
-                        [userDef synchronize];//把数据同步到本地
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
-                        
-                        
-                        NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
-                        if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
-                            
-                            int monitorApperCount ;
-                            NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
-                            monitorApperCount = [monitorApperCountStr intValue];
-                            NSLog(@"monitorApperCount %d",monitorApperCount);
-                            if (monitorApperCount == 0) {
-                                //创建通知
-                                NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
-                                //通过通知中心发送通知
-                                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                
-                                monitorApperCount = 1;
-                                NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
-                                [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
-                            }
-                            else
-                            {
-                                //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
-                                //创建通知
-                                NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
-                                //通过通知中心发送通知
-                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            }
-                        }
-                        //这里给device发送数据
-                        NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
-                        if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
-                            //创建通知
-                            NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification];
-                            NSLog(@"akjsdbkabdbaskdbakjsbd11--22");
-                        }
-                        
-                        
+                        [self readSocketCommandTypeISSeventeen:data];
                         
                     }
                         break;
@@ -612,37 +464,23 @@
                         //此处是验证机顶盒密码，将会这个消息传到TV页面
                         NSData * data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
                         
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        [self readSocketCommandTypeISEight:data_CA_Ret];
                         
                     }
                         break;
                     case 13:  //此处是验证机顶盒密码
                     {
                         //此处是验证机顶盒密码
-                        NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12 ,4)];
-                        uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+                       
+                        [self readSocketCommandTypeISThirteenth:data];
+                    }
+                        break;
+                    case 22:  //此处是验证节目列表刷新，机顶盒对节目进行了加锁
+                    {
+                        NSLog(@" 此处是验证节目列表刷新，机顶盒对节目进行了加锁");
                         
-                        if(data_STB_Ret_int == 5) //正确
-                        {
-                            //发送播放命令
-                            //创建通知
-                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            
-                            //                        STBDencryptVideoTouchNotific
-                            NSLog(@"验证正确");
-                        }else if(data_STB_Ret_int == 6) //验证错误
-                        {
-                            //显示文字：请输入密码
-                            NSLog(@"验证失败");
-                        }
-                        NSLog(@"*****判断机顶盒加锁验证正确与否");
+                        NSData * data_channel_service = [data subdataWithRange:NSMakeRange(0 ,51)];
+                        [self readSocketCommandTypeISTwentytwo:data_channel_service];
                     }
                         break;
                         
@@ -687,10 +525,7 @@
                                     // 更新了列表
                                     NSLog(@"列表更新了");
                                     
-                                    //创建通知
-                                    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+                                    [self readSocketCommandTypeISZero];
                                     
                                 }
                                     break;
@@ -698,7 +533,6 @@
                                 case 12:
                                 {
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
-                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
@@ -709,25 +543,14 @@
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
-                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_service11"];
-                                    
-                                    [userDef synchronize];//把数据同步到本地
-                                    
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"playdata",nil];
-                                    
-                                    
-                                    
-                                    //创建通知
-                                    NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                    [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
+
                                 }
                                     break;
                                     
                                 case 24:
                                 {
                                     NSLog(@"playState---== socket 获取IP地址的消息");
-                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
                                     
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
@@ -738,27 +561,15 @@
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
-                                    [userDef setObject:bigDataReduceSmallData forKey:@"data_socketGetIpAddress"];
-                                    
-                                    [userDef synchronize];//把数据同步到本地
-                                    
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"socketIPAddress",nil];
-                                    
-                                    
-                                    
-                                    //创建通知
-                                    NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                  
+                                    [self readSocketCommandTypeISTwentyFour:bigDataReduceSmallData];
                                     
                                 }
                                     break;
                                     
                                 case 17:  //此处是获得资源信息
-                                {NSLog(@"akjsdbkabdbaskdbakjsbd");
-                                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                                    
-                                    
+                                {
+                                  
                                     //--
                                     
                                     //首先获得第二段数据的长度 （52，4）
@@ -773,50 +584,9 @@
                                     //--
                                     
                                     
-                                    [userDef setObject:bigDataReduceSmallData forKey:@"dataResourceInfo"];
                                     
-                                    [userDef synchronize];//把数据同步到本地
-                                    
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:bigDataReduceSmallData,@"resourceInfoData",nil];
-                                    
-                                    
-                                    
-                                    NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
-                                    if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
-                                        
-                                        int monitorApperCount ;
-                                        NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
-                                        monitorApperCount = [monitorApperCountStr intValue];
-                                        NSLog(@"monitorApperCount %d",monitorApperCount);
-                                        if (monitorApperCount == 0) {
-                                            //创建通知
-                                            NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
-                                            //通过通知中心发送通知
-                                            [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                            
-                                            monitorApperCount = 1;
-                                            NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
-                                            [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
-                                        }
-                                        else
-                                        {
-                                            //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
-                                            //创建通知
-                                            NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
-                                            //通过通知中心发送通知
-                                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                                        }
-                                    }
-                                    
-                                    //这里给device发送数据
-                                    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
-                                    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
-                                        //创建通知
-                                        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
-                                        //通过通知中心发送通知
-                                        [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
-                                    }
+                                    [self readSocketCommandTypeISSeventeen:bigDataReduceSmallData];
+
                                     
                                     
                                 }
@@ -842,12 +612,7 @@
                                     
                                     NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
                                     
-                                    //发送弹窗消息
-                                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
-                                    //创建通知
-                                    NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
-                                    //通过通知中心发送通知
-                                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                    [self readSocketCommandTypeISEight:data_CA_Ret];
                                 }
                                     break;
                                     
@@ -862,29 +627,27 @@
                                     bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
                                     
                                     
-                                    //此处是验证机顶盒密码
-                                    NSData * data_STB_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(12,4)];
-                                    uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
-                                    
-                                    if(data_STB_Ret_int == 5) //正确
-                                    {
-                                        //发送播放命令
-                                        //创建通知
-                                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-                                        //通过通知中心发送通知
-                                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                                        
-                                        //                        STBDencryptVideoTouchNotific
-                                        NSLog(@"验证正确");
-                                    }else if(data_STB_Ret_int == 6) //验证错误
-                                    {
-                                        //显示文字：请输入密码
-                                        NSLog(@"验证失败");
-                                    }
-                                    NSLog(@"*****判断机顶盒加锁验证正确与否");
+                                    [self readSocketCommandTypeISThirteenth:bigDataReduceSmallData];
                                 }
                                     break;
+                                case 22:  //此处是验证节目列表刷新，机顶盒对节目进行了加锁
+                                {
                                     
+                                    
+                                    //获得数据区的长度
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+                                    
+                                    //此处是验证节目列表刷新，机顶盒对节目进行了加锁
+                                    
+                                    
+                                    [self readSocketCommandTypeISTwentytwo:bigDataReduceSmallData];
+                                }
+                                    break;
                                 default:
                                     break;
                             }
@@ -919,46 +682,15 @@
                         NSLog(@"command_type %d",command_type);
                     case 0:
                     {
-                        // 更新了列表
-                        NSLog(@"列表更新了");
-                        
-                        //                    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        //                    [userDef setObject:data forKey:@"mediaDeliveryChange"];
-                        //
-                        //                    [userDef synchronize];//把数据同步到本地
-                        //
-                        //                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"mediaDeliveryChange",nil];
-                        //
-                        
-                        
-                        //                    //创建通知
-                        //                    NSNotification *notification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-                        //                    //通过通知中心发送通知
-                        //                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                        
-                        //创建通知
-                        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+                        [self readSocketCommandTypeISZero];
                     }
                         break;
                         
                     case 12:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
-                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        [userDef setObject:data forKey:@"data_service11"];
-                        
-                        [userDef synchronize];//把数据同步到本地
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"playdata",nil];
-                        
-                        
-                        
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                      
+                        [self readSocketCommandTypeISTwelve:data];
                     }
                         break;
                         
@@ -967,70 +699,16 @@
                     case 24:
                     {
                         NSLog(@"playState---== socket 获取IP地址的消息");
-                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        [userDef setObject:data forKey:@"data_socketGetIpAddress"];
-                        
-                        [userDef synchronize];//把数据同步到本地
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"socketIPAddress",nil];
-                        
-                        
-                        
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                     
+                        [self readSocketCommandTypeISTwentyFour:data];
                     }
                         break;
                         
                         
                     case 17:  //此处是获得资源信息
-                    {NSLog(@"akjsdbkabdbaskdbakjsbd");
-                        NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-                        [userDef setObject:data forKey:@"dataResourceInfo"];
-                        
-                        [userDef synchronize];//把数据同步到本地
-                        
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data,@"resourceInfoData",nil];
-                        
-                        
-                        
-                        NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
-                        if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
-                            int monitorApperCount ;
-                            NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
-                            monitorApperCount = [monitorApperCountStr intValue];
-                            NSLog(@"monitorApperCount %d",monitorApperCount);
-                            if (monitorApperCount == 0) {
-                                //创建通知
-                                NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
-                                //通过通知中心发送通知
-                                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                                
-                                monitorApperCount = 1;
-                                NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
-                                [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
-                            }
-                            else
-                            {
-                                //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
-                                //创建通知
-                                NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
-                                //通过通知中心发送通知
-                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            }
-                        }
-                        
-                        //这里给device发送数据
-                        NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
-                        if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
-                            //创建通知
-                            NSNotification *notification1 =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            NSLog(@"akjsdbkabdbaskdbakjsbd11--44");
-                        }
-                        
+                    {
+                       
+                        [self readSocketCommandTypeISSeventeen:data];
                         
                     }
                         break;
@@ -1045,36 +723,21 @@
                         
                         NSData * data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
                         
-                        //发送弹窗消息
-                        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:data_CA_Ret,@"CAThreedata",nil];
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        [self readSocketCommandTypeISEight:data_CA_Ret];
                     }
                         break;
                     case 13:  //此处是验证机顶盒密码
                     {
                         //此处是验证机顶盒密码
-                        NSData * data_STB_Ret = [data subdataWithRange:NSMakeRange(12,4)];
-                        uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
-                        NSLog(@"data_STB_Ret_int %d",data_STB_Ret_int);
-                        if(data_STB_Ret_int == 5) //正确
-                        {
-                            //发送播放命令
-                            //创建通知
-                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            
-                            //                        STBDencryptVideoTouchNotific
-                            NSLog(@"验证正确");
-                        }else if(data_STB_Ret_int == 6) //验证错误
-                        {
-                            //显示文字：请输入密码
-                            NSLog(@"验证失败");
-                        }
-                        NSLog(@"*****判断机顶盒加锁验证正确与否");
+                        
+                        [self readSocketCommandTypeISThirteenth:data];
+                    }
+                        break;
+                    case 22:  //此处是验证节目列表刷新，机顶盒对节目进行了加锁
+                    {
+                        //此处是验证机顶盒密码
+                        
+                        [self readSocketCommandTypeISTwentytwo:data];
                     }
                         break;
                         
@@ -1094,5 +757,173 @@
     }
     [self.socket readDataWithTimeout:30 tag:0];
 }
+#pragma  mark -对socket读取文件进行操作
+//对socket读取文件进行操作   case = 0
+-(void)readSocketCommandTypeISZero
+{
+    // 更新了列表
+    NSLog(@"列表更新了");
+    //        mediaDeliveryUpdateNotific
+    
+    //创建通知
+    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+}
 
+//对socket读取文件进行操作   case = 12
+-(void)readSocketCommandTypeISTwelve :(NSData *)dataToOperate
+{
+    
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:dataToOperate forKey:@"data_service11"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"playdata",nil];
+    
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+//对socket读取文件进行操作   case = 24
+-(void)readSocketCommandTypeISTwentyFour :(NSData *)dataToOperate
+{
+    
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:dataToOperate forKey:@"data_socketGetIpAddress"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"socketIPAddress",nil];
+    
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+//对socket读取文件进行操作   case = 8
+-(void)readSocketCommandTypeISEight :(NSData *)dataToOperate
+{
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"CAThreedata",nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+//对socket读取文件进行操作   case = 17
+-(void)readSocketCommandTypeISSeventeen :(NSData *)dataToOperate
+{
+    
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    
+    
+    
+    [userDef setObject:dataToOperate forKey:@"dataResourceInfo"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"resourceInfoData",nil];
+    
+    
+    
+    NSString * viewToViewStr = [USER_DEFAULT objectForKey:@"viewTOview"];
+    if ([viewToViewStr isEqualToString:@"MonitorView_Now"]) { //如果打开的是Monitor页面，则发送通知
+        
+        int monitorApperCount ;
+        NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+        monitorApperCount = [monitorApperCountStr intValue];
+        NSLog(@"monitorApperCount %d",monitorApperCount);
+        if (monitorApperCount == 0) {
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfo" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            monitorApperCount = 1;
+            NSString * monitorApperCountStr1 =  [NSString stringWithFormat:@"%d",monitorApperCount];
+            [USER_DEFAULT setObject:monitorApperCountStr1 forKey:@"monitorApperCountStr"];
+        }
+        else
+        {
+            //=====这里有可能报错，因为刚打开应用进入monitor页面的时候，没有创建这个通知
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"getNotificInfoByMySelf" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        }
+    }
+    
+    //这里给device发送数据
+    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
+    }
+    
+    
+}
+
+
+//对socket读取文件进行操作   case = 13
+-(void)readSocketCommandTypeISThirteenth :(NSData *)dataToOperate
+{
+    
+    //此处是验证机顶盒密码
+    NSData * data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
+    uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+    
+    if(data_STB_Ret_int == 5) //正确
+    {
+        //发送播放命令
+        //创建通知
+        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        //                        STBDencryptVideoTouchNotific
+        NSLog(@"验证正确");
+    }else if(data_STB_Ret_int == 6) //验证错误
+    {
+        
+        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptFailedNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        //显示文字：请输入密码
+        NSLog(@"验证失败");
+    }
+    NSLog(@"*****判断机顶盒加锁验证正确与否");
+}
+
+//对socket读取文件进行操作   case = 22
+-(void)readSocketCommandTypeISTwentytwo :(NSData *)dataToOperate
+{
+    
+//    //此处是验证机顶盒密码
+//    NSData * data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
+//    uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+    
+    NSLog(@"输出data：%@",dataToOperate);
+    NSLog(@"输出data2222");
+
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"changeLockData",nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"ChangeSTBLockNotific" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    NSLog(@"*****机顶盒改变节目的加锁状态");
+}
 @end

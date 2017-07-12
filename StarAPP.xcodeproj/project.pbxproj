@@ -250,6 +250,7 @@
 		702CE4561DDA9881000A0513 /* nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42E1DDA9881000A0513 /* nor@2x.png */; };
 		702CE4571DDA9881000A0513 /* nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE42F1DDA9881000A0513 /* nor@3x.png */; };
 		7033AA2F1E8209EB005C2A43 /* KVO_NoDataPic.m in Sources */ = {isa = PBXBuildFile; fileRef = 7033AA2E1E8209EB005C2A43 /* KVO_NoDataPic.m */; };
+		7035C0F11F0F3AB70061029F /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7035C0F01F0F3AB70061029F /* IJKMediaFramework.framework */; };
 		70362CF31F0092480012A309 /* Movies & Series@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70362CF01F0092480012A309 /* Movies & Series@1x.png */; };
 		70362CF41F0092480012A309 /* Movies & Series@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70362CF11F0092480012A309 /* Movies & Series@2x.png */; };
 		70362CF51F0092480012A309 /* Movies & Series@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70362CF21F0092480012A309 /* Movies & Series@3x.png */; };
@@ -297,7 +298,6 @@
 		70362D4B1F00A0180012A309 /* Series@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70362D381F00A0180012A309 /* Series@3x.png */; };
 		70362D4C1F00A0180012A309 /* Tuner monitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 70362D391F00A0180012A309 /* Tuner monitor.png */; };
 		70362D5D1F00A6670012A309 /* XIJKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70362D5C1F00A6670012A309 /* XIJKView.m */; };
-		70362D631F00A6A50012A309 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D541F00A5E60012A309 /* IJKMediaFramework.framework */; };
 		70362D651F00A6AD0012A309 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D641F00A6AD0012A309 /* AudioToolbox.framework */; };
 		70362D671F00A6B30012A309 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D661F00A6B30012A309 /* AVFoundation.framework */; };
 		70362D691F00A6BF0012A309 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D681F00A6BF0012A309 /* CoreMedia.framework */; };
@@ -613,23 +613,30 @@
 			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = clinkc;
 		};
-		70362D531F00A5E60012A309 /* PBXContainerItemProxy */ = {
+		7035C0EC1F0F39EE0061029F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 70362D4E1F00A5E60012A309 /* IJKMediaPlayer.xcodeproj */;
+			containerPortal = 7035C0E71F0F39EE0061029F /* IJKMediaDemo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E6903EFC17EAF70200CFD954;
+			remoteInfo = IJKMediaDemo;
+		};
+		7035C1091F0F54BF0061029F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7035C1031F0F54BF0061029F /* IJKMediaPlayer.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = E654EA8A1B6B27E600B0F2D0;
 			remoteInfo = IJKMediaFramework;
 		};
-		70362D551F00A5E60012A309 /* PBXContainerItemProxy */ = {
+		7035C10B1F0F54BF0061029F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 70362D4E1F00A5E60012A309 /* IJKMediaPlayer.xcodeproj */;
+			containerPortal = 7035C1031F0F54BF0061029F /* IJKMediaPlayer.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = E654EA941B6B27E600B0F2D0;
 			remoteInfo = IJKMediaFrameworkTests;
 		};
-		70362D611F00A6920012A309 /* PBXContainerItemProxy */ = {
+		7035C10D1F0F54CA0061029F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 70362D4E1F00A5E60012A309 /* IJKMediaPlayer.xcodeproj */;
+			containerPortal = 7035C1031F0F54BF0061029F /* IJKMediaPlayer.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = E654EA891B6B27E600B0F2D0;
 			remoteInfo = IJKMediaFramework;
@@ -757,7 +764,7 @@
 		70170BD31D74038B00CC3951 /* StarMainTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarMainTabController.h; sourceTree = "<group>"; };
 		70170BD41D74038B00CC3951 /* StarMainTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarMainTabController.m; sourceTree = "<group>"; };
 		70170BD61D7403AC00CC3951 /* TVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TVViewController.h; sourceTree = "<group>"; };
-		70170BD71D7403AC00CC3951 /* TVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVViewController.m; sourceTree = "<group>"; };
+		70170BD71D7403AC00CC3951 /* TVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		70170BD91D7403C300CC3951 /* MEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEViewController.h; sourceTree = "<group>"; };
 		70170BDA1D7403C300CC3951 /* MEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEViewController.m; sourceTree = "<group>"; };
 		70170C2B1D74156000CC3951 /* block_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_bg.png; sourceTree = "<group>"; };
@@ -940,6 +947,9 @@
 		702CE42F1DDA9881000A0513 /* nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nor@3x.png"; sourceTree = "<group>"; };
 		7033AA2D1E8209EB005C2A43 /* KVO_NoDataPic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVO_NoDataPic.h; sourceTree = "<group>"; };
 		7033AA2E1E8209EB005C2A43 /* KVO_NoDataPic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVO_NoDataPic.m; sourceTree = "<group>"; };
+		7035C0E71F0F39EE0061029F /* IJKMediaDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = IJKMediaDemo.xcodeproj; path = ../../../startimesPlayer/ios/IJKMediaDemo/IJKMediaDemo.xcodeproj; sourceTree = "<group>"; };
+		7035C0F01F0F3AB70061029F /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IJKMediaFramework.framework; path = "../../Library/Developer/Xcode/DerivedData/StarAPP-ejkwxdgcsxhkqoerxzpfnwxbqjup/Build/Products/Debug-iphoneos/IJKMediaFramework.framework"; sourceTree = "<group>"; };
+		7035C1031F0F54BF0061029F /* IJKMediaPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = IJKMediaPlayer.xcodeproj; path = "../../../ijkplayer--starApp在用/ios/IJKMediaPlayer/IJKMediaPlayer.xcodeproj"; sourceTree = "<group>"; };
 		70362CF01F0092480012A309 /* Movies & Series@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies & Series@1x.png"; sourceTree = "<group>"; };
 		70362CF11F0092480012A309 /* Movies & Series@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies & Series@2x.png"; sourceTree = "<group>"; };
 		70362CF21F0092480012A309 /* Movies & Series@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Movies & Series@3x.png"; sourceTree = "<group>"; };
@@ -986,7 +996,6 @@
 		70362D371F00A0180012A309 /* Series@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Series@2x.png"; sourceTree = "<group>"; };
 		70362D381F00A0180012A309 /* Series@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Series@3x.png"; sourceTree = "<group>"; };
 		70362D391F00A0180012A309 /* Tuner monitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tuner monitor.png"; sourceTree = "<group>"; };
-		70362D4E1F00A5E60012A309 /* IJKMediaPlayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = IJKMediaPlayer.xcodeproj; path = "../../../IJKAndCTL合成备份上线用/startimesPlayer/ios/IJKMediaPlayer/IJKMediaPlayer.xcodeproj"; sourceTree = "<group>"; };
 		70362D5B1F00A6670012A309 /* XIJKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XIJKView.h; sourceTree = "<group>"; };
 		70362D5C1F00A6670012A309 /* XIJKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XIJKView.m; sourceTree = "<group>"; };
 		70362D641F00A6AD0012A309 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1335,6 +1344,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7035C0F11F0F3AB70061029F /* IJKMediaFramework.framework in Frameworks */,
 				70A19CE21F00A72800DCB18E /* VideoToolbox.framework in Frameworks */,
 				A4A66A021555E44100AED3AF /* UIKit.framework in Frameworks */,
 				70A19CE01F00A71C00DCB18E /* QuartzCore.framework in Frameworks */,
@@ -1348,7 +1358,6 @@
 				A4A66A061555E44100AED3AF /* CoreGraphics.framework in Frameworks */,
 				70362D671F00A6B30012A309 /* AVFoundation.framework in Frameworks */,
 				70362D651F00A6AD0012A309 /* AudioToolbox.framework in Frameworks */,
-				70362D631F00A6A50012A309 /* IJKMediaFramework.framework in Frameworks */,
 				70D6B97B1E2DEA5A00957A81 /* libMJRefresh.a in Frameworks */,
 				701295331D80F51F003139D5 /* libz.1.2.5.tbd in Frameworks */,
 				7012952C1D80F513003139D5 /* libAFNetworking.a in Frameworks */,
@@ -1984,21 +1993,30 @@
 			name = KVO_NoDataPic;
 			sourceTree = "<group>";
 		};
+		7035C0E81F0F39EE0061029F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7035C0ED1F0F39EE0061029F /* IJKMediaDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7035C1041F0F54BF0061029F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7035C10A1F0F54BF0061029F /* IJKMediaFramework.framework */,
+				7035C10C1F0F54BF0061029F /* IJKMediaFrameworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		70362D4D1F00A48D0012A309 /* IJK */ = {
 			isa = PBXGroup;
 			children = (
-				70362D4E1F00A5E60012A309 /* IJKMediaPlayer.xcodeproj */,
+				7035C1031F0F54BF0061029F /* IJKMediaPlayer.xcodeproj */,
+				7035C0E71F0F39EE0061029F /* IJKMediaDemo.xcodeproj */,
 			);
 			name = IJK;
-			sourceTree = "<group>";
-		};
-		70362D4F1F00A5E60012A309 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				70362D541F00A5E60012A309 /* IJKMediaFramework.framework */,
-				70362D561F00A5E60012A309 /* IJKMediaFrameworkTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		703D5D401DF5741000C4412A /* Category */ = {
@@ -2497,6 +2515,7 @@
 		A4A66A001555E44100AED3AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7035C0F01F0F3AB70061029F /* IJKMediaFramework.framework */,
 				70A19CE11F00A72800DCB18E /* VideoToolbox.framework */,
 				70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */,
 				70A19CDD1F00A71600DCB18E /* OpenGLES.framework */,
@@ -2574,7 +2593,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				70362D621F00A6920012A309 /* PBXTargetDependency */,
+				7035C10E1F0F54CA0061029F /* PBXTargetDependency */,
 			);
 			name = StarAPP;
 			productName = DLNASample;
@@ -2613,8 +2632,12 @@
 					ProjectRef = 60B4C535159B0EB900F3BB0C /* clinkc.xcodeproj */;
 				},
 				{
-					ProductGroup = 70362D4F1F00A5E60012A309 /* Products */;
-					ProjectRef = 70362D4E1F00A5E60012A309 /* IJKMediaPlayer.xcodeproj */;
+					ProductGroup = 7035C0E81F0F39EE0061029F /* Products */;
+					ProjectRef = 7035C0E71F0F39EE0061029F /* IJKMediaDemo.xcodeproj */;
+				},
+				{
+					ProductGroup = 7035C1041F0F54BF0061029F /* Products */;
+					ProjectRef = 7035C1031F0F54BF0061029F /* IJKMediaPlayer.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -2632,18 +2655,25 @@
 			remoteRef = 60B4C53C159B0EB900F3BB0C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		70362D541F00A5E60012A309 /* IJKMediaFramework.framework */ = {
+		7035C0ED1F0F39EE0061029F /* IJKMediaDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = IJKMediaDemo.app;
+			remoteRef = 7035C0EC1F0F39EE0061029F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7035C10A1F0F54BF0061029F /* IJKMediaFramework.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = IJKMediaFramework.framework;
-			remoteRef = 70362D531F00A5E60012A309 /* PBXContainerItemProxy */;
+			remoteRef = 7035C1091F0F54BF0061029F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		70362D561F00A5E60012A309 /* IJKMediaFrameworkTests.xctest */ = {
+		7035C10C1F0F54BF0061029F /* IJKMediaFrameworkTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = IJKMediaFrameworkTests.xctest;
-			remoteRef = 70362D551F00A5E60012A309 /* PBXContainerItemProxy */;
+			remoteRef = 7035C10B1F0F54BF0061029F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -3289,10 +3319,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		70362D621F00A6920012A309 /* PBXTargetDependency */ = {
+		7035C10E1F0F54CA0061029F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = IJKMediaFramework;
-			targetProxy = 70362D611F00A6920012A309 /* PBXContainerItemProxy */;
+			targetProxy = 7035C10D1F0F54CA0061029F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

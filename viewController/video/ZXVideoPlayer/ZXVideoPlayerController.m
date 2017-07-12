@@ -100,6 +100,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //@property (nonatomic, strong) id * TableScollTimer;
 @property (nonatomic, strong) UILabel * lab ;
 @property (nonatomic, strong) UIImageView * radioImageView ; //展示音频的默认图
+@property (nonatomic, strong) UILabel * decoderPINLab ; //展示decoder PIN 的文字
+@property (nonatomic, strong) UIButton * decoderPINBtn ; //展示decoder PIN 的按钮
 
 @property (nonatomic, strong) NSTimer * timerOfEventTime;
 
@@ -110,8 +112,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @synthesize socketView1;
 @synthesize lab;
 @synthesize radioImageView; //展示音频的默认图
+@synthesize decoderPINLab; //展示decoder PIN 的文字
+@synthesize decoderPINBtn; //展示decoder PIN 的按钮
 @synthesize timerOfEventTime;
-@synthesize operationQueue;
+//@synthesize operationQueue;
 //@synthesize tvViewController;
 #pragma mark - life cycle
 
@@ -145,7 +149,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configIndicatorView]; //视频未播放加载钱，显示进度圈
         
         [self configRadioShow];  //判断当播放音频时，如果可以播放，则显示音频默认图
+        [self configDecoderPINShow];  //判断当前是不是需要展示decoder PIN的输入按钮和文字
         [self removeConfigRadioShow];  //如果不是音频节目，或者音频节目播放完成，则删除掉音频图
+        [self removeConfigDecoderPINShow];  //如果用户点击了按钮，则发送删除通知把decoder的文字和按钮删除掉
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
@@ -163,7 +169,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
 //        [self configObserver];
         [self installMovieNotificationObservers];
-        operationQueue = [[NSOperationQueue alloc]init];
+//        operationQueue = [[NSOperationQueue alloc]init];
     }
     return self;
 }
@@ -714,6 +720,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    {
     [self.videoControl.indicatorView startAnimating];
     //    }
+    
+    [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
@@ -728,6 +736,220 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowNotic) name:@"noPlayShowNotic" object:nil];
 }
 
+#pragma mark - decoder PIN输入按钮和文字展示
+-(void)configDecoderPINShow
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"configDecoderPINShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configDecoderPINShowNotific) name:@"configDecoderPINShowNotific" object:nil];
+}
+-(void)configDecoderPINShowNotific
+{
+ 
+    [self.videoControl.indicatorView stopAnimating];
+    NSLog(@"decoderPINLab.frame %@",NSStringFromCGRect(decoderPINLab.frame));
+    NSLog(@"decoderPINBtn.frame %@",NSStringFromCGRect(decoderPINBtn.frame));
+    
+    UIDeviceOrientation orientation = self.getDeviceOrientation;
+    if (!self.isLocked)
+    {
+        switch (orientation) {
+            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                NSLog(@"home键在 下");
+                [self restoreOriginalScreen];
+                
+                
+                if (!decoderPINLab) {
+                    decoderPINLab = [[UILabel alloc]init];
+                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.textColor = [UIColor whiteColor];
+                    decoderPINBtn = [[UIButton alloc]init];
+                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                     [decoderPINBtn.layer setBorderWidth:2.0f];
+                    [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+//                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:decoderPINLab];
+                    [self.view addSubview:decoderPINBtn];
+//                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                decoderPINBtn.layer.cornerRadius = 14.0f;
+                decoderPINBtn.layer.masksToBounds = YES;
+                
+                //                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                
+                
+            }
+                break;
+            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                NSLog(@"home键在 上");
+                
+                if (!decoderPINLab) {
+                    decoderPINLab = [[UILabel alloc]init];
+                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.textColor = [UIColor whiteColor];
+                    decoderPINBtn = [[UIButton alloc]init];
+                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [decoderPINBtn.layer setBorderWidth:2.0f];
+                    [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:decoderPINLab];
+                    [self.view addSubview:decoderPINBtn];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                decoderPINBtn.layer.cornerRadius = 14.0f;
+                decoderPINBtn.layer.masksToBounds = YES;
+
+            }
+                break;
+            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                NSLog(@"home键在 右");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if (!decoderPINLab) {
+                    decoderPINLab = [[UILabel alloc]init];
+                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.textColor = [UIColor whiteColor];
+                    decoderPINBtn = [[UIButton alloc]init];
+                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [decoderPINBtn.layer setBorderWidth:2.0f];
+                    [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:decoderPINLab];
+                    [self.view addSubview:decoderPINBtn];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                decoderPINBtn.layer.cornerRadius = 14.0f;
+                decoderPINBtn.layer.masksToBounds = YES;
+
+            }
+                break;
+            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                NSLog(@"home键在 左");
+                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if (!decoderPINLab) {
+                    decoderPINLab = [[UILabel alloc]init];
+                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.textColor = [UIColor whiteColor];
+                    decoderPINBtn = [[UIButton alloc]init];
+                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [decoderPINBtn.layer setBorderWidth:2.0f];
+                    [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:decoderPINLab];
+                    [self.view addSubview:decoderPINBtn];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                decoderPINBtn.layer.cornerRadius = 14.0f;
+                decoderPINBtn.layer.masksToBounds = YES;
+
+            }
+                break;
+                
+            default:
+            {           // Device oriented vertically, home button on the bottom
+                NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
+//                [self restoreOriginalScreen];
+                
+                
+                if (!decoderPINLab) {
+                    decoderPINLab = [[UILabel alloc]init];
+                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.textColor = [UIColor whiteColor];
+                    decoderPINBtn = [[UIButton alloc]init];
+                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [decoderPINBtn.layer setBorderWidth:2.0f];
+                    [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:decoderPINLab];
+                    [self.view addSubview:decoderPINBtn];
+//                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                decoderPINBtn.layer.cornerRadius = 14.0f;
+                decoderPINBtn.layer.masksToBounds = YES;
+
+                
+                //                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                
+                
+            }
+                break;
+        }
+    }
+    
+}
+-(void)removeConfigDecoderPINShow  //删除掉DecoderPIN的文字和按钮
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeConfigDecoderPINShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeConfigDecoderPINShowNotific) name:@"removeConfigDecoderPINShowNotific" object:nil];
+}
+-(void)removeConfigDecoderPINShowNotific
+{
+    [decoderPINLab removeFromSuperview];
+    decoderPINLab = nil;
+    decoderPINLab = NULL;
+    [decoderPINBtn removeFromSuperview];
+    decoderPINBtn = nil;
+    decoderPINBtn = NULL;
+    NSLog(@"decoder 删除了");
+}
+-(void) decoderPINBtnClick //decoder pin 按钮被点击
+{
+//1.先删除decoder pin的文字和按钮   2. 发送通知弹窗
+    [self removeConfigDecoderPINShowNotific];
+    
+    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptInputAgainNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSLog(@"decoder 点击了");
+}
+
+#pragma mark - 音频节目背景图展示
 //////如果是音频节目，则显示背景图
 -(void)configRadioShow
 {
@@ -811,6 +1033,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
                 
             default:
+            {     // Device oriented horizontally, home button on the left
+                NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
+                
+                if (!radioImageView) {
+                    radioImageView = [[UIImageView alloc]init];
+                    radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
+                    //        [self.view addSubview:radioImageView];
+                    [self.view insertSubview:radioImageView atIndex:1];
+                }
+                radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+            }
                 break;
         }
     }
@@ -1262,7 +1495,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (radioImageView) {
             radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
         }
-        
+        if (decoderPINLab) {
+            CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+            decoderPINLab.textAlignment = NSTextAlignmentCenter;
+            decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+
+        }
         
         
         
@@ -1617,6 +1857,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if (radioImageView) {
         radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+    }
+    if (decoderPINLab) {
+        CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+        decoderPINLab.textAlignment = NSTextAlignmentCenter;
+        decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
     }
     
     self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
@@ -2056,7 +2303,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (!self.isFullscreenMode) { // 如果是竖屏模式，返回关闭
         if (self) {
             [self.durationTimer invalidate];
-            [self stop];
+            [self.player stop];
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
             
             if (self.videoPlayerGoBackBlock) {
@@ -2218,6 +2465,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
             }else
             {
+//                UIAlertView *  abcalert  = [[UIAlertView alloc] initWithTitle:@"开始一个新的播放器" message:@"哈哈哈" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+//                [abcalert show];
+                
                 [self.player shutdown];
                 [self.player.view removeFromSuperview];
                 self.player = nil;
@@ -2251,6 +2501,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 [self.player play];
                 
                 NSLog(@"执行中0000000");
+                
+                //删除decoder PIN的文字和按钮
+                NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                timerForGetBytes = nil; //此处把计时器销毁
+//                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
             }
 //
 //            
@@ -3259,6 +3516,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //节目播放点击
 -(void)touchToSee :(NSDictionary* )dic DicWithRow:(NSInteger)row
 {
+    //关闭当前正在播放的节目
+    [self.player stop];
+    [self.player shutdown];
+    [self.player.view removeFromSuperview];
+    
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     

@@ -13,8 +13,8 @@
     NSMutableArray *dataList;
     NSMutableArray *showData;
 }
-@property (retain, nonatomic) NSMutableArray *showData;
-@property (retain, nonatomic) NSMutableArray *dataList;
+@property (retain, nonatomic) NSMutableArray *showData;   //
+@property (retain, nonatomic) NSMutableArray *dataList;   // Json中所有的service 名字和符号的组合
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 @property (retain, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (retain, nonatomic) NSDictionary *response;
