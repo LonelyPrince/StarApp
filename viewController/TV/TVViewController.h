@@ -56,7 +56,7 @@
 @property (strong,nonatomic)NSString * IPString;
 @property (strong,nonatomic) UIView * topView;
 @property (strong,nonatomic)NSMutableArray * allStartEpgTime;
-@property (strong,nonatomic) NSTimer * timerState;
+@property (strong,nonatomic) NSTimer * timerState;  //计时器，用来计时播放一个视频，看15秒内是否可以播放，如果不能播放，则显示sorry的提示语
 
 @property (strong,nonatomic)KVO_NoDataPic *kvo_NoDataPic;  //KVO
 @property (strong,nonatomic)UIImageView * kvo_NoDataImageview;  //底部节目列表为空，展示图片

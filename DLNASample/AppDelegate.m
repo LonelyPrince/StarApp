@@ -93,7 +93,7 @@ void UncaughtExceptionHandler(NSException *exception) {
               *  把异常崩溃信息发送至开发者邮件
               */
         NSMutableString *mailUrl = [NSMutableString string];
-        [mailUrl appendString:@"mailto:834455724@qq.com"];
+        [mailUrl appendString:@"mailto:zhaoxf@startimes.com.cn"];
         [mailUrl appendString:@"?subject=程序异常崩溃，请配合发送异常报告，谢谢合作！"];
         [mailUrl appendFormat:@"&body=%@", content];
         // 打开地址

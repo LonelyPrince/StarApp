@@ -723,6 +723,10 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+
+    
     //      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSLog(@"section: %d,row %d ",indexPath.section,indexPath.row);

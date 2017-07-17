@@ -134,6 +134,9 @@ typedef enum{
 ////
 //#define kNeedForceUpdateApplication @"NeedForceUpdateApplication"
 
-#define CANOTINPUT @"Please Decoder PIN"
-//#define CA @"Please Decoder PIN"
+//#define CANOTINPUT @"Please Decoder PIN"
+#define videoCantPlayTip @"sorry, this video can't play"
+#define radioCantPlayTip @"sorry, this radio can't play"
+#define deliveryStopTip @"Delivery has been stopped！"   //停止分发后 节目黑屏提示“Delivery has been stopped！”
+#define mediaDisConnect @"The media center has disconnected"   //关机后
 //#define CANOTINPUT @"Please Decoder PIN"

@@ -4677,6 +4677,9 @@
     [tableView beginUpdates];
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
+        
+        [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];   //视频分发终止，节目禁止播放
+        
         /*此处处理自己的代码，如删除数据*/
         
         //////////////////////////// 向TV页面发送通知

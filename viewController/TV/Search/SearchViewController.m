@@ -359,6 +359,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+
+    
     NSInteger indexForTouch;//这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
     NSMutableDictionary * dicCategory = [[NSMutableDictionary alloc]init];
     NSArray *data2  = [[NSArray alloc]init];

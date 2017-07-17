@@ -98,7 +98,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, strong) NSString * cellStr;
 
 //@property (nonatomic, strong) id * TableScollTimer;
-@property (nonatomic, strong) UILabel * lab ;
+@property (nonatomic, strong) UILabel * lab ;    //@"sorry, this video/radio can't play"的提示文字
 @property (nonatomic, strong) UIImageView * radioImageView ; //展示音频的默认图
 @property (nonatomic, strong) UILabel * decoderPINLab ; //展示decoder PIN 的文字
 @property (nonatomic, strong) UIButton * decoderPINBtn ; //展示decoder PIN 的按钮
@@ -704,6 +704,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.videoControl.channelNameLab.text = self.video.channelName;
 }
+#pragma mark -未播放前显示加载圈 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
 //未播放前显示加载圈
 -(void)configIndicatorView
 {
@@ -712,6 +713,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IndicatorViewShowNotic) name:@"IndicatorViewShowNotic" object:nil];
 }
+//未播放前显示加载圈的通知 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
 -(void)IndicatorViewShowNotic
 {   //如果URL为空，则不进行播放
     //    if(self.video.playUrl == NULL || [self.video.playUrl isEqualToString:@""] ||self.video.playUrl == nil)
@@ -719,15 +721,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //        [self.videoControl.indicatorView stopAnimating];
     //    }else
     //    {
+    [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
+    
     [self.videoControl.indicatorView startAnimating];
+    
     //    }
     
-    [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
+#pragma mark -如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  通知播放的动作               以下几种情况可以使用①CRC 错误（此时的CRC也无法判断）  ②播放时间超过15秒  ③播放器通知（暂时没有找到不能播放的通知）  ④盒子主动停掉，盒子的stop通知（socket 16：代表我主动停止分发   socket 19：代表机顶盒主动停）
 //如果不能播放，则显示不能播放字样
 -(void)configLabNoPlayShow
 {
@@ -881,39 +886,71 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             }
                 break;
                 
-            default:
+            default:   //
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
 //                [self restoreOriginalScreen];
-                
-                
-                if (!decoderPINLab) {
-                    decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please Decoder PIN";
-                    decoderPINLab.textColor = [UIColor whiteColor];
-                    decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
-                    [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
-                    [decoderPINBtn.layer setBorderWidth:2.0f];
-                    [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                if (self.view.frame.size.width < self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
+                    //此时是竖屏状态
+                    NSLog(@"home键在 下");
+                    [self restoreOriginalScreen];
                     
-                    //        [self.view addSubview:radioImageView];
-                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
-                    [self.view addSubview:decoderPINLab];
-                    [self.view addSubview:decoderPINBtn];
-//                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                    
+                    if (!decoderPINLab) {
+                        decoderPINLab = [[UILabel alloc]init];
+                        decoderPINLab.text = @"Please Decoder PIN";
+                        decoderPINLab.textColor = [UIColor whiteColor];
+                        decoderPINBtn = [[UIButton alloc]init];
+                        [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                        [decoderPINBtn.layer setBorderWidth:2.0f];
+                        [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        //        [self.view addSubview:radioImageView];
+                        //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                        [self.view addSubview:decoderPINLab];
+                        [self.view addSubview:decoderPINBtn];
+                        //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                    }
+                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                    decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                    decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                    decoderPINBtn.layer.cornerRadius = 14.0f;
+                    decoderPINBtn.layer.masksToBounds = YES;
+                    
+                }else //此时是横屏状态
+                {     // Device oriented horizontally, home button on the left
+                    NSLog(@"home键在 左");
+                    //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    
+                    if (!decoderPINLab) {
+                        decoderPINLab = [[UILabel alloc]init];
+                        decoderPINLab.text = @"Please Decoder PIN";
+                        decoderPINLab.textColor = [UIColor whiteColor];
+                        decoderPINBtn = [[UIButton alloc]init];
+                        [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                        [decoderPINBtn.layer setBorderWidth:2.0f];
+                        [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        //        [self.view addSubview:radioImageView];
+                        //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                        [self.view addSubview:decoderPINLab];
+                        [self.view addSubview:decoderPINBtn];
+                        //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                    }
+                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
+                    decoderPINLab.textAlignment = NSTextAlignmentCenter;
+                    decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+                    decoderPINBtn.layer.cornerRadius = 14.0f;
+                    decoderPINBtn.layer.masksToBounds = YES;
+                    
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
-                decoderPINLab.textAlignment = NSTextAlignmentCenter;
-                decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
-                decoderPINBtn.layer.cornerRadius = 14.0f;
-                decoderPINBtn.layer.masksToBounds = YES;
-
-                
-                //                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-                
                 
             }
                 break;
@@ -1063,6 +1100,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     radioImageView = nil;
     radioImageView = NULL;
 }
+#pragma  mark - 如果播放活加载状态，代表视频将要准备播放了，此时不显示播放字样
 //播放活加载状态，不显示播放字样
 -(void)configLabNoPlayShowShut
 {
@@ -1071,23 +1109,50 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowShutNotic) name:@"noPlayShowShutNotic" object:nil];
 }
+#pragma  mark - 不能播放时，准备显示不能播放的文字 @"sorry, this Video/Radio Cant play"
+//如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  停止播放的动作
 -(void)noPlayShowNotic
 {
-    //创建通知
+    
+    //保存三个有用的信息
+    
+    NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];//text.userInfo[@"playStateType"];
+ 
+    
+    
+    //①创建通知,删除进度条
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知
+    
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
+    //②右侧列表消失
     NSLog(@"右侧列表消失 noPlayShowNotic");
     self.subAudioTableView.hidden = YES;
     self.subAudioTableView = nil;
     [self.subAudioTableView removeFromSuperview];
     self.subAudioTableView = NULL;
     self.subAudioTableView.alpha = 0;
+    //③ 删除音频图片
     [self removeConfigRadioShowNotific];  //删除音频图片的函数。，防止音频图片显示
+    //④取消掉加载环
+    [self.videoControl.indicatorView stopAnimating];
+    //⑤停止播放的动作,并且取消掉图画
+    [self.player stop];
+    [self.player shutdown];
+    [self.player.view removeFromSuperview];
+    
+    
+    //⑥显示不能播放的字，通过判断home键的位置来判断label的显示大小和位置
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     if (!self.isLocked)
     {
+        NSLog(@"width== %f",self.view.frame.size.width);
+        NSLog(@"height== %f",self.view.frame.size.height);
+        NSLog(@"screenWidth== %f",[UIScreen mainScreen].bounds.size.width);
+        NSLog(@"screenHeight== %f",[UIScreen mainScreen].bounds.size.height);
+        
+        //转盘方向  研究
+        
         switch (orientation) {
             case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
                 NSLog(@"home键在 下");
@@ -1097,10 +1162,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     lab = [[UILabel alloc]init];
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (videoOrRadiostr != NULL) {
-                        lab.text = videoOrRadiostr;
+                        if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                            lab.text = deliveryStopTip;   //如果不为空,则显示
+                        }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                        {
+                            lab.text = mediaDisConnect;
+                        }
+                        else
+                        {
+                            lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                        }
+                        
                     }else
                     {
-                        lab.text = @"sorry, this video can't play";
+                        lab.text = videoCantPlayTip;
                     }
                     
                     
@@ -1127,10 +1202,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (videoOrRadiostr != NULL) {
-                        lab.text = videoOrRadiostr;
+                        if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                            lab.text = deliveryStopTip;   //如果不为空,则显示
+                        }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                        {
+                            lab.text = mediaDisConnect;
+                        }
+                        else
+                        {
+                            lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                        }
                     }else
                     {
-                        lab.text = @"sorry, this video can't play";
+                        lab.text = videoCantPlayTip;
                     }
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
@@ -1156,17 +1240,27 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (videoOrRadiostr != NULL) {
-                        lab.text = videoOrRadiostr;
+                        if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                            lab.text = deliveryStopTip;   //如果不为空,则显示
+                        }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                        {
+                            lab.text = mediaDisConnect;
+                        }
+                        else
+                        {
+                            lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                        }
                     }else
                     {
-                        lab.text = @"sorry, this video can't play";
+                        lab.text = videoCantPlayTip;
                     }
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
                     [self.view addSubview:lab];
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     CGSize size=[lab.text sizeWithAttributes:attrs];
-                    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+
+                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
                     
                     //创建通知
@@ -1186,17 +1280,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (videoOrRadiostr != NULL) {
-                        lab.text = videoOrRadiostr;
+                        if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                            lab.text = deliveryStopTip;   //如果不为空,则显示
+                        }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                        {
+                            lab.text = mediaDisConnect;
+                        }else
+                        {
+                            lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                        }
                     }else
                     {
-                        lab.text = @"sorry, this video can't play";
+                        lab.text = videoCantPlayTip;
                     }
                     lab.font = FONT(17);
                     lab.textColor = [UIColor whiteColor];
                     [self.view addSubview:lab];
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     CGSize size=[lab.text sizeWithAttributes:attrs];
-                    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
                     //创建通知
                     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
@@ -1207,8 +1309,114 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             }
                 break;
                 
-            default:
+            default: // 还有一种情况是界面朝上或者界面朝下
+            {
+                NSLog(@"width %f",self.view.frame.size.width);
+                NSLog(@"height %f",self.view.frame.size.height);
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height) //证明此时是竖屏状态
+                {           // Device oriented vertically, home button on the bottom
+                    NSLog(@"home键在 下");
+                    [self restoreOriginalScreen];
+                    
+                    if ( !lab) {
+                        lab = [[UILabel alloc]init];
+                        NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                        if (videoOrRadiostr != NULL) {
+                            if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                lab.text = deliveryStopTip;   //如果不为空,则显示
+                            }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                            {
+                                lab.text = mediaDisConnect;
+                            }else
+                            {
+                                lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                            }
+                        }else
+                        {
+                            lab.text = videoCantPlayTip;
+                        }
+                        
+                        
+                        lab.font = FONT(17);
+                        lab.textColor = [UIColor whiteColor];
+                        [self.view addSubview:lab];
+                        NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                        CGSize size=[lab.text sizeWithAttributes:attrs];
+                        lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                        
+                        //创建通知
+                        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        
+                    }
+                }else //证明此时是横屏状态
+                {      // Device oriented horizontally, home button on the right
+                    NSLog(@"home键在 右");
+                    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    
+                    if ( !lab) {
+                        lab = [[UILabel alloc]init];
+                        
+                        NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                        if (videoOrRadiostr != NULL) {
+                            if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                lab.text = deliveryStopTip;   //如果不为空,则显示
+                            }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                            {
+                                lab.text = mediaDisConnect;
+                            }else
+                            {
+                                lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                            }
+                        }else
+                        {
+                            lab.text = videoCantPlayTip;
+                        }
+                        lab.font = FONT(17);
+                        lab.textColor = [UIColor whiteColor];
+                        [self.view addSubview:lab];
+                        NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                        CGSize size=[lab.text sizeWithAttributes:attrs];
+                        lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                        
+                        
+                        //创建通知
+                        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    }
+                }
+                
+                
+                
+                
+            }
                 break;
+        }
+        
+        if (lab) {
+            NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+            if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                lab.text = deliveryStopTip;   //如果不为空,则显示
+            }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+            {
+                lab.text = mediaDisConnect;
+            }else
+            {
+                lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+            }
+            NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+            
+            if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height) {
+                CGSize size=[lab.text sizeWithAttributes:attrs];
+                lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+            }else
+            {
+                CGSize size=[lab.text sizeWithAttributes:attrs];
+                lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+            }
+            
         }
     }
     
@@ -1479,11 +1687,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
         
         NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+        NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];
         if (videoOrRadiostr != NULL) {
-            lab.text = videoOrRadiostr;
+            if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                lab.text = deliveryStopTip;   //如果不为空,则显示
+            }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+            {
+                lab.text = mediaDisConnect;
+            }else
+            {
+                lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+            }
         }else
         {
-            lab.text = @"sorry, this video can't play";
+            lab.text = videoCantPlayTip;
         }
         lab.font = FONT(17);
         
@@ -1843,11 +2060,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];
     
     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+    NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];
     if (videoOrRadiostr != NULL) {
-        lab.text = videoOrRadiostr;
+        if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+            lab.text = deliveryStopTip;   //如果不为空,则显示
+        }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+        {
+            lab.text = mediaDisConnect;
+        }else
+        {
+            lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+        }
     }else
     {
-        lab.text = @"sorry, this video can't play";
+        lab.text = videoCantPlayTip;
     }
     lab.font = FONT(17);
     
@@ -2872,6 +3098,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
 }
+#pragma mark - 判断进度条是不是需要显示
 -(void)configTimerOfEventTimeNotific
 {
     //此处销毁通知，防止一个通知被多次调用    // 1
@@ -2879,7 +3106,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TimerOfEventTimeNotific) name:@"TimerOfEventTimeNotific" object:nil];
 }
-
+//判断进度条是不是需要显示
 -(void)TimerOfEventTimeNotific
 {
     
@@ -2888,7 +3115,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime1) userInfo:nil repeats:YES];
     
 }
--(void)setEventTime1
+-(void)setEventTime1 //判断进度条是不是需要显示
 {
     int  EPGArrindex = 0; //先随便初始化一下
     NSString * tempIndexStr;
@@ -3284,6 +3511,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+
     NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         

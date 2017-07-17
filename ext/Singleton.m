@@ -165,9 +165,18 @@
     if (sock.userData == SocketOfflineByServer) {
         // 服务器掉线，重连
         [self socketConnectHost];
+        NSLog(@"sorry the connect is 服务器断开");
+        
+        [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
+       
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
     }
     else if (sock.userData == SocketOfflineByUser) {
         // 如果由用户断开，不进行重连
+        NSLog(@"sorry the connect is 用户断开");
         return;
     }
     
@@ -309,6 +318,10 @@
                                 case 16:  //此处是停止视频播放
                                 {
                                     NSLog(@"*****停止视频播放");
+                                    
+                                    [self readSocketCommandTypeISSixteen];
+                                    
+                                    
                                 }
                                     break;
                                 case 8:  //CA 加扰
@@ -454,6 +467,8 @@
                     case 16:  //此处是停止视频播放
                     {
                         NSLog(@"*****停止视频播放");
+                        
+                        [self readSocketCommandTypeISSixteen];
                     }
                         break;
                     case 8:  //CA 加扰
@@ -594,6 +609,8 @@
                                 case 16:  //此处是停止视频播放
                                 {
                                     NSLog(@"*****停止视频播放");
+                                    
+                                    [self readSocketCommandTypeISSixteen];
                                 }
                                     break;
                                 case 8:  //CA 加扰
@@ -715,6 +732,8 @@
                     case 16:  //此处是停止视频播放
                     {
                         NSLog(@"*****停止视频播放");
+                        
+                        [self readSocketCommandTypeISSixteen];
                     }
                         break;
                     case 8:  //CA 加扰
@@ -925,5 +944,18 @@
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     NSLog(@"*****机顶盒改变节目的加锁状态");
+}
+
+//对socket读取文件进行操作   case = 16
+-(void)readSocketCommandTypeISSixteen  //停止视频分发
+{
+    //盒子主动停掉后，需要注意页面跳转会造成视频重新播放从而激活。所以如果视频播放了，我们要禁止跳转界面重新播放
+    //发送通知方法，把视频播放停止掉后，禁止加载圈，显示断开分发的提示语
+    [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
+    
+    //case 19 返回OK
+    
+
+   
 }
 @end

@@ -171,6 +171,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     firstOpenAPP = 0;
     IPString = @"";
     playState = NO;
+    
+    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+    
     [self initData];    //table表
     self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
@@ -1567,6 +1571,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+
     
     tempBoolForServiceArr = YES;
     tempArrForServiceArr =  self.categoryModel.service_indexArr;
@@ -1817,9 +1824,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     ////        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
     ////        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
     //        //此处给禁止了
-    //        playNumCount = 1;
-    //        timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
-    //        NSLog(@"timerState:11 %@",timerState);
+//            playNumCount = 1;
+//            timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+    
+    //如果视频20秒内不播放，则显示sorry的提示文字
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
+    NSLog(@"开始==计时===");
+            NSLog(@"timerState:11 %@",timerState);
     //    }
     
     
@@ -1936,7 +1948,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        [self playVideo];
 //    });
 //}
-#pragma 进度条刷新
+#pragma mark --进度条刷新
 -(void)progressRefresh
 {
     NSLog(@" 进入了一次progressRefresh  replaceEventNameNotific ");
@@ -2095,7 +2107,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
     }
 }
--(void)removeLineProgressNotific//进度条的时间不对，发送消除的通知
+#pragma mark -//进度条的时间不对，发送消除的通知
+-(void)removeLineProgressNotific
 {
     //    此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeProgressNotific" object:nil];
@@ -2103,6 +2116,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeProgressNotific) name:@"removeProgressNotific" object:nil];
     
 }
+//进度条的时间不对，发送消除的通知
 -(void)removeProgressNotific
 {
     //    [self.topProgressView removeFromSuperview];
@@ -2559,6 +2573,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //
 //
 //}
+#pragma  mark -视频分发返回来的RET区的结果
 -(void)getLinkData : (int )val
 {
     NSLog(@"val :%d",val);
@@ -2571,10 +2586,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"CRC 错误");
         
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else if(val == 2)
     {
@@ -2588,22 +2603,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"播放错误"); //可能没插信号线
         
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else if(val == 5)
     {
-        NSLog(@"密码正确");
+        NSLog(@"机顶盒加密或者CA密码正确");
     }
     else if(val == 6)
     {
-        NSLog(@"密码错误");
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        NSLog(@"机顶盒加密或者CA密码错误");
     }
     else if(val == 7)
     {
@@ -2613,23 +2624,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     else if(val == 8)
     {
         NSLog(@"得到资源错误");
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
     }
     else if(val == 9)
     {
         NSLog(@"服务器停止分发");
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
         
     }
     else if(val == 10)
     {
         NSLog(@"无效");
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
 }
 
@@ -2798,7 +2810,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
-        [USER_DEFAULT setObject:@"sorry, this radio can't play" forKey:@"videoOrRadioTip"];
+        [USER_DEFAULT setObject:radioCantPlayTip forKey:@"videoOrRadioTip"];
         
     }else { //视频是1  音频是4
         NSLog(@"此时播放的是视频");
@@ -2810,7 +2822,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
         [USER_DEFAULT setObject:@"video" forKey:@"videoOrRadioPlay"];
-        [USER_DEFAULT setObject:@"sorry, this video can't play" forKey:@"videoOrRadioTip"];
+        [USER_DEFAULT setObject:videoCantPlayTip forKey:@"videoOrRadioTip"];
     }
 }
 //引导页
@@ -2921,7 +2933,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self CADencryptNotific];   //机顶盒加密的通知
         [self STBDencryptVideoTouchNotific];   //机顶盒加密后的播放通知
         [self ChangeSTBLockNotific];   //机顶盒加密后的播放通知
-        //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
+//        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = image;
@@ -2952,128 +2964,151 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"目前是sliderview:%f",_slideView.frame.origin.y);
 }
-#pragma mark -//如果是从其他的页面条转过来的，则自动播放上一个视频
+#pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
-    NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
-    if([jumpFormOtherView isEqualToString:@"YES"])
-    {
-        NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
-        NSLog(@"挖从奥到底dic come on");
-        if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
-            
-            NSInteger row = [storeLastChannelArr[2] integerValue];
-            NSDictionary * dic = storeLastChannelArr [3];
-            //在这里添加判断 机顶盒是否加密
-            
-            //在这里添加判断 机顶盒是否加密
-            //=======机顶盒加密
-            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
-            if (characterStr != NULL && characterStr != nil) {
-                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                if (judgeIsSTBDecrypt == YES) {
-                    // 此处代表需要记性机顶盒加密验证
-                    NSNumber  *numIndex = [NSNumber numberWithInteger:row];
-                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                    //创建通知
-                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                    NSLog(@"POPPOPPOPPOP44444444444441");
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    
-                    firstOpenAPP = firstOpenAPP+1;
-                    
-                    firstfirst = NO;
-                }else //正常播放的步骤
-                {
-                    //======
-                    [self firstOpenAppAutoPlay:row diction:dic];
-                    firstOpenAPP = firstOpenAPP+1;
-                    
-                    firstfirst = NO;
-                }
-            }else //正常播放的步骤
-            {
-                //======机顶盒加密
-                [self firstOpenAppAutoPlay:row diction:dic];
-            }
-            
-            
-            
-            
-            
-            ///////
-//            NSLog(@"挖从奥到底dic 00 %@",dic);
-//            NSNumber * numIndex = [NSNumber numberWithInt:row];
-//            
-//            //添加 字典，将label的值通过key值设置传递
-//            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-//            //创建通知
-//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//            NSLog(@"目前是judgeJumpFromOtherView");
-            
-            //        [self.videoController play];
-            
-            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
-        }else
-        {
-            NSArray * touchArr = historyArr[historyArr.count - 1];
-            
-            NSInteger row = [storeLastChannelArr[2] integerValue];
-            NSDictionary * dic = storeLastChannelArr [3];
-            //在这里添加判断 机顶盒是否加密
-            //=======机顶盒加密
-            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
-            if (characterStr != NULL && characterStr != nil) {
-                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                if (judgeIsSTBDecrypt == YES) {
-                    // 此处代表需要记性机顶盒加密验证
-                    NSNumber  *numIndex = [NSNumber numberWithInteger:row];
-                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                    //创建通知
-                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                    NSLog(@"POPPOPPOPPOP44444444444441");
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    
-                    firstOpenAPP = firstOpenAPP+1;
-                    
-                    firstfirst = NO;
-                }else //正常播放的步骤
-                {
-                    //======
-                    [self firstOpenAppAutoPlay:row diction:dic];
-                    firstOpenAPP = firstOpenAPP+1;
-                    
-                    firstfirst = NO;
-                }
-            }else //正常播放的步骤
-            {
-                //======机顶盒加密
-                [self firstOpenAppAutoPlay:row diction:dic];
-            }
-                
-            //////
-//            NSLog(@"挖从奥到底dic 11 %@",dic);
-//            NSNumber * numIndex = [NSNumber numberWithInt:row];
-//            
-//            //添加 字典，将label的值通过key值设置传递
-//            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-//            //创建通知
-//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//            NSLog(@"目前是judgeJumpFromOtherView");
-            
-            //        [self.videoController play];
-            
-            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
-        }
-        
-    }
+    NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
     
+    if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
+        //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
+        [self stopVideoPlay]; //停止视频播放
+        
+//        //取消掉加载环
+//        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+//        //        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+//        NSString * playStateType = deliveryStopTip;
+        [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
+//        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+        
+        
+    }else //视频没有停止分发，跳转界面可以播放
+    {
+        NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
+        if([jumpFormOtherView isEqualToString:@"YES"])
+        {
+            NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+            NSLog(@"挖从奥到底dic come on");
+            if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
+                
+                NSInteger row = [storeLastChannelArr[2] integerValue];
+                NSDictionary * dic = storeLastChannelArr [3];
+                //在这里添加判断 机顶盒是否加密
+                
+                //在这里添加判断 机顶盒是否加密
+                //=======机顶盒加密
+                NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                if (characterStr != NULL && characterStr != nil) {
+                    BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                    if (judgeIsSTBDecrypt == YES) {
+                        // 此处代表需要记性机顶盒加密验证
+                        NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                        NSLog(@"POPPOPPOPPOP44444444444441");
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }else //正常播放的步骤
+                    {
+                        //======
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }
+                }else //正常播放的步骤
+                {
+                    //======机顶盒加密
+                    [self firstOpenAppAutoPlay:row diction:dic];
+                }
+                
+                
+                
+                
+                
+                ///////
+                //            NSLog(@"挖从奥到底dic 00 %@",dic);
+                //            NSNumber * numIndex = [NSNumber numberWithInt:row];
+                //
+                //            //添加 字典，将label的值通过key值设置传递
+                //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+                //            //创建通知
+                //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //            //通过通知中心发送通知
+                //            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                //            NSLog(@"目前是judgeJumpFromOtherView");
+                
+                //        [self.videoController play];
+                
+                [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+            }else
+            {
+                NSArray * touchArr = historyArr[historyArr.count - 1];
+                
+                NSInteger row = [storeLastChannelArr[2] integerValue];
+                NSDictionary * dic = storeLastChannelArr [3];
+                //在这里添加判断 机顶盒是否加密
+                //=======机顶盒加密
+                NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                if (characterStr != NULL && characterStr != nil) {
+                    BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                    if (judgeIsSTBDecrypt == YES) {
+                        // 此处代表需要记性机顶盒加密验证
+                        NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                        NSLog(@"POPPOPPOPPOP44444444444441");
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }else //正常播放的步骤
+                    {
+                        //======
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }
+                }else //正常播放的步骤
+                {
+                    //======机顶盒加密
+                    [self firstOpenAppAutoPlay:row diction:dic];
+                }
+                
+                //////
+                //            NSLog(@"挖从奥到底dic 11 %@",dic);
+                //            NSNumber * numIndex = [NSNumber numberWithInt:row];
+                //
+                //            //添加 字典，将label的值通过key值设置传递
+                //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+                //            //创建通知
+                //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //            //通过通知中心发送通知
+                //            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                //            NSLog(@"目前是judgeJumpFromOtherView");
+                
+                //        [self.videoController play];
+                
+                [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+            }
+            
+        }
+    }
     
     
 }
@@ -3722,10 +3757,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //{
 //    [timerState invalidate];
 //    timerState = nil;
+//    playNumCount = 0;
 //    NSLog(@"右侧列表asdboasbdiasbidbasidbiasbdiasbdiasbdiuas");
 //}
-//-(void)playClick  //:(NSTimer *)timer
-//{
+#pragma mark - 如果视频20秒内不播放，则显示这个文字提示
+//如果视频20秒内不播放，则显示这个文字提示
+-(void)playClick  //:(NSTimer *)timer
+{
+    NSLog(@"结束==计时===不能播放");
+    //①取消掉加载环  ②显示不能播放的文字
+//    NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+//    //        //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    
+    [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+//    NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
 //    //     NSDictionary * dic =  [timer userInfo];
 //    //    NSNumber *
 //    playNumCount ++;
@@ -3785,15 +3836,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //            //            NSLog(@"右侧列表消失 playClick2 %ld",(long)playNumCount);
 //        }
 //    }
-//    
-//    
-//}
+    
+    
+}
+#pragma mark - 将要播放的通知
 -(void)willplay
 {
-    //创建通知  如果视频要播放呀，则去掉不能播放的字样
-    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"结束==计时===已经播放");
+    //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
+    [self removeTipLabAndPerformSelector];
+
     NSLog(@"playState44444现在正在准备播放，TV 页面willplay");
     playState = YES;
     [timerState invalidate];
@@ -4908,6 +4960,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)popSTBAlertView: (NSNotification *)text
 {
+    //取消掉提示文字和延迟方法
+    [self removeTipLabAndPerformSelector];
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     //保存三个有用的信息
     STBTouch_Row = [text.userInfo[@"textOne"]integerValue];
@@ -6647,5 +6705,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"searchViewCon.response == %@",searchViewCon.response);
 }
-
+//#pragma mark - 凡是播放事件，都会响应这个方法 , 每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+//-(void)beforeVideoPlayEvent
+//{
+////每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+//    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+//}
+#pragma mark - 播放过程中，或者点击了加锁的按钮。此时停止掉显示不能播放文字,并且取消掉延迟方法
+-(void)removeTipLabAndPerformSelector
+{
+    //弹窗之后，取消显示sorry不能播放的字样，并且取消不能播放的提示文字
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    
+    //创建通知  如果视频要播放呀，则去掉不能播放的字样
+    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+}
 @end
