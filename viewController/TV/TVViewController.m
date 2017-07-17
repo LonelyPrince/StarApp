@@ -2662,6 +2662,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     //
     
+    //如果视频25秒内不播放，则显示sorry的提示文字
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
+    NSLog(@"开始==计时===");
     
     // 1.获得点击的视频dictionary数据
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
