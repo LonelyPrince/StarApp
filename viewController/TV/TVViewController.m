@@ -3662,6 +3662,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.video.playUrl = @"";
     //    [self playVideo];
     [self.videoController.player stop];
+    [self.videoController.player shutdown];
+    [self.videoController.player.view removeFromSuperview];
     
 }
 -(void)viewWillDisappear:(BOOL)animated
@@ -5629,7 +5631,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    [request startAsynchronous];
+    [request startAsynchronous];   //异步
     
     WEAKGET
     [request setCompletionBlock:^{
@@ -5660,6 +5662,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
+        
+        NSLog(@"before self.categorys %@",self.categorys);
+        self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+        NSLog(@"last   self.categorys %@",self.categorys);
+        
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         
@@ -5676,8 +5683,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //
         NSLog(@"self.tableForDicIndexArr.count :%lu",(unsigned long)self.tableForDicIndexArr.count);
+        NSLog(@"self.tableForDicIndexArr :%@",self.tableForDicIndexArr);
         for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
             
+            ////////==================
             
             id idTemp = self.tableForDicIndexArr[i][1];
             NSNumber * numTemp = self.self.tableForDicIndexArr[i][0];
@@ -5692,7 +5701,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     UIAlertView *  abcalert = STBAlert = [[UIAlertView alloc] initWithTitle:@"此时要崩溃，看输出信息22" message:@"bbbb" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
                     [abcalert show];
                 }
-                
+                NSLog(@" index i %d",index);
+                NSLog(@" self.categorys.count %d",self.categorys.count);
                 NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
                 self.categoryModel = [[CategoryModel alloc]init];
                 
@@ -5707,6 +5717,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     int indexCat ;
                     //   NSString * str;
+                    NSLog(@"self.categoryModel.service_indexArr %@",self.categoryModel.service_indexArr);
+                    NSLog(@" service_indexArr i %d",i);
+                    NSLog(@" self.categoryModel.service_indexArr.count %lu",(unsigned long)self.categoryModel.service_indexArr.count);
                     indexCat =[self.categoryModel.service_indexArr[i] intValue];
                     //cell.tabledataDic = self.serviceData[indexCat -1];
                     
@@ -5724,14 +5737,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                          UIAlertView *  abcalert = STBAlert = [[UIAlertView alloc] initWithTitle:@"此时要崩溃，看输出信息22" message:@"bbbb" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
                             [abcalert show];
                         }
-                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        NSLog(@" indexCat -1 %d",indexCat -1);
+                        NSLog(@" self.serviceData.count %lu",(unsigned long)self.serviceData.count);
+                        
+                        if (indexCat -1 < self.serviceData.count) {
+                            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        }else
+                        {
+                            NSLog(@"不能再往里面添加了，再添加会报错");
+                        }
+                        
                     }
                     
                     
                 }
                 
                 
-                
+      ////////==================
                 
                 
             }
