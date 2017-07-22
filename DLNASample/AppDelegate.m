@@ -75,6 +75,19 @@
 //    [USER_DEFAULT setObject:@"aa"  forKey:@"G_deviceStr"];   //这个可以删除，此处是做测试，默认的先让IP为aa
     
     openfirst = 1;
+    
+    /*********************************************************************/
+    //当真机连接Mac调试的时候把这些注释掉，否则log只会输入到文件中，而不能从xcode的监视器中看到。
+    // 如果是真机就保存到Document目录下的dr.log文件中
+//    UIDevice *device = [UIDevice currentDevice];
+//    if (![[device model]isEqualToString:@"iPad Simulator"]) {
+        // 开始保存日志文件
+//        [self redirectNSlogToDocumentFolder];
+//    }
+    /*********************************************************************/
+    
+    [USER_DEFAULT setObject:@"NO" forKey:@"滑动了或者点击了"];     //暂时没用，有用了在删除这个注释
+    [USER_DEFAULT setObject:@"0" forKey:@"YLSlideTitleViewButtonTagIndexStr"];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -99,6 +112,21 @@ void UncaughtExceptionHandler(NSException *exception) {
         // 打开地址
         NSString *mailPath = [mailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailPath]];
+}
+#pragma mark 输入日志
+- (void)redirectNSlogToDocumentFolder
+{
+    NSArray *paths =NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+    NSString *documentDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"dr.log"];//注意不是NSData!
+    NSString *logFilePath = [documentDirectory stringByAppendingPathComponent:fileName];
+    //先删除已经存在的文件
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    [defaultManager removeItemAtPath:logFilePath error:nil];
+    
+    // 将log输入到文件
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+", stdout);
+    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding],"a+", stderr);
 }
 + (AppDelegate *)shareAppDelegate
 {
