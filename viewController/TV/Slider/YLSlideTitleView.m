@@ -142,6 +142,16 @@ NSMutableArray    *_titles;
 
     NSUInteger currentPage   = offsetx/SCREEN_WIDTH_YLSLIDE;
     
+    NSLog(@"currentPage === %d",currentPage);
+    
+    int YLSlideTitleViewButtonTagIndex = currentPage ;
+    
+    NSString *  YLSlideTitleViewButtonTagIndexStr = [NSString stringWithFormat:@"%d",YLSlideTitleViewButtonTagIndex];
+    
+    [USER_DEFAULT setObject:YLSlideTitleViewButtonTagIndexStr forKey:@"YLSlideTitleViewButtonTagIndexStr"];
+    
+    
+    
 //    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH];
     
     if (_previousPage != currentPage) {
@@ -201,6 +211,15 @@ NSMutableArray    *_titles;
 //按钮点击
 - (void)buttonEvents:(UIButton*)button{
 
+    NSLog(@" currentPage === %d",(button.tag - YLSlideTitleViewButtonTag) );
+    
+    int YLSlideTitleViewButtonTagIndex = button.tag - YLSlideTitleViewButtonTag;
+    
+    NSString *  YLSlideTitleViewButtonTagIndexStr = [NSString stringWithFormat:@"%d",YLSlideTitleViewButtonTagIndex];
+    
+    [USER_DEFAULT setObject:YLSlideTitleViewButtonTagIndexStr forKey:@"YLSlideTitleViewButtonTagIndexStr"];
+   
+    
     self.isClickTitleButton = YES;
     
     if (_slideTitleViewClickButtonBlock) {

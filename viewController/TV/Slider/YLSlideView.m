@@ -450,6 +450,8 @@
 }
 -(void)setTriangleFrame : (NSNotification *)text
 {
+    NSLog(@"===---===---===---===---");
+    [USER_DEFAULT setObject:@"YES" forKey:@"滑动了或者点击了"];
     float currentBtnX = [text.userInfo[@"currentBtnX"]floatValue];
     
     

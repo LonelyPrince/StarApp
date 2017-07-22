@@ -81,7 +81,7 @@
     }
     
     [self loadBarRightItem];
-    isAllSelected = NO;
+    isAllSelected = NO;  //此时“All” 按钮是NO，证明没有选中全部
     [self initData];
     
 }
@@ -123,6 +123,7 @@
     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 
+#pragma mark -- 加载右上角的barItem，barItem的图片是一张“垃圾桶”的形状
 -(void)loadBarRightItem
 {
     delegateBtn = YES;
@@ -131,9 +132,11 @@
     
     self.navigationItem.rightBarButtonItem = myButton;
 }
+#pragma mark - 点击“垃圾桶”按钮，进入删除全部的模式
 -(void)deleteAllBtn
 {
-    [self loadAllDeleteBtn];
+    isAllSelected = NO; // “All” 按钮取消选中状态
+    [self loadAllDeleteBtn];  //添加左上角“ALL”按钮
     if (delegateBtn == YES) {
         delegateBtn = NO;
         [self.tableView setEditing:YES animated:YES];
@@ -146,13 +149,16 @@
     }
     if(historyArr.count == 0 || historyArr == NULL)
     {
-        [self deleteBtnCancelAndNOHistory];
+        [self deleteBtnCancelAndNOHistory];  //如果历史被删除完全了,显示无历史图片
     }
     
     NSLog(@"删除所有");
 }
+#pragma  mark -- 右上角 “cancel” 按钮点击事件
 -(void)deleteBtnCancel
 {
+       isAllSelected = NO; // “All” 按钮取消选中状态
+    
     [self loadAllDeleteBtn];
     delegateBtn = YES;
     [self.tableView setEditing:NO animated:YES];
@@ -165,6 +171,7 @@
     NSLog(@"取消删除");
     [selectedArray removeAllObjects]; //删除完或者取消删除之后
 }
+#pragma mark - 如果历史被删除完全了
 -(void)deleteBtnCancelAndNOHistory
 {
     [self loadAllDeleteBtn];
@@ -182,6 +189,7 @@
     [selectedArray removeAllObjects]; //删除完或者取消删除之后
     
 }
+#pragma mark - 添加左上角“ALL”按钮
 /**
  *左侧删除的all按钮
  */
@@ -198,7 +206,7 @@
         self.tabBarController.tabBar.hidden  = YES;
         
         
-        [self loadRedDelegate];
+        [self loadRedDelete];
         
         
         
@@ -217,7 +225,8 @@
     }
     
 }
--(void)loadRedDelegate
+#pragma  mark - 加载底部红色删除按钮
+-(void)loadRedDelete
 {
     
     redDeleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -230,103 +239,10 @@
 }
 #pragma mark --红色的删除按钮点击删除
 -(void)deleteSeletions
-//{
-//    if (selectedArray == 0) {
-//
-//    }
-//    else{
-//        //此处多选删除选中的
-//        [self.tableView reloadData];
-//        [tableView beginUpdates];
-//
-//
-//
-//        //刷新
-//        [tableView deleteRowsAtIndexPaths:selectedArray withRowAnimation:UITableViewRowAnimationFade];
-//
-//
-//        for (int i = 0; i< selectedArray.count; i++) {
-//            NSIndexPath * indexpath1 = selectedArray[i];
-//            if(indexpath1.section == 0)
-//            {
-//                if (todayNum > 0) {   //如果今天的数量大于0
-//                    todayNum = todayNum-1;
-//                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
-//                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
-//
-//                    //                    NSArray * abcd =[USER_DEFAULT objectForKey:@"historySeed"];
-//                    //                    NSLog(@"historyArr33 %@",historyArr);
-//                    if(todayNum == 0)
-//                    {
-//                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
-//                    }
-//
-//
-//                }
-//                else   //只有早期的历史，没有今天的历史
-//                {
-//
-//                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
-//                    earilyNum = earilyNum-1;
-//                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
-//
-//
-//                    if(earilyNum == 0)
-//                    {
-//                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
-//                    }
-//
-//                }
-//
-//
-//
-//            }
-//            else //section =1
-//            {
-//
-//                [historyArr removeObjectAtIndex:earilyNum  - indexpath1.row -1+i];
-//                earilyNum = earilyNum -1;
-//                [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
-//
-//                if(earilyNum == 0)
-//                {
-//                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
-//                }
-//            }
-//
-//            //        if (historyArr.count == 0)
-//            //
-//            //        {
-//            //
-//            //            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
-//            ////                       deleteSections:[NSIndexSet
-//            ////                                       indexSetWithIndex:indexPath.section]
-//            ////                     withRowAnimation:UITableViewRowAnimationLeft];
-//            //
-//            //        }
-//
-//        }
-//
-//
-//        [tableView endUpdates];
-//        [tableView reloadData];
-//
-//        [selectedArray removeAllObjects]; //删除完之后
-//
-//
-//
-//    }
-//
-//    //获得删除的数量
-//
-//    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL"] forState:UIControlStateNormal];
-//
-//    if(historyArr.count == 0 || historyArr == NULL)
-//    {
-//        [self deleteBtnCancelAndNOHistory];
-//    }
-//}
 {//selectedArray 被选中的数组
+    
+    isAllSelected = NO; // “All” 按钮取消选中状态
+    
     int eairlyNameByReduce = 0;            //早期历史
     int todayNameByReduce = 0;          //今天的历史
     int eairlyNameByReduceForOnly = 0;   //只有早期历史
@@ -462,6 +378,8 @@
         [self deleteBtnCancelAndNOHistory];
     }
 }
+
+#pragma mark - “ALL”按钮点击
 /**
  *左侧删除的all 按钮全选事件
  */
@@ -477,37 +395,78 @@
                 if (i< todayNum) {
                     
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                     
-                    //添加到删除数组
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-                    [selectedArray addObject:path];
+                    
+                    if ([self.tableView numberOfRowsInSection:0] > i ) {
+                       
+                        [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                        
+                        //添加到删除数组
+                        NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                        [selectedArray addObject:path];
+
+                    }else
+                    {
+                        NSLog(@" 1 越界了，会报错 %ld %d",(long)[self.tableView numberOfRowsInSection:0],i);
+                    }
+                    
+                    
                     
                 }
                 else
                 {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
-                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+//                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                     
-                    //添加到删除数组
-                    NSIndexPath *path = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
-                    [selectedArray addObject:path];
+                    if ([self.tableView numberOfRowsInSection:1] > i - todayNum ) {
+                        
+                         [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                        
+                        //添加到删除数组
+                        NSIndexPath *path = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
+                        [selectedArray addObject:path];
+                    }else
+                    {
+                        NSLog(@" 2 越界了，会报错 %ld %d todayNUm :%d",(long)[self.tableView numberOfRowsInSection:1], i , todayNum);
+                    }
+                    
+                   
                 }
                 
                 
                 
             }else if (todayNum==0&&earilyNum>0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+//                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
-                //添加到删除数组
-                [selectedArray addObject:indexPath];
+                if ([self.tableView numberOfRowsInSection:0] > i  ) {
+                    
+                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    
+                    //添加到删除数组
+                    [selectedArray addObject:indexPath];
+                }else
+                {
+                    NSLog(@" 3 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
+                }
+                
+                
             }else if (todayNum>0&&earilyNum==0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+//                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
-                //添加到删除数组
-                [selectedArray addObject:indexPath];
+                if ([self.tableView numberOfRowsInSection:0] > i  ) {
+                    
+                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    
+                    //添加到删除数组
+                    [selectedArray addObject:indexPath];
+                }else
+                {
+                    NSLog(@" 4 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
+                }
+                
+               
             }
             else if (todayNum==0&&earilyNum==0) {
                 [self.view addSubview:noDataSourceView];
@@ -527,34 +486,72 @@
                 if (i< todayNum) {
                     
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     
-                    //添加到删除数组
-                    [selectedArray removeObject:indexPath];
+                    if ([self.tableView numberOfRowsInSection:0] > i  ) {
+                        
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        
+                        //添加到删除数组
+                        [selectedArray removeObject:indexPath];
+                    }else
+                    {
+                        NSLog(@" 5 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
+                    }
+                    
+                    
                 }
                 else
                 {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
-                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    if ([self.tableView numberOfRowsInSection:1] > i - todayNum  ) {
+                        
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                        
+                        //添加到删除数组
+                        [selectedArray removeObject:indexPath];
+                    }else
+                    {
+                        NSLog(@" 6 越界了，会报错 %ld %d today %d",(long)[self.tableView numberOfRowsInSection:1], i ,todayNum);
+                    }
                     
-                    //添加到删除数组
-                    [selectedArray removeObject:indexPath];
+                  
                 }
                 
                 
                 
             }else if (todayNum==0&&earilyNum>0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                if ([self.tableView numberOfRowsInSection:0] > i  ) {
+                    
+                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    
+                    //添加到删除数组
+                    [selectedArray removeObject:indexPath];
+                }else
+                {
+                    NSLog(@" 7 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
+                }
                 
-                //添加到删除数组
-                [selectedArray removeObject:indexPath];
+               
             }else if (todayNum>0&&earilyNum==0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                 
-                //添加到删除数组
-                [selectedArray removeObject:indexPath];
+                if ([self.tableView numberOfRowsInSection:0] > i  ) {
+                    
+                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    
+                    //添加到删除数组
+                    [selectedArray removeObject:indexPath];
+                }else
+                {
+                    NSLog(@" 8 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
+                }
+                
+              
             }
             else if (todayNum==0&&earilyNum==0) {
                 [self.view addSubview:noDataSourceView];

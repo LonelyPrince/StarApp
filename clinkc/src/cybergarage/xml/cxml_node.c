@@ -223,6 +223,7 @@ char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name)
 
 	cg_log_debug_l4("Entering...\n");
 
+    //////////可能会崩溃的地方
 	childNode = cg_xml_node_getchildnode(node, name);
 	if (childNode != NULL)
 		return cg_xml_node_getvalue(childNode);

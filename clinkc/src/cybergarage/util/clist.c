@@ -252,6 +252,7 @@ CgList *list)
 	if (NULL == list)
 		return NULL;
 
+    //////////可能会崩溃的地方
 	if (NULL == list->next)
 		return NULL;
 	
