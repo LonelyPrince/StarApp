@@ -246,6 +246,11 @@
     int eairlyNameByReduce = 0;            //早期历史
     int todayNameByReduce = 0;          //今天的历史
     int eairlyNameByReduceForOnly = 0;   //只有早期历史
+    
+    int lastTodayReduceIndex = 0;    //保存上一个删除的today节目row值
+    int lastEairlyReduceIndex = 0;    //保存上一个删除的eairly节目row值
+    
+    int lastByReduceNum = 0;        //截止到上一次一共删除了多少数据，因为如果上一次删除的数据在这次要删除的数据前面，那么每删除一次，indexpath.row 便会往前缩进一个
     if (selectedArray == 0) {
         
     }
@@ -261,9 +266,55 @@
         NSLog(@"tableView11 %@",tableView);
         NSLog(@"selectedArray22 %@",selectedArray);
         for (int i = 0; i< selectedArray.count; i++) {
+            
             NSIndexPath * indexpath1 = selectedArray[i];
+            
+            NSIndexPath * lastIndexpath;
+         
+            //存储上一个信息
             if(indexpath1.section == 0)
             {
+                if (i == 0) {
+                    //证明是第一个要删除的，保存下信息
+                    //                lastReduceIndex = indexpath1.row;
+                }
+                if (i  < selectedArray.count && i > 0) {
+                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
+                    lastTodayReduceIndex = lastIndexpath.row;
+                    
+                }else
+                {
+                    // 没有下一个,再就越界了
+                }
+            }
+            else
+            {
+                if (i == 0) {
+                    //证明是第一个要删除的，保存下信息
+                    //                lastReduceIndex = indexpath1.row;
+                }
+                if (i  < selectedArray.count && i > 0) {
+                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
+                    lastEairlyReduceIndex = lastIndexpath.row;
+                    
+                }else
+                {
+                    // 没有下一个,再就越界了
+                }
+            }
+   
+            
+            
+            
+            if(indexpath1.section == 0)
+            {
+                
+               
+                
+                
+                
+                
+                
                 if (todayNum > 0) {   //如果今天的数量大于0
                     todayNum = todayNum-1;
                     NSLog(@"historyArr.count3 %lu",(unsigned long)historyArr.count);
@@ -271,12 +322,43 @@
                     
                     //做倒序删除==
                     NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
-                    if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
-                        return;  //防止删除时数组数量不对称的bug
+                   
+                    
+                    if (i == 0) {
+                        [reversedArrayToday removeObjectAtIndex:indexpath1.row];
                     }else
                     {
-                        [reversedArrayToday removeObjectAtIndex:indexpath1.row - todayNameByReduce];
+                        
+                        if (lastTodayReduceIndex < indexpath1.row) {
+                            
+                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - lastByReduceNum - 1];
+                            
+                            lastByReduceNum = lastByReduceNum + 1 ;
+                        }else
+                        {
+                        
+//                            if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
+//                                [tableView endUpdates];
+//                                return;  //防止删除时数组数量不对称的bug
+//                            }else
+//                            {
+                                [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
+//                            }
+                        }
+                        
+                        
+                        
+                    
+                      
                     }
+                    
+                        
+                    
+                    
+                    
+                    
+                    
+                  
                     
                     //                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
                     [historyArr removeAllObjects];
@@ -291,7 +373,7 @@
                         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
                     }
                     
-                    todayNameByReduce = todayNameByReduce +1;
+//                    todayNameByReduce = todayNameByReduce +1;
                 }
                 else   //只有早期的历史，没有今天的历史
                 {
@@ -299,12 +381,47 @@
                     //                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
                     //做倒序删除==
                     NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
-                    if (reversedArrayToday.count < indexpath1.row - eairlyNameByReduceForOnly ) {
-                        return;  //防止删除时数组数量不对称的bug
+                    
+                    
+
+                    if (i == 0) {
+                        [reversedArrayToday removeObjectAtIndex:indexpath1.row];
                     }else
                     {
-                        [reversedArrayToday removeObjectAtIndex:indexpath1.row - eairlyNameByReduceForOnly];
+                        
+                        if (lastTodayReduceIndex < indexpath1.row) {
+                            
+                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - lastByReduceNum - 1];
+                            
+                            lastByReduceNum = lastByReduceNum + 1 ;
+                        }else
+                        {
+                            
+                            //                            if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
+                            //                                [tableView endUpdates];
+                            //                                return;  //防止删除时数组数量不对称的bug
+                            //                            }else
+                            //                            {
+                            [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
+                            //                            }
+                        }
+                        
+                        
+                        
+                        
+                        
                     }
+//                    if (reversedArrayToday.count < indexpath1.row - eairlyNameByReduceForOnly ) {
+//                        [tableView endUpdates];
+//                        return;  //防止删除时数组数量不对称的bug
+//                    }else
+//                    {
+//                        [reversedArrayToday removeObjectAtIndex:indexpath1.row - eairlyNameByReduceForOnly];
+//                    }
+                    
+                    
+                    
+                    
                     [historyArr removeAllObjects];
                     historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
                     //做倒序删除==
@@ -325,25 +442,103 @@
             }
             else //section =1
             {
-                NSLog(@"earilyNum %d",earilyNum);
-                NSLog(@"indexpath1.row %d",indexpath1.row);
-                NSInteger removeNum = earilyNum  - indexpath1.row -1 + eairlyNameByReduce;
-                NSLog(@"removeNum %d",removeNum);
-                NSLog(@"historyArr.count2 %d",historyArr.count);
-                if (historyArr.count < removeNum ) {
-                    return;  //防止删除时数组数量不对称的bug
-                }else
-                {
-                    [historyArr removeObjectAtIndex:removeNum];
-                }
-                earilyNum = earilyNum -1;
-                [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                //与上面方法类似，首先单独提取出来一个eaily
+                NSMutableArray * eairlyHistoryArr = [[historyArr subarrayWithRange:NSMakeRange(0, earilyNum)] mutableCopy];
                 
-                if(earilyNum == 0)
-                {
-                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
+                
+                
+                
+                
+                
+                if (earilyNum > 0) {   //如果今天的数量大于0
+                    earilyNum = earilyNum-1;
+                    NSLog(@"historyArr.count3 %lu",(unsigned long)eairlyHistoryArr.count);
+                    NSLog(@"indexpath1.row %ld",(long)indexpath1.row);
+                    
+                    //做倒序删除==
+                    NSMutableArray* reversedArrayEairly = [[eairlyHistoryArr reverseObjectEnumerator] allObjects];
+                    
+                    
+                    if (i == 0) {
+                        [reversedArrayEairly removeObjectAtIndex:indexpath1.row];
+                    }else
+                    {
+                        
+                        if (lastEairlyReduceIndex < indexpath1.row) { //需要注意修改
+                            
+                            [reversedArrayEairly removeObjectAtIndex:indexpath1.row - lastByReduceNum - 1];
+                            
+                            lastByReduceNum = lastByReduceNum + 1 ;
+                        }else
+                        {
+                            
+                            //                            if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
+                            //                                [tableView endUpdates];
+                            //                                return;  //防止删除时数组数量不对称的bug
+                            //                            }else
+                            //                            {
+                            [reversedArrayEairly removeObjectAtIndex:indexpath1.row ];
+                            //                            }
+                        }
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    //                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
+                    [eairlyHistoryArr removeAllObjects];
+                    eairlyHistoryArr = [[reversedArrayEairly reverseObjectEnumerator] allObjects]; //先删除，再赋值
+                    
+                    
+                    [historyArr replaceObjectsInRange:NSMakeRange(0,earilyNum + 1 ) withObjectsFromArray:[eairlyHistoryArr copy]];
+                    
+                    
+                    //做倒序删除==
+                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                    
+                    
+                    if(earilyNum == 0)
+                    {
+                        [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
+                    }
+                    
+                    //                    todayNameByReduce = todayNameByReduce +1;
                 }
-                eairlyNameByReduce = eairlyNameByReduce +1;
+                
+                
+                
+                
+                
+//                NSLog(@"earilyNum %d",earilyNum);
+//                NSLog(@"indexpath1.row %d",indexpath1.row);
+//                NSInteger removeNum = earilyNum  - indexpath1.row -1 + eairlyNameByReduce;
+//                NSLog(@"removeNum %d",removeNum);
+//                NSLog(@"historyArr.count2 %d",historyArr.count);
+//                if (historyArr.count < removeNum ) {
+//                    [tableView endUpdates];
+//                    return;  //防止删除时数组数量不对称的bug
+//                }else
+//                {
+//                    [historyArr removeObjectAtIndex:removeNum];
+//                }
+//                earilyNum = earilyNum -1;
+//                [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+//                
+//                if(earilyNum == 0)
+//                {
+//                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
+//                }
+//                eairlyNameByReduce = eairlyNameByReduce +1;
             }
             
             //        if (historyArr.count == 0)
@@ -787,15 +982,18 @@
     
     
 }
+#pragma marl - 取消tableViewCell选中时触发的方法
 //取消选择cell
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
+    NSLog(@"didDeleteSelects %d",didDeleteSelects);
     [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
     
     if (tableView.editing) {  //编辑模式下选中
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
         [selectedArray removeObject:path];
+        NSLog(@"selectedArray.count %d",selectedArray.count);
     }
     
 }
