@@ -11,7 +11,7 @@
 //#define  separatorViewTag  10456
 
 //#define ONEDAY 86400
-#define ONEDAY    20//86400  //99999999 //81000
+#define ONEDAY    5//86400  //99999999 //81000
 @interface HistoryViewController ()
 {
     UIButton * editButton;
@@ -135,6 +135,7 @@
 #pragma mark - 点击“垃圾桶”按钮，进入删除全部的模式
 -(void)deleteAllBtn
 {
+//    [self testaaaa];
     isAllSelected = NO; // “All” 按钮取消选中状态
     [self loadAllDeleteBtn];  //添加左上角“ALL”按钮
     if (delegateBtn == YES) {
@@ -251,6 +252,10 @@
     int lastEairlyReduceIndex = 0;    //保存上一个删除的eairly节目row值
     
     int lastByReduceNum = 0;        //截止到上一次一共删除了多少数据，因为如果上一次删除的数据在这次要删除的数据前面，那么每删除一次，indexpath.row 便会往前缩进一个
+    int lastEairlyByReduceNum = 0;
+    
+    NSMutableArray * onlyHaveSectionOneArr = [[NSMutableArray alloc]init];
+    NSMutableArray * HaveSectionOneAndTwoArr = [[NSMutableArray alloc]init];
     if (selectedArray == 0) {
         
     }
@@ -274,6 +279,8 @@
             //存储上一个信息
             if(indexpath1.section == 0)
             {
+                NSNumber * tempNumber = [NSNumber numberWithInteger:indexpath1.row];
+                [onlyHaveSectionOneArr addObject:tempNumber];
                 if (i == 0) {
                     //证明是第一个要删除的，保存下信息
                     //                lastReduceIndex = indexpath1.row;
@@ -289,18 +296,20 @@
             }
             else
             {
-                if (i == 0) {
-                    //证明是第一个要删除的，保存下信息
-                    //                lastReduceIndex = indexpath1.row;
-                }
-                if (i  < selectedArray.count && i > 0) {
-                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
-                    lastEairlyReduceIndex = lastIndexpath.row;
-                    
-                }else
-                {
-                    // 没有下一个,再就越界了
-                }
+                NSNumber * tempNumber = [NSNumber numberWithInteger:indexpath1.row];
+                [HaveSectionOneAndTwoArr addObject:tempNumber];
+//                if (indexpath1.row == 0) {
+//                    //证明是第一个要删除的，保存下信息
+//                    //                lastReduceIndex = indexpath1.row;
+//                }
+//                if (indexpath1.row  < selectedArray.count && indexpath1.row > 0) {
+////                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
+////                    lastEairlyReduceIndex = lastIndexpath.row;
+//                    
+//                }else
+//                {
+//                    // 没有下一个,再就越界了
+//                }
             }
    
             
@@ -329,9 +338,12 @@
                     }else
                     {
                         
-                        if (lastTodayReduceIndex < indexpath1.row) {
+                        int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:onlyHaveSectionOneArr NowIndexPath:indexpath1];
+                        if (numsBiggerThanNowIndex) {
                             
-                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - lastByReduceNum - 1];
+                            NSLog(@"吱吱吱3 ： %ld",(long)indexpath1.row - lastByReduceNum - 1);
+                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
+                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex];
                             
                             lastByReduceNum = lastByReduceNum + 1 ;
                         }else
@@ -388,10 +400,12 @@
                         [reversedArrayToday removeObjectAtIndex:indexpath1.row];
                     }else
                     {
-                        
-                        if (lastTodayReduceIndex < indexpath1.row) {
+                        int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:onlyHaveSectionOneArr NowIndexPath:indexpath1];
+                        if (numsBiggerThanNowIndex) {
                             
-                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - lastByReduceNum - 1];
+                            NSLog(@"吱吱吱2 ： %ld",(long)indexpath1.row - lastByReduceNum - 1);
+                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
+                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex ];
                             
                             lastByReduceNum = lastByReduceNum + 1 ;
                         }else
@@ -459,16 +473,19 @@
                     NSMutableArray* reversedArrayEairly = [[eairlyHistoryArr reverseObjectEnumerator] allObjects];
                     
                     
-                    if (i == 0) {
+                    if (indexpath1.row == 0) {
                         [reversedArrayEairly removeObjectAtIndex:indexpath1.row];
                     }else
                     {
                         
-                        if (lastEairlyReduceIndex < indexpath1.row) { //需要注意修改
+                        int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:HaveSectionOneAndTwoArr NowIndexPath:indexpath1];
+                        if (numsBiggerThanNowIndex) { //需要注意修改
                             
-                            [reversedArrayEairly removeObjectAtIndex:indexpath1.row - lastByReduceNum - 1];
+                            NSLog(@"吱吱吱1 ： %ld",(long)indexpath1.row - lastEairlyByReduceNum - 1);
+                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
+                            [reversedArrayEairly removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex ];
                             
-                            lastByReduceNum = lastByReduceNum + 1 ;
+                            lastEairlyByReduceNum = lastEairlyByReduceNum + 1 ;
                         }else
                         {
                             
@@ -559,7 +576,8 @@
         [tableView reloadData];
         
         [selectedArray removeAllObjects]; //删除完之后
-        
+        [onlyHaveSectionOneArr  removeAllObjects];
+        [HaveSectionOneAndTwoArr removeAllObjects];
         
         
     }
@@ -1185,5 +1203,355 @@
     
 }
 
-
+//计算算法，看正在删除的这个前面有几个比他小的
+-(int)calculateNumsBiggerThanNowRow :(NSMutableArray *)selectArr NowIndexPath :(NSIndexPath *) nowIndexPath
+{
+    NSNumber * tempNumber = [NSNumber numberWithInteger:nowIndexPath.row];
+//    [selectArr addObject:tempNumber];
+    
+   NSArray *sortedNumbers = [selectArr sortedArrayUsingSelector:@selector(compare:)];
+    
+    NSLog(@"sortedNumbers %@",sortedNumbers);
+    
+    int tempIndex =   [sortedNumbers indexOfObject:tempNumber];
+    
+//    [selectArr removeObject:tempNumber];
+    
+    
+    return  tempIndex;
+    
+}
+// ceshi
+//deleteSeletions
+//deleteSeletionstesttesttest
+//-(void)testaaaa
+//{
+//    for (int w = 0; w < 150; w ++) {
+//       
+//    
+//    
+//    [historyArr removeAllObjects];
+//    [selectedArray removeAllObjects];
+//    NSIndexPath *newPath;
+//    //创建第0区第1行的indexPath
+//        for (int i = 1; i >= 0; i -- ) {
+//        for (int y = 14; y >=  0; y--) {
+//            NSUInteger newIndex[] = {i, y};
+//            newPath = [[NSIndexPath alloc] initWithIndexes:newIndex length:2];
+//            
+//            
+//            
+//            [historyArr addObject:newPath];
+//            
+//            
+//        }
+//    }
+//    
+//    
+//    int x = arc4random()%15;  //获取10以内的随机数   【0，100）
+//    todayNum = x;    //从today 中取x个
+//    
+//    int a = arc4random()%15;  //获取10以内的随机数   【0，100）
+//    earilyNum = a;
+//    
+//    
+//        NSMutableArray * abcd = [historyArr mutableCopy];
+//
+//        abcd =  [[abcd subarrayWithRange:NSMakeRange(0, 15)] mutableCopy];
+//        while ([selectedArray count] - earilyNum < todayNum) {
+//            int r = arc4random() % [abcd count];
+//            [selectedArray addObject:[abcd objectAtIndex:r]];
+//            [abcd removeObjectAtIndex:r];
+//        }
+//        
+//            abcd = [historyArr mutableCopy];
+//   
+//        abcd =  [[abcd subarrayWithRange:NSMakeRange(15, 15)] mutableCopy];
+//        
+//        while ([selectedArray count] < earilyNum) {
+//            int r = arc4random() % [abcd count];
+//            [selectedArray addObject:[abcd objectAtIndex:r]];
+//            [abcd removeObjectAtIndex:r];
+//        }
+//
+//    
+//        
+//        
+//    NSLog(@" historyArr--== %@ ",historyArr);
+//    NSLog(@" todayNumtodayNum %d ",todayNum);
+//    NSLog(@" earilyNumearilyNumearilyNum %d ",earilyNum);
+//    NSLog(@" selectedArray %@ ",selectedArray);
+//    NSLog(@" selectedArray.count %d ",selectedArray.count);
+//   
+//    [self deleteSeletionstesttesttest];
+//    
+//    
+//    //找到对应的cell
+//    
+//    
+//    }
+//    
+//}
+//-(void)deleteSeletionstesttesttest
+//{//selectedArray 被选中的数组
+//    
+//    isAllSelected = NO; // “All” 按钮取消选中状态
+//    
+//    int eairlyNameByReduce = 0;            //早期历史
+//    int todayNameByReduce = 0;          //今天的历史
+//    int eairlyNameByReduceForOnly = 0;   //只有早期历史
+//    
+//    int lastTodayReduceIndex = 0;    //保存上一个删除的today节目row值
+//    int lastEairlyReduceIndex = 0;    //保存上一个删除的eairly节目row值
+//    
+//    int lastByReduceNum = 0;        //截止到上一次一共删除了多少数据，因为如果上一次删除的数据在这次要删除的数据前面，那么每删除一次，indexpath.row 便会往前缩进一个
+//    int lastEairlyByReduceNum = 0;
+//    
+//    NSMutableArray * onlyHaveSectionOneArr = [[NSMutableArray alloc]init];
+//    NSMutableArray * HaveSectionOneAndTwoArr = [[NSMutableArray alloc]init];
+//    NSMutableArray * eairlyHistoryArr = [[historyArr subarrayWithRange:NSMakeRange(0, 15)] mutableCopy];
+//    if (selectedArray == 0) {
+//        
+//    }
+//    else{
+//       
+//        
+//        
+//        NSLog(@"selectedArray11 %@",selectedArray);
+//        //刷新
+//        
+//        
+//        NSLog(@"selectedArray22 %@",selectedArray);
+//        for (int i = 0; i< selectedArray.count; i++) {
+//            
+//            NSIndexPath * indexpath1 = selectedArray[i];
+//            
+//            NSIndexPath * lastIndexpath;
+//            
+//            //存储上一个信息
+//            if(indexpath1.section == 0)
+//            {
+//                NSNumber * tempNumber = [NSNumber numberWithInteger:indexpath1.row];
+//                [onlyHaveSectionOneArr addObject:tempNumber];
+//                if (i == 0) {
+//                    //证明是第一个要删除的，保存下信息
+//                    //                lastReduceIndex = indexpath1.row;
+//                }
+//                if (i  < selectedArray.count && i > 0) {
+//                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
+//                    lastTodayReduceIndex = lastIndexpath.row;
+//                    
+//                }else
+//                {
+//                    // 没有下一个,再就越界了
+//                }
+//            }
+//            else
+//            {
+//                NSNumber * tempNumber = [NSNumber numberWithInteger:indexpath1.row];
+//                [HaveSectionOneAndTwoArr addObject:tempNumber];
+////                if (indexpath1.row == 0) {
+////                    //证明是第一个要删除的，保存下信息
+////                    //                lastReduceIndex = indexpath1.row;
+////                }
+////                if (indexpath1.row  < selectedArray.count && indexpath1.row > 0) {
+////                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
+////                    lastEairlyReduceIndex = lastIndexpath.row;
+////                    
+////                }else
+////                {
+////                    // 没有下一个,再就越界了
+////                }
+//            }
+//            
+//            
+//            
+//            
+//            if(indexpath1.section == 0)
+//            {
+//                
+//                
+//         
+//                
+//                if (todayNum > 0) {   //如果今天的数量大于0
+//                    todayNum = todayNum-1;
+//                    NSLog(@"historyArr.count3 %lu",(unsigned long)historyArr.count);
+//                    NSLog(@"indexpath1.row %ld",(long)indexpath1.row);
+//                    
+//                    //做倒序删除==
+//                    NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
+//                    
+//                    
+//                    if (i == 0) {
+//                        [reversedArrayToday removeObjectAtIndex:indexpath1.row];
+//                    }else
+//                    {
+//                        
+//                        int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:onlyHaveSectionOneArr NowIndexPath:indexpath1];
+//                        if (numsBiggerThanNowIndex) {
+//                            
+//                            NSLog(@"吱吱吱3 ： %ld",(long)indexpath1.row - lastByReduceNum - 1);
+//                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
+//                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex];
+//                            
+//                            lastByReduceNum = lastByReduceNum + 1 ;
+//                        }else
+//                        {
+//                            
+//                            [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
+//                            //                            }
+//                        }
+//                        
+//                        
+//                        
+//                        
+//                        
+//                    }
+//                    
+//
+//                    
+//                    
+//                    [historyArr removeAllObjects];
+//                    historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
+//                    if(todayNum == 0)
+//                    {
+//
+//                        NSLog(@"删除 section");
+//                    }
+//                    
+//                }
+//                else   //只有早期的历史，没有今天的历史
+//                {
+//                    NSLog(@"historyArr.count1 %d",historyArr.count);
+//                    //                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
+//                    //做倒序删除==
+//                    NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
+//                    
+//                    
+//                    
+//                    if (i == 0) {
+//                        [reversedArrayToday removeObjectAtIndex:indexpath1.row];
+//                    }else
+//                    {
+//                        int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:onlyHaveSectionOneArr NowIndexPath:indexpath1];
+//                        if (numsBiggerThanNowIndex) {
+//                            
+//                            NSLog(@"吱吱吱2 ： %ld",(long)indexpath1.row - lastByReduceNum - 1);
+//                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
+//                            [reversedArrayToday removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex ];
+//                            
+//                            lastByReduceNum = lastByReduceNum + 1 ;
+//                        }else
+//                        {
+//                            
+//                            [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
+//                            //                            }
+//                        }
+//                        
+//                        
+//                        
+//                        
+//                        
+//                    }
+//
+//                    
+//                    [historyArr removeAllObjects];
+//                    historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
+//                    //做倒序删除==
+//                    earilyNum = earilyNum-1;
+//                    
+//                    
+//                    if(earilyNum == 0)
+//                    {
+//                       NSLog(@"删除 section2");
+//                    }
+//                    eairlyNameByReduceForOnly = eairlyNameByReduceForOnly +1;
+//                    
+//                }
+//                
+//                
+//                
+//            }
+//            else //section =1
+//            {
+//                //与上面方法类似，首先单独提取出来一个eaily
+////                NSMutableArray * eairlyHistoryArr = [[historyArr subarrayWithRange:NSMakeRange(0, earilyNum)] mutableCopy];
+//                
+//                
+//                
+//                if (earilyNum > 0) {   //如果今天的数量大于0
+//                    earilyNum = earilyNum-1;
+//                    NSLog(@"historyArr.count3 %lu",(unsigned long)eairlyHistoryArr.count);
+//                    NSLog(@"indexpath1.row %ld",(long)indexpath1.row);
+//                    
+//                    //做倒序删除==
+//                    NSMutableArray* reversedArrayEairly = [[eairlyHistoryArr reverseObjectEnumerator] allObjects];
+//                    
+//                    
+//                    if (indexpath1.row == 0) {
+//                        [reversedArrayEairly removeObjectAtIndex:indexpath1.row];
+//                    }else
+//                    {
+//                        
+//                        int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:HaveSectionOneAndTwoArr NowIndexPath:indexpath1];
+//                        if (numsBiggerThanNowIndex) { //需要注意修改
+//                            
+////                            NSLog(@"吱吱吱1 ： %ld",(long)indexpath1.row - lastEairlyByReduceNum - 1);
+//                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
+//                            [reversedArrayEairly removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex ];
+//                            
+////                            lastEairlyByReduceNum = lastEairlyByReduceNum + 1 ;
+//                        }else
+//                        {
+//                            
+// 
+//                            [reversedArrayEairly removeObjectAtIndex:indexpath1.row ];
+// 
+//                        }
+//                        
+//                        
+//                        
+//                        
+//                        
+//                    }
+//                    
+//                    
+//                    [eairlyHistoryArr removeAllObjects];
+//                    eairlyHistoryArr = [[reversedArrayEairly reverseObjectEnumerator] allObjects]; //先删除，再赋值
+//                    
+//                    
+//                    [historyArr replaceObjectsInRange:NSMakeRange(0,earilyNum + 1 ) withObjectsFromArray:[eairlyHistoryArr copy]];
+//                    
+//     
+//                    if(earilyNum == 0)
+//                    {
+//                       NSLog(@"删除 section3");
+//                    }
+//                    
+//                }
+//                
+//            }
+//            
+//          
+//        }
+//        
+//        
+//        
+//        
+//        [selectedArray removeAllObjects]; //删除完之后
+//        [onlyHaveSectionOneArr  removeAllObjects];
+//        [HaveSectionOneAndTwoArr removeAllObjects];
+//        
+//        
+//    }
+//    
+//    //获得删除的数量
+//    
+//    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL"] forState:UIControlStateNormal];
+//    
+//    if(historyArr.count == 0 || historyArr == NULL)
+//    {
+//        [self deleteBtnCancelAndNOHistory];
+//    }
+//}
 @end
