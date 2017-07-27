@@ -11,7 +11,7 @@
 #import "MEViewController.h"
 #import "KSGuideManager.h"
 #import "MJRefresh.h"
-
+#import "UICustomAlertView.h"
 
 
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
@@ -74,8 +74,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     UITextField *STBTextField_Encrypt;
     UITextField *CATextField_Encrypt;
     
-    UIAlertView *STBAlert;
-    UIAlertView *CAAlert;
+//    UIAlertView *STBAlert;
+//    UIAlertView *CAAlert;
+    UICustomAlertView *STBAlert;
+    UICustomAlertView *CAAlert;
     
     NSInteger STBTouch_Row ;  //STB 加锁后的通知中的row参数
     NSDictionary * STBTouch_Dic ; //STB 加锁后的通知中的dic参数
@@ -393,12 +395,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     CATextField_Encrypt = [[UITextField alloc]init];
     STBTouch_Dic  = [[NSDictionary alloc]init];
     
-    STBAlert = STBAlert = [[UIAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
-    CAAlert = CAAlert = [[UIAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
+    STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil]
+    ;
+    STBAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+     CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
+    CAAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
     channelStartimesList = [[NSMutableSet alloc]init];
     storeLastChannelArr = [[NSMutableArray alloc]init];
     
+    CAAlert.dontDisppear = YES;
+    STBAlert.dontDisppear = YES;
+    
+    
 }
+
 -(void)initProgressLine
 {
     //    self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
@@ -5402,6 +5413,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //                                                name:@"UITextFieldTextDidChangeNotification"
     //                                              object:textField_Encrypt];
     
+    
+    
     if ([alertView  isEqual: STBAlert]) {
         
         if(buttonIndex == 0)
@@ -5420,16 +5433,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else{
             NSLog(@"charact  STB  验证");
             NSLog(@"character2txt  字符 ：%@",STBTextField_Encrypt.text);
-            
-            if (STBTextField_Encrypt.text.length <6) {
+            if (STBTextField_Encrypt.text.length < 1) {
                 
-                [self performSelector:@selector(popSTBAlertViewFaild) withObject:nil afterDelay:0.8];
-                //                [self popSTBAlertViewAgain];
             }else
             {
-                [self.socketView passwordCheck:STBTextField_Encrypt.text passwordType:1];  //密码六位
+                if (STBTextField_Encrypt.text.length <6) {
+                    
+                    [self performSelector:@selector(popSTBAlertViewFaild) withObject:nil afterDelay:0.8];
+                    //                [self popSTBAlertViewAgain];
+                }else
+                {
+                    [self.socketView passwordCheck:STBTextField_Encrypt.text passwordType:1];  //密码六位
+                }
+                
             }
             
+           
             
             
         }
@@ -5453,18 +5472,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self performSelector:@selector(changeCAAlertTitle) withObject:nil afterDelay:0.3];//将CA PIN 的文字改成@"Please input your CA PIN"
             
         }else{
-            NSLog(@"charact  CA 验证");
-            NSLog(@"character2txt  字符 ：%@",CATextField_Encrypt.text);
             
-            if (CATextField_Encrypt.text.length <4) {
-                
-                [self performSelector:@selector(popCAAlertViewFaild) withObject:nil afterDelay:0.8];
-                //                [self popSTBAlertViewAgain];
+
+                NSLog(@"charact  CA 验证");
+                NSLog(@"character2txt  字符 ：%@",CATextField_Encrypt.text);
+            if (CATextField_Encrypt.text.length <1) {
             }else
             {
-                [self.socketView passwordCheck:CATextField_Encrypt.text passwordType:0]; //密码四位
-            }
             
+                if (CATextField_Encrypt.text.length <4) {
+                    
+                    [self performSelector:@selector(popCAAlertViewFaild) withObject:nil afterDelay:0.8];
+                    //                [self popSTBAlertViewAgain];
+                }else
+                {
+                    [self.socketView passwordCheck:CATextField_Encrypt.text passwordType:0]; //密码四位
+                }
+
+            }
         }
     }
     
@@ -5486,6 +5511,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSString *toBeString = textField.text;
     
+    if (textField.text.length == 0) {
+        STBAlert.dontDisppear = YES;
+        CAAlert.dontDisppear = YES;
+        NSLog(@"=0=0=0=0=0=0=0=00=0=0=0=0=0=0=0=0=0");
+    }
+
     if ([textField  isEqual: STBTextField_Encrypt]) {
         
         NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
@@ -5519,6 +5550,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             textField.text = [toBeString substringToIndex:6];
             return NO;//限制长度
         }
+        if (proposedNewLength >= 1) {
+            STBAlert.dontDisppear = NO;
+        }
+      
         return YES;
         
     }
@@ -5554,11 +5589,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             textField.text = [toBeString substringToIndex:4];
             return NO;//限制长度
         }
+        if (proposedNewLength >= 1) {
+            CAAlert.dontDisppear = NO;
+        }
         return YES;
         
         
     }
-    
 }
 //-(void)passWordCheck_Socket:(NSInteger)row diction :(NSDictionary *)dic
 //{

@@ -388,11 +388,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "522819158.713028"
+            timestampString = "522850625.254733"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7532"
-            endingLineNumber = "7532">
+            startingLineNumber = "7569"
+            endingLineNumber = "7569">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -690,11 +690,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "522819158.713028"
+            timestampString = "522850395.239246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5381"
-            endingLineNumber = "5381"
+            startingLineNumber = "5392"
+            endingLineNumber = "5392"
             landmarkName = "-popCAAlertView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -728,6 +728,22 @@
             startingLineNumber = "1970"
             endingLineNumber = "1970"
             landmarkName = "-changeToFullScreenForOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/UICustomAlertView.m"
+            timestampString = "522843281.098706"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "-dismissWithClickedButtonIndex:animated:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

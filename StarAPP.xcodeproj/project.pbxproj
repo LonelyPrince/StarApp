@@ -302,6 +302,7 @@
 		70362D671F00A6B30012A309 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D661F00A6B30012A309 /* AVFoundation.framework */; };
 		70362D691F00A6BF0012A309 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D681F00A6BF0012A309 /* CoreMedia.framework */; };
 		70362D6B1F00A6C50012A309 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D6A1F00A6C50012A309 /* CoreVideo.framework */; };
+		7036B0E71F29FAAC0043533D /* UICustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7036B0E61F29FAAC0043533D /* UICustomAlertView.m */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703D5D481DF5746200C4412A /* CategoryViewController.m */; };
@@ -1002,6 +1003,8 @@
 		70362D661F00A6B30012A309 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		70362D681F00A6BF0012A309 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		70362D6A1F00A6C50012A309 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		7036B0E51F29FAAC0043533D /* UICustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICustomAlertView.h; sourceTree = "<group>"; };
+		7036B0E61F29FAAC0043533D /* UICustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomAlertView.m; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -1627,6 +1630,8 @@
 				70FC2FF01D75249F00BD06FE /* Search */,
 				70170BD61D7403AC00CC3951 /* TVViewController.h */,
 				70170BD71D7403AC00CC3951 /* TVViewController.m */,
+				7036B0E51F29FAAC0043533D /* UICustomAlertView.h */,
+				7036B0E61F29FAAC0043533D /* UICustomAlertView.m */,
 				70E712A61DB611F800BD98EE /* FullScreenView.h */,
 				70E712A71DB611F800BD98EE /* FullScreenView.m */,
 			);
@@ -3236,6 +3241,7 @@
 				70F9B99F1DD4508B00A62200 /* RouteCell.m in Sources */,
 				A4A66A121555E44100AED3AF /* AppDelegate.m in Sources */,
 				700770971D864491003C0D68 /* ServiceModel.m in Sources */,
+				7036B0E71F29FAAC0043533D /* UICustomAlertView.m in Sources */,
 				701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */,
 				A4A66A151555E44100AED3AF /* MasterViewController.m in Sources */,
 				70FC30FC1D75714E00BD06FE /* ZXVideoPlayerTimeIndicatorView.m in Sources */,
@@ -3360,8 +3366,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3388,8 +3394,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Takeshi Furuyama (4SQYYSZ4MB)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3413,7 +3419,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = C9W3BE9Q7S;
@@ -3446,6 +3452,7 @@
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "StarAPP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -3464,7 +3471,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = C9W3BE9Q7S;
@@ -3497,6 +3504,7 @@
 				PRODUCT_NAME = StarAPP;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "StarAPP-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
