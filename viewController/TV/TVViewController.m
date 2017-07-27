@@ -1514,8 +1514,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //焦点
         NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-        NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-        NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+//        NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+//        NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
         //        NSArray * serviceArrForJudge =  self.serviceData;
         //        for (int i = 0; i< serviceArrForJudge.count; i++) {
         //            NSDictionary * serviceForJudgeDic = serviceArrForJudge[i];
@@ -1799,7 +1799,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)didselectRowToPlayClick
 {
     //    dispatch_queue_t queue = dispatch_queue_create("tk.bourne.testQueue", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
         NSLog(@"==--==--==--=222%@",[NSThread currentThread] );
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
         NSLog(@" indexPathRow %d",indexPathRow);
@@ -1824,8 +1824,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 firstOpenAPP = firstOpenAPP+1;
                 
                 firstfirst = NO;
+                
             }else //正常播放的步骤
             {
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"响应了一次");
                 //======
                 [self touchSelectChannel:indexPathRow diction:self.dicTemp];
@@ -1838,17 +1840,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 firstOpenAPP = firstOpenAPP+1;
                 
                 firstfirst = NO;
+                });
             }
+                               
         }else //正常播放的步骤
         {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             //======机顶盒加密
             
             [self touchSelectChannel:indexPathRow diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
             
             firstfirst = NO;
+         
+            });
         }
-    });
+    
     
     
     
@@ -3125,12 +3132,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self removeLineProgressNotific]; //进度条停止的刷新通知
         [self refreshTableFocus];  //刷新tableView焦点颜色的通知
         [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
-        [self STBDencryptNotific];   //机顶盒加密的通知
-        [self STBDencryptFailedNotific];   //机顶盒加密,但是未验证成功，重新弹窗的通知
-        [self STBDencryptInputAgainNotific];   //机顶盒加密,但是未验证成功，重新弹窗的通知
-        [self CADencryptNotific];   //机顶盒加密的通知
-        [self STBDencryptVideoTouchNotific];   //机顶盒加密后的播放通知
-        [self ChangeSTBLockNotific];   //机顶盒加密后的播放通知
+        
+        
+        [self STBDencryptNotific];   //机顶盒加锁的通知
+        [self STBDencryptFailedNotific];   //机顶盒加锁,但是未验证成功，重新弹窗的通知
+        [self STBDencryptInputAgainNotific];   //机顶盒加锁,但是未验证成功，重新弹窗的通知
+        [self STBDencryptVideoTouchNotific];   //机顶盒加锁后的播放通知
+        [self ChangeSTBLockNotific];   //机顶盒加锁后的播放通知
+        
+        
+        [self CADencryptNotific];   //CA加密的通知
+        [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
+        [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
+        [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
+        
+//        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
+        
         //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
         UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -3872,6 +3889,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
     
 }
 -(void)setIPNoific
@@ -5070,6 +5091,25 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
 }
 
+//CA加密第一次验证失败后，重新弹窗的通知
+-(void)CADencryptFailedNotific
+{
+    //新建一个通知，用来监听机顶盒加密
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CADencryptFailedNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popCAAlertViewFaild) name:@"CADencryptFailedNotific" object:nil];
+    
+}
+#pragma mark - CA加密第一次验证失败后，重新弹窗
+-(void)popCAAlertViewFaild //: (NSNotification *)text
+{
+    CAAlert.title = @"It's wrong,Once more";
+    [CAAlert show];
+    
+    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
 //第一次没有输入，点击decoder PIN 按钮后重新弹出输入框
 -(void)STBDencryptInputAgainNotific
 {
@@ -5079,6 +5119,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popSTBAlertViewInputAgain) name:@"STBDencryptInputAgainNotific" object:nil];
     
 }
+-(void)CADencryptInputAgainNotific
+{
+    //新建一个通知，用来监听从CA密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CADencryptInputAgainNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popCAAlertViewInputAgain) name:@"CADencryptInputAgainNotific" object:nil];
+}
+
+//-(void)CADencryptVideoTouchNotific
+//{
+//    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CADencryptVideoTouchNotific" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(allVideoTouchFromCA) name:@"CADencryptVideoTouchNotific" object:nil];
+//}
+
 -(void)STBDencryptVideoTouchNotific
 {
     //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
@@ -5168,6 +5224,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [STBAlert show];
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
+//第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
+-(void)popCAAlertViewInputAgain //: (NSNotification *)text
+{
+    CAAlert.title = @"Please input your CA PIN";
+    [CAAlert show];
+    
+    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
 }
@@ -5294,6 +5360,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
         //证明一致，是这个CA节目
         
+        [self stopVideoPlay];
+        
         [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
         CAAlert.delegate =  self;
         [CAAlert show];
@@ -5310,6 +5378,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         //不一致，不弹窗。===或者将窗口取消掉
         
+        NSLog(@"不一致，不弹窗。===或者将窗口取消掉");
         if(CAAlert){
             [CAAlert dismissWithClickedButtonIndex:[CAAlert cancelButtonIndex] animated:YES];
         }
@@ -5318,7 +5387,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     //    CAAlert = [[UIAlertView alloc] initWithTitle:@"请输入CA密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    
+    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
 }
+#pragma mark - 弹窗点击事件
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     //    textField_Encrypt.delegate = self;
@@ -5364,13 +5438,33 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         if(buttonIndex == 0)
         {
-            //取消了
+//            //取消了
+//            NSLog(@"charact  CA 验证");
+//            NSLog(@"没有进行CA密码验证，所以不能播放");
             NSLog(@"charact  CA 验证");
             NSLog(@"没有进行CA密码验证，所以不能播放");
+            //取消了
+            //1.先取消进度圈  2.弹出页面   3.将decoder PIN 的文字改成@"Please input your Decoder PIN";
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"configCAPINShowNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            [self performSelector:@selector(changeCAAlertTitle) withObject:nil afterDelay:0.3];//将CA PIN 的文字改成@"Please input your CA PIN"
+            
         }else{
             NSLog(@"charact  CA 验证");
             NSLog(@"character2txt  字符 ：%@",CATextField_Encrypt.text);
-            [self.socketView passwordCheck:CATextField_Encrypt.text passwordType:0]; //密码四位
+            
+            if (CATextField_Encrypt.text.length <4) {
+                
+                [self performSelector:@selector(popCAAlertViewFaild) withObject:nil afterDelay:0.8];
+                //                [self popSTBAlertViewAgain];
+            }else
+            {
+                [self.socketView passwordCheck:CATextField_Encrypt.text passwordType:0]; //密码四位
+            }
+            
         }
     }
     
@@ -5380,6 +5474,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)changeSTBAlertTitle
 {
     STBAlert.title = @"Please input your Decoder PIN"; //将decoder PIN 的文字改成@"Please input your Decoder PIN"
+}
+-(void)changeCAAlertTitle
+{
+    CAAlert.title = @"Please input your CA PIN"; //将CA PIN 的文字改成@"Please input your CA PIN"
 }
 -(BOOL)textFiledEditChanged:(NSNotification *)obj{
     
@@ -6833,7 +6931,72 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"];
 }
 
+#pragma mark - 当节目CA加密弹窗过程中，收到了取消弹窗的通知
+-(void)ChangeCALockNotific //机顶盒加锁改变的消息
+{
+    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ChangeCALockNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getChangeCALockNotice:) name:@"ChangeCALockNotific" object:nil];
+}
+-(void)getChangeCALockNotice:(NSNotification *)text//当节目正在播放时，收到加锁通知
+{
+    //1.处理信息，如果发现是当前正在播放的节目，则执行第二步，否则只要修改self.dictemp这个字典就可以，还有dictemp可能被序列化了，所以需要修改 2.取消掉当前播放  3.重新执行播放
+    
+    //处理信息
+    NSData * changeCALockData = [[NSData alloc]init];
+    changeCALockData = text.userInfo[@"CARemovePopThreedata"];
+    
+    NSLog(@"changeCALockData %@",changeCALockData);
+    
+    
+    [self updateChannelCALockService:changeCALockData];
+    
+    
+}
+#pragma mark - CA 加锁时，收到消息然后弹窗小时的通知
+-(void)updateChannelCALockService :(NSData *)updateChannelServiceDataTemp
+{
+    //获取全部的channel数据，判断当前点击的channel是哪一个dic
+    NSData * updateChannelServiceData = updateChannelServiceDataTemp;
+    
+    //1
+    NSData * tuner_type_data = [updateChannelServiceData subdataWithRange:NSMakeRange(40,1)];
+    uint32_t tuner_type_int = [SocketUtils uint8FromBytes:tuner_type_data];
+    
+    NSLog(@"tuner_type_int == %d",tuner_type_int);
+    
+    if (tuner_type_int == 0) {
+        // tuner_type_int == 0 的情况下，取消弹窗，并且重新播放
+        
+        NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        
+        NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"]; //历史数据
+        
+        NSArray * nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
+        NSInteger row = [nowPlayChannel_Arr[2] intValue];
+        NSDictionary * dic = nowPlayChannel_Arr [3];
+        
+        
+        [CAAlert dismissWithClickedButtonIndex:0 animated:YES];
+        //======
+        [self firstOpenAppAutoPlay:row diction:dic];
+        firstOpenAPP = firstOpenAPP+1;
+        
+        firstfirst = NO;
+        
+        
+    }else
+    {
+        //依旧保持弹窗状态
+    }
+   
 
+
+}
 #pragma mark - 当节目正在播放时，收到加锁通知
 -(void)ChangeSTBLockNotific //机顶盒加锁改变的消息
 {

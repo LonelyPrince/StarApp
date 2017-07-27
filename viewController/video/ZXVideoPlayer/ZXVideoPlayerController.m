@@ -103,6 +103,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, strong) UILabel * decoderPINLab ; //展示decoder PIN 的文字
 @property (nonatomic, strong) UIButton * decoderPINBtn ; //展示decoder PIN 的按钮
 
+
+@property (nonatomic, strong) UILabel * CAPINLab ; //展示CA PIN 的文字
+@property (nonatomic, strong) UIButton * CAPINBtn ; //展示CA PIN 的按钮
 @property (nonatomic, strong) NSTimer * timerOfEventTime;
 
 @end
@@ -114,6 +117,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @synthesize radioImageView; //展示音频的默认图
 @synthesize decoderPINLab; //展示decoder PIN 的文字
 @synthesize decoderPINBtn; //展示decoder PIN 的按钮
+
+@synthesize CAPINLab; //展示CA PIN 的文字
+@synthesize CAPINBtn; //展示CA PIN 的按钮
 @synthesize timerOfEventTime;
 //@synthesize operationQueue;
 //@synthesize tvViewController;
@@ -150,6 +156,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self configRadioShow];  //判断当播放音频时，如果可以播放，则显示音频默认图
         [self configDecoderPINShow];  //判断当前是不是需要展示decoder PIN的输入按钮和文字
+        
+        [self configCAPINShow];  //判断当前是不是需要展示CA PIN的输入按钮和文字
         [self removeConfigRadioShow];  //如果不是音频节目，或者音频节目播放完成，则删除掉音频图
         [self removeConfigDecoderPINShow];  //如果用户点击了按钮，则发送删除通知把decoder的文字和按钮删除掉
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
@@ -742,6 +750,220 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowNotic) name:@"noPlayShowNotic" object:nil];
 }
 
+#pragma mark - CA PIN输入按钮和文字展示
+-(void)configCAPINShow
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"configCAPINShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configCAPINShowNotific) name:@"configCAPINShowNotific" object:nil];
+}
+-(void)configCAPINShowNotific
+{
+    
+    [self.videoControl.indicatorView stopAnimating];
+    NSLog(@"CAPINLab.frame %@",NSStringFromCGRect(CAPINLab.frame));
+    NSLog(@"CAPINBtn.frame %@",NSStringFromCGRect(CAPINBtn.frame));
+    
+    UIDeviceOrientation orientation = self.getDeviceOrientation;
+    if (!self.isLocked)
+    {
+        switch (orientation) {
+            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                NSLog(@"home键在 下");
+                [self restoreOriginalScreen];
+                
+                
+                if (!CAPINLab) {
+                    CAPINLab = [[UILabel alloc]init];
+                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.textColor = [UIColor whiteColor];
+                    CAPINBtn = [[UIButton alloc]init];
+                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [CAPINBtn.layer setBorderWidth:2.0f];
+                    [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:CAPINLab];
+                    [self.view addSubview:CAPINBtn];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                CAPINLab.textAlignment = NSTextAlignmentCenter;
+                CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                CAPINBtn.layer.cornerRadius = 14.0f;
+                CAPINBtn.layer.masksToBounds = YES;
+                
+                //                    lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                
+                
+            }
+                break;
+            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                NSLog(@"home键在 上");
+                
+                if (!CAPINLab) {
+                    CAPINLab = [[UILabel alloc]init];
+                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.textColor = [UIColor whiteColor];
+                    CAPINBtn = [[UIButton alloc]init];
+                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [CAPINBtn.layer setBorderWidth:2.0f];
+                    [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:CAPINLab];
+                    [self.view addSubview:CAPINBtn];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                CAPINLab.textAlignment = NSTextAlignmentCenter;
+                CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                CAPINBtn.layer.cornerRadius = 14.0f;
+                CAPINBtn.layer.masksToBounds = YES;
+                
+            }
+                break;
+            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                NSLog(@"home键在 右");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if (!CAPINLab) {
+                    CAPINLab = [[UILabel alloc]init];
+                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.textColor = [UIColor whiteColor];
+                    CAPINBtn = [[UIButton alloc]init];
+                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [CAPINBtn.layer setBorderWidth:2.0f];
+                    [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:CAPINLab];
+                    [self.view addSubview:CAPINBtn];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                CAPINLab.textAlignment = NSTextAlignmentCenter;
+                CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                CAPINBtn.layer.cornerRadius = 14.0f;
+                CAPINBtn.layer.masksToBounds = YES;
+                
+            }
+                break;
+            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                NSLog(@"home键在 左");
+                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                if (!CAPINLab) {
+                    CAPINLab = [[UILabel alloc]init];
+                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.textColor = [UIColor whiteColor];
+                    CAPINBtn = [[UIButton alloc]init];
+                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                    [CAPINBtn.layer setBorderWidth:2.0f];
+                    [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    //        [self.view addSubview:radioImageView];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    [self.view addSubview:CAPINLab];
+                    [self.view addSubview:CAPINBtn];                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                }
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                CAPINLab.textAlignment = NSTextAlignmentCenter;
+                CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                CAPINBtn.layer.cornerRadius = 14.0f;
+                CAPINBtn.layer.masksToBounds = YES;
+                
+            }
+                break;
+                
+            default:   //
+            {           // Device oriented vertically, home button on the bottom
+                NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
+                //                [self restoreOriginalScreen];
+                if (self.view.frame.size.width > self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
+                    //此时是竖屏状态
+                    NSLog(@"home键在 下");
+                    [self restoreOriginalScreen];
+                    
+                    
+                    if (!CAPINLab) {
+                        CAPINLab = [[UILabel alloc]init];
+                        CAPINLab.text = @"Please CA PIN";
+                        CAPINLab.textColor = [UIColor whiteColor];
+                        CAPINBtn = [[UIButton alloc]init];
+                        [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                        [CAPINBtn.layer setBorderWidth:2.0f];
+                        [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        //        [self.view addSubview:radioImageView];
+                        //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                        [self.view addSubview:CAPINLab];
+                        [self.view addSubview:CAPINBtn];
+                        //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                    }
+                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];;
+                    CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                    CAPINLab.textAlignment = NSTextAlignmentCenter;
+                    CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                    CAPINBtn.layer.cornerRadius = 14.0f;
+                    CAPINBtn.layer.masksToBounds = YES;
+                    
+                }else //此时是横屏状态
+                {     // Device oriented horizontally, home button on the left
+                    NSLog(@"home键在 左");
+                    //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    
+                    if (!CAPINLab) {
+                        CAPINLab = [[UILabel alloc]init];
+                        CAPINLab.text = @"Please CA PIN";
+                        CAPINLab.textColor = [UIColor whiteColor];
+                        CAPINBtn = [[UIButton alloc]init];
+                        [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
+                        [CAPINBtn.layer setBorderWidth:2.0f];
+                        [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
+                        
+                        //        [self.view addSubview:radioImageView];
+                        //                    [self.view insertSubview:decoderPINLab atIndex:1];
+                        [self.view addSubview:CAPINLab];
+                        [self.view addSubview:CAPINBtn];                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                    }
+                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                    CAPINLab.textAlignment = NSTextAlignmentCenter;
+                    CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                    CAPINBtn.layer.cornerRadius = 14.0f;
+                    CAPINBtn.layer.masksToBounds = YES;
+                    
+                }
+                
+            }
+                break;
+        }
+    }
+    
+}
 #pragma mark - decoder PIN输入按钮和文字展示
 -(void)configDecoderPINShow
 {
@@ -890,7 +1112,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
 //                [self restoreOriginalScreen];
-                if (self.view.frame.size.width < self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
+                if (self.view.frame.size.width > self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
                     //此时是竖屏状态
                     NSLog(@"home键在 下");
                     [self restoreOriginalScreen];
@@ -974,6 +1196,34 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     decoderPINBtn = nil;
     decoderPINBtn = NULL;
     NSLog(@"decoder 删除了");
+}
+-(void)removeConfigCAPINShow  //删除掉CAPIN的文字和按钮
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeConfigCAPINShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeConfigCAPINShowNotific) name:@"removeConfigCAPINShowNotific" object:nil];
+}
+-(void)removeConfigCAPINShowNotific
+{
+    [CAPINLab removeFromSuperview];
+    CAPINLab = nil;
+    CAPINLab = NULL;
+    [CAPINBtn removeFromSuperview];
+    CAPINBtn = nil;
+    CAPINBtn = NULL;
+    NSLog(@"CAPIN 删除了");
+}
+-(void) CAPINBtnClick //CA pin 按钮被点击
+{
+    //1.先删除CA pin的文字和按钮   2. 发送通知弹窗
+    [self removeConfigCAPINShowNotific];
+    
+    NSNotification *notification1 =[NSNotification notificationWithName:@"CADencryptInputAgainNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSLog(@"CA 点击了");
 }
 -(void) decoderPINBtnClick //decoder pin 按钮被点击
 {
@@ -1629,6 +1879,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 
+#pragma mark - ///// 切换到全屏模式
 ///// 切换到全屏模式
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
@@ -1720,6 +1971,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             decoderPINLab.textAlignment = NSTextAlignmentCenter;
             decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
 
+        }
+        if (CAPINLab) {
+            CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
+            CAPINLab.textAlignment = NSTextAlignmentCenter;
+            CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+            
         }
         
         
@@ -2016,6 +2275,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSDictionary *attrs = @{NSFontAttributeName : font};
     return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
+#pragma mark - /// 切换到竖屏模式
 /// 切换到竖屏模式
 - (void)restoreOriginalScreen
 {
@@ -2091,6 +2351,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
         decoderPINLab.textAlignment = NSTextAlignmentCenter;
         decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
+    }
+    if (CAPINLab) {
+        CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
+        CAPINLab.textAlignment = NSTextAlignmentCenter;
+        CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
     }
     
     self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
@@ -2733,6 +3000,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                
+                //删除decoder PIN的文字和按钮
+                NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
 //                timerForGetBytes = nil; //此处把计时器销毁
 //                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
             }

@@ -324,6 +324,26 @@
                                     
                                 }
                                     break;
+                                case 7:  //CA 加扰发送通知，将弹窗取消掉
+                                {
+                                    NSLog(@"*****此处是CA加扰取消弹窗");
+                                    
+                                    //======
+                                    //获得数据区的长度
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    //--
+                                    
+                                    
+                                    [self readSocketCommandTypeISSeven:bigDataReduceSmallData];
+                                    
+                                    
+                                }
+                                    break;
+
                                 case 8:  //CA 加扰
                                 {
                                     NSLog(@"*****此处是CA加扰验证1");
@@ -471,6 +491,16 @@
                         [self readSocketCommandTypeISSixteen];
                     }
                         break;
+                    case 7:  //CA 加扰发送通知，将弹窗取消掉
+                    {
+                       
+                        NSLog(@"*****CA 加扰发送通知，将弹窗取消掉");
+                        
+                        [self readSocketCommandTypeISSeven:data];
+                        
+                        
+                    }
+                        break;
                     case 8:  //CA 加扰
                     {
                         NSLog(@"*****此处是CA加扰验证2");
@@ -613,6 +643,26 @@
                                     [self readSocketCommandTypeISSixteen];
                                 }
                                     break;
+                                case 7:  //CA 加扰发送通知，将弹窗取消掉
+                                {
+                                    
+                                    NSLog(@"*****CA 加扰发送通知，将弹窗取消掉");
+                                    
+                                    
+                                    
+                                    
+                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
+                                    
+                                    [self readSocketCommandTypeISSeven:bigDataReduceSmallData];
+                                    
+                                    
+                                }
+                                    break;
                                 case 8:  //CA 加扰
                                 {
                                     NSLog(@"*****此处是CA加扰验证3");
@@ -736,6 +786,16 @@
                         [self readSocketCommandTypeISSixteen];
                     }
                         break;
+                    case 7:  //CA 加扰发送通知，将弹窗取消掉
+                    {
+                        
+                        NSLog(@"*****CA 加扰发送通知，将弹窗取消掉");
+                        
+                        [self readSocketCommandTypeISSeven:data];
+                        
+                        
+                    }
+                        break;
                     case 8:  //CA 加扰
                     {
                         NSLog(@"*****此处是CA加扰验证4");
@@ -822,6 +882,17 @@
     
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"getSocketIpInfoNotice" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+//对socket读取文件进行操作   case = 7
+-(void)readSocketCommandTypeISSeven :(NSData *)dataToOperate
+{
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"CARemovePopThreedata",nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"ChangeCALockNotific" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
