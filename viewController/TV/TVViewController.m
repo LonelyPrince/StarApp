@@ -74,8 +74,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     UITextField *STBTextField_Encrypt;
     UITextField *CATextField_Encrypt;
     
-//    UIAlertView *STBAlert;
-//    UIAlertView *CAAlert;
+    //    UIAlertView *STBAlert;
+    //    UIAlertView *CAAlert;
     UICustomAlertView *STBAlert;
     UICustomAlertView *CAAlert;
     
@@ -397,10 +397,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil]
     ;
-    STBAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    STBAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     
-     CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
-    CAAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
+    CAAlert.alertViewStyle = UIAlertViewStyleSecureTextInput; //UIAlertViewStylePlainTextInput;
+    
     channelStartimesList = [[NSMutableSet alloc]init];
     storeLastChannelArr = [[NSMutableArray alloc]init];
     
@@ -1525,8 +1526,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //焦点
         NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-//        NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-//        NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+        //        NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+        //        NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
         //        NSArray * serviceArrForJudge =  self.serviceData;
         //        for (int i = 0; i< serviceArrForJudge.count; i++) {
         //            NSDictionary * serviceForJudgeDic = serviceArrForJudge[i];
@@ -1811,34 +1812,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     //    dispatch_queue_t queue = dispatch_queue_create("tk.bourne.testQueue", DISPATCH_QUEUE_CONCURRENT);
     
-        NSLog(@"==--==--==--=222%@",[NSThread currentThread] );
-        NSUInteger  indexPathRow = [indexpathRowStr integerValue];
-        NSLog(@" indexPathRow %d",indexPathRow);
-        //=======机顶盒加密
-        NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:indexPathRow serviceListDic:self.dicTemp];
-        if (characterStr != NULL && characterStr != nil) {
-            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-            if (judgeIsSTBDecrypt == YES) {
-                
-                //将上一个节目关闭
-                [self stopVideoPlay];
-                // 此处代表需要记性机顶盒加密验证
-                NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
-                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
-                //创建通知
-                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                NSLog(@"POPPOPPOPPOP33333333333");
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                
-                
-                firstOpenAPP = firstOpenAPP+1;
-                
-                firstfirst = NO;
-                
-            }else //正常播放的步骤
-            {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    NSLog(@"==--==--==--=222%@",[NSThread currentThread] );
+    NSUInteger  indexPathRow = [indexpathRowStr integerValue];
+    NSLog(@" indexPathRow %d",indexPathRow);
+    //=======机顶盒加密
+    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:indexPathRow serviceListDic:self.dicTemp];
+    if (characterStr != NULL && characterStr != nil) {
+        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+        if (judgeIsSTBDecrypt == YES) {
+            
+            //将上一个节目关闭
+            [self stopVideoPlay];
+            // 此处代表需要记性机顶盒加密验证
+            NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
+            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            NSLog(@"POPPOPPOPPOP33333333333");
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            
+            firstOpenAPP = firstOpenAPP+1;
+            
+            firstfirst = NO;
+            
+        }else //正常播放的步骤
+        {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"响应了一次");
                 //======
                 [self touchSelectChannel:indexPathRow diction:self.dicTemp];
@@ -1851,21 +1852,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 firstOpenAPP = firstOpenAPP+1;
                 
                 firstfirst = NO;
-                });
-            }
-                               
-        }else //正常播放的步骤
-        {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            });
+        }
+        
+    }else //正常播放的步骤
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             //======机顶盒加密
             
             [self touchSelectChannel:indexPathRow diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
             
             firstfirst = NO;
-         
-            });
-        }
+            
+        });
+    }
     
     
     
@@ -3157,7 +3158,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
         [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
         
-//        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
+        //        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
         
         //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
         //修改tabbar选中的图片颜色和字体颜色
@@ -5345,6 +5346,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                 name:@"UITextFieldTextDidChangeNotification"
                                               object:STBTextField_Encrypt];
+    //修改decoderPIN 和CA PIN 的 占位文字
+    if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
+        STBTextField_Encrypt.placeholder = @"decoder PIN";
+    }
+    
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
@@ -5384,6 +5390,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:CATextField_Encrypt];
+        
+        //修改decoderPIN 和CA PIN 的 占位文字
+        if (CAAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
+            CATextField_Encrypt.placeholder = @"CA PIN";
+        }
         
     }else
     {
@@ -5448,7 +5459,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }
             
-           
+            
             
             
         }
@@ -5457,9 +5468,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         if(buttonIndex == 0)
         {
-//            //取消了
-//            NSLog(@"charact  CA 验证");
-//            NSLog(@"没有进行CA密码验证，所以不能播放");
+            //            //取消了
+            //            NSLog(@"charact  CA 验证");
+            //            NSLog(@"没有进行CA密码验证，所以不能播放");
             NSLog(@"charact  CA 验证");
             NSLog(@"没有进行CA密码验证，所以不能播放");
             //取消了
@@ -5473,13 +5484,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else{
             
-
-                NSLog(@"charact  CA 验证");
-                NSLog(@"character2txt  字符 ：%@",CATextField_Encrypt.text);
+            
+            NSLog(@"charact  CA 验证");
+            NSLog(@"character2txt  字符 ：%@",CATextField_Encrypt.text);
             if (CATextField_Encrypt.text.length <1) {
             }else
             {
-            
+                
                 if (CATextField_Encrypt.text.length <4) {
                     
                     [self performSelector:@selector(popCAAlertViewFaild) withObject:nil afterDelay:0.8];
@@ -5488,7 +5499,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {
                     [self.socketView passwordCheck:CATextField_Encrypt.text passwordType:0]; //密码四位
                 }
-
+                
             }
         }
     }
@@ -5516,7 +5527,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         CAAlert.dontDisppear = YES;
         NSLog(@"=0=0=0=0=0=0=0=00=0=0=0=0=0=0=0=0=0");
     }
-
+    
     if ([textField  isEqual: STBTextField_Encrypt]) {
         
         NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
@@ -5553,7 +5564,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (proposedNewLength >= 1) {
             STBAlert.dontDisppear = NO;
         }
-      
+        
         return YES;
         
     }
@@ -7030,9 +7041,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         //依旧保持弹窗状态
     }
-   
-
-
+    
+    
+    
 }
 #pragma mark - 当节目正在播放时，收到加锁通知
 -(void)ChangeSTBLockNotific //机顶盒加锁改变的消息

@@ -138,7 +138,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.view.backgroundColor = [UIColor blackColor]; //blackColor
         //        self.view.backgroundColor = [UIColor redColor];
         //        tvViewController = [[TVViewController alloc]init];
-//        self.controlStyle = MPMovieControlStyleNone;
+        //        self.controlStyle = MPMovieControlStyleNone;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
         
@@ -176,9 +176,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         subtRow = 0;
         audioRow = 0;
         
-//        [self configObserver];
+        //        [self configObserver];
         [self installMovieNotificationObservers];
-//        operationQueue = [[NSOperationQueue alloc]init];
+        //        operationQueue = [[NSOperationQueue alloc]init];
     }
     return self;
 }
@@ -320,38 +320,38 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     // 播放状态改变，可配合playbakcState属性获取具体状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:IJKMPMoviePlayerPlaybackDidFinishNotification object:self.player];
-
+    
     // 媒体网络加载状态改变
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:IJKMPMoviePlayerLoadStateDidChangeNotification object:self.player];
-
+    
     // 视频显示状态改变
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:self.player];
-
+    
     // 确定了媒体播放时长后
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:self.player];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPayerControlViewHideNotification) name:kZXPlayerControlViewHideNotification object:self.player];
-
+    
     // 视频播放结束时
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    
 }
 //{
 //    // 播放状态改变，可配合playbakcState属性获取具体状态
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
-//    
+//
 //    // 媒体网络加载状态改变
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
-//    
+//
 //    // 视频显示状态改变
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];
-//    
+//
 //    // 确定了媒体播放时长后
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];
-//    
+//
 //    // 视频播放结束时
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-//    
+//
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPayerControlViewHideNotification) name:kZXPlayerControlViewHideNotification object:nil];
 //}
 
@@ -574,7 +574,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateEnded: { // 移动停止
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-//                    [self setCurrentPlaybackTime:floor(self.sumTime)];
+                    //                    [self setCurrentPlaybackTime:floor(self.sumTime)];
                     [self.player play];
                     [self startDurationTimer];
                     [self.videoControl autoFadeOutControlBar];
@@ -731,6 +731,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    {
     [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
     
+    [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
+    
     [self.videoControl.indicatorView startAnimating];
     
     //    }
@@ -776,10 +778,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.text = @"Please input";
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -790,8 +792,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -808,10 +810,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.text = @"Please input";
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -822,8 +824,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -838,10 +840,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.text = @"Please input";
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -852,8 +854,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -869,10 +871,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please CA PIN";
+                    CAPINLab.text = @"Please input";
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -882,8 +884,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINLab];
                     [self.view addSubview:CAPINBtn];                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -905,10 +907,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!CAPINLab) {
                         CAPINLab = [[UILabel alloc]init];
-                        CAPINLab.text = @"Please CA PIN";
+                        CAPINLab.text = @"Please input";
                         CAPINLab.textColor = [UIColor whiteColor];
                         CAPINBtn = [[UIButton alloc]init];
-                        [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
                         [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [CAPINBtn.layer setBorderWidth:2.0f];
                         [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -919,8 +921,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:CAPINBtn];
                         //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];;
+                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];;
                     CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                     CAPINLab.textAlignment = NSTextAlignmentCenter;
                     CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -935,10 +937,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!CAPINLab) {
                         CAPINLab = [[UILabel alloc]init];
-                        CAPINLab.text = @"Please CA PIN";
+                        CAPINLab.text = @"Please input";
                         CAPINLab.textColor = [UIColor whiteColor];
                         CAPINBtn = [[UIButton alloc]init];
-                        [CAPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
                         [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [CAPINBtn.layer setBorderWidth:2.0f];
                         [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -948,8 +950,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:CAPINLab];
                         [self.view addSubview:CAPINBtn];                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
                     CAPINLab.textAlignment = NSTextAlignmentCenter;
                     CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -974,7 +976,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)configDecoderPINShowNotific
 {
- 
+    
     [self.videoControl.indicatorView stopAnimating];
     NSLog(@"decoderPINLab.frame %@",NSStringFromCGRect(decoderPINLab.frame));
     NSLog(@"decoderPINBtn.frame %@",NSStringFromCGRect(decoderPINBtn.frame));
@@ -990,22 +992,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.text = @"Please input";
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
-                     [decoderPINBtn.layer setBorderWidth:2.0f];
+                    [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
                     
                     //        [self.view addSubview:radioImageView];
-//                    [self.view insertSubview:decoderPINLab atIndex:1];
+                    //                    [self.view insertSubview:decoderPINLab atIndex:1];
                     [self.view addSubview:decoderPINLab];
                     [self.view addSubview:decoderPINBtn];
-//                    [self.view insertSubview:decoderPINBtn atIndex:1];
+                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1022,10 +1024,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.text = @"Please input";
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1036,14 +1038,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
                 decoderPINBtn.layer.cornerRadius = 14.0f;
                 decoderPINBtn.layer.masksToBounds = YES;
-
+                
             }
                 break;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
@@ -1052,10 +1054,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.text = @"Please input";
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1066,14 +1068,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
                 decoderPINBtn.layer.cornerRadius = 14.0f;
                 decoderPINBtn.layer.masksToBounds = YES;
-
+                
             }
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
@@ -1083,10 +1085,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please Decoder PIN";
+                    decoderPINLab.text = @"Please input";
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1097,21 +1099,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
                 decoderPINBtn.layer.cornerRadius = 14.0f;
                 decoderPINBtn.layer.masksToBounds = YES;
-
+                
             }
                 break;
                 
             default:   //
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
-//                [self restoreOriginalScreen];
+                //                [self restoreOriginalScreen];
                 if (self.view.frame.size.width > self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
                     //此时是竖屏状态
                     NSLog(@"home键在 下");
@@ -1120,10 +1122,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!decoderPINLab) {
                         decoderPINLab = [[UILabel alloc]init];
-                        decoderPINLab.text = @"Please Decoder PIN";
+                        decoderPINLab.text = @"Please input";
                         decoderPINLab.textColor = [UIColor whiteColor];
                         decoderPINBtn = [[UIButton alloc]init];
-                        [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
                         [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [decoderPINBtn.layer setBorderWidth:2.0f];
                         [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1134,8 +1136,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:decoderPINBtn];
                         //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                     decoderPINLab.textAlignment = NSTextAlignmentCenter;
                     decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1150,10 +1152,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!decoderPINLab) {
                         decoderPINLab = [[UILabel alloc]init];
-                        decoderPINLab.text = @"Please Decoder PIN";
+                        decoderPINLab.text = @"Please input";
                         decoderPINLab.textColor = [UIColor whiteColor];
                         decoderPINBtn = [[UIButton alloc]init];
-                        [decoderPINBtn setTitle:@"Input Password" forState:UIButtonTypeCustom];
+                        [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
                         [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [decoderPINBtn.layer setBorderWidth:2.0f];
                         [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1164,8 +1166,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:decoderPINBtn];
                         //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                     decoderPINLab.textAlignment = NSTextAlignmentCenter;
                     decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1227,7 +1229,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void) decoderPINBtnClick //decoder pin 按钮被点击
 {
-//1.先删除decoder pin的文字和按钮   2. 发送通知弹窗
+    //1.先删除decoder pin的文字和按钮   2. 发送通知弹窗
     [self removeConfigDecoderPINShowNotific];
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptInputAgainNotific" object:nil userInfo:nil];
@@ -1367,7 +1369,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //保存三个有用的信息
     
     NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];//text.userInfo[@"playStateType"];
- 
+    
     
     
     //①创建通知,删除进度条
@@ -1509,7 +1511,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:lab];
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     CGSize size=[lab.text sizeWithAttributes:attrs];
-
+                    
                     lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     
                     
@@ -1965,16 +1967,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
         }
         if (decoderPINLab) {
-            CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-            CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
             decoderPINLab.textAlignment = NSTextAlignmentCenter;
             decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
-
+            
         }
         if (CAPINLab) {
-            CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-            CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
             CAPINLab.textAlignment = NSTextAlignmentCenter;
             CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -2077,7 +2079,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [self.videoControl.audioBtn setEnabled:YES];
         }
         //IJK
-         self.player.view.frame = self.view.bounds;
+        self.player.view.frame = self.view.bounds;
         //new====
     }else
     {
@@ -2346,15 +2348,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
     }
     if (decoderPINLab) {
-        CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please Decoder PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-        CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
         decoderPINLab.textAlignment = NSTextAlignmentCenter;
         decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
     }
     if (CAPINLab) {
-        CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please CA PIN" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-        CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"Input Password" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
         CAPINLab.textAlignment = NSTextAlignmentCenter;
         CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -2915,7 +2917,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// slider 松开事件
 - (void)progressSliderTouchEnded:(UISlider *)slider
 {
-//    [self setCurrentPlaybackTime:floor(slider.value)];
+    //    [self setCurrentPlaybackTime:floor(slider.value)];
     [self.player play];
     
     [self startDurationTimer];
@@ -2948,87 +2950,87 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    [self.view addSubview:playerView];
     //    self.player = [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:self.playerView];
     
-  
-//    [operationQueue cancelAllOperations];
-//    
-//    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
-//    
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            // 处理耗时操作的代码块...
-            if (url == nil) {
-                
-            }else
-            {
-//                UIAlertView *  abcalert  = [[UIAlertView alloc] initWithTitle:@"开始一个新的播放器" message:@"哈哈哈" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-//                [abcalert show];
-                
-                [self.player shutdown];
-                [self.player.view removeFromSuperview];
-                self.player = nil;
-                
-                
-                //        self.view  = nil;
-                //        [self.view removeFromSuperview];
-                
-                
-                //        self.view.backgroundColor = [UIColor  redColor];
-                
-                NSLog(@"self.View %@",self.view);
-                //    if (self.player) {
-                //        self.player = [self.player initWithContentURL:url withOptions:nil playView:nil];
-                
-                //    }
-                
-                self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
-                //    UIView *playerView = [self.player view];
-                //    playerView.frame = self.PlayerView.frame;
-                NSLog(@"self.playerView %@",self.player);
-                self.player.view.frame = self.view.bounds;
-                //    playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                
-                //    [self.view insertSubview:self.playerView atIndex:1];
-                [self.view insertSubview:self.player.view atIndex:0];
-                
-                //    [self.view addSubview:self.player.view];
-                
-                [self.player prepareToPlay:0];
-                [self.player play];
-                
-                NSLog(@"执行中0000000");
-                
-                //删除decoder PIN的文字和按钮
-                NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                
-                //删除decoder PIN的文字和按钮
-                NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification2];
-//                timerForGetBytes = nil; //此处把计时器销毁
-//                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
-            }
-//
-//            
-//            
-//            //通知主线程刷新
-//            NSLog(@"Device dispatch1");
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                //回调或者说是通知主线程刷新，
-//                
-//                
-//                NSLog(@"Device dispatch2");
-//            });
-//            
-//        });
-//    
-//    }];
-////
-////    
-//    [operationQueue addOperation:op1];
-//    NSLog(@"执行中1111111");
-//
-   
+    
+    //    [operationQueue cancelAllOperations];
+    //
+    //    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
+    //
+    //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    //            // 处理耗时操作的代码块...
+    if (url == nil) {
+        
+    }else
+    {
+        //                UIAlertView *  abcalert  = [[UIAlertView alloc] initWithTitle:@"开始一个新的播放器" message:@"哈哈哈" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+        //                [abcalert show];
+        
+        [self.player shutdown];
+        [self.player.view removeFromSuperview];
+        self.player = nil;
+        
+        
+        //        self.view  = nil;
+        //        [self.view removeFromSuperview];
+        
+        
+        //        self.view.backgroundColor = [UIColor  redColor];
+        
+        NSLog(@"self.View %@",self.view);
+        //    if (self.player) {
+        //        self.player = [self.player initWithContentURL:url withOptions:nil playView:nil];
+        
+        //    }
+        
+        self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
+        //    UIView *playerView = [self.player view];
+        //    playerView.frame = self.PlayerView.frame;
+        NSLog(@"self.playerView %@",self.player);
+        self.player.view.frame = self.view.bounds;
+        //    playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        //    [self.view insertSubview:self.playerView atIndex:1];
+        [self.view insertSubview:self.player.view atIndex:0];
+        
+        //    [self.view addSubview:self.player.view];
+        
+        [self.player prepareToPlay:0];
+        [self.player play];
+        
+        NSLog(@"执行中0000000");
+        
+        //删除decoder PIN的文字和按钮
+        NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        //删除decoder PIN的文字和按钮
+        NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        //                timerForGetBytes = nil; //此处把计时器销毁
+        //                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
+    }
+    //
+    //
+    //
+    //            //通知主线程刷新
+    //            NSLog(@"Device dispatch1");
+    //            dispatch_async(dispatch_get_main_queue(), ^{
+    //                //回调或者说是通知主线程刷新，
+    //
+    //
+    //                NSLog(@"Device dispatch2");
+    //            });
+    //
+    //        });
+    //
+    //    }];
+    ////
+    ////
+    //    [operationQueue addOperation:op1];
+    //    NSLog(@"执行中1111111");
+    //
+    
     
 }
 
@@ -3049,7 +3051,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    //    self.shouldAutoplay = YES;
 //    ////////    [self prepareToPlay];
 //    //    [self play];
-//    
+//
 //    //==========正文
 //    self.shouldAutoplay = YES;
 //    [self prepareToPlay];
@@ -3064,10 +3066,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    //    [self play];
 //    //        NSLog(@"byteValue1 TVTVTVTVTVTV333");
 //    //    });
-//    
-//    
+//
+//
 //    //==========正文
-//    
+//
 //    NSLog(@"self 线程2：%@",self);
 //    //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
 //    //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4];
@@ -3079,9 +3081,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    //    [super setContentURL:contentURL];
 //    //    NSLog(@"contentURL22 :%@",contentURL);
 //    //    [self play];
-//    
-//    
-//    
+//
+//
+//
 //    //    [self setMovieSourceType:MPMovieSourceTypeStreaming];
 //    //    [self setShouldAutoplay:YES];//Stop it from autoplaying
 //    //    [self prepareToPlay];//Start preparing the video
@@ -3091,7 +3093,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    [timerForGetBytes invalidate];
 //    timerForGetBytes = nil; //此处把计时器销毁
 //    timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];  //这个方法是获取播放缓冲大小
-//    
+//
 //    //    NSLog(@"byteValue1 ZXZXZXXZ 111");
 //    //    double delayInSeconds = 5;
 //    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -3103,10 +3105,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    //        NSLog(@"byteValue1 ZXZXZXXZ 333");
 //    //    });
 //    //
-//    
+//
 //    //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
 //    //        [self performSelector:@selector(playplay) withObject:nil afterDelay:2];
-//    
+//
 //    isPlayIng = NO;  //这里对判断是否播放的值赋初值
 //    stopPlayTimeOne = 0;
 //    stopPlayTimeTwo = 0;
@@ -3168,7 +3170,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    //        [self play];
 //    //        NSLog(@"qweqweqweqwe");
 //    //    }
-//    
+//
 //    NSMutableArray  *arrPlist = [[NSMutableArray alloc]init];
 //    for (int i = 0; i < count; i++)
 //    {   strBytesTemp = temptemp;
@@ -3183,7 +3185,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        NSMutableString *strBytes = [[NSMutableString alloc] initWithCapacity:100];
 //        [strBytes appendFormat:@"totalSize = %d byte", bytes];
 //        temptemp = byte;
-//        
+//
 //        //        if (temptemp == strBytesTemp && strBytesTemp != 0 ) {
 //        //        if ( strBytesTemp == 0 ) {
 //        //            [self stop];
@@ -3201,19 +3203,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        }
 //        //        NSLog(@"playstat ===byte = %f M bytes = %lld", (float)byte / (1024 * 1024 * 1024), bytes);
 //        //        NSLog(@"byte :%f",byte);
-//        
+//
 //        NSString * bb =  [NSString stringWithFormat:@"playstat ===byte=%fM",(float)byte / (1024 * 1024 * 1024)];
 //        NSLog(@"=============---== %f M",(float)byte / (1024 * 1024));
 //        NSString * cc =  [NSString stringWithFormat:@"bytes ==%lld",bytes];
-//        
+//
 //        countBytes1 = (float)byte / (1024 * 1024 * 1024);
-//        
-//        
-//        
+//
+//
+//
 //        //        [arrPlist removeAllObjects];
 //        //         [arrPlist addObject:bb];
 //        //        [arrPlist addObject:cc];
-//        
+//
 //        // NSDocumentDirectory 要查找的文件
 //        // NSUserDomainMask 代表从用户文件夹下找
 //        // 在iOS中，只有一个目录跟传入的参数匹配，所以这个集合里面只有一个元素
@@ -3227,16 +3229,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        //            NSArray *arr = [NSArray arrayWithContentsOfFile:filePath];
 //        //            NSLog(@"cacacacacacacaca%@", arr);
 //        //        }
-//        
-//        
+//
+//
 //        //        byteValue1 = byte;
-//        
+//
 //        //       int a =
 //    }
-//    
+//
 //    //    isPlayIng;
 //    stopPlayTimeOne++;
-//    
+//
 //    NSLog(@"stopPlayTimeOne %d",stopPlayTimeOne);
 //    if (stopPlayTimeOne%5 == 4) {  //代表间隔24s没有播放视频，一次两秒
 //        isPlayIng = !isPlayIng;   //防止tempOne 重复记录
@@ -3264,7 +3266,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        }
 //        stopPlayTimeTwo++; //1
 //    }
-//    
+//
 //}
 -(void)crclePlayUrl
 {
@@ -3501,7 +3503,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if ([_cellStr isEqualToString:@"subt"]) {
-           NSLog(@"self.subAudioDic--:%@",self.subAudioDic);
+        NSLog(@"self.subAudioDic--:%@",self.subAudioDic);
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
         BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
         if (judgeIsNull == YES) {
@@ -3511,7 +3513,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
         }else
         {NSLog(@"subtarr--:%d",subtarr.count);
-
+            
             NSLog(@"subtarr--:%@",subtarr);
             if (subtarr.count <=8) {
                 self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
@@ -3785,31 +3787,31 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-
+    
     NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-//            NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-//            NSLog(@"nameTemp :%@",self.videoControl);
-//            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab);
-//            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab.text);
-//            
-//            NSString * channelName = self.videoControl.channelNameLab.text;
-//            NSDictionary * dicChannelName  = self.video.dicChannl;
-//            for (int i = 0; i<self.video.channelCount; i++) {
-//                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
-//                NSLog(@"nameTemp :%@",nameTemp);
-//                NSLog(@"channelName :%@",channelName);
-//                if ([nameTemp isEqualToString:channelName]) {
-//                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-//                    NSLog(@"i :%d",i);
-//                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
-//                    rowIndex = i;
-//                    break;
-//                }
-//            }
+            //            NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+            //            NSLog(@"nameTemp :%@",self.videoControl);
+            //            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab);
+            //            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab.text);
+            //
+            //            NSString * channelName = self.videoControl.channelNameLab.text;
+            //            NSDictionary * dicChannelName  = self.video.dicChannl;
+            //            for (int i = 0; i<self.video.channelCount; i++) {
+            //                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
+            //                NSLog(@"nameTemp :%@",nameTemp);
+            //                NSLog(@"channelName :%@",channelName);
+            //                if ([nameTemp isEqualToString:channelName]) {
+            //                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+            //                    NSLog(@"i :%d",i);
+            //                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
+            //                    rowIndex = i;
+            //                    break;
+            //                }
+            //            }
             
             
             
@@ -3838,7 +3840,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
             //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
             subtRow = indexPath.row;
-//            audioRow = 0;
+            //            audioRow = 0;
             [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -3873,19 +3875,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-//            NSString * channelName = self.videoControl.channelNameLab.text;
-//            NSDictionary * dicChannelName  = self.video.dicChannl;
-//            for (int i = 0; i<self.video.channelCount; i++) {
-//                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
-//                NSLog(@"nameTemp :%@",nameTemp);
-//                NSLog(@"channelName :%@",channelName);
-//                if ([nameTemp isEqualToString:channelName]) {
-//                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-//                    NSLog(@"i :%d",i);
-//                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
-//                    break;
-//                }
-//            }
+            //            NSString * channelName = self.videoControl.channelNameLab.text;
+            //            NSDictionary * dicChannelName  = self.video.dicChannl;
+            //            for (int i = 0; i<self.video.channelCount; i++) {
+            //                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
+            //                NSLog(@"nameTemp :%@",nameTemp);
+            //                NSLog(@"channelName :%@",channelName);
+            //                if ([nameTemp isEqualToString:channelName]) {
+            //                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
+            //                    NSLog(@"i :%d",i);
+            //                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
+            //                    break;
+            //                }
+            //            }
             
             
             NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -3912,7 +3914,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
             //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
             
-//            subtRow = 0;
+            //            subtRow = 0;
             audioRow = indexPath.row;
             [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             

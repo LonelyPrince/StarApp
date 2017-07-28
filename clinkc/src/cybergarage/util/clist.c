@@ -247,22 +247,22 @@ CgList *list)
 CgList *cg_list_next(
 CgList *list)
 {
-    return NULL;
-//	cg_log_debug_l5("Entering...\n");
-//
-//	if (NULL == list)
-//		return NULL;
-//
-//    //////////可能会崩溃的地方
-//	if (NULL == list->next)
-//		return NULL;
-//	
-//	if (list->next->headFlag == TRUE)
-//		return NULL;
-//
-//	cg_log_debug_l5("Leaving...\n");
-//
-//	return list->next;
+//    return NULL;
+	cg_log_debug_l5("Entering...\n");
+
+	if (NULL == list)
+		return NULL;
+
+    //////////可能会崩溃的地方
+	if (NULL == list->next)
+		return NULL;
+	
+	if (list->next->headFlag == TRUE)
+		return NULL;
+
+	cg_log_debug_l5("Leaving...\n");
+
+	return list->next;
 }
 
 /****************************************
