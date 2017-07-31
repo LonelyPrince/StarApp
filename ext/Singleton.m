@@ -973,6 +973,7 @@
     NSData * data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
     uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
     
+    NSLog(@" dataToOperate %@",dataToOperate);
     if(data_STB_Ret_int == 5) //正确
     {
         //发送播放命令

@@ -1684,11 +1684,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     //=====则去掉不能播放的字样，加上加载环
-    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//    
+//    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self removeLabAndAddIndecatorView];
     //=====则去掉不能播放的字样，加上加载环
     
     
@@ -2549,6 +2550,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
+        //=====则去掉不能播放的字样，加上加载环
+    [self removeLabAndAddIndecatorView];
+    
+    
+    
     [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
     tempBoolForServiceArr = YES;
     tempArrForServiceArr =  self.categoryModel.service_indexArr;
@@ -3217,6 +3223,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }else //视频没有停止分发，跳转界面可以播放
     {
+        //=====则去掉不能播放的字样，加上加载环
+        [self removeLabAndAddIndecatorView];
+        
         NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
         if([jumpFormOtherView isEqualToString:@"YES"])
         {
@@ -4145,6 +4154,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    //=====则去掉不能播放的字样，加上加载环
+    [self removeLabAndAddIndecatorView];
+    
     [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
     
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
@@ -4436,6 +4448,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificAudioSubtClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    //=====则去掉不能播放的字样，加上加载环
+    [self removeLabAndAddIndecatorView];
+    
     [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
     
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
@@ -4570,6 +4585,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    //=====则去掉不能播放的字样，加上加载环
+    [self removeLabAndAddIndecatorView];
+    
     [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
     //    NSInteger row = [text.userInfo[@"textOne"]integerValue];
     //    NSDictionary * dic = [[NSDictionary alloc]init];
@@ -5115,12 +5133,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - CA加密第一次验证失败后，重新弹窗
 -(void)popCAAlertViewFaild //: (NSNotification *)text
 {
-    CAAlert.title = @"It's wrong,Once more";
-    [CAAlert show];
-    
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
+
+    CAAlert.title = @"It's wrong,Once more";
+    [CAAlert show];
+    CAAlert.dontDisppear = YES;
+    
 }
 //第一次没有输入，点击decoder PIN 按钮后重新弹出输入框
 -(void)STBDencryptInputAgainNotific
@@ -5222,18 +5242,35 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 机顶盒加密第一次验证失败后，重新弹窗
 -(void)popSTBAlertViewFaild //: (NSNotification *)text
 {
-    STBAlert.title = @"It's wrong,Once more";
-    [STBAlert show];
-    
-    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    [self performSelector:@selector(delayPopSTBOrCAAlert) withObject:nil afterDelay:0.6];
+  
+   
+}
+-(void)delayPopSTBOrCAAlert
+{
+    if(STBTouchType_Str == nil )
+    {
+        NSLog(@"不一致，不弹窗。===或者将窗口取消掉");
+        NSLog(@"弹出CA窗口 ");
+        [self popCAAlertViewFaild]; // STBTouchType_Str == nil  代表是CA验证  不是STB
+    }else
+    {
+        NSLog(@"弹出 STB 窗口 ");
+        STBAlert.title = @"It's wrong,Once more";
+        [STBAlert show];
+        STBAlert.dontDisppear = YES;
+        
+        NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    }
 }
 //第一次没有输入PIN，第二次点击decoder PIN按钮重新打开窗口输入
 -(void)popSTBAlertViewInputAgain //: (NSNotification *)text
 {
     STBAlert.title = @"Please input your Decoder PIN";
     [STBAlert show];
+    STBAlert.dontDisppear = YES;
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
@@ -5244,11 +5281,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     CAAlert.title = @"Please input your CA PIN";
     [CAAlert show];
+    CAAlert.dontDisppear = YES;
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
 }
+#pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
     [USER_DEFAULT setObject:@"yes" forKey:@"alertViewHasPop"];
@@ -5308,7 +5347,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    STBAlert = [[UIAlertView alloc] initWithTitle:@"请输入机顶盒密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
     [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
     STBAlert.delegate =  self;
+    STBAlert.title = @"Please input your Decoder PIN";
     [STBAlert show];
+    STBAlert.dontDisppear = YES;
     
     //    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"文本对话框" message:@"登录和密码对话框示例" preferredStyle:UIAlertControllerStyleAlert];
     //
@@ -5356,9 +5397,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
 }
+#pragma mark - CA弹窗
 -(void)popCAAlertView : (NSNotification *)text
 {
+    STBTouchType_Str = nil; //用于判断是哪个类型，如果此类型有数据，则代表是STB，否则代表是CA
+    
     [USER_DEFAULT setObject:@"yes" forKey:@"alertViewHasPop"];
+    
+    
+    //取消掉提示文字和延迟方法
+    [self removeTipLabAndPerformSelector];
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     NSData * CAThreeData = text.userInfo[@"CAThreedata"];
     NSData * CANetwork_idData = [CAThreeData subdataWithRange:NSMakeRange(0,2)];
@@ -5381,7 +5433,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
         CAAlert.delegate =  self;
+        CAAlert.title = @"Please input your CA PIN";
         [CAAlert show];
+        CAAlert.dontDisppear = YES;
         
         
         CATextField_Encrypt.delegate = self;
@@ -5400,7 +5454,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         //不一致，不弹窗。===或者将窗口取消掉
         
-        NSLog(@"不一致，不弹窗。===或者将窗口取消掉");
+        NSLog(@"不一致，不弹窗。===或者将窗口取消掉11");
         if(CAAlert){
             [CAAlert dismissWithClickedButtonIndex:[CAAlert cancelButtonIndex] animated:YES];
         }
@@ -5445,6 +5499,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"charact  STB  验证");
             NSLog(@"character2txt  字符 ：%@",STBTextField_Encrypt.text);
             if (STBTextField_Encrypt.text.length < 1) {
+                STBAlert.dontDisppear = YES;
                 
             }else
             {
@@ -5488,6 +5543,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"charact  CA 验证");
             NSLog(@"character2txt  字符 ：%@",CATextField_Encrypt.text);
             if (CATextField_Encrypt.text.length <1) {
+                CAAlert.dontDisppear = YES;
             }else
             {
                 
@@ -5725,6 +5781,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //}
 -(void)serviceEPGSetData : (NSInteger)row diction :(NSDictionary *)dic
 {
+    //=====则去掉不能播放的字样，加上加载环
+    [self removeLabAndAddIndecatorView];
+    
     NSLog(@"self.socket:%@",self.socketView);
     
     //先传输数据到socket，然后再播放视频
@@ -7029,6 +7088,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary * dic = nowPlayChannel_Arr [3];
         
         
+        NSLog(@"不一致，不弹窗。===或者将窗口取消掉22");
         [CAAlert dismissWithClickedButtonIndex:0 animated:YES];
         //======
         [self firstOpenAppAutoPlay:row diction:dic];
@@ -7224,6 +7284,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     
+                    NSLog(@"不一致，不弹窗。===或者将窗口取消掉33");
                     [STBAlert dismissWithClickedButtonIndex:0 animated:YES];
                     //======
                     [self firstOpenAppAutoPlay:row diction:dic];
@@ -7498,5 +7559,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
     
+}
+#pragma mark - 则去掉不能播放的字样，加上加载环
+-(void)removeLabAndAddIndecatorView
+{
+    //=====则去掉不能播放的字样，加上加载环
+    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //=====则去掉不能播放的字样，加上加载环
 }
 @end

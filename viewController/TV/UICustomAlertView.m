@@ -21,6 +21,7 @@
 
 -(void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated {
     
+    NSLog(@"不一致，不弹窗。===或者将窗口取消掉44");
     if(self.dontDisppear && buttonIndex == 1)  //如果 dontDisppear == yes,并且用户点击了determine
         return;
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
