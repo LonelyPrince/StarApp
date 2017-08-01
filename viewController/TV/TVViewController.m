@@ -1824,19 +1824,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //将上一个节目关闭
             [self stopVideoPlay];
-            // 此处代表需要记性机顶盒加密验证
-            NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
-            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
-            //创建通知
-            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-            NSLog(@"POPPOPPOPPOP33333333333");
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              
+                // 此处代表需要记性机顶盒加密验证
+                NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
+                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                NSLog(@"POPPOPPOPPOP33333333333");
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                
+                
+                firstOpenAPP = firstOpenAPP+1;
+                
+                firstfirst = NO;
+            });
             
-            firstOpenAPP = firstOpenAPP+1;
-            
-            firstfirst = NO;
             
         }else //正常播放的步骤
         {
@@ -2860,6 +2865,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
+        [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         
         NSLog(@"history线程%@",[NSThread currentThread]);
         //   tempBoolForServiceArr = YES;
@@ -3194,8 +3200,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
     }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // 处理耗时操作的代码块...
+        [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+        NSLog(@"目前是sliderview:%f",_slideView.frame.origin.y);
+    });
     
-    NSLog(@"目前是sliderview:%f",_slideView.frame.origin.y);
+    
+    
 }
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
@@ -5290,112 +5302,79 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
-    [USER_DEFAULT setObject:@"yes" forKey:@"alertViewHasPop"];
-    //取消掉提示文字和延迟方法
-    [self removeTipLabAndPerformSelector];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //取消掉提示文字和延迟方法
+        [self removeTipLabAndPerformSelector];
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+
     
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
-    //保存三个有用的信息
-    STBTouch_Row = [text.userInfo[@"textOne"]integerValue];
-    NSLog(@"STBTouch_Row== %d",STBTouch_Row);
-    STBTouch_Dic = text.userInfo[@"textTwo"];
-    STBTouchType_Str = text.userInfo[@"textThree"];
-    NSDictionary * epgDicFromPopSTB = [STBTouch_Dic objectForKey:[NSString stringWithFormat:@"%d",STBTouch_Row]];
-    NSLog(@"epgDicFromPopSTB== %@",epgDicFromPopSTB);
-    
-    [USER_DEFAULT setObject:epgDicFromPopSTB forKey:@"NowChannelDic"];
-    if (text.userInfo.count >3) {
-        STBTouch_Audio = [text.userInfo[@"textFour"]integerValue];
-        STBTouch_Subt = [text.userInfo[@"textFive"]integerValue];
-    }
-    //===
-    
-    [self serviceEPGSetData:STBTouch_Row diction:STBTouch_Dic];
-    //    NSArray * epg_infoArr = [[NSArray alloc]init];
-    //    self.service_videoname = [epgDicFromPopSTB objectForKey:@"service_name"];
-    //    epg_infoArr = [epgDicFromPopSTB objectForKey:@"epg_info"];
-    //    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-    //    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-    //    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
-    //    //    self.TVSubAudioDic = [[NSDictionary alloc]init];
-    //    self.TVSubAudioDic = epgDicFromPopSTB;
-    //    //    self.TVChannlDic = [[NSDictionary alloc]init];
-    //    NSLog(@"self.TVChannlDic.count 1:%d",self.TVChannlDic.count);
-    //    self.TVChannlDic = self.dicTemp;
-    //    NSLog(@"self.TVChannlDic.count 2:%d",self.TVChannlDic.count);
-    //    NSLog(@"eventname :%@",self.event_startTime);
-    //
-    //
-    //
-    //    tempBoolForServiceArr = YES;
-    //    tempArrForServiceArr =  self.categoryModel.service_indexArr;
-    //    tempDicForServiceArr = self.TVChannlDic;
-    //    NSLog(@"first tempDicForServiceArr %@",tempDicForServiceArr);
-    //    [self getsubt];
-    //    //*********
-    //
-    //    [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-    //    [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
-    //    self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-    //    self.video.channelCount = tempArrForServiceArr.count;
-    
-    //=====
-    
-    //    STBAlert = [[UIAlertView alloc] initWithTitle:@"请输入机顶盒密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-    [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-    STBAlert.delegate =  self;
-    STBAlert.title = @"Please input your Decoder PIN";
-    [STBAlert show];
-    STBAlert.dontDisppear = YES;
-    
-    //    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"文本对话框" message:@"登录和密码对话框示例" preferredStyle:UIAlertControllerStyleAlert];
-    //
-    //    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField){
-    //
-    //        textField.placeholder = @"登录";
-    //
-    //    }];
-    //
-    //    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-    //
-    //        textField.placeholder = @"密码";
-    //
-    //        textField.secureTextEntry = YES;
-    //
-    //    }];
-    //    [self presentViewController:alertController animated:YES completion:nil];
-    
-    //    UIView * viewhah = [[UIView alloc]init];
-    //    viewhah.frame = CGRectMake(30, 30, 50, 50);
-    //    viewhah.backgroundColor = [UIColor redColor];
-    //    [self.view addSubview:viewhah];
+    });
     
     
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // 处理耗时操作的代码块...
+        //保存三个有用的信息
+        STBTouch_Row = [text.userInfo[@"textOne"]integerValue];
+        NSLog(@"STBTouch_Row== %d",STBTouch_Row);
+        STBTouch_Dic = text.userInfo[@"textTwo"];
+        STBTouchType_Str = text.userInfo[@"textThree"];
+        NSDictionary * epgDicFromPopSTB = [STBTouch_Dic objectForKey:[NSString stringWithFormat:@"%d",STBTouch_Row]];
+        NSLog(@"epgDicFromPopSTB== %@",epgDicFromPopSTB);
+        
+        [USER_DEFAULT setObject:@"yes" forKey:@"alertViewHasPop"];
+        
+        
+        [USER_DEFAULT setObject:epgDicFromPopSTB forKey:@"NowChannelDic"];
+        
+        if (text.userInfo.count >3) {
+            STBTouch_Audio = [text.userInfo[@"textFour"]integerValue];
+            STBTouch_Subt = [text.userInfo[@"textFive"]integerValue];
+        }
+        //通知主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            
+            
+            [self serviceEPGSetData:STBTouch_Row diction:STBTouch_Dic];
+            
+            [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+            STBAlert.delegate =  self;
+            STBAlert.title = @"Please input your Decoder PIN";
+            [STBAlert show];
+            STBAlert.dontDisppear = YES;
+            
+            
+            
+            STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
+            
+            
+            STBTextField_Encrypt.delegate = self;
+            STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
+            STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:STBTextField_Encrypt];
+            //修改decoderPIN 和CA PIN 的 占位文字
+            if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
+                STBTextField_Encrypt.placeholder = @"decoder PIN";
+            }
+            
+            
+            NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            
+            
+            
+        }); 
+        
+    });
+  
     
-    //        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"请输入机顶盒密码"];
-    //    [BMAlertHud showWithTitle:title message:nil delegate:self textfield:YES cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    
-    STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
-    
-    
-    STBTextField_Encrypt.delegate = self;
-    STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
-    STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-                                                name:@"UITextFieldTextDidChangeNotification"
-                                              object:STBTextField_Encrypt];
-    //修改decoderPIN 和CA PIN 的 占位文字
-    if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
-        STBTextField_Encrypt.placeholder = @"decoder PIN";
-    }
-    
-    
-    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
-    [[NSNotificationCenter defaultCenter] postNotification:notification1];
 }
 #pragma mark - CA弹窗
 -(void)popCAAlertView : (NSNotification *)text
