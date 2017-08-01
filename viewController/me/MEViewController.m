@@ -454,8 +454,10 @@
         aboutView = [[AboutViewController alloc]init];
 //        [self.navigationController pushViewController:aboutView animated:YES];
         if(![self.navigationController.topViewController isKindOfClass:[aboutView class]]) {
+            
             [self.navigationController pushViewController:aboutView animated:YES];
-        }else
+            
+            }else
         {
             NSLog(@"此处可能会由于页面跳转过快报错");
         }
@@ -3313,4 +3315,16 @@
     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.Animating = NO;
+    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    
+    [super  viewDidDisappear:animated];
+    self.Animating = NO;
+}
 @end

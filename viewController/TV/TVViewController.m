@@ -12,7 +12,7 @@
 #import "KSGuideManager.h"
 #import "MJRefresh.h"
 #import "UICustomAlertView.h"
-
+#import "UIViewController+animationView.h"
 
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 //#import "HexColors.h"
@@ -2161,7 +2161,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.topProgressView removeFromSuperview];
     [self.timer invalidate];
     self.timer = nil;
-    
+
     if(isEventStartTimeBiger_NowTime == YES) //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
     {
         progressEPGArrIndex = progressEPGArrIndex - 1;
@@ -2289,18 +2289,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
                     [self.timer invalidate];
                     self.timer = nil;
-                    
-                    
+
                 }
                 
             }
             else
             {
+        
                 [self.topProgressView removeFromSuperview];
                 [self.timer invalidate];
                 self.timer = nil;
                 return;
                 //        [self removeProgressNotific];
+            
             }
         }else
         {
@@ -2308,7 +2309,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.timer invalidate];
             self.timer = nil;
             return;
-            //        [self removeProgressNotific];
+            
+            
         }
     }
 }
@@ -3056,7 +3058,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 //引导页
 - (void)viewWillAppear:(BOOL)animated{
-    
+    NSLog(@"aksdblasfhasflkabkjbaskbdkasbkd");
     //            NSArray * serviceArrForJudge =  self.serviceData;
     //            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
     //        NSLog(@"aaaaaa=====  %@",fourceDic);
@@ -3903,31 +3905,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //停止播放，视频分发
     [self.socketView  deliveryPlayExit];
 }
--(void)viewDidDisappear:(BOOL)animated
-{
-    self.video.playUrl = @"";
-    //    [self playVideo];
-    [self.videoController.player stop];
-    [self.videoController.player shutdown];
-    [self.videoController.player.view removeFromSuperview];
-    
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-    self.video.playUrl = @"";
-    //    [self playVideo];
-    [self.videoController.player stop];
-    [self.videoController.player shutdown];
-    [self.videoController.player.view removeFromSuperview];
-    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    
-    NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification2];
-    
-}
+
 -(void)setIPNoific
 {
     
@@ -4762,10 +4740,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         else
             return vc;
         
-    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+    } else if ([vc isKindOfClass:[XYZNavigationController class]]) {
         
         // Return top view
-        UINavigationController* svc = (UINavigationController*) vc;
+        XYZNavigationController* svc = (XYZNavigationController*) vc;
         if (svc.viewControllers.count > 0)
             return [self findBestViewController:svc.topViewController];
         else
@@ -5895,9 +5873,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@"在这里获取 开始获取ListArr");
     //channelStartimesList = [NSSet alloc];
-    for (int i = 0; i< channelListArr.count; i++) {
+    NSMutableArray *duplicateArray = [channelListArr mutableCopy];
+
+    for (int i = 0; i< duplicateArray.count; i++) {
         
-        NSArray * epg_info_ArrForStartTime = [channelListArr[i] objectForKey:@"epg_info"];
+        NSArray * epg_info_ArrForStartTime = [duplicateArray[i] objectForKey:@"epg_info"];
         
         
         for (int y = 0; y< epg_info_ArrForStartTime.count; y++) {
@@ -5943,8 +5923,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSString * tempArrStr;
     NSString * nowTimeStr = [GGUtil GetNowTimeString];
-    for (int i = 0; i< sortSetArray.count; i++) {
-        tempArrStr = sortSetArray[i];
+    
+    NSMutableArray *duplicateArray = [sortSetArray mutableCopy];
+    
+    for (int i = 0; i< duplicateArray.count; i++) {
+        tempArrStr = duplicateArray[i];
         //        nowTimeStr
         if ([tempArrStr intValue] > [nowTimeStr intValue] ) {
             //如果时间小于当前时间，那么几秒后刷新
@@ -7549,5 +7532,39 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     //=====则去掉不能播放的字样，加上加载环
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.Animating = NO;
+    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    self.video.playUrl = @"";
+    //    [self playVideo];
+    [self.videoController.player stop];
+    [self.videoController.player shutdown];
+    [self.videoController.player.view removeFromSuperview];
+    
+    [super  viewDidDisappear:animated];
+    self.Animating = NO;
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    self.video.playUrl = @"";
+    //    [self playVideo];
+    [self.videoController.player stop];
+    [self.videoController.player shutdown];
+    [self.videoController.player.view removeFromSuperview];
+    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
+    
 }
 @end

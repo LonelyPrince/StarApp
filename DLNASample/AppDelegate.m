@@ -13,7 +13,6 @@
 @implementation AppDelegate
 
 @synthesize window = _window;
-@synthesize navigationController = _navigationController;
 @synthesize avRenderer = _avRenderer;
 
 

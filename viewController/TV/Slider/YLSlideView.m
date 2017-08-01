@@ -202,12 +202,8 @@
     //
     //    [tableViewForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     
-    NSLog(@"row。count %d",row);
-    NSLog(@"row2。count %d",row2);
-    NSLog(@"row3。count %d",row3);
-    NSLog(@"[tableViewForSliderView numberOfRowsInSection:0]。count %d",[tableViewForSliderView numberOfRowsInSection:0]);
-    NSLog(@"[tableViewForSliderView numberOfRowsInSection:0]。row2 %d",row2);
     NSLog(@"====================");
+    
     if ([tableViewForSliderView numberOfRowsInSection:0] >= row2) {
         [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
         

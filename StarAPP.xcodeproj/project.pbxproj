@@ -208,6 +208,8 @@
 		7024C6111DD441490053F313 /* bianji@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60E1DD441490053F313 /* bianji@1x.png */; };
 		7024C6121DD441490053F313 /* bianji@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60F1DD441490053F313 /* bianji@2x.png */; };
 		7024C6131DD441490053F313 /* bianji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6101DD441490053F313 /* bianji@3x.png */; };
+		7027B3D71F308F89001CDFAE /* XYZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3D61F308F89001CDFAE /* XYZNavigationController.m */; };
+		7027B3E91F309C93001CDFAE /* UIViewController+animationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */; };
 		702A36D61E95EC8700C6FC39 /* 音频背景.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 702A36D51E95EC8700C6FC39 /* 音频背景.jpg */; };
 		702CE4021DDA97EC000A0513 /* mima@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE3FF1DDA97EC000A0513 /* mima@1x.png */; };
 		702CE4031DDA97EC000A0513 /* mima@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702CE4001DDA97EC000A0513 /* mima@2x.png */; };
@@ -905,6 +907,10 @@
 		7024C60E1DD441490053F313 /* bianji@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@1x.png"; sourceTree = "<group>"; };
 		7024C60F1DD441490053F313 /* bianji@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@2x.png"; sourceTree = "<group>"; };
 		7024C6101DD441490053F313 /* bianji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@3x.png"; sourceTree = "<group>"; };
+		7027B3D51F308F89001CDFAE /* XYZNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZNavigationController.h; sourceTree = "<group>"; };
+		7027B3D61F308F89001CDFAE /* XYZNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZNavigationController.m; sourceTree = "<group>"; };
+		7027B3E71F309C93001CDFAE /* UIViewController+animationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animationView.h"; sourceTree = "<group>"; };
+		7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+animationView.m"; sourceTree = "<group>"; };
 		702A36D51E95EC8700C6FC39 /* 音频背景.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "音频背景.jpg"; sourceTree = "<group>"; };
 		702CE3FF1DDA97EC000A0513 /* mima@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mima@1x.png"; sourceTree = "<group>"; };
 		702CE4001DDA97EC000A0513 /* mima@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mima@2x.png"; sourceTree = "<group>"; };
@@ -1630,8 +1636,7 @@
 				70FC2FF01D75249F00BD06FE /* Search */,
 				70170BD61D7403AC00CC3951 /* TVViewController.h */,
 				70170BD71D7403AC00CC3951 /* TVViewController.m */,
-				7036B0E51F29FAAC0043533D /* UICustomAlertView.h */,
-				7036B0E61F29FAAC0043533D /* UICustomAlertView.m */,
+				7027B3D11F306C96001CDFAE /* CategoryClass */,
 				70E712A61DB611F800BD98EE /* FullScreenView.h */,
 				70E712A71DB611F800BD98EE /* FullScreenView.m */,
 			);
@@ -1937,6 +1942,19 @@
 				7024C6101DD441490053F313 /* bianji@3x.png */,
 			);
 			name = RouteM;
+			sourceTree = "<group>";
+		};
+		7027B3D11F306C96001CDFAE /* CategoryClass */ = {
+			isa = PBXGroup;
+			children = (
+				7036B0E51F29FAAC0043533D /* UICustomAlertView.h */,
+				7036B0E61F29FAAC0043533D /* UICustomAlertView.m */,
+				7027B3D51F308F89001CDFAE /* XYZNavigationController.h */,
+				7027B3D61F308F89001CDFAE /* XYZNavigationController.m */,
+				7027B3E71F309C93001CDFAE /* UIViewController+animationView.h */,
+				7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */,
+			);
+			name = CategoryClass;
 			sourceTree = "<group>";
 		};
 		702CE4061DDA9854000A0513 /* DeviceManage */ = {
@@ -3270,6 +3288,7 @@
 				A4A66A181555E44100AED3AF /* DetailViewController.m in Sources */,
 				701294ED1D80F4B5003139D5 /* LBGetHttpRequest.m in Sources */,
 				701295211D80F4CF003139D5 /* UIView+LayoutConstraintHelper.m in Sources */,
+				7027B3D71F308F89001CDFAE /* XYZNavigationController.m in Sources */,
 				7007707A1D829C30003C0D68 /* YLSlideView.m in Sources */,
 				70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */,
 				604F37CC159B2FDC00FF1F91 /* ServerContentViewController.m in Sources */,
@@ -3308,6 +3327,7 @@
 				707FE7641DACC5780087C361 /* THProgressView.m in Sources */,
 				70FC30FD1D75714E00BD06FE /* ZXVideoPlayerVolumeView.m in Sources */,
 				701294E61D80F4A3003139D5 /* NSString+JSONCategories.m in Sources */,
+				7027B3E91F309C93001CDFAE /* UIViewController+animationView.m in Sources */,
 				703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */,
 				700770821D829EA3003C0D68 /* YGPCache.m in Sources */,
 				704582F51D9A193D0061C154 /* GGUtil.m in Sources */,

@@ -575,5 +575,17 @@
 //6--16
 //8--16
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.Animating = NO;
+    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    
+    [super  viewDidDisappear:animated];
+    self.Animating = NO;
+}
 
 @end

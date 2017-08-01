@@ -44,10 +44,10 @@
         else
             return vc;
         
-    } else if ([vc isKindOfClass:[UINavigationController class]]) {
+    } else if ([vc isKindOfClass:[XYZNavigationController class]]) {
         
         // Return top view
-        UINavigationController* svc = (UINavigationController*) vc;
+        XYZNavigationController* svc = (XYZNavigationController*) vc;
         if (svc.viewControllers.count > 0)
             return [self findBestViewController:svc.topViewController];
         else
@@ -92,7 +92,7 @@
     
     
     TVViewController * tvVC = [[TVViewController alloc]init];
-    UINavigationController * tvViewNav = [[UINavigationController alloc]initWithRootViewController:tvVC];
+    XYZNavigationController * tvViewNav = [[XYZNavigationController alloc]initWithRootViewController:tvVC];
     
     tvVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Live" image:[UIImage imageNamed:@"live icon copy"] selectedImage:[UIImage imageNamed:@"live icon"]];
     
@@ -100,11 +100,11 @@
     
     
     MEViewController * meVC = [[MEViewController alloc]init];
-    UINavigationController * meViewNav = [[UINavigationController alloc]initWithRootViewController:meVC];
+    XYZNavigationController * meViewNav = [[XYZNavigationController alloc]initWithRootViewController:meVC];
     meVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Me" image:[UIImage imageNamed:@"me icon copy"] selectedImage:[UIImage imageNamed:@"me icon"]];
     
     MonitorViewController * monVC = [[MonitorViewController alloc]init];
-    UINavigationController * monViewNav = [[UINavigationController alloc]initWithRootViewController:monVC];
+    XYZNavigationController * monViewNav = [[XYZNavigationController alloc]initWithRootViewController:monVC];
     monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Monitor" image:[UIImage imageNamed:@"monitor"] selectedImage:[UIImage imageNamed:@"monitor-jd"]];
     
     

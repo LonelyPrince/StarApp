@@ -69,5 +69,8 @@
 #import "YLSlideView.h"
 #import "FullScreenView.h"
 
+//catehory + class
+#import "UIViewController+animationView.h"
+#import "XYZNavigationController.h"
 
 #endif

@@ -459,5 +459,17 @@
     NSDictionary *attrs = @{NSFontAttributeName : font};
     return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.Animating = NO;
+    
+}
+-(void)viewDidDisappear:(BOOL)animated
+{
+    
+    [super  viewDidDisappear:animated];
+    self.Animating = NO;
+}
 @end
 

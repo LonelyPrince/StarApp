@@ -26,7 +26,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    UINavigationController *nav = self.viewControllers[0];
+    XYZNavigationController *nav = self.viewControllers[0];
     if ([nav.topViewController isKindOfClass:[TVViewController class]]) {
         return ![[[NSUserDefaults standardUserDefaults] objectForKey:@"ZXVideoPlayer_DidLockScreen"] boolValue];
     }
@@ -36,7 +36,7 @@
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-    UINavigationController *nav = self.viewControllers[0];
+    XYZNavigationController *nav = self.viewControllers[0];
     
     //new====
 //    NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
