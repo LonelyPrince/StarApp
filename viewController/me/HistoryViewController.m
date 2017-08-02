@@ -1084,6 +1084,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView reloadData];
     [tableView beginUpdates];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
@@ -1093,6 +1094,11 @@
                 todayNum = todayNum-1;
                 [historyArr removeObjectAtIndex:(historyArr.count -  indexPath.row - 1)];
                 [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                
+                if(todayNum == 0)
+                {
+                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+                }
             }
             else
             {
@@ -1100,6 +1106,11 @@
                 [historyArr removeObjectAtIndex:(earilyNum -  indexPath.row -1)];
                 earilyNum = earilyNum-1;
                 [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                
+                if(earilyNum == 0)
+                {
+                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+                }
             }
             
         }
@@ -1109,6 +1120,11 @@
             [historyArr removeObjectAtIndex:earilyNum  - indexPath.row -1];
             earilyNum = earilyNum -1;
             [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+            
+            if(earilyNum == 0)
+            {
+                [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+            }
         }
         // Delete the row from the data source.
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]  withRowAnimation:UITableViewRowAnimationFade];
@@ -1120,12 +1136,13 @@
             myButton = nil;
             self.navigationItem.rightBarButtonItem=nil;
         }
-        [tableView reloadData];
+        
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
     [tableView endUpdates];
+    [tableView reloadData];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
 {
