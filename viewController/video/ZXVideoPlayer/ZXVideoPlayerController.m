@@ -1449,6 +1449,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     lab.text = deliveryStopTip;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
+                                    lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
                                 }
                                 else
@@ -1489,6 +1490,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     lab.text = deliveryStopTip;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
+                                    lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
                                 }
                                 else
@@ -1527,6 +1529,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     lab.text = deliveryStopTip;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
+                                    lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
                                 }
                                 else
@@ -1567,6 +1570,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     lab.text = deliveryStopTip;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
+                                    lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
                                 }else
                                 {
@@ -1609,6 +1613,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                         lab.text = deliveryStopTip;   //如果不为空,则显示
                                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                     {
+                                        lab.numberOfLines = 0;
                                         lab.text = mediaDisConnect;
                                     }else
                                     {
@@ -1647,6 +1652,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                         lab.text = deliveryStopTip;   //如果不为空,则显示
                                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                     {
+                                        lab.numberOfLines = 0;
                                         lab.text = mediaDisConnect;
                                     }else
                                     {
@@ -1684,6 +1690,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         lab.text = deliveryStopTip;   //如果不为空,则显示
                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                     {
+                        lab.numberOfLines = 0;
                         lab.text = mediaDisConnect;
                     }else
                     {
@@ -1984,6 +1991,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 lab.text = deliveryStopTip;   //如果不为空,则显示
             }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
             {
+                lab.numberOfLines = 0;
                 lab.text = mediaDisConnect;
             }else
             {
@@ -2366,6 +2374,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             lab.text = deliveryStopTip;   //如果不为空,则显示
         }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
         {
+            lab.numberOfLines = 0;
             lab.text = mediaDisConnect;
         }else
         {
