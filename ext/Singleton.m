@@ -300,6 +300,7 @@
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     if (nowData_length +28+now_data_lengthToInt > data.length) {
                                         //错误,不能大于
+                                        return;
                                     }else
                                     {
                                         bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
@@ -624,14 +625,23 @@
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
-                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
-                                    //--
+                                    NSLog(@"在这里越界了");
                                     
-                                    
-                                    
-                                    [self readSocketCommandTypeISSeventeen:bigDataReduceSmallData];
+                                    if (28 + now_data_lengthToInt + nowData_length > data.length) {
+                                        NSLog(@"可能scocket数据传输错误了");
+                                        return;
+                                    }else
+                                    {
+                                        NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                        //--
+                                        
+                                        
+                                        
+                                        [self readSocketCommandTypeISSeventeen:bigDataReduceSmallData];
+                                        
 
+                                    }
                                     
                                     
                                 }
@@ -951,16 +961,16 @@
         }
     }
     
-    //这里给device发送数据
-    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
-    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
-    }
-    
+//    //这里给device发送数据
+//    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+//    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
+//    }
+//    
     
 }
 

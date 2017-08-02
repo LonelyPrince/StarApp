@@ -30,6 +30,10 @@
     
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+self.tabBarController.tabBar.hidden = YES;
+}
 -(void)loadUI
 {
     deviceString = [GGUtil deviceVersion];

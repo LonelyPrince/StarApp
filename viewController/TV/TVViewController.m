@@ -2158,7 +2158,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@" 进入了一次progressRefresh  replaceEventNameNotific ");
     progressEPGArrIndex = progressEPGArrIndex +1;
+    dispatch_async(dispatch_get_main_queue(), ^{
     [self.topProgressView removeFromSuperview];
+    });
+    
     [self.timer invalidate];
     self.timer = nil;
 
@@ -2224,8 +2227,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //** 计算进度条
                 if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
                 {
-                    [self.view addSubview:self.topProgressView];
-                    [self.view bringSubviewToFront:self.topProgressView];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.view addSubview:self.topProgressView];
+                        [self.view bringSubviewToFront:self.topProgressView];
+                    });
+                    
                     
                     NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
                     NSLog(@"progressRefreshself.event_startTime--==%@",self.event_startTime);
@@ -2286,29 +2292,40 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }else{
                     
-                    [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
-                    [self.timer invalidate];
-                    self.timer = nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.topProgressView removeFromSuperview];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+                        [self.timer invalidate];
+                        self.timer = nil;
+                    });
+                    
 
                 }
                 
             }
             else
             {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.topProgressView removeFromSuperview];
+                    [self.timer invalidate];
+                    self.timer = nil;
+                    return;
+                    //        [self removeProgressNotific];
+                });
         
-                [self.topProgressView removeFromSuperview];
-                [self.timer invalidate];
-                self.timer = nil;
-                return;
-                //        [self removeProgressNotific];
+                
             
             }
         }else
         {
-            [self.topProgressView removeFromSuperview];
-            [self.timer invalidate];
-            self.timer = nil;
-            return;
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [self.topProgressView removeFromSuperview];
+                [self.timer invalidate];
+                self.timer = nil;
+                return;
+
+            });
             
             
         }
@@ -2920,12 +2937,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //    }
         //    else{
         NSLog(@"mutaArray ===-- %@",mutaArray);
-        for (int i = 0; i <mutaArray.count ; i++) {
+        NSMutableArray *duplicateArray = [mutaArray mutableCopy];
+        
+        for (int i = 0; i <duplicateArray.count ; i++) {
             //原始数据
-            NSString * service_network =  [mutaArray[i][0] objectForKey:@"service_network_id"];
-            NSString * service_ts =  [mutaArray[i][0] objectForKey:@"service_ts_id"];
-            NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
-            NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
+            NSString * service_network =  [duplicateArray[i][0] objectForKey:@"service_network_id"];
+            NSString * service_ts =  [duplicateArray[i][0] objectForKey:@"service_ts_id"];
+            NSString * service_service =  [duplicateArray[i][0] objectForKey:@"service_service_id"];
+            NSString * service_tuner =  [duplicateArray[i][0] objectForKey:@"service_tuner_mode"];
             //        NSLog(@"mutaArray[0] :%@",mutaArray[0]);
             //        NSLog(@"mutaArray[1] :%@",mutaArray[1]);
             //        NSLog(@"mutaArray[2] :%@",mutaArray[2]);
@@ -2939,7 +2958,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
                 addNewData = NO;
                 
-                NSArray * equalArr = mutaArray[i];
+                NSArray * equalArr = duplicateArray[i];
                 NSMutableArray * tempArr = [equalArr mutableCopy];
                 //            [tempArr[3] removeLastObject];
                 //            [tempArr[3] addObject:dic];
@@ -3102,53 +3121,174 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:60];
         
     }else{
-        //        [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
-        NSLog(@"不是第一次启动");
+        
+        //防止用户快速切换，做延迟处理
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
+        [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
+        
+//
+//        
+//        //        [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
+//        NSLog(@"不是第一次启动");
+//        [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
+//        [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
+//        [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];  //判断是不是全屏模式
+//        [self preventTVViewOnceFullScreen];
+//        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//        tableviewinit  = tableviewinit +1;
+//        firstShow = YES;
+//        statusNum = 1;
+//        
+//        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+//        self.tabBarController.tabBar.hidden = NO;
+//        
+//        
+//        [self prefersStatusBarHidden];
+//        
+//        
+//        
+//        
+//        
+//        //        [self viewDidLoad];
+//        
+//        //new
+//        //        [self initData];    //table表
+//        [self loadNav];
+//        [self lineView];  //一条0.5pt的线
+//        //    [self loadUI];              //加载table 和scroll
+//        //    [self getTopCategory];
+//        
+//        viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
+//        if (viewDidloadHasRunBool == 0) {
+//            [self getServiceData];    //获取表数据
+//            
+//            
+//            viewDidloadHasRunBool = 1;
+//            [USER_DEFAULT setObject:[NSNumber numberWithInt:viewDidloadHasRunBool] forKey:@"viewDidloadHasRunBool"];
+//            
+//            
+//        }else{
+//            [self getServiceDataNotHaveSocket];    //获取表数据的不含有socket 的初始化方法
+//        }
+//        
+//        //        [self initProgressLine];
+//        //        [self getSearchData];
+//        [self setIPNoific];
+//        [self setHMCChangeNoific];  //新加，简历新的通知，当HMC改变时发送通知
+//        [self setVideoTouchNoific];   //其他页面的点击播放视频的通知
+//        [self setVideoTouchNoificAudioSubt]; //全屏页面音轨字幕切换的通知
+//        [self newTunerNotific]; //新建一个tuner的通知
+//        [self socketGetIPAddressNotific]; //新建一个socket 获取IP地址的通知
+//        [self deleteTunerInfoNotific]; //新建一个删除tuner的通知
+//        [self allCategorysBtnNotific];
+//        [self removeLineProgressNotific]; //进度条停止的刷新通知
+//        [self refreshTableFocus];  //刷新tableView焦点颜色的通知
+//        [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
+//        
+//        
+//        [self STBDencryptNotific];   //机顶盒加锁的通知
+//        [self STBDencryptFailedNotific];   //机顶盒加锁,但是未验证成功，重新弹窗的通知
+//        [self STBDencryptInputAgainNotific];   //机顶盒加锁,但是未验证成功，重新弹窗的通知
+//        [self STBDencryptVideoTouchNotific];   //机顶盒加锁后的播放通知
+//        [self ChangeSTBLockNotific];   //机顶盒加锁后的播放通知
+//        
+//        
+//        [self CADencryptNotific];   //CA加密的通知
+//        [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
+//        [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
+//        [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
+//        
+//        //        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
+//        
+//        //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
+//        //修改tabbar选中的图片颜色和字体颜色
+//        UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        self.tabBarItem.selectedImage = image;
+//        [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
+//        
+//        //视频部分
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        
+//        self.view.backgroundColor = [UIColor whiteColor];
+//        
+//        
+//        
+//        
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.extendedLayoutIncludesOpaqueBars =NO;
+//        self.modalPresentationCapturesStatusBarAppearance =NO;
+//        self.navigationController.navigationBar.translucent =NO;
+//        
+//        if (firstfirst == YES) {
+//            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];
+//        }else
+//        {
+//            [self judgeJumpFromOtherView];
+//        }
+//        
+    }
+    
+    
+    
+    
+}
+-(void)viewWillAppearDealyFunction
+{
+    
+    
+    //        [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
+    NSLog(@"不是第一次启动");
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
         [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
         [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];  //判断是不是全屏模式
         [self preventTVViewOnceFullScreen];
-        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-        tableviewinit  = tableviewinit +1;
-        firstShow = YES;
-        statusNum = 1;
+
+    });
+       //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+    tableviewinit  = tableviewinit +1;
+    firstShow = YES;
+    statusNum = 1;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+    self.tabBarController.tabBar.hidden = NO;
+    
+    
+    [self prefersStatusBarHidden];
+    
+    
+    
+    
+    
+    //        [self viewDidLoad];
+    
+    //new
+    //        [self initData];    //table表
+    [self loadNav];
+    [self lineView];  //一条0.5pt的线
+    //    [self loadUI];              //加载table 和scroll
+    //    [self getTopCategory];
+    
+    viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
+    if (viewDidloadHasRunBool == 0) {
+        [self getServiceData];    //获取表数据
         
-        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
-        self.tabBarController.tabBar.hidden = NO;
+        
+        viewDidloadHasRunBool = 1;
+        [USER_DEFAULT setObject:[NSNumber numberWithInt:viewDidloadHasRunBool] forKey:@"viewDidloadHasRunBool"];
         
         
-        [self prefersStatusBarHidden];
-        
-        
-        
-        
-        
-        //        [self viewDidLoad];
-        
-        //new
-        //        [self initData];    //table表
-        [self loadNav];
-        [self lineView];  //一条0.5pt的线
-        //    [self loadUI];              //加载table 和scroll
-        //    [self getTopCategory];
-        
-        viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
-        if (viewDidloadHasRunBool == 0) {
-            [self getServiceData];    //获取表数据
-            
-            
-            viewDidloadHasRunBool = 1;
-            [USER_DEFAULT setObject:[NSNumber numberWithInt:viewDidloadHasRunBool] forKey:@"viewDidloadHasRunBool"];
-            
-            
-        }else{
-            [self getServiceDataNotHaveSocket];    //获取表数据的不含有socket 的初始化方法
-        }
-        
+    }else{
+        [self getServiceDataNotHaveSocket];    //获取表数据的不含有socket 的初始化方法
+    }
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //        [self initProgressLine];
         //        [self getSearchData];
         [self setIPNoific];
-        [self setHMCChangeNoific];  //新加，简历新的通知，当HMC改变时发送通知
+        [self setHMCChangeNoific];  //新加，建立新的通知，当HMC改变时发送通知
         [self setVideoTouchNoific];   //其他页面的点击播放视频的通知
         [self setVideoTouchNoificAudioSubt]; //全屏页面音轨字幕切换的通知
         [self newTunerNotific]; //新建一个tuner的通知
@@ -3171,49 +3311,49 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
         [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
         [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
-        
-        //        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
-        
-        //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
-        //修改tabbar选中的图片颜色和字体颜色
-        UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        self.tabBarItem.selectedImage = image;
-        [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
-        
-        //视频部分
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        
-        self.view.backgroundColor = [UIColor whiteColor];
-        
-        
-        
-        
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.extendedLayoutIncludesOpaqueBars =NO;
-        self.modalPresentationCapturesStatusBarAppearance =NO;
-        self.navigationController.navigationBar.translucent =NO;
-        
-        if (firstfirst == YES) {
-            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];
-        }else
-        {
-            [self judgeJumpFromOtherView];
-        }
-        
+    });
+   
+    
+    //        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
+    
+    //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
+    //修改tabbar选中的图片颜色和字体颜色
+    UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    self.tabBarItem.selectedImage = image;
+    [self.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateSelected];
+    
+    //视频部分
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars =NO;
+    self.modalPresentationCapturesStatusBarAppearance =NO;
+    self.navigationController.navigationBar.translucent =NO;
+    
+    if (firstfirst == YES) {
+        [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];
+    }else
+    {
+        [self judgeJumpFromOtherView];
     }
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 处理耗时操作的代码块...
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         NSLog(@"目前是sliderview:%f",_slideView.frame.origin.y);
     });
-    
-    
-    
 }
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
+    NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
     
     if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
@@ -7498,6 +7638,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     //弹窗之后，取消显示sorry不能播放的字样，并且取消不能播放的提示文字
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    NSLog(@"取消播放第一次");
     
     //创建通知  如果视频要播放呀，则去掉不能播放的字样
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
@@ -7519,6 +7660,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    }
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    NSLog(@"取消播放第二次");
     [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
     
 }
@@ -7551,6 +7693,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [super  viewDidDisappear:animated];
     self.Animating = NO;
 }
+#pragma mark - UIViewController对象的视图即将消失、被覆盖或是隐藏时调用
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.video.playUrl = @"";
@@ -7565,6 +7708,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification2];
+    
+    NSLog(@"asflna;nfanf;aonf;lkasfnas");
+    //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
+    [self removeTipLabAndPerformSelector];
     
 }
 @end
