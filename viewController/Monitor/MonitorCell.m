@@ -205,9 +205,9 @@
         
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""])
         {
-            self.nameLab.text = [NSString stringWithFormat:@"Recoding--%@",[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"Recording--%@",[epgDic objectForKey:@"event_name"]];
         }else{
-            self.nameLab.text = [NSString stringWithFormat:@"Recoding--No Event"];
+            self.nameLab.text = [NSString stringWithFormat:@"Recording--No Event"];
         }
         
         
