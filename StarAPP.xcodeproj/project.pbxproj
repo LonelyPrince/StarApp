@@ -374,6 +374,7 @@
 		7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650681DB9EFA2002DD47E /* subtCell.xib */; };
 		7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7056506C1DB9F1E1002DD47E /* ChannelCell.m */; };
 		7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7056506D1DB9F1E1002DD47E /* ChannelCell.xib */; };
+		7059B2DA1F330A4600C005A4 /* Tunermonitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2D91F330A4600C005A4 /* Tunermonitor.png */; };
 		706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376111E0B5EB8004238B1 /* 网络无连接@1x.png */; };
 		706376151E0B5EB8004238B1 /* 网络无连接@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376121E0B5EB8004238B1 /* 网络无连接@2x.png */; };
 		706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376131E0B5EB8004238B1 /* 网络无连接@3x.png */; };
@@ -572,7 +573,6 @@
 		70FFE3E81DE2DBA200223E43 /* M7.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3DE1DE2DBA200223E43 /* M7.png */; };
 		70FFE3E91DE2DBA200223E43 /* M8.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3DF1DE2DBA200223E43 /* M8.png */; };
 		70FFE3EA1DE2DBA200223E43 /* M9.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3E01DE2DBA200223E43 /* M9.png */; };
-		70FFE3EC1DE2DDD800223E43 /* Tunermonitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3EB1DE2DDD800223E43 /* Tunermonitor.png */; };
 		70FFE3F91DE3EF4800223E43 /* 分发.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3ED1DE3EF4800223E43 /* 分发.png */; };
 		70FFE3FA1DE3EF4800223E43 /* 分发@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3EE1DE3EF4800223E43 /* 分发@2x.png */; };
 		70FFE3FB1DE3EF4800223E43 /* 分发@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFE3EF1DE3EF4800223E43 /* 分发@3x.png */; };
@@ -1089,6 +1089,7 @@
 		7056506B1DB9F1E1002DD47E /* ChannelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCell.h; sourceTree = "<group>"; };
 		7056506C1DB9F1E1002DD47E /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCell.m; sourceTree = "<group>"; };
 		7056506D1DB9F1E1002DD47E /* ChannelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
+		7059B2D91F330A4600C005A4 /* Tunermonitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tunermonitor.png; sourceTree = "<group>"; };
 		706376111E0B5EB8004238B1 /* 网络无连接@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@1x.png"; sourceTree = "<group>"; };
 		706376121E0B5EB8004238B1 /* 网络无连接@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@2x.png"; sourceTree = "<group>"; };
 		706376131E0B5EB8004238B1 /* 网络无连接@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@3x.png"; sourceTree = "<group>"; };
@@ -1303,7 +1304,6 @@
 		70FFE3DE1DE2DBA200223E43 /* M7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = M7.png; sourceTree = "<group>"; };
 		70FFE3DF1DE2DBA200223E43 /* M8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = M8.png; sourceTree = "<group>"; };
 		70FFE3E01DE2DBA200223E43 /* M9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = M9.png; sourceTree = "<group>"; };
-		70FFE3EB1DE2DDD800223E43 /* Tunermonitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tunermonitor.png; sourceTree = "<group>"; };
 		70FFE3ED1DE3EF4800223E43 /* 分发.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分发.png"; sourceTree = "<group>"; };
 		70FFE3EE1DE3EF4800223E43 /* 分发@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分发@2x.png"; sourceTree = "<group>"; };
 		70FFE3EF1DE3EF4800223E43 /* 分发@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分发@3x.png"; sourceTree = "<group>"; };
@@ -2460,7 +2460,7 @@
 				70362D0C1F009E4B0012A309 /* New圆环-4@1x.png */,
 				70362D0D1F009E4B0012A309 /* New圆环-4@2x.png */,
 				70362D0E1F009E4B0012A309 /* New圆环-4@3x.png */,
-				70FFE3EB1DE2DDD800223E43 /* Tunermonitor.png */,
+				7059B2D91F330A4600C005A4 /* Tunermonitor.png */,
 				70FFE3ED1DE3EF4800223E43 /* 分发.png */,
 				70FFE3EE1DE3EF4800223E43 /* 分发@2x.png */,
 				70FFE3EF1DE3EF4800223E43 /* 分发@3x.png */,
@@ -2828,7 +2828,6 @@
 				70231CBF1DC0FE8C00F73202 /* Edit-256@3x.png in Resources */,
 				70FFE40B1DE421A700223E43 /* monitor-jd@1x.png in Resources */,
 				70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */,
-				70FFE3EC1DE2DDD800223E43 /* Tunermonitor.png in Resources */,
 				70170C391D74156000CC3951 /* hot.png in Resources */,
 				7010176B1DCADA3300F9D5FF /* lan@1x.png in Resources */,
 				707FE7431DACC3C30087C361 /* live icon copy@1x.png in Resources */,
@@ -3156,6 +3155,7 @@
 				70FFE3FE1DE3EF4800223E43 /* 录制@3x.png in Resources */,
 				70FFE3C01DE2D03700223E43 /* 监控渐变背景.png in Resources */,
 				70231D0B1DC2E9FA00F73202 /* Back@1x.png in Resources */,
+				7059B2DA1F330A4600C005A4 /* Tunermonitor.png in Resources */,
 				A48574B815A3155500294C34 /* DLNAPlaybackViewController.xib in Resources */,
 				70170C3A1D74156000CC3951 /* hot@2x.png in Resources */,
 				702CE4411DDA9881000A0513 /* 6@3x.png in Resources */,
