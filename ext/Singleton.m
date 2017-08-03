@@ -191,7 +191,14 @@
     NSLog(@"%ld",tag);
     NSLog(@"readdata:%@",data);
     //    NSLog(@"playState---== socket 接收到播放命令");
-    NSData * data_ret = [data subdataWithRange:NSMakeRange(12,4)];
+    NSData * data_ret = [[NSData alloc]init];
+    if ([data length] >= 12 + 4) {
+        data_ret = [data subdataWithRange:NSMakeRange(12,4)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t data_retTo32int = [SocketUtils uint32FromBytes:data_ret];
     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
         
@@ -200,7 +207,14 @@
     }
     else{
         
-        NSData * data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
+        NSData * data_model_name = [[NSData alloc]init];
+        if ([data length] >= 8 + 4) {
+             data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
+        }else
+        {
+            return;
+        }
+        
         NSString * model_name = [[NSString alloc]initWithData:data_model_name encoding:NSUTF8StringEncoding];
         NSLog(@"打印data_model_name:%@",data_model_name);
         NSLog(@"data1:%@",model_name);
@@ -218,7 +232,14 @@
                 
                 while (nowData_length <= data_length - 28) {
                     
-                    NSData * next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                    NSData * next_data_ret = [[NSData alloc]init];
+                    if ([data length] >= nowData_length + 12 + 4) {
+                        next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                    }else
+                    {
+                        return;
+                    }
+                    
                     //判断下一个数据段的返回结果是否为1，如果是1则报错
                     uint32_t data_retTo32int = [SocketUtils uint32FromBytes:next_data_ret];
                     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
@@ -227,7 +248,14 @@
                     }else{
                         
                         //判断下一个消息的类型
-                        NSData * next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
+                        NSData * next_data_model_name = [[NSData alloc]init];
+                        if ([data length] >= nowData_length + 8 + 4) {
+                            next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
+                        }else
+                        {
+                            return;
+                        }
+                        
                         NSString * next_model_name = [[NSString alloc]initWithData:next_data_model_name encoding:NSUTF8StringEncoding];
                         
                         if([next_model_name isEqualToString:@"BEAT"])
@@ -237,7 +265,14 @@
                             continue;
                         }else if([next_model_name isEqualToString:@"MDMM"])
                         {
-                            NSData * next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
+                            NSData * next_data2_command_type = [[NSData alloc]init];
+                            if ([data length] >= nowData_length + 36 + 1) {
+                                next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
+                            }else
+                            {
+                                return;
+                            }
+                            
                             uint8_t next_command_type = [SocketUtils uint8FromBytes:next_data2_command_type];
                             
                             switch (next_command_type) {
@@ -255,12 +290,25 @@
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt ) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                  
                                     [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
                                 }
@@ -273,12 +321,25 @@
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4 ) {
+                                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt ) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     
                                     [self readSocketCommandTypeISTwentyFour:bigDataReduceSmallData];
                                     
@@ -293,7 +354,14 @@
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4 ) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
@@ -331,11 +399,24 @@
                                     
                                     //======
                                     //获得数据区的长度
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4 ) {
+                                        NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt ) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     //--
                                     
                                     
@@ -356,15 +437,36 @@
                                     
                                     //======
                                     //获得数据区的长度
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                       now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    }else
+                                    {
+                                        return;
+                                    }
+
+                                    
                                     //--
                                     
                                     //此处是验证机顶盒密码，将会这个消息传到TV页面
-                                    NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                    NSData * data_CA_Ret = [[NSData alloc]init];
+                                    if ([bigDataReduceSmallData length] >= 37 + 6) {
+                                        data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     
                                     [self readSocketCommandTypeISEight:data_CA_Ret];
 
@@ -376,11 +478,24 @@
                                     
                                     
                                     //获得数据区的长度
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     //--
                                     
                                     //此处是验证机顶盒密码
@@ -395,11 +510,24 @@
                                     
                                     
                                     //获得数据区的长度
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt) {
+                                       bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     //--
                                     
                                     //此处是验证节目列表刷新，机顶盒对节目进行了加锁
@@ -417,8 +545,14 @@
                     }
                     //首先获得第二段数据的长度 （52，4）
                     //                            int now_data_len_place = nowData_length + 24;
+                    NSData * now_data_length = [[NSData alloc]init];
+                    if ([data length] >= nowData_length + 24 + 4) {
+                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                    }else
+                    {
+                        return;
+                    }
                     
-                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                     NSLog(@"playstate -==now_data_lengthToInt %d",now_data_lengthToInt);
                     nowData_length = nowData_length + now_data_lengthToInt + 28;
@@ -439,15 +573,28 @@
             int data_length = data.length;   //总长度
             NSLog(@"data_length %d",data_length);
             
-            uint32_t MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];   //第一段数据区总长度
+            uint32_t MDMM_Data_Length;
+            if(data.length >= 24 + 4)
+            {
+             MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];   //第一段数据区总长度
+            }else{
+                return;
+            }
+            
             
             if (data_length > 28 + MDMM_Data_Length ) {  //如果总数据长度大于第一段数据的长度
                 //证明还有其他的信息，MDMM信息和心跳都在一起了
                 int nowData_length;
                 nowData_length = 28 + MDMM_Data_Length;
                 //--先执行第一个命令
+                NSData * data2_command_type = [[NSData alloc]init];
+                if ([data length] >= 36 + 1) {
+                   data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+                }else
+                {
+                    return;
+                }
                 
-                NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
                 uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
                 
                 NSLog(@"command_type:%hhu",command_type);
@@ -508,7 +655,14 @@
                         //这里可以获得CA信息
                         //第一步：获得必要的CA消息
                         //此处是验证机顶盒密码，将会这个消息传到TV页面
-                        NSData * data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                        NSData * data_CA_Ret = [[NSData alloc]init];
+                        if ([data length] >= 37 + 6) {
+                        data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                        }else
+                        {
+                            return;
+                        }
+                        
                         
                         [self readSocketCommandTypeISEight:data_CA_Ret];
                         
@@ -525,7 +679,14 @@
                     {
                         NSLog(@" 此处是验证节目列表刷新，机顶盒对节目进行了加锁");
                         
-                        NSData * data_channel_service = [data subdataWithRange:NSMakeRange(0 ,51)];
+                        NSData * data_channel_service = [[NSData alloc]init];
+                        if ([data length] >= 51) {
+                            data_channel_service = [data subdataWithRange:NSMakeRange(0 ,51)];
+                        }else
+                        {
+                            return;
+                        }
+                        
                         [self readSocketCommandTypeISTwentytwo:data_channel_service];
                     }
                         break;
@@ -542,7 +703,14 @@
                 while (nowData_length < data_length) {
                     
                     
-                    NSData * next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                    NSData * next_data_ret = [[NSData alloc]init];
+                    if ([data length] >= nowData_length + 12 + 4) {
+                         next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                    }else
+                    {
+                        return;
+                    }
+                    
                     //判断下一个数据段的返回结果是否为1，如果是1则报错
                     uint32_t data_retTo32int = [SocketUtils uint32FromBytes:next_data_ret];
                     if (data_retTo32int ==1) {    //此处可以多做欧几次判断，判断socket错误原因
@@ -551,7 +719,14 @@
                     }else
                     {
                         
-                        NSData * next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
+                        NSData * next_data_model_name = [[NSData alloc]init];
+                        if ([data length] >= nowData_length + 8 + 4) {
+                            next_data_model_name = [data subdataWithRange:NSMakeRange(nowData_length + 8,4)];
+                        }else
+                        {
+                            return;
+                        }
+                        
                         NSString * next_model_name = [[NSString alloc]initWithData:next_data_model_name encoding:NSUTF8StringEncoding];
                         
                         if([next_model_name isEqualToString:@"BEAT"])
@@ -561,7 +736,14 @@
                             continue;
                         }else if([next_model_name isEqualToString:@"MDMM"])
                         {
-                            NSData * next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
+                            NSData * next_data2_command_type = [[NSData alloc]init];
+                            if ([data length] >= 36 + nowData_length + 1) {
+                                next_data2_command_type = [data subdataWithRange:NSMakeRange(36 + nowData_length,1)];
+                            }else
+                            {
+                                return;
+                            }
+                            
                             uint8_t next_command_type = [SocketUtils uint8FromBytes:next_data2_command_type];
                             
                             switch (next_command_type) {
@@ -583,12 +765,25 @@
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28) {
+                                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
 
                                 }
@@ -601,12 +796,25 @@
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                   
                                     [self readSocketCommandTypeISTwentyFour:bigDataReduceSmallData];
                                     
@@ -621,7 +829,14 @@
                                     //首先获得第二段数据的长度 （52，4）
                                     //======
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28 ) {
+                                       now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
@@ -633,8 +848,14 @@
                                     }else
                                     {
                                         NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
-                                        //--
+                                        if ([data length] >=  nowData_length + 28 + now_data_lengthToInt ) {
+                                            bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                            //--
+                                        }else
+                                        {
+                                            return;
+                                        }
+                                        
                                         
                                         
                                         
@@ -661,12 +882,25 @@
                                     
                                     
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28  ) {
+                                       now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        //--
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )];                                     }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     
                                     [self readSocketCommandTypeISSeven:bigDataReduceSmallData];
                                     
@@ -680,14 +914,39 @@
                                     
                                     
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28 ) {
+                                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    
+                                    }else
+                                    {
+                                            return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
                                     
-                                    NSData * data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt ) {
+                                      
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
+                                    NSData * data_CA_Ret = [[NSData alloc]init];
+                                    
+                                    if ([bigDataReduceSmallData length] >=  37 +6 ) {
+                                        
+                                        data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     
                                     [self readSocketCommandTypeISEight:data_CA_Ret];
                                 }
@@ -696,12 +955,29 @@
                                 case 13:  //此处是验证机顶盒密码
                                 {
                                     
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                       bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     
                                     
                                     [self readSocketCommandTypeISThirteenth:bigDataReduceSmallData];
@@ -712,12 +988,30 @@
                                     
                                     
                                     //获得数据区的长度
-                                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28   ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
-                                    bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
-                                    //--
+                                    //获得数据区的长度
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                        //--
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
                                     
                                     //此处是验证节目列表刷新，机顶盒对节目进行了加锁
                                     
@@ -735,7 +1029,17 @@
                     //首先获得第二段数据的长度 （52，4）
                     //                            int now_data_len_place = nowData_length + 24;
                     
-                    NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                    NSData * now_data_length = [[NSData alloc]init];
+                    //获得数据区的长度
+                    
+                    if ([data length] >=  nowData_length + 28 ) {
+                        
+                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                    }else
+                    {
+                        return;
+                    }
+                    
                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                     NSLog(@"playstate -==now_data_lengthToInt %d",now_data_lengthToInt);
                     nowData_length = nowData_length + now_data_lengthToInt + 28;
@@ -750,7 +1054,17 @@
             }else  //如果相等，则是正常的命令
             {
                 
-                NSData * data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+                NSData * data2_command_type = [[NSData alloc]init];
+                //获得数据区的长度
+                
+                if ([data length] >=  37) {
+                    
+                     data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+                }else
+                {
+                    return;
+                }
+                
                 uint8_t command_type = [SocketUtils uint8FromBytes:data2_command_type];
                 
                 NSLog(@"command_type:%hhu",command_type);
@@ -810,7 +1124,17 @@
                     {
                         NSLog(@"*****此处是CA加扰验证4");
                         
-                        NSData * data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                        NSData * data_CA_Ret = [[NSData alloc]init];
+                        //获得数据区的长度
+                        
+                        if ([data length] >=  43) {
+                            
+                            data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                        }else
+                        {
+                            return;
+                        }
+                        
                         
                         [self readSocketCommandTypeISEight:data_CA_Ret];
                     }
@@ -980,7 +1304,17 @@
 {
     
     //此处是验证机顶盒密码
-    NSData * data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
+    NSData * data_STB_Ret = [[NSData alloc]init];
+    //获得数据区的长度
+    
+    if ([dataToOperate length] >=  16) {
+        
+        data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
     
     NSLog(@" dataToOperate %@",dataToOperate);

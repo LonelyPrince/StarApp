@@ -88,7 +88,13 @@
         
         if (socketIPData.length >38) {
           
-            ipStrData = [socketIPData subdataWithRange:NSMakeRange(1 + 37,socketIPData.length - 38)];
+            if ([socketIPData length] >= 1 + 37 + socketIPData.length - 38) {
+                ipStrData = [socketIPData subdataWithRange:NSMakeRange(1 + 37,socketIPData.length - 38)];
+            }else
+            {
+                return;
+            }
+            
             NSLog(@"ipStrData %@",ipStrData);
             
             DMSIP =  [[NSString alloc] initWithData:ipStrData  encoding:NSUTF8StringEncoding];

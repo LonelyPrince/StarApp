@@ -1909,7 +1909,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //此处加入判断语句，判断返回的结果RET是否满足几个报错信息
     NSData * retData = [[NSData alloc]init];
-    retData = [[USER_DEFAULT objectForKey:@"data_service11"] subdataWithRange:NSMakeRange(12, 4)];
+    //获得数据区的长度
+    if ([[USER_DEFAULT objectForKey:@"data_service11"] length] >=  16) {
+        
+        retData = [[USER_DEFAULT objectForKey:@"data_service11"] subdataWithRange:NSMakeRange(12, 4)];
+    }else
+    {
+        return;
+    }
+
+    
     NSLog(@"retData : %@",retData);
     
     int value = CFSwapInt32BigToHost(*(int*)([retData bytes]));
@@ -5511,9 +5520,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     NSData * CAThreeData = text.userInfo[@"CAThreedata"];
-    NSData * CANetwork_idData = [CAThreeData subdataWithRange:NSMakeRange(0,2)];
-    NSData * CATs_idData = [CAThreeData subdataWithRange:NSMakeRange(2,2)];
-    NSData * CAService_idData = [CAThreeData subdataWithRange:NSMakeRange(4,2)];
+    NSData * CANetwork_idData = [[NSData alloc]init];
+    //获得数据区的长度
+    if ([CAThreeData length] >=  2) {
+        
+       CANetwork_idData = [CAThreeData subdataWithRange:NSMakeRange(0,2)];
+    }else
+    {
+        return;
+    }
+    
+    NSData * CATs_idData = [[NSData alloc]init];
+    if ([CAThreeData length] >=  4) {
+        
+        CATs_idData = [CAThreeData subdataWithRange:NSMakeRange(2,2)];
+    }else
+    {
+        return;
+    }
+    
+    NSData * CAService_idData = [[NSData alloc]init];
+    if ([CAThreeData length] >=  6) {
+        
+       CAService_idData = [CAThreeData subdataWithRange:NSMakeRange(4,2)];
+    }else
+    {
+        return;
+    }
+    
     
     uint16_t  CANetwork_idStr = [SocketUtils uint16FromBytes:CANetwork_idData]; // [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
     uint16_t  CATs_idStr =  [SocketUtils uint16FromBytes:CATs_idData]; //[[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
@@ -7171,7 +7205,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * updateChannelServiceData = updateChannelServiceDataTemp;
     
     //1
-    NSData * tuner_type_data = [updateChannelServiceData subdataWithRange:NSMakeRange(40,1)];
+    NSData * tuner_type_data = [[NSData alloc]init];
+    if ([updateChannelServiceData length] >=  41) {
+        
+       tuner_type_data = [updateChannelServiceData subdataWithRange:NSMakeRange(40,1)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t tuner_type_int = [SocketUtils uint8FromBytes:tuner_type_data];
     
     NSLog(@"tuner_type_int == %d",tuner_type_int);
@@ -7244,27 +7286,66 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * updateChannelServiceData = updateChannelServiceDataTemp;
     
     //1
-    NSData * tuner_type_data = [updateChannelServiceData subdataWithRange:NSMakeRange(37,4)];
+    NSData * tuner_type_data = [[NSData alloc]init];
+    if ([updateChannelServiceData length] >=  41) {
+        
+       tuner_type_data = [updateChannelServiceData subdataWithRange:NSMakeRange(37,4)];
+    }else
+    {
+        return;
+    }
     uint32_t tuner_type_int = [SocketUtils uint32FromBytes:tuner_type_data];
     
     NSLog(@"tuner_type_str == %d",tuner_type_int);
     //2
-    NSData * network_id_data = [updateChannelServiceData subdataWithRange:NSMakeRange(41,2)];
+    NSData * network_id_data = [[NSData alloc]init];
+    if ([updateChannelServiceData length] >=  43) {
+        
+       network_id_data = [updateChannelServiceData subdataWithRange:NSMakeRange(41,2)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t network_id_int = [SocketUtils uint16FromBytes:network_id_data];
     
     NSLog(@"tuner_type_str == %d",network_id_int);
     //3
-    NSData * ts_id_data = [updateChannelServiceData subdataWithRange:NSMakeRange(43,2)];
+    NSData * ts_id_data = [[NSData alloc]init];
+    if ([updateChannelServiceData length] >=  45) {
+        
+        ts_id_data = [updateChannelServiceData subdataWithRange:NSMakeRange(43,2)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t ts_id_int = [SocketUtils uint16FromBytes:ts_id_data];
     
     NSLog(@"tuner_type_str == %d",ts_id_int);
     //4
-    NSData * service_id_data = [updateChannelServiceData subdataWithRange:NSMakeRange(45,2)];
+    NSData * service_id_data = [[NSData alloc]init];
+    if ([updateChannelServiceData length] >=  47) {
+        
+       service_id_data = [updateChannelServiceData subdataWithRange:NSMakeRange(45,2)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t service_id_int = [SocketUtils uint16FromBytes:service_id_data];
     
     NSLog(@"tuner_type_str == %d",service_id_int);
     //5
-    NSData * program_character_data = [updateChannelServiceData subdataWithRange:NSMakeRange(47,4)];
+    NSData * program_character_data = [[NSData alloc]init];
+    if ([updateChannelServiceData length] >=  51) {
+        
+       program_character_data = [updateChannelServiceData subdataWithRange:NSMakeRange(47,4)];
+    }else
+    {
+        return;
+    }
+    
     uint32_t program_character_int = [SocketUtils uint32FromBytes:program_character_data];
     
     NSLog(@"tuner_type_str == %d",program_character_int);

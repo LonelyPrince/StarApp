@@ -674,7 +674,10 @@
 -(NSInteger)getTunerNum:(NSData *)tunerAllData
 {
     NSData * dataLen = [[NSData alloc]init];
+  
+    if ([tunerAllData length] >= 27 + 1) {
     dataLen = [tunerAllData subdataWithRange:NSMakeRange(27, 1)];
+    }
     
     //    int value;
     //    value = 0;
@@ -700,7 +703,13 @@
     NSLog(@"allTunerData :%@",allTunerData);
     //获取数据总长度
     NSData * dataLen = [[NSData alloc]init];
-    dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
+    if ([allTunerData length] >= 24 + 4) {
+        dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
+    }else
+    {
+        return;
+    }
+    
     
     NSLog(@"datalen: %@",dataLen);
     //    int value;
@@ -713,7 +722,13 @@
     //tuner的有效数据区
     NSData * effectiveData = [[NSData alloc]init];
     
-    effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
+    if ([allTunerData length] >= 38 + value-10) {
+            effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
+    }else
+    {
+        return;
+    }
+    
     
     //定位数据，用于看位于第几个字节，起始位置是在
     int placeFigure = 3;
@@ -730,7 +745,14 @@
         //        [effectiveData getBytes:&buffer range:NSMakeRange(mutablefigure, 4)];
         
         NSLog(@"effectiveData: %@",effectiveData);
-        NSData * databuff = [effectiveData subdataWithRange:NSMakeRange(mutablefigure, 4)];
+        NSData * databuff = [[NSData alloc]init];
+        if ([effectiveData length] >= mutablefigure + 4) {
+            databuff = [effectiveData subdataWithRange:NSMakeRange(mutablefigure, 4)];
+        }else
+        {
+            return;
+        }
+        
         //        Byte *buffer = (Byte *)[databuff bytes];
         
         char buffer1;
@@ -762,21 +784,52 @@
             NSLog(@"placeFigure: %d",placeFigure);
             
             NSLog(@"错误代码在这里");
-            serviceTypeData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+4, 4)];
+            
+            if ([effectiveData length] >= placeFigure+ 4 + 4) {
+                serviceTypeData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+4, 4)];
+            }else
+            {
+                return;
+            }
+            
             NSLog(@"serviceTypeData: %@",serviceTypeData);
             //这里获取network_id
             NSData * networkIdData = [[NSData alloc]init];
-            networkIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+12, 2)];
+            if ([effectiveData length] >= placeFigure + 12 + 2) {
+                networkIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+12, 2)];
+            }else
+            {
+                return;
+            }
+            
             //这里获取ts_id
             NSData * tsIdData = [[NSData alloc]init];
-            tsIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+14, 2)];
+            if ([effectiveData length] >= placeFigure+14 + 2) {
+                tsIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+14, 2)];
+            }else
+            {
+                return;
+            }
+            
             
             //这里获取service_id
             NSData * serviceIdData = [[NSData alloc]init];
-            serviceIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+16, 2)];
+            if ([effectiveData length] >= placeFigure + 16 + 2) {
+                serviceIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+16, 2)];
+            }else
+            {
+                return;
+            }
+            
             //这里获取name_len
             NSData * nameLenData = [[NSData alloc]init];
-            nameLenData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18, 1)];
+            if ([effectiveData length] >= placeFigure + 18 + 1) {
+                nameLenData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18, 1)];
+            }else
+            {
+                return;
+            }
+            
             
             //先看一下长度是不是0
             char lenBuffer;
@@ -798,7 +851,13 @@
                 
                 //获取client_name
                 
-                clientNameData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18+1, clienNameLenCopy1)];
+                if ([effectiveData length] >= placeFigure + 18 + 1 + clienNameLenCopy1) {
+                    clientNameData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18+1, clienNameLenCopy1)];
+                }else
+                {
+                    return;
+                }
+                
             }
             
             
