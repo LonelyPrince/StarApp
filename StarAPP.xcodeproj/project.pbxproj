@@ -375,6 +375,10 @@
 		7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7056506C1DB9F1E1002DD47E /* ChannelCell.m */; };
 		7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7056506D1DB9F1E1002DD47E /* ChannelCell.xib */; };
 		7059B2DA1F330A4600C005A4 /* Tunermonitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2D91F330A4600C005A4 /* Tunermonitor.png */; };
+		7059B2E31F330E8100C005A4 /* 4关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2DF1F330E8100C005A4 /* 4关于.png */; };
+		7059B2E41F330E8100C005A4 /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2E01F330E8100C005A4 /* 关于.png */; };
+		7059B2E51F330E8100C005A4 /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2E11F330E8100C005A4 /* 关于@2x.png */; };
+		7059B2E61F330E8100C005A4 /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2E21F330E8100C005A4 /* 关于@3x.png */; };
 		706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376111E0B5EB8004238B1 /* 网络无连接@1x.png */; };
 		706376151E0B5EB8004238B1 /* 网络无连接@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376121E0B5EB8004238B1 /* 网络无连接@2x.png */; };
 		706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376131E0B5EB8004238B1 /* 网络无连接@3x.png */; };
@@ -490,10 +494,6 @@
 		70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712581DB5EE1300BD98EE /* Group 7@2x.png */; };
 		70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712591DB5EE1300BD98EE /* Group 7@3x.png */; };
 		70E712A81DB611F800BD98EE /* FullScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E712A71DB611F800BD98EE /* FullScreenView.m */; };
-		70ED7E191F04EEE90005E90C /* 4关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 70ED7E151F04EEE90005E90C /* 4关于.png */; };
-		70ED7E1A1F04EEE90005E90C /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 70ED7E161F04EEE90005E90C /* 关于.png */; };
-		70ED7E1B1F04EEE90005E90C /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70ED7E171F04EEE90005E90C /* 关于@2x.png */; };
-		70ED7E1C1F04EEE90005E90C /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70ED7E181F04EEE90005E90C /* 关于@3x.png */; };
 		70EFCAF21E0A7C22003EAE08 /* 无历史@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70EFCAEF1E0A7C22003EAE08 /* 无历史@1x.png */; };
 		70EFCAF31E0A7C22003EAE08 /* 无历史@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70EFCAF01E0A7C22003EAE08 /* 无历史@2x.png */; };
 		70EFCAF41E0A7C22003EAE08 /* 无历史@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70EFCAF11E0A7C22003EAE08 /* 无历史@3x.png */; };
@@ -1090,6 +1090,10 @@
 		7056506C1DB9F1E1002DD47E /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCell.m; sourceTree = "<group>"; };
 		7056506D1DB9F1E1002DD47E /* ChannelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
 		7059B2D91F330A4600C005A4 /* Tunermonitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tunermonitor.png; sourceTree = "<group>"; };
+		7059B2DF1F330E8100C005A4 /* 4关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4关于.png"; sourceTree = "<group>"; };
+		7059B2E01F330E8100C005A4 /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
+		7059B2E11F330E8100C005A4 /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
+		7059B2E21F330E8100C005A4 /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
 		706376111E0B5EB8004238B1 /* 网络无连接@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@1x.png"; sourceTree = "<group>"; };
 		706376121E0B5EB8004238B1 /* 网络无连接@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@2x.png"; sourceTree = "<group>"; };
 		706376131E0B5EB8004238B1 /* 网络无连接@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@3x.png"; sourceTree = "<group>"; };
@@ -1210,10 +1214,6 @@
 		70E712591DB5EE1300BD98EE /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
 		70E712A61DB611F800BD98EE /* FullScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FullScreenView.h; path = ../FullScreenView.h; sourceTree = "<group>"; };
 		70E712A71DB611F800BD98EE /* FullScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FullScreenView.m; path = ../FullScreenView.m; sourceTree = "<group>"; };
-		70ED7E151F04EEE90005E90C /* 4关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4关于.png"; sourceTree = "<group>"; };
-		70ED7E161F04EEE90005E90C /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
-		70ED7E171F04EEE90005E90C /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
-		70ED7E181F04EEE90005E90C /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
 		70EFCAEF1E0A7C22003EAE08 /* 无历史@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无历史@1x.png"; sourceTree = "<group>"; };
 		70EFCAF01E0A7C22003EAE08 /* 无历史@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无历史@2x.png"; sourceTree = "<group>"; };
 		70EFCAF11E0A7C22003EAE08 /* 无历史@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无历史@3x.png"; sourceTree = "<group>"; };
@@ -1902,10 +1902,10 @@
 		7024C5DB1DD1AD260053F313 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				70ED7E151F04EEE90005E90C /* 4关于.png */,
-				70ED7E161F04EEE90005E90C /* 关于.png */,
-				70ED7E171F04EEE90005E90C /* 关于@2x.png */,
-				70ED7E181F04EEE90005E90C /* 关于@3x.png */,
+				7059B2DF1F330E8100C005A4 /* 4关于.png */,
+				7059B2E01F330E8100C005A4 /* 关于.png */,
+				7059B2E11F330E8100C005A4 /* 关于@2x.png */,
+				7059B2E21F330E8100C005A4 /* 关于@3x.png */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -2727,7 +2727,7 @@
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
 				70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */,
-				70ED7E191F04EEE90005E90C /* 4关于.png in Resources */,
+				7059B2E31F330E8100C005A4 /* 4关于.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
 				70362D161F009E4B0012A309 /* New圆环-3@2x.png in Resources */,
 				7045C46C1DC715FB002647F9 /* 矩形2@2x.png in Resources */,
@@ -2924,8 +2924,8 @@
 				70D6B9131E2DAF3D00957A81 /* Special Characteristics@2x.png in Resources */,
 				70FFE4041DE3EF4800223E43 /* 时移@3x.png in Resources */,
 				706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */,
-				70ED7E1B1F04EEE90005E90C /* 关于@2x.png in Resources */,
 				70231CC81DC0FE8C00F73202 /* on@3x.png in Resources */,
+				7059B2E51F330E8100C005A4 /* 关于@2x.png in Resources */,
 				70231CEA1DC1A00100F73202 /* save@2x.png in Resources */,
 				7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */,
 				706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */,
@@ -3056,8 +3056,8 @@
 				7040E2461DAE12B80063DB66 /* Viasat-Nature-logo@2x.png in Resources */,
 				70170C371D74156000CC3951 /* guang.png in Resources */,
 				7040E23C1DAE12B80063DB66 /* Group 6@1x.png in Resources */,
-				70ED7E1A1F04EEE90005E90C /* 关于.png in Resources */,
 				702CE4421DDA9881000A0513 /* 7.png in Resources */,
+				7059B2E41F330E8100C005A4 /* 关于.png in Resources */,
 				701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */,
 				70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */,
 				70362D4A1F00A0180012A309 /* Series@2x.png in Resources */,
@@ -3129,8 +3129,8 @@
 				7045C4791DC715FB002647F9 /* 矩形6@3x.png in Resources */,
 				70FFA4E11DE7DFF4006BFE5E /* Verticalpic@2x.png in Resources */,
 				70D6B8FA1E2DAF3D00957A81 /* kids@1x.png in Resources */,
-				70ED7E1C1F04EEE90005E90C /* 关于@3x.png in Resources */,
 				702CE44C1DDA9881000A0513 /* 圆角矩形-10.png in Resources */,
+				7059B2E61F330E8100C005A4 /* 关于@3x.png in Resources */,
 				70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */,
 				702218C01E5AE0D7005D96A0 /* Back Arrow Blue@1x.png in Resources */,
 				7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */,

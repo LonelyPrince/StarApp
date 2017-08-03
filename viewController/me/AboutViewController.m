@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, strong) UILabel * verLabShow;
+@property (nonatomic, strong) UILabel * copyrightLabShow;
 @end
 
 
@@ -55,6 +56,15 @@ self.tabBarController.tabBar.hidden = YES;
         self.verLabShow.textColor = RGB(0x32, 0x32, 0x32);
         [imageView addSubview:self.verLabShow];
         
+        //新加版权信息
+        self.copyrightLabShow = [[UILabel alloc]init];
+        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 35, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
+        self.copyrightLabShow.font = FONT(13);
+        self.copyrightLabShow.textColor = RGB(0x6c, 0x6c, 0x6c);
+        [imageView addSubview:self.copyrightLabShow];
+        
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
@@ -74,6 +84,14 @@ self.tabBarController.tabBar.hidden = YES;
         [imageView addSubview:self.verLabShow];
         
         
+        //新加版权信息
+        self.copyrightLabShow = [[UILabel alloc]init];
+        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 32, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
+        self.copyrightLabShow.font = FONT(13);
+        self.copyrightLabShow.textColor = RGB(0x6c, 0x6c, 0x6c);
+        [imageView addSubview:self.copyrightLabShow];
     }
     else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  ) {
         NSLog(@"此刻是6的大小");
@@ -94,6 +112,15 @@ self.tabBarController.tabBar.hidden = YES;
         self.verLabShow.textColor = RGB(0x32, 0x32, 0x32);
         [imageView addSubview:self.verLabShow];
         
+        //新加版权信息
+        self.copyrightLabShow = [[UILabel alloc]init];
+        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 35, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
+        self.copyrightLabShow.font = FONT(13);
+        self.copyrightLabShow.textColor = RGB(0x6c, 0x6c, 0x6c);
+        [imageView addSubview:self.copyrightLabShow];
+        
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
@@ -113,6 +140,15 @@ self.tabBarController.tabBar.hidden = YES;
         self.verLabShow.textColor = RGB(0x32, 0x32, 0x32);
         [imageView addSubview:self.verLabShow];
         
+        //新加版权信息
+        self.copyrightLabShow = [[UILabel alloc]init];
+        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 35, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
+        self.copyrightLabShow.font = FONT(13);
+        self.copyrightLabShow.textColor = RGB(0x6c, 0x6c, 0x6c);
+        [imageView addSubview:self.copyrightLabShow];
+        
     }
     
     
@@ -130,6 +166,7 @@ self.tabBarController.tabBar.hidden = YES;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 @end
