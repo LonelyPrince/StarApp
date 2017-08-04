@@ -3132,6 +3132,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else{
         
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
+        [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
         //防止用户快速切换，做延迟处理
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
@@ -3247,11 +3248,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     
     
+    
     //        [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
     NSLog(@"不是第一次启动");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
        
-        [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
+        
         [USER_DEFAULT setBool:NO forKey:@"lockedFullScreen"];  //解开全屏页面的锁
         [USER_DEFAULT setBool:NO forKey:@"isFullScreenMode"];  //判断是不是全屏模式
         

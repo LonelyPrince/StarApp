@@ -58,7 +58,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版权信息
         self.copyrightLabShow = [[UILabel alloc]init];
-        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        _copyrightLabShow.text = @"Copyright © 2017 StarTimes All Rights Reserved";
         CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 35, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
         self.copyrightLabShow.font = FONT(13);
@@ -86,7 +86,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版权信息
         self.copyrightLabShow = [[UILabel alloc]init];
-        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        _copyrightLabShow.text = @"Copyright © 2017 StarTimes All Rights Reserved";
         CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 32, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
         self.copyrightLabShow.font = FONT(13);
@@ -114,7 +114,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版权信息
         self.copyrightLabShow = [[UILabel alloc]init];
-        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        _copyrightLabShow.text = @"Copyright © 2017 StarTimes All Rights Reserved";
         CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 35, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
         self.copyrightLabShow.font = FONT(13);
@@ -142,7 +142,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版权信息
         self.copyrightLabShow = [[UILabel alloc]init];
-        _copyrightLabShow.text = @"CopyRight © 2017 StarTimes All Rights Reserved";
+        _copyrightLabShow.text = @"Copyright © 2017 StarTimes All Rights Reserved";
         CGSize sizeOfVerLabShow1 = [self sizeWithText:_copyrightLabShow.text font:[UIFont systemFontOfSize:13] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.copyrightLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow1.width)/2, SCREEN_HEIGHT - 35, sizeOfVerLabShow1.width, sizeOfVerLabShow1.height);
         self.copyrightLabShow.font = FONT(13);
