@@ -878,8 +878,8 @@
         
         [historySearchDelBtn setImage:[UIImage imageNamed:@"Del"] forState:UIControlStateNormal];
         [historySearchDelBtn addTarget:self action:@selector(deleteAllHistoryBtn) forControlEvents:UIControlEventTouchUpInside];
-        
-        historySearchDelBtn.frame = CGRectMake(SCREEN_WIDTH - 32, 10, 15, 15);
+        historySearchDelBtn.bounds = CGRectMake(0, 0, 15, 15);
+        historySearchDelBtn.frame = CGRectMake(SCREEN_WIDTH - 56, 2, 50, 30);
         
         [historySearchView addSubview:historySearchDelBtn];
         

@@ -3076,6 +3076,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        NSString *  viewAppearRandomStr  = @"yes";  //这是一个局部变量，确保每次打开时值都不一样，然后通过这个值来判断是偶可以播放了
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
+        
+        tableviewinit  = tableviewinit +1;
+        //    firstShow = YES;
+        statusNum = 1;
+        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+        [self prefersStatusBarHidden];
+
+        self.tabBarController.tabBar.hidden = NO;
+        [self loadNav];
 //        //防止用户快速切换，做延迟处理
 //        if (self.TVViewStopVideoPlayAndCancelDealyFunctionBlock) {
 //            self.TVViewStopVideoPlayAndCancelDealyFunctionBlock();
@@ -3207,15 +3216,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     });
        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-    tableviewinit  = tableviewinit +1;
-//    firstShow = YES;
-    statusNum = 1;
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
-    self.tabBarController.tabBar.hidden = NO;
-    
-    
-    [self prefersStatusBarHidden];
     
     
     
@@ -3225,7 +3225,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //new
     //        [self initData];    //table表
-    [self loadNav];
+    
     [self lineView];  //一条0.5pt的线
     //    [self loadUI];              //加载table 和scroll
     //    [self getTopCategory];
