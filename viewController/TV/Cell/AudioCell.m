@@ -46,7 +46,16 @@
     
     NSLog(@"sub _dataDic : %@",_dataDic);
     
-    self.languageLab.text = [_dataDic objectForKey:@"audio_language"];
+    if ([_dataDic objectForKey:@"yes"] ) {
+        NSString * languageStrTemp = [_dataDic objectForKey:@"audio_language"];
+        NSString * pidStrTemp = [_dataDic objectForKey:@"audio_pid"];
+        
+        self.languageLab.text = [NSString stringWithFormat: @"%@ (%@)",languageStrTemp,pidStrTemp];
+    }else
+    {
+        self.languageLab.text = [_dataDic objectForKey:@"audio_language"];
+    }
+    
     
     
     //字体设置

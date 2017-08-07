@@ -3662,7 +3662,37 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             subAudioArr  =[self.subAudioDic  objectForKey:@"subt_info"];
             
-            cell.dataDic = subAudioArr[indexPath.row];
+
+            
+            NSMutableArray * subArrTemp = [[NSMutableArray alloc]init];
+            int sub_languageIndex = 0;
+            for (int i = 0; i < subAudioArr.count; i++) {
+                
+                [subArrTemp addObject: [subAudioArr[i] objectForKey:@"subt_language"]];
+            }
+            for (int i = 0; i < subAudioArr.count; i++) {
+                
+                NSString * subLanguageTemp = [subAudioArr[indexPath.row] objectForKey:@"subt_language"];
+                
+                
+                if ([subLanguageTemp isEqualToString:[subAudioArr[i] objectForKey:@"subt_language"]]) {
+                    sub_languageIndex ++ ;
+                }
+                
+            }
+            if (sub_languageIndex > 1) {
+                //需要加号码
+                NSMutableDictionary * mutableSubDic = [subAudioArr[indexPath.row] mutableCopy];
+                [mutableSubDic setObject:@"yes" forKey:@"yes"];
+                
+                NSDictionary * subDicTemp = [mutableSubDic copy];
+                cell.dataDic = subDicTemp;
+            }else
+            {
+                //不需要加号码
+                cell.dataDic = subAudioArr[indexPath.row];
+            }
+            
             
             
             
@@ -3728,7 +3758,37 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"audioArr :%@",audioArr);
             NSLog(@"audioArr.count :%lu",(unsigned long)audioArr.count);
             
-            cell.dataDic = audioArr[indexPath.row];
+            NSMutableArray * audioArrTemp = [[NSMutableArray alloc]init];
+            int audio_languageIndex = 0;
+            for (int i = 0; i < audioArr.count; i++) {
+                
+                [audioArrTemp addObject: [audioArr[i] objectForKey:@"audio_language"]];
+            }
+            for (int i = 0; i < audioArr.count; i++) {
+                
+                NSString * audioLanguageTemp = [audioArr[indexPath.row] objectForKey:@"audio_language"];
+                
+                
+                if ([audioLanguageTemp isEqualToString:[audioArr[i] objectForKey:@"audio_language"]]) {
+                    audio_languageIndex ++ ;
+                }
+                
+            }
+            if (audio_languageIndex > 1) {
+                //需要加号码
+                NSMutableDictionary * mutableAudioDic = [audioArr[indexPath.row] mutableCopy];
+                [mutableAudioDic setObject:@"yes" forKey:@"yes"];
+                
+                NSDictionary * AudioDicTemp = [mutableAudioDic copy];
+                cell.dataDic = AudioDicTemp;
+            }else
+            {
+                //不需要加号码
+                 cell.dataDic = audioArr[indexPath.row];
+            }
+            
+            
+            
             
             
             //焦点

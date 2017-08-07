@@ -45,7 +45,16 @@
     
     NSLog(@"sub _dataDic : %@",_dataDic);
     
-    self.languageLab.text = [_dataDic objectForKey:@"subt_language"];
+//    self.languageLab.text = [_dataDic objectForKey:@"subt_language"];
+    if ([_dataDic objectForKey:@"yes"] ) {
+        NSString * languageStrTemp = [_dataDic objectForKey:@"subt_language"];
+        NSString * pidStrTemp = [_dataDic objectForKey:@"subt_pid"];
+        
+        self.languageLab.text = [NSString stringWithFormat: @"%@ (%@)",languageStrTemp,pidStrTemp];
+    }else
+    {
+        self.languageLab.text = [_dataDic objectForKey:@"subt_language"];
+    }
     
 //    self.languageLab.text = @"测试";
     
