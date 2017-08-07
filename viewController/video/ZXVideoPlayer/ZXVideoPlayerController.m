@@ -3173,29 +3173,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
     [self performSelector:@selector(playplay) withObject:nil afterDelay:1];
 }
--(void)judgeVideoStop
-{   NSLog(@"byteValue1 ZXZXZXXZ 444");
-    byteValue1 = byte;
-    NSLog(@" byte %lld",byte);
-    
-    double delayInSeconds = 2;
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, mainQueue, ^{
-        NSLog(@"延时执行的2秒");
-        //        [self runThread1];
-        byteValue2 = byte;
-        NSLog(@"byteValue1 %lld",byteValue1);
-        NSLog(@"byteValue2 %lld",byteValue2);
-        if ((float)byteValue2 / (1024 * 1024 * 1024) == (float)byteValue1 / (1024 * 1024 * 1024)) {
-            NSLog(@"byteValue1 ZXZXZXXZ 555");
-            [self.player play];
-            NSLog(@"byteValue1 ZXZXZXXZ 666");
-        }
-    });
-    
-    
-}
+//-(void)judgeVideoStop
+//{   NSLog(@"byteValue1 ZXZXZXXZ 444");
+//    byteValue1 = byte;
+//    NSLog(@" byte %lld",byte);
+//    
+//    double delayInSeconds = 2;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"延时执行的2秒");
+//        //        [self runThread1];
+//        byteValue2 = byte;
+//        NSLog(@"byteValue1 %lld",byteValue1);
+//        NSLog(@"byteValue2 %lld",byteValue2);
+//        if ((float)byteValue2 / (1024 * 1024 * 1024) == (float)byteValue1 / (1024 * 1024 * 1024)) {
+//            NSLog(@"byteValue1 ZXZXZXXZ 555");
+//            [self.player play];
+//            NSLog(@"byteValue1 ZXZXZXXZ 666");
+//        }
+//    });
+//    
+//    
+//}
 //-(void)runThread1
 //{
 //    NSLog(@"线程");

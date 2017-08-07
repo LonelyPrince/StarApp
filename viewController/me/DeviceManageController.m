@@ -1035,39 +1035,5 @@
 //{
 //    NSLog(@"点击了,进行切换");
 //}
-//-(void)setIPNoific
-//{
-//    
-//    //新建一个发送IP 改变的消息的通知   //
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"IPHasChangedDevice" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IPHasChanged) name:@"IPHasChangedDevice" object:nil];
-//    
-//}
-//-(void)IPHasChanged
-//{
-//    NSLog(@"列表更新了---IPHasChanged方法");
-//    [self viewWillAppear:YES];
-////    //    NSString * IPstrNow = [GGUtil getIPAddress];
-////    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
-////    if ([IPstrNow isEqualToString:self.ipString]) {
-////        
-////    }else
-////    {
-////        
-////        NSLog(@"IP 网络改变");
-////        
-//////        [self.dataSource removeAllObjects];
-//////        [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
-////        
-////        self.ipString = IPstrNow;
-////        //创建通知
-////        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-////        //通过通知中心发送通知
-////        [[NSNotificationCenter defaultCenter] postNotification:notification];
-////    }
-//    
-//    //访问连接，看是否能访问，如果不能访问，则显示“the media center has disconnected”
-//    //发送刷新列表的更新
-//}
+
 //@end

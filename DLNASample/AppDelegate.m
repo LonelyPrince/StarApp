@@ -22,7 +22,7 @@
 @synthesize cgUpnpModel;
 @synthesize avCtrl;
 //第一次打开
-@synthesize openfirst;
+//@synthesize openfirst;
 //*******
 
 //- (void)dealloc
@@ -68,12 +68,9 @@
       [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
 //    self.ipString =  [GGUtil getIPAddress];
     self.ipString =  [GGUtil getIPAddress:YES];
-//     [USER_DEFAULT setObject:@"aa"  forKey:@"HMC_DMSIP"];   //这个可以删除，此处是做测试，默认的先让IP为aa
-//    [USER_DEFAULT setObject:@"aa"  forKey:@"HMCServiceStr"];   //这个可以删除，此处是做测试，默认的先让IP为aa
-//    [USER_DEFAULT setObject:@"aa"  forKey:@"G_deviceStr"];   //这个可以删除，此处是做测试，默认的先让IP为aa
-//    [USER_DEFAULT setObject:@"aa"  forKey:@"G_deviceStr"];   //这个可以删除，此处是做测试，默认的先让IP为aa
+
     
-    openfirst = 1;
+//    openfirst = 1;
     
     /*********************************************************************/
     //当真机连接Mac调试的时候把这些注释掉，否则log只会输入到文件中，而不能从xcode的监视器中看到。
@@ -238,16 +235,23 @@ void UncaughtExceptionHandler(NSException *exception) {
             
             
             NSString * HMC_DMSIDTemp =cgUpnpModel.category_id;
-            NSString *  subStringTemp= [HMC_DMSIDTemp substringWithRange:NSMakeRange(0,3)];
-            if ([subStringTemp isEqualToString:@"HMC"]) {
-            
-            [self.dataSource addObject:dmsDic];//将数据转为字典存起来
-            
+            if (HMC_DMSIDTemp.length>= 3) {
+                NSString *  subStringTemp= [HMC_DMSIDTemp substringWithRange:NSMakeRange(0,3)];
+                if ([subStringTemp isEqualToString:@"HMC"]) {
+                    
+                    [self.dataSource addObject:dmsDic];//将数据转为字典存起来
+                    
+                }
+                else
+                {
+                    NSLog(@"前缀不是HMC");
+                }
             }
             else
             {
                 NSLog(@"前缀不是HMC");
             }
+
         }
         
         
@@ -307,35 +311,36 @@ void UncaughtExceptionHandler(NSException *exception) {
 //                    }
                 
                 //第一次打应用，防止oldDMS的IP和DMSIP相同，所以这里先做一次请求
-                if (openfirst == 1) {
-                    openfirst++;
-                    NSLog(@"IP出现一次不同");
-                    NSLog(@"DMSIP:5555");
-                    //创建通知
-                    NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                    
-                    //创建通知
-                    NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
-                    //通过通知中心发送通知
-                    [[NSNotificationCenter defaultCenter] postNotification:notification1];                }
-                else{
-                    if (! [oldHMC_DMSIP isEqualToString: HMC_DMSIP]) {
-                        NSLog(@"IP出现一次不同");
-                        NSLog(@"DMSIP:5555");
-                        //创建通知
-                        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification];
-                        
-                        //创建通知
-                        NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                        
-                    }
-                }
+//                if (openfirst == 1) {
+//                    openfirst++;
+//                    NSLog(@"IP出现一次======不同");
+//                    NSLog(@"DMSIP:5555");
+//                    //创建通知
+//                    NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+//                    //通过通知中心发送通知
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                    
+//                    //创建通知
+//                    NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
+//                    //通过通知中心发送通知
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                }
+//                else{
+//                    if (! [oldHMC_DMSIP isEqualToString: HMC_DMSIP]) {
+//                        NSLog(@"IP出现一次不同");
+//                        NSLog(@"DMSIP:5555");
+//                        //创建通知
+//                        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+//                        //通过通知中心发送通知
+//                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                        
+//                        //创建通知
+//                        NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
+//                        //通过通知中心发送通知
+//                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                        
+//                    }
+//                }
 
             }
         }
@@ -409,13 +414,16 @@ void UncaughtExceptionHandler(NSException *exception) {
 -(void)checkIPTimer
 {
 //    NSString * IPstrNow = [GGUtil getIPAddress];
+    NSLog(@" checkIPTimer IP 1 %@", self.ipString);
     NSString * IPstrNow=  [GGUtil getIPAddress:YES];
     if ([IPstrNow isEqualToString:self.ipString]) {
         
     }else
     {
+        NSLog(@" checkIPTimer IP 不一样了 2 %@", self.ipString);
     
         NSLog(@"IP 网络改变");
+        NSLog(@"IP 改变了在 checkIPTimer");
         
         [self.dataSource removeAllObjects];
         [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
@@ -426,10 +434,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
-        //创建通知
-        NSNotification *notificationDevice =[NSNotification notificationWithName:@"IPHasChangedDevice" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notificationDevice];
+        
     }
     
 }

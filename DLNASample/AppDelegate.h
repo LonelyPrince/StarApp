@@ -36,8 +36,4 @@
 @property (nonatomic, retain) NSTimer * timerCheckIP;
 @property (nonatomic, retain) NSString * ipString;
 
-@property (nonatomic, assign) NSInteger * openfirst;
-
-@property (nonatomic, strong) Reachability *routerReachability;  //判断网络连接状态用
-@property (nonatomic, strong) Reachability *hostReachability; //判断网络连接状态用
 @end

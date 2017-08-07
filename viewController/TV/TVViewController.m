@@ -36,7 +36,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     UIImageView *imageViewThree;
     UIImageView *imageViewFour;
     
-    BOOL firstShow;
+//    BOOL firstShow;
     BOOL playState;
     //    NSTimer * timerState;
     int tableviewinit;
@@ -163,7 +163,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @synthesize categoryView;
 @synthesize allStartEpgTime;
 @synthesize tableForSliderView;
-@synthesize timerState; //不播放时候的计时器
+//@synthesize timerState; //不播放时候的计时器
 @synthesize progressEPGArr;  //为了进度条，保存EPG，然后获取不同时间段的时间
 @synthesize progressEPGArrIndex;
 //@synthesize videoPlay;
@@ -184,7 +184,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //打开时开始连接socket并且发送心跳
     self.socketView  = [[SocketView  alloc]init];
     //    [self.socketView viewDidLoad];
-    firstShow =NO;
+//    firstShow =NO;
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstStartTransform"];
     
     //    activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
@@ -498,9 +498,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 ////    [self creatTopScroller];   //创建scroll
 //}
 
+#pragma mark - 获取Json数据的方法
 //获取table
 -(void) getServiceData
 {
+    NSLog(@"getServiceData====");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -532,7 +534,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (!isValidArray(data1) || data1.count == 0){
-            [self getServiceData];
+            [self getServiceData]; //如果数据为空，则重新获取数据
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
@@ -542,7 +544,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            [self getServiceData];
+            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
         }
         
         [self.activeView removeFromSuperview];
@@ -551,7 +553,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
-        NSLog(@"playVideo55 :");
+        NSLog(@"playVideo55-GetService :");
         
         
         //////
@@ -650,6 +652,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.socketView viewDidLoad];
             if (firstfirst == YES) {
                 
+                NSLog(@"已经跳转到firstopen方法 在getservice 开始播放");
                 //                   self.socketView  = [[SocketView  alloc]init];
                 NSLog(@"DMSIP:1111");
                 //                   [self.socketView viewDidLoad];
@@ -882,6 +885,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 - (void)playVideo
 {
+    NSLog(@"已经跳转到firstopen方法 在playVideo 中播放");
     NSLog(@"playvideo 的线程");
     if (!self.videoController) {
         self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
@@ -907,7 +911,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"sel.view.frame11 %f",self.view.frame.size.height);
             NSLog(@"sel.view.frame12 %f",self.view.frame.size.width);
             //            //
-            firstShow = YES;
+//            firstShow = YES;
             statusNum = 2;
             [self prefersStatusBarHidden];
             [self setNeedsStatusBarAppearanceUpdate];
@@ -981,7 +985,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 //            //
-                firstShow = NO;
+//                firstShow = NO;
                 statusNum = 3;
                 [self prefersStatusBarHidden];
                 [self setNeedsStatusBarAppearanceUpdate];
@@ -1558,7 +1562,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"==");
     }
     
-    NSLog(@"cell.dataDic:%@",cell.dataDic);
+//    NSLog(@"cell.dataDic:%@",cell.dataDic);
     
     return cell;
     
@@ -1897,6 +1901,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.videoController.player = nil;
     
 }
+#pragma mark - 获取信息，准备播放
 - (void)getDataService:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"playdata"]);
     NSLog(@"哦按都按搜到那是你大劫案申冬奥房那是大放悲声");
@@ -1979,73 +1984,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"byteValue1 TVTVTVTVTVTV333");
     });
     
-    //    [self playClick];
-    //==========正文
-    //    [self playVideo];
-    
-    //    NSLog(@"TVcontentURL play22");
-    //
-    //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:2];
-    
-    
-    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    //    dispatch_async(mainQueue, ^{
-    //        NSLog(@"aa1");
-    //        [self setStateNonatic];
-    //    });
-    //    dispatch_async(mainQueue, ^{
-    //        NSLog(@"aa2");
-    //        [self playVideo];
-    //    });
-    //    dispatch_async(mainQueue, ^{
-    //        NSLog(@"aa3");
-    //    });
-    //    dispatch_async(mainQueue, ^{
-    //        NSLog(@"aa4");
-    //    });
-    
-    //    dispatch_queue_t defaultQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);    //并行
-    //    dispatch_async(defaultQueue, ^{
-    //        NSLog(@"1");
-    //        [self setStateNonatic];
-    //    });
-    //    dispatch_async(defaultQueue, ^{
-    //        NSLog(@"2");
-    //        [self playVideo];
-    //    });
-    //    dispatch_async(defaultQueue, ^{
-    //        NSLog(@"3");
-    //    });
-    //    dispatch_async(defaultQueue, ^{
-    //        NSLog(@"4");
-    //    });
-    
+   
     
     NSLog(@"playvideo 后面的线程");
     NSLog(@"playVideo11 :");
     
     playState = NO;
     
-    NSLog(@"timerState:22 %@",timerState);
+
     NSLog(@"playState:111111 %d",playState);
-    [timerState invalidate];
-    timerState = nil;
-    NSLog(@"timerState:33 %@",timerState);
-    //    if (! playState ) {
-    //   NSLog(@"playState:2222222 %d",playState);
-    ////        NSInteger  timerIndex = 1;
-    ////        NSNumber * timerNum = [NSNumber numberWithInteger:timerIndex];
-    ////        NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjectsAndKeys: timerNum,@"oneNum",nil];
-    //        //此处给禁止了
-    //            playNumCount = 1;
-    //            timerState =   [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(playClick) userInfo:nil repeats:YES];
+//    [timerState invalidate];
+//    timerState = nil;
     
-    //    //如果视频20秒内不播放，则显示sorry的提示文字
-    //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-    //    [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
+   
+    
     [self ifNeedPlayClick];
     NSLog(@"开始==计时===");
-    NSLog(@"timerState:11 %@",timerState);
+
     //    }
     
     
@@ -2830,10 +2785,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"CRC 错误");
         
-        //        //创建通知
-        //        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
     }
     else if(val == 2)
     {
@@ -2847,10 +2799,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"播放错误"); //可能没插信号线
         
-        //        //创建通知
-        //        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else if(val == 5)
     {
@@ -2873,19 +2821,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     else if(val == 9)
     {
         NSLog(@"服务器停止分发");
-        //        //创建通知
-        //        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification];
         
     }
     else if(val == 10)
     {
         NSLog(@"无效");
-        //        //创建通知
-        //        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification];
+      
     }
 }
 
@@ -2985,7 +2926,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [mutaArray removeObjectAtIndex:i];
                 [mutaArray  addObject:[tempArr copy]];
                 
-                NSLog(@"mutaArray: %@",mutaArray);
+//                NSLog(@"mutaArray: %@",mutaArray);
                 //            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
                 break;
             }
@@ -3122,7 +3063,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         NSLog(@"第一次启动");
         self.tabBarController.tabBar.hidden = YES;
-        firstShow = NO;
+//        firstShow = NO;
         statusNum = 0;
         [self prefersStatusBarHidden];
         
@@ -3131,9 +3072,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }else{
         
+//        NSString *  viewAppearRandomStr  = @"yes";  //这是一个局部变量，确保每次打开时值都不一样，然后通过这个值来判断是偶可以播放了
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
-        //防止用户快速切换，做延迟处理
+//        //防止用户快速切换，做延迟处理
+//        if (self.TVViewStopVideoPlayAndCancelDealyFunctionBlock) {
+//            self.TVViewStopVideoPlayAndCancelDealyFunctionBlock();
+//        }
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
@@ -3244,6 +3189,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
+//0.3s 后执行
 -(void)viewWillAppearDealyFunction
 {
     
@@ -3261,7 +3207,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
        //        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
     tableviewinit  = tableviewinit +1;
-    firstShow = YES;
+//    firstShow = YES;
     statusNum = 1;
     
     [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
@@ -3284,8 +3230,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    [self getTopCategory];
     
     viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
+    NSLog(@"已经跳转到firstopen方法viewDidloadHasRunBool %d",viewDidloadHasRunBool);
     if (viewDidloadHasRunBool == 0) {
-        [self getServiceData];    //获取表数据
+        
+        [self getServiceData];    //刚进入页面，重新搜索获取表数据
         
         
         viewDidloadHasRunBool = 1;
@@ -3347,11 +3295,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.extendedLayoutIncludesOpaqueBars =NO;
     self.modalPresentationCapturesStatusBarAppearance =NO;
     self.navigationController.navigationBar.translucent =NO;
-    
+    NSLog(@"已经跳转到firstopen方法firstfirst %d",firstfirst);
     if (firstfirst == YES) {
         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];
     }else
     {
+        NSLog(@"已经跳转到firstopen方法 从别的方法跳转过来");
         [self judgeJumpFromOtherView];
     }
     
@@ -3364,8 +3313,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
     NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    });
     NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
     
     if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
@@ -3612,7 +3563,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (!isValidArray(data1) || data1.count == 0){
-            //            [self getServiceData];
+            
             [self tableViewDataRefresh];
             return ;
         }
@@ -3621,7 +3572,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            //            [self getServiceData];
+            
             [self tableViewDataRefresh];
         }
         
@@ -3762,7 +3713,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
         
         if (!isValidArray(data1) || data1.count == 0){
-            //            [self getServiceData];
+            
             [self getMediaDeliverUpdate];
             return ;
         }
@@ -3774,7 +3725,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            //            [self getServiceData];
+            
             [self getMediaDeliverUpdate];
         }
         
@@ -4163,65 +4114,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //        //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
-    //    //     NSDictionary * dic =  [timer userInfo];
-    //    //    NSNumber *
-    //    playNumCount ++;
-    //    NSLog(@"playState33333还在一遍一遍播放");
-    //    NSLog(@"playState33333:%d",playState);
-    //    NSLog(@"playState33333+playNumCount:%d", playNumCount);
-    //    NSLog(@"(self.video.playUrl:%@",self.video.playUrl);
-    //
-    //    if (playNumCount >= 8){  //如果大于次10，即大于8秒，则停止播放，循环结束，显示无法播放的标语
-    //        NSLog(@"timerState now:%@",timerState);
-    //        [timerState invalidate];
-    //        timerState = nil;
-    //
-    //        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
-    //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    //
-    //        //创建通知
-    //        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
-    //        [[NSNotificationCenter defaultCenter] postNotification:notification];
-    //
-    //
-    //        NSLog(@"timerState :%@",timerState);
-    //        [timerState invalidate];
-    //        timerState = nil;
-    //        NSLog(@"timerState :%@",timerState);
-    //    }else {//次数小于10，判断是否播放
-    //        if ( self.video.playUrl != NULL && playState)
-    //        {
-    //            //如果已经播放，结束循环
-    //            [timerState invalidate];
-    //            timerState = nil;
-    //
-    //            playNumCount = 0;
-    //            NSLog(@"播放");
-    //
-    //            NSLog(@"右侧列表消失 playClick1 %ld",(long)playNumCount);
-    //
-    //        }else{
-    //            //没有播放.接着循环
-    //            ////            [self playVideo];
-    //
-    //
-    //            self.videoController.url = [NSURL URLWithString:self.video.playUrl];
-    //            self.videoController.shouldAutoplay = YES;
-    //            NSLog(@"playVideo 999");
-    //
-    //            if (self.videoController.isPreparedToPlay == YES) {
-    //                [self willplay];
-    //            }
-    //            ////            [self.videoController stop];
-    //            ////            [self.videoController setMovieSourceType:MPMovieSourceTypeStreaming];
-    //            ////            self.videoController.shouldAutoplay = YES;
-    //            //            [self.videoController prepareToPlay];
-    //            //            NSLog(@"playVideo22 :");
-    //            //            NSLog(@"右侧列表消失 playClick2 %ld",(long)playNumCount);
-    //        }
-    //    }
     
     
 }
@@ -4234,8 +4126,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"playState44444现在正在准备播放，TV 页面willplay");
     playState = YES;
-    [timerState invalidate];
-    timerState = nil;
+//    [timerState invalidate];
+//    timerState = nil;
     NSString * videoOrRadioPlaystr = [USER_DEFAULT objectForKey:@"videoOrRadioPlay"];
     if ([videoOrRadioPlaystr isEqualToString:@"radio"]) {
         //发送通知，添加radio图片
@@ -4727,6 +4619,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    NSLog(@"已经跳转到firstopen方法");
     //=====则去掉不能播放的字样，加上加载环
     [self removeLabAndAddIndecatorView];
     
@@ -4868,14 +4761,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"playState---== 第一次打开发送数据111");
     [self.socketView  serviceTouch ];
     NSLog(@"playState---== 第一次打开发送数据222");
-    //    NSTimer * touchTimer = [NSTimer timerWithTimeInterval:3 target:self selector:@selector(touchTimer) userInfo:nil repeats:NO];
+    
     
     
 }
--(void)touchTimer
-{
-    [self.socketView  serviceTouch ];
-}
+
 -(UIViewController*) findBestViewController:(UIViewController*)vc {
     NSLog(@"viewController222== %@",vc);
     if (vc.presentedViewController) {
@@ -6079,8 +5969,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    NSLog(@" channelStartimesList.count %d",channelStartimesList.count);
-    NSLog(@"channelStartimesList :%@",channelStartimesList);
+//    NSLog(@" channelStartimesList.count %d",channelStartimesList.count);
+//    NSLog(@"channelStartimesList :%@",channelStartimesList);
     
     [self nssetSortToArr:channelStartimesList];
     NSLog(@"在这里获取 发送到判断Nsset");
@@ -6115,7 +6005,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(twoFunctionOftableviewDataRefresh) object:nil];
                 [self performSelector:@selector(twoFunctionOftableviewDataRefresh) withObject:nil afterDelay:delayTime];
                 //                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(getNSSetListHttpRequest) object:nil];
-                //                [self performSelector:@selector(getNSSetListHttpRequest) withObject:nil afterDelay:10]; //getServiceData  //twoFunctionOftableviewDataRefresh //tableViewDataRefresh //getMediaDeliverUpdate //getServiceDataNotHaveSocket
+                //                [self performSelector:@selector(getNSSetListHttpRequest) withObject:nil afterDelay:10];   //twoFunctionOftableviewDataRefresh //tableViewDataRefresh //getMediaDeliverUpdate //getServiceDataNotHaveSocket
                 [[NSRunLoop currentRunLoop] run];
                 
                 NSLog(@"在这里获取 delayTime后开始自动刷新");
@@ -6223,7 +6113,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (!isValidArray(data1) || data1.count == 0){
-            //            [self getServiceData];
+            
             [self tableViewDataRefreshForMjRefresh];
             return ;
         }
@@ -6237,7 +6127,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            //            [self getServiceData];
+            
             [self tableViewDataRefreshForMjRefresh];
         }
         
@@ -6696,6 +6586,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //IP改变后或者是HMC改变后的刷新方法  ,类似于getServiceData
 -(void) getServiceDataForIPChange
 {
+    NSLog(@"ip has change");
+    NSLog(@"并且 HMC has change");
+    
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -6745,7 +6638,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
-        NSLog(@"playVideo55 :");
+        NSLog(@"playVideo55-IP :");
         
         
         //////
@@ -7720,6 +7613,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 播放过程中，或者点击了加锁的按钮。此时停止掉显示不能播放文字,并且取消掉延迟方法
 -(void)removeTipLabAndPerformSelector
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
     //弹窗之后，取消显示sorry不能播放的字样，并且取消不能播放的提示文字
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     NSLog(@"取消播放第一次");
@@ -7728,7 +7622,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    
+    });
 }
 #pragma mark -- 判断是否需要延迟20秒执行播放状态判断，如果有CA或者加锁弹窗，则不进行判断
 -(void)ifNeedPlayClick
@@ -7743,9 +7637,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     //    }
     
+    dispatch_async(dispatch_get_main_queue(), ^{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     NSLog(@"取消播放第二次");
+    NSLog(@"取消播放第二次 %@",[NSThread currentThread]);
     [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
+    
+    });
     
 }
 #pragma mark - 则去掉不能播放的字样，加上加载环
