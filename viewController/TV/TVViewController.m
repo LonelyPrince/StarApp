@@ -396,11 +396,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     CATextField_Encrypt = [[UITextField alloc]init];
     STBTouch_Dic  = [[NSDictionary alloc]init];
     
-    STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil]
+    STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Determine" otherButtonTitles:@"Cancel",nil]
     ;
     STBAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     
-    CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Determine",nil];
+    CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Determine" otherButtonTitles:@"Cancel",nil];
     CAAlert.alertViewStyle = UIAlertViewStyleSecureTextInput; //UIAlertViewStylePlainTextInput;
     
     channelStartimesList = [[NSMutableSet alloc]init];
@@ -1668,8 +1668,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
     self.video.channelCount = tempArrForServiceArr.count;
     
-    NSLog(@"self.video.dicChannl %@",self.video.dicChannl);
-    NSLog(@"self.video.channelCount %d",self.video.channelCount);
+//    NSLog(@"self.video.dicChannl %@",self.video.dicChannl);
+//    NSLog(@"self.video.channelCount %d",self.video.channelCount);
     tempIndexpathForFocus = indexPath;
     //    DetailViewController *controller =[[DetailViewController alloc] init];
     //    controller.dataDic = self.dataSource[indexPath.row];
@@ -5487,7 +5487,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSLog(@"不一致，不弹窗。===或者将窗口取消掉11");
         if(CAAlert){
-            [CAAlert dismissWithClickedButtonIndex:[CAAlert cancelButtonIndex] animated:YES];
+            [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
         }
     }
     
@@ -5513,7 +5513,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     if ([alertView  isEqual: STBAlert]) {
         
-        if(buttonIndex == 0)
+        if(buttonIndex == 1)
         {
             NSLog(@"charact  STB  验证");
             NSLog(@"没有进行STB密码验证，所以不能播放");
@@ -5552,7 +5552,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else if([alertView  isEqual: CAAlert])
     {
-        if(buttonIndex == 0)
+        if(buttonIndex == 1)
         {
             //            //取消了
             //            NSLog(@"charact  CA 验证");
@@ -7136,7 +7136,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         NSLog(@"不一致，不弹窗。===或者将窗口取消掉22");
-        [CAAlert dismissWithClickedButtonIndex:0 animated:YES];
+        [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
         //======
         [self firstOpenAppAutoPlay:row diction:dic];
         firstOpenAPP = firstOpenAPP+1;
@@ -7371,7 +7371,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     
                     NSLog(@"不一致，不弹窗。===或者将窗口取消掉33");
-                    [STBAlert dismissWithClickedButtonIndex:0 animated:YES];
+                    [STBAlert dismissWithClickedButtonIndex:1 animated:YES];
                     //======
                     [self firstOpenAppAutoPlay:row diction:dic];
                     firstOpenAPP = firstOpenAPP+1;
