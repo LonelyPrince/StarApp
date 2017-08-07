@@ -72,5 +72,5 @@
 //catehory + class
 #import "UIViewController+animationView.h"
 #import "XYZNavigationController.h"
-
+#import "UITextField+NOPasteTextField.h"
 #endif

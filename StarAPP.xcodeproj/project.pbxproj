@@ -502,6 +502,7 @@
 		70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */; };
 		70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */; };
 		70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */; };
+		70FB8AF81F380BD900AA3FCE /* UITextField+NOPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FB8AF71F380BD900AA3FCE /* UITextField+NOPasteTextField.m */; };
 		70FC2FF41D7524C000BD06FE /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC2FF21D7524C000BD06FE /* SearchViewController.m */; };
 		70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FC2FF31D7524C000BD06FE /* SearchViewController.xib */; };
 		70FC30A71D756E2A00BD06FE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FC30A61D756E2A00BD06FE /* MediaPlayer.framework */; };
@@ -1223,6 +1224,8 @@
 		70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@1x.png"; sourceTree = "<group>"; };
 		70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@2x.png"; sourceTree = "<group>"; };
 		70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@3x.png"; sourceTree = "<group>"; };
+		70FB8AF61F380BD900AA3FCE /* UITextField+NOPasteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NOPasteTextField.h"; sourceTree = "<group>"; };
+		70FB8AF71F380BD900AA3FCE /* UITextField+NOPasteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NOPasteTextField.m"; sourceTree = "<group>"; };
 		70FC2FF11D7524C000BD06FE /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		70FC2FF21D7524C000BD06FE /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		70FC2FF31D7524C000BD06FE /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -1953,6 +1956,8 @@
 				7027B3D61F308F89001CDFAE /* XYZNavigationController.m */,
 				7027B3E71F309C93001CDFAE /* UIViewController+animationView.h */,
 				7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */,
+				70FB8AF61F380BD900AA3FCE /* UITextField+NOPasteTextField.h */,
+				70FB8AF71F380BD900AA3FCE /* UITextField+NOPasteTextField.m */,
 			);
 			name = CategoryClass;
 			sourceTree = "<group>";
@@ -3299,6 +3304,7 @@
 				701295191D80F4CF003139D5 /* UIActionSheet+Blocks.m in Sources */,
 				7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */,
 				701295221D80F4CF003139D5 /* UIView+Utils.m in Sources */,
+				70FB8AF81F380BD900AA3FCE /* UITextField+NOPasteTextField.m in Sources */,
 				60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */,
 				7033AA2F1E8209EB005C2A43 /* KVO_NoDataPic.m in Sources */,
 				7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */,

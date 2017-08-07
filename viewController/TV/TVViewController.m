@@ -13,6 +13,7 @@
 #import "MJRefresh.h"
 #import "UICustomAlertView.h"
 #import "UIViewController+animationView.h"
+#import "UITextField+NOPasteTextField.h"
 
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 //#import "HexColors.h"
@@ -5171,6 +5172,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     CAAlert.title = @"It's wrong,Once more";
     [CAAlert show];
+    CATextField_Encrypt.text = @"";
     CAAlert.dontDisppear = YES;
     
 }
@@ -5290,6 +5292,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"弹出 STB 窗口 ");
         STBAlert.title = @"It's wrong,Once more";
         [STBAlert show];
+        STBTextField_Encrypt.text = @"";
         STBAlert.dontDisppear = YES;
         
         NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
@@ -5302,6 +5305,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     STBAlert.title = @"Please input your Decoder PIN";
     [STBAlert show];
+    STBTextField_Encrypt.text = @"";
     STBAlert.dontDisppear = YES;
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
@@ -5313,6 +5317,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     CAAlert.title = @"Please input your CA PIN";
     [CAAlert show];
+    CATextField_Encrypt.text = @"";
     CAAlert.dontDisppear = YES;
     
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
@@ -5364,6 +5369,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             STBAlert.delegate =  self;
             STBAlert.title = @"Please input your Decoder PIN";
             [STBAlert show];
+            STBTextField_Encrypt.text = @"";
             STBAlert.dontDisppear = YES;
             
             
@@ -5459,6 +5465,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         CAAlert.delegate =  self;
         CAAlert.title = @"Please input your CA PIN";
         [CAAlert show];
+        CATextField_Encrypt.text = @"";
         CAAlert.dontDisppear = YES;
         
         
@@ -7696,4 +7703,5 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self removeTipLabAndPerformSelector];
     
 }
+
 @end
