@@ -3763,7 +3763,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (cell == nil){
             cell = [ChannelCell loadFromNib];
             cell.channelId.textAlignment = UITextAlignmentCenter;
-            cell.channelName.textAlignment = UITextAlignmentCenter;
+            cell.channelName.textAlignment = UITextAlignmentLeft;
             
             cell.backgroundColor=[UIColor clearColor];
             
