@@ -27,6 +27,7 @@
 @property (nonatomic, strong) CategoryModel *categorymodel;
 @property (nonatomic, strong) ServiceModel *servicemodel;
 
+@property (nonatomic, strong) NSString * deviceString;
 //@property(nonatomic,assign)NSInteger aa;
 //@property(nonatomic,assign)NSInteger aaa;
 + (id)loadFromNib;
