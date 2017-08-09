@@ -190,6 +190,8 @@
 }
 -(void)tableViewChangeBlue : (NSNotification *)text
 {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+    
     NSLog(@"====================");
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
     NSInteger row2 = [text.userInfo[@"textTwo"]integerValue];
@@ -261,7 +263,7 @@
         NSLog(@"总行数小于要跳转的函数，会报错");
     }
     
-    
+//    });
     
 }
 #pragma make reloadData

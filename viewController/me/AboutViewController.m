@@ -49,7 +49,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版本信息
         self.verLabShow = [[UILabel alloc]init];
-        _verLabShow.text = @"StarTimes App iOS V1.0.3";
+        _verLabShow.text = @"V1.0.3";
         CGSize sizeOfVerLabShow = [self sizeWithText:_verLabShow.text font:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.verLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow.width)/2, 276, sizeOfVerLabShow.width, sizeOfVerLabShow.height);
         self.verLabShow.font = FONT(14);
@@ -76,7 +76,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版本信息
         self.verLabShow = [[UILabel alloc]init];
-        _verLabShow.text = @"StarTimes App iOS V1.0.3";
+        _verLabShow.text = @"V1.0.3";
         CGSize sizeOfVerLabShow = [self sizeWithText:_verLabShow.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.verLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow.width)/2, 300, sizeOfVerLabShow.width, sizeOfVerLabShow.height);
         self.verLabShow.font = FONT(15);
@@ -105,7 +105,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版本信息
         self.verLabShow = [[UILabel alloc]init];
-        _verLabShow.text = @"StarTimes App iOS V1.0.3";
+        _verLabShow.text = @"V1.0.3";
         CGSize sizeOfVerLabShow = [self sizeWithText:_verLabShow.text font:[UIFont systemFontOfSize:16] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.verLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow.width)/2, 356, sizeOfVerLabShow.width, sizeOfVerLabShow.height);
         self.verLabShow.font = FONT(16);
@@ -133,7 +133,7 @@ self.tabBarController.tabBar.hidden = YES;
         
         //新加版本信息
         self.verLabShow = [[UILabel alloc]init];
-        _verLabShow.text = @"StarTimes App iOS V1.0.3";
+        _verLabShow.text = @"V1.0.3";
         CGSize sizeOfVerLabShow = [self sizeWithText:_verLabShow.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         self.verLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow.width)/2, 390, sizeOfVerLabShow.width, sizeOfVerLabShow.height);
         self.verLabShow.font = FONT(18);

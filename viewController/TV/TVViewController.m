@@ -4320,9 +4320,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"self.socket:%@",self.socketView);
     
-    self.videoController.socketView1 = self.socketView;
-    [self.socketView  serviceTouch ];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.videoController.socketView1 = self.socketView;
+        [self.socketView  serviceTouch ];
+   
+    });
     
     //    double delayInSeconds = 0.5;
     //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -7648,7 +7650,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     NSLog(@"取消播放第二次");
     NSLog(@"取消播放第二次 %@",[NSThread currentThread]);
-    [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
+    [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
     
     });
     

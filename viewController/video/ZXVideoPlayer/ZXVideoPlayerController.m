@@ -3895,6 +3895,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     
+//    if (self.rightViewShowing == YES)
+//    {
+        self.videoControl.isBarShowing = NO;
+        [self rightViewHidden];
+//    }
     NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         

@@ -375,10 +375,6 @@
 		7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7056506C1DB9F1E1002DD47E /* ChannelCell.m */; };
 		7056506F1DB9F1E1002DD47E /* ChannelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7056506D1DB9F1E1002DD47E /* ChannelCell.xib */; };
 		7059B2DA1F330A4600C005A4 /* Tunermonitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2D91F330A4600C005A4 /* Tunermonitor.png */; };
-		7059B2E31F330E8100C005A4 /* 4关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2DF1F330E8100C005A4 /* 4关于.png */; };
-		7059B2E41F330E8100C005A4 /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2E01F330E8100C005A4 /* 关于.png */; };
-		7059B2E51F330E8100C005A4 /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2E11F330E8100C005A4 /* 关于@2x.png */; };
-		7059B2E61F330E8100C005A4 /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7059B2E21F330E8100C005A4 /* 关于@3x.png */; };
 		706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376111E0B5EB8004238B1 /* 网络无连接@1x.png */; };
 		706376151E0B5EB8004238B1 /* 网络无连接@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376121E0B5EB8004238B1 /* 网络无连接@2x.png */; };
 		706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706376131E0B5EB8004238B1 /* 网络无连接@3x.png */; };
@@ -503,6 +499,10 @@
 		70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A31DD452A300A62200 /* routenoKnow@2x.png */; };
 		70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */; };
 		70FB8AF81F380BD900AA3FCE /* UITextField+NOPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FB8AF71F380BD900AA3FCE /* UITextField+NOPasteTextField.m */; };
+		70FB8AFF1F3AF26300AA3FCE /* 4关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB8AFE1F3AF26300AA3FCE /* 4关于.png */; };
+		70FB8B031F3AF27700AA3FCE /* 关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB8B001F3AF27700AA3FCE /* 关于.png */; };
+		70FB8B041F3AF27700AA3FCE /* 关于@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB8B011F3AF27700AA3FCE /* 关于@2x.png */; };
+		70FB8B051F3AF27700AA3FCE /* 关于@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FB8B021F3AF27700AA3FCE /* 关于@3x.png */; };
 		70FC2FF41D7524C000BD06FE /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FC2FF21D7524C000BD06FE /* SearchViewController.m */; };
 		70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FC2FF31D7524C000BD06FE /* SearchViewController.xib */; };
 		70FC30A71D756E2A00BD06FE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FC30A61D756E2A00BD06FE /* MediaPlayer.framework */; };
@@ -1091,10 +1091,6 @@
 		7056506C1DB9F1E1002DD47E /* ChannelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCell.m; sourceTree = "<group>"; };
 		7056506D1DB9F1E1002DD47E /* ChannelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelCell.xib; sourceTree = "<group>"; };
 		7059B2D91F330A4600C005A4 /* Tunermonitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tunermonitor.png; sourceTree = "<group>"; };
-		7059B2DF1F330E8100C005A4 /* 4关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4关于.png"; sourceTree = "<group>"; };
-		7059B2E01F330E8100C005A4 /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
-		7059B2E11F330E8100C005A4 /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
-		7059B2E21F330E8100C005A4 /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
 		706376111E0B5EB8004238B1 /* 网络无连接@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@1x.png"; sourceTree = "<group>"; };
 		706376121E0B5EB8004238B1 /* 网络无连接@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@2x.png"; sourceTree = "<group>"; };
 		706376131E0B5EB8004238B1 /* 网络无连接@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "网络无连接@3x.png"; sourceTree = "<group>"; };
@@ -1226,6 +1222,10 @@
 		70F9B9A41DD452A300A62200 /* routenoKnow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routenoKnow@3x.png"; sourceTree = "<group>"; };
 		70FB8AF61F380BD900AA3FCE /* UITextField+NOPasteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NOPasteTextField.h"; sourceTree = "<group>"; };
 		70FB8AF71F380BD900AA3FCE /* UITextField+NOPasteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NOPasteTextField.m"; sourceTree = "<group>"; };
+		70FB8AFE1F3AF26300AA3FCE /* 4关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "4关于.png"; sourceTree = "<group>"; };
+		70FB8B001F3AF27700AA3FCE /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
+		70FB8B011F3AF27700AA3FCE /* 关于@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@2x.png"; sourceTree = "<group>"; };
+		70FB8B021F3AF27700AA3FCE /* 关于@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于@3x.png"; sourceTree = "<group>"; };
 		70FC2FF11D7524C000BD06FE /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		70FC2FF21D7524C000BD06FE /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		70FC2FF31D7524C000BD06FE /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
@@ -1905,10 +1905,10 @@
 		7024C5DB1DD1AD260053F313 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				7059B2DF1F330E8100C005A4 /* 4关于.png */,
-				7059B2E01F330E8100C005A4 /* 关于.png */,
-				7059B2E11F330E8100C005A4 /* 关于@2x.png */,
-				7059B2E21F330E8100C005A4 /* 关于@3x.png */,
+				70FB8AFE1F3AF26300AA3FCE /* 4关于.png */,
+				70FB8B001F3AF27700AA3FCE /* 关于.png */,
+				70FB8B011F3AF27700AA3FCE /* 关于@2x.png */,
+				70FB8B021F3AF27700AA3FCE /* 关于@3x.png */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -2732,7 +2732,6 @@
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
 				70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */,
-				7059B2E31F330E8100C005A4 /* 4关于.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
 				70362D161F009E4B0012A309 /* New圆环-3@2x.png in Resources */,
 				7045C46C1DC715FB002647F9 /* 矩形2@2x.png in Resources */,
@@ -2930,8 +2929,8 @@
 				70FFE4041DE3EF4800223E43 /* 时移@3x.png in Resources */,
 				706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */,
 				70231CC81DC0FE8C00F73202 /* on@3x.png in Resources */,
-				7059B2E51F330E8100C005A4 /* 关于@2x.png in Resources */,
 				70231CEA1DC1A00100F73202 /* save@2x.png in Resources */,
+				70FB8B041F3AF27700AA3FCE /* 关于@2x.png in Resources */,
 				7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */,
 				706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */,
 				707FE7441DACC3C30087C361 /* live icon copy@2x.png in Resources */,
@@ -3062,8 +3061,8 @@
 				70170C371D74156000CC3951 /* guang.png in Resources */,
 				7040E23C1DAE12B80063DB66 /* Group 6@1x.png in Resources */,
 				702CE4421DDA9881000A0513 /* 7.png in Resources */,
-				7059B2E41F330E8100C005A4 /* 关于.png in Resources */,
 				701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */,
+				70FB8B031F3AF27700AA3FCE /* 关于.png in Resources */,
 				70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */,
 				70362D4A1F00A0180012A309 /* Series@2x.png in Resources */,
 				70362CF51F0092480012A309 /* Movies & Series@3x.png in Resources */,
@@ -3081,6 +3080,7 @@
 				70362D141F009E4B0012A309 /* New圆环-2@3x.png in Resources */,
 				706C26361E03AF9A003AA695 /* 底背景@1x.png in Resources */,
 				70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */,
+				70FB8AFF1F3AF26300AA3FCE /* 4关于.png in Resources */,
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
 				70D6B8F71E2DAF3D00957A81 /* Documentary@1x.png in Resources */,
@@ -3135,7 +3135,7 @@
 				70FFA4E11DE7DFF4006BFE5E /* Verticalpic@2x.png in Resources */,
 				70D6B8FA1E2DAF3D00957A81 /* kids@1x.png in Resources */,
 				702CE44C1DDA9881000A0513 /* 圆角矩形-10.png in Resources */,
-				7059B2E61F330E8100C005A4 /* 关于@3x.png in Resources */,
+				70FB8B051F3AF27700AA3FCE /* 关于@3x.png in Resources */,
 				70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */,
 				702218C01E5AE0D7005D96A0 /* Back Arrow Blue@1x.png in Resources */,
 				7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */,

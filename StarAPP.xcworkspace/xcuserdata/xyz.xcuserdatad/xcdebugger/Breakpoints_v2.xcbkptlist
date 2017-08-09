@@ -116,28 +116,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "523363437.699152"
+            timestampString = "523949427.338463"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3981"
-            endingLineNumber = "3981"
+            startingLineNumber = "4046"
+            endingLineNumber = "4046"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "523363437.699152"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4230"
-            endingLineNumber = "4230"
-            landmarkName = "-scrollViewDidScroll:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -192,22 +176,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/Search/SearchViewController.m"
-            timestampString = "521693927.990262"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -218,22 +186,6 @@
             startingLineNumber = "195"
             endingLineNumber = "195"
             landmarkName = "-getServiceArray"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/Search/SearchViewController.m"
-            timestampString = "521693927.990262"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -260,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523622227.852986"
+            timestampString = "523955953.869929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7772"
-            endingLineNumber = "7772">
+            startingLineNumber = "7786"
+            endingLineNumber = "7786">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -433,54 +385,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523622227.852986"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5208"
-            endingLineNumber = "5208"
-            landmarkName = "-allVideoTouchFromSTB"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523622227.852986"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5171"
-            endingLineNumber = "5171"
-            landmarkName = "-popCAAlertViewFaild"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523622227.852986"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5161"
-            endingLineNumber = "5161"
-            landmarkName = "-popCAAlertViewFaild"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "viewController/me/MEViewController.m"
             timestampString = "523450424.252042"
             startingColumnNumber = "9223372036854775807"
@@ -497,13 +401,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523593988.440481"
+            filePath = "viewController/TV/NOPasteTextField.m"
+            timestampString = "523765186.824752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "644"
-            endingLineNumber = "644"
-            landmarkName = "-getServiceData"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-canBecomeFirstResponder"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/NOPasteTextField.m"
+            timestampString = "523763696.552711"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "-canPerformAction:withSender:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -514,12 +434,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523593988.440481"
+            timestampString = "523955953.869929"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "652"
-            endingLineNumber = "652"
-            landmarkName = "-getServiceData"
+            startingLineNumber = "5492"
+            endingLineNumber = "5492"
+            landmarkName = "-popCAAlertView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -529,13 +449,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "523593988.440481"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "523936319.810708"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "657"
-            endingLineNumber = "657"
-            landmarkName = "-getServiceData"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -545,13 +465,157 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DLNASample/AppDelegate.m"
-            timestampString = "523591002.74247"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "523936319.810708"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "-controlPoint:deviceUpdated:"
+            startingLineNumber = "1056"
+            endingLineNumber = "1056"
+            landmarkName = "-addHistorySearch:diction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "523936319.810708"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "986"
+            endingLineNumber = "986"
+            landmarkName = "-addHistorySearch:diction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "523936319.810708"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "523936319.810708"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "716"
+            endingLineNumber = "716"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "523936293.832085"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SearchViewController tableView:didSelectRowAtIndexPath:]"
+                  moduleName = "StarAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
+                  timestampString = "523957927.065103"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "487"
+                  endingLineNumber = "487"
+                  offsetFromSymbolStart = "1000">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SearchViewController tableView:didSelectRowAtIndexPath:]"
+                  moduleName = "StarAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
+                  timestampString = "523957927.066656"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "487"
+                  endingLineNumber = "487"
+                  offsetFromSymbolStart = "1012">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Slider/YLSlideView.m"
+            timestampString = "523957586.292952"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "-tableViewChangeBlue:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
+            timestampString = "523957698.618529"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3634"
+            endingLineNumber = "3634"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
+            timestampString = "523957789.512939"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2822"
+            endingLineNumber = "2822"
+            landmarkName = "-channelListBtnClick"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

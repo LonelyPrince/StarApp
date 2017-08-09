@@ -44,6 +44,8 @@
     float historyBtn1_width ;
     float historyBtn2_width ;
     NSString * deviceString;
+    
+    BOOL viewFirstOpen;   //页面第一次加载，快速完成，不做0.2秒等待
 }
 @property (nonatomic,assign)float allHistoryBtnHeight;
 @property (nonatomic,strong)UIScrollView * scroll;
@@ -118,7 +120,7 @@
     //加载一些样式
     
     
-    
+    viewFirstOpen = YES;
     
 }
 ////////
@@ -157,7 +159,26 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    NSLog(@"112313123123123213213211111");
+
+    if (viewFirstOpen == YES) {
+        [self viewWillAppearDealyFunction];
+        viewFirstOpen = NO;
+    }else
+    {
+        NSLog(@"112313123123123213213222222");
+        //防止用户快速切换，做延迟处理
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
+        [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.2];
+        
+    }
     
+    
+    
+}
+-(void)viewWillAppearDealyFunction
+{
+    NSLog(@"1123131231231232132132333333");
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
     [USER_DEFAULT setObject:[NSNumber numberWithInt:1] forKey:@"viewDidloadHasRunBool"];    // 此处做一次判断，判断是不是连接状态，如果是的，则执行live页面的时候不执行【socket viewDidload】
     
@@ -184,7 +205,7 @@
     self.tableView.scrollEnabled =NO;
     [self TVViewAppear]; //TV 页面进去即开始播放
     
-    
+
 }
 -(void)TVViewAppear
 {
