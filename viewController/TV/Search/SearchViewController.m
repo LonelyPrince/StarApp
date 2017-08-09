@@ -33,8 +33,8 @@
 //    [super viewDidLoad];
 //}
 @implementation SearchViewController
-@synthesize dataList = _dataList;
-@synthesize showData = _showData;
+@synthesize dataList = _dataList;   // Json中所有的service 名字和符号的组合
+@synthesize showData = _showData;   //用户每次搜索时候，展示给用户的列表
 @synthesize historySearchTableview;
 @synthesize historySearchView;
 @synthesize historySearchLab;
@@ -357,6 +357,69 @@
    
 }
 
+//获取点击的列表的dic
+-(NSMutableDictionary *)getServiceDic :(int)index1
+{
+    int indexForTouch;
+    NSArray *data2  = [[NSArray alloc]init];
+    NSDictionary * serviceTouch = [[NSDictionary alloc]init];
+    NSMutableDictionary * dicCategory1 = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary * dicTempReturn = [[NSMutableDictionary alloc]init];
+    
+
+//    NSMutableArray *  data2 = [[self.response objectForKey: @"service" ] mutableCopy];
+//    
+//    for (int i = 0; i < data2.count; i++) {
+//        [dicTemp11 setObject:data2[i] forKey:[NSString stringWithFormat:@"%d",i]];
+//    }
+//    return dicTemp11;
+    
+    NSLog(@"self.dataList == %@",self.dataList);
+    
+            NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
+    
+            for (int i = 0; i<category1.count; i++) {   //此时category下有6个分组，第一个分组是3个数据
+    
+                NSArray *  service_index = [category1[i] objectForKey:@"service_index"];//service_index是category分类下每个分组中service_index的数据
+    
+                for (int y = 0; y<service_index.count; y++) {
+    
+                    NSLog(@"service_index[y] intValue ：%d",[service_index[y] intValue]);
+    
+                    if ([service_index[y] intValue] - 1 == index1) {  //// 判断值是否等于行数，如果等于，那么i就是category中的序号，我们取第i个category的service_index数据。
+    
+                        indexForTouch = y ;    //这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
+                        //                //获取不同类别下的节目，然后是节目下不同的cell值                10
+                        for (int x = 0 ; x<service_index.count; x++) {
+                            //
+                            //indexCat 代表总的service下第几个
+                            int indexCat ;
+    
+                            indexCat =[service_index[x] intValue] ;
+                            data2 = [self.response objectForKey: @"service" ];
+                            NSLog(@"self.response: %@",self.response);
+                            NSLog(@"data2--: %@",data2);
+                            serviceTouch  = data2[indexCat-1];
+                            //                    //cell.tabledataDic = self.serviceData[indexCat -1];
+                            //
+                            [dicCategory1 setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
+    
+    
+                            //                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                            //
+                            //
+                        }
+    
+                        [dicTempReturn setObject:dicCategory1 forKey:@"DicForReturn"];
+                        [dicTempReturn setObject:[NSNumber numberWithInt:indexForTouch] forKey:@"indexForReturn"];
+                        
+                        return dicTempReturn;
+                    
+                    }
+                }
+            }
+    
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
@@ -370,43 +433,57 @@
  
     if ([tableView isEqual:self.tableView]) {
         //    NSLog(@"---->%@",[[self.LetterResultArr objectAtIndex: indexPath.section]objectAtIndex:indexPath.row]);
-        int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
+        NSLog(@"showData == %@",self.showData);
         NSLog(@"self.dataList == %@",self.dataList);
+        int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
+        NSMutableDictionary * dicTemp =[self getServiceDic:index1];
+        dicCategory = [dicTemp objectForKey:@"DicForReturn"] ;
+        indexForTouch = [[dicTemp objectForKey:@"indexForReturn"] intValue];
         
-        NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
+        NSLog(@"dicCategory %@",dicCategory);
         
-        for (int i = 0; i<category1.count; i++) {   //此时category下有6个分组，第一个分组是3个数据
-            NSArray *  service_index = [category1[i] objectForKey:@"service_index"];//service_index是category分类下每个分组中service_index的数据
-            for (int y = 0; y<service_index.count; y++) {
-                NSLog(@"service_index[y] intValue ：%d",[service_index[y] intValue]);
-                if ([service_index[y] intValue] - 1 == index1) {  //// 判断值是否等于行数，如果等于，那么i就是category中的序号，我们取第i个category的service_index数据。
-                    
-                    indexForTouch = y;    //这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
-                    //                //获取不同类别下的节目，然后是节目下不同的cell值                10
-                    for (int x = 0 ; x<service_index.count; x++) {
-                        //
-                        //indexCat 代表总的service下第几个
-                        int indexCat ;
-                        
-                        indexCat =[service_index[x] intValue] ;
-                        data2 = [self.response objectForKey: @"service" ];
-                        NSLog(@"self.response: %@",self.response);
-                        NSLog(@"data2--: %@",data2);
-                        serviceTouch  = data2[indexCat-1];
-                        //                    //cell.tabledataDic = self.serviceData[indexCat -1];
-                        //
-                        [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
-                        //                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                        //                    
-                        //                    
-                    }
-                    
-                    
-                    
-                    
-                }
-            }
-        }
+//        NSLog(@"self.dataList == %@",self.dataList);
+//        
+//        NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
+//        
+//        for (int i = 0; i<category1.count; i++) {   //此时category下有6个分组，第一个分组是3个数据
+//            
+//            NSArray *  service_index = [category1[i] objectForKey:@"service_index"];//service_index是category分类下每个分组中service_index的数据
+//            
+//            for (int y = 0; y<service_index.count; y++) {
+//                
+//                NSLog(@"service_index[y] intValue ：%d",[service_index[y] intValue]);
+//                
+//                if ([service_index[y] intValue] - 1 == index1) {  //// 判断值是否等于行数，如果等于，那么i就是category中的序号，我们取第i个category的service_index数据。
+//                    
+//                    indexForTouch = index1 ;    //这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
+//                    //                //获取不同类别下的节目，然后是节目下不同的cell值                10
+//                    for (int x = 0 ; x<service_index.count; x++) {
+//                        //
+//                        //indexCat 代表总的service下第几个
+//                        int indexCat ;
+//                        
+//                        indexCat =[service_index[x] intValue] ;
+//                        data2 = [self.response objectForKey: @"service" ];
+//                        NSLog(@"self.response: %@",self.response);
+//                        NSLog(@"data2--: %@",data2);
+//                        serviceTouch  = data2[indexCat-1];
+//                        //                    //cell.tabledataDic = self.serviceData[indexCat -1];
+//                        //
+//                        [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
+//                      
+//                        
+//                        //                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//                        //                    
+//                        //                    
+//                    }
+//                    
+//                    
+//                    
+//                    
+//                }
+//            }
+//        }
     }
     else if([tableView isEqual:self.historySearchTableview])
     {
@@ -447,6 +524,8 @@
             NSDictionary * tempserviceForJudgeDic = tempserviceArrForJudge[[temparrForServiceByCategory[i] intValue]-1];
             
              twoChannelDicIsEqual = [GGUtil judgeTwoEpgDicIsEqual:tempserviceForJudgeDic TwoDic:tempDic];
+            
+            NSLog(@"tempserviceForJudgeDiciiiiii %d",i);
             NSLog(@"tempserviceForJudgeDic %@",tempserviceForJudgeDic);
             NSLog(@"tempserviceForJudgeDic tempDic%@",tempDic);
 //            tempDic = tempserviceForJudgeDic;
@@ -553,6 +632,7 @@
     NSNumber * numIndex = [NSNumber numberWithInt:indexForTouch];
     
     NSLog(@"textTwo: %@",dicCategory);
+    NSLog(@"numIndex: %@",numIndex);
     
     [self addHistorySearch:indexForTouch diction:dicCategory]; //将点击的节目加入搜索历史
     
