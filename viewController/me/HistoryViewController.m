@@ -136,24 +136,31 @@
 -(void)deleteAllBtn
 {
 //    [self testaaaa];
-    isAllSelected = NO; // “All” 按钮取消选中状态
-    [self loadAllDeleteBtn];  //添加左上角“ALL”按钮
-    if (delegateBtn == YES) {
-        delegateBtn = NO;
-        [self.tableView setEditing:YES animated:YES];
-        //        [self setEditing:!self.editing animated:YES];
-        myButton = nil;
-        myButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteBtnCancel)];
-        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-        
-        self.navigationItem.rightBarButtonItem = myButton;
-    }
-    if(historyArr.count == 0 || historyArr == NULL)
+    if (self.tableView.editing) {
+        NSLog(@"此时编辑状态，不能点击");
+    }else
     {
-        [self deleteBtnCancelAndNOHistory];  //如果历史被删除完全了,显示无历史图片
-    }
+        isAllSelected = NO; // “All” 按钮取消选中状态
+        [self loadAllDeleteBtn];  //添加左上角“ALL”按钮
+        if (delegateBtn == YES) {
+            delegateBtn = NO;
+            [self.tableView setEditing:YES animated:YES];
+            //        [self setEditing:!self.editing animated:YES];
+            myButton = nil;
+            myButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(deleteBtnCancel)];
+            self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+            
+            self.navigationItem.rightBarButtonItem = myButton;
+        }
+        if(historyArr.count == 0 || historyArr == NULL)
+        {
+            [self deleteBtnCancelAndNOHistory];  //如果历史被删除完全了,显示无历史图片
+        }
+        
+        NSLog(@"删除所有");
     
-    NSLog(@"删除所有");
+    }
+   
 }
 #pragma  mark -- 右上角 “cancel” 按钮点击事件
 -(void)deleteBtnCancel
@@ -792,10 +799,12 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     //    return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
     if (tableView.editing) {
+        NSLog(@" tableView.editing 11= %d",tableView.editing);
         return UITableViewCellEditingStyleDelete|UITableViewCellEditingStyleInsert;
     }
     else
     {
+        NSLog(@" tableView.editing 22= %d",tableView.editing);
         return UITableViewCellEditingStyleDelete;
     }
 }

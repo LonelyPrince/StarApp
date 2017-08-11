@@ -286,7 +286,7 @@
     [scroll addSubview:settingImage];
     
     
-    UILabel * settingLab = [[UILabel alloc]initWithFrame:CGRectMake(17,  HISTORY_TITLE_Y +30 +20 + _allHistoryBtnHeight+35, 70, 18)];
+    UILabel * settingLab = [[UILabel alloc]initWithFrame:CGRectMake(17,  HISTORY_TITLE_Y +30 +20 + _allHistoryBtnHeight+35, 70, 20)];
     settingLab.text = @"Setting";
     settingLab.adjustsFontSizeToFitWidth = YES;
     settingLab.font = FONT(17);
