@@ -842,9 +842,9 @@
         
         if (self.showData.count == 0) {
             
-            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"NO Search Result" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"No search result" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             noResultlab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
-            noResultlab.text = @"NO Search Result";
+            noResultlab.text = @"No search result";
             noResultlab.font = FONT(18);
             noResultlab.textColor = [UIColor blackColor];
             [self.view addSubview:noResultlab];
@@ -867,9 +867,9 @@
             [_showData removeAllObjects];
             [_tableView reloadData];
             
-           CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"NO Search History" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+           CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"No search history" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             noHistorylab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
-            noHistorylab.text = @"NO Search History";
+            noHistorylab.text = @"No search history";
             noHistorylab.font = FONT(18);
             noHistorylab.textColor = [UIColor blackColor];
             [self.view addSubview:noHistorylab];

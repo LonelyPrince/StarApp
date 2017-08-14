@@ -3545,8 +3545,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
             NSDictionary * subtDicBlue = [fourceDic objectForKey:@"subt_info"][subtRow];
             NSLog(@"cell.dataDic fourceDic: %@",subtDicBlue);
-            if ([cell.dataDic isEqual:subtDicBlue]) {
-                
+//            if ([cell.dataDic isEqual:subtDicBlue]) {
+            if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:subtDicBlue]) {
+            
                 [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 
             }else
@@ -3640,7 +3641,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
             NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
             NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
-            if ([cell.dataDic isEqual:audioDicBlue]) {
+//            if ([cell.dataDic isEqual:audioDicBlue]) {
+                if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:audioDicBlue]) {
                 
                 [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 
@@ -3694,7 +3696,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         
         
-        NSLog(@"self.video.dicChannl   %@",self.video.dicChannl);
         if (!ISEMPTY(self.video.dicChannl)) {
             
             cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
@@ -3707,7 +3708,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
             NSLog(@"cell.dataDic 11:%@",cell.dataDic);
             NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
-            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+//            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
+            if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) {
                 
                 [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
@@ -4353,7 +4355,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     if (bb1 <0) {
         bb1 = 0;
+        aa1 = 0;
+         aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
     }
+    
+//    NSString * topProgressViewISNotExist = [USER_DEFAULT objectForKey:@"topProgressViewISNotExist"];
+//    if ([topProgressViewISNotExist isEqualToString:@"NO"]) { //证明进度条不存在，需要重新开启
+//        
+//     
+//       NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.startTime,@"StarTime",self.video.endTime,@"EndTime",nil];
+//        
+//        NSNotification *notification =[NSNotification notificationWithName:@"restartTopProgressView" object:nil userInfo:dict];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        
+//        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+//        
+//    }
     
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
     
@@ -4377,7 +4395,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     [timerOfEventTime invalidate];
     timerOfEventTime = nil;
-    timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime1) userInfo:nil repeats:YES];
+    if (timerOfEventTime == nil) {
+        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime1) userInfo:nil repeats:YES];
+    }
+    
     
 }
 -(void)setEventTime1 //判断进度条是不是需要显示
@@ -4388,6 +4409,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSArray * arr = [USER_DEFAULT objectForKey:@"NowChannelEPG"];
     tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];   //一直没变，应该让他先变
     EPGArrindex = [tempIndexStr intValue];
+    NSLog(@"EPGArrindexEPGArrindexEPGArrindex %d",EPGArrindex);
     //    NSLog(@"EPGArrindex lal :%d",EPGArrindex);
     //    NSLog(@"arr lal :%@",arr);
     if (EPGArrindex > arr.count-1) {
@@ -4396,9 +4418,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     }else
     {
-        NSLog(@" EPGArrindex=== %d",EPGArrindex);
-        NSLog(@"[arr[EPGArrindex]objectForKey:0] %@",[arr[0]objectForKey:@"event_starttime"]);
-        NSLog(@"[arr[EPGArrindex]objectForKey:1] %@",[arr[1]objectForKey:@"event_starttime"]);
+      
         self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
         self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
         
@@ -4426,6 +4446,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             }
             if (bb1 < 0) {
                 bb1 = 0;
+                aa1 = 0;
+                aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
                 //创建通知
                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                 //通过通知中心发送通知
@@ -4448,7 +4470,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             else{
                 NSLog(@"nowTime nowTime :%@",nowTime);
                 NSLog(@"nowTime nowTime :%@",aa);
-                //                self.videoControl.eventTimeLab.text = [NSString stringWithFormat:@"%@ | %@",nowTime,aa];
+                
                 self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
                 self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
             }
