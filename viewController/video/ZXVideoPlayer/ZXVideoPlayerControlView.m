@@ -288,26 +288,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         return;
     }
     
-    if (self.FullEventYFlabel) {
-        [self.FullEventYFlabel removeFromSuperview];
-        self.FullEventYFlabel = nil;
-        [self.FullEventYFlabel stopTimer];
-        
-        NSLog(@"跑马灯销毁 1 animatehide");
-    }
-    
-    
-    //    _FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(20, 30+26, 20, 40)  textArray:@[@123] font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
-    //    [_FullEventYFlabel initArr:@[@"123"]];
-    //    [self addSubview:_FullEventYFlabel];
-    //    _label.speed = 3;
-    //
-    //
-    //    [self.FullEventYFlabel removeFromSuperview];
-    //    self.FullEventYFlabel = nil;
-    //    [self.FullEventYFlabel stopTimer];
-    
-    
+      
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kZXPlayerControlViewHideNotification object:nil];
     
@@ -352,9 +333,27 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+
+        
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
     }];
+    double delayInSeconds = 0.3;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+     
+        //0.3s 后销毁
+                if (self.FullEventYFlabel) {
+                    [self.FullEventYFlabel removeFromSuperview];
+                    self.FullEventYFlabel = nil;
+                    [self.FullEventYFlabel stopTimer];
+        
+                    NSLog(@"跑马灯销毁 1 animatehide");
+                }
+        
+    });
     [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
 }
 
@@ -911,20 +910,6 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
 }
 
-/////节目名称 全屏222
-//- (YFRollingLabel *)FullEventYFlabel
-//{
-//
-//    if (!_FullEventYFlabel) {
-////        _FullEventYFlabel = [[YFRollingLabel alloc] init];
-//
-////        _FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(20, 30+26, 20, 40)  textArray:@[@"123123123123"] font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
-////
-//
-//    }
-//    return _FullEventYFlabel;
-//
-//}
 
 ///进度条
 - (UISlider *)progressSlider

@@ -912,7 +912,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
                 //                [self restoreOriginalScreen];
-                if (self.view.frame.size.width > self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height)  {           // Device oriented vertically, home button on the bottom
                     //此时是竖屏状态
                     NSLog(@"home键在 下");
                     [self restoreOriginalScreen];
@@ -1137,7 +1137,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
                 //                [self restoreOriginalScreen];
-                if (self.view.frame.size.width > self.view.frame.size.height)  {           // Device oriented vertically, home button on the bottom
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height)  {           // Device oriented vertically, home button on the bottom
                     //此时是竖屏状态
                     NSLog(@"home键在 下");
                     [self restoreOriginalScreen];
@@ -1355,7 +1355,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     //        [self.view addSubview:radioImageView];
                     [self.view insertSubview:radioImageView atIndex:1];
                 }
-                radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+                    radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+                }else //竖屏
+                {
+                    radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+                }
+                
             }
                 break;
         }
@@ -2039,7 +2045,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         
         
-        
+
         self.videoControl.eventnameLabel.hidden = YES;
         
         self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
@@ -2058,23 +2064,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         
         
-        
-        //    CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-        
-        //    //初始化arr，方便后面对label赋值
-        //    if (! YFLabelArr) {
-        //        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
-        //
-        //
-        //        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-        //
-        //    }else
-        //    {
-        //        self.videoControl.FullEventYFlabel.frame = CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 250, 18);   //40字符长度是260
-        //        [self.videoControl.FullEventYFlabel initArr:YFLabelArr];
-        //
-        //
-        //    }
         
         
         
@@ -2132,149 +2121,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     //new====
 }
-/// 切换到全屏模式
-//- (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
-//{
-//    NSLog(@"self.view.frame fangxiang: %d",UIDeviceOrientationLandscapeLeft);
-//    NSLog(@"self.view.frame.size.height %f",self.view.frame.size.height);
-//    NSLog(@"self.view.frame.size.width %f",self.view.frame.size.width);
-//    NSLog(@"self.view.frame.size.SCREEN_HEIGHT %f",SCREEN_HEIGHT);
-//    NSLog(@"self.view.frame.size.SCREEN_WIDTH %f",SCREEN_WIDTH);
-//    NSLog(@"self.view.frame.bounds.height %f",[UIScreen mainScreen].bounds.size.height);
-//    NSLog(@"self.view.frame.bounds.width %f",[UIScreen mainScreen].bounds.size.width);
-//    NSLog(@"self.view.frame.sharedApplicationbounds.height %f",[UIApplication sharedApplication].keyWindow.bounds.size.height);
-//    NSLog(@"self.view.frame.sharedApplicationbounds.width %f",[UIApplication sharedApplication].keyWindow.bounds.size.width);// [UIApplcation sharedApplication].keyWindow.bounds
-//
-//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.x);
-//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.origin.y);
-//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.height);
-//    NSLog(@"self.view.framelockButton %f",self.videoControl.lockButton.frame.size.width);
-//
-//    if (self.isFullscreenMode) {
-//        return;
-//    }
-//    if (self.videoControl.isBarShowing) {
-//        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-//    } else {
-//        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-//    }
-//
-//
-//    //    if (self.videoPlayerWillChangeToFullScreenModeBlock) {
-//    //        self.videoPlayerWillChangeToFullScreenModeBlock();
-//    //    }
-//
-//    self.frame = [UIScreen mainScreen].bounds;
-//    //    self.videoControl.bottomBar.userInteractionEnabled = YES;
-//    self.isFullscreenMode = YES;
-//    self.videoControl.fullScreenButton.hidden = YES;
-//    //    self.videoControl.shrinkScreenButton.hidden = NO;
-//    self.videoControl.shrinkScreenButton1.hidden = NO;
-//    self.videoControl.lastChannelButton.hidden = NO;
-//    self.videoControl.nextChannelButton.hidden = NO;
-//    self.videoControl.subtBtn.hidden = NO;
-//    self.videoControl.audioBtn.hidden = NO;
-//    self.videoControl.channelListBtn.hidden = NO;
-//    self.videoControl.eventTimeLabNow.hidden = NO;
-//    self.videoControl.eventTimeLabAll.hidden = NO;
-//    self.videoControl.backButton.hidden = NO;
-//
-//    self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
-//    [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
-//
-//    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
-//    if (videoOrRadiostr != NULL) {
-//        lab.text = videoOrRadiostr;
-//    }else
-//    {
-//        lab.text = @"sorry, this video can't play";
-//    }
-//    lab.font = FONT(17);
-//
-//    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
-//    CGSize size=[lab.text sizeWithAttributes:attrs];
-//    lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, ([UIScreen mainScreen].bounds.size.height - size.height )/2, size.width, size.height);
-//
-//
-//
-//    if (radioImageView) {
-//        radioImageView.frame = CGRectMake(0,0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-//    }
-//
-//
-//    self.videoControl.FulleventNameLab.hidden = NO;
-//    if (self.videoControl.FullEventYFlabel) {
-//        self.videoControl.FullEventYFlabel.hidden = NO; //全屏页面跑马灯
-//    }
-//
-//
-//
-//    self.videoControl.eventnameLabel.hidden = YES;
-//
-//    self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
-//    self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
-//
-//    sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-//    sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-//    //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-//    self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
-//    NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
-//    self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
-//    self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
-//    //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
-//    YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
-//    //    }
-//
-//
-//
-//
-//    self.videoControl.FullEventYFlabel.hidden = NO;
-//    //    self.videoControl.FullEventYFlabel.speed = 3;
-//    self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
-//
-//    self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18);
-//
-//
-//
-//    //此处强制销毁，再重新init一次
-//    //    if (self.videoControl.FullEventYFlabel) {
-//    [self.videoControl.FullEventYFlabel removeFromSuperview];
-//    self.videoControl.FullEventYFlabel = nil;
-//    [self.videoControl.FullEventYFlabel stopTimer];
-//
-//    [self abctest];
-//    //    }
-//
-//    //test
-//    //此处销毁通知，防止一个通知被多次调用
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"abctest" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( abctest) name:@"abctest" object:nil];
-//
-//    [self judgeLastBtnIsGray];
-//    [self judgeNextBtnIsGray];
-//    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
-//    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
-//    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
-//    if (judgeIsNull == YES) {
-//        NSLog(@"数值为空，所以此时应该直接返回");
-//        [self.videoControl.subtBtn setEnabled:NO];
-//
-//    }else
-//    {
-//        [self.videoControl.subtBtn setEnabled:YES];
-//    }
-//    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
-//    if (judgeIsNull1 == YES) {
-//        NSLog(@"数值为空，所以此时应该直接返回");
-//        [self.videoControl.audioBtn setEnabled:NO];
-//
-//
-//    }else
-//    {
-//        [self.videoControl.audioBtn setEnabled:YES];
-//    }
-//}
+
 -(void)abctest
 {
     sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
@@ -2309,13 +2156,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.FullEventYFlabel.speed = aa;
     
     
-    //    [self FullEventYFlabel];
-    //    self.FullEventYFlabel.frame = CGRectMake(80, 30+26, 100, 18);
-    //    [self.FullEventYFlabel initArr:@[@"asdasdasdasdasdasdasdasdasdasdasdasdasd"]];
-    //    self.FullEventYFlabel.hidden = NO;
-    //    self.FullEventYFlabel.speed = 20;
-    //    [self addSubview:_FullEventYFlabel];
-    //    [self.topBar addSubview:_FullEventYFlabel];
+   
     
 }
 - (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
@@ -4306,7 +4147,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"contentURL 33ZXVideo");
     //当前节目名称
     self.videoControl.eventnameLabel.text = self.video.playEventName;
-    //    self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
+//        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是";
@@ -4326,6 +4167,56 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //self.video.dicSubAudio;
     [self setEventTime1];
     timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+    
+    
+    [self.videoControl.FullEventYFlabel removeFromSuperview];
+    self.videoControl.FullEventYFlabel = nil;
+    [self.videoControl.FullEventYFlabel stopTimer];
+    
+    UIDeviceOrientation orientation = self.getDeviceOrientation;
+  
+        switch (orientation) {
+            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                NSLog(@"home键在 下");
+          
+            }
+                break;
+            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                NSLog(@"home键在 上");
+             [self abctest];
+            }
+                break;
+            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                NSLog(@"home键在 右");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+             [self abctest];
+            }
+                break;
+            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                NSLog(@"home键在 左");
+                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+              [self abctest];
+            }
+                break;
+                
+            default:
+            {     // Device oriented horizontally, home button on the left
+                NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
+                
+                NSLog(@"self.view.frame.size.width %@",NSStringFromCGRect(self.view.frame));
+
+                NSLog(@"UIScreen mainScreen].bounds.size.width %@",NSStringFromCGRect([UIScreen mainScreen].bounds));
+
+                
+                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+                    [self abctest];  //全屏页面时候，加载跑马灯的名字
+                }
+                
+            }
+                break;
+        }
     
     
 }
