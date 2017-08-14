@@ -2623,7 +2623,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //0.3s 后执行
 -(void)viewWillAppearDealyFunction
 {
-    
+    [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //进度条在刚打开时是显示状态
     NSString * nowTimeStr = [GGUtil GetNowTimeString];
 //    NSInteger nowTimeInteger = [nowTimeStr integerValue];
 //    NSInteger nowTimeMinuteInteger = nowTimeInteger / 60;
