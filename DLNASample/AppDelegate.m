@@ -65,7 +65,7 @@
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
-      [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
+      [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
 //    self.ipString =  [GGUtil getIPAddress];
     self.ipString =  [GGUtil getIPAddress:YES];
 

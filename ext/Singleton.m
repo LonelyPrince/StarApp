@@ -173,6 +173,11 @@
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
+//        NSNotification *notification1 =[NSNotification notificationWithName:@"setMonitorNotHaveNetWorkNotific" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+
+        
     }
     else if (sock.userData == SocketOfflineByUser) {
         // 如果由用户断开，不进行重连
@@ -1187,6 +1192,33 @@
 //对socket读取文件进行操作   case = 12
 -(void)readSocketCommandTypeISTwelve :(NSData *)dataToOperate
 {
+    uint32_t dataLengthForUrl;
+    NSData * dataForDataLength;
+    if ([dataToOperate length] >=  28) {
+        
+        dataForDataLength = [dataToOperate subdataWithRange:NSMakeRange(24,4)];
+        dataLengthForUrl = [SocketUtils uint32FromBytes:dataForDataLength];
+        
+        NSLog(@" dataLengthForUrl %d",dataLengthForUrl);
+        
+        
+    }else
+    {
+        return;
+    }
+    
+    if ([dataToOperate length] >=  dataLengthForUrl) {
+        
+        dataToOperate = [dataToOperate subdataWithRange:NSMakeRange(0,dataLengthForUrl + 28)];
+        
+        NSLog(@" dataToOperate ==  %@",dataToOperate);
+        
+    }else
+    {
+        return;
+    }
+    
+    
     
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:dataToOperate forKey:@"data_service11"];
@@ -1371,7 +1403,7 @@
     
     //case 19 返回OK
     
-
+    
    
 }
 @end

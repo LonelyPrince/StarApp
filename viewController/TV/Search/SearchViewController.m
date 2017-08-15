@@ -90,6 +90,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.showData = [USER_DEFAULT objectForKey:@"showData"];
+    NSLog(@" self.showData %@",self.showData);
+    NSLog(@" self.dataList %@",self.dataList);
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
 //    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    historySearchTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

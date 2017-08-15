@@ -1251,73 +1251,77 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //给不同的table赋值
         //    for (int i = 0 ; i<self.categorys.count; i++) {
         
-        NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
-        self.categoryModel = [[CategoryModel alloc]init];
-        
-        
-        self.categoryModel.service_indexArr = item[@"service_index"];
-        NSLog(@"self.TVChannlDic 2:%d",self.TVChannlDic.count);
-        
-        //    self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
-        
-        //获取EPG信息 展示
-        //时间戳转换
-        
-        [self.dicTemp removeAllObjects];
-        
-        //获取不同类别下的节目，然后是节目下不同的cell值                10
-        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-            
-            int indexCat ;
-            //   NSString * str;
-            indexCat =[self.categoryModel.service_indexArr[i] intValue];
-            NSLog(@"self.TVChannlDic 5:%lu",(unsigned long)self.TVChannlDic.count);
-            //cell.tabledataDic = self.serviceData[indexCat -1];
+        if (index <= self.categorys.count - 1) {
+            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+            self.categoryModel = [[CategoryModel alloc]init];
             
             
+            self.categoryModel.service_indexArr = item[@"service_index"];
+            NSLog(@"self.TVChannlDic 2:%d",self.TVChannlDic.count);
             
+            //    self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
             
-            //            NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
-            //            abcddArr =  [self.serviceData mutableCopy];
-            //
-            //
-            //
-            //            NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
-            //            [cccArr setValue:@"lalala===" forKey:@"service_name"];
-            //
-            //
-            //
-            //
-            //            NSMutableDictionary * cccArr1 = [abcddArr[7]  mutableCopy] ;
-            //            [cccArr1 setValue:@"lalala===22" forKey:@"service_name"];
-            //
-            //
-            //            [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
-            //            [abcddArr replaceObjectAtIndex:7 withObject:cccArr1];
+            //获取EPG信息 展示
+            //时间戳转换
             
+            [self.dicTemp removeAllObjects];
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            //此处判断是否为空，防止出错
-            if ( ISNULL(self.serviceData)) {
+            //获取不同类别下的节目，然后是节目下不同的cell值                10
+            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
                 
-            }else{
-                NSLog(@"=-=-=== 在 11 中");
-                
-                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                int indexCat ;
+                //   NSString * str;
+                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                NSLog(@"self.TVChannlDic 5:%lu",(unsigned long)self.TVChannlDic.count);
+                //cell.tabledataDic = self.serviceData[indexCat -1];
                 
                 
-            }
-            
+                
+                
+                //            NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
+                //            abcddArr =  [self.serviceData mutableCopy];
+                //
+                //
+                //
+                //            NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
+                //            [cccArr setValue:@"lalala===" forKey:@"service_name"];
+                //
+                //
+                //
+                //
+                //            NSMutableDictionary * cccArr1 = [abcddArr[7]  mutableCopy] ;
+                //            [cccArr1 setValue:@"lalala===22" forKey:@"service_name"];
+                //
+                //
+                //            [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
+                //            [abcddArr replaceObjectAtIndex:7 withObject:cccArr1];
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                //此处判断是否为空，防止出错
+                if ( ISNULL(self.serviceData)) {
+                    
+                }else{
+                    NSLog(@"=-=-=== 在 11 中");
+                    
+                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                    
+                    
+                }
+
+        }
+        
+        
         }
         
         //    tempDicForServiceArr = self.TVChannlDic;
@@ -2146,6 +2150,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+    
+    NSLog(@"self.service_videoname %@",self.service_videoname);
+    
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
@@ -3088,23 +3095,33 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@"//此时应该列表刷新11");
     
+  // ① 刷新  ②先判断有没有正在播放的节目了  ③如果有正在播放的节目，并且判断和正在播放的节目的dic信息是否相等，如果不相等则重新播放
     
     
-    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-    if (isFullScreen == NO) {   //竖屏状态
-        [_slideView removeFromSuperview];
-        _slideView = nil;
-        
-        //    [self.table  removeFromSuperview];
-        //    self.table = nil;
-        //重新加载
-        [self getMediaDeliverUpdate];
-        
-        
-    }else //竖屏状态，不刷新
-    {
-    }
+    //①刷新
+    [self tableViewDataRefreshForSDTMonitor];
     
+    
+    
+    
+    
+//    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+//    if (isFullScreen == NO) {   //竖屏状态
+////        [_slideView removeFromSuperview];
+////        _slideView = nil;
+////        
+////        //    [self.table  removeFromSuperview];
+////        //    self.table = nil;
+////        //重新加载
+////        [self getMediaDeliverUpdate];
+//        
+//        
+//        
+//    }else //竖屏状态
+//    {
+//        [self tableViewDataRefreshForMjRefresh2222222];
+//    }
+//    
     
     
     
@@ -3113,9 +3130,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
-#pragma mark - 机顶盒发送通知，需要刷新节目了
--(void)getMediaDeliverUpdate
+#pragma mark - 机顶盒发送通知，需要刷新节目了   socket case = 0
+-(void)tableViewDataRefreshForSDTMonitor
 {
+    NSLog(@" 机顶盒发送通知，需要刷新节目了 ==");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -3123,7 +3141,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    [request startAsynchronous];
+    [request startAsynchronous];   //异步
     
     WEAKGET
     [request setCompletionBlock:^{
@@ -3138,33 +3156,193 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
-//        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        //异步执行队列任务
-//        dispatch_async(globalQueue, ^{
-//            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-//        });
+        
+        
+        
         
         if (!isValidArray(data1) || data1.count == 0){
-            
-            [self getMediaDeliverUpdate];
+            //            [self getServiceData];
+            [self tableViewDataRefreshForMjRefresh2222222];
             return ;
         }
         self.serviceData = (NSMutableArray *)data1;
+        
+        NSLog(@"before self.categorys %@",self.categorys);
+        self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+        NSLog(@"last   self.categorys %@",self.categorys);
+        
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-        
-        //        NSLog(@"--------%@",self.serviceData);
-        
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            
-            [self getMediaDeliverUpdate];
+            //            [self getServiceData];
+            [self tableViewDataRefreshForMjRefresh2222222];
         }
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
         [self lineAndSearchBtnShow];
-        //        [self playVideo];
+        
+        
+        
+        
+        //        for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
+        
+        NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+        
+        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+        
+        NSString *  indexforTableToNum = YLSlideTitleViewButtonTagIndexStr;
+        //        [NSNumber numberWithInteger:YLSlideTitleViewButtonTagIndex];
+        self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+        NSLog(@"此时self.tableForSliderView 2%@",self.tableForSliderView);
+        NSLog(@"此时self.tableForSliderView 33332%@",self.tableForDicIndexDic);
+        //        self.tableForSliderView = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
+        if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
+            
+            //            }
+            
+            ////////==================
+            
+            //            id idTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
+            id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+            //            NSNumber * numTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][0];
+            NSLog(@" == %@",self.tableForDicIndexDic);
+            NSLog(@" == %@",[self.tableForDicIndexDic objectForKey:indexforTableToNum]);
+            NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
+            
+            NSInteger index = [numTemp integerValue];
+            if (index >= self.categorys.count) {
+                
+            }
+            
+            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+            self.categoryModel = [[CategoryModel alloc]init];
+            
+            self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+            
+            //获取EPG信息 展示
+            //时间戳转换
+            
+            [self.dicTemp removeAllObjects];
+            //获取不同类别下的节目，然后是节目下不同的cell值                10
+            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                
+                int indexCat ;
+                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                //cell.tabledataDic = self.serviceData[indexCat -1];
+                
+                
+                //此处判断是否为空，防止出错
+                if ( ISNULL(self.serviceData)) {
+                    
+                }else{
+                    
+                    if (indexCat-1 > self.serviceData.count) {
+                    }
+                    
+                    if (indexCat -1 < self.serviceData.count) {
+                        
+                        //                        aaaaaaa = 2;
+                        
+                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
+                        abcddArr =  [self.serviceData mutableCopy];
+                        
+                        
+                        
+                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
+                        
+                        
+                        
+                        
+                        
+                        NSMutableDictionary * cccArr1 = [abcddArr[7]  mutableCopy] ;
+                        
+                        
+                        
+                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
+                        [abcddArr replaceObjectAtIndex:7 withObject:cccArr1];
+                        //                        [abcddArr replaceObjectAtIndex:2 withObject:cccArr1];
+                        //                        [abcddArr replaceObjectAtIndex:3 withObject:cccArr1];
+                        
+                        NSLog(@" self.dictem.i %@",abcddArr[0]);
+                        //                        NSLog(@" self.dictem.i %@",abcddArr[1]);
+                        //                        NSLog(@" self.dictem.i %@",abcddArr[2]);
+                        //                        NSLog(@" self.dictem.i %@",abcddArr[3]);
+                        
+                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        
+                        //对于其他页面的dic重新赋值
+                        //                        self.TVChannlDic = self.dicTemp;
+                        //
+                        //                        tempDicForServiceArr = self.TVChannlDic;
+                        //
+                        //                        self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+                        
+                        //                        [self updateFullScreenDic];
+                        NSLog(@" self.dictem.i %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]);
+                        
+                        
+                        
+                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
+                        
+                        
+                        //                        [self judgeNowISRadio:epgDicToSocket]; //此处加个方法，判断是不是音频
+                        //                        progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
+                        //
+                        //                        [USER_DEFAULT setObject:[progressEPGArr copy] forKey:@"NowChannelEPG"];
+                        
+                        //                        NSDictionary * NowChannelDicTemp = [USER_DEFAULT objectForKey:@"NowChannelDic"];
+                        //
+                        //                        if ([GGUtil judgeTwoEpgDicIsEqual:NowChannelDicTemp TwoDic:epgDicToSocket]) {
+                        //                            [USER_DEFAULT setObject:epgDicToSocket forKey:@"NowChannelDic"];
+                        //
+                        //                            [USER_DEFAULT setObject:[[epgDicToSocket objectForKey:@"epg_info"] copy] forKey:@"NowChannelEPG"];
+                        //                        }
+                        
+                        
+                        
+                    }else
+                    {
+                        NSLog(@"不能再往里面添加了，再添加会报错");
+                    }
+                    
+                }
+                
+                
+            }
+            
+            ////////==================
+            
+            
+            //            }
+        }
+        
+        
+        [self.tableForSliderView reloadData];
+        NSLog(@"此时self.tableForSliderView 2%@",self.tableForSliderView);
+        //        [self refreshTableviewByEPGTime];
+        // 模拟延迟2秒
+        
+        double delayInSeconds = 2;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            NSLog(@"延时执行的2秒");
+            //        [self runThread1];
+            NSLog(@"byteValue1 TVTVTVTVTVTV222");
+            [self.tableForSliderView reloadData];
+            
+            //            [self refreshTableviewByEPGTime];
+            NSLog(@"byteValue1 TVTVTVTVTVTV333");
+        });
+        //        [NSThread sleepForTimeInterval:2];
+        //    [self mediaDeliveryUpdate];
+        //    [tableForSliderView reloadData];
+        // 结束刷新
+        
+        //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
+        [self.tableForSliderView.mj_header endRefreshing];
         
         
         //////
@@ -3192,90 +3370,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.categorys = (NSMutableArray *)data;
             
             
-            if (!_slideView) {
-                NSLog(@"上山打老虎3");
-                //判断是不是全屏
-                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-                if (isFullScreen == NO) {   //竖屏状态
-                    
-                    
-                    //设置滑动条
-                    _slideView = [YLSlideView alloc];
-                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                                                                      SCREEN_WIDTH,
-                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                    NSLog(@"removeAllObjects 第 2 次");
-                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
-                    NSLog(@"self.dicTemp %@",self.dicTemp);
-                    _slideView.backgroundColor = [UIColor whiteColor];
-                    _slideView.delegate        = self;
-                    
-                    [self.view addSubview:_slideView];
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                    
-                    
-                }else //横屏状态，不刷新
-                {
-                    
-                    //设置滑动条
-                    _slideView = [YLSlideView alloc];
-                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
-                                                                      SCREEN_WIDTH,
-                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                    NSLog(@"removeAllObjects 第 3 次");
-                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
-                    NSLog(@"self.dicTemp %@",self.dicTemp);
-                    _slideView.backgroundColor = [UIColor whiteColor];
-                    _slideView.delegate        = self;
-                    
-                    [self.view addSubview:_slideView];
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                }
-                
-                
-                
-                
-            }
-            else
-            {
-                
-            }
-            
-            [self judgeVideoByDelete];
-            
-            //            NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"];
-            //            NSLog(@"history Arr0: %@",arrHistoryNow[0][0]);  //wor
-            //            NSLog(@"history Arr1: %@",arrHistoryNow[1][0]);  //wor
-            //            NSLog(@"history Arr2: %@",arrHistoryNow[2][0]);  //wor
-            //            NSLog(@"history Arr6: %@",arrHistoryNow[6][0]);  //wor
-            //            NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
-            //
-            //
-            //            for (int i = 0; i<self.dicTemp.count; i++) {
-            //                [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
-            //                NSLog(@"i - 1%d",(i));
-            //
-            //
-            //                if ([arrHistoryNow[6][0] isEqual: [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]]) { //此处判断，如果被播放的视频被删除了，则播放第一个
-            //                    NSLog(@"aaabbbb");
-            //                                }
-            //                else{
-            //                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-            //                    NSLog(@"asdasdasdasdasdasdasdasdasdasdas");
-            //                }
-            //            }
-            ////                if (![self.dicTemp isEqualToArray:self.dicTemp]) { //此处判断，如果被播放的视频被删除了，则播放第一个
-            ////                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-            ////                }
-            //
-            //
-            ////            [self.socketView viewDidLoad];
             if (firstfirst == YES) {
                 
                 
@@ -3295,10 +3389,390 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.table reloadData];
         
         
+        
+        //②先判断有没有正在播放的节目了
+        NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        
+        NSArray * touchArr = historyArr[historyArr.count - 1];
+        
+        NSInteger rowIndex = [touchArr[2] intValue];
+        NSMutableDictionary * dic = touchArr [3];
+        
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        
+        NSLog(@"epgDicToSocket ==%@",epgDicToSocket);
+        
+        [self setSearchViewData ];
+        
+        BOOL isHavePlayingChannel = NO;
+        
+        for (int i = 0; i < self.serviceData.count; i++) {
+            
+            
+            NSDictionary * serviceArrForJudge_dic = self.serviceData[i];
+            
+            BOOL isTwoDicEqual =  [GGUtil judgeTwoEpgDicIsEqual:epgDicToSocket TwoDic:serviceArrForJudge_dic];
+            
+            if (isTwoDicEqual == YES) {
+                //找到了相匹配的节目，可以断定是正在播放的节目
+                //看两个的信息是否完全相等，如果不相等，则替换dic
+                
+                isHavePlayingChannel = YES;
+                
+                NSLog(@" serviceArrForJudge_dic == %@",serviceArrForJudge_dic);
+                NSLog(@" epgDicToSocket == %@",epgDicToSocket);
+                if ([serviceArrForJudge_dic isEqual: epgDicToSocket] ) {
+                    //如果完全相等，则不作处理
+                }else
+                {
+                    //需要重新播放当前的节目
+                    //先替换掉原先dic的信息
+                    //                [dic setObject:serviceArrForJudge_dic forKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
+                    
+                    //关闭当前正在播放的节目
+                    [self.videoController.player stop];
+                    [self.videoController.player shutdown];
+                    [self.videoController.player.view removeFromSuperview];
+                    
+                    //修改字典信息
+                    //历史记录信息和全部的信息
+                    
+                    //                NSLog(@"asfjalsbfabfba 1 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
+                    
+                    //                //赋予新值
+                    //                NSMutableDictionary * tempDic_updateCharacter =[[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
+                    //                NSString * newService_character =  [NSString stringWithFormat:@"%ld",(long)program_character_int];
+                    //
+                    //
+                    //                [tempDic_updateCharacter setObject:newService_character forKey:@"service_character"];
+                    //
+                    //                NSLog(@"asfjalsbfabfba 4 %@",tempDic_updateCharacter);
+                    NSMutableDictionary * mutableDicTemp = [dic mutableCopy];
+                    [mutableDicTemp setObject:[serviceArrForJudge_dic copy] forKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
+                    dic = [mutableDicTemp mutableCopy];
+                    
+                    NSDictionary * aaa = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
+                    
+                    NSLog(@"mutableDicTemp ==%@",mutableDicTemp);
+                    
+                    NSLog(@"dic ==%@",dic);
+                    
+                    NSLog(@"rowIndex ==%ld",rowIndex);
+                    
+                    NSLog(@"aaaa ==%@",aaa);
+                    
+                    NSLog(@"aaaa %@",[aaa objectForKey:@"service_name"]);
+                    
+                    //
+                    //                NSLog(@"asfjalsbfabfba 2 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
+                    //
+                    //                //把新值存起来
+                    //                [self updateHistoryArr : dic];  //修改一下，把历史的第一条数据删除
+                    //                //存到历史中
+                    //                NSLog(@"dicdic == %@",dic);
+                    //                NSLog(@"dicdic == %@",self.dicTemp);
+                    //                self.dicTemp = [dic mutableCopy];   //修改self.dicTemp
+                    
+                    //                NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
+                    //
+                    //                [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%d",row]]];
+                    //                [USER_DEFAULT setObject:[serviceData_DefaultTemp copy]  forKey :@"serviceData_Default"]; // 存到serviceData_Default 中
+                    //                NSLog(@"asfjalsbfabfba 5 %@",[USER_DEFAULT objectForKey:@"historySeed"]);
+                    //                NSLog(@"asfjalsbfabfba 6 %@",[USER_DEFAULT objectForKey:@"serviceData_Default"]);
+                    
+                    
+                    //修改 @"TVHttpAllData"   search界面的 self.response
+                    NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
+                    
+                    
+                    
+                    //重新执行播放,并且要注意判断是不是加锁类型
+                    
+                    NSString * characterStr = [serviceArrForJudge_dic  objectForKey:@"service_character"];
+                    
+                    int program_character_int = [characterStr intValue];
+                    
+                    uint32_t character_And =  program_character_int &  0x02;
+                    NSLog(@"ahsdahsfafvjahsvfjasvfa 1");
+                    if (character_And > 0) {
+                        NSLog(@"ahsdahsfafvjahsvfjasvfa 2");
+                        // 此处代表需要记性机顶盒加密验证
+                        NSNumber  *numIndex = [NSNumber numberWithInteger:rowIndex];
+                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"LiveTouch",@"textThree",nil];
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                        NSLog(@"POPPOPPOPPOP1111111111111111111");
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                        
+                    }else //从加锁到不加锁正常播放的步骤，但是要注意得如果用户此时还处于弹窗或者未输入密码界面，得去掉弹窗和输入密码
+                    {
+                        NSLog(@"ahsdahsfafvjahsvfjasvfa 3");
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        
+                        NSLog(@"不一致，不弹窗。===或者将窗口取消掉33");
+                        [STBAlert dismissWithClickedButtonIndex:1 animated:YES];
+                        //======
+                        [self firstOpenAppAutoPlay:rowIndex diction:dic];
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                        
+                        NSLog(@"self.video.dicChannl2 %@",self.video.dicChannl);
+                        NSLog(@"self.video.channelCount2 %d",self.video.channelCount);
+                        NSLog(@"self.video.dicChannl2222 %@",self.dicTemp);
+                        NSLog(@"self.video.dicChannl2222222 %@",dic);
+                        
+                        
+                        
+                    }
+                    
+                    return ;
+                }
+                
+                
+            }
+            
+            
+            
+        }
+        
+        
+        //③如果有正在播放的节目，并且判断和正在播放的节目的dic信息是否相等，如果不相等则重新播放
+        if (isHavePlayingChannel == NO) {
+            //没有找到这个节目，则播放第一个视频
+            
+            //=======机顶盒加密
+            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
+            if (characterStr != NULL && characterStr != nil) {
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                    // 此处代表需要记性机顶盒加密验证
+                    NSNumber  *numIndex = [NSNumber numberWithInteger:0];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                    //创建通知
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                    NSLog(@"POPPOPPOPPOP44444444444441");
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    firstfirst = NO;
+                }else //正常播放的步骤
+                {
+                    //======
+                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    firstfirst = NO;
+                }
+            }else //正常播放的步骤
+            {
+                //======机顶盒加密
+                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+            }
+            
+            
+        }
+        
+        
+
+        
     }];
-    
-    
 }
+//#pragma mark - 机顶盒发送通知，需要刷新节目了
+//-(void)getMediaDeliverUpdate
+//{
+//    //获取数据的链接
+//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+//    
+//    LBGetHttpRequest *request = CreateGetHTTP(url);
+//    
+//    
+//    
+//    [request startAsynchronous];
+//    
+//    WEAKGET
+//    [request setCompletionBlock:^{
+//        
+//        
+//        
+//        NSDictionary *response = httpRequest.responseString.JSONValue;
+//        
+//        //将数据本地化
+//        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+//        
+//        //        NSLog(@"response = %@",response);
+//        NSArray *data1 = response[@"service"];
+//        
+////        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+////        //异步执行队列任务
+////        dispatch_async(globalQueue, ^{
+////            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+////        });
+//        
+//        if (!isValidArray(data1) || data1.count == 0){
+//            
+//            [self getMediaDeliverUpdate];
+//            return ;
+//        }
+//        self.serviceData = (NSMutableArray *)data1;
+//        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+//        
+//        //        NSLog(@"--------%@",self.serviceData);
+//        
+//        
+//        
+//        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+//            
+//            [self getMediaDeliverUpdate];
+//        }
+//        
+//        [self.activeView removeFromSuperview];
+//        self.activeView = nil;
+//        [self lineAndSearchBtnShow];
+//        //        [self playVideo];
+//        
+//        
+//        //////
+//        //获取数据的链接
+//        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+//        
+//        
+//        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+//        
+//        
+//        
+//        [request startAsynchronous];
+//        
+//        WEAKGET
+//        [request setCompletionBlock:^{
+//            NSDictionary *response = httpRequest.responseString.JSONValue;
+//            
+//            
+//            
+//            NSArray *data = response[@"category"];
+//            
+//            if (!isValidArray(data) || data.count == 0){
+//                return ;
+//            }
+//            self.categorys = (NSMutableArray *)data;
+//            
+//            
+//            if (!_slideView) {
+//                NSLog(@"上山打老虎3");
+//                //判断是不是全屏
+//                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+//                if (isFullScreen == NO) {   //竖屏状态
+//                    
+//                    
+//                    //设置滑动条
+//                    _slideView = [YLSlideView alloc];
+//                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                                                                      SCREEN_WIDTH,
+//                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+//                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
+//                    NSLog(@"removeAllObjects 第 2 次");
+//                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+//                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+//                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
+//                    NSLog(@"self.dicTemp %@",self.dicTemp);
+//                    _slideView.backgroundColor = [UIColor whiteColor];
+//                    _slideView.delegate        = self;
+//                    
+//                    [self.view addSubview:_slideView];
+//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//                    
+//                    
+//                }else //横屏状态，不刷新
+//                {
+//                    
+//                    //设置滑动条
+//                    _slideView = [YLSlideView alloc];
+//                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+//                                                                      SCREEN_WIDTH,
+//                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+//                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
+//                    NSLog(@"removeAllObjects 第 3 次");
+//                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+//                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+//                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
+//                    NSLog(@"self.dicTemp %@",self.dicTemp);
+//                    _slideView.backgroundColor = [UIColor whiteColor];
+//                    _slideView.delegate        = self;
+//                    
+//                    [self.view addSubview:_slideView];
+//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//                }
+//                
+//                
+//                
+//                
+//            }
+//            else
+//            {
+//                
+//            }
+//            
+//            [self judgeVideoByDelete];
+//            
+//            //            NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"];
+//            //            NSLog(@"history Arr0: %@",arrHistoryNow[0][0]);  //wor
+//            //            NSLog(@"history Arr1: %@",arrHistoryNow[1][0]);  //wor
+//            //            NSLog(@"history Arr2: %@",arrHistoryNow[2][0]);  //wor
+//            //            NSLog(@"history Arr6: %@",arrHistoryNow[6][0]);  //wor
+//            //            NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
+//            //
+//            //
+//            //            for (int i = 0; i<self.dicTemp.count; i++) {
+//            //                [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
+//            //                NSLog(@"i - 1%d",(i));
+//            //
+//            //
+//            //                if ([arrHistoryNow[6][0] isEqual: [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]]) { //此处判断，如果被播放的视频被删除了，则播放第一个
+//            //                    NSLog(@"aaabbbb");
+//            //                                }
+//            //                else{
+//            //                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//            //                    NSLog(@"asdasdasdasdasdasdasdasdasdasdas");
+//            //                }
+//            //            }
+//            ////                if (![self.dicTemp isEqualToArray:self.dicTemp]) { //此处判断，如果被播放的视频被删除了，则播放第一个
+//            ////                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//            ////                }
+//            //
+//            //
+//            ////            [self.socketView viewDidLoad];
+//            if (firstfirst == YES) {
+//                
+//                
+//                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                //                firstOpenAPP = firstOpenAPP+1;
+//                
+//                //                firstfirst = NO;
+//                
+//            }else
+//            {}
+//            
+//        }];
+//        
+//        
+//        //        [self initProgressLine];
+//        
+//        [self.table reloadData];
+//        
+//        
+//    }];
+//    
+//    
+//}
 //判断列表变化后，是否把正在播放的那个节目给删除了，如果是的，则刷新列表，并且重新播放第一个视频
 -(void)judgeVideoByDelete
 {
@@ -3646,7 +4120,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //===
     //\\\\\\
     
-    NSDictionary *item = self.categorys[indexOfCategory];   //当前页面类别下的信息
+    NSDictionary *item;
+    if (indexOfCategory <= self.categorys.count -1) {
+        item = self.categorys[indexOfCategory];   //当前页面类别下的信息
+    }
+    
     self.categoryModel = [[CategoryModel alloc]init];
     
     
@@ -4209,6 +4687,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+    
+    NSLog(@" self.service_videoname %@",self.service_videoname);
+    
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
     NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
@@ -5628,7 +6109,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 
 
-////test   可以删除
 -(void)tableViewDataRefreshForMjRefresh2222222
 {
     
@@ -6424,7 +6904,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"asfjalsbfabfba 2 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
                 
                 //把新值存起来
-                [self updateHistoryArr : dic];  //修改一下，把历史的第一条数据删除
+//                [self updateHistoryArr : dic];  //修改一下，把历史的第一条数据删除
                 //存到历史中
                 NSLog(@"dicdic == %@",dic);
                 NSLog(@"dicdic == %@",self.dicTemp);
@@ -6706,6 +7186,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"tempArr == %@",tempArr);
     
     NSLog(@"searchViewCon.response == %@",searchViewCon.response);
+    
+    
+    [searchViewCon.dataList removeAllObjects];
+    [searchViewCon.showData removeAllObjects];
+    searchViewCon.dataList =  [searchViewCon getServiceArray ];  //dataList 是所有的名字和符号的组合
+    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
+    [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
+}
+//新增的修改search界面数据的方法，与上面一个方法重载，建议使用方法
+-(void)setSearchViewData
+{
+    [searchViewCon.dataList removeAllObjects];
+    [searchViewCon.showData removeAllObjects];
+    searchViewCon.dataList =  [searchViewCon getServiceArray ];  //dataList 是所有的名字和符号的组合
+    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
+    [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
 }
 //#pragma mark - 凡是播放事件，都会响应这个方法 , 每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
 //-(void)beforeVideoPlayEvent
