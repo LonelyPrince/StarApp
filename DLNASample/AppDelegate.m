@@ -84,6 +84,8 @@
     
     [USER_DEFAULT setObject:@"NO" forKey:@"滑动了或者点击了"];     //暂时没用，有用了在删除这个注释
     [USER_DEFAULT setObject:@"0" forKey:@"YLSlideTitleViewButtonTagIndexStr"];
+    
+    [USER_DEFAULT  setObject:@"NO" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面还没有加载完成
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -128,13 +130,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 {
     return (AppDelegate *)[UIApplication sharedApplication].delegate;
 }
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    /*
-     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-     */
-}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
@@ -150,12 +145,34 @@ void UncaughtExceptionHandler(NSException *exception) {
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
 }
-
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    });
+    
+    printf("按理说是触发home按下\n");
+    
+}
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
+    
+     printf("按理说是重新进来后响应\n");
+    
+    NSString *  viewIsTVView =  [USER_DEFAULT objectForKey:@"viewISTVView"];
+    NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
+    
+    if ([viewIsTVView isEqualToString:@"1"]  && [viewHasAddOver isEqualToString:@"YES"]) {
+        //是TV页面，需要重新播放第一个视频
+
+        NSNotification *notification =[NSNotification notificationWithName:@"returnFromHomeToTVViewNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+    }
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -414,6 +431,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 -(void)checkIPTimer
 {
 //    NSString * IPstrNow = [GGUtil getIPAddress];
+    
+    NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
+    
+    if ([viewHasAddOver isEqualToString:@"NO"]) {
+        //是TV页面，需要重新播放第一个视频
+
     NSLog(@" checkIPTimer IP 1 %@", self.ipString);
     NSString * IPstrNow=  [GGUtil getIPAddress:YES];
     if ([IPstrNow isEqualToString:self.ipString]) {
@@ -436,6 +459,6 @@ void UncaughtExceptionHandler(NSException *exception) {
         
         
     }
-    
+    }
 }
 @end

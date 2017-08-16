@@ -661,7 +661,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            NSLog(@"allStartEpgTime.count:--%lu",(unsigned long)allStartEpgTime.count);
             //
             
-            
+           
+            [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
             
         }];
         
@@ -2517,6 +2518,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        if (self.TVViewStopVideoPlayAndCancelDealyFunctionBlock) {
 //            self.TVViewStopVideoPlayAndCancelDealyFunctionBlock();
 //        }
+        [USER_DEFAULT setObject:@"1" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
@@ -2725,6 +2727,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
         [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
         [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
+        
+        [self returnFromHomeToTVViewNotific];   //用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
     });
    
     
@@ -3581,7 +3585,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             
         }
-        
         
 
         
@@ -6399,11 +6402,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
-//        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//        //异步执行队列任务
-//        dispatch_async(globalQueue, ^{
-//            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-//        });
+        //        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        //        //异步执行队列任务
+        //        dispatch_async(globalQueue, ^{
+        //            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
+        //        });
         
         
         if (!isValidArray(data1) || data1.count == 0){
@@ -6618,7 +6621,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            NSLog(@"allStartEpgTime.count:--%lu",(unsigned long)allStartEpgTime.count);
             //
             
-            
+            [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
             
         }];
         
@@ -6633,6 +6636,318 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }];
     
 }
+//{
+//    NSLog(@" 机顶盒发送通知，需要刷新节目了 ==");
+//    //获取数据的链接
+//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
+//    
+//    LBGetHttpRequest *request = CreateGetHTTP(url);
+//    
+//    
+//    
+//    [request startAsynchronous];   //异步
+//    
+//    WEAKGET
+//    [request setCompletionBlock:^{
+//        
+//        
+//        
+//        NSDictionary *response = httpRequest.responseString.JSONValue;
+//        
+//        //将数据本地化
+//        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+//        
+//        //        NSLog(@"response = %@",response);
+//        NSArray *data1 = response[@"service"];
+//        
+//        
+//        
+//        
+//        
+//        if (!isValidArray(data1) || data1.count == 0){
+//            //            [self getServiceData];
+//            [self tableViewDataRefreshForMjRefresh2222222];
+//            return ;
+//        }
+//        self.serviceData = (NSMutableArray *)data1;
+//        
+//        NSLog(@"before self.categorys %@",self.categorys);
+//        self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+//        NSLog(@"last   self.categorys %@",self.categorys);
+//        
+//        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+//        
+//        
+//        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+//            //            [self getServiceData];
+//            [self tableViewDataRefreshForMjRefresh2222222];
+//        }
+//        
+//        [self.activeView removeFromSuperview];
+//        self.activeView = nil;
+//        [self lineAndSearchBtnShow];
+//        
+//        
+//        
+//        
+//        //        for (int i = 0; i<self.tableForDicIndexArr.count; i++) {
+//        
+//        NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//        
+//        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//        
+//        NSString *  indexforTableToNum = YLSlideTitleViewButtonTagIndexStr;
+//        //        [NSNumber numberWithInteger:YLSlideTitleViewButtonTagIndex];
+//        self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+//        NSLog(@"此时self.tableForSliderView 2%@",self.tableForSliderView);
+//        NSLog(@"此时self.tableForSliderView 33332%@",self.tableForDicIndexDic);
+//        //        self.tableForSliderView = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
+//        if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
+//            
+//            //            }
+//            
+//            ////////==================
+//            
+//            //            id idTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
+//            id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+//            //            NSNumber * numTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][0];
+//            NSLog(@" == %@",self.tableForDicIndexDic);
+//            NSLog(@" == %@",[self.tableForDicIndexDic objectForKey:indexforTableToNum]);
+//            NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
+//            
+//            NSInteger index = [numTemp integerValue];
+//            if (index >= self.categorys.count) {
+//                
+//            }
+//            
+//            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+//            self.categoryModel = [[CategoryModel alloc]init];
+//            
+//            self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+//            
+//            //获取EPG信息 展示
+//            //时间戳转换
+//            
+//            [self.dicTemp removeAllObjects];
+//            //获取不同类别下的节目，然后是节目下不同的cell值                10
+//            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+//                
+//                int indexCat ;
+//                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+//                //cell.tabledataDic = self.serviceData[indexCat -1];
+//                
+//                
+//                //此处判断是否为空，防止出错
+//                if ( ISNULL(self.serviceData)) {
+//                    
+//                }else{
+//                    
+//                    if (indexCat-1 > self.serviceData.count) {
+//                    }
+//                    
+//                    if (indexCat -1 < self.serviceData.count) {
+//                        
+//                        //                        aaaaaaa = 2;
+//                        
+//                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
+//                        abcddArr =  [self.serviceData mutableCopy];
+//                        
+//                        
+//                        
+//                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
+//                        
+//                        
+//                        
+//                        
+//                        
+//                        NSMutableDictionary * cccArr1 = [abcddArr[7]  mutableCopy] ;
+//                        
+//                        
+//                        
+//                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
+//                        [abcddArr replaceObjectAtIndex:7 withObject:cccArr1];
+//                        //                        [abcddArr replaceObjectAtIndex:2 withObject:cccArr1];
+//                        //                        [abcddArr replaceObjectAtIndex:3 withObject:cccArr1];
+//                        
+//                        NSLog(@" self.dictem.i %@",abcddArr[0]);
+//                        //                        NSLog(@" self.dictem.i %@",abcddArr[1]);
+//                        //                        NSLog(@" self.dictem.i %@",abcddArr[2]);
+//                        //                        NSLog(@" self.dictem.i %@",abcddArr[3]);
+//                        
+//                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//                        
+//                        //对于其他页面的dic重新赋值
+//                        //                        self.TVChannlDic = self.dicTemp;
+//                        //
+//                        //                        tempDicForServiceArr = self.TVChannlDic;
+//                        //
+//                        //                        self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+//                        
+//                        //                        [self updateFullScreenDic];
+//                        NSLog(@" self.dictem.i %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]);
+//                        
+//                        
+//                        
+//                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
+//                        
+//                        
+//                        
+//                        
+//                    }else
+//                    {
+//                        NSLog(@"不能再往里面添加了，再添加会报错");
+//                    }
+//                    
+//                }
+//                
+//                
+//            }
+//            
+//            ////////==================
+//            
+//            
+//            //            }
+//        }
+//        
+//        
+//        [self.tableForSliderView reloadData];
+//        NSLog(@"此时self.tableForSliderView 2%@",self.tableForSliderView);
+//        //        [self refreshTableviewByEPGTime];
+//        // 模拟延迟2秒
+//        
+//        double delayInSeconds = 2;
+//        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(popTime, mainQueue, ^{
+//            NSLog(@"延时执行的2秒");
+//            //        [self runThread1];
+//            NSLog(@"byteValue1 TVTVTVTVTVTV222");
+//            [self.tableForSliderView reloadData];
+//            
+//            //            [self refreshTableviewByEPGTime];
+//            NSLog(@"byteValue1 TVTVTVTVTVTV333");
+//        });
+//        //        [NSThread sleepForTimeInterval:2];
+//        //    [self mediaDeliveryUpdate];
+//        //    [tableForSliderView reloadData];
+//        // 结束刷新
+//        
+//        //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
+//        [self.tableForSliderView.mj_header endRefreshing];
+//        
+//        
+//        //////
+//        //获取数据的链接
+//        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+//        
+//        
+//        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
+//        
+//        
+//        
+//        [request startAsynchronous];
+//        
+//        WEAKGET
+//        [request setCompletionBlock:^{
+//            NSDictionary *response = httpRequest.responseString.JSONValue;
+//            
+//            
+//            
+//            NSArray *data = response[@"category"];
+//            
+//            if (!isValidArray(data) || data.count == 0){
+//                return ;
+//            }
+//            self.categorys = (NSMutableArray *)data;
+//            
+//            
+//            if (firstfirst == YES) {
+//                
+//                
+//                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                //                firstOpenAPP = firstOpenAPP+1;
+//                
+//                //                firstfirst = NO;
+//                
+//            }else
+//            {}
+//            
+//        }];
+//        
+//        
+//        //        [self initProgressLine];
+//        
+//        [self.table reloadData];
+//        
+//        
+//        
+//      
+//        
+//        [self setSearchViewData ];
+//        
+//    
+//        
+//        //关闭当前正在播放的节目
+//        [self.videoController.player stop];
+//        [self.videoController.player shutdown];
+//        [self.videoController.player.view removeFromSuperview];
+//        
+//        //修改字典信息
+//        //历史记录信息和全部的信息
+//      
+//        
+//        
+//        //修改 @"TVHttpAllData"   search界面的 self.response
+//        NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
+//        
+//        
+//        
+//        //重新执行播放,并且要注意判断是不是加锁类型
+//        
+//        //            NSDictionary * epgDicToSocket ;
+//        if (self.dicTemp.count > 0) {
+//            //                    epgDicToSocket = [self.dicTemp objectForKey:[NSString    stringWithFormat:@"%d",0]];
+//            
+//            
+//            //=======机顶盒加密
+//            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
+//            if (characterStr != NULL && characterStr != nil) {
+//                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+//                if (judgeIsSTBDecrypt == YES) {
+//                    // 此处代表需要记性机顶盒加密验证
+//                    NSNumber  *numIndex = [NSNumber numberWithInteger:0];
+//                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+//                    //创建通知
+//                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+//                    NSLog(@"POPPOPPOPPOP44444444444441");
+//                    //通过通知中心发送通知
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                    
+//                    firstOpenAPP = firstOpenAPP+1;
+//                    
+//                    firstfirst = NO;
+//                }else //正常播放的步骤
+//                {
+//                    //======
+//                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                    firstOpenAPP = firstOpenAPP+1;
+//                    
+//                    firstfirst = NO;
+//                }
+//            }else //正常播放的步骤
+//            {
+//                //======机顶盒加密
+//                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//            }
+//            
+//        }
+//        //        }
+//        
+//        
+//        
+//        
+//    }];
+//}
 
 -(void)testIP
 {
@@ -6653,6 +6968,165 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"];
 }
 
+#pragma mark - 用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
+-(void)returnFromHomeToTVViewNotific
+{
+    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"returnFromHomeToTVViewNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnFromHomeToTVView) name:@"returnFromHomeToTVViewNotific" object:nil];
+}
+-(void)returnFromHomeToTVView //如果是从其他的页面条转过来的，则自动播放上一个视频
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    });
+    NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
+    
+//    if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
+//        //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
+//        [self stopVideoPlay]; //停止视频播放
+//        
+//        //        //取消掉加载环
+//        //        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+//        //        //        //通过通知中心发送通知
+//        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//        
+//        //        NSString * playStateType = deliveryStopTip;
+//        [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
+//        //        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
+//        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//        //        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        
+//        
+//        
+//        
+//    }else //视频没有停止分发，跳转界面可以播放
+//    {
+        //=====则去掉不能播放的字样，加上加载环
+        [self removeLabAndAddIndecatorView];
+        
+//        NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
+//        if([jumpFormOtherView isEqualToString:@"YES"])
+//        {
+            NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+            NSLog(@"挖从奥到底dic come on");
+            if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
+                
+                if (storeLastChannelArr.count < 2) {
+                    return;
+                }else
+                {
+                    NSInteger row = [storeLastChannelArr[2] integerValue];
+                    NSDictionary * dic = storeLastChannelArr [3];
+                    //在这里添加判断 机顶盒是否加密
+                    
+                    //在这里添加判断 机顶盒是否加密
+                    //=======机顶盒加密
+                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                    if (characterStr != NULL && characterStr != nil) {
+                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                        if (judgeIsSTBDecrypt == YES) {
+                            // 此处代表需要记性机顶盒加密验证
+                            NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                            //创建通知
+                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                            NSLog(@"POPPOPPOPPOP44444444444441");
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                            
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }else //正常播放的步骤
+                        {
+                            //======
+                            [self firstOpenAppAutoPlay:row diction:dic];
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }
+                    }else //正常播放的步骤
+                    {
+                        //======机顶盒加密
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                    }
+                    
+                    
+                    
+                    
+                    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                }
+                
+              
+            }else
+            {
+                if (storeLastChannelArr.count < 2) {
+                    return;
+                }else
+                {
+                    
+                NSArray * touchArr = historyArr[historyArr.count - 1];
+                
+                NSInteger row = [storeLastChannelArr[2] integerValue];
+                NSDictionary * dic = storeLastChannelArr [3];
+                //在这里添加判断 机顶盒是否加密
+                //=======机顶盒加密
+                NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                if (characterStr != NULL && characterStr != nil) {
+                    BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                    if (judgeIsSTBDecrypt == YES) {
+                        // 此处代表需要记性机顶盒加密验证
+                        NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                        //创建通知
+                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                        NSLog(@"POPPOPPOPPOP44444444444441");
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }else //正常播放的步骤
+                    {
+                        //======
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                        firstOpenAPP = firstOpenAPP+1;
+                        
+                        firstfirst = NO;
+                    }
+                }else //正常播放的步骤
+                {
+                    //======机顶盒加密
+                    [self firstOpenAppAutoPlay:row diction:dic];
+                }
+                
+                //////
+                //            NSLog(@"挖从奥到底dic 11 %@",dic);
+                //            NSNumber * numIndex = [NSNumber numberWithInt:row];
+                //
+                //            //添加 字典，将label的值通过key值设置传递
+                //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+                //            //创建通知
+                //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //            //通过通知中心发送通知
+                //            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                //            NSLog(@"目前是judgeJumpFromOtherView");
+                
+                //        [self.videoController play];
+                
+                [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+            }
+            
+        }
+//    }
+    
+    
+}
 #pragma mark - 当节目CA加密弹窗过程中，收到了取消弹窗的通知
 -(void)ChangeCALockNotific //机顶盒加锁改变的消息
 {

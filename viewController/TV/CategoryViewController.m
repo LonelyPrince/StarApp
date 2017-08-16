@@ -49,7 +49,8 @@
     [self loadScroll];
     [self loadBtn];
     [self TVViewAppear];
-    
+ 
+    [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
 }
 -(void)TVViewAppear
 {
