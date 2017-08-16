@@ -190,7 +190,7 @@
 }
 -(void)tableViewChangeBlue : (NSNotification *)text
 {
-//    dispatch_async(dispatch_get_main_queue(), ^{
+    
     
     NSLog(@"====================");
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
@@ -198,21 +198,26 @@
     NSInteger row3 = [text.userInfo[@"textThree"]integerValue];
     
     //    NSArray * newArray = [array objectsAtIndexes:indexSet];
+    dispatch_async(dispatch_get_main_queue(), ^{
     tableViewForSliderView =   [self visibleCellForIndex:row];
-    
+    });
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:row2 inSection:0];
+    
     //
     //    [tableViewForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     
     NSLog(@"====================");
     
     if ([tableViewForSliderView numberOfRowsInSection:0] >= row2) {
-        [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+        [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+        });
         //先全部变黑
         for (NSInteger  i = 0; i<row3; i++) {
             NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
             
+            dispatch_async(dispatch_get_main_queue(), ^{
             TVCell *cell1 = [tableViewForSliderView cellForRowAtIndexPath:indexPath1];
             
             [cell1.event_nextNameLab setTextColor:CellGrayColor]; //CellGrayColor
@@ -238,8 +243,10 @@
                 
                 cell1.selected = YES;
             }
+            });
         }
         
+        dispatch_async(dispatch_get_main_queue(), ^{
         //附加==
         TVCell *cell1 = [tableViewForSliderView cellForRowAtIndexPath:scrollIndexPath];
         
@@ -257,13 +264,13 @@
         [tableViewForSliderView reloadData];
         
         NSLog(@"]]]]]]]]]]]]]]]]]]]]]]]==========");
-        
+        });
     }else
     {
         NSLog(@"总行数小于要跳转的函数，会报错");
     }
     
-//    });
+    
     
 }
 #pragma make reloadData

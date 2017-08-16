@@ -1373,6 +1373,7 @@
     NSLog(@"*****判断机顶盒加锁验证正确与否");
 }
 
+#pragma mark - 更新机顶盒的列表，加锁或者加扰
 //对socket读取文件进行操作   case = 22
 -(void)readSocketCommandTypeISTwentytwo :(NSData *)dataToOperate
 {

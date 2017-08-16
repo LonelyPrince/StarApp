@@ -4390,6 +4390,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [tableForSliderView reloadData];
     //     [self refreshTableFocusNotific:epgDicToSocket];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
     
     //先全部变黑
     for (NSInteger  i = 0; i<arrForServiceByCategory.count; i++) {
@@ -4411,7 +4412,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [cell2.event_nameLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)]; //RGBA(0x60, 0xa3, 0xec, 1)
     [cell2.event_nextTime setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];  //[UIColor blueColor]
     
-    
+    });
     //    TVCell *cell = [tableForSliderView dequeueReusableCellWithIdentifier:@"TVCell"];
     //    if (cell == nil){
     //        cell = [TVCell loadFromNib];

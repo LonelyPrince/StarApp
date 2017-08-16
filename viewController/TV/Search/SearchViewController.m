@@ -438,7 +438,14 @@
         //    NSLog(@"---->%@",[[self.LetterResultArr objectAtIndex: indexPath.section]objectAtIndex:indexPath.row]);
         NSLog(@"showData == %@",self.showData);
         NSLog(@"self.dataList == %@",self.dataList);
-        int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
+        int index1 ;
+        if (self.showData.count - 1 >= indexPath.row) {
+            index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
+        }else
+        {
+            return;
+        }
+        
         NSMutableDictionary * dicTemp =[self getServiceDic:index1];
         dicCategory = [dicTemp objectForKey:@"DicForReturn"] ;
         indexForTouch = [[dicTemp objectForKey:@"indexForReturn"] intValue];
@@ -499,7 +506,14 @@
         
 //        NSLog(@"indexTeg: %ld",(long)indexTeg);
         NSLog(@"indexTeg2: %ld",(long)indexTeg2);
-        NSArray * touchArr = historySearchArr[indexTeg2];
+        NSArray * touchArr ;
+        if (historySearchArr.count > indexTeg2) {
+            touchArr = historySearchArr[indexTeg2];
+        }else
+        {
+            return;
+        }
+        
         
         NSLog(@"touchArr：%@",touchArr);
 //        [self touchToSee :touchArr];
@@ -573,7 +587,13 @@
                 data2 = [self.response objectForKey: @"service" ];
                 NSLog(@"self.response: %@",self.response);
                 NSLog(@"data2--: %@",data2);
-                serviceTouch  = data2[indexCat-1];
+                if (data2.count > indexCat - 1) {
+                    serviceTouch  = data2[indexCat-1];
+                }else
+                {
+                    return;
+                }
+                
                 //                    //cell.tabledataDic = self.serviceData[indexCat -1];
                 //
                 [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
