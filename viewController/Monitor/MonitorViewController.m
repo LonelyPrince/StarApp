@@ -1285,10 +1285,36 @@
 {
     //>>
     NSArray * monitorTypeArr = [[NSArray alloc]init];
-    monitorTypeArr =   monitorTableArr[indexPath.row];
-    NSData * tableTypedata = monitorTypeArr[1];
+    NSLog(@"monitorTableArr.count %d",monitorTableArr.count);
+    NSLog(@"indexPath.row %d",indexPath.row);
     
-    NSData * phoneClientName = monitorTypeArr[2];
+    if (monitorTableArr.count > 0 && monitorTableArr.count > indexPath.row ) {
+       
+         monitorTypeArr =   monitorTableArr[indexPath.row];
+    }else
+    {
+         NSLog(@"卧槽，差点越界出错");
+        return UITableViewCellEditingStyleNone ;
+    }
+    
+    
+    NSLog(@"monitorTypeArr。count %d",monitorTypeArr.count);
+    
+    NSData * tableTypedata ;
+    
+    NSData * phoneClientName;
+    
+    if (monitorTypeArr.count > 2 ) {
+        
+        tableTypedata = monitorTypeArr[1];
+        
+        phoneClientName = monitorTypeArr[2];
+    }else
+    {
+        NSLog(@"卧槽，差点越界出错222");
+        return UITableViewCellEditingStyleNone ;
+    }
+   
     int type;
     type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
     
