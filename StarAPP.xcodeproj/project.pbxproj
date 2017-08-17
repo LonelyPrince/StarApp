@@ -71,10 +71,6 @@
 		70130EA71D8FE813005F0A49 /* SocketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 70130EA61D8FE813005F0A49 /* SocketModel.m */; };
 		70130EAC1D8FEBDA005F0A49 /* SocketUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 70130EAB1D8FEBDA005F0A49 /* SocketUtils.m */; };
 		70130EB01D8FEE8A005F0A49 /* SocketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70130EAF1D8FEE8A005F0A49 /* SocketView.m */; };
-		701443301DDC7303008EAAC6 /* 引导页4.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443271DDC7303008EAAC6 /* 引导页4.png */; };
-		701443391DDC7F19008EAAC6 /* 引导页1.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443361DDC7F19008EAAC6 /* 引导页1.png */; };
-		7014433A1DDC7F19008EAAC6 /* 引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443371DDC7F19008EAAC6 /* 引导页2.png */; };
-		7014433B1DDC7F19008EAAC6 /* 引导页3.png in Resources */ = {isa = PBXBuildFile; fileRef = 701443381DDC7F19008EAAC6 /* 引导页3.png */; };
 		701443401DDD3708008EAAC6 /* GroupEnter@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014433D1DDD3708008EAAC6 /* GroupEnter@1x.png */; };
 		701443411DDD3708008EAAC6 /* GroupEnter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014433E1DDD3708008EAAC6 /* GroupEnter@2x.png */; };
 		701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014433F1DDD3708008EAAC6 /* GroupEnter@3x.png */; };
@@ -443,6 +439,10 @@
 		70A19CDE1F00A71600DCB18E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CDD1F00A71600DCB18E /* OpenGLES.framework */; };
 		70A19CE01F00A71C00DCB18E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */; };
 		70A19CE21F00A72800DCB18E /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CE11F00A72800DCB18E /* VideoToolbox.framework */; };
+		70CCF35F1F45312500F77CD5 /* 引导页1.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35B1F45312500F77CD5 /* 引导页1.png */; };
+		70CCF3601F45312500F77CD5 /* 引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35C1F45312500F77CD5 /* 引导页2.png */; };
+		70CCF3611F45312500F77CD5 /* 引导页3.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35D1F45312500F77CD5 /* 引导页3.png */; };
+		70CCF3621F45312500F77CD5 /* 引导页4.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35E1F45312500F77CD5 /* 引导页4.png */; };
 		70D6B8EE1E2DAF3D00957A81 /* 个性化@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C11E2DAF3D00957A81 /* 个性化@1x.png */; };
 		70D6B8EF1E2DAF3D00957A81 /* 个性化@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C21E2DAF3D00957A81 /* 个性化@2x.png */; };
 		70D6B8F01E2DAF3D00957A81 /* 个性化@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8C31E2DAF3D00957A81 /* 个性化@3x.png */; };
@@ -754,10 +754,6 @@
 		70130EAB1D8FEBDA005F0A49 /* SocketUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketUtils.m; sourceTree = "<group>"; };
 		70130EAE1D8FEE8A005F0A49 /* SocketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketView.h; path = Slider/SocketView.h; sourceTree = "<group>"; };
 		70130EAF1D8FEE8A005F0A49 /* SocketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SocketView.m; path = Slider/SocketView.m; sourceTree = "<group>"; };
-		701443271DDC7303008EAAC6 /* 引导页4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页4.png"; sourceTree = "<group>"; };
-		701443361DDC7F19008EAAC6 /* 引导页1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页1.png"; sourceTree = "<group>"; };
-		701443371DDC7F19008EAAC6 /* 引导页2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页2.png"; sourceTree = "<group>"; };
-		701443381DDC7F19008EAAC6 /* 引导页3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页3.png"; sourceTree = "<group>"; };
 		7014433D1DDD3708008EAAC6 /* GroupEnter@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupEnter@1x.png"; sourceTree = "<group>"; };
 		7014433E1DDD3708008EAAC6 /* GroupEnter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupEnter@2x.png"; sourceTree = "<group>"; };
 		7014433F1DDD3708008EAAC6 /* GroupEnter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupEnter@3x.png"; sourceTree = "<group>"; };
@@ -1163,6 +1159,10 @@
 		70A19CDD1F00A71600DCB18E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		70A19CE11F00A72800DCB18E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		70CCF35B1F45312500F77CD5 /* 引导页1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页1.png"; sourceTree = "<group>"; };
+		70CCF35C1F45312500F77CD5 /* 引导页2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页2.png"; sourceTree = "<group>"; };
+		70CCF35D1F45312500F77CD5 /* 引导页3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页3.png"; sourceTree = "<group>"; };
+		70CCF35E1F45312500F77CD5 /* 引导页4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页4.png"; sourceTree = "<group>"; };
 		70D6B8C11E2DAF3D00957A81 /* 个性化@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个性化@1x.png"; sourceTree = "<group>"; };
 		70D6B8C21E2DAF3D00957A81 /* 个性化@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个性化@2x.png"; sourceTree = "<group>"; };
 		70D6B8C31E2DAF3D00957A81 /* 个性化@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个性化@3x.png"; sourceTree = "<group>"; };
@@ -1610,10 +1610,10 @@
 				7014433D1DDD3708008EAAC6 /* GroupEnter@1x.png */,
 				7014433E1DDD3708008EAAC6 /* GroupEnter@2x.png */,
 				7014433F1DDD3708008EAAC6 /* GroupEnter@3x.png */,
-				701443361DDC7F19008EAAC6 /* 引导页1.png */,
-				701443371DDC7F19008EAAC6 /* 引导页2.png */,
-				701443381DDC7F19008EAAC6 /* 引导页3.png */,
-				701443271DDC7303008EAAC6 /* 引导页4.png */,
+				70CCF35B1F45312500F77CD5 /* 引导页1.png */,
+				70CCF35C1F45312500F77CD5 /* 引导页2.png */,
+				70CCF35D1F45312500F77CD5 /* 引导页3.png */,
+				70CCF35E1F45312500F77CD5 /* 引导页4.png */,
 			);
 			name = Guider;
 			sourceTree = "<group>";
@@ -2783,7 +2783,6 @@
 				7040E2381DAE12B80063DB66 /* Group 12 Copy 2@3x.png in Resources */,
 				7040E2451DAE12B80063DB66 /* Viasat-Nature-logo@1x.png in Resources */,
 				706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */,
-				7014433B1DDC7F19008EAAC6 /* 引导页3.png in Resources */,
 				70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */,
 				70D6B8FF1E2DAF3D00957A81 /* Life Style@3x.png in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
@@ -2849,6 +2848,7 @@
 				70231CD21DC0FE8C00F73202 /* 路由设置.png in Resources */,
 				701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */,
 				70FFE4011DE3EF4800223E43 /* 时间@3x.png in Resources */,
+				70CCF3621F45312500F77CD5 /* 引导页4.png in Resources */,
 				70362D021F009D720012A309 /* All Channel@3x.png in Resources */,
 				701A98A41DB47A3100460220 /* 音轨@3x.png in Resources */,
 				70FFE3CD1DE2D07600223E43 /* 圆环-1 in Resources */,
@@ -2873,6 +2873,7 @@
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
 				70D6B9041E2DAF3D00957A81 /* Movies@2x.png in Resources */,
 				70231D011DC1F4BB00F73202 /* loading.gif in Resources */,
+				70CCF3611F45312500F77CD5 /* 引导页3.png in Resources */,
 				70FC30EB1D75714E00BD06FE /* zx-video-player-fastForward@2x.png in Resources */,
 				7024C6121DD441490053F313 /* bianji@2x.png in Resources */,
 				705650651DB9B95F002DD47E /* AudioCell.xib in Resources */,
@@ -2969,6 +2970,7 @@
 				70FFE3E51DE2DBA200223E43 /* M4.png in Resources */,
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
 				7045C46B1DC715FB002647F9 /* 矩形2@1x.png in Resources */,
+				70CCF35F1F45312500F77CD5 /* 引导页1.png in Resources */,
 				70362D241F009EB90012A309 /* New_Four@1x.png in Resources */,
 				70362D201F009E970012A309 /* New圆环@3x.png in Resources */,
 				70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */,
@@ -2984,7 +2986,6 @@
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
 				70362D4C1F00A0180012A309 /* Tuner monitor.png in Resources */,
-				701443391DDC7F19008EAAC6 /* 引导页1.png in Resources */,
 				70D6B8F21E2DAF3D00957A81 /* Entertainment@2x.png in Resources */,
 				70231CCE1DC0FE8C00F73202 /* 组-54@3x.png in Resources */,
 				7040E1BA1DAE10890063DB66 /* categorys@2x.png in Resources */,
@@ -3071,6 +3072,7 @@
 				70FFE3F91DE3EF4800223E43 /* 分发.png in Resources */,
 				7040E24D1DAE12B80063DB66 /* zOOm-Logo@3x.png in Resources */,
 				702CE4451DDA9881000A0513 /* 8.png in Resources */,
+				70CCF3601F45312500F77CD5 /* 引导页2.png in Resources */,
 				707FE7371DACC3C30087C361 /* background@1x.png in Resources */,
 				70FC30DC1D75714E00BD06FE /* kr-video-player-close@3x.png in Resources */,
 				7010175D1DCADA2500F9D5FF /* duihao@2x.png in Resources */,
@@ -3087,7 +3089,6 @@
 				70231CC41DC0FE8C00F73202 /* off@2x.png in Resources */,
 				701A98B71DB47A3100460220 /* 小窗@1x.png in Resources */,
 				70FFE3D61DE2D07600223E43 /* 圆环.png in Resources */,
-				701443301DDC7303008EAAC6 /* 引导页4.png in Resources */,
 				70231D0D1DC2E9FA00F73202 /* Back@3x.png in Resources */,
 				7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */,
 				70D6B90E1E2DAF3D00957A81 /* Religion@3x.png in Resources */,
@@ -3190,7 +3191,6 @@
 				702CE43B1DDA9881000A0513 /* 4@3x.png in Resources */,
 				70D6B9171E2DAF3D00957A81 /* Sports@3x.png in Resources */,
 				70130EA41D8FDFD2005F0A49 /* 11.png in Resources */,
-				7014433A1DDC7F19008EAAC6 /* 引导页2.png in Resources */,
 				70FFE4031DE3EF4800223E43 /* 时移@2x.png in Resources */,
 				70362D4B1F00A0180012A309 /* Series@3x.png in Resources */,
 				70FC30E31D75714E00BD06FE /* kr-video-player-point@2x.png in Resources */,
