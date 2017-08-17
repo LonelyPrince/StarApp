@@ -953,6 +953,12 @@
     
     [tableView reloadData];
     //    [self loadTableview];
+    
+    if (tunerNum == 0) {
+        
+        self.scrollView.scrollEnabled = NO;
+    }
+    
     [self changeView];
 }
 
@@ -986,14 +992,59 @@
             
             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
             
+            NSLog(@"阿打算打算房那是你说的安短  UP");
+            
+            if (tunerNum == 0) {
+                
+                
+                
+//                self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//                //                             scrollView.contentOffset = CGPointMake(0, 0);
+//                self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+//                
+//                self.scrollView.contentOffset = CGPointMake(0, 275);
+                
+                [UIView animateWithDuration:0.4
+                                      delay:0.02
+                                    options:UIViewAnimationCurveLinear
+                                 animations:^{
+                                     
+                                     self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                     //                             scrollView.contentOffset = CGPointMake(0, 0);
+                                     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+                                     
+
+                                     scrollUp = NO;
+                                     self.tableView.scrollEnabled = YES;
+                                     //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                                 }
+                                 completion:^(BOOL finished)
+                 {
+                     NSLog(@"animateanimate0000");
+                     self.tableView.scrollEnabled = YES;
+                     self.scrollView.scrollEnabled = NO;
+                     
+                 } ];
+
+            }
+            
+            
             
         }else
         {
             self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             //                             scrollView.contentOffset = CGPointMake(0, 0);
-            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+            
+            NSLog(@"阿打算打算房那是你说的安短  down");
             
             self.tableView.editing = NO;
+            
+            self.scrollView.scrollEnabled = YES;
+             if (tunerNum == 0) {
+                 
+                 self.scrollView.scrollEnabled = NO;
+             }
         }
         
         
@@ -1097,59 +1148,135 @@
 {
     NSLog(@"scrollView.contentOffset.y:%f",self.scrollView.contentOffset.y);
     int currentPostion = scrollView.contentOffset.y;
-    if (currentPostion - lastPosition > 30 && self.scrollView.contentOffset.y >50 && scrollUp == NO){
-        CGPoint position = CGPointMake(0, 275);
-        //        [scrollView     :position animated:YES];
-        [UIView animateWithDuration:0.5
-                              delay:0.02
-                            options:UIViewAnimationCurveLinear
-                         animations:^{
-                             
-                             self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
-                             
-                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
-                             scrollUp = YES;
-                             self.tableView.scrollEnabled = YES;
-                             //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-                         }
-                         completion:^(BOOL finished)
-         {
-             NSLog(@"animate");
-             self.tableView.scrollEnabled = YES;
-         } ];
-        NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
-        self.tableView.scrollEnabled = YES;
-    }
+    NSLog(@"currentPostion:%f",currentPostion - lastPosition);
     
+    if (tunerNum == 0) {
+        self.scrollView.scrollEnabled = NO;
+    }else
+    {
+        self.scrollView.scrollEnabled = YES;
     
-    
-    
-    if(scrollView.class == self.tableView.class){
-        if (self.tableView.contentOffset.y<-30&& scrollUp == YES
-            //        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25
-            ){
+        if (currentPostion - lastPosition > 30  && scrollUp == NO && tunerNum > 0){
             CGPoint position = CGPointMake(0, 275);
-            
-            [UIView animateWithDuration:0.5
+            //        [scrollView     :position animated:YES];
+            [UIView animateWithDuration:0.4
                                   delay:0.02
                                 options:UIViewAnimationCurveLinear
                              animations:^{
-                                 //                             [scrollView setContentOffset: position ];
-                                 self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-                                 //                             scrollView.contentOffset = CGPointMake(0, 0);
-                                 self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);//SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200);
-                                 scrollUp = NO;
+                                 
+                                 self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
+                                 
+                                 self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
+                                 scrollUp = YES;
+                                 self.tableView.scrollEnabled = YES;
                                  //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-                                 self.tableView.scrollEnabled = NO;
                              }
                              completion:^(BOOL finished)
-             { NSLog(@"animate");
-                 self.tableView.scrollEnabled = NO;
+             {
+                 NSLog(@"animateanimate0000");
+                 self.tableView.scrollEnabled = YES;
              } ];
             NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
-            self.tableView.scrollEnabled = NO;
+            self.tableView.scrollEnabled = YES;
         }
+        
+        
+        //    if (tunerNum == 0 &&  scrollUp == YES) {      //从顶部向下滑动，类似于没有数据时，从下往上滑动
+        //        NSLog(@"scrollView.contentOffset.y:%f",self.scrollView.contentOffset.y);
+        //        if (self.tableView.contentOffset.y<275&& scrollUp == YES
+        //            //        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25
+        //            ){
+        //            CGPoint position = CGPointMake(0, 275);
+        //
+        //            [UIView animateWithDuration:0.4
+        //                                  delay:0.02
+        //                                options:UIViewAnimationCurveLinear
+        //                             animations:^{
+        //                                 //                             [scrollView setContentOffset: position ];
+        //                                 self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //                                 //                             scrollView.contentOffset = CGPointMake(0, 0);
+        //                                 self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);//SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200);
+        //
+        //                                 scrollUp = NO;
+        //                                 //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+        //                                 self.tableView.scrollEnabled = NO;
+        //                             }
+        //                             completion:^(BOOL finished)
+        //             { NSLog(@"animateanimate1111");
+        //                 self.tableView.scrollEnabled = NO;
+        //             } ];
+        //            NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
+        //            self.tableView.scrollEnabled = NO;
+        //        }
+        //    }else if (tunerNum == 0 &&  scrollUp == NO)   //从下向上滑动，类似于没有数据时，从下往上滑动
+        //    {
+        //        CGPoint position = CGPointMake(0, 275);
+        //        //        [scrollView     :position animated:YES];
+        //        [UIView animateWithDuration:0.4
+        //                              delay:0.02
+        //                            options:UIViewAnimationCurveLinear
+        //                         animations:^{
+        //
+        //                             //效果：最终到达顶端
+        //                             self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
+        //
+        //                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
+        //
+        //                             scrollUp = YES;
+        //                             self.tableView.scrollEnabled = YES;
+        //                             self.scrollView.bounces=NO;
+        //                             //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+        //                         }
+        //                         completion:^(BOOL finished)
+        //         {
+        //             NSLog(@"animateanimate2222");
+        //             self.tableView.scrollEnabled = YES;
+        //
+        //             self.scrollView.bounces=NO;
+        ////             self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        ////             //                             scrollView.contentOffset = CGPointMake(0, 0);
+        ////             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+        ////
+        ////             self.scrollView.contentOffset = CGPointMake(0, 275);
+        //
+        //         } ];
+        //        NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
+        //        self.tableView.scrollEnabled = YES;
+        //
+        //    }
+        //    else{
+        if(scrollView.class == self.tableView.class){
+            if (self.tableView.contentOffset.y<-30&& scrollUp == YES
+                //        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25
+                ){
+                CGPoint position = CGPointMake(0, 275);
+                
+                [UIView animateWithDuration:0.4
+                                      delay:0.02
+                                    options:UIViewAnimationCurveLinear
+                                 animations:^{
+                                     //                             [scrollView setContentOffset: position ];
+                                     self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                     //                             scrollView.contentOffset = CGPointMake(0, 0);
+                                     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);//SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200);
+                                     scrollUp = NO;
+                                     //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                                     self.tableView.scrollEnabled = NO;
+                                 }
+                                 completion:^(BOOL finished)
+                 { NSLog(@"animateanimate3333");
+                     self.tableView.scrollEnabled = NO;
+                 } ];
+                NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
+                self.tableView.scrollEnabled = NO;
+            }
+        }
+        //    }
+        
+
     }
+    
+  
     
 }
 
