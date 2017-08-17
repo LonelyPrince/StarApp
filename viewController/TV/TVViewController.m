@@ -16,6 +16,7 @@
 #import "UITextField+NOPasteTextField.h"
 
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
+#define EndMJRefreshTime 12  //下拉刷新做12秒超时处理
 //#import "HexColors.h"
 
 
@@ -3368,7 +3369,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         // 结束刷新
         
         //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
-        [self.tableForSliderView.mj_header endRefreshing];
+//        [self.tableForSliderView.mj_header endRefreshing];
         
         
         //////
@@ -5877,6 +5878,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)tableViewDataRefreshForMjRefresh
 {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(endMJRefresh) object:nil];
+        [self performSelector:@selector(endMJRefresh) withObject:nil afterDelay:EndMJRefreshTime];
+    
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -6087,6 +6091,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
         [self.tableForSliderView.mj_header endRefreshing];
+        
         
         
         //////
@@ -6349,7 +6354,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         // 结束刷新
 
         //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
-        [self.tableForSliderView.mj_header endRefreshing];
+//        [self.tableForSliderView.mj_header endRefreshing];
 
 
         //////
@@ -8274,8 +8279,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //    [USER_DEFAULT setObject:epgDicToSocket forKey:@"NowChannelDic"];
 
 }
-//-(void)updateEpgDicToSocket: (NSMutableDictionary * )dic
-//{
-//    NSLog(@"dic %@");
-//}
+#pragma mark - 下拉刷新做12秒超时处理
+-(void)endMJRefresh
+{
+    
+    [self.tableForSliderView.mj_header endRefreshing];
+    
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(endMJRefresh) object:nil];
+//    [self performSelector:@selector(endMJRefresh) withObject:nil afterDelay:EndMJRefreshTime];
+}
 @end
