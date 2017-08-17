@@ -1596,7 +1596,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //变蓝
     int indexOfCategory =  self.category_index;  //[self judgeCategoryType:[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
     
-    NSArray * allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+    NSArray * allNumberOfServiceArr ;
+    if (self.categorys.count > indexOfCategory) {
+         allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+    }else
+    {
+        return;
+    }
+    
     [self tableViewCellToBlue:indexOfCategory indexhah:indexPath.row AllNumberOfService:allNumberOfServiceArr.count];
     
     [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -3198,6 +3205,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSString *  indexforTableToNum = YLSlideTitleViewButtonTagIndexStr;
         //        [NSNumber numberWithInteger:YLSlideTitleViewButtonTagIndex];
+       
         self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
         NSLog(@"此时self.tableForSliderView 2%@",self.tableForSliderView);
         NSLog(@"此时self.tableForSliderView 33332%@",self.tableForDicIndexDic);
@@ -3209,6 +3217,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             ////////==================
             
             //            id idTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
+          
             id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
             //            NSNumber * numTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][0];
             NSLog(@" == %@",self.tableForDicIndexDic);
@@ -3219,8 +3228,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (index >= self.categorys.count) {
                 
             }
+            NSDictionary *item ;
+            if (self.categorys.count > index) {
+                item = self.categorys[index];   //当前页面类别下的信息
+            }else
+            {
+                return;
+            }
             
-            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
             self.categoryModel = [[CategoryModel alloc]init];
             
             self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
@@ -3249,32 +3264,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         //                        aaaaaaa = 2;
                         
-                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
-                        abcddArr =  [self.serviceData mutableCopy];
+//                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
+//                        abcddArr =  [self.serviceData mutableCopy];
+//                        
+//                        
+//                        
+//                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
+//                        
+//                        
+//                        
+//                        
+//                        
+//                        NSMutableDictionary * cccArr1 = [abcddArr[7]  mutableCopy] ;
+//                        
+//                        
+//                        
+//                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
+//                        [abcddArr replaceObjectAtIndex:7 withObject:cccArr1];
+//                        //                        [abcddArr replaceObjectAtIndex:2 withObject:cccArr1];
+//                        //                        [abcddArr replaceObjectAtIndex:3 withObject:cccArr1];
+//                        
+//                        NSLog(@" self.dictem.i %@",abcddArr[0]);
+//                        //                        NSLog(@" self.dictem.i %@",abcddArr[1]);
+//                        //                        NSLog(@" self.dictem.i %@",abcddArr[2]);
+//                        //                        NSLog(@" self.dictem.i %@",abcddArr[3]);
                         
-                        
-                        
-                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
-                        
-                        
-                        
-                        
-                        
-                        NSMutableDictionary * cccArr1 = [abcddArr[7]  mutableCopy] ;
-                        
-                        
-                        
-                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
-                        [abcddArr replaceObjectAtIndex:7 withObject:cccArr1];
-                        //                        [abcddArr replaceObjectAtIndex:2 withObject:cccArr1];
-                        //                        [abcddArr replaceObjectAtIndex:3 withObject:cccArr1];
-                        
-                        NSLog(@" self.dictem.i %@",abcddArr[0]);
-                        //                        NSLog(@" self.dictem.i %@",abcddArr[1]);
-                        //                        NSLog(@" self.dictem.i %@",abcddArr[2]);
-                        //                        NSLog(@" self.dictem.i %@",abcddArr[3]);
-                        
-                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
                         
                         //对于其他页面的dic重新赋值
                         //                        self.TVChannlDic = self.dicTemp;
@@ -3284,11 +3299,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //                        self.video.dicChannl = [tempDicForServiceArr mutableCopy];
                         
                         //                        [self updateFullScreenDic];
-                        NSLog(@" self.dictem.i %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]);
+//                        NSLog(@" self.dictem.i %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]);
                         
                         
                         
-                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
+//                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
                         
                         
                         //                        [self judgeNowISRadio:epgDicToSocket]; //此处加个方法，判断是不是音频
@@ -3304,11 +3319,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //                            [USER_DEFAULT setObject:[[epgDicToSocket objectForKey:@"epg_info"] copy] forKey:@"NowChannelEPG"];
                         //                        }
                         
+                        if (self.serviceData.count > indexCat - 1) {
+                            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];
+                        }else
+                        {
+                            return;
+                        }
                         
                         
                     }else
                     {
                         NSLog(@"不能再往里面添加了，再添加会报错");
+                        return;
                     }
                     
                 }
@@ -3396,11 +3418,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //②先判断有没有正在播放的节目了
         NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        NSArray * touchArr ;
+        if (historyArr.count > 1) {
+             touchArr = historyArr[historyArr.count - 1];
+        }else
+        {
+            return;
+        }
         
-        NSArray * touchArr = historyArr[historyArr.count - 1];
+        NSInteger rowIndex;
+        NSMutableDictionary * dic;
+        if (touchArr.count > 4) {
+            rowIndex = [touchArr[2] intValue];
+            dic = touchArr [3];
+        }
         
-        NSInteger rowIndex = [touchArr[2] intValue];
-        NSMutableDictionary * dic = touchArr [3];
         
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
         
@@ -3457,15 +3489,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     NSDictionary * aaa = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
                     
-                    NSLog(@"mutableDicTemp ==%@",mutableDicTemp);
                     
-                    NSLog(@"dic ==%@",dic);
-                    
-                    NSLog(@"rowIndex ==%ld",rowIndex);
-                    
-                    NSLog(@"aaaa ==%@",aaa);
-                    
-                    NSLog(@"aaaa %@",[aaa objectForKey:@"service_name"]);
                     
                     //
                     //                NSLog(@"asfjalsbfabfba 2 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
