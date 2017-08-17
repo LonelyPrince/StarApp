@@ -95,7 +95,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
- 
+    
     if (viewFirstOpen == YES) {
         [self viewWillAppearDealyFunction];
         viewFirstOpen = NO;
@@ -107,10 +107,12 @@
         
     }
     
+    [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
+    
 }
 -(void) viewWillAppearDealyFunction
 {
-
+    
     self.tabBarController.tabBar.hidden = NO;
     
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
@@ -151,7 +153,7 @@
     
     
     [self TVViewAppear];
-
+    
 }
 -(void)TVViewAppear
 {
@@ -371,10 +373,10 @@
         verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
         [colorImageView addSubview:verticalView1];
         
-//        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1 -3, 325, 2, 40)];
-//        verticalView2.layer.cornerRadius = 1.0;
-//        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
-//        [colorImageView addSubview:verticalView2];
+        //        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1 -3, 325, 2, 40)];
+        //        verticalView2.layer.cornerRadius = 1.0;
+        //        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
+        //        [colorImageView addSubview:verticalView2];
         
         UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 11-22, 325, 2, 50)];
         verticalView3.layer.cornerRadius = 1.0;
@@ -390,10 +392,10 @@
         verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
         [colorImageView addSubview:verticalView1];
         
-//        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
-//        verticalView2.layer.cornerRadius = 1.0;
-//        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
-//        [colorImageView addSubview:verticalView2];
+        //        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
+        //        verticalView2.layer.cornerRadius = 1.0;
+        //        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
+        //        [colorImageView addSubview:verticalView2];
         
         UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 20, 325, 2, 48)];
         verticalView3.layer.cornerRadius = 1.0;
@@ -409,10 +411,10 @@
         verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
         [colorImageView addSubview:verticalView1];
         
-//        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
-//        verticalView2.layer.cornerRadius = 1.0;
-//        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
-//        [colorImageView addSubview:verticalView2];
+        //        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1, 325, 2, 40)];
+        //        verticalView2.layer.cornerRadius = 1.0;
+        //        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
+        //        [colorImageView addSubview:verticalView2];
         
         UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 20, 325, 2, 48)];
         verticalView3.layer.cornerRadius = 1.0;
@@ -451,11 +453,11 @@
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
         
-//        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(160, 360, 142/2, 13)];
-//        timeShiftLab.text = @"Time Shift";
-//        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-//        timeShiftLab.font = FONT(13);
-//        [colorImageView addSubview:timeShiftLab];
+        //        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(160, 360, 142/2, 13)];
+        //        timeShiftLab.text = @"Time Shift";
+        //        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+        //        timeShiftLab.font = FONT(13);
+        //        [colorImageView addSubview:timeShiftLab];
         
         //    distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(240 - 12, 360, 142/2, 15)];
@@ -479,11 +481,11 @@
         [colorImageView addSubview:recoder_Lab];
         
         //    timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
-//        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(180, liveNumLab.frame.origin.y-40, 16, 20)];
-//        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-//        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
-//        timeShift_Lab.font = FONT(24);
-//        [colorImageView addSubview:timeShift_Lab];
+        //        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(180, liveNumLab.frame.origin.y-40, 16, 20)];
+        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        //        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        //        timeShift_Lab.font = FONT(24);
+        //        [colorImageView addSubview:timeShift_Lab];
         
         //    distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(distributeLab.frame.origin.x+18, liveNumLab.frame.origin.y-26, 16, 20)];
@@ -506,11 +508,11 @@
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
         
-//        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
-//        timeShiftLab.text = @"Time Shift";
-//        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-//        timeShiftLab.font = FONT(13);
-//        [colorImageView addSubview:timeShiftLab];
+        //        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
+        //        timeShiftLab.text = @"Time Shift";
+        //        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+        //        timeShiftLab.font = FONT(13);
+        //        [colorImageView addSubview:timeShiftLab];
         
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 -10, 360, 142/2, 15)];
         distributeLab.text = @"Delivery";
@@ -530,11 +532,11 @@
         recoder_Lab.font = FONT(24);
         [colorImageView addSubview:recoder_Lab];
         
-//        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
-//        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-//        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
-//        timeShift_Lab.font = FONT(24);
-//        [colorImageView addSubview:timeShift_Lab];
+        //        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
+        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        //        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        //        timeShift_Lab.font = FONT(24);
+        //        [colorImageView addSubview:timeShift_Lab];
         
         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(distributeLab.frame.origin.x+18 , liveNumLab.frame.origin.y-30, 16, 20)];
         distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
@@ -557,11 +559,11 @@
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
         
-//        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
-//        timeShiftLab.text = @"Time Shift";
-//        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-//        timeShiftLab.font = FONT(13);
-//        [colorImageView addSubview:timeShiftLab];
+        //        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
+        //        timeShiftLab.text = @"Time Shift";
+        //        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
+        //        timeShiftLab.font = FONT(13);
+        //        [colorImageView addSubview:timeShiftLab];
         
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 - 0, 360, 142/2, 15)];
         distributeLab.text = @"Delivery";
@@ -581,11 +583,11 @@
         recoder_Lab.font = FONT(24);
         [colorImageView addSubview:recoder_Lab];
         
-//        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
-//        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-//        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
-//        timeShift_Lab.font = FONT(24);
-//        [colorImageView addSubview:timeShift_Lab];
+        //        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
+        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        //        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
+        //        timeShift_Lab.font = FONT(24);
+        //        [colorImageView addSubview:timeShift_Lab];
         
         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(distributeLab.frame.origin.x+18, liveNumLab.frame.origin.y-40 + 10, 16, 20)];
         distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
@@ -674,9 +676,9 @@
 -(NSInteger)getTunerNum:(NSData *)tunerAllData
 {
     NSData * dataLen = [[NSData alloc]init];
-  
+    
     if ([tunerAllData length] >= 27 + 1) {
-    dataLen = [tunerAllData subdataWithRange:NSMakeRange(27, 1)];
+        dataLen = [tunerAllData subdataWithRange:NSMakeRange(27, 1)];
     }
     
     //    int value;
@@ -723,7 +725,7 @@
     NSData * effectiveData = [[NSData alloc]init];
     
     if ([allTunerData length] >= 38 + value-10) {
-            effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
+        effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
     }else
     {
         return;
@@ -973,14 +975,14 @@
         
         recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
         
-//        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
         
         distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
         
         
         
         if (scrollUp == YES) {
-            self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT);
+            self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT + tunerNum*80);
             
             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
             

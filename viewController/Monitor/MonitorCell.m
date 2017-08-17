@@ -255,16 +255,19 @@
             self.programeClass.image = [UIImage imageNamed:@"分发"];
             
             NSLog(@"self.nameLab.text :%@",[epgDic objectForKey:@"event_name"]);
-            if([epgDic objectForKey:@"event_name"])
+            if([[epgDic objectForKey:@"event_name"] isEqualToString:@""])
             {
+                NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
+               
+                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",clientNameStr];
+                NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
                 
+            }else
+            {
                 self.nameLab.text = [NSString stringWithFormat:@"%@--%@",clientNameStr,[epgDic objectForKey:@"event_name"]];
                 NSLog(@"self.nameLab.text :%@",self.nameLab.text
                       );
-            }else
-            {
-                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",clientNameStr];
-                NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
+               
             }
             
             
