@@ -159,12 +159,25 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     [super layoutSubviews];
     
-    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 100);//71  //43);
+    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
+        self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+        //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
+        //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
+    }else
+    {
+        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
+        self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
+        self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
+        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
+        
+    }
+    
     NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
     
     //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
     
-    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+    
     
     self.rightView.frame = CGRectMake(CGRectGetWidth(self.bounds) - 145, 0, 145, CGRectGetHeight(self.bounds));
     
@@ -172,7 +185,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     self.pauseButton.frame = self.playButton.frame;
     
-    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
+    
     
     
     //    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
@@ -206,7 +219,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.titleLabel.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds)+20, 20, SCREEN_WIDTH, 9);
     //********
     //    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
-    self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
+    
     
     
     
@@ -288,7 +301,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         return;
     }
     
-      
+    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kZXPlayerControlViewHideNotification object:nil];
     
@@ -334,7 +347,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
-
+        
         
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
@@ -343,15 +356,15 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
-     
-        //0.3s 后销毁
-                if (self.FullEventYFlabel) {
-                    [self.FullEventYFlabel removeFromSuperview];
-                    self.FullEventYFlabel = nil;
-                    [self.FullEventYFlabel stopTimer];
         
-                    NSLog(@"跑马灯销毁 1 animatehide");
-                }
+        //0.3s 后销毁
+        if (self.FullEventYFlabel) {
+            [self.FullEventYFlabel removeFromSuperview];
+            self.FullEventYFlabel = nil;
+            [self.FullEventYFlabel stopTimer];
+            
+            NSLog(@"跑马灯销毁 1 animatehide");
+        }
         
     });
     [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
@@ -595,8 +608,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         
         _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Group 16"]];
-        _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
         
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+            _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
+        }else
+        {
+            _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 50);
+        }
         
         [_bottomBar addSubview:_bottomControllerImage];
     }
@@ -606,26 +624,30 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)fixTopBottomImage:(NSNotification *)text{
     
     float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
-    NSLog(@"Imagewidth :%f",Imagewidth);
-    NSLog(@"SCREEN_HEIGHT :%f",SCREEN_HEIGHT);
-    if (Imagewidth > SCREEN_WIDTH) {  //全屏
-        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+    NSLog(@"Imagewidth :%f",[UIScreen mainScreen].bounds.size.width);
+    NSLog(@"SCREEN_HEIGHT :%f",[UIScreen mainScreen].bounds.size.height);
+    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) {  //全屏  //([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height)
+        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
         _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
         
         _topControllerImage.image = [UIImage imageNamed:@"顶背景"];
         _bottomControllerImage.image = [UIImage imageNamed:@"底背景"];
-        _topBar.frame =CGRectMake(0, 0,Imagewidth, 100);
+        
+        
+        _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
         _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
         
     }else  //竖屏
     {
         _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
-        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 75);
+        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
         
         _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
         _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
         _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
-        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 75);
+        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
+        
+        
     }
     
     

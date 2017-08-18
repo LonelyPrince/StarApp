@@ -240,7 +240,7 @@
     redDeleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     redDeleteBtn.frame = CGRectMake(0, SCREEN_HEIGHT-51, SCREEN_WIDTH, 51);
     redDeleteBtn.backgroundColor = [UIColor redColor];
-    [redDeleteBtn setTitle:@"DEL" forState:UIControlStateNormal];
+    [redDeleteBtn setTitle:@"Delete" forState:UIControlStateNormal];
     [redDeleteBtn addTarget:self action:@selector(deleteSeletions) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:redDeleteBtn];
     
@@ -591,7 +591,7 @@
     
     //获得删除的数量
     
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL"] forState:UIControlStateNormal];
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete"] forState:UIControlStateNormal];
     
     if(historyArr.count == 0 || historyArr == NULL)
     {
@@ -785,7 +785,7 @@
     
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
     
     
 }
@@ -955,7 +955,7 @@
     
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
     
     if (tableView.editing) {  //编辑模式下选中
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
@@ -1015,7 +1015,7 @@
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
     NSLog(@"didDeleteSelects %d",didDeleteSelects);
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"DEL(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
     
     if (tableView.editing) {  //编辑模式下选中
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
