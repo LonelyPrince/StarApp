@@ -4238,6 +4238,30 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     [USER_DEFAULT setObject:@"NO" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受;此处使用完成后，重新赋值为NO，防止在主页面点击播放会触发同样的效果
     
+    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
+    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
+    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+    if (judgeIsNull == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.subtBtn setEnabled:NO];
+        
+    }else
+    {
+        [self.videoControl.subtBtn setEnabled:YES];
+    }
+    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+    if (judgeIsNull1 == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.audioBtn setEnabled:NO];
+        
+        
+    }else
+    {
+        [self.videoControl.audioBtn setEnabled:YES];
+    }
+    
+    [self judgeLastBtnIsGray];
+    [self judgeNextBtnIsGray];
 }
 
 -(void)setEventTime
