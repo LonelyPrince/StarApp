@@ -2825,6 +2825,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void)setUrl:(NSURL *)url
 {
+    
     //    self.player = [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:self.view];
     //     self.view = self.player.view ;
     //
@@ -2919,6 +2920,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    NSLog(@"执行中1111111");
     //
     
+    
+    NSLog(@"444channelCount==--==--22222= %d ",self.video.channelCount);
+    NSLog(@"444self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
     
 }
 
@@ -3283,6 +3287,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
         
+        NSLog(@"22self.video =======----===---==---==-= %@ ",self.video);
+        
+        
         NSLog(@"self.video.channelCount :%d",self.video.channelCount);
         if (self.video.channelCount <= 8) {
             self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
@@ -3534,6 +3541,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [cell.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
+            
         }
         
         
@@ -3554,6 +3562,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                
+                
+//                [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                 
             }else
             {
@@ -4218,6 +4229,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
         }
     
+    
+    if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {
+        self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
+        self.video.channelCount =  [[USER_DEFAULT objectForKey:@"VideoTouchOtherViewchannelCount"] intValue];
+        self.video.dicSubAudio = [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicSubAudio"];
+    }
+    
+    [USER_DEFAULT setObject:@"NO" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受;此处使用完成后，重新赋值为NO，防止在主页面点击播放会触发同样的效果
     
 }
 
