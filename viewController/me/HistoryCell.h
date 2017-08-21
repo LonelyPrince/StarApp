@@ -12,7 +12,7 @@
 @interface HistoryCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;
 @property (weak, nonatomic) IBOutlet UIImageView *channelImage;
-@property (weak, nonatomic) IBOutlet UIImageView *placeholderImage1;
+//@property (weak, nonatomic) IBOutlet UIImageView *placeholderImage1;
 @property (weak, nonatomic) IBOutlet UILabel *logicLab;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 
