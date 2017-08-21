@@ -160,6 +160,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configCAPINShow];  //判断当前是不是需要展示CA PIN的输入按钮和文字
         [self removeConfigRadioShow];  //如果不是音频节目，或者音频节目播放完成，则删除掉音频图
         [self removeConfigDecoderPINShow];  //如果用户点击了按钮，则发送删除通知把decoder的文字和按钮删除掉
+        [self removeConfigCAPINShow]; //取消掉CAPIN的文字和按钮删除掉
+
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
@@ -1489,6 +1491,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
+                            
                             
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {

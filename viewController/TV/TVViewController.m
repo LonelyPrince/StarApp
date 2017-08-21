@@ -2764,8 +2764,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
         [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
         [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
+        [self NOCACardNotific];   //CA加密弹窗中，取消了CA加密的播放通知
         
         [self returnFromHomeToTVViewNotific];   //用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
+        [self cantDeliveryNotific]; //停止分发的通知，这个时候显示停止分发的提示语
     });
    
     
@@ -5385,6 +5387,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)delayPopSTBOrCAAlert
 {
+    [self stopVideoPlay];
+    
     if(STBTouchType_Str == nil )
     {
         NSLog(@"不一致，不弹窗。===或者将窗口取消掉");
@@ -5406,6 +5410,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //第一次没有输入PIN，第二次点击decoder PIN按钮重新打开窗口输入
 -(void)popSTBAlertViewInputAgain //: (NSNotification *)text
 {
+    [self stopVideoPlay];
+    
     STBAlert.title = @"Please input your Decoder PIN";
     [STBAlert show];
     STBTextField_Encrypt.text = @"";
@@ -5430,6 +5436,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
+    [self stopVideoPlay];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         //取消掉提示文字和延迟方法
         [self removeTipLabAndPerformSelector];
@@ -7254,6 +7262,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
+
 #pragma mark - CA 加锁时，收到消息然后弹窗小时的通知
 -(void)updateChannelCALockService :(NSData *)updateChannelServiceDataTemp
 {
@@ -7304,6 +7313,96 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
     
+    
+}
+#pragma mark - 机顶盒回复出厂设置后，需要提示不能分发
+-(void)cantDeliveryNotific //机顶盒加锁改变的消息
+{
+    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"cantDeliveryNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cantDelivery) name:@"cantDeliveryNotific" object:nil];
+}
+-(void)cantDelivery
+{
+    //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
+    [self stopVideoPlay]; //停止视频播放
+    
+    //        //取消掉加载环
+    //        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+    //        //        //通过通知中心发送通知
+    //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    //        NSString * playStateType = deliveryStopTip;
+    [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
+    //        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
+}
+#pragma mark - 当CA卡拔出后，显示加扰节目不能播放
+-(void)NOCACardNotific //机顶盒加锁改变的消息
+{
+    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NOCACardNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NOCACardNotific:) name:@"NOCACardNotific" object:nil];
+}
+-(void)NOCACardNotific:(NSNotification *)text//当CA卡拔出后，显示加扰节目不能播放
+{
+    // 1.先判断消息的值是否等于3  如果等于3就代表CA卡被拔出
+    //2. 如果节目正在播放状态，停止掉节目，显示节目不能播放的语句
+    //3. 如果节目正在弹窗状态，停止掉节目，显示节目不能播放的语句
+    
+    //处理信息
+    NSData * changeCALockData = [[NSData alloc]init];
+    changeCALockData = text.userInfo[@"NOCACarddata"];
+    
+    NSLog(@"changeCALockData %@",changeCALockData);
+    
+    
+    [self judgeNOCACard:changeCALockData];
+    
+    
+}
+-(void)judgeNOCACard:(NSData *)changeCALockData
+{
+
+    NSData * NOCACardStatus = [[NSData alloc]init];
+    if ([changeCALockData length] >=  28 + 10 ) {
+        NOCACardStatus =[changeCALockData subdataWithRange:NSMakeRange(28 + 9 , 1 )]; //
+    }else
+    {
+        return;
+    }
+    
+   uint8_t NOCACardStatusInt = [SocketUtils uint8FromBytes:NOCACardStatus];
+    
+    NSLog(@"NOCACardStatusInt %d",NOCACardStatusInt);
+    if (NOCACardStatusInt != 3) {
+        NSLog(@"jajajajahahahasdasdasdasd");
+        
+        
+        [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+        
+        //显示不能播放的字样
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        //取消CAPIN的文字和按钮
+        NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        CAAlert.dontDisppear = YES;
+        //取消弹窗
+        [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
+        
+        
+        
+       
+    }
     
 }
 #pragma mark - 当节目正在播放时，收到加锁通知
