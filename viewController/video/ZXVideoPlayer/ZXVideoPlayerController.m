@@ -61,6 +61,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     float tempOne; //记录bytes的临时值
     float tempTwo;
     NSTimer * timerForGetBytes; //获取节目缓冲的大小计时器
+    
+    int audioPositionIndex;
+    int subtPositionIndex;
+    int channelPositionIndex;
 }
 
 
@@ -181,6 +185,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [self configObserver];
         [self installMovieNotificationObservers];
         //        operationQueue = [[NSOperationQueue alloc]init];
+        audioPositionIndex = 0;
+        subtPositionIndex = 0;
+        channelPositionIndex = 0;
     }
     return self;
 }
@@ -2553,6 +2560,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     [self configDeviceOrientationObserver];
+    
+    
+    if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:subtPositionIndex inSection:0];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }else
+    {
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+    
+    
+
 }
 -(void)rightViewshow
 {
@@ -2657,6 +2677,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self rightViewshow];
         
     }
+    
+    if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }else
+    {
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+   
+
 }
 
 - (void)channelListBtnClick
@@ -2680,6 +2711,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }
     
+//    if (self.video.dicChannl.count > ) {
+//        <#statements#>
+//    }
+    NSLog(@"channelPositionIndex %d",channelPositionIndex);
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:channelPositionIndex inSection:0];
+    [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 
@@ -3389,23 +3426,51 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             
-            
-            //焦点
-            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-            NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-            //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
-            NSDictionary * subtDicBlue = [fourceDic objectForKey:@"subt_info"][subtRow];
-            NSLog(@"cell.dataDic fourceDic: %@",subtDicBlue);
-//            if ([cell.dataDic isEqual:subtDicBlue]) {
-            if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:subtDicBlue]) {
-            
-                [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+            if (sub_languageIndex > 1) {
+                //需要加号码
+                //            //焦点
+                NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+                NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+                //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+                NSDictionary * subtDicBlue = [fourceDic objectForKey:@"subt_info"][subtRow];
+                NSLog(@"cell.dataDic fourceDic: %@",subtDicBlue);
+                
+                NSMutableDictionary * mutableSubDic22 = [subtDicBlue mutableCopy];
+                [mutableSubDic22 setObject:@"yes" forKey:@"yes"];
+                
+                if ([cell.dataDic isEqual:mutableSubDic22]) {
+                    
+                    [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                    
+                }else
+                {
+                    [cell.languageLab setTextColor:[UIColor whiteColor]];
+                    
+                }
                 
             }else
             {
-                [cell.languageLab setTextColor:[UIColor whiteColor]];
-                
+                //焦点
+                NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+                NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+                //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+                NSDictionary * subtDicBlue = [fourceDic objectForKey:@"subt_info"][subtRow];
+                NSLog(@"cell.dataDic fourceDic: %@",subtDicBlue);
+                //            if ([cell.dataDic isEqual:subtDicBlue]) {
+                if ([cell.dataDic isEqual:subtDicBlue]) {
+                    
+                    [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                    
+                }else
+                {
+                    [cell.languageLab setTextColor:[UIColor whiteColor]];
+                    
+                }
+            
             }
+            
+            
+           
             
             
             //上下两个都可以试一下
@@ -3482,25 +3547,61 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                  cell.dataDic = audioArr[indexPath.row];
             }
             
+//            int aaa = audioPositionIndex;
+//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
+//            [tableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+//            
+////            subtCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+//            if (indexPath.row == audioPositionIndex) {
+//                [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            }
+//            
             
             
             
-            
-            //焦点
-            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-            NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-            //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
-            NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
-            NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
-//            if ([cell.dataDic isEqual:audioDicBlue]) {
-                if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:audioDicBlue]) {
+            if (audio_languageIndex > 1) {
+                //需要加号码
+                //            //焦点
+                NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+                NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+                //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
                 
-                [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                NSMutableDictionary * mutableAudioDic22 = [audioDicBlue mutableCopy];
+                [mutableAudioDic22 setObject:@"yes" forKey:@"yes"];
                 
+                if ([cell.dataDic isEqual:mutableAudioDic22]) {
+                    
+                    [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                    
+                }else
+                {
+                    [cell.languageLab setTextColor:[UIColor whiteColor]];
+                    
+                }
+
             }else
             {
-                [cell.languageLab setTextColor:[UIColor whiteColor]];
-                
+                //不需要加号码
+                //            //焦点
+                NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
+                NSLog(@"cell.dataDic 11:%@",cell.dataDic);
+                //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
+                //            if ([cell.dataDic isEqual:audioDicBlue]) {
+                //                if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:audioDicBlue]) {
+                if ([cell.dataDic isEqual:audioDicBlue]) {
+                    
+                    [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                    
+                }else
+                {
+                    [cell.languageLab setTextColor:[UIColor whiteColor]];
+                    
+                }
+
             }
             
             
@@ -3554,6 +3655,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             NSLog(@"self.video.dicChannl %@",self.video.dicChannl);
             NSLog(@"cell.dataDic %@",cell.dataDic);
+            
+            
+            
+//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:10 inSection:0];
+//            [tableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            //
             
             
             //焦点
@@ -4150,121 +4257,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 
 
-- (void)setVideo:(ZXVideo *)video
-{   NSLog(@"contentURL 22ZXVideo");
-    _video = video;
-    
-    // 标题
-    self.videoControl.titleLabel.text = self.video.title;
-    // play url
-    self.url = [NSURL URLWithString:self.video.playUrl];
-    NSLog(@"contentURL 33ZXVideo");
-    //当前节目名称
-    self.videoControl.eventnameLabel.text = self.video.playEventName;
-//        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播";
-    //     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
-    [self newReplaceEventNameNotific];
-    self.videoControl.channelIdLab.text = self.video.channelId;
-    
-    self.videoControl.channelNameLab.text = self.video.channelName;
-    
-    
-    //    self.subAudioDic = [[NSMutableDictionary alloc]init];
-    
-    //    self.subAudioDic = self.video.dicSubAudio;
-    //    NSLog(@"self.video.dicSubAudio:%@",self.video.dicSubAudio);
-    //    NSLog(@"self.video.dicSubAudio:%@",self.subAudioDic);
-    //self.video.dicSubAudio;
-    [self setEventTime1];
-    timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
-    
-    
-    [self.videoControl.FullEventYFlabel removeFromSuperview];
-    self.videoControl.FullEventYFlabel = nil;
-    [self.videoControl.FullEventYFlabel stopTimer];
-    
-    UIDeviceOrientation orientation = self.getDeviceOrientation;
-  
-        switch (orientation) {
-            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
-                NSLog(@"home键在 下");
-          
-            }
-                break;
-            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
-                NSLog(@"home键在 上");
-             [self abctest];
-            }
-                break;
-            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
-                NSLog(@"home键在 右");
-                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                
-             [self abctest];
-            }
-                break;
-            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
-                NSLog(@"home键在 左");
-                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
-                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-              [self abctest];
-            }
-                break;
-                
-            default:
-            {     // Device oriented horizontally, home button on the left
-                NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
-                
-                NSLog(@"self.view.frame.size.width %@",NSStringFromCGRect(self.view.frame));
 
-                NSLog(@"UIScreen mainScreen].bounds.size.width %@",NSStringFromCGRect([UIScreen mainScreen].bounds));
+-(void)judgeAudioOrSubtAndChannelIndex :(NSInteger) channelIndex
+{
 
-                
-                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
-                    [self abctest];  //全屏页面时候，加载跑马灯的名字
-                }
-                
-            }
-                break;
-        }
-    
-    
-    if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {
-        self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
-        self.video.channelCount =  [[USER_DEFAULT objectForKey:@"VideoTouchOtherViewchannelCount"] intValue];
-        self.video.dicSubAudio = [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicSubAudio"];
-    }
-    
-    [USER_DEFAULT setObject:@"NO" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受;此处使用完成后，重新赋值为NO，防止在主页面点击播放会触发同样的效果
-    
-    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
-    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
-    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
-    if (judgeIsNull == YES) {
-        NSLog(@"数值为空，所以此时应该直接返回");
-        [self.videoControl.subtBtn setEnabled:NO];
-        
-    }else
-    {
-        [self.videoControl.subtBtn setEnabled:YES];
-    }
-    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
-    if (judgeIsNull1 == YES) {
-        NSLog(@"数值为空，所以此时应该直接返回");
-        [self.videoControl.audioBtn setEnabled:NO];
-        
-        
-    }else
-    {
-        [self.videoControl.audioBtn setEnabled:YES];
-    }
-    
-    [self judgeLastBtnIsGray];
-    [self judgeNextBtnIsGray];
 }
 
 -(void)setEventTime
@@ -4420,5 +4416,172 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
 }
+- (void)setVideo:(ZXVideo *)video
+{   NSLog(@"contentURL 22ZXVideo");
+    _video = video;
+    
+    // 标题
+    self.videoControl.titleLabel.text = self.video.title;
+    // play url
+    self.url = [NSURL URLWithString:self.video.playUrl];
+    NSLog(@"contentURL 33ZXVideo");
+    //当前节目名称
+    self.videoControl.eventnameLabel.text = self.video.playEventName;
+    //        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
+    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
+    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，";
+    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是";
+    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播";
+    //     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
+    [self newReplaceEventNameNotific];
+    self.videoControl.channelIdLab.text = self.video.channelId;
+    
+    self.videoControl.channelNameLab.text = self.video.channelName;
+    
+    
+    //    self.subAudioDic = [[NSMutableDictionary alloc]init];
+    
+    //    self.subAudioDic = self.video.dicSubAudio;
+    //    NSLog(@"self.video.dicSubAudio:%@",self.video.dicSubAudio);
+    //    NSLog(@"self.video.dicSubAudio:%@",self.subAudioDic);
+    //self.video.dicSubAudio;
+    [self setEventTime1];
+    timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+    
+    
+    [self.videoControl.FullEventYFlabel removeFromSuperview];
+    self.videoControl.FullEventYFlabel = nil;
+    [self.videoControl.FullEventYFlabel stopTimer];
+    
+    UIDeviceOrientation orientation = self.getDeviceOrientation;
+    
+    switch (orientation) {
+        case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+            NSLog(@"home键在 下");
+            
+        }
+            break;
+        case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+            NSLog(@"home键在 上");
+            [self abctest];
+        }
+            break;
+        case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+            NSLog(@"home键在 右");
+            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+            
+            [self abctest];
+        }
+            break;
+        case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+            NSLog(@"home键在 左");
+            //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+            [self abctest];
+        }
+            break;
+            
+        default:
+        {     // Device oriented horizontally, home button on the left
+            NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
+            
+            NSLog(@"self.view.frame.size.width %@",NSStringFromCGRect(self.view.frame));
+            
+            NSLog(@"UIScreen mainScreen].bounds.size.width %@",NSStringFromCGRect([UIScreen mainScreen].bounds));
+            
+            
+            if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+                [self abctest];  //全屏页面时候，加载跑马灯的名字
+            }
+            
+        }
+            break;
+    }
+    
+    
+    if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {
+        self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
+        self.video.channelCount =  [[USER_DEFAULT objectForKey:@"VideoTouchOtherViewchannelCount"] intValue];
+        self.video.dicSubAudio = [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicSubAudio"];
+    }
+    
+    [USER_DEFAULT setObject:@"NO" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受;此处使用完成后，重新赋值为NO，防止在主页面点击播放会触发同样的效果
+    
+    NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
+    NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
+    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+    if (judgeIsNull == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.subtBtn setEnabled:NO];
+        
+    }else
+    {
+        [self.videoControl.subtBtn setEnabled:YES];
+    }
+    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+    if (judgeIsNull1 == YES) {
+        NSLog(@"数值为空，所以此时应该直接返回");
+        [self.videoControl.audioBtn setEnabled:NO];
+        
+        
+    }else
+    {
+        [self.videoControl.audioBtn setEnabled:YES];
+    }
+    
+    [self judgeLastBtnIsGray];
+    [self judgeNextBtnIsGray];
+    
+    //分线程对传过来的数据进行判断，判断节目分别index是多少，然后进行展示
+    
+    //    [self judgeAudioOrSubtAndChannelIndex : channelIndex];
+    
+    
+    if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
+        
+        NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
+        if (audioarr.count > [[USER_DEFAULT objectForKey:@"Touch_Audio_index"] intValue] ) {
+            audioPositionIndex =  [[USER_DEFAULT objectForKey:@"Touch_Audio_index"] intValue];
+            NSLog(@"audioPositionIndex %d",audioPositionIndex);
+//            audioRow = audioPositionIndex;
+        }else
+        {
+            audioPositionIndex = 0;
+//            audioRow = 0;
+        }
+        NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
+        if (subtarr.count > [[USER_DEFAULT objectForKey:@"Touch_Subt_index"] intValue] ) {
+            subtPositionIndex =  [[USER_DEFAULT objectForKey:@"Touch_Subt_index"] intValue];
+            NSLog(@"audioPositionIndex22 %d",subtPositionIndex);
+//            subtRow = subtPositionIndex;
+        }else
+        {
+            subtPositionIndex = 0;
+//            subtRow = 0;
+        }
+        
+        
+    }else
+    {
+        audioPositionIndex = 0;
+        subtPositionIndex = 0;
+//        audioRow = 0;
+//        subtRow = 0;
+    }
+    
+    
+    channelPositionIndex =  [[USER_DEFAULT objectForKey: @"Touch_Channel_index"] intValue];
+    if (self.video.dicChannl.count > channelPositionIndex ) {
+    }else
+    {
+        channelPositionIndex = 0;
+    }
+    
+}
+-(void)setaudioOrSubtRowIsZero
+{
+    audioRow = 0;
+    subtRow = 0;
 
+}
 @end

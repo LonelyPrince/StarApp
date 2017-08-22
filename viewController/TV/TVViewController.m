@@ -1597,9 +1597,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSLog(@"dangqin 线程 %@",[NSThread currentThread]);
         [self addHistory:indexPath.row diction:self.dicTemp];
-        
+        [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
         [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
         [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+        [self.videoController setaudioOrSubtRowIsZero];
     });
     
     //    //关闭当前正在播放的节目
@@ -2145,7 +2146,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
     [self addHistory:row diction:dic];
-    
+    [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+    [self.videoController setaudioOrSubtRowIsZero];
     //__
     
     NSArray * audio_infoArr = [[NSArray alloc]init];
@@ -2319,6 +2321,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         
+        [USER_DEFAULT setObject:[NSNumber numberWithInt:row] forKey: @"Touch_Channel_index"];
         NSLog(@"history线程%@",[NSThread currentThread]);
         //   tempBoolForServiceArr = YES;
         //    tempArrForServiceArr =  self.categoryModel.service_indexArr;
@@ -4000,7 +4003,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //新建一个发送IP 改变的消息的通知   //
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"VideoTouchNoificAudioSubt" object:nil];
     //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(VideoTouchNoificAudioSubtClick :) name:@"VideoTouchNoificAudioSubt" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(VideoTouchNoificAudioSubtClick:) name:@"VideoTouchNoificAudioSubt" object:nil];
     
 }
 -(void)setHMCChangeNoific
@@ -4280,7 +4283,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
     [self addHistory:row diction:self.dicTemp];
-    
+    [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+    [self.videoController setaudioOrSubtRowIsZero];
     //__
     
     NSArray * audio_infoArr = [[NSArray alloc]init];
@@ -4598,6 +4602,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNumber * numAudio = text.userInfo[@"textThree"];
     NSNumber * numSubt = text.userInfo[@"textFour"];
     
+    [USER_DEFAULT setObject:numAudio forKey: @"Touch_Audio_index"];
+    [USER_DEFAULT setObject:numSubt  forKey:@"Touch_Subt_index"];
+    [USER_DEFAULT setObject:@"YES" forKey:@"audioOrSubtTouch"];
+    
+    
     NSInteger audioIndex =  [numAudio integerValue];
     NSInteger subtIndex =  [numSubt integerValue];
     //--
@@ -4752,6 +4761,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
     [self addHistory:row diction:dic];
+    [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+    [self.videoController setaudioOrSubtRowIsZero];
     //    [self getsubt];
     //__
     
@@ -5468,6 +5479,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (text.userInfo.count >3) {
             STBTouch_Audio = [text.userInfo[@"textFour"]integerValue];
             STBTouch_Subt = [text.userInfo[@"textFive"]integerValue];
+            
+            [USER_DEFAULT setObject:text.userInfo[@"textFour"] forKey: @"Touch_Audio_index"];
+            [USER_DEFAULT setObject:text.userInfo[@"textFive"]  forKey:@"Touch_Subt_index"];
+            [USER_DEFAULT setObject:@"YES" forKey:@"audioOrSubtTouch"];
+            [USER_DEFAULT setObject:text.userInfo[@"textOne"] forKey: @"Touch_Channel_index"];
+        }else
+        {
+        [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
         }
         //通知主线程刷新
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -5823,6 +5842,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
     [self addHistory:row diction:dic];
+    [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+    [self.videoController setaudioOrSubtRowIsZero];
     //    [self getsubt];
     //__
     

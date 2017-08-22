@@ -41,4 +41,6 @@
 /// 展示播放器
 - (void)showInView:(UIView *)view;
 
+-(void)setaudioOrSubtRowIsZero;
+
 @end
