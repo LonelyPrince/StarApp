@@ -2104,7 +2104,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self judgeNextBtnIsGray];
         NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
         NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
-        BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+        BOOL judgeIsNull = [self judgeSubtIsNull:subtarr];
         if (judgeIsNull == YES) {
             NSLog(@"数值为空，所以此时应该直接返回");
             [self.videoControl.subtBtn setEnabled:NO];
@@ -2114,7 +2114,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
             [self.videoControl.subtBtn setEnabled:NO];
         }
-        BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+        BOOL judgeIsNull1 = [self judgeAudioIsNull:audioStr];
         if (judgeIsNull1 == YES) {
             NSLog(@"数值为空，所以此时应该直接返回");
             [self.videoControl.audioBtn setEnabled:NO];
@@ -2563,14 +2563,30 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self configDeviceOrientationObserver];
     
     
-    if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:subtPositionIndex inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    
+    
+    
+    
+    NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
+    BOOL judgeIsNull = [self judgeSubtIsNull:subtarr];
+    if (judgeIsNull == YES || subtarr.count == 0 || subtarr == NULL || subtarr == nil) {
+        
+        NSLog(@"音轨可能没有数据");
+        
     }else
     {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:subtPositionIndex inSection:0];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }else
+        {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }
     }
+    
+    //
+    
     
     
 
@@ -2679,14 +2695,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }
     
-    if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
+    BOOL judgeIsNull = [self judgeAudioIsNull:audioarr];
+    if (judgeIsNull == YES || audioarr.count == 0 || audioarr == NULL || audioarr == nil) {
+    
+        NSLog(@"音轨可能没有数据");
+    
     }else
     {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }else
+        {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }
+
     }
+    
    
 
 }
@@ -3272,28 +3299,49 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 
--(BOOL)judgeAudioOrSubtIsNull :(NSArray *)audioOrSubtArr
+-(BOOL)judgeAudioIsNull :(NSArray *)audioArr
 {
-    if (audioOrSubtArr.count == 1) {
-        NSString * subtOrAudioPidStr = [audioOrSubtArr[0] objectForKey:@"subt_pid"];
-        NSString * subtOrAudiolanguageStr = [audioOrSubtArr[0] objectForKey:@"subt_language"];
-        if ([subtOrAudioPidStr isEqualToString:@""] || [subtOrAudiolanguageStr isEqualToString:@""] ) {
+    if (audioArr.count >= 1) {
+        NSString * AudioPidStr = [audioArr[0] objectForKey:@"audio_pid"];
+        NSString * AudiolanguageStr = [audioArr[0] objectForKey:@"audio_language"];
+        if ([AudioPidStr isEqualToString:@""] || [AudiolanguageStr isEqualToString:@""] ) {
             NSLog(@"数值为空，所以此时应该直接返回");
             return YES;
+        }else
+        {
+            return  NO;
         }
     }else
     {
-        return NO;
+        return YES;
     }
 }
 
+-(BOOL)judgeSubtIsNull :(NSArray *)SubtArr
+{
+    if (SubtArr.count >= 1) {
+        
+        NSString * subtPidStr = [SubtArr[0] objectForKey:@"subt_pid"];
+        NSString * subtlanguageStr = [SubtArr[0] objectForKey:@"subt_language"];
+        if ([subtPidStr isEqualToString:@""] || [subtlanguageStr isEqualToString:@""] ) {
+            NSLog(@"数值为空，所以此时应该直接返回");
+            return YES;
+        }else
+        {
+            return  NO;
+        }
+    }else
+    {
+        return YES;
+    }
+}
 /////////////
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if ([_cellStr isEqualToString:@"subt"]) {
         NSLog(@"self.subAudioDic--:%@",self.subAudioDic);
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
-        BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+        BOOL judgeIsNull = [self judgeSubtIsNull:subtarr];
         if (judgeIsNull == YES) {
             NSLog(@"数值为空，所以此时应该直接返回");
             [self.videoControl.subtBtn setEnabled:NO];
@@ -3319,8 +3367,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
         NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
-        BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:audioarr];
-        if (judgeIsNull == YES) {
+        BOOL judgeIsNull = [self judgeAudioIsNull:audioarr];
+        if (judgeIsNull == YES || audioarr.count == 0) {
             [self.videoControl.audioBtn setEnabled:NO];
             NSLog(@"数值为空，所以此时应该直接返回");
             return 0;
@@ -3929,7 +3977,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self judgeNextBtnIsGray];
     NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
     NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
-    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+    BOOL judgeIsNull = [self judgeSubtIsNull:subtarr];
     if (judgeIsNull == YES) {
         NSLog(@"数值为空，所以此时应该直接返回");
         [self.videoControl.subtBtn setEnabled:NO];
@@ -3939,7 +3987,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
         [self.videoControl.subtBtn setEnabled:NO];
     }
-    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+    BOOL judgeIsNull1 = [self judgeAudioIsNull:audioStr];
     if (judgeIsNull1 == YES) {
         NSLog(@"数值为空，所以此时应该直接返回");
         [self.videoControl.audioBtn setEnabled:NO];
@@ -4524,7 +4572,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
     NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
-    BOOL judgeIsNull = [self judgeAudioOrSubtIsNull:subtarr];
+    BOOL judgeIsNull = [self judgeSubtIsNull:subtarr];
     if (judgeIsNull == YES) {
         NSLog(@"数值为空，所以此时应该直接返回");
         [self.videoControl.subtBtn setEnabled:NO];
@@ -4534,7 +4582,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
         [self.videoControl.subtBtn setEnabled:NO];
     }
-    BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
+    BOOL judgeIsNull1 = [self judgeAudioIsNull:audioStr];
     if (judgeIsNull1 == YES) {
         NSLog(@"数值为空，所以此时应该直接返回");
         [self.videoControl.audioBtn setEnabled:NO];
