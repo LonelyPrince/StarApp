@@ -2111,7 +2111,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
         }else
         {
-            [self.videoControl.subtBtn setEnabled:YES];
+        //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
+            [self.videoControl.subtBtn setEnabled:NO];
         }
         BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
         if (judgeIsNull1 == YES) {
@@ -3309,7 +3310,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
             }
             
-            [self.videoControl.subtBtn setEnabled:YES];
+//        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
+            [self.videoControl.subtBtn setEnabled:NO];
             return subtarr.count;
             //        return 8;
         }
@@ -3934,7 +3936,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-        [self.videoControl.subtBtn setEnabled:YES];
+        //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
+        [self.videoControl.subtBtn setEnabled:NO];
     }
     BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
     if (judgeIsNull1 == YES) {
@@ -4528,7 +4531,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-        [self.videoControl.subtBtn setEnabled:YES];
+//        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
+        [self.videoControl.subtBtn setEnabled:NO];
     }
     BOOL judgeIsNull1 = [self judgeAudioOrSubtIsNull:audioStr];
     if (judgeIsNull1 == YES) {
