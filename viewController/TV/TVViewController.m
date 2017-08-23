@@ -1025,8 +1025,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"222channelCount==--==--22222= %d ",self.video.channelCount);
     NSLog(@"222self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
     
-    self.videoController.video = self.video;
-    NSLog(@"contentURL 22TV");
+    if (self.showTVView == YES) {
+        self.videoController.video = self.video;
+        NSLog(@"contentURL 22TV");
+    }else
+    {
+       
+    }
+    
     
     
     
@@ -1806,223 +1812,236 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 #pragma mark - 获取信息，准备播放
 - (void)getDataService:(NSNotification *)text{
-    NSLog(@"%@",text.userInfo[@"playdata"]);
-    NSLog(@"哦按都按搜到那是你大劫案申冬奥房那是大放悲声");
-    NSLog(@"－－－－－接收到通知------");
-    NSLog(@"playState---===TV 页接收到通知------");
-    //NSData --->byte[]-------NSData----->NSString
     
-    NSLog(@"000channelCount==--==--22222= %d ",self.video.channelCount);
-    NSLog(@"000self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
-    
-    _byteDatas = [[NSMutableData alloc]init];
-    
-    //此处加入判断语句，判断返回的结果RET是否满足几个报错信息
-    NSData * retData = [[NSData alloc]init];
-    //获得数据区的长度
-    if ([[USER_DEFAULT objectForKey:@"data_service11"] length] >=  16) {
+    if (self.showTVView == YES) {
         
-        retData = [[USER_DEFAULT objectForKey:@"data_service11"] subdataWithRange:NSMakeRange(12, 4)];
-    }else
-    {
-        return;
-    }
-
-    
-    NSLog(@"retData : %@",retData);
-    
-    int value = CFSwapInt32BigToHost(*(int*)([retData bytes]));
-    NSLog(@"value : %d",value);
-    //通过获得data数据减去发送的data数据得到播放连接，一下是返回数据的ret，如果ret不等于0则报错
-    [self  getLinkData :value];
-    //    //调用GGutil的方法
-    //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT  objectForKey:@"data_service11"]];
-    //
-    
-    NSLog(@"---urlDataTV接收%@",_byteDatas);
-    NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
-    
-    //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
-    self.video.playUrl = @"";
-    self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
-    //    self.video.playUrl =@"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
-    NSLog(@"self.video :%@",self.video);
-    NSLog(@"playState-==self.video.playUrl 22 %@ ",self.video.playUrl);
-    
-    //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
-    
-    self.video.channelId = self.service_videoindex;
-    self.video.channelName = self.service_videoname;
-    NSLog(@"self.video.channelName %@",self.video.channelName);
-    
-    self.video.playEventName = self.event_videoname;
-    NSLog(@"self.event_videoname 获取列表中 replaceEventNameNotific %@",self.event_videoname);
-    NSLog(@"replaceEventNameNotific self.video.playeventName :%@",self.video.playEventName);
-    self.video.startTime = self.event_startTime;
-    self.video.endTime = self.event_endTime;
-    //    self.video.dicSubAudio = self.TVSubAudioDic;
-    
-    [self setStateNonatic];
-
-    NSLog(@"byteValue1 TVTVTVTVTVTV");
-    
-    
-    [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
-    
-    
-    //==========正文
-    double delayInSeconds = 0;
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, mainQueue, ^{
-        NSLog(@"延时执行的2秒");
-        //        [self runThread1];
-        NSLog(@"byteValue1 TVTVTVTVTVTV222");
+        NSLog(@"%@",text.userInfo[@"playdata"]);
+        NSLog(@"哦按都按搜到那是你大劫案申冬奥房那是大放悲声");
+        NSLog(@"－－－－－接收到通知------");
+        NSLog(@"playState---===TV 页接收到通知------");
+        //NSData --->byte[]-------NSData----->NSString
         
-        [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
-        NSLog(@"666channelCount==--==--22222= %d ",self.video.channelCount);
-        NSLog(@"666self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+        NSLog(@"000channelCount==--==--22222= %d ",self.video.channelCount);
+        NSLog(@"000self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
         
-        [self playVideo];
-        NSLog(@"byteValue1 TVTVTVTVTVTV333");
+        _byteDatas = [[NSMutableData alloc]init];
         
-        NSLog(@"555channelCount==--==--22222= %d ",self.video.channelCount);
-        NSLog(@"555self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
-    });
-    
-   
-    
-    NSLog(@"playvideo 后面的线程");
-    NSLog(@"playVideo11 :");
-    
-    playState = NO;
-    
-
-    NSLog(@"playState:111111 %d",playState);
-//    [timerState invalidate];
-//    timerState = nil;
-    
-   
-    
-    [self ifNeedPlayClick];
-    NSLog(@"开始==计时===");
-
-    //    }
-    
-    
-    [self removeTopProgressView];
-    [self.timer invalidate];
-    self.timer = nil;
-    
-    
-    //** 计算进度条
-    if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
-    {
-        [self.view addSubview:self.topProgressView];
-        [self.view bringSubviewToFront:self.topProgressView];
-        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-        
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
-        NSLog(@"self.event_startTime--==%@",self.event_startTime);
-        NSLog(@"self.event_startTime--==%@",self.event_endTime);
-        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
+        //此处加入判断语句，判断返回的结果RET是否满足几个报错信息
+        NSData * retData = [[NSData alloc]init];
+        //获得数据区的长度
+        if ([[USER_DEFAULT objectForKey:@"data_service11"] length] >=  16) {
             
-            NSLog(@"此处可能报错，因为StarTime不为空 ");
-            NSLog(@"z在getDataService里面调用 replaceEventNameNotific");
-            NSLog(@"---删除进度条的地方101010");
-            [self removeProgressNotific];
+            retData = [[USER_DEFAULT objectForKey:@"data_service11"] subdataWithRange:NSMakeRange(12, 4)];
         }else
         {
-            NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
-            NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
+            return;
+        }
+        
+        
+        NSLog(@"retData : %@",retData);
+        
+        int value = CFSwapInt32BigToHost(*(int*)([retData bytes]));
+        NSLog(@"value : %d",value);
+        //通过获得data数据减去发送的data数据得到播放连接，一下是返回数据的ret，如果ret不等于0则报错
+        [self  getLinkData :value];
+        //    //调用GGutil的方法
+        //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT  objectForKey:@"data_service11"]];
+        //
+        
+        NSLog(@"---urlDataTV接收%@",_byteDatas);
+        NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
+        
+        //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
+        self.video.playUrl = @"";
+        self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
+        //    self.video.playUrl =@"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
+        NSLog(@"self.video :%@",self.video);
+        NSLog(@"playState-==self.video.playUrl 22 %@ ",self.video.playUrl);
+        
+        //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
+        
+        self.video.channelId = self.service_videoindex;
+        self.video.channelName = self.service_videoname;
+        NSLog(@"self.video.channelName %@",self.video.channelName);
+        
+        self.video.playEventName = self.event_videoname;
+        NSLog(@"self.event_videoname 获取列表中 replaceEventNameNotific %@",self.event_videoname);
+        NSLog(@"replaceEventNameNotific self.video.playeventName :%@",self.video.playEventName);
+        self.video.startTime = self.event_startTime;
+        self.video.endTime = self.event_endTime;
+        //    self.video.dicSubAudio = self.TVSubAudioDic;
+        
+        [self setStateNonatic];
+        
+        NSLog(@"byteValue1 TVTVTVTVTVTV");
+        
+        
+        [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+        
+        
+        //==========正文
+        double delayInSeconds = 0;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            NSLog(@"延时执行的2秒");
+            //        [self runThread1];
+            NSLog(@"byteValue1 TVTVTVTVTVTV222");
             
-            [dict setObject:self.event_startTime forKey:@"StarTime"];
-            [dict setObject:self.event_endTime forKey:@"EndTime"];
+            [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+            NSLog(@"666channelCount==--==--22222= %d ",self.video.channelCount);
+            NSLog(@"666self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
             
+            [self playVideo];
+            NSLog(@"byteValue1 TVTVTVTVTVTV333");
             
+            NSLog(@"555channelCount==--==--22222= %d ",self.video.channelCount);
+            NSLog(@"555self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+        });
+        
+        
+        
+        NSLog(@"playvideo 后面的线程");
+        NSLog(@"playVideo11 :");
+        
+        playState = NO;
+        
+        
+        NSLog(@"playState:111111 %d",playState);
+        //    [timerState invalidate];
+        //    timerState = nil;
+        
+        
+        if (self.showTVView == YES) {
+        [self ifNeedPlayClick];
+        }else
+        {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        }
+        NSLog(@"开始==计时===");
+        
+        //    }
+        
+        
+        [self removeTopProgressView];
+        [self.timer invalidate];
+        self.timer = nil;
+        
+        
+        //** 计算进度条
+        if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
+        {
+            [self.view addSubview:self.topProgressView];
+            [self.view bringSubviewToFront:self.topProgressView];
+            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
             
-            //判断当前是不是一个节目（此处应该没有实质价值）
-            eventName1 = self.event_videoname;
-            eventName2 = self.event_videoname;
-            //        eventNameTemp ;
-            eventNameTemp = eventName1;
-            if (eventName2 != eventNameTemp) {
-                // 不同的节目   @"同一个节目";
+            NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+            NSLog(@"self.event_startTime--==%@",self.event_startTime);
+            NSLog(@"self.event_startTime--==%@",self.event_endTime);
+            if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
+                
+                NSLog(@"此处可能报错，因为StarTime不为空 ");
+                NSLog(@"z在getDataService里面调用 replaceEventNameNotific");
+                NSLog(@"---删除进度条的地方101010");
+                [self removeProgressNotific];
             }else
             {
-                //@"同一个节目";
-                eventName2 = eventNameTemp;
+                NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
+                NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
                 
-                //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+                [dict setObject:self.event_startTime forKey:@"StarTime"];
+                [dict setObject:self.event_endTime forKey:@"EndTime"];
                 
                 
-//                if (TVViewTouchPlay == YES) {
+                
+                //判断当前是不是一个节目（此处应该没有实质价值）
+                eventName1 = self.event_videoname;
+                eventName2 = self.event_videoname;
+                //        eventNameTemp ;
+                eventNameTemp = eventName1;
+                if (eventName2 != eventNameTemp) {
+                    // 不同的节目   @"同一个节目";
+                }else
+                {
+                    //@"同一个节目";
+                    eventName2 = eventNameTemp;
+                    
+                    //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+                    
+                    
+                    //                if (TVViewTouchPlay == YES) {
                     progressEPGArrIndex = 0;
-//                }else
-//                {
-////                //progressEPGArrIndex 不变
-//                }
-            
-                
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
-                
-                int tempIndex =progressEPGArrIndex;
-                NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
-                [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
-                //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
-                NSInteger endTime =[self.event_endTime intValue ];
-                //                NSInteger startTime =[self.event_startTime intValue ];
-
-                //                NSDate *senddate = [NSDate date];
-                //                NSLog(@"date1时间戳 = %ld",time(NULL));
-                NSString *nowDate = [GGUtil GetNowTimeString];
-                NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
-                
-                NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
-                NSLog(@"replaceEventNameNotific 计算进度条的里面");
-                NSLog(@"progressRefreshprogressRefresh 111");
-                
-                
-                
-                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-                [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
-                
-                NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
-                
+                    //                }else
+                    //                {
+                    ////                //progressEPGArrIndex 不变
+                    //                }
+                    
+                    
+                    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
+                    
+                    int tempIndex =progressEPGArrIndex;
+                    NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
+                    [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
+                    //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+                    NSInteger endTime =[self.event_endTime intValue ];
+                    //                NSInteger startTime =[self.event_startTime intValue ];
+                    
+                    //                NSDate *senddate = [NSDate date];
+                    //                NSLog(@"date1时间戳 = %ld",time(NULL));
+                    NSString *nowDate = [GGUtil GetNowTimeString];
+                    NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+                    
+                    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+                    NSLog(@"replaceEventNameNotific 计算进度条的里面");
+                    NSLog(@"progressRefreshprogressRefresh 111");
+                    
+                    
+                    
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                    [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                    
+                    NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
+                    
+                }
             }
+            //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+            //
+            //        }else
+            //        {
+            //            NSLog(@"此处可能报错，因为StarTime不为空 ");
+            //
+            //        }
+            
+            
+            
+            
+        }else{
+            
+            NSLog(@"---删除进度条的地方111");
+            [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+            
+            
         }
-        //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
-        //
-        //        }else
-        //        {
-        //            NSLog(@"此处可能报错，因为StarTime不为空 ");
-        //
-        //        }
+        //**
+        NSLog(@"---urlData接收页面下面的video.playurl%@",self.video.playUrl);
+        
+        
+        NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
+        
+        //    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        //    [alertview show];
         
         
         
-        
-    }else{
-    
-        NSLog(@"---删除进度条的地方111");
-        [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
-        
+        NSLog(@"111channelCount==--==--22222= %d ",self.video.channelCount);
+        NSLog(@"111self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
         
     }
-    //**
-    NSLog(@"---urlData接收页面下面的video.playurl%@",self.video.playUrl);
-    
-    
-    NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
-    
-    //    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    //    [alertview show];
-    
-    
-    
-    NSLog(@"111channelCount==--==--22222= %d ",self.video.channelCount);
-    NSLog(@"111self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
-    
+    else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
 }
 //-(void)abcd
 //{
@@ -2107,6 +2126,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
+    if (self.showTVView) {
         //=====则去掉不能播放的字样，加上加载环
     [self removeLabAndAddIndecatorView];
     
@@ -2245,11 +2265,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.videoController.socketView1 = self.socketView;
-        [self.socketView  serviceTouch ];
+        
+        if (self.showTVView == YES) {
+            self.videoController.socketView1 = self.socketView;
+            [self.socketView  serviceTouch ];
+            NSLog(@"测试播放2222222222222233333");
+        }else
+        {
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
+        
     });
     
-    
+//        double delayInSeconds = 2;
+//        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(popTime, mainQueue, ^{
+//            
+//            self.videoController.socketView1 = self.socketView;
+//            [self.socketView  serviceTouch ];
+//            NSLog(@"测试播放2222222222222233333");
+//        });
+    }else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
+   
     
     
     //        }
@@ -2341,7 +2384,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //    //如果视频25秒内不播放，则显示sorry的提示文字
         //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
         //    [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
-        [self ifNeedPlayClick];
+        if (self.showTVView == YES) {
+            [self ifNeedPlayClick];
+        }else
+        {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        }
         
         NSLog(@"开始==计时===");
         
@@ -2540,6 +2588,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }else{
         
+        self.showTVView = YES;
+        [USER_DEFAULT setObject:@"YES" forKey:@"showTVView"];
 //        NSString *  viewAppearRandomStr  = @"yes";  //这是一个局部变量，确保每次打开时值都不一样，然后通过这个值来判断是偶可以播放了
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
@@ -2813,139 +2863,147 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-    NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-    });
-    NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
-    
-    if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
-        //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
-        [self stopVideoPlay]; //停止视频播放
+    if (self.showTVView == YES) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        });
+        NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
         
-        //        //取消掉加载环
-        //        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
-        //        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-        
-        //        NSString * playStateType = deliveryStopTip;
-        [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
-        //        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        
-        
-        
-        
-    }else //视频没有停止分发，跳转界面可以播放
-    {
-        //=====则去掉不能播放的字样，加上加载环
-        [self removeLabAndAddIndecatorView];
-        
-        NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
-        if([jumpFormOtherView isEqualToString:@"YES"])
-        {
-            NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
-            NSLog(@"挖从奥到底dic come on");
-            if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
-                
-                NSInteger row = [storeLastChannelArr[2] integerValue];
-                NSDictionary * dic = storeLastChannelArr [3];
-                //在这里添加判断 机顶盒是否加密
-                
-                //在这里添加判断 机顶盒是否加密
-                //=======机顶盒加密
-                NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
-                if (characterStr != NULL && characterStr != nil) {
-                    BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                    if (judgeIsSTBDecrypt == YES) {
-                        // 此处代表需要记性机顶盒加密验证
-                        NSNumber  *numIndex = [NSNumber numberWithInteger:row];
-                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                        //创建通知
-                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                        NSLog(@"POPPOPPOPPOP44444444444441");
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                        
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
-                    }else //正常播放的步骤
-                    {
-                        //======
-                        [self firstOpenAppAutoPlay:row diction:dic];
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
-                    }
-                }else //正常播放的步骤
-                {
-                    //======机顶盒加密
-                    [self firstOpenAppAutoPlay:row diction:dic];
-                }
-                
-                
-                
-                
-                [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
-            }else
-            {
-                NSArray * touchArr = historyArr[historyArr.count - 1];
-                
-                NSInteger row = [storeLastChannelArr[2] integerValue];
-                NSDictionary * dic = storeLastChannelArr [3];
-                //在这里添加判断 机顶盒是否加密
-                //=======机顶盒加密
-                NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
-                if (characterStr != NULL && characterStr != nil) {
-                    BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                    if (judgeIsSTBDecrypt == YES) {
-                        // 此处代表需要记性机顶盒加密验证
-                        NSNumber  *numIndex = [NSNumber numberWithInteger:row];
-                        NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                        //创建通知
-                        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                        NSLog(@"POPPOPPOPPOP44444444444441");
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                        
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
-                    }else //正常播放的步骤
-                    {
-                        //======
-                        [self firstOpenAppAutoPlay:row diction:dic];
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
-                    }
-                }else //正常播放的步骤
-                {
-                    //======机顶盒加密
-                    [self firstOpenAppAutoPlay:row diction:dic];
-                }
-                
-                //////
-                //            NSLog(@"挖从奥到底dic 11 %@",dic);
-                //            NSNumber * numIndex = [NSNumber numberWithInt:row];
-                //
-                //            //添加 字典，将label的值通过key值设置传递
-                //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-                //            //创建通知
-                //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-                //            //通过通知中心发送通知
-                //            [[NSNotificationCenter defaultCenter] postNotification:notification];
-                //            NSLog(@"目前是judgeJumpFromOtherView");
-                
-                //        [self.videoController play];
-                
-                [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
-            }
+        if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
+            //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
+            [self stopVideoPlay]; //停止视频播放
             
+            //        //取消掉加载环
+            //        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+            //        //        //通过通知中心发送通知
+            //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            //        NSString * playStateType = deliveryStopTip;
+            [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
+            //        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            
+            
+            
+        }else //视频没有停止分发，跳转界面可以播放
+        {
+            //=====则去掉不能播放的字样，加上加载环
+            [self removeLabAndAddIndecatorView];
+            
+            NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
+            if([jumpFormOtherView isEqualToString:@"YES"])
+            {
+                NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+                NSLog(@"挖从奥到底dic come on");
+                if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
+                    
+                    NSInteger row = [storeLastChannelArr[2] integerValue];
+                    NSDictionary * dic = storeLastChannelArr [3];
+                    //在这里添加判断 机顶盒是否加密
+                    
+                    //在这里添加判断 机顶盒是否加密
+                    //=======机顶盒加密
+                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                    if (characterStr != NULL && characterStr != nil) {
+                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                        if (judgeIsSTBDecrypt == YES) {
+                            // 此处代表需要记性机顶盒加密验证
+                            NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                            //创建通知
+                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                            NSLog(@"POPPOPPOPPOP44444444444441");
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                            
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }else //正常播放的步骤
+                        {
+                            //======
+                            [self firstOpenAppAutoPlay:row diction:dic];
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }
+                    }else //正常播放的步骤
+                    {
+                        //======机顶盒加密
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                    }
+                    
+                    
+                    
+                    
+                    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                }else
+                {
+                    NSArray * touchArr = historyArr[historyArr.count - 1];
+                    
+                    NSInteger row = [storeLastChannelArr[2] integerValue];
+                    NSDictionary * dic = storeLastChannelArr [3];
+                    //在这里添加判断 机顶盒是否加密
+                    //=======机顶盒加密
+                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                    if (characterStr != NULL && characterStr != nil) {
+                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                        if (judgeIsSTBDecrypt == YES) {
+                            // 此处代表需要记性机顶盒加密验证
+                            NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                            //创建通知
+                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                            NSLog(@"POPPOPPOPPOP44444444444441");
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                            
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }else //正常播放的步骤
+                        {
+                            //======
+                            [self firstOpenAppAutoPlay:row diction:dic];
+                            firstOpenAPP = firstOpenAPP+1;
+                            NSLog(@"测试播放111111111111111");
+                            firstfirst = NO;
+                        }
+                    }else //正常播放的步骤
+                    {
+                        //======机顶盒加密
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                    }
+                    
+                    //////
+                    //            NSLog(@"挖从奥到底dic 11 %@",dic);
+                    //            NSNumber * numIndex = [NSNumber numberWithInt:row];
+                    //
+                    //            //添加 字典，将label的值通过key值设置传递
+                    //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+                    //            //创建通知
+                    //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                    //            //通过通知中心发送通知
+                    //            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    //            NSLog(@"目前是judgeJumpFromOtherView");
+                    
+                    //        [self.videoController play];
+                    
+                    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                }
+                
+            }
         }
+
+    }else
+    {
+    
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
     }
     
     
@@ -3454,7 +3512,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //②先判断有没有正在播放的节目了
         NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
         NSArray * touchArr ;
-        if (historyArr.count > 1) {
+        if (historyArr.count >= 1) {
              touchArr = historyArr[historyArr.count - 1];
         }else
         {
@@ -4404,8 +4462,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"self.socket:%@",self.socketView);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.videoController.socketView1 = self.socketView;
-        [self.socketView  serviceTouch ];
+        if (self.showTVView == YES) {
+            self.videoController.socketView1 = self.socketView;
+            [self.socketView  serviceTouch ];
+            NSLog(@"测试播放2222222222222233333");
+        }else
+        {
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
    
     });
     
@@ -4723,8 +4788,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"self.socket:%@",self.socketView);
     
-    self.videoController.socketView1 = self.socketView;
-    [self.socketView  serviceTouch ];
+    if (self.showTVView == YES) {
+        self.videoController.socketView1 = self.socketView;
+        [self.socketView  serviceTouch ];
+        NSLog(@"测试播放2222222222222233333");
+    }else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
     
     
 }
@@ -4732,6 +4804,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    if (self.showTVView == YES) {
     NSLog(@"已经跳转到firstopen方法");
     //=====则去掉不能播放的字样，加上加载环
     [self removeLabAndAddIndecatorView];
@@ -4874,12 +4947,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"self.socket:%@",self.socketView);
     
-    self.videoController.socketView1 = self.socketView;
-    NSLog(@"playState---== 第一次打开发送数据111");
-    [self.socketView  serviceTouch ];
-    NSLog(@"playState---== 第一次打开发送数据222");
-    
-    
+        if (self.showTVView == YES) {
+            self.videoController.socketView1 = self.socketView;
+            NSLog(@"playState---== 第一次打开发送数据111");
+            [self.socketView  serviceTouch ];
+            NSLog(@"playState---== 第一次打开发送数据222");
+            NSLog(@"测试播放22222222222222");
+        }else
+        {
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
+    }
+    else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
     
 }
 
@@ -5287,7 +5371,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
 
     CAAlert.title = @"It's wrong,Once more";
+    if (self.showTVView == YES) {
     [CAAlert show];
+    }else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
     CATextField_Encrypt.text = @"";
     CAAlert.dontDisppear = YES;
     
@@ -5409,7 +5499,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"弹出 STB 窗口 ");
         STBAlert.title = @"It's wrong,Once more";
+        if (self.showTVView == YES) {
         [STBAlert show];
+        }else
+        {
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
         STBTextField_Encrypt.text = @"";
         STBAlert.dontDisppear = YES;
         
@@ -5424,7 +5520,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self stopVideoPlay];
     
     STBAlert.title = @"Please input your Decoder PIN";
-    [STBAlert show];
+    if (self.showTVView == YES) {
+        [STBAlert show];
+    }else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
     STBTextField_Encrypt.text = @"";
     STBAlert.dontDisppear = YES;
     
@@ -5436,7 +5538,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)popCAAlertViewInputAgain //: (NSNotification *)text
 {
     CAAlert.title = @"Please input your CA PIN";
-    [CAAlert show];
+    if (self.showTVView == YES) {
+        [CAAlert show];
+    }else
+    {
+        NSLog(@"已经不是TV页面了");
+        [self ifNotISTVView];
+    }
     CATextField_Encrypt.text = @"";
     CAAlert.dontDisppear = YES;
     
@@ -5494,34 +5602,61 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             
             [self serviceEPGSetData:STBTouch_Row diction:STBTouch_Dic];
+           
+            if (self.showTVView == YES) {
+                /**
+                1.弹窗
+                    1.show的方法覆写
+                    2.弹窗那一刻进行判断
+                    3.弹窗的字样和按钮判断
+                    4.弹窗确认按钮点击后进行一次判断，防止按钮点击后，切换页面
+                 2.播放
+                    1.播放器初始化时，进行判断
+                    2.点击后socket请求进行判断
+                    3.所有带有播放请求的页面都进行一次判断
+                */
+                
+                [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+                STBAlert.delegate =  self;
+                STBAlert.title = @"Please input your Decoder PIN";
+                if (self.showTVView == YES) {
+                    [STBAlert show];
+                }else
+                {
+                    NSLog(@"已经不是TV页面了");
+                    [self ifNotISTVView];
+                }
+                STBTextField_Encrypt.text = @"";
+                STBAlert.dontDisppear = YES;
+                
+                
+                
+                STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
+                
+                
+                STBTextField_Encrypt.delegate = self;
+                STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
+                STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
+                [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                            name:@"UITextFieldTextDidChangeNotification"
+                                                          object:STBTextField_Encrypt];
+                //修改decoderPIN 和CA PIN 的 占位文字
+                if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
+                    STBTextField_Encrypt.placeholder = @"decoder PIN";
+                }
+                
+                
+                NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                
+
+            }else
+            {
             
-            [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-            STBAlert.delegate =  self;
-            STBAlert.title = @"Please input your Decoder PIN";
-            [STBAlert show];
-            STBTextField_Encrypt.text = @"";
-            STBAlert.dontDisppear = YES;
-            
-            
-            
-            STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
-            
-            
-            STBTextField_Encrypt.delegate = self;
-            STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
-            STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
-            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-                                                        name:@"UITextFieldTextDidChangeNotification"
-                                                      object:STBTextField_Encrypt];
-            //修改decoderPIN 和CA PIN 的 占位文字
-            if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
-                STBTextField_Encrypt.placeholder = @"decoder PIN";
+                NSLog(@"已经不是TV页面了");
+                [self ifNotISTVView];
             }
-            
-            
-            NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-            //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
-            [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
             
             
@@ -5594,7 +5729,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
         CAAlert.delegate =  self;
         CAAlert.title = @"Please input your CA PIN";
-        [CAAlert show];
+        if (self.showTVView == YES) {
+            [CAAlert show];
+        }else
+        {
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
         CATextField_Encrypt.text = @"";
         CAAlert.dontDisppear = YES;
         
@@ -7404,6 +7545,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (NOCACardStatusInt != 3) {
         NSLog(@"jajajajahahahasdasdasdasd");
         
+//        if (self.) {
+//            <#statements#>
+//        }
         
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         
@@ -7555,8 +7699,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"asdasdasffadasfds vsdcsasad %d",i);
             
             NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"]; //历史数据
+            NSArray * nowPlayChannel_Arr ;
+            if (arrHistoryNow.count >= 1) {
+                nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
+            }else
+            {
+                return;
+            }
             
-            NSArray * nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
             NSInteger row = [nowPlayChannel_Arr[2] intValue];
             NSDictionary * dic = nowPlayChannel_Arr [3];
             
@@ -7938,7 +8088,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
     NSLog(@"取消播放第二次");
     NSLog(@"取消播放第二次 %@",[NSThread currentThread]);
-    [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
+        if (self.showTVView == YES) {
+            [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
+        }else
+        {
+        
+        }
     
     });
     
@@ -7977,6 +8132,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - UIViewController对象的视图即将消失、被覆盖或是隐藏时调用
 -(void)viewWillDisappear:(BOOL)animated
 {
+    self.showTVView = NO;
+    [USER_DEFAULT setObject:@"NO" forKey:@"showTVView"];
     NSLog(@" viewWillDisappear viewWillDisappear");
     [self removeONEMinuteTimer];
     self.video.playUrl = @"";
@@ -8482,5 +8639,36 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
 //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(endMJRefresh) object:nil];
 //    [self performSelector:@selector(endMJRefresh) withObject:nil afterDelay:EndMJRefreshTime];
+}
+#pragma mark - 如果这个时候展示的不是TV页面，则不进行播放的各个事件通知
+//如果这个时候展示的不是TV页面，则不进行播放的各个事件通知
+-(void)ifNotISTVView
+{
+    NSLog(@"已经不是TV页面了");
+    //停止加载
+    NSLog(@"① 去掉不能播放给的字样  ② 去掉加载    ③只用展示黑屏");
+    //① 去掉不能播放给的字样
+    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    //② 去掉20s 播放
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    
+    //③创建通知,删除进度条
+    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    //④ 删除音频图片
+    NSNotification *notification2 =[NSNotification notificationWithName:@"removeConfigRadioShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
+    
+    //⑤取消掉加载环
+    NSNotification *notification3 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification3];
+    
+    //⑥停止播放的动作,并且取消掉图画
+    [self stopVideoPlay];
 }
 @end

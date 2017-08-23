@@ -173,7 +173,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
         self.rightViewShowing = NO;
-        //        self.tvViewControlller = [[TVViewController alloc]init];
+//                self.tvViewControlller = [[TVViewController alloc]init];
         self.socketView1 = [[SocketView alloc]init];
         HorTime =0;
         
@@ -2564,11 +2564,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:subtPositionIndex inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }else
     {
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
     
     
@@ -2680,11 +2680,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }else
     {
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
    
 
@@ -2716,7 +2716,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    }
     NSLog(@"channelPositionIndex %d",channelPositionIndex);
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:channelPositionIndex inSection:0];
-    [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 }
 
 
@@ -2922,8 +2922,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         //    [self.view addSubview:self.player.view];
         
-        [self.player prepareToPlay:0];
-        [self.player play];
+//        if (self. showTVView == YES) {
+        if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
+            [self.player prepareToPlay:0];
+            [self.player play];
+        }else
+        {
+            [self.player shutdown];
+            [self.player.view removeFromSuperview];
+            self.player = nil;
+        }
+        
+//        }
+        
+        
         
         NSLog(@"执行中0000000");
         

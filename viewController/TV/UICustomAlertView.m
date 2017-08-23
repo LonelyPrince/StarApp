@@ -27,6 +27,19 @@
     [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
 }
 
+//此处找到父级页面，并且判断如果父级页面是TVView，然后再判断showTVView的bool值，如果是yes才显示
+-(void)show
+{
+    
+    if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
+        [super show];
+    }else
+    {
+        NSLog(@"差一点就弹窗了，吓死了");
+    }
+    
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

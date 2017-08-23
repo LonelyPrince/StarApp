@@ -1297,6 +1297,7 @@
         
     }
     [self.socket readDataWithTimeout:30 tag:0];
+    
 }
 #pragma  mark -对socket读取文件进行操作
 //对socket读取文件进行操作   case = 0
@@ -1355,6 +1356,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"测试播放33333333333333");
 }
 
 //对socket读取文件进行操作   case = 24

@@ -11,6 +11,7 @@
 
 //static const void *kName = "name";
 static const void *kHasAnimating = @"Animating";
+static const void *kHasshowTVView = @"showTVView";
 //static const void *kBackgroundImage = @"backgroundImage";
 
 @implementation UIViewController (Information)
@@ -31,6 +32,15 @@ static const void *kHasAnimating = @"Animating";
 
 - (void)setAnimating:(BOOL)Animating {
     objc_setAssociatedObject(self, kHasAnimating, [NSNumber numberWithBool:Animating], OBJC_ASSOCIATION_ASSIGN);
+}
+
+
+- (BOOL)showTVView {
+    return [objc_getAssociatedObject(self, kHasshowTVView) boolValue];
+}
+
+- (void)setShowTVView:(BOOL)showTVView {
+    objc_setAssociatedObject(self, kHasshowTVView, [NSNumber numberWithBool:showTVView], OBJC_ASSOCIATION_ASSIGN);
 }
 
 //#pragma mark - 类类型的动态绑定

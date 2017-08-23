@@ -11,5 +11,6 @@
 @interface UIViewController (animationView)
 
 @property (nonatomic, assign) BOOL Animating;
+@property (nonatomic, assign) BOOL showTVView;
 
 @end
