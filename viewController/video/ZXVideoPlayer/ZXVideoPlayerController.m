@@ -65,6 +65,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int audioPositionIndex;
     int subtPositionIndex;
     int channelPositionIndex;
+    int openTime; //用于第一次打开时，触发隐藏方法，防止多次触犯，这里赋值为0
 }
 
 
@@ -138,6 +139,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     self = [super init:frame];
     if (self) {
+        openTime = 0;
         self.view.frame = frame;
         self.view.backgroundColor = [UIColor blackColor]; //blackColor
         //        self.view.backgroundColor = [UIColor redColor];
@@ -328,7 +330,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)configObserver
 {
     // 播放状态改变，可配合playbakcState属性获取具体状态
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:IJKMPMoviePlayerPlaybackDidFinishNotification object:self.player];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:nil];  //IJKMPMoviePlayerPlaybackDidFinishNotification
     
     // 媒体网络加载状态改变
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:IJKMPMoviePlayerLoadStateDidChangeNotification object:self.player];
@@ -367,43 +369,55 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 播放状态改变, 可配合playbakcState属性获取具体状态
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
-    NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
-    NSLog(@"MPMoviePlayer  播放状态改变");
-    
-    if (self.playbackState == MPMoviePlaybackStateInterrupted) {
-        NSLog(@"playState---=====视频中断 播放了！！");
-    }
-    if (self.playbackState == MPMoviePlaybackStatePlaying) {
-        NSLog(@"视频正在播放");
-        NSLog(@"准备开始播放");
-        NSLog(@"playState---=====准备开始播放");
-        NSLog(@"MPMoviePlayer  正在播放");
+    if (openTime == 0) {
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
-        [self startDurationTimer];
+        //    [self startDurationTimer];
         
         [self.videoControl.indicatorView stopAnimating];
         [self.videoControl autoFadeOutControlBar];
-        NSLog(@"视频正在播放，圆圈暂停");
-        //        [self play];
-    } else {
-        //        [self play];
-        
-        //        NSLog(@"视频正在播放停止");
-        //        NSLog(@"playState---=====视频正在播放停止");
-        self.videoControl.pauseButton.hidden = YES;
-        self.videoControl.playButton.hidden = NO;
-        [self stopDurationTimer];
-        if (self.playbackState == MPMoviePlaybackStateStopped) {
-            NSLog(@"playState---=====视频stop 了！！");
-            [self.videoControl.indicatorView startAnimating];
-            [self.videoControl animateShow];
-            
-        }
+        openTime ++ ;
+        NSLog(@"openTimeopenTimeopenTimeopenTime");
     }
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(quality) name:@"" object:nil];
+//    NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
+//    NSLog(@"MPMoviePlayer  播放状态改变");
+//    
+//    if (self.playbackState == MPMoviePlaybackStateInterrupted) {
+//        NSLog(@"playState---=====视频中断 播放了！！");
+//    }
+//    if (self.playbackState == MPMoviePlaybackStatePlaying) {
+//        NSLog(@"视频正在播放");
+//        NSLog(@"准备开始播放");
+//        NSLog(@"playState---=====准备开始播放");
+//        NSLog(@"MPMoviePlayer  正在播放");
+//        self.videoControl.pauseButton.hidden = NO;
+//        self.videoControl.playButton.hidden = YES;
+//        [self startDurationTimer];
+//        
+//        [self.videoControl.indicatorView stopAnimating];
+//        [self.videoControl autoFadeOutControlBar];
+//        NSLog(@"视频正在播放，圆圈暂停");
+//        //        [self play];
+//    } else {
+//        //        [self play];
+//        
+//        //        NSLog(@"视频正在播放停止");
+//        //        NSLog(@"playState---=====视频正在播放停止");
+//        self.videoControl.pauseButton.hidden = YES;
+//        self.videoControl.playButton.hidden = NO;
+//        [self stopDurationTimer];
+//        if (self.playbackState == MPMoviePlaybackStateStopped) {
+//            NSLog(@"playState---=====视频stop 了！！");
+//            [self.videoControl.indicatorView startAnimating];
+//            [self.videoControl animateShow];
+//            
+//        }
+//    }
+//    
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(quality) name:@"" object:nil];
 }
 
 /// 媒体网络加载状态改变
