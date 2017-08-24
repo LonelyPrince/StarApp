@@ -96,6 +96,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * indexpathRowStr;
     
     BOOL TVViewTouchPlay;
+    
+    
 }
 
 
@@ -267,6 +269,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSNumber *  abc = [USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"];
     NSLog(@"abc %d",[abc intValue]);
+    
     
 }
 #pragma mark-----KVO回调----
@@ -484,6 +487,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
+        NSLog(@" playVideo getServiceData");
         NSLog(@"playVideo55-GetService :");
         
         
@@ -1893,6 +1897,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"666self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
             
             [self playVideo];
+            NSLog(@" playVideo getDataService");
             NSLog(@"byteValue1 TVTVTVTVTVTV333");
             
             NSLog(@"555channelCount==--==--22222= %d ",self.video.channelCount);
@@ -2901,99 +2906,117 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"挖从奥到底dic come on");
                 if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
                     
-                    NSInteger row = [storeLastChannelArr[2] integerValue];
-                    NSDictionary * dic = storeLastChannelArr [3];
-                    //在这里添加判断 机顶盒是否加密
-                    
-                    //在这里添加判断 机顶盒是否加密
-                    //=======机顶盒加密
-                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
-                    if (characterStr != NULL && characterStr != nil) {
-                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                        if (judgeIsSTBDecrypt == YES) {
-                            // 此处代表需要记性机顶盒加密验证
-                            NSNumber  *numIndex = [NSNumber numberWithInteger:row];
-                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                            //创建通知
-                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                            NSLog(@"POPPOPPOPPOP44444444444441");
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            
-                            firstOpenAPP = firstOpenAPP+1;
-                            
-                            firstfirst = NO;
+                    if (storeLastChannelArr.count >= 4) {
+                        NSInteger row = [storeLastChannelArr[2] integerValue];
+                        NSDictionary * dic = storeLastChannelArr [3];
+                        //在这里添加判断 机顶盒是否加密
+                        
+                        //在这里添加判断 机顶盒是否加密
+                        //=======机顶盒加密
+                        NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                        if (characterStr != NULL && characterStr != nil) {
+                            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                            if (judgeIsSTBDecrypt == YES) {
+                                // 此处代表需要记性机顶盒加密验证
+                                NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                                //创建通知
+                                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                                NSLog(@"POPPOPPOPPOP44444444444441");
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                
+                                firstOpenAPP = firstOpenAPP+1;
+                                
+                                firstfirst = NO;
+                            }else //正常播放的步骤
+                            {
+                                //======
+                                [self firstOpenAppAutoPlay:row diction:dic];
+                                firstOpenAPP = firstOpenAPP+1;
+                                
+                                firstfirst = NO;
+                            }
                         }else //正常播放的步骤
                         {
-                            //======
+                            //======机顶盒加密
                             [self firstOpenAppAutoPlay:row diction:dic];
-                            firstOpenAPP = firstOpenAPP+1;
-                            
-                            firstfirst = NO;
                         }
-                    }else //正常播放的步骤
+                        
+                        
+                        
+                        
+                        [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                    }else
                     {
-                        //======机顶盒加密
-                        [self firstOpenAppAutoPlay:row diction:dic];
+                        return ;
                     }
-                    
-                    
-                    
-                    
-                    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                   
                 }else
                 {
-                    NSArray * touchArr = historyArr[historyArr.count - 1];
-                    
-                    NSInteger row = [storeLastChannelArr[2] integerValue];
-                    NSDictionary * dic = storeLastChannelArr [3];
-                    //在这里添加判断 机顶盒是否加密
-                    //=======机顶盒加密
-                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
-                    if (characterStr != NULL && characterStr != nil) {
-                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                        if (judgeIsSTBDecrypt == YES) {
-                            // 此处代表需要记性机顶盒加密验证
-                            NSNumber  *numIndex = [NSNumber numberWithInteger:row];
-                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                            //创建通知
-                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                            NSLog(@"POPPOPPOPPOP44444444444441");
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    if (historyArr.count > 0) {
+                        NSArray * touchArr = historyArr[historyArr.count - 1];
+                        
+                        if (storeLastChannelArr.count >= 4) {
+                            NSInteger row = [storeLastChannelArr[2] integerValue];
+                            NSDictionary * dic = storeLastChannelArr [3];
+                            //在这里添加判断 机顶盒是否加密
+                            //=======机顶盒加密
+                            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                            if (characterStr != NULL && characterStr != nil) {
+                                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                                if (judgeIsSTBDecrypt == YES) {
+                                    // 此处代表需要记性机顶盒加密验证
+                                    NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                                    //创建通知
+                                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                                    NSLog(@"POPPOPPOPPOP44444444444441");
+                                    //通过通知中心发送通知
+                                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                    
+                                    firstOpenAPP = firstOpenAPP+1;
+                                    
+                                    firstfirst = NO;
+                                }else //正常播放的步骤
+                                {
+                                    //======
+                                    [self firstOpenAppAutoPlay:row diction:dic];
+                                    firstOpenAPP = firstOpenAPP+1;
+                                    NSLog(@"测试播放111111111111111");
+                                    firstfirst = NO;
+                                }
+                            }else //正常播放的步骤
+                            {
+                                //======机顶盒加密
+                                [self firstOpenAppAutoPlay:row diction:dic];
+                            }
                             
-                            firstOpenAPP = firstOpenAPP+1;
+                            //////
+                            //            NSLog(@"挖从奥到底dic 11 %@",dic);
+                            //            NSNumber * numIndex = [NSNumber numberWithInt:row];
+                            //
+                            //            //添加 字典，将label的值通过key值设置传递
+                            //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+                            //            //创建通知
+                            //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                            //            //通过通知中心发送通知
+                            //            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                            //            NSLog(@"目前是judgeJumpFromOtherView");
                             
-                            firstfirst = NO;
-                        }else //正常播放的步骤
+                            //        [self.videoController play];
+                            
+                            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                        }else
                         {
-                            //======
-                            [self firstOpenAppAutoPlay:row diction:dic];
-                            firstOpenAPP = firstOpenAPP+1;
-                            NSLog(@"测试播放111111111111111");
-                            firstfirst = NO;
+                            return;
                         }
-                    }else //正常播放的步骤
+                       
+                    }else
                     {
-                        //======机顶盒加密
-                        [self firstOpenAppAutoPlay:row diction:dic];
+                        return;
                     }
-                    
-                    //////
-                    //            NSLog(@"挖从奥到底dic 11 %@",dic);
-                    //            NSNumber * numIndex = [NSNumber numberWithInt:row];
-                    //
-                    //            //添加 字典，将label的值通过key值设置传递
-                    //            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-                    //            //创建通知
-                    //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-                    //            //通过通知中心发送通知
-                    //            [[NSNotificationCenter defaultCenter] postNotification:notification];
-                    //            NSLog(@"目前是judgeJumpFromOtherView");
-                    
-                    //        [self.videoController play];
-                    
-                    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                   
                 }
                 
             }
@@ -4166,7 +4189,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 /// 媒体网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
-    NSLog(@"MPMoviePlayer  LoadStateDidChange  Notification");
+    //做判断，如果3秒内不能播，则停止
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
+
+    
+//    NSLog(@"xxxxxx MPMoviePlayer  LoadStateDidChange  Notification 媒体网络加载状态改变");
     NSLog(@"MPMoviePlayer  加载");
     if (MPMovieLoadStateUnknown) {
         NSLog(@"playState---=====状态未知");
@@ -5142,7 +5169,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.activeView = nil;
         [self lineAndSearchBtnShow];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
-        [self playVideo];
+//        [self playVideo];
+        NSLog(@" playVideo getservicedataNotHaveSocket");
         NSLog(@"playVideo44 :");
         
         
@@ -6710,6 +6738,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
+        NSLog(@" playVideo getserviceDataForIpChange");
         NSLog(@"playVideo55-IP :");
         
         

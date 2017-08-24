@@ -66,6 +66,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int subtPositionIndex;
     int channelPositionIndex;
     int openTime; //用于第一次打开时，触发隐藏方法，防止多次触犯，这里赋值为0
+    
+    int judgeVideoIsStatic;  //判断视频是否出现了静帧，如果静帧时间超过3秒，则提示不能播放的文字。视频静帧的时候，会触发“媒体网络状态改变的方法”，视频恢复正常播放的时候会触发“播放状态改变”的方法
 }
 
 
@@ -190,6 +192,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         audioPositionIndex = 0;
         subtPositionIndex = 0;
         channelPositionIndex = 0;
+        judgeVideoIsStatic = 0;
     }
     return self;
 }
@@ -344,7 +347,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPayerControlViewHideNotification) name:kZXPlayerControlViewHideNotification object:self.player];
     
     // 视频播放结束时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:IJKMPMoviePlayerPlaybackDidFinishNotification object:nil];
     
 }
 //{
@@ -369,6 +372,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 播放状态改变, 可配合playbakcState属性获取具体状态
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
+//    if (judgeVideoIsStatic == 1) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
+        judgeVideoIsStatic = 0;
+//    }
+    NSLog(@"xxxxxx 播放状态改变, 可配合playbakcState属性获取具体状态");
     if (openTime == 0) {
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
@@ -420,10 +428,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(quality) name:@"" object:nil];
 }
 
+-(void)stopPlayAndShowLabel  //如果静帧超过3秒钟，显示不能播放的文字
+{
+
+    [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+    [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+}
 /// 媒体网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
-    NSLog(@"MPMoviePlayer  LoadStateDidChange  Notification");
+  
+    if (judgeVideoIsStatic == 0) {
+//        /    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
+        [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:3];
+        
+        judgeVideoIsStatic = 1;
+    }
+    
+    NSLog(@"xxxxxx MPMoviePlayer  Notification 媒体网络加载状态改变");
     NSLog(@"MPMoviePlayer  加载");
     if (MPMovieLoadStateUnknown) {
         NSLog(@"playState---=====状态未知");
@@ -478,7 +505,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 视频显示状态改变
 - (void)onMPMoviePlayerReadyForDisplayDidChangeNotification
 {
-    NSLog(@"MPMoviePlayer  ReadyForDisplayDidChange  Notification");
+    NSLog(@"xxxxxx MPMoviePlayer  Notification 视频显示状态改变");
     NSLog(@"MPMoviePlayer  视频显示状态改变");
     NSLog(@"playState---=====视频显示状态改变");
 }
@@ -508,7 +535,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //视频播放结束时
 -(void)onMPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
 {
-    NSLog(@"playState---=====视频播放结束");
+    NSLog(@"xxxxxx playState---=====视频播放结束 视频播放结束时");
     
     NSNumber* reason = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
     switch ([reason intValue]) {

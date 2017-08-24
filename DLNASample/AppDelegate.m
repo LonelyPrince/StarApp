@@ -429,36 +429,127 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 
 -(void)checkIPTimer
+//{
+//    //    NSString * IPstrNow = [GGUtil getIPAddress];
+//    
+//    
+//    NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
+//    
+//    if ([viewHasAddOver isEqualToString:@"NO"]) {
+//        //是TV页面，需要重新播放第一个视频
+//        
+//        NSLog(@" checkIPTimer IP 1 %@", self.ipString);
+//        NSString * IPstrNow=  [GGUtil getIPAddress:YES];
+//        if ([IPstrNow isEqualToString:self.ipString]) {
+//            
+//        }else
+//        {
+//            NSLog(@" checkIPTimer IP 不一样了 2 %@", self.ipString);
+//            
+//            NSLog(@"IP 网络改变");
+//            NSLog(@"IP 改变了在 checkIPTimer");
+//            
+//            [self.dataSource removeAllObjects];
+//            [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
+//            
+//            self.ipString = IPstrNow;
+//            //创建通知
+//            NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+//            //通过通知中心发送通知
+//            [[NSNotificationCenter defaultCenter] postNotification:notification];
+//            
+//            
+//        }
+//    }
+//    
+//    
+//    
+//    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
+//    if ([IPstrNow isEqualToString:self.ipString]) {
+//        
+//        NSLog(@"网络没问题");
+//        self.judgeNetWorkIsError = 0;
+//    }else
+//    {
+//        if (self.judgeNetWorkIsError == 0) {
+//            NSURL *url1 = [NSURL URLWithString:[USER_DEFAULT objectForKey:@"HMCServiceStr"]];
+//            NSURLRequest *request = [NSURLRequest requestWithURL:url1 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:2];
+//            NSHTTPURLResponse *response;
+//            NSOperationQueue *queue=[NSOperationQueue mainQueue];
+//            [NSURLConnection sendSynchronousRequest:request returningResponse: &response error: nil];
+//            self.judgeNetWorkIsError = 1;
+//            if (response == nil) {
+//                NSLog(@"网络错误");
+//                [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
+//                [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+//                
+//                NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//                //        //通过通知中心发送通知
+//                [[NSNotificationCenter defaultCenter] postNotification:notification];
+//            }
+//            else{
+//                
+//                NSLog(@" IPstrNow 1 %@", IPstrNow);
+//                NSLog(@" self.ipString %@", self.ipString);
+//                NSLog(@"网络正确");
+//            }
+//        }
+//        
+//       
+//        
+//        
+////        、、、、
+//        
+////        if (([[Reachability reachabilityWithHostname:[USER_DEFAULT objectForKey:@"HMCServiceStr"]] currentReachabilityStatus] == NotReachable)) {
+////
+////            NSLog(@" IPstrNow 1 %@", IPstrNow);
+////            NSLog(@" self.ipString %@", self.ipString);
+////            NSLog(@"网络正确");
+////        }else
+////        {
+////            NSLog(@"网络错误");
+////            [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
+////            [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+////            
+////            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+////            //        //通过通知中心发送通知
+////            [[NSNotificationCenter defaultCenter] postNotification:notification];
+////            
+////        }
+//
+//    }
+//    
+//}
 {
-//    NSString * IPstrNow = [GGUtil getIPAddress];
+    //    NSString * IPstrNow = [GGUtil getIPAddress];
     
     NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
     
     if ([viewHasAddOver isEqualToString:@"NO"]) {
         //是TV页面，需要重新播放第一个视频
-
-    NSLog(@" checkIPTimer IP 1 %@", self.ipString);
-    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
-    if ([IPstrNow isEqualToString:self.ipString]) {
         
-    }else
-    {
-        NSLog(@" checkIPTimer IP 不一样了 2 %@", self.ipString);
-    
-        NSLog(@"IP 网络改变");
-        NSLog(@"IP 改变了在 checkIPTimer");
-        
-        [self.dataSource removeAllObjects];
-        [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
-        
-        self.ipString = IPstrNow;
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        
-        
-    }
+        NSLog(@" checkIPTimer IP 1 %@", self.ipString);
+        NSString * IPstrNow=  [GGUtil getIPAddress:YES];
+        if ([IPstrNow isEqualToString:self.ipString]) {
+            
+        }else
+        {
+            NSLog(@" checkIPTimer IP 不一样了 2 %@", self.ipString);
+            
+            NSLog(@"IP 网络改变");
+            NSLog(@"IP 改变了在 checkIPTimer");
+            
+            [self.dataSource removeAllObjects];
+            [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
+            
+            self.ipString = IPstrNow;
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            
+        }
     }
 }
 @end
