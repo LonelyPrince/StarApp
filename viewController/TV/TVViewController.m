@@ -3544,7 +3544,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSInteger rowIndex;
         NSMutableDictionary * dic;
-        if (touchArr.count > 4) {
+        if (touchArr.count >= 4) {
             rowIndex = [touchArr[2] intValue];
             dic = touchArr [3];
         }
@@ -3693,12 +3693,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //没有找到这个节目，则播放第一个视频
             
             //=======机顶盒加密
-            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
+            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:rowIndex serviceListDic:self.dicTemp];
             if (characterStr != NULL && characterStr != nil) {
                 BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
                 if (judgeIsSTBDecrypt == YES) {
                     // 此处代表需要记性机顶盒加密验证
-                    NSNumber  *numIndex = [NSNumber numberWithInteger:0];
+                    NSNumber  *numIndex = [NSNumber numberWithInteger:rowIndex];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
                     //创建通知
                     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
@@ -3712,7 +3712,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     //======
-                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                    [self firstOpenAppAutoPlay:rowIndex diction:self.dicTemp];
                     firstOpenAPP = firstOpenAPP+1;
                     
                     firstfirst = NO;
@@ -3720,7 +3720,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else //正常播放的步骤
             {
                 //======机顶盒加密
-                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                [self firstOpenAppAutoPlay:rowIndex diction:self.dicTemp];
             }
             
             

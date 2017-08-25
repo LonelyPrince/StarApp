@@ -13,6 +13,7 @@
 #import "AudioCell.h"
 #import "subtCell.h"
 #import "ChannelCell.h"
+#define KZXVideoStaticTime 3    //静帧时间超过找个时间，则停止播放，显示文字
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
     ZXPanDirectionVertical,   // 纵向移动
@@ -445,7 +446,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
   
     if (judgeVideoIsStatic == 0) {
 //        /    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
-        [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:3];
+        [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
         
         judgeVideoIsStatic = 1;
     }
