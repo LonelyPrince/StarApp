@@ -143,12 +143,12 @@ NSMutableArray    *_titles;
     [self buttonEvents:btn];
 
     
-    //实际是底部的ScrollerView的侧滑的距离大小
-    int currentBtnShowX = [[UIScreen mainScreen] bounds].size.width * currentIndex;
-    
-    if (self.slideViewWillScrollEndBlock) {
-        self.slideViewWillScrollEndBlock(currentBtnShowX);
-    }
+//    //实际是底部的ScrollerView的侧滑的距离大小
+//    int currentBtnShowX = [[UIScreen mainScreen] bounds].size.width * currentIndex;
+//    
+//    if (self.slideViewWillScrollEndBlock) {
+//        self.slideViewWillScrollEndBlock(currentBtnShowX);
+//    }
     
 }
 - (void)configButtonWithOffsetx:(CGFloat)offsetx{
@@ -229,6 +229,14 @@ NSMutableArray    *_titles;
     NSLog(@" currentPage === %d",(button.tag - YLSlideTitleViewButtonTag) );
     
     int YLSlideTitleViewButtonTagIndex = button.tag - YLSlideTitleViewButtonTag;
+    
+    //为了分类定位到中间
+    //实际是底部的ScrollerView的侧滑的距离大小
+    int currentBtnShowX = [[UIScreen mainScreen] bounds].size.width * YLSlideTitleViewButtonTagIndex;
+    
+    if (self.slideViewWillScrollEndBlock) {
+        self.slideViewWillScrollEndBlock(currentBtnShowX);
+    }
     
     NSString *  YLSlideTitleViewButtonTagIndexStr = [NSString stringWithFormat:@"%d",YLSlideTitleViewButtonTagIndex];
     
