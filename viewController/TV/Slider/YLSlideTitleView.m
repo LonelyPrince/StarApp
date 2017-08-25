@@ -100,15 +100,23 @@ NSMutableArray    *_titles;
         
         __STRONG_SELF_YLSLIDE
         [strongSelf configButtonWithOffsetx:offsetx];
+        NSLog(@"offsetx %f",offsetx);
 
     };
     
     self.slideViewWillScrollEndBlock =^(CGFloat offsetx){
         
+        NSLog(@"offsetx1 %f",offsetx);
         __STRONG_SELF_YLSLIDE
        //设置 Button 可见
         CGFloat x = offsetx * (60 / self.frame.size.width) - 60;
       
+        NSLog(@"self.frame.size.width %f",self.frame.size.width);
+        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
+        
+        
+        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
+        
         [strongSelf scrollRectToVisible:CGRectMake(x, 0,
                                                    strongSelf.frame.size.width,
                                                    strongSelf.frame.size.height)
@@ -133,7 +141,14 @@ NSMutableArray    *_titles;
     UIButton * btn = [[UIButton alloc]init];
     btn.tag = currentIndex+YLSlideTitleViewButtonTag;
     [self buttonEvents:btn];
+
     
+    //实际是底部的ScrollerView的侧滑的距离大小
+    int currentBtnShowX = [[UIScreen mainScreen] bounds].size.width * currentIndex;
+    
+    if (self.slideViewWillScrollEndBlock) {
+        self.slideViewWillScrollEndBlock(currentBtnShowX);
+    }
     
 }
 - (void)configButtonWithOffsetx:(CGFloat)offsetx{
@@ -236,9 +251,17 @@ NSMutableArray    *_titles;
     
     _previousPage = button.tag - YLSlideTitleViewButtonTag;
     
+    NSLog(@"_previousPage %d",_previousPage);
     
 //    NSLog(@"currentButton2:%f",currentButton.frame.origin.x);
     _currentBtnX = currentButton.frame.origin.x  +currentButton.bounds.size.width/2 - self.preScrollViewCut;
+    
+    NSLog(@"currentButton.frame.origin.x %f",currentButton.frame.origin.x);
+    NSLog(@"currentButton.bounds.size.width  %f",currentButton.bounds.size.width);
+    
+    NSLog(@"_currentBtnX %f",_currentBtnX);
+    NSLog(@"self.preScrollViewCut %f",self.preScrollViewCut);
+    
 
     self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
     //创建通知

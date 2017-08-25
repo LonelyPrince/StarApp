@@ -159,20 +159,28 @@ void UncaughtExceptionHandler(NSException *exception) {
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     
-     printf("按理说是重新进来后响应\n");
-    
-    NSString *  viewIsTVView =  [USER_DEFAULT objectForKey:@"viewISTVView"];
-    NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
-    
-    if ([viewIsTVView isEqualToString:@"1"]  && [viewHasAddOver isEqualToString:@"YES"]) {
-        //是TV页面，需要重新播放第一个视频
+    double delayInSeconds = 1.5;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+       
+        
+        printf("按理说是重新进来后响应\n");
+        
+        NSString *  viewIsTVView =  [USER_DEFAULT objectForKey:@"viewISTVView"];
+        NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
+        
+        if ([viewIsTVView isEqualToString:@"1"]  && [viewHasAddOver isEqualToString:@"YES"]) {
+            //是TV页面，需要重新播放第一个视频
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"returnFromHomeToTVViewNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+        }
+        
+    });
 
-        NSNotification *notification =[NSNotification notificationWithName:@"returnFromHomeToTVViewNotific" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-    }
-    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

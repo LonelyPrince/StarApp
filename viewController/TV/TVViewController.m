@@ -1294,7 +1294,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 int indexCat ;
                 //   NSString * str;
-                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                if (i < self.categoryModel.service_indexArr.count) {
+                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                }else
+                {
+                    return;
+                }
+                
                 NSLog(@"self.TVChannlDic 5:%lu",(unsigned long)self.TVChannlDic.count);
                 //cell.tabledataDic = self.serviceData[indexCat -1];
                 
@@ -1337,7 +1343,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else{
                     NSLog(@"=-=-=== 在 11 中");
                     
-                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                    if (indexCat -1 < self.serviceData.count) {
+                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        
+                    }else
+                    {
+                        return;
+                    }
                     
                     
                 }
