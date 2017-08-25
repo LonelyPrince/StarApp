@@ -86,19 +86,19 @@
     nextPage               = MIN(nextPage, _totaiPageNumber-1);
     
     //回收 unvisible cell
-    //    for (TVTable * cell  in _visibleCells) {
-    //
-    //        if (cell.index < currentPage || cell.index > nextPage) {
-    //
-    //            //保存偏移量
-    //            [[YGPCache sharedCache]setDataToMemoryWithData:[NSStringFromCGPoint(cell.contentOffset) dataUsingEncoding:NSUTF8StringEncoding] forKey:[@(cell.index) stringValue]];
-    //
-    //
-    //            [_recycledCells addObject:cell];
-    //            [cell removeFromSuperview];
-    //
-    //        }
-    //    }
+//        for (TVTable * cell  in _visibleCells) {
+//    
+//            if (cell.index < currentPage || cell.index > nextPage) {
+//    
+//                //保存偏移量
+//                [[YGPCache sharedCache]setDataToMemoryWithData:[NSStringFromCGPoint(cell.contentOffset) dataUsingEncoding:NSUTF8StringEncoding] forKey:[@(cell.index) stringValue]];
+//    
+//    
+//                [_recycledCells addObject:cell];
+//                [cell removeFromSuperview];
+//    
+//            }
+//        }
     
     [_visibleCells minusSet:_recycledCells];
     
@@ -321,6 +321,15 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     _slideTitleView.isClickTitleButton = NO;
+    
+    NSLog(@"==- scrollViewWillBeginDragging 开始拖拽");
+    
+    
+    CGFloat pageWidth = scrollView.frame.size.width;
+    // 根据当前的x坐标和页宽度计算出当前页数
+    int currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
+    [self visibleViewDelegateForIndex:currentPage+ 1];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -337,7 +346,7 @@
     //    // 根据当前的x坐标和页宽度计算出当前页数
     //    int currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-    
+//    NSLog(@"==- 当scrollView滚动的时候，不停调用 ");
     
 }
 
@@ -353,6 +362,7 @@
         _slideTitleView.slideViewWillScrollEndBlock(scrollView.contentOffset.x);
     }
     
+    NSLog(@"==- 减速完成（停止） ");
 }
 
 #pragma mark configSlideView

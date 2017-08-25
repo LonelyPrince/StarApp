@@ -13,7 +13,7 @@
 #import "AudioCell.h"
 #import "subtCell.h"
 #import "ChannelCell.h"
-#define KZXVideoStaticTime 3    //静帧时间超过找个时间，则停止播放，显示文字
+#define KZXVideoStaticTime 4    //静帧时间超过找个时间，则停止播放，显示文字
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
     ZXPanDirectionVertical,   // 纵向移动
