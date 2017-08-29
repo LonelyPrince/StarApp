@@ -151,6 +151,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        NSLog(@"取消25秒的等待1");
     });
     
     printf("按理说是触发home按下\n");

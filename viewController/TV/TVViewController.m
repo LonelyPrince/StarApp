@@ -1934,6 +1934,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+            NSLog(@"取消25秒的等待2");
         }
         NSLog(@"开始==计时===");
         
@@ -2406,6 +2407,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+            NSLog(@"取消25秒的等待3");
         }
         
         NSLog(@"开始==计时===");
@@ -2515,6 +2517,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             storeLastChannelArr = myArray[myArray.count - 1];
+            NSLog(@"storeLastChannelArr %@",storeLastChannelArr);
         }
         
         NSLog(@"获取播放的第一个节目信息 成功");
@@ -2884,6 +2887,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+            NSLog(@"取消25秒的等待4");
         });
         NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
         
@@ -2921,6 +2925,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (storeLastChannelArr.count >= 4) {
                         NSInteger row = [storeLastChannelArr[2] integerValue];
                         NSDictionary * dic = storeLastChannelArr [3];
+                        NSLog(@"row %d",row);
+                        NSLog(@"dic %@",dic);
                         //在这里添加判断 机顶盒是否加密
                         
                         //在这里添加判断 机顶盒是否加密
@@ -2969,9 +2975,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (historyArr.count > 0) {
                         NSArray * touchArr = historyArr[historyArr.count - 1];
                         
-                        if (storeLastChannelArr.count >= 4) {
-                            NSInteger row = [storeLastChannelArr[2] integerValue];
-                            NSDictionary * dic = storeLastChannelArr [3];
+                        if (touchArr.count >= 4) {
+                            NSInteger row = [touchArr[2] integerValue];
+                            NSDictionary * dic = touchArr [3];
+                            NSLog(@"row %ld",(long)row);
+                            NSLog(@"dic %@",dic);
                             //在这里添加判断 机顶盒是否加密
                             //=======机顶盒加密
                             NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
@@ -4184,7 +4192,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"结束==计时===已经播放");
     //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
     [self removeTipLabAndPerformSelector];
-    
+    NSLog(@"从willplay跳转过去 取消25秒的等待6");
     NSLog(@"playState44444现在正在准备播放，TV 页面willplay");
     playState = YES;
 //    [timerState invalidate];
@@ -7303,6 +7311,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        NSLog(@"取消25秒的等待5");
     });
     NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
     
@@ -8111,6 +8120,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_async(dispatch_get_main_queue(), ^{
     //弹窗之后，取消显示sorry不能播放的字样，并且取消不能播放的提示文字
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        NSLog(@"取消25秒的等待6");
     NSLog(@"取消播放第一次");
     
     //创建通知  如果视频要播放呀，则去掉不能播放的字样
@@ -8134,13 +8144,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     dispatch_async(dispatch_get_main_queue(), ^{
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        NSLog(@"取消25秒的等待7");
     NSLog(@"取消播放第二次");
     NSLog(@"取消播放第二次 %@",[NSThread currentThread]);
         if (self.showTVView == YES) {
             [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
+            NSLog(@"开始25秒的等待");
         }else
         {
         
+            NSLog(@"进入了这个方法");
         }
     
     });
@@ -8701,6 +8714,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     //② 去掉20s 播放
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+    NSLog(@"取消25秒的等待8");
     
     //③创建通知,删除进度条
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];

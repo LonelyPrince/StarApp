@@ -145,7 +145,8 @@
 
 -(void)categoryBtnsClick :(UIButton *)sender
 {
-    [self TVViewAppearNO];
+//    [self TVViewAppearNO];
+    [self TVViewAppear];
     NSLog(@"点击了%ld",(long)sender.tag);
     
     NSNumber * currentIndex = [NSNumber numberWithInt:sender.tag];
