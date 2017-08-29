@@ -128,7 +128,14 @@
         CGSize size = [namelab.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:FONT(14),NSFontAttributeName, nil]];
         CGFloat nameH = size.height;
         // 名字的W
-        CGFloat nameW = size.width;
+        CGFloat nameW;
+        if (size.width > (SCREEN_WIDTH/3) - 5) {
+            nameW = (SCREEN_WIDTH/3) - 5;
+        }else
+        {
+            nameW = size.width;
+        }
+        
         namelab.frame = CGRectMake((SCREEN_WIDTH/3-nameW)/2, 88, nameW,nameH);
         namelab.tintColor = [UIColor blackColor];
         [categoryBtns addSubview:namelab];
