@@ -133,7 +133,8 @@
 //    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
 //    {
     //new====
-            if ([viewNow isKindOfClass:[TVViewController class]]) {
+    
+            if ([viewNow isKindOfClass:[TVViewController class]] && ![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
                 if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStartTransform"]){
                     NSLog(@"第一次启动旋转");
                   

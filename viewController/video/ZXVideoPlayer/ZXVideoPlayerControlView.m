@@ -74,6 +74,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
+        if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+            
+        }else
+        {
+            self.fullScreenButton.hidden = YES;
+        }
         //        [self.bottomBar addSubview:self.shrinkScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton1];
         [self.bottomBar addSubview:self.lastChannelButton];
@@ -151,6 +157,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"lockButtonHide" object:nil];
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lockButtonHide) name:@"lockButtonHide" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"channeListIsShow" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(channeListIsShow) name:@"channeListIsShow" object:nil];
     }
     return self;
 }
@@ -158,7 +168,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+    NSLog(@"self.view.frame.bounds.height1 %f",[UIScreen mainScreen].bounds.size.height);
+    NSLog(@"self.view.frame.bounds.width1 %f",[UIScreen mainScreen].bounds.size.width);
     if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
         self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
         self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
@@ -373,53 +384,62 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)animateShow
 {
     
-    
-    if (self.isBarShowing) {
-        return;
-    }
-    
-    
-    [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
-        
-        BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
-        if (isFullScreenMode) {   //如果是全屏模式并且topbar展示时才初始化新建一个跑马灯
-            NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
-            
+    if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+        if (self.isBarShowing) {
+            return;
         }
-        //--
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
-        [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
-        //--
-        self.topBar.alpha = 1.0;
-        self.bottomBar.alpha = 1.0;
-        //        self.bottomBar.userInteractionEnabled = YES;
         
-        //
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
         
-        showStatus = YES;
-        [self prefersStatusBarHidden];
-        //
-        NSLog(@"123123123123123123123123=====");
-        self.videoController.subAudioTableView.alpha = 0;
-        self.videoController.subAudioTableView = nil;
-        /////// 加入通知
-        int show = 2;
-        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
-        NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-    } completion:^(BOOL finished) {
-        self.isBarShowing = YES;
-        [self autoFadeOutControlBar];
-    }];
-    
-    [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
+        [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
+            
+            BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+            if (isFullScreenMode) {   //如果是全屏模式并且topbar展示时才初始化新建一个跑马灯
+                NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                
+            }
+            //--
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lockButtonHide) object:nil];
+            [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
+            //--
+            self.topBar.alpha = 1.0;
+            self.bottomBar.alpha = 1.0;
+            //        self.bottomBar.userInteractionEnabled = YES;
+            
+            //
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO];
+            
+            showStatus = YES;
+            [self prefersStatusBarHidden];
+            //
+            NSLog(@"123123123123123123123123=====");
+            self.videoController.subAudioTableView.alpha = 0;
+            self.videoController.subAudioTableView = nil;
+            /////// 加入通知
+            int show = 2;
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%d",show],@"boolBarShow",nil];
+            NSNotification *notification =[NSNotification notificationWithName:@"fixprogressView" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        } completion:^(BOOL finished) {
+            self.isBarShowing = YES;
+            [self autoFadeOutControlBar];
+        }];
+        
+        [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
+    }
+   
 }
 
+//频道列表数据出现的时候，做一次显示操作
+-(void)channeListIsShow
+{
+    [self animateShow];
+    
+    NSLog(@"做一次显示的操作");
+}
 - (void)autoFadeOutControlBar
 {
     if (!self.isBarShowing) {
@@ -470,6 +490,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)onTap:(UITapGestureRecognizer *)gesture
 {
+    
     //    [self rightTableViewHide];
     //第一步先判断是不是按了锁
     if ([USER_DEFAULT boolForKey:@"lockedFullScreen"]) {

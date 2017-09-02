@@ -59,7 +59,8 @@
 //@property (strong,nonatomic) NSTimer * timerState;  //计时器，用来计时播放一个视频，看15秒内是否可以播放，如果不能播放，则显示sorry的提示语
 
 @property (strong,nonatomic)KVO_NoDataPic *kvo_NoDataPic;  //KVO
-@property (strong,nonatomic)UIImageView * kvo_NoDataImageview;  //底部节目列表为空，展示图片
+@property (strong,nonatomic)UIImageView * NoDataImageview;  //底部节目列表为空，展示图片
+@property (strong,nonatomic)UILabel * NoDataLabel;  //底部节目列表为空，展示图片
 
 /// 跳转到其他的页面都自动停止播放，并且取消掉首页的20秒无法播放显示的字体
 @property (nonatomic, copy) void(^TVViewStopVideoPlayAndCancelDealyFunctionBlock)();

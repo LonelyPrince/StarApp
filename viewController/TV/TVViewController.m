@@ -97,6 +97,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     BOOL TVViewTouchPlay;
     
+    BOOL isHasChannleDataList ;  //是否存频道列表，如果不存在，则在跳转页面的时候不播放
     
 }
 
@@ -283,23 +284,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //            [self loadData];//刷新数据
         //        }];
         
-        self.kvo_NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
-        self.kvo_NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;
-        self.kvo_NoDataImageview.alpha = 1;
-        
-        //CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
-        [self.tableForSliderView addSubview:self.kvo_NoDataImageview];
-        //        [_table bringSubviewToFront:self.kvo_NoDataImageview];
+//        self.NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
+//        self.NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;
+//        self.NoDataImageview.alpha = 1;
+//        
+//        //CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
+//        [self.tableForSliderView addSubview:self.NoDataImageview];
+//        //        [_table bringSubviewToFront:self.kvo_NoDataImageview];
         NSLog(@"此时数据无，添加占位图");
         return;
     }else
     {
-        self.kvo_NoDataImageview.alpha = 0;
-        self.kvo_NoDataImageview = nil;
-        [self.kvo_NoDataImageview removeFromSuperview];
-        self.kvo_NoDataImageview = nil;
-        [self.kvo_NoDataImageview removeFromSuperview];
-        self.kvo_NoDataImageview.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
+        self.NoDataImageview.alpha = 0;
+        self.NoDataImageview = nil;
+        [self.NoDataImageview removeFromSuperview];
+        self.NoDataImageview.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
+        
+        
+        self.NoDataLabel.alpha = 0;
+        self.NoDataLabel = nil;
+        [self.NoDataLabel removeFromSuperview];
+        self.NoDataLabel.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
+        
+        
+        
         NSLog(@"此时数据有，删除啦啦占位图");
         return;
     }
@@ -398,7 +406,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     tempBoolForServiceArr = NO;
     tempDicForServiceArr = [[NSDictionary alloc]init];
     
-    self.kvo_NoDataImageview = [[UIImageView alloc]init];
+    self.NoDataImageview = [[UIImageView alloc]init];
+    self.NoDataLabel = [[UILabel alloc]init];
     
     self.TVSubAudioDic = [[NSDictionary alloc]init];
     self.TVChannlDic = [[NSDictionary alloc]init];
@@ -436,6 +445,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //获取table
 -(void) getServiceData
 {
+    isHasChannleDataList = YES;
+    
     NSLog(@"getServiceData====");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
@@ -468,8 +479,53 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (!isValidArray(data1) || data1.count == 0){
-            [self getServiceData]; //如果数据为空，则重新获取数据
-            return ;
+           //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
+            
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+              
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                    self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+                    self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+                    self.NoDataImageview.alpha = 1;
+                    [self.view addSubview:self.NoDataImageview];
+                self.NoDataLabel = [[UILabel alloc]init];
+                self.NoDataLabel.text = @"Channel List is empty";
+                self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+                //
+                CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                
+                self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+                self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+                self.NoDataLabel.alpha = 1;
+                [self.view addSubview:self.NoDataLabel];
+                //
+                
+
+               
+                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                
+                
+            }else
+            {
+            //机顶盒连接出错了，所以要显示没有网络的加载图
+                [self getServiceData]; //如果数据为空，则重新获取数据
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                return ;
+            }
+//            [self getServiceData]; //如果数据为空，则重新获取数据
+//            return ;
         }
         self.serviceData = (NSMutableArray *)data1;
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
@@ -478,7 +534,60 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
+//            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+               
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                    
+                }
+                
+//                    self.NoDataImageview = [[UIImageView alloc]init];
+                    self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+//                    self.NoDataImageview.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,  SCREEN_WIDTH,  SCREEN_HEIGHT - (64.5+kZXVideoPlayerOriginalHeight+1.5 + 64)) ;
+                self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+                
+//                    self.NoDataImageview.frame = CGRectMake(0, 200, 500, 500);
+                    self.NoDataImageview.alpha = 1;
+                    [self.view addSubview:self.NoDataImageview];
+                
+                
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                    
+                }
+                self.NoDataLabel.text = @"Channel List is empty";
+                self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+                //
+                CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                
+                self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+                self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+                self.NoDataLabel.alpha = 1;
+                [self.view addSubview:self.NoDataLabel];
+                
+                //
+
+                
+                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            }else
+            {
+                //机顶盒连接出错了，所以要显示没有网络的加载图
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                [self getServiceData]; //如果数据为空，则重新获取数据
+//                return ;
+            }
         }
         
         [self.activeView removeFromSuperview];
@@ -534,6 +643,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
                                                                       SCREEN_WIDTH,
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects];
                     NSLog(@"removeAllObjects 第 8 次");
                 }else //横屏状态，不刷新
@@ -926,6 +1036,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self prefersStatusBarHidden];
                 [self setNeedsStatusBarAppearanceUpdate];
                 self.view.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
+
+                
                 //            prefersStatusBarHidden
                 
                 //
@@ -1651,7 +1763,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
-    [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.5];
+    [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
     
     
     
@@ -1740,27 +1852,31 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - didselecttableview 方法中播放事件
 -(void)didselectRowToPlayClick
 {
+    NSLog(@"asdasdasdasdasdasd");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     //    dispatch_queue_t queue = dispatch_queue_create("tk.bourne.testQueue", DISPATCH_QUEUE_CONCURRENT);
-    
+    //2500  //yajingfei   //wangluofeiyong
     NSLog(@"==--==--==--=222%@",[NSThread currentThread] );
     NSUInteger  indexPathRow = [indexpathRowStr integerValue];
-    NSLog(@" indexPathRow %d",indexPathRow);
+    NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);
     //=======机顶盒加密
     NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:indexPathRow serviceListDic:self.dicTemp];
     if (characterStr != NULL && characterStr != nil) {
         BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
         if (judgeIsSTBDecrypt == YES) {
             
+            NSLog(@"asdasdasdasdasdasd111");
             //将上一个节目关闭
             [self stopVideoPlay];
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
                 // 此处代表需要记性机顶盒加密验证
                 NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
                 NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
                 //创建通知
                 NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            NSLog(@"asdasdasdasdasdasd222");
                 NSLog(@"POPPOPPOPPOP33333333333");
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -1769,12 +1885,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 firstOpenAPP = firstOpenAPP+1;
                 
                 firstfirst = NO;
-            });
+//            });
             
             
         }else //正常播放的步骤
         {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"响应了一次");
                 //======
                 [self touchSelectChannel:indexPathRow diction:self.dicTemp];
@@ -1787,12 +1903,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 firstOpenAPP = firstOpenAPP+1;
                 
                 firstfirst = NO;
-            });
+//            });
         }
         
     }else //正常播放的步骤
     {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             //======机顶盒加密
             
             [self touchSelectChannel:indexPathRow diction:self.dicTemp];
@@ -1800,10 +1916,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             firstfirst = NO;
             
-        });
+//        });
     }
     
-    
+    });
     
     
     
@@ -2891,6 +3007,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
         NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
         
+        if (isHasChannleDataList == NO) {
+          
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+            
+        }else
+        {
+        
         if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
             //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
             [self stopVideoPlay]; //停止视频播放
@@ -3042,6 +3166,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
         }
 
+    }
     }else
     {
     
@@ -5238,7 +5363,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_WIDTH,
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                     
-                    
+                    isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
                     NSLog(@"removeAllObjects 第 4 次");
                 }else //横屏状态，不刷新
@@ -5610,6 +5735,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
+    NSLog(@"changeLockData changeLockData");
     [self stopVideoPlay];
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -6179,6 +6305,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(endMJRefresh) object:nil];
         [self performSelector:@selector(endMJRefresh) withObject:nil afterDelay:EndMJRefreshTime];
+    NSLog(@"12 秒后准备停止刷新");
     
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
@@ -6212,11 +6339,84 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         
-        if (!isValidArray(data1) || data1.count == 0){
+        if (!isValidArray(data1) || data1.count == 0)
+        {
+            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
-            [self tableViewDataRefreshForMjRefresh];
-            return ;
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                   
+                }
+                //显示列表为空的数据
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                    
+                }
+            }else
+            {
+                //机顶盒连接出错了，所以要显示没有网络的加载图
+                [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
+                return ;
+            }
+            self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+            self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+            
+            
+            self.NoDataImageview.alpha = 1;
+            [self.view addSubview:self.NoDataImageview];
+            
+            
+            
+            self.NoDataLabel.text = @"Channel List is empty";
+            self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+            //
+            CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            
+            self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+            self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+            self.NoDataLabel.alpha = 1;
+            [self.view addSubview:self.NoDataLabel];
+            //
+
+            [self removeTopProgressView]; //删除进度条
+            
+            
+            
+            
+            isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+            [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
         }
+        else
+        {
+            NSLog(@"做一次显示的操作222");
+            if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height) {
+                    
+                    
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"channeListIsShow" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                }
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+            }
+            
+        }
+//        {
+//
+//            [self tableViewDataRefreshForMjRefresh];
+//            return ;
+//        }
         self.serviceData = (NSMutableArray *)data1;
         
         NSLog(@"before self.categorys %@",self.categorys);
@@ -6226,10 +6426,78 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         
-        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil)
+        {
+            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
-            [self tableViewDataRefreshForMjRefresh];
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                }
+                //显示列表为空的数据
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                    
+                }
+            }else
+            {
+                //机顶盒连接出错了，所以要显示没有网络的加载图
+                [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
+                return ;
+            }
+            self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+            self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+            
+            self.NoDataImageview.alpha = 1;
+            [self.view addSubview:self.NoDataImageview];
+            
+            
+            self.NoDataLabel.text = @"Channel List is empty";
+            self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+            //
+            CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            
+            self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+            self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+            self.NoDataLabel.alpha = 1;
+            [self.view addSubview:self.NoDataLabel];
+            //
+            [self removeTopProgressView]; //删除进度条
+            
+            isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+            [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+
+        }else
+        {
+            NSLog(@"做一次显示的操作222");
+            if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height) {
+                    
+                    
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"channeListIsShow" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                }
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+            }
+            
         }
+        
+//        {
+//            
+//            [self tableViewDataRefreshForMjRefresh];
+//        }
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
@@ -6472,10 +6740,79 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 
         if (!isValidArray(data1) || data1.count == 0){
-            //            [self getServiceData];
-            [self tableViewDataRefreshForMjRefresh2222222];
-            return ;
+            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
+            
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                NSLog(@"zidong  刷新了一次22");
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                }
+                //显示列表为空的数据
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                    
+                }
+            }else
+            {
+                //机顶盒连接出错了，所以要显示没有网络的加载图
+                [self tableViewDataRefreshForMjRefresh2222222]; //如果数据为空，则重新获取数据
+                return ;
+            }
+            self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+            self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+            
+            self.NoDataImageview.alpha = 1;
+            [self.view addSubview:self.NoDataImageview];
+            
+            
+            self.NoDataLabel.text = @"Channel List is empty";
+            self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+            //
+            CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            
+            self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+            self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+            self.NoDataLabel.alpha = 1;
+            [self.view addSubview:self.NoDataLabel];
+            //
+            
+            
+            isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+            [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            NSLog(@"zidong  刷新了一次");
+            [self removeTopProgressView]; //删除进度条
+        }else
+        {
+            NSLog(@"做一次显示的操作222");
+            if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height) {
+                    
+                    
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"channeListIsShow" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                }
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+            }
+            
         }
+//        {
+//            //            [self getServiceData];
+////            [self tableViewDataRefreshForMjRefresh2222222];
+////            return ;
+//            
+//        }
         self.serviceData = (NSMutableArray *)data1;
 
         NSLog(@"before self.categorys %@",self.categorys);
@@ -6485,10 +6822,75 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
 
 
-        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            //            [self getServiceData];
-            [self tableViewDataRefreshForMjRefresh2222222];
+        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil)
+        {
+            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
+            
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                NSLog(@"zidong  刷新了一次22");
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+            }
+            }else
+            {
+                //机顶盒连接出错了，所以要显示没有网络的加载图
+                [self tableViewDataRefreshForMjRefresh2222222]; //如果数据为空，则重新获取数据
+                return ;
+            }
+            self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+            self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+            
+            self.NoDataImageview.alpha = 1;
+            [self.view addSubview:self.NoDataImageview];
+            
+            
+            self.NoDataLabel.text = @"Channel List is empty";
+            self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+            //
+            CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            
+            self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+            self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+            self.NoDataLabel.alpha = 1;
+            [self.view addSubview:self.NoDataLabel];
+            //
+            
+            
+            isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+            [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            NSLog(@"zidong  刷新了一次");
+            [self removeTopProgressView]; //删除进度条
+
+        }else
+        {
+            NSLog(@"做一次显示的操作222");
+            if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height) {
+                    
+                    
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"channeListIsShow" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                }
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+            }
+            
         }
+//        {
+//            //            [self getServiceData];
+//            [self tableViewDataRefreshForMjRefresh2222222];
+//        }
 
         [self.activeView removeFromSuperview];
         self.activeView = nil;
@@ -6680,7 +7082,72 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             self.categorys = (NSMutableArray *)data;
 
-
+            [_slideView removeFromSuperview];
+            _slideView = nil;
+            
+            if (!_slideView) {
+                NSLog(@"上山打老虎4");
+                
+                
+                
+                
+                
+                //判断是不是全屏
+                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                if (isFullScreen == NO) {   //竖屏状态
+                    
+                    
+                    //设置滑动条
+                    _slideView = [YLSlideView alloc];
+                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    
+                    isHasChannleDataList = YES;
+                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
+                    NSLog(@"removeAllObjects 第 6 次");
+                }else //横屏状态，不刷新
+                {
+                    
+                    //设置滑动条
+                    _slideView = [YLSlideView alloc];
+                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+                                                                      SCREEN_WIDTH,
+                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
+                    NSLog(@"removeAllObjects 第 7 次");
+                }
+                
+                
+                
+                
+                
+                
+                //                //设置滑动条
+                //                _slideView = [YLSlideView alloc];
+                //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                  SCREEN_WIDTH,
+                //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                
+                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
+                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                
+                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                    SCREEN_WIDTH,
+                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
+                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                //                                                                      SCREEN_WIDTH,
+                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
+                //                                                 forTitles:self.categorys];
+                
+                
+                _slideView.backgroundColor = [UIColor whiteColor];
+                _slideView.delegate        = self;
+                
+                [self.view addSubview:_slideView];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                
+            }
             if (firstfirst == YES) {
 
 
@@ -6821,6 +7288,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_WIDTH,
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                     
+                    isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
                     NSLog(@"removeAllObjects 第 6 次");
                 }else //横屏状态，不刷新
@@ -7659,6 +8127,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
  */
 -(void)updateChannelService:(NSData *)updateChannelServiceDataTemp
 {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
     //获取全部的channel数据，判断当前点击的channel是哪一个dic
     NSData * updateChannelServiceData = updateChannelServiceDataTemp;
     
@@ -7733,6 +8202,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSDictionary * serviceArrForJudge_dic ;
     
     
+    
     for (int i = 0; i<serviceArrForJudge.count; i++) {
         serviceArrForJudge_dic = serviceArrForJudge[i];
         
@@ -7782,12 +8252,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //是当前正在播放的节目，所以说当前节目一定改变了，修改
             if (judgeIsEqual) {
-                
+               
+                dispatch_async(dispatch_get_main_queue(), ^{
                 //关闭当前正在播放的节目
                 [self.videoController.player stop];
                 [self.videoController.player shutdown];
                 [self.videoController.player.view removeFromSuperview];
-                
+                });
                 //修改字典信息
                 //历史记录信息和全部的信息
                 
@@ -7834,6 +8305,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // 此处代表需要记性机顶盒加密验证
                     NSNumber  *numIndex = [NSNumber numberWithInteger:row];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"LiveTouch",@"textThree",nil];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     //创建通知
                     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
                     NSLog(@"POPPOPPOPPOP1111111111111111111");
@@ -7843,10 +8316,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     firstOpenAPP = firstOpenAPP+1;
                     
                     firstfirst = NO;
+                    });
                     
                 }else //从加锁到不加锁正常播放的步骤，但是要注意得如果用户此时还处于弹窗或者未输入密码界面，得去掉弹窗和输入密码
                 {
                     NSLog(@"ahsdahsfafvjahsvfjasvfa 3");
+                    dispatch_async(dispatch_get_main_queue(), ^{
                     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -7858,6 +8333,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     firstOpenAPP = firstOpenAPP+1;
                     
                     firstfirst = NO;
+                    });
                     
                     NSLog(@"self.video.dicChannl2 %@",self.video.dicChannl);
                     NSLog(@"self.video.channelCount2 %d",self.video.channelCount);
@@ -7949,6 +8425,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
     }
+    });
 }
 -(void)updateHistoryArr :(NSDictionary * )dic
 {

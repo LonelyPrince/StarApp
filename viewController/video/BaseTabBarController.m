@@ -46,7 +46,7 @@
 //    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
 //    {
     //new====
-        if ([nav.topViewController isKindOfClass:[TVViewController class]]) {
+        if ([nav.topViewController isKindOfClass:[TVViewController class]] && ![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
             //    if ([nav.topViewController isKindOfClass:[ViewController class]]) {
             return UIInterfaceOrientationMaskPortrait;
         }
