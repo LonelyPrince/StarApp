@@ -377,7 +377,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
         judgeVideoIsStatic = 0;
 //    }
-    NSLog(@"xxxxxx 播放状态改变, 可配合playbakcState属性获取具体状态");
+    NSLog(@"xxxxxx 播放状态改变,  开始播放了，取消静帧");
     if (openTime == 0) {
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
@@ -451,7 +451,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         judgeVideoIsStatic = 1;
     }
     
-    NSLog(@"xxxxxx MPMoviePlayer  Notification 媒体网络加载状态改变");
+    NSLog(@"xxxxxx MPMoviePlayer  开始3秒的静帧等待");
     NSLog(@"MPMoviePlayer  加载");
     if (MPMovieLoadStateUnknown) {
         NSLog(@"playState---=====状态未知");
@@ -543,6 +543,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)onMPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
 {
     NSLog(@"xxxxxx playState---=====视频播放结束 视频播放结束时");
+    
+    [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
+    
+    judgeVideoIsStatic = 1;
+
+    NSLog(@"xxxxxx 新加的方法，如果实现了这个方法，视频将在3秒后停止");
+    
     
     NSNumber* reason = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
     switch ([reason intValue]) {
