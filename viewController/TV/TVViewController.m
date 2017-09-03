@@ -1716,6 +1716,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //====快速切换频道名称和节目名称
     
     
+    indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
+    [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
+    
     //=====则去掉不能播放的字样，加上加载环
 //    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
 //    [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -1735,35 +1740,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
         [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
         [self.videoController setaudioOrSubtRowIsZero];
+        
+        NSLog(@"==--==--==--=11%@",[NSThread currentThread] );
+        //变蓝
+        int indexOfCategory =  self.category_index;  //[self judgeCategoryType:[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
+        
+        NSArray * allNumberOfServiceArr ;
+        if (self.categorys.count > indexOfCategory) {
+            allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+        }else
+        {
+            return;
+        }
+        
+        [self tableViewCellToBlue:indexOfCategory indexhah:indexPath.row AllNumberOfService:allNumberOfServiceArr.count];
     });
     
     //    //关闭当前正在播放的节目
     [self.videoController.player stop];
     [self.videoController.player shutdown];
     [self.videoController.player.view removeFromSuperview];
-    NSLog(@"==--==--==--=11%@",[NSThread currentThread] );
-    //变蓝
-    int indexOfCategory =  self.category_index;  //[self judgeCategoryType:[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
-    
-    NSArray * allNumberOfServiceArr ;
-    if (self.categorys.count > indexOfCategory) {
-         allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
-    }else
-    {
-        return;
-    }
-    
-    [self tableViewCellToBlue:indexOfCategory indexhah:indexPath.row AllNumberOfService:allNumberOfServiceArr.count];
+  
     
     [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     
     
     
     
-    indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
-    [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
     
     
     
@@ -5738,18 +5742,75 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"changeLockData changeLockData");
     [self stopVideoPlay];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //取消掉提示文字和延迟方法
-        [self removeTipLabAndPerformSelector];
-        
-        NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
 
     
+    //通知主线程刷新
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //回调或者说是通知主线程刷新，
+        
+        
+        
+        if (self.showTVView == YES) {
+            /**
+             1.弹窗
+             1.show的方法覆写
+             2.弹窗那一刻进行判断
+             3.弹窗的字样和按钮判断
+             4.弹窗确认按钮点击后进行一次判断，防止按钮点击后，切换页面
+             2.播放
+             1.播放器初始化时，进行判断
+             2.点击后socket请求进行判断
+             3.所有带有播放请求的页面都进行一次判断
+             */
+            
+            [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+            STBAlert.delegate =  self;
+            STBAlert.title = @"Please input your Decoder PIN";
+            if (self.showTVView == YES) {
+                [STBAlert show];
+            }else
+            {
+                NSLog(@"已经不是TV页面了");
+                [self ifNotISTVView];
+            }
+            STBTextField_Encrypt.text = @"";
+            STBAlert.dontDisppear = YES;
+            
+            
+            
+            STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
+            
+            
+            STBTextField_Encrypt.delegate = self;
+            STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
+            STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:STBTextField_Encrypt];
+            //修改decoderPIN 和CA PIN 的 占位文字
+            if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
+                STBTextField_Encrypt.placeholder = @"decoder PIN";
+            }
+            
+            
+            NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            [self serviceEPGSetData:STBTouch_Row diction:STBTouch_Dic];
+            
+            
+        }else
+        {
+            
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
+        
+        
+        
+        
     });
-    
-    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 处理耗时操作的代码块...
         //保存三个有用的信息
@@ -5777,76 +5838,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
         [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
         }
-        //通知主线程刷新
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //回调或者说是通知主线程刷新，
-            
-            
-            [self serviceEPGSetData:STBTouch_Row diction:STBTouch_Dic];
-           
-            if (self.showTVView == YES) {
-                /**
-                1.弹窗
-                    1.show的方法覆写
-                    2.弹窗那一刻进行判断
-                    3.弹窗的字样和按钮判断
-                    4.弹窗确认按钮点击后进行一次判断，防止按钮点击后，切换页面
-                 2.播放
-                    1.播放器初始化时，进行判断
-                    2.点击后socket请求进行判断
-                    3.所有带有播放请求的页面都进行一次判断
-                */
-                
-                [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-                STBAlert.delegate =  self;
-                STBAlert.title = @"Please input your Decoder PIN";
-                if (self.showTVView == YES) {
-                    [STBAlert show];
-                }else
-                {
-                    NSLog(@"已经不是TV页面了");
-                    [self ifNotISTVView];
-                }
-                STBTextField_Encrypt.text = @"";
-                STBAlert.dontDisppear = YES;
-                
-                
-                
-                STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
-                
-                
-                STBTextField_Encrypt.delegate = self;
-                STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
-                STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
-                [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-                                                            name:@"UITextFieldTextDidChangeNotification"
-                                                          object:STBTextField_Encrypt];
-                //修改decoderPIN 和CA PIN 的 占位文字
-                if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
-                    STBTextField_Encrypt.placeholder = @"decoder PIN";
-                }
-                
-                
-                NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
-                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                
 
-            }else
-            {
-            
-                NSLog(@"已经不是TV页面了");
-                [self ifNotISTVView];
-            }
-            
-            
-            
-            
-        }); 
         
     });
   
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //取消掉提示文字和延迟方法
+        [self removeTipLabAndPerformSelector];
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+    });
 }
 #pragma mark - CA弹窗
 -(void)popCAAlertView : (NSNotification *)text
