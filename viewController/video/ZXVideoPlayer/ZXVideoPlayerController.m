@@ -116,6 +116,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, strong) UIButton * CAPINBtn ; //展示CA PIN 的按钮
 @property (nonatomic, strong) NSTimer * timerOfEventTime;
 
+@property (nonatomic, weak) UIImageView *imageView1;  //侧边渐变的效果图
+@property (nonatomic, weak) UIView *nullView;  //侧边渐变的效果图
+
 @end
 
 @implementation ZXVideoPlayerController
@@ -194,6 +197,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         subtPositionIndex = 0;
         channelPositionIndex = 0;
         judgeVideoIsStatic = 0;
+        [self initData];
     }
     return self;
 }
@@ -2657,8 +2661,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 
 }
+-(void)initData
+{
+    self.subAudioDic = [[NSMutableDictionary alloc]init];
+    self.channelDic= [[NSMutableDictionary alloc]init];
+    self.imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+    self.nullView =  [[UIView alloc] initWithFrame:CGRectZero];
+
+}
 -(void)rightViewshow
 {
+    NSLog(@"右侧列表展示");
     [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     self.videoControl.rightView.hidden = NO;
     self.videoControl.rightView.alpha = 1;
@@ -2673,10 +2686,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     
-    self.subAudioDic = [[NSMutableDictionary alloc]init];
+    
     self.subAudioDic = self.video.dicSubAudio;
     
-    self.channelDic= [[NSMutableDictionary alloc]init];
+    
     self.channelDic = self.video.dicChannl;
     
     
@@ -2688,10 +2701,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.subAudioTableView.delegate = self;
     self.subAudioTableView.dataSource = self;
-    UIImageView *imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+    
     self.subAudioTableView.backgroundColor = [UIColor clearColor]; //clearColor
-    [self.subAudioTableView setBackgroundView:imageView1];
-    self.subAudioTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.subAudioTableView setBackgroundView:self.imageView1];
+    self.subAudioTableView.tableFooterView = self.nullView;
     
     //    self.subAudioTableView.backgroundColor=[UIColor clearColor];
     //    table.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -2719,7 +2732,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tableviewHidden" object:nil];
     //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector( rightViewHidden) name:@"tableviewHidden" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightViewHidden) name:@"tableviewHidden" object:nil];
     
     
     
@@ -3765,6 +3778,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     else if ([_cellStr isEqualToString:@"channel"]) {
+        NSLog(@"右侧列表展示channel");
         ChannelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelCell"];
         if (cell == nil){
             cell = [ChannelCell loadFromNib];
@@ -3774,6 +3788,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell.backgroundColor=[UIColor clearColor];
             
             
+            
+//            self.viewClick.frame = cell.frame;
+//            self.grayViewUP.frame = CGRectMake(12.8, 0, cell.frame.size.width, 0.5);
+//            self.grayViewDown.frame = CGRectMake(12.8, cell.frame.size.height - 1, cell.frame.size.width, 0.5);
             UIView * viewClick = [[UIView alloc]initWithFrame:cell.frame];
             viewClick.backgroundColor = [UIColor clearColor];
             UIView * grayViewUP = [[UIView alloc]initWithFrame:CGRectMake(12.8, 0, cell.frame.size.width, 0.5)];
@@ -3784,6 +3802,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [viewClick addSubview:grayViewDown];
             
             cell.selectedBackgroundView=viewClick;
+            
+            
             //            cell.selectedBackgroundView=[[UIView alloc]initWithFrame:cell.frame];
             
             //            cell.selectedBackgroundView.backgroundColor=[UIColor  clearColor];
@@ -3806,38 +3826,45 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"cell.dataDic %@",cell.dataDic);
             
             
-            
-//            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:10 inSection:0];
-//            [tableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            //
-            
+
             
             //焦点
             NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
             NSLog(@"cell.dataDic 11:%@",cell.dataDic);
             NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
 //            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
-            if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) {
+            
+           __block BOOL boolTemp;
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 
-                [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                boolTemp = [GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic];
                 
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    if (boolTemp) {
+                        
+                        [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                        [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                        
+                        
+                        //                [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                        
+                    }else
+                    {
+                        [cell.channelId setTextColor:[UIColor whiteColor]];
+                        [cell.channelName setTextColor:[UIColor whiteColor]];
+                        
+                    }
+                }); 
                 
-//                [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-                
-            }else
-            {
-                [cell.channelId setTextColor:[UIColor whiteColor]];
-                [cell.channelName setTextColor:[UIColor whiteColor]];
-                
-            }
+            });
+            
             
             
         }else{//如果为空，什么都不执行
             NSLog(@"self.video.dicChannl   %@",self.video.dicChannl);
         }
         
-        //        NSLog(@"cell.dataDic:%@",cell.dataDic);
         
         return cell;
     }

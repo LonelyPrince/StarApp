@@ -1081,7 +1081,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //此处销毁通知，防止一个通知被多次调用   //5
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixprogressView" object:nil ];
                 //注册通知
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView :) name:@"fixprogressView" object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView:) name:@"fixprogressView" object:nil];
                 
                 self.topProgressView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height -50 , [UIScreen mainScreen].bounds.size.width, 2);
                 
