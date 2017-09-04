@@ -645,6 +645,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                     isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects];
+                    [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     NSLog(@"removeAllObjects 第 8 次");
                 }else //横屏状态，不刷新
                 {
@@ -656,6 +660,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
                     
                     [self.tableForDicIndexDic removeAllObjects];
+                    [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     NSLog(@"removeAllObjects 第 9 次");
                 }
                 

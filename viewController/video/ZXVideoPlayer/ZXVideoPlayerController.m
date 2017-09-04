@@ -523,7 +523,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self setProgressSliderMaxMinValues];
     
 //    self.videoControl.fullScreenButton.hidden = NO;
-    if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         self.videoControl.fullScreenButton.hidden = NO;
     }else
     {
@@ -2005,7 +2005,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///// 切换到全屏模式
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
-    if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         //new====
         NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
         
@@ -2258,7 +2258,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.frame = CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight);
     
     self.isFullscreenMode = NO;
-    if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         self.videoControl.fullScreenButton.hidden = NO;
     }else
     {

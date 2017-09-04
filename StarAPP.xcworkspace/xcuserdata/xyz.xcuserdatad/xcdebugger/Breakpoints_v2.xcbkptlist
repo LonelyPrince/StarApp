@@ -212,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
-            timestampString = "525947512.635435"
+            timestampString = "526208219.386575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "-animateHide"
             landmarkType = "7">
          </BreakpointContent>
@@ -244,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
-            timestampString = "525947512.635435"
+            timestampString = "526208219.386575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "-layoutSubviews"
             landmarkType = "7">
          </BreakpointContent>
@@ -260,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
-            timestampString = "525947512.635435"
+            timestampString = "526208219.386575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "-layoutSubviews"
             landmarkType = "7">
          </BreakpointContent>
@@ -307,40 +307,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "526132463.093258"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6411"
-            endingLineNumber = "6411"
-            landmarkName = "-tableViewDataRefreshForMjRefresh"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "526132463.093258"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6493"
-            endingLineNumber = "6493"
-            landmarkName = "-tableViewDataRefreshForMjRefresh"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "526196277.581415"
+            timestampString = "526205199.815555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2760"
@@ -386,45 +354,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "526200132.44017"
+            timestampString = "526205199.815555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4091"
             endingLineNumber = "4091"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ZXVideoPlayerController tableView:didSelectRowAtIndexPath:]"
-                  moduleName = "StarAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-                  timestampString = "526185278.138724"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "4105"
-                  endingLineNumber = "4105"
-                  offsetFromSymbolStart = "6444">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ZXVideoPlayerController tableView:didSelectRowAtIndexPath:]"
-                  moduleName = "StarAPP"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-                  timestampString = "526185278.140319"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "4105"
-                  endingLineNumber = "4105"
-                  offsetFromSymbolStart = "6456">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -434,12 +370,252 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "526196277.581415"
+            timestampString = "526205199.815555"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4063"
             endingLineNumber = "4063"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
+            timestampString = "526205199.815555"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2008"
+            endingLineNumber = "2008"
+            landmarkName = "-changeToFullScreenForOrientation:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526204471.301238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "-getServiceData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526204472.56336"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "523"
+            endingLineNumber = "523"
+            landmarkName = "-getServiceData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526204476.048822"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
+            landmarkName = "-getServiceData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526204477.094727"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "588"
+            endingLineNumber = "588"
+            landmarkName = "-getServiceData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6424"
+            endingLineNumber = "6424"
+            landmarkName = "-tableViewDataRefreshForMjRefresh"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6491"
+            endingLineNumber = "6491"
+            landmarkName = "-tableViewDataRefreshForMjRefresh"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6505"
+            endingLineNumber = "6505"
+            landmarkName = "-tableViewDataRefreshForMjRefresh"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6804"
+            endingLineNumber = "6804"
+            landmarkName = "-tableViewDataRefreshForMjRefresh2222222"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6819"
+            endingLineNumber = "6819"
+            landmarkName = "-tableViewDataRefreshForMjRefresh2222222"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6883"
+            endingLineNumber = "6883"
+            landmarkName = "-tableViewDataRefreshForMjRefresh2222222"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "526207947.446588"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6899"
+            endingLineNumber = "6899"
+            landmarkName = "-tableViewDataRefreshForMjRefresh2222222"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
+            timestampString = "526208219.386575"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
+            landmarkName = "-animateShow"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
+            timestampString = "526205454.628514"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-initWithFrame:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
+            timestampString = "526205462.523325"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
+            landmarkName = "-onMPMovieDurationAvailableNotification"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

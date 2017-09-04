@@ -86,6 +86,7 @@
     [USER_DEFAULT setObject:@"0" forKey:@"YLSlideTitleViewButtonTagIndexStr"];
     
     [USER_DEFAULT  setObject:@"NO" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面还没有加载完成
+    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"]; // 值为YES，代表首页的频道列表还没有展示出来，这个时候不允许旋转
     [self.window makeKeyAndVisible];
     return YES;
 }

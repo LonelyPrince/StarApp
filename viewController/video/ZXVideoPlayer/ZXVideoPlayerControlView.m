@@ -161,10 +161,19 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"channeListIsShow" object:nil];
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(channeListIsShow) name:@"channeListIsShow" object:nil];
+        
+        //显示全屏按钮
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fullScreenBtnShow" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnShow) name:@"fullScreenBtnShow" object:nil];
     }
     return self;
 }
 
+-(void)fullScreenBtnShow
+{
+    self.fullScreenButton.hidden = NO;
+}
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -384,7 +393,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)animateShow
 {
     
-    if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         if (self.isBarShowing) {
             return;
         }
