@@ -3810,11 +3810,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             //            cell.backgroundView = viewClick;
             
-            [cell.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            [cell.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            
-            
-            
+//            [cell.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [cell.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+  
         }
         
         
@@ -3845,7 +3843,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         
                         [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                         [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+////                        NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:2];
+////                        [self tableView:tableView didSelectRowAtIndexPath:indexPath];
+//                         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                         
+                        
+//                        NSIndexPath *selectedIndexPath = indexPath;
+//                        
+//                        [tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                        
+                        NSLog(@"cell1122bbiubibibb -- %@====%ld",cell,(long)indexPath.row);
                         
                         //                [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                         
@@ -3875,13 +3882,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+    self.videoControl.isBarShowing = NO;
+    [self rightViewHidden];
+    });
+    
+    
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     
 //    if (self.rightViewShowing == YES)
 //    {
-        self.videoControl.isBarShowing = NO;
-        [self rightViewHidden];
+//        self.videoControl.isBarShowing = NO;
+//        [self rightViewHidden];
 //    }
     NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
@@ -4026,8 +4039,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 [cell1.languageLab setTextColor:[UIColor whiteColor]];
                 
             }
-            
-            
+           
             
             
             //选中的变蓝
@@ -4045,40 +4057,46 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
+
         
-        NSDictionary * dic ;
+       __block NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-            audioRow = 0;
-            subtRow = 0;
             
-            
-            dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-            //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
-            [self touchToSee :dic DicWithRow:indexPath.row];
-            
-            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            tableView.separatorColor = [UIColor whiteColor];
-            
-            
+           
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                audioRow = 0;
+                subtRow = 0;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+                    //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+                    [self touchToSee :dic DicWithRow:indexPath.row];
+                });
+                
+                tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                tableView.separatorColor = [UIColor whiteColor];
+                
+            });
             
             //先全部变白
-            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
-                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-                
-                ChannelCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-                [cell1.channelId setTextColor:[UIColor whiteColor]];
-                [cell1.channelName setTextColor:[UIColor whiteColor]];
-            }
+//            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
+//                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+//                
+//                ChannelCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+//                [cell1.channelId setTextColor:[UIColor redColor]];
+//                [cell1.channelName setTextColor:[UIColor redColor]];
+//
+//            }
             
             
             
             
-            //选中的变蓝
-            ChannelCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            [cell2.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            [cell2.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            
-            
+////            //选中的变蓝
+//            ChannelCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+//            [cell2.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [cell2.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            
+//
+            //刷新注意的焦点
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             
@@ -4087,6 +4105,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [self.socketView1  serviceTouch ];
     }
     
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
     [self judgeLastBtnIsGray];
     [self judgeNextBtnIsGray];
     NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
@@ -4112,7 +4131,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self.videoControl.audioBtn setEnabled:YES];
     }
     NSLog(@"我被选中了，哈哈哈哈哈哈哈");
-    
+    });
+
 }
 //节目播放点击
 -(void)touchToSee :(NSDictionary* )dic DicWithRow:(NSInteger)row
