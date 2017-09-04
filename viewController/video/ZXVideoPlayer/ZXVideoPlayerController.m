@@ -3541,7 +3541,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             cell.selectedBackgroundView=viewClick;
             
-            [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
             
@@ -3663,7 +3663,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             cell.selectedBackgroundView=viewClick;
             
-            [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
             
@@ -3955,21 +3955,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             tableView.separatorColor = [UIColor whiteColor];
             
             
-            //先全部变白
-            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
-                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-                
-                subtCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-                [cell1.languageLab setTextColor:[UIColor whiteColor]];
-                
-            }
-            
-            
-            
-            
-            //选中的变蓝
-            subtCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            //先全部变白
+//            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
+//                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+//                
+//                subtCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+//                [cell1.languageLab setTextColor:[UIColor whiteColor]];
+//                
+//            }
+//            
+//            
+//            
+//            
+//            //选中的变蓝
+//            subtCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+//            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
@@ -4031,20 +4031,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             
-            //先全部变白
-            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
-                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-                
-                AudioCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-                [cell1.languageLab setTextColor:[UIColor whiteColor]];
-                
-            }
-           
-            
-            
-            //选中的变蓝
-            AudioCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            //先全部变白
+//            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
+//                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
+//                
+//                AudioCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
+//                [cell1.languageLab setTextColor:[UIColor whiteColor]];
+//                
+//            }
+//           
+//            
+//            
+//            //选中的变蓝
+//            AudioCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
+//            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
