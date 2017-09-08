@@ -179,7 +179,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [super layoutSubviews];
     NSLog(@"self.view.frame.bounds.height1 %f",[UIScreen mainScreen].bounds.size.height);
     NSLog(@"self.view.frame.bounds.width1 %f",[UIScreen mainScreen].bounds.size.width);
-    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) { //全屏
         self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
         self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
         //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
@@ -439,7 +439,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
     }
-   
+    
 }
 
 //频道列表数据出现的时候，做一次显示操作
@@ -639,7 +639,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Group 16"]];
         
-        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) { //全屏
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) { //全屏
             _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
         }else
         {
@@ -656,7 +656,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
     NSLog(@"Imagewidth :%f",[UIScreen mainScreen].bounds.size.width);
     NSLog(@"SCREEN_HEIGHT :%f",[UIScreen mainScreen].bounds.size.height);
-    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height) {  //全屏  //([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height)
+    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) {  //全屏
         _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
         _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
         

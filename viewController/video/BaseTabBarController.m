@@ -39,26 +39,26 @@
     XYZNavigationController *nav = self.viewControllers[0];
     
     //new====
-//    NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
-//    
-//    if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
-//        return UIInterfaceOrientationMaskPortrait;
-//    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
-//    {
+    //    NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
+    //
+    //    if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
+    //        return UIInterfaceOrientationMaskPortrait;
+    //    }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
+    //    {
     //new====
-        if ([nav.topViewController isKindOfClass:[TVViewController class]] && ![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
-            //    if ([nav.topViewController isKindOfClass:[ViewController class]]) {
-            return UIInterfaceOrientationMaskPortrait;
-        }
-        
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-
-        //new====
-//    }else
-//    {
-//    return UIInterfaceOrientationMaskPortrait;
-//    }
-        //new====
+    if ([nav.topViewController isKindOfClass:[TVViewController class]] && ![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+        //    if ([nav.topViewController isKindOfClass:[ViewController class]]) {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+    
+    //new====
+    //    }else
+    //    {
+    //    return UIInterfaceOrientationMaskPortrait;
+    //    }
+    //new====
 }
 
 @end

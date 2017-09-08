@@ -51,35 +51,35 @@
     NSLog(@"00000---");
     self.dataSource = [NSMutableArray array];
     cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
-//    [NSThread detachNewThreadSelector:@selector(getCGData1) toTarget:self withObject:nil];
+    //    [NSThread detachNewThreadSelector:@selector(getCGData1) toTarget:self withObject:nil];
     [self getCGData1];
     NSLog(@"11111---");
     [NSThread sleepForTimeInterval:2.0];//设置启动页面时间
     NSLog(@"22222---");
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-//    self.dataSource = [NSMutableArray array];
-//    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
-//    [self getCGData1];
-//    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
+    //    self.dataSource = [NSMutableArray array];
+    //    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
+    //    [self getCGData1];
+    //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
-      [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
-//    self.ipString =  [GGUtil getIPAddress];
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
+    //    self.ipString =  [GGUtil getIPAddress];
     self.ipString =  [GGUtil getIPAddress:YES];
-
     
-//    openfirst = 1;
+    
+    //    openfirst = 1;
     
     /*********************************************************************/
     //当真机连接Mac调试的时候把这些注释掉，否则log只会输入到文件中，而不能从xcode的监视器中看到。
     // 如果是真机就保存到Document目录下的dr.log文件中
-//    UIDevice *device = [UIDevice currentDevice];
-//    if (![[device model]isEqualToString:@"iPad Simulator"]) {
-        // 开始保存日志文件
-//        [self redirectNSlogToDocumentFolder];
-//    }
+    //    UIDevice *device = [UIDevice currentDevice];
+    //    if (![[device model]isEqualToString:@"iPad Simulator"]) {
+    // 开始保存日志文件
+    //        [self redirectNSlogToDocumentFolder];
+    //    }
     /*********************************************************************/
     
     [USER_DEFAULT setObject:@"NO" forKey:@"滑动了或者点击了"];     //暂时没用，有用了在删除这个注释
@@ -165,7 +165,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
-       
+        
         
         printf("按理说是重新进来后响应\n");
         
@@ -182,7 +182,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         }
         
     });
-
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -195,11 +195,11 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 -(void)getCGData1
 {
-//    NSLog(@"--++--");
-//    avCtrl = [[CGUpnpAvController alloc] init];    ///进行搜索的对象
-//            avCtrl.delegate = self;
-//            [avCtrl search];
-//            self.avController = avCtrl;
+    //    NSLog(@"--++--");
+    //    avCtrl = [[CGUpnpAvController alloc] init];    ///进行搜索的对象
+    //            avCtrl.delegate = self;
+    //            [avCtrl search];
+    //            self.avController = avCtrl;
     //
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 处理耗时操作的代码块...
@@ -209,12 +209,12 @@ void UncaughtExceptionHandler(NSException *exception) {
         avCtrl.delegate = self;
         [avCtrl search];
         self.avController = avCtrl;
-       
+        
         //通知主线程刷新
         NSLog(@"Device dispatch1");
         dispatch_async(dispatch_get_main_queue(), ^{
             //回调或者说是通知主线程刷新，
-       
+            
             
             NSLog(@"Device dispatch2");
         });
@@ -225,7 +225,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     NSLog(@"刷新中-----");
     
-     NSLog(@"DMSIP:进入");
+    NSLog(@"DMSIP:进入");
     NSArray * oldDmsArr =[USER_DEFAULT  objectForKey:@"DmsDevice"]; //用于获取原始的数据，如果原始数据和新数据一样，不刷新
     NSArray * newDmsArr = [[NSArray alloc]init];
     NSLog(@"UUID :%@", deviceUdn);   //这里输出了UUID
@@ -234,21 +234,21 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSArray * dmsArr = [[NSArray alloc]init];
     //此处可能产生僵尸对象
     dmsArr = [((CGUpnpAvController*)controlPoint) servers];
-   
+    
     NSLog(@"dmsArr :%@",dmsArr);
     [self.dataSource removeAllObjects];
     [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
     
     for (int i = 0; i<dmsArr.count ; i++) {
-      
+        
         CGUpnpDevice *dev = dmsArr[i];
         cgUpnpModel.category_id =[dev friendlyName];
         cgUpnpModel.UUID= [dev udn];
         cgUpnpModel.ipaddress = [dev ipaddress];
-    
+        
         
         //字典:
-
+        
         NSLog(@"cg:%@",  cgUpnpModel.UUID);
         if (cgUpnpModel == NULL) {
             
@@ -278,7 +278,7 @@ void UncaughtExceptionHandler(NSException *exception) {
             {
                 NSLog(@"前缀不是HMC");
             }
-
+            
         }
         
         
@@ -288,7 +288,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     
     if (self.dataSource == NULL) {
-     
+        
     }
     else
     {
@@ -296,7 +296,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         //此处可以判断DLNA的数据是不是变化
         [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];
         NSLog(@"datasource.count %d",self.dataSource.count);
-       
+        
         
         //此处添加判断方法，如果有前缀是HMC的设备，则自动连接其IP
         for (int i = 0 ; i<self.dataSource.count; i++) {
@@ -304,16 +304,16 @@ void UncaughtExceptionHandler(NSException *exception) {
             NSDictionary * HMCDicList = [[NSDictionary alloc]init];
             HMCDicList = HMCListArr[i];
             NSString * HMC_DMSID = [HMCDicList objectForKey:@"dmsID"];
-             NSString *  subString= [HMC_DMSID substringWithRange:NSMakeRange(0,3)];
+            NSString *  subString= [HMC_DMSID substringWithRange:NSMakeRange(0,3)];
             if ([subString isEqualToString:@"HMC"]) {
                 NSString * oldHMC_DMSIP =[USER_DEFAULT objectForKey:@"HMC_DMSIP"];
                 NSString * HMC_DMSIP =[HMCDicList objectForKey:@"dmsIP"];
-                 [USER_DEFAULT setObject:HMC_DMSIP  forKey:@"HMC_DMSIP"];
-           
-                 [USER_DEFAULT setObject:HMC_DMSID  forKey:@"HMC_DMSID_Name"];
+                [USER_DEFAULT setObject:HMC_DMSIP  forKey:@"HMC_DMSIP"];
+                
+                [USER_DEFAULT setObject:HMC_DMSID  forKey:@"HMC_DMSID_Name"];
                 
                 NSLog(@"oldHMC_DMSIP:%@",oldHMC_DMSIP);
-                 NSLog(@"DMSIP:4444");
+                NSLog(@"DMSIP:4444");
                 NSLog(@"DMSIP:此时%@",HMC_DMSIP);
                 
                 //存储当前的DMS信息（是个字典）
@@ -322,53 +322,53 @@ void UncaughtExceptionHandler(NSException *exception) {
                 //这里将service 地址本地存储
                 NSString * kSDLB_SYS_SERVERStr =[NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",HMC_DMSIP];    //服务器地址
                 [USER_DEFAULT setObject:kSDLB_SYS_SERVERStr  forKey:@"HMCServiceStr"];
-              
-                //这里将G_device 地址本地存储
-//                NSString * G_deviceStr =[NSString stringWithFormat:@"http://%@/test/online_devices",HMC_DMSIP];    //G_device地址
-//                [USER_DEFAULT setObject:G_deviceStr  forKey:@"G_deviceStr"];
                 
-//                #define G_device  @"http://192.168.1.55/test/online_devices //@"http://www.tenbre.net/test/online_devices"//
-//                #define kSDLB_SYS_SERVER(x) [NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",x]    //服务器地址
-//                if (openfirst == 1) {
-//                    {
-////                    即使相同也运行
-//                    }else
-//                    {
-////                    不运行
-//                    }
+                //这里将G_device 地址本地存储
+                //                NSString * G_deviceStr =[NSString stringWithFormat:@"http://%@/test/online_devices",HMC_DMSIP];    //G_device地址
+                //                [USER_DEFAULT setObject:G_deviceStr  forKey:@"G_deviceStr"];
+                
+                //                #define G_device  @"http://192.168.1.55/test/online_devices //@"http://www.tenbre.net/test/online_devices"//
+                //                #define kSDLB_SYS_SERVER(x) [NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",x]    //服务器地址
+                //                if (openfirst == 1) {
+                //                    {
+                ////                    即使相同也运行
+                //                    }else
+                //                    {
+                ////                    不运行
+                //                    }
                 
                 //第一次打应用，防止oldDMS的IP和DMSIP相同，所以这里先做一次请求
-//                if (openfirst == 1) {
-//                    openfirst++;
-//                    NSLog(@"IP出现一次======不同");
-//                    NSLog(@"DMSIP:5555");
-//                    //创建通知
-//                    NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-//                    //通过通知中心发送通知
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//                    
-//                    //创建通知
-//                    NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
-//                    //通过通知中心发送通知
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//                }
-//                else{
-//                    if (! [oldHMC_DMSIP isEqualToString: HMC_DMSIP]) {
-//                        NSLog(@"IP出现一次不同");
-//                        NSLog(@"DMSIP:5555");
-//                        //创建通知
-//                        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-//                        //通过通知中心发送通知
-//                        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//                        
-//                        //创建通知
-//                        NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
-//                        //通过通知中心发送通知
-//                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//                        
-//                    }
-//                }
-
+                //                if (openfirst == 1) {
+                //                    openfirst++;
+                //                    NSLog(@"IP出现一次======不同");
+                //                    NSLog(@"DMSIP:5555");
+                //                    //创建通知
+                //                    NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+                //                    //通过通知中心发送通知
+                //                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                //
+                //                    //创建通知
+                //                    NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
+                //                    //通过通知中心发送通知
+                //                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                //                }
+                //                else{
+                //                    if (! [oldHMC_DMSIP isEqualToString: HMC_DMSIP]) {
+                //                        NSLog(@"IP出现一次不同");
+                //                        NSLog(@"DMSIP:5555");
+                //                        //创建通知
+                //                        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+                //                        //通过通知中心发送通知
+                //                        [[NSNotificationCenter defaultCenter] postNotification:notification];
+                //
+                //                        //创建通知
+                //                        NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
+                //                        //通过通知中心发送通知
+                //                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                //
+                //                    }
+                //                }
+                
             }
         }
         
@@ -376,107 +376,107 @@ void UncaughtExceptionHandler(NSException *exception) {
     //存储总的DMS的DataSource信息
     [USER_DEFAULT setObject:self.dataSource forKey:@"DMSDataSourceInfo"];
     
-//    //此处可以判断DLNA的数据是不是变化
+    //    //此处可以判断DLNA的数据是不是变化
     newDmsArr = [self.dataSource copy];
-//    [self judgeDmsDevice:oldDmsArr newDms:newDmsArr];
-
+    //    [self judgeDmsDevice:oldDmsArr newDms:newDmsArr];
+    
     
     //    int dmsNum = 0;
-        
+    
     //    [self loadUI];
-
+    
     
     NSLog(@"Device delegate");
 }
 //判断新旧数据是否一样，不一样通知刷新DMS列表
 -(void) judgeDmsDevice :(NSArray *)oldDmsArr newDms:(NSArray *)newDmsArr
 {
-   if(oldDmsArr ==NULL && newDmsArr!=NULL)
-   {
-       //刷新
-   }else if (oldDmsArr !=NULL && newDmsArr == NULL)
-   {
-       //刷新
-   }else if (oldDmsArr !=NULL && newDmsArr != NULL)
-   {
-       if (oldDmsArr.count != newDmsArr.count) {
-           //刷新
-       }else{
-       
-       for (int a = 0; a<oldDmsArr.count; a++) {
-           //        CGUpnpDevice *oldDev = oldDmsArr[a];
-           //        CGUpnpDeviceModel* cgUpnpModel;   //model
-           NSDictionary * dicTest = [[NSDictionary alloc]init];
-           dicTest = oldDmsArr[a];
-           CGUpnpDeviceModel* cgModelTest = [[CGUpnpDeviceModel alloc]init];   //model
-           
-           cgModelTest.category_id = [dicTest objectForKey:@"dmsID"];
-           cgModelTest.UUID = [dicTest objectForKey:@"dmsUUID"];
-           cgModelTest.ipaddress = [dicTest objectForKey:@"dmsIP"];
-           
-           for (int b = 0; b<newDmsArr.count; b++) {
-               
-               NSDictionary * newDicTest = [[NSDictionary alloc]init];
-               newDicTest = newDmsArr[b];
-               CGUpnpDeviceModel* newCgModelTest = [[CGUpnpDeviceModel alloc]init];   //model
-               
-               newCgModelTest.category_id = [newDicTest objectForKey:@"dmsID"];
-               newCgModelTest.UUID = [newDicTest objectForKey:@"dmsUUID"];
-               newCgModelTest.ipaddress = [newDicTest objectForKey:@"dmsIP"];
-               
-               if ([cgModelTest.category_id isEqualToString:newCgModelTest.category_id] &&[cgModelTest.UUID isEqualToString:newCgModelTest.UUID]&&[cgModelTest.ipaddress isEqualToString:newCgModelTest.ipaddress] ) {
-                   //此时全部相等，不做处理
-               }else
-               {
-                   //刷新
-               }
-               
-           }
-       }
-       }
-   }
+    if(oldDmsArr ==NULL && newDmsArr!=NULL)
+    {
+        //刷新
+    }else if (oldDmsArr !=NULL && newDmsArr == NULL)
+    {
+        //刷新
+    }else if (oldDmsArr !=NULL && newDmsArr != NULL)
+    {
+        if (oldDmsArr.count != newDmsArr.count) {
+            //刷新
+        }else{
+            
+            for (int a = 0; a<oldDmsArr.count; a++) {
+                //        CGUpnpDevice *oldDev = oldDmsArr[a];
+                //        CGUpnpDeviceModel* cgUpnpModel;   //model
+                NSDictionary * dicTest = [[NSDictionary alloc]init];
+                dicTest = oldDmsArr[a];
+                CGUpnpDeviceModel* cgModelTest = [[CGUpnpDeviceModel alloc]init];   //model
+                
+                cgModelTest.category_id = [dicTest objectForKey:@"dmsID"];
+                cgModelTest.UUID = [dicTest objectForKey:@"dmsUUID"];
+                cgModelTest.ipaddress = [dicTest objectForKey:@"dmsIP"];
+                
+                for (int b = 0; b<newDmsArr.count; b++) {
+                    
+                    NSDictionary * newDicTest = [[NSDictionary alloc]init];
+                    newDicTest = newDmsArr[b];
+                    CGUpnpDeviceModel* newCgModelTest = [[CGUpnpDeviceModel alloc]init];   //model
+                    
+                    newCgModelTest.category_id = [newDicTest objectForKey:@"dmsID"];
+                    newCgModelTest.UUID = [newDicTest objectForKey:@"dmsUUID"];
+                    newCgModelTest.ipaddress = [newDicTest objectForKey:@"dmsIP"];
+                    
+                    if ([cgModelTest.category_id isEqualToString:newCgModelTest.category_id] &&[cgModelTest.UUID isEqualToString:newCgModelTest.UUID]&&[cgModelTest.ipaddress isEqualToString:newCgModelTest.ipaddress] ) {
+                        //此时全部相等，不做处理
+                    }else
+                    {
+                        //刷新
+                    }
+                    
+                }
+            }
+        }
+    }
     
 }
 
 -(void)checkIPTimer
 //{
 //    //    NSString * IPstrNow = [GGUtil getIPAddress];
-//    
-//    
+//
+//
 //    NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
-//    
+//
 //    if ([viewHasAddOver isEqualToString:@"NO"]) {
 //        //是TV页面，需要重新播放第一个视频
-//        
+//
 //        NSLog(@" checkIPTimer IP 1 %@", self.ipString);
 //        NSString * IPstrNow=  [GGUtil getIPAddress:YES];
 //        if ([IPstrNow isEqualToString:self.ipString]) {
-//            
+//
 //        }else
 //        {
 //            NSLog(@" checkIPTimer IP 不一样了 2 %@", self.ipString);
-//            
+//
 //            NSLog(@"IP 网络改变");
 //            NSLog(@"IP 改变了在 checkIPTimer");
-//            
+//
 //            [self.dataSource removeAllObjects];
 //            [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
-//            
+//
 //            self.ipString = IPstrNow;
 //            //创建通知
 //            NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
 //            //通过通知中心发送通知
 //            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//            
-//            
+//
+//
 //        }
 //    }
-//    
-//    
-//    
+//
+//
+//
 //    NSString * IPstrNow=  [GGUtil getIPAddress:YES];
 //    if ([IPstrNow isEqualToString:self.ipString]) {
-//        
+//
 //        NSLog(@"网络没问题");
 //        self.judgeNetWorkIsError = 0;
 //    }else
@@ -492,24 +492,24 @@ void UncaughtExceptionHandler(NSException *exception) {
 //                NSLog(@"网络错误");
 //                [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
 //                [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
-//                
+//
 //                NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
 //                //        //通过通知中心发送通知
 //                [[NSNotificationCenter defaultCenter] postNotification:notification];
 //            }
 //            else{
-//                
+//
 //                NSLog(@" IPstrNow 1 %@", IPstrNow);
 //                NSLog(@" self.ipString %@", self.ipString);
 //                NSLog(@"网络正确");
 //            }
 //        }
-//        
-//       
-//        
-//        
+//
+//
+//
+//
 ////        、、、、
-//        
+//
 ////        if (([[Reachability reachabilityWithHostname:[USER_DEFAULT objectForKey:@"HMCServiceStr"]] currentReachabilityStatus] == NotReachable)) {
 ////
 ////            NSLog(@" IPstrNow 1 %@", IPstrNow);
@@ -520,15 +520,15 @@ void UncaughtExceptionHandler(NSException *exception) {
 ////            NSLog(@"网络错误");
 ////            [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
 ////            [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
-////            
+////
 ////            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
 ////            //        //通过通知中心发送通知
 ////            [[NSNotificationCenter defaultCenter] postNotification:notification];
-////            
+////
 ////        }
 //
 //    }
-//    
+//
 //}
 {
     //    NSString * IPstrNow = [GGUtil getIPAddress];
