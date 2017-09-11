@@ -1004,9 +1004,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     }
                     CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];;
-                    CAPINLab.frame = CGRectMake((SCREEN_HEIGHT - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
+                    CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                     CAPINLab.textAlignment = NSTextAlignmentCenter;
-                    CAPINBtn.frame = CGRectMake((SCREEN_HEIGHT - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
+                    CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
                     CAPINBtn.layer.cornerRadius = 14.0f;
                     CAPINBtn.layer.masksToBounds = YES;
                     
