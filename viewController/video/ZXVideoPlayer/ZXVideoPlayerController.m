@@ -377,9 +377,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 播放状态改变, 可配合playbakcState属性获取具体状态
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
+    NSLog(@"卡拉  开始配置  开始播放了，取消静帧");
     //    if (judgeVideoIsStatic == 1) {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
     judgeVideoIsStatic = 0;
+    
+    [self.view insertSubview:self.player.view atIndex:0];
     //    }
     NSLog(@"xxxxxx 播放状态改变,  开始播放了，取消静帧");
     if (openTime == 0) {
@@ -435,26 +438,36 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void)stopPlayAndShowLabel  //如果静帧超过3秒钟，显示不能播放的文字
 {
-    
+    NSLog(@"卡拉  开始配置 进入方法22");
     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
     [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
     
-    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+//    //        //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    [self stopPlayAndWaitBuffering];
     
 }
 /// 媒体网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
-    
+    NSLog(@"卡拉  开始配置 进入方法1");
     if (judgeVideoIsStatic == 0) {
         //        /    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
+        NSLog(@"卡拉  开始配置 进入方法11");
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
         [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
+//        double delayInSeconds = KZXVideoStaticTime;
+//        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(popTime, mainQueue, ^{
+//        
+//            [self stopPlayAndShowLabel];
+//        });
         
         judgeVideoIsStatic = 1;
     }
-    
     NSLog(@"xxxxxx MPMoviePlayer  开始3秒的静帧等待");
     NSLog(@"MPMoviePlayer  加载");
     if (MPMovieLoadStateUnknown) {
@@ -548,9 +561,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     NSLog(@"xxxxxx playState---=====视频播放结束 视频播放结束时");
     
-    [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
-    
-    judgeVideoIsStatic = 1;
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
+//    [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
+//    
+//    judgeVideoIsStatic = 1;
     
     NSLog(@"xxxxxx 新加的方法，如果实现了这个方法，视频将在3秒后停止");
     
@@ -609,10 +623,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             CGFloat y = fabs(veloctyPoint.y);
             
             if (x > y) { // 水平移动
-                self.panDirection = ZXPanDirectionHorizontal;
-                self.sumTime = self.currentPlaybackTime; // sumTime初值
-                [self.player pause];
-                [self stopDurationTimer];
+//                self.panDirection = ZXPanDirectionHorizontal;
+//                self.sumTime = self.currentPlaybackTime; // sumTime初值
+//                [self.player pause];
+//                [self stopDurationTimer];
             } else if (x < y) { // 垂直移动
                 self.panDirection = ZXPanDirectionVertical;
                 if (locationPoint.x > self.view.bounds.size.width / 2) { // 音量调节
@@ -626,7 +640,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateChanged: { // 正在移动
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-                    [self horizontalMoved:veloctyPoint.x];
+//                    [self horizontalMoved:veloctyPoint.x];
                 }
                     break;
                 case ZXPanDirectionVertical: {
@@ -4776,5 +4790,341 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     audioRow = 0;
     subtRow = 0;
     
+}
+#define mark - 数据停止分发3秒后显示不能播放的文字，等到数据缓冲完成，自动重新播放
+-(void)stopPlayAndWaitBuffering
+{
+    NSLog(@"卡拉  开始配置 进入方法3");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSString * isShowLabStr = [USER_DEFAULT objectForKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+        
+        if ([isShowLabStr isEqualToString:@"POP"]) {
+            //什么都不执行,因为此时有弹窗的文字在展示
+            NSLog(@"卡拉  开始配置 进入方法33");
+        }else
+        {
+            NSLog(@"卡拉  开始配置 进入方法333");
+            //保存三个有用的信息
+            
+            NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];//text.userInfo[@"playStateType"];
+            
+            
+            
+            //①创建通知,删除进度条
+            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+            
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            //②右侧列表消失
+            NSLog(@"右侧列表消失 noPlayShowNotic");
+            self.subAudioTableView.hidden = YES;
+            self.subAudioTableView = nil;
+            [self.subAudioTableView removeFromSuperview];
+            self.subAudioTableView = NULL;
+            self.subAudioTableView.alpha = 0;
+            //③ 删除音频图片
+            [self removeConfigRadioShowNotific];  //删除音频图片的函数。，防止音频图片显示
+            //④取消掉加载环
+            [self.videoControl.indicatorView stopAnimating];
+//            //⑤停止播放的动作,并且取消掉图画
+//            [self.player stop];
+//            [self.player shutdown];
+            [self.player.view removeFromSuperview];
+            
+            
+            //⑥显示不能播放的字，通过判断home键的位置来判断label的显示大小和位置
+            UIDeviceOrientation orientation = self.getDeviceOrientation;
+            if (!self.isLocked)
+            {
+                NSLog(@"width== %f",self.view.frame.size.width);
+                NSLog(@"height== %f",self.view.frame.size.height);
+                NSLog(@"screenWidth== %f",[UIScreen mainScreen].bounds.size.width);
+                NSLog(@"screenHeight== %f",[UIScreen mainScreen].bounds.size.height);
+                
+                //转盘方向  研究
+                
+                switch (orientation) {
+                    case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                        NSLog(@"home键在 下");
+                        [self restoreOriginalScreen];
+                        
+                        if ( !lab) {
+                            lab = [[UILabel alloc]init];
+                            NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                            if (videoOrRadiostr != NULL) {
+                                if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = mediaDisConnect;
+                                }
+                                else
+                                {
+                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                }
+                                
+                            }else
+                            {
+                                lab.text = videoCantPlayTip;
+                            }
+                            
+                            
+                            lab.font = FONT(17);
+                            lab.textColor = [UIColor whiteColor];
+                            [self.view addSubview:lab];
+                            NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                            CGSize size=[lab.text sizeWithAttributes:attrs];
+                            lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                            
+                            //创建通知
+                            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                            
+                        }
+                    }
+                        break;
+                    case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                        NSLog(@"home键在 上");
+                        
+                        if ( !lab) {
+                            lab = [[UILabel alloc]init];
+                            
+                            
+                            NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                            if (videoOrRadiostr != NULL) {
+                                if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = mediaDisConnect;
+                                }
+                                else
+                                {
+                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                }
+                            }else
+                            {
+                                lab.text = videoCantPlayTip;
+                            }
+                            lab.font = FONT(17);
+                            lab.textColor = [UIColor whiteColor];
+                            [self.view addSubview:lab];
+                            NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                            CGSize size=[lab.text sizeWithAttributes:attrs];
+                            lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                            
+                            //创建通知
+                            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                            
+                        }
+                    }
+                        break;
+                    case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                        NSLog(@"home键在 右");
+                        [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                        
+                        if ( !lab) {
+                            lab = [[UILabel alloc]init];
+                            
+                            NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                            if (videoOrRadiostr != NULL) {
+                                if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = mediaDisConnect;
+                                }
+                                else
+                                {
+                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                }
+                            }else
+                            {
+                                lab.text = videoCantPlayTip;
+                            }
+                            lab.font = FONT(17);
+                            lab.textColor = [UIColor whiteColor];
+                            [self.view addSubview:lab];
+                            NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                            CGSize size=[lab.text sizeWithAttributes:attrs];
+                            
+                            lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                            
+                            
+                            //创建通知
+                            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                        }
+                    }
+                        break;
+                    case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                        NSLog(@"home键在 左");
+                        //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                        [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                        
+                        if ( !lab) {
+                            lab = [[UILabel alloc]init];
+                            
+                            NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                            if (videoOrRadiostr != NULL) {
+                                if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = mediaDisConnect;
+                                }else
+                                {
+                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                }
+                            }else
+                            {
+                                lab.text = videoCantPlayTip;
+                            }
+                            lab.font = FONT(17);
+                            lab.textColor = [UIColor whiteColor];
+                            [self.view addSubview:lab];
+                            NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                            CGSize size=[lab.text sizeWithAttributes:attrs];
+                            lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                            
+                            //创建通知
+                            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification];
+                            
+                        }
+                    }
+                        break;
+                        
+                    default: // 还有一种情况是界面朝上或者界面朝下
+                    {
+                        NSLog(@"width %f",self.view.frame.size.width);
+                        NSLog(@"height %f",self.view.frame.size.height);
+                        if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) //证明此时是竖屏状态
+                        {           // Device oriented vertically, home button on the bottom
+                            NSLog(@"home键在 下");
+                            [self restoreOriginalScreen];
+                            
+                            if ( !lab) {
+                                lab = [[UILabel alloc]init];
+                                NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                                if (videoOrRadiostr != NULL) {
+                                    if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                                    {
+                                        lab.numberOfLines = 0;
+                                        lab.text = mediaDisConnect;
+                                    }else
+                                    {
+                                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    }
+                                }else
+                                {
+                                    lab.text = videoCantPlayTip;
+                                }
+                                
+                                
+                                lab.font = FONT(17);
+                                lab.textColor = [UIColor whiteColor];
+                                [self.view addSubview:lab];
+                                NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                                CGSize size=[lab.text sizeWithAttributes:attrs];
+                                lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                                
+                                //创建通知
+                                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                                
+                            }
+                        }else //证明此时是横屏状态
+                        {      // Device oriented horizontally, home button on the right
+                            NSLog(@"home键在 右");
+                            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                            
+                            if ( !lab) {
+                                lab = [[UILabel alloc]init];
+                                
+                                NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                                if (videoOrRadiostr != NULL) {
+                                    if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                                    {
+                                        lab.numberOfLines = 0;
+                                        lab.text = mediaDisConnect;
+                                    }else
+                                    {
+                                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    }
+                                }else
+                                {
+                                    lab.text = videoCantPlayTip;
+                                }
+                                lab.font = FONT(17);
+                                lab.textColor = [UIColor whiteColor];
+                                [self.view addSubview:lab];
+                                NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                                CGSize size=[lab.text sizeWithAttributes:attrs];
+                                lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                                
+                                
+                                //创建通知
+                                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                            }
+                        }
+                        
+                        
+                        
+                        
+                    }
+                        break;
+                }
+                
+                if (lab) {
+                    NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
+                    if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
+                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                    }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
+                    {
+                        lab.numberOfLines = 0;
+                        lab.text = mediaDisConnect;
+                    }else
+                    {
+                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                    }
+                    NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
+                    
+                    if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) {
+                        CGSize size=[lab.text sizeWithAttributes:attrs];
+                        lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    }else
+                    {
+                        CGSize size=[lab.text sizeWithAttributes:attrs];
+                        lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
+                    }
+                    
+                }
+            }
+            
+        }
+        
+        
+        
+        
+    });
+
 }
 @end
