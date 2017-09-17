@@ -2135,7 +2135,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //    }
             
             
-            
+//            __weak typeof(self) weakSelf = self;
+//            
+//            self.videoControl.animateShowJdugeLastBtnAndNextBtnIsBray = ^(){
+//            __strong typeof(self) strongSelf = weakSelf;
+//                [self judgeLastBtnIsGray];
+//                [self judgeNextBtnIsGray];
+//            };
             
             
             
@@ -2550,7 +2556,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
-    if (historyArr.count > 1) {
+    if (historyArr.count >= 1) {
         NSArray * touchArr = historyArr[historyArr.count - 1];
         NSLog(@"touchArr：%@",touchArr);
         //    [self touchToSee :touchArr];
@@ -4071,6 +4077,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
                     //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+                    NSLog(@"dic-- %@",dic);
                     [self touchToSee :dic DicWithRow:indexPath.row];
                 });
                 
@@ -4148,7 +4155,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
     NSArray * touchArr;
-    if (historyArr.count > 1) {
+    if (historyArr.count >= 1) {
         touchArr = historyArr[historyArr.count - 1];
     }else
     {

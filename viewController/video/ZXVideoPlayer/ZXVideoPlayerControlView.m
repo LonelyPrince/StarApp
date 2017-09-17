@@ -393,6 +393,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)animateShow
 {
     
+//    if (self.animateShowJdugeLastBtnAndNextBtnIsBray) {
+//        self.animateShowJdugeLastBtnAndNextBtnIsBray();
+//    }
+    
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         if (self.isBarShowing) {
             return;

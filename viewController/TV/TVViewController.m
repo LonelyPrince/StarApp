@@ -2560,6 +2560,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //3.获得以前的点击数据
         mutaArray = [[USER_DEFAULT objectForKey:@"historySeed"]mutableCopy];
         
+        if (mutaArray == nil) {
+            mutaArray = [[NSMutableArray alloc] init];
+        }
+        
         //4.将点击的数据加入可变数组
         //此处进行判断看新添加的节目是否曾经添加过
         BOOL addNewData = YES;
@@ -3011,6 +3015,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+    [self updateFullScreenDic];
+    });
     if (self.showTVView == YES) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
@@ -4995,6 +5002,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self updateFullScreenDic];
+    });
     if (self.showTVView == YES) {
         NSLog(@"已经跳转到firstopen方法");
         //=====则去掉不能播放的字样，加上加载环

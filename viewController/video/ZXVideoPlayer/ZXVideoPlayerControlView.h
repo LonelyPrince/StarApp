@@ -89,7 +89,7 @@
 ////添加右侧tableview背景图片
 @property (nonatomic, strong, readonly) UIView * rightView;
 
-
+//@property (nonatomic, copy) void(^animateShowJdugeLastBtnAndNextBtnIsBray)();
 
 
 
