@@ -10,8 +10,8 @@
 
 //#define  separatorViewTag  10456
 
-//#define ONEDAY 86400
-#define ONEDAY    5//86400  //99999999 //81000
+#define ONEDAY 86400
+//#define ONEDAY    5//86400  //99999999 //81000
 @interface HistoryViewController ()
 {
     UIButton * editButton;

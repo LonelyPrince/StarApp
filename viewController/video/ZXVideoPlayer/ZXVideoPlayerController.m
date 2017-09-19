@@ -3032,7 +3032,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         self.player = nil;
-        
+        [self.player stop];
         
         //        self.view  = nil;
         //        [self.view removeFromSuperview];
@@ -3195,17 +3195,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    tempOne = 0.0;
 //    tempTwo = 0.0;
 //}
--(void)playplay
-{
-    //    [self stop];
-    //    [self pause];
-    NSLog(@"lalalal");
-    self.shouldAutoplay = YES;
-    [self prepareToPlay:0];
-    [self.player play];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
-    [self performSelector:@selector(playplay) withObject:nil afterDelay:1];
-}
+//-(void)playplay
+//{
+//    //    [self stop];
+//    //    [self pause];
+//    NSLog(@"lalalal");
+//    self.shouldAutoplay = YES;
+//    [self prepareToPlay:0];
+//    [self.player play];
+//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
+//    [self performSelector:@selector(playplay) withObject:nil afterDelay:1];
+//}
 //-(void)judgeVideoStop
 //{   NSLog(@"byteValue1 ZXZXZXXZ 444");
 //    byteValue1 = byte;
@@ -3348,12 +3348,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    }
 //
 //}
--(void)crclePlayUrl
-{
-    //    [self prepareToPlay];
-    [self.player play];
-    //    NSLog(@"循环播放");
-}
+//-(void)crclePlayUrl
+//{
+//    //    [self prepareToPlay];
+//    [self.player play];
+//    //    NSLog(@"循环播放");
+//}
 
 
 - (ZXVideoPlayerControlView *)videoControl

@@ -215,8 +215,17 @@
         if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"row :%ld",(long)row2);
+                NSLog(@"[tableViewForSliderView numberOfSections] :%ld",([tableViewForSliderView numberOfRowsInSection:0] ));
                 
-                [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+                if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
+                    [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+                }else
+                {
+                    return ;
+                }
+                
+                
             });
             //先全部变黑
             for (NSInteger  i = 0; i<row3; i++) {
