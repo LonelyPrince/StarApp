@@ -164,7 +164,12 @@
     
     if (sock.userData == SocketOfflineByServer) {
         // 服务器掉线，重连
+        double delayInSeconds = 1.5;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
         [self socketConnectHost];
+        });
         NSLog(@"sorry the connect is 服务器断开");
         
         [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];

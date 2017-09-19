@@ -1497,12 +1497,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             //②右侧列表消失
-            NSLog(@"右侧列表消失 noPlayShowNotic");
-            self.subAudioTableView.hidden = YES;
-            self.subAudioTableView = nil;
-            [self.subAudioTableView removeFromSuperview];
-            self.subAudioTableView = NULL;
-            self.subAudioTableView.alpha = 0;
+            NSLog(@"右侧列表消失 noPlayShowNotic111");
+//            self.subAudioTableView.hidden = YES;
+//            self.subAudioTableView = nil;
+//            [self.subAudioTableView removeFromSuperview];
+//            self.subAudioTableView = NULL;
+//            self.subAudioTableView.alpha = 0;
             //③ 删除音频图片
             [self removeConfigRadioShowNotific];  //删除音频图片的函数。，防止音频图片显示
             //④取消掉加载环
@@ -4824,7 +4824,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             //②右侧列表消失
-            NSLog(@"右侧列表消失 noPlayShowNotic");
+            NSLog(@"右侧列表消失 noPlayShowNotic222");
             self.subAudioTableView.hidden = YES;
             self.subAudioTableView = nil;
             [self.subAudioTableView removeFromSuperview];
