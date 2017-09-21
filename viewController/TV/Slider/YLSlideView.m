@@ -209,7 +209,8 @@
     //    [tableViewForSliderView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     
     NSLog(@"====================");
-    
+    NSLog(@"[tableViewForSliderView numberOfSections]11 :%ld",([tableViewForSliderView numberOfRowsInSection:0] ));
+    NSLog(@"row11 :%ld",(long)row2);
     if ([tableViewForSliderView numberOfSections] > 0) {
         
         if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
@@ -273,13 +274,19 @@
                 
                 //==
                 [tableViewForSliderView reloadData];
-                [tableViewForSliderView reloadRowsAtIndexPaths:[NSArray arrayWithObject:scrollIndexPath
-                                                                ] withRowAnimation:UITableViewRowAnimationNone];
+                if (tableViewForSliderView.numberOfSections > 0) {
+                    if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
+                        [tableViewForSliderView reloadRowsAtIndexPaths:[NSArray arrayWithObject:scrollIndexPath
+                                                                        ] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                }
+                
                 [tableViewForSliderView reloadData];
                 
                 NSLog(@"]]]]]]]]]]]]]]]]]]]]]]]==========");
             });
         }else
+            
         {
             NSLog(@"总行数小于要跳转的函数，会报错");
         }

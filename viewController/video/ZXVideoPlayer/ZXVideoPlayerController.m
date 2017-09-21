@@ -2481,7 +2481,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSInteger row = [touchArr[2] intValue];
     NSDictionary * dic = touchArr [3];
-    NSLog(@"dic :%@",dic);
+//    NSLog(@"dic :%@",dic);
     NSLog(@"dic。count :%lu",(unsigned long)dic.count);
     NSLog(@"row1 :%ld",(long)row);
     int dic_Count = [[dic allKeys] count] -1;
@@ -2597,7 +2597,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSInteger row = [touchArr[2] intValue];
         NSDictionary * dic = touchArr [3];
-        NSLog(@"dic :%@",dic);
+//        NSLog(@"dic :%@",dic);
         NSLog(@"dic。count :%lu",(unsigned long)dic.count);
         NSLog(@"row1 :%ld",(long)row);
         int dic_Count = [dic count] -1;
