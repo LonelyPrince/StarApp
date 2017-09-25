@@ -69,6 +69,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int openTime; //用于第一次打开时，触发隐藏方法，防止多次触犯，这里赋值为0
     
     int judgeVideoIsStatic;  //判断视频是否出现了静帧，如果静帧时间超过3秒，则提示不能播放的文字。视频静帧的时候，会触发“媒体网络状态改变的方法”，视频恢复正常播放的时候会触发“播放状态改变”的方法
+    
+    NSString *  tempUrl;
 }
 
 
@@ -179,6 +181,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
         [self setChannelNameAndEventName];   //快速设置频道名称和节目名称等信息
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
+        
+        [self reConnectSocketFromDisConnectNotic]; //socket断开后，重新连接socket
         
         self.rightViewShowing = NO;
         //                self.tvViewControlller = [[TVViewController alloc]init];
@@ -383,6 +387,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     judgeVideoIsStatic = 0;
     
     [self.view insertSubview:self.player.view atIndex:0];
+    if (self.player.playbackState == MPMoviePlaybackStateInterrupted || self.player.playbackState == MPMoviePlaybackStateStopped) {
+        [self.player play];
+        NSLog(@"播放停止了，重新播放");
+        
+    }
+    
     //    }
     NSLog(@"xxxxxx 播放状态改变,  开始播放了，取消静帧");
     if (openTime == 0) {
@@ -3047,6 +3057,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //    }
         
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
+        tempUrl = url;
         //    UIView *playerView = [self.player view];
         //    playerView.frame = self.PlayerView.frame;
         NSLog(@"self.playerView %@",self.player);
@@ -3062,6 +3073,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
             [self.player prepareToPlay:0];
             [self.player play];
+
         }else
         {
             [self.player shutdown];
@@ -5134,4 +5146,55 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     });
 
 }
+-(void)reConnectSocketFromDisConnectNotic
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reConnectSocketFromDisConnect" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reConnectSocketFromDisConnect) name:@"reConnectSocketFromDisConnect" object:nil];
+}
+-(void)reConnectSocketFromDisConnect // 断开连接后重新连接
+{
+    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+//    [self.view insertSubview:self.player.view atIndex:0];
+//    [self.player stop];
+//    [self.player prepareToPlay:0];
+//    [self.player play];
+    
+    
+    [self.player shutdown];
+    [self.player.view removeFromSuperview];
+    self.player = nil;
+    [self.player stop];
+    
+    
+    NSLog(@"self.View %@",self.view);
+ 
+    
+    self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:tempUrl withOptions:nil playView:nil];
+    
+    NSLog(@"self.playerView %@",self.player);
+    self.player.view.frame = self.view.bounds;
+    
+    [self.view insertSubview:self.player.view atIndex:0];
+   
+    if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
+        [self.player prepareToPlay:0];
+        [self.player play];
+        //            [self.player play];
+        //            [self.player play];
+        //            [self.player play];
+    }else
+    {
+        [self.player shutdown];
+        [self.player.view removeFromSuperview];
+        self.player = nil;
+    }
+}
+
 @end
