@@ -49,12 +49,17 @@
 #pragma mark  - 连接成功回调
 -(void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString     *)host port:(UInt16)port
 {
+    
     NSLog(@"socket连接成功");
     NSLog(@"接下来开始发送心跳");
     
-    //从断开状态到连接状态，开始重新播放
-    NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    if (self.connectStatus >2) {
+        //从断开状态到连接状态，开始重新播放
+        NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    }
+    
+    self.connectStatus = 0; //连接成功，则赋值为0
     
     // 每隔30s像服务器发送心跳包
     [sock readDataWithTimeout:-1 tag:0];
@@ -168,8 +173,10 @@
     NSLog(@"sorry the connect is failure %ld",sock.userData);
     
     if (sock.userData == SocketOfflineByServer) {
+        
+        self.connectStatus ++ ; //连接成功，则赋值为0
         // 服务器掉线，重连
-        double delayInSeconds = 1.5;
+        double delayInSeconds = 1.2;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
@@ -177,12 +184,15 @@
         });
         NSLog(@"sorry the connect is 服务器断开");
         
-        [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
-        [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
-       
-        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        if (self.connectStatus == 2) {
+            [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
+            [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
+        
         
 //        NSNotification *notification1 =[NSNotification notificationWithName:@"setMonitorNotHaveNetWorkNotific" object:nil userInfo:nil];
 //        //通过通知中心发送通知
