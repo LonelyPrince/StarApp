@@ -39,7 +39,7 @@
     NSString * deviceString;
     
     BOOL viewFirstOpen;   //页面第一次加载，快速完成，不做0.2秒等待
-    BOOL networIsConnect; //networIsClose   //系统断网了，所以monitor页面的一切信息都不显示,所以用networIsConnect作为判断
+    BOOL networIsConnect; //networIsClose   //1.系统断网了，所以monitor页面的一切信息都不显示,所以用networIsConnect作为判断 2.同时也用于左滑删除时，禁止刷新列表的操作
 }
 @end
 
@@ -114,7 +114,7 @@
 //    btn.backgroundColor = [UIColor redColor];
 //    [self.view addSubview:btn];
 //    [scrollView addSubview:btn];
-//    [btn addTarget:self action:@selector(netWorkIsColse) forControlEvents:UIControlEventTouchUpInside];
+//    [btn addTarget:self action:@selector(aaaaaa) forControlEvents:UIControlEventTouchUpInside];
 //
 //
 //    UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -124,6 +124,16 @@
 //    [scrollView addSubview:btn1];
 //    [btn1 addTarget:self action:@selector(netWorkIsConnect) forControlEvents:UIControlEventTouchUpInside];
 }
+//-(void)aaaaaa
+//{
+//
+////    [self.tableView reloadData];
+//    NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
+//    //    //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];
+//    [self getNotificInfoByMySelf];
+//}
 #define mark - 网络断开时出发此方法
 -(void)netWorkIsColse
 {
@@ -851,6 +861,7 @@
 //获得有效数据的信息，不同tuner的信息
 -(void)getEffectiveData:(NSData *) allTunerData
 {
+    if (networIsConnect == YES) {
     NSLog(@"=======================test gettuner");
     NSLog(@"allTunerData :%@",allTunerData);
     //获取数据总长度
@@ -1048,7 +1059,7 @@
                     
                     [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                     
-                    
+                    NSLog(@"[self.tableView reloadData]  11111");
                     [self.tableView reloadData];
                 }
                 else //此处是一种特殊情况，没有找到这个节目
@@ -1111,6 +1122,9 @@
     
     [self changeView];
     NSLog(@"======222-2-2-2-2");
+    }
+    else
+    {}
 }
 
 -(void)changeView
@@ -1431,7 +1445,7 @@
         }
         //    }
         
-
+  
     }
     
   
@@ -1441,41 +1455,42 @@
 //***********删除代码
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     //>>
     NSArray * monitorTypeArr = [[NSArray alloc]init];
     NSLog(@"monitorTableArr.count %d",monitorTableArr.count);
     NSLog(@"indexPath.row %d",indexPath.row);
-    
+
     if (monitorTableArr.count > 0 && monitorTableArr.count > indexPath.row ) {
-       
+
          monitorTypeArr =   monitorTableArr[indexPath.row];
     }else
     {
          NSLog(@"卧槽，差点越界出错");
         return UITableViewCellEditingStyleNone ;
     }
-    
-    
+
+
     NSLog(@"monitorTypeArr。count %d",monitorTypeArr.count);
-    
+
     NSData * tableTypedata ;
-    
+
     NSData * phoneClientName;
-    
+
     if (monitorTypeArr.count > 2 ) {
-        
+
         tableTypedata = monitorTypeArr[1];
-        
+
         phoneClientName = monitorTypeArr[2];
     }else
     {
         NSLog(@"卧槽，差点越界出错222");
         return UITableViewCellEditingStyleNone ;
     }
-   
+
     int type;
     type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
-    
+
     NSString * clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
     NSString * phoneModel =  [GGUtil deviceVersion]; //[self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
@@ -1483,12 +1498,12 @@
     //实际情况下此处可做修改：
     if (type == DELIVERY  &&[clientNameStr isEqualToString:phoneModel]){//&&  [clientNameStr isEqualToString:client_name]) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        networIsConnect = NO;
         return UITableViewCellEditingStyleDelete;
     }
     return UITableViewCellEditingStyleNone;
-    
+
     //>>
-    
     
     //    return UITableViewCellEditingStyleDelete;
 }
@@ -1502,6 +1517,7 @@
 /*删除用到的函数*/
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"aaaaabababababababa");
     [tableView beginUpdates];
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
@@ -1545,7 +1561,11 @@
     //  [self getNotificInfo];
     [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
 }
-
+- (void)tableView:(UITableView*)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"didEndEditingRowAtIndexPath");
+    networIsConnect = YES;
+}
 -(void)willReFresh
 {
     int monitorApperCount = 0 ;
