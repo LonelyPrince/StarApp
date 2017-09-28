@@ -58,6 +58,9 @@
         NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
     }
+    NSNotification *notification =[NSNotification notificationWithName:@"netWorkIsConnectNotice" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     self.connectStatus = 0; //连接成功，则赋值为0
     
@@ -191,6 +194,10 @@
             NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            NSNotification *notification1 =[NSNotification notificationWithName:@"netWorkIsColseNotice" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
         }
         
         
@@ -203,6 +210,18 @@
     else if (sock.userData == SocketOfflineByUser) {
         // 如果由用户断开，不进行重连
         NSLog(@"sorry the connect is 用户断开");
+        
+        [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
+        [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        NSNotification *notification1 =[NSNotification notificationWithName:@"netWorkIsColseNotice" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
         return;
     }
     

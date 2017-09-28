@@ -39,7 +39,7 @@
     NSString * deviceString;
     
     BOOL viewFirstOpen;   //页面第一次加载，快速完成，不做0.2秒等待
-    
+    BOOL networIsConnect; //networIsClose   //系统断网了，所以monitor页面的一切信息都不显示,所以用networIsConnect作为判断
 }
 @end
 
@@ -91,7 +91,7 @@
     [self initData];
     
     viewFirstOpen = YES;
-    
+    networIsConnect = YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -108,6 +108,143 @@
     }
     
     [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
+    
+//    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 230, 100, 100)];
+//    btn.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:btn];
+//    [scrollView addSubview:btn];
+//    [btn addTarget:self action:@selector(netWorkIsColse) forControlEvents:UIControlEventTouchUpInside];
+//
+//
+//    UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn1 = [[UIButton alloc]initWithFrame:CGRectMake(120, 230, 100, 100)];
+//    btn1.backgroundColor = [UIColor blackColor];
+//    [self.view addSubview:btn1];
+//    [scrollView addSubview:btn1];
+//    [btn1 addTarget:self action:@selector(netWorkIsConnect) forControlEvents:UIControlEventTouchUpInside];
+}
+#define mark - 网络断开时出发此方法
+-(void)netWorkIsColse
+{
+    NSLog(@"Major aaaaaaaaaaaaaaa");
+ 
+//    [self.tableView reloadData];
+    
+    [self.tableView removeFromSuperview];
+    self.scrollView.scrollEnabled = NO;
+    
+    lastPosition = 0;
+    livePlayCount = 0;
+    liveRecordCount = 0;
+    liveTimeShiteCount = 0;
+    deliveryCount = 0;
+    pushVodCount = 0;
+    tunerNum = 0;
+
+//    [self  loadNumAnddelete];
+//    [self changeView];
+//    [self getNotificInfo];
+    [refreshTimer invalidate];
+    refreshTimer = nil;
+    [self emptyCircleAndLabel];
+    networIsConnect = NO;
+    
+}
+-(void)emptyCircleAndLabel
+{
+    
+    cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"New圆环-%ld",(long)tunerNum]];
+    
+    numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
+    
+    
+    
+    liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+    
+    recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+    
+    //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+    
+    distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+    
+    
+    
+    if (scrollUp == YES) {
+        self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT + tunerNum*80);
+        
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+        
+        NSLog(@"阿打算打算房那是你说的安短111  UP");
+        
+        if (tunerNum == 0) {
+            
+            [UIView animateWithDuration:0.4
+                                  delay:0.02
+                                options:UIViewAnimationCurveLinear
+                             animations:^{
+                                 
+                                 self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                 //                             scrollView.contentOffset = CGPointMake(0, 0);
+                                 self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+                                 
+                                 
+                                 scrollUp = NO;
+                                 self.tableView.scrollEnabled = YES;
+                                 //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                             }
+                             completion:^(BOOL finished)
+             {
+                 NSLog(@"animateanimate0000");
+                 self.tableView.scrollEnabled = YES;
+                 self.scrollView.scrollEnabled = NO;
+                 
+             } ];
+            
+        }
+        
+        
+        
+    }else
+    {
+        self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        //                             scrollView.contentOffset = CGPointMake(0, 0);
+        self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+        
+        NSLog(@"阿打算打算房那是你说的安短111  down");
+        
+        self.tableView.editing = NO;
+        
+        self.scrollView.scrollEnabled = YES;
+        if (tunerNum == 0) {
+            
+            self.scrollView.scrollEnabled = NO;
+        }
+    }
+    
+    
+    
+    
+    //    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+    
+    self.tableView.frame =  CGRectMake(0, TopViewHeight, SCREEN_WIDTH, tunerNum*80);
+    
+    [USER_DEFAULT setObject:nil forKey:@"monitorTableArrTemp"];
+    
+    NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArr.count);
+    
+}
+#define mark - 网络连接后触发此方法
+-(void)netWorkIsConnect
+{
+    NSLog(@"Major ccccccccccccccccc");
+    if (refreshTimer == nil && networIsConnect == NO) {
+        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(refreshViewByJudgeData) userInfo:nil repeats:YES];
+    }
+    [self.view addSubview:self.tableView];
+    [scrollView  addSubview:self.tableView];
+    self.scrollView.scrollEnabled = YES;
+    networIsConnect = YES;
     
 }
 -(void) viewWillAppearDealyFunction
@@ -164,7 +301,7 @@
     //1.发送消息
     //2.判断
     [self  getNotificInfoByMySelf]; // 发送消息给TV页面，然后通过TV页面传通知发送tuner的socket信息
-    
+    NSLog(@"getNotificInfoByMySelf zhixing le ");
 }
 -(void)getNotificInfoByMySelf   //随后每隔一段时间或者打开这个页面的时候获取tuner信 BYMYSelf
 {
@@ -280,8 +417,21 @@
     
     ///
     //    socketUtils = [[SocketUtils alloc]init];
+    [self initNotific];
 }
 
+-(void)initNotific
+{
+    //断网通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsColseNotice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netWorkIsColse) name:@"netWorkIsColseNotice" object:nil];
+    
+    //网络回复连接通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsConnectNotice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netWorkIsConnect) name:@"netWorkIsConnectNotice" object:nil];
+}
 -(void)initRefresh
 {
     NSLog(@"=======================notific");
@@ -960,129 +1110,137 @@
     }
     
     [self changeView];
+    NSLog(@"======222-2-2-2-2");
 }
 
 -(void)changeView
 {
-    //    NSLog(@"monitorTableArr :%@,",monitorTableArr);
-    
-    int monitorApperCount ;
-    NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
-    monitorApperCount = [monitorApperCountStr intValue];
-    if (monitorApperCount == 0) {
+    if (networIsConnect == YES) {
+        //    NSLog(@"monitorTableArr :%@,",monitorTableArr);
         
-        cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"New圆环-%ld",(long)tunerNum]];
-        
-        numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
-        
-        
-        
-        liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
-        
-        recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
-        
-        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-        
-        distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
-        
-        
-        
-        if (scrollUp == YES) {
-            self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT + tunerNum*80);
+        int monitorApperCount ;
+        NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
+        monitorApperCount = [monitorApperCountStr intValue];
+        if (monitorApperCount == 0) {
             
-            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+            cicleBlueImageView.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"New圆环-%ld",(long)tunerNum]];
             
-            NSLog(@"阿打算打算房那是你说的安短  UP");
+            numImage.image = [UIImage  imageNamed:[NSString  stringWithFormat:@"M%ld",(long)tunerNum]];
             
-            if (tunerNum == 0) {
+            
+            
+            liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+            
+            recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
+            
+            //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
+            
+            distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
+            
+            
+            
+            if (scrollUp == YES) {
+                self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT + tunerNum*80);
+                
+                self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT);
+                
+                NSLog(@"阿打算打算房那是你说的安短  UP");
+                
+                if (tunerNum == 0) {
+                    
+                    
+                    
+                    //                self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                    //                //                             scrollView.contentOffset = CGPointMake(0, 0);
+                    //                self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+                    //
+                    //                self.scrollView.contentOffset = CGPointMake(0, 275);
+                    
+                    [UIView animateWithDuration:0.4
+                                          delay:0.02
+                                        options:UIViewAnimationCurveLinear
+                                     animations:^{
+                                         
+                                         self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                                         //                             scrollView.contentOffset = CGPointMake(0, 0);
+                                         self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+                                         
+                                         
+                                         scrollUp = NO;
+                                         self.tableView.scrollEnabled = YES;
+                                         //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+                                     }
+                                     completion:^(BOOL finished)
+                     {
+                         NSLog(@"animateanimate0000");
+                         self.tableView.scrollEnabled = YES;
+                         self.scrollView.scrollEnabled = NO;
+                         
+                     } ];
+                    
+                }
                 
                 
                 
-//                self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//                //                             scrollView.contentOffset = CGPointMake(0, 0);
-//                self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
-//                
-//                self.scrollView.contentOffset = CGPointMake(0, 275);
+            }else
+            {
+                self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                //                             scrollView.contentOffset = CGPointMake(0, 0);
+                self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
                 
-                [UIView animateWithDuration:0.4
-                                      delay:0.02
-                                    options:UIViewAnimationCurveLinear
-                                 animations:^{
-                                     
-                                     self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-                                     //                             scrollView.contentOffset = CGPointMake(0, 0);
-                                     self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
-                                     
-
-                                     scrollUp = NO;
-                                     self.tableView.scrollEnabled = YES;
-                                     //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-                                 }
-                                 completion:^(BOOL finished)
-                 {
-                     NSLog(@"animateanimate0000");
-                     self.tableView.scrollEnabled = YES;
-                     self.scrollView.scrollEnabled = NO;
-                     
-                 } ];
-
+                NSLog(@"阿打算打算房那是你说的安短  down");
+                
+                self.tableView.editing = NO;
+                
+                self.scrollView.scrollEnabled = YES;
+                if (tunerNum == 0) {
+                    
+                    self.scrollView.scrollEnabled = NO;
+                }
             }
             
             
             
+            
+            //    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
+            
+            self.tableView.frame =  CGRectMake(0, TopViewHeight, SCREEN_WIDTH, tunerNum*80);
+            
+            //
+            //    self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
+            //
+            //    TopViewHeight+tunerNum*80+200-93);
+            //    scrollUp = YES;
+            //    self.tableView.scrollEnabled = YES;
+            
+            [USER_DEFAULT setObject:monitorTableArr forKey:@"monitorTableArrTemp"];
+            
+            NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArr.count);
+            
         }else
         {
-            self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-            //                             scrollView.contentOffset = CGPointMake(0, 0);
-            self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
+            NSArray * monitorTableArrTemp = [USER_DEFAULT objectForKey:@"monitorTableArrTemp"];
             
-            NSLog(@"阿打算打算房那是你说的安短  down");
             
-            self.tableView.editing = NO;
+            NSLog(@"monitorTableArraaaa :%@,",monitorTableArr);
+            NSLog(@"monitorTableArrTemp :%@,",monitorTableArrTemp);
             
-            self.scrollView.scrollEnabled = YES;
-             if (tunerNum == 0) {
-                 
-                 self.scrollView.scrollEnabled = NO;
-             }
+            NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArrTemp.count);
+            NSLog(@"monitorTableArr.count ；%d",monitorTableArr.count);
+            if ([monitorTableArr isEqualToArray:monitorTableArrTemp]) {
+                NSLog(@"相等相等相等相等相等相等相等");
+            }else
+            {
+                NSLog(@"不不不不相等相等相等相等相等相等相等");
+                
+                [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
+            }
+            
         }
-        
-        
-        
-        
-        //    scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-        
-        self.tableView.frame =  CGRectMake(0, TopViewHeight, SCREEN_WIDTH, tunerNum*80);
-        
-        //
-        //    self.scrollView.frame = CGRectMake(0, -300, SCREEN_WIDTH, SCREEN_HEIGHT);
-        //
-        //    TopViewHeight+tunerNum*80+200-93);
-        //    scrollUp = YES;
-        //    self.tableView.scrollEnabled = YES;
-        
-        [USER_DEFAULT setObject:monitorTableArr forKey:@"monitorTableArrTemp"];
-        
-        NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArr.count);
         
     }else
     {
-        NSArray * monitorTableArrTemp = [USER_DEFAULT objectForKey:@"monitorTableArrTemp"];
-        
-        
-        NSLog(@"monitorTableArraaaa :%@,",monitorTableArr);
-        NSLog(@"monitorTableArrTemp :%@,",monitorTableArrTemp);
-        
-        NSLog(@"monitorTableArrTemp.count ；%d",monitorTableArrTemp.count);
-        NSLog(@"monitorTableArr.count ；%d",monitorTableArr.count);
-        if ([monitorTableArr isEqualToArray:monitorTableArrTemp]) {
-            NSLog(@"相等相等相等相等相等相等相等");
-        }else
-        {
-            NSLog(@"不不不不相等相等相等相等相等相等相等");
-            
-            [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
-        }
+        NSLog(@"getNotificInfoByMySelf 虽然断网了，但是此方法被触发");
         
     }
     
