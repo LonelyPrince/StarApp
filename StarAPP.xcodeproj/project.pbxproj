@@ -20,9 +20,6 @@
 		700770841D829EA3003C0D68 /* YGPCacheMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = 700770811D829EA3003C0D68 /* YGPCacheMemory.m */; };
 		700770941D86447D003C0D68 /* CategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 700770931D86447D003C0D68 /* CategoryModel.m */; };
 		700770971D864491003C0D68 /* ServiceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 700770961D864491003C0D68 /* ServiceModel.m */; };
-		700C9D901E94954E00CC537A /* 联系我们@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 700C9D8D1E94954E00CC537A /* 联系我们@1x.png */; };
-		700C9D911E94954E00CC537A /* 联系我们@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 700C9D8E1E94954E00CC537A /* 联系我们@2x.png */; };
-		700C9D921E94954E00CC537A /* 联系我们@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 700C9D8F1E94954E00CC537A /* 联系我们@3x.png */; };
 		7010175C1DCADA2500F9D5FF /* duihao@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701017561DCADA2500F9D5FF /* duihao@1x.png */; };
 		7010175D1DCADA2500F9D5FF /* duihao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701017571DCADA2500F9D5FF /* duihao@2x.png */; };
 		7010175E1DCADA2500F9D5FF /* duihao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701017581DCADA2500F9D5FF /* duihao@3x.png */; };
@@ -428,6 +425,9 @@
 		707FE75F1DACC3C30087C361 /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE7351DACC3C30087C361 /* time@2x.png */; };
 		707FE7601DACC3C30087C361 /* time@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 707FE7361DACC3C30087C361 /* time@3x.png */; };
 		707FE7641DACC5780087C361 /* THProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 707FE7631DACC5780087C361 /* THProgressView.m */; };
+		70848ADC1F7DD663005A4FA6 /* 联系我们@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70848AD91F7DD663005A4FA6 /* 联系我们@1x.png */; };
+		70848ADD1F7DD663005A4FA6 /* 联系我们@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70848ADA1F7DD663005A4FA6 /* 联系我们@2x.png */; };
+		70848ADE1F7DD663005A4FA6 /* 联系我们@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70848ADB1F7DD663005A4FA6 /* 联系我们@3x.png */; };
 		7093368C1F5907C000328799 /* 无频道列表@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7093368A1F5907C000328799 /* 无频道列表@2x.png */; };
 		7093368D1F5907C000328799 /* 无频道列表@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7093368B1F5907C000328799 /* 无频道列表@3x.png */; };
 		7097466D1D6D8A54002E7A39 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 709746691D6D8A54002E7A39 /* AsyncSocket.m */; };
@@ -678,9 +678,6 @@
 		700770931D86447D003C0D68 /* CategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryModel.m; sourceTree = "<group>"; };
 		700770951D864491003C0D68 /* ServiceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceModel.h; sourceTree = "<group>"; };
 		700770961D864491003C0D68 /* ServiceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceModel.m; sourceTree = "<group>"; };
-		700C9D8D1E94954E00CC537A /* 联系我们@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@1x.png"; sourceTree = "<group>"; };
-		700C9D8E1E94954E00CC537A /* 联系我们@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@2x.png"; sourceTree = "<group>"; };
-		700C9D8F1E94954E00CC537A /* 联系我们@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@3x.png"; sourceTree = "<group>"; };
 		701017561DCADA2500F9D5FF /* duihao@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "duihao@1x.png"; sourceTree = "<group>"; };
 		701017571DCADA2500F9D5FF /* duihao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "duihao@2x.png"; sourceTree = "<group>"; };
 		701017581DCADA2500F9D5FF /* duihao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "duihao@3x.png"; sourceTree = "<group>"; };
@@ -1146,6 +1143,9 @@
 		707FE7361DACC3C30087C361 /* time@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@3x.png"; sourceTree = "<group>"; };
 		707FE7621DACC5780087C361 /* THProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THProgressView.h; sourceTree = "<group>"; };
 		707FE7631DACC5780087C361 /* THProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THProgressView.m; sourceTree = "<group>"; };
+		70848AD91F7DD663005A4FA6 /* 联系我们@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@1x.png"; sourceTree = "<group>"; };
+		70848ADA1F7DD663005A4FA6 /* 联系我们@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@2x.png"; sourceTree = "<group>"; };
+		70848ADB1F7DD663005A4FA6 /* 联系我们@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@3x.png"; sourceTree = "<group>"; };
 		7093368A1F5907C000328799 /* 无频道列表@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无频道列表@2x.png"; sourceTree = "<group>"; };
 		7093368B1F5907C000328799 /* 无频道列表@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无频道列表@3x.png"; sourceTree = "<group>"; };
 		709746681D6D8A54002E7A39 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
@@ -1876,9 +1876,9 @@
 		7024C5C51DD0B0F50053F313 /* LinkUs */ = {
 			isa = PBXGroup;
 			children = (
-				700C9D8D1E94954E00CC537A /* 联系我们@1x.png */,
-				700C9D8E1E94954E00CC537A /* 联系我们@2x.png */,
-				700C9D8F1E94954E00CC537A /* 联系我们@3x.png */,
+				70848AD91F7DD663005A4FA6 /* 联系我们@1x.png */,
+				70848ADA1F7DD663005A4FA6 /* 联系我们@2x.png */,
+				70848ADB1F7DD663005A4FA6 /* 联系我们@3x.png */,
 			);
 			name = LinkUs;
 			sourceTree = "<group>";
@@ -2723,8 +2723,8 @@
 				702CE4391DDA9881000A0513 /* 4.png in Resources */,
 				702CE4351DDA9881000A0513 /* 2@3x.png in Resources */,
 				704582F81D9A63170061C154 /* Images.xcassets in Resources */,
+				70848ADC1F7DD663005A4FA6 /* 联系我们@1x.png in Resources */,
 				70FC30DE1D75714E00BD06FE /* kr-video-player-fullscreen@3x.png in Resources */,
-				700C9D921E94954E00CC537A /* 联系我们@3x.png in Resources */,
 				70362D1E1F009E970012A309 /* New圆环@1x.png in Resources */,
 				707FE73A1DACC3C30087C361 /* Group 3@1x.png in Resources */,
 				707FE75B1DACC3C30087C361 /* Rectangle 149@1x.png in Resources */,
@@ -2920,7 +2920,6 @@
 				70231CF01DC1D5AC00F73202 /* 灰.png in Resources */,
 				70FFE4021DE3EF4800223E43 /* 时移1.png in Resources */,
 				70D6B8F61E2DAF3D00957A81 /* Chinese Channel@3x.png in Resources */,
-				700C9D901E94954E00CC537A /* 联系我们@1x.png in Resources */,
 				701A98A21DB47A3100460220 /* 音轨@1x.png in Resources */,
 				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
@@ -3042,7 +3041,6 @@
 				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
-				700C9D911E94954E00CC537A /* 联系我们@2x.png in Resources */,
 				707C4AF41E4AB0DE008F289A /* routenoKnow1@3x.png in Resources */,
 				70D6B9101E2DAF3D00957A81 /* South African@2x.png in Resources */,
 				70FFE3E31DE2DBA200223E43 /* M2.png in Resources */,
@@ -3121,6 +3119,7 @@
 				7010175C1DCADA2500F9D5FF /* duihao@1x.png in Resources */,
 				702CE43C1DDA9881000A0513 /* 5.png in Resources */,
 				7040E2371DAE12B80063DB66 /* Group 12 Copy 2@2x.png in Resources */,
+				70848ADE1F7DD663005A4FA6 /* 联系我们@3x.png in Resources */,
 				70D6B9141E2DAF3D00957A81 /* Special Characteristics@3x.png in Resources */,
 				70FC30F21D75714E00BD06FE /* zx-video-player-unlock@3x.png in Resources */,
 				70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */,
@@ -3182,6 +3181,7 @@
 				707C4AF31E4AB0DE008F289A /* routenoKnow1@2x.png in Resources */,
 				70231CCC1DC0FE8C00F73202 /* 组-54.png in Resources */,
 				70D6B9011E2DAF3D00957A81 /* Local@2x.png in Resources */,
+				70848ADD1F7DD663005A4FA6 /* 联系我们@2x.png in Resources */,
 				702CE4571DDA9881000A0513 /* nor@3x.png in Resources */,
 				706C263A1E03AF9A003AA695 /* 顶背景@2x.png in Resources */,
 				707FE7501DACC3C30087C361 /* Overlay@2x.png in Resources */,
