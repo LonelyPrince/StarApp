@@ -415,11 +415,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     CATextField_Encrypt = [[UITextField alloc]init];
     STBTouch_Dic  = [[NSDictionary alloc]init];
     
-    STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Determine" otherButtonTitles:@"Cancel",nil]
+    STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel",nil]
     ;
     STBAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     
-    CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Determine" otherButtonTitles:@"Cancel",nil];
+    CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel",nil];
     CAAlert.alertViewStyle = UIAlertViewStyleSecureTextInput; //UIAlertViewStylePlainTextInput;
     
     channelStartimesList = [[NSMutableSet alloc]init];
