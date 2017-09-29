@@ -63,7 +63,8 @@ static NSString *identifier = @"Cell";
     [self.contentView addSubview:self.imageView];
     [self.contentView addSubview:self.button];
     
-    [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 68)];
+//    [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 68)];
+    [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 110)];
 }
 - (BOOL)prefersStatusBarHidden
 {
@@ -209,14 +210,14 @@ static NSString *identifier = @"Cell";
 {
     
     self.pageControl.currentPage = (scrollView.contentOffset.x / kScreenBounds.size.width);
-    if( scrollView.contentOffset.x> kScreenBounds.size.width*2+200)
-    {
-        self.pageControl.hidden = YES;
-    }
-    else
-    {
-        self.pageControl.hidden = NO;
-    }
+//    if( scrollView.contentOffset.x> kScreenBounds.size.width*2+200)
+//    {
+//        self.pageControl.hidden = YES;
+//    }
+//    else
+//    {
+//        self.pageControl.hidden = NO;
+//    }
 }
 - (void)nextButtonHandler:(id)sender {
 
@@ -229,6 +230,7 @@ static NSString *identifier = @"Cell";
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
+    self.pageControl.hidden = YES;
     
 //    [self setWindow:nil];
 //    [self setView:nil];
