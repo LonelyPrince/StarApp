@@ -39,8 +39,8 @@
 }
 -(void)loadNav
 {
-    self.navigationController.title = @"Contact us";
-    self.title =  @"Contact us";
+    self.navigationController.title = @"Contact Us";
+    self.title =  @"Contact Us";
     
     [self loadScroll];
     

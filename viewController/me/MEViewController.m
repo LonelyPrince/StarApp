@@ -378,13 +378,13 @@
         if(indexPath.row == 0)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 10 Copy 2"];
-        cell.blackLab.text = @"Router setting";
+        cell.blackLab.text = @"Router Setting";
         cell.grayLab.text = @"Router parameters setting";
         
     } else  if(indexPath.row == 1)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 12 Copy 2"];
-        cell.blackLab.text = @"Contact us";
+        cell.blackLab.text = @"Contact Us";
         cell.grayLab.text = @"Call center in various countries";
         
     }else  if(indexPath.row == 2)

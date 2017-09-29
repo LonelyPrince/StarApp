@@ -129,7 +129,7 @@
 }
 -(void)loadNav
 {
-    self.title = @"Router management";
+    self.title = @"Router Setting";
     self.tabBarController.tabBar.hidden = YES;
     
     
