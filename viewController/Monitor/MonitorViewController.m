@@ -1511,7 +1511,7 @@
 /*改变删除按钮的title*/
 -(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return @" DEL ";
+    return @" OFF ";
 }
 
 /*删除用到的函数*/
