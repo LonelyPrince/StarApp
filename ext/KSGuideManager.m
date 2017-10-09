@@ -208,16 +208,10 @@ static NSString *identifier = @"Cell";
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
-    self.pageControl.currentPage = (scrollView.contentOffset.x / kScreenBounds.size.width);
-//    if( scrollView.contentOffset.x> kScreenBounds.size.width*2+200)
-//    {
-//        self.pageControl.hidden = YES;
-//    }
-//    else
-//    {
-//        self.pageControl.hidden = NO;
-//    }
+    //当下一页滑到>=0.5宽度时，此时就要改变pageControl
+     CGFloat page = scrollView.contentOffset.x / scrollView.frame.size.width;
+     NSUInteger currentPage = page;
+     self.pageControl.currentPage = (page - currentPage) < 0.5 ? currentPage : currentPage +1;
 }
 - (void)nextButtonHandler:(id)sender {
 
