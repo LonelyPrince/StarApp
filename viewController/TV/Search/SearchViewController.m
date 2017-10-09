@@ -865,9 +865,9 @@
         
         if (self.showData.count == 0) {
             
-            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"No search result" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"No search results" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             noResultlab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
-            noResultlab.text = @"No search result";
+            noResultlab.text = @"No search results";
             noResultlab.font = FONT(18);
             noResultlab.textColor = [UIColor blackColor];
             [self.view addSubview:noResultlab];
