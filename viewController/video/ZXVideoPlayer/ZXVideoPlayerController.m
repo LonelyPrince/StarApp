@@ -13,7 +13,7 @@
 #import "AudioCell.h"
 #import "subtCell.h"
 #import "ChannelCell.h"
-#define KZXVideoStaticTime 5    //静帧时间超过找个时间，则停止播放，显示文字
+#define KZXVideoStaticTime 6    //静帧时间超过找个时间，则停止播放，显示文字
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
     ZXPanDirectionVertical,   // 纵向移动
@@ -382,18 +382,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
     NSLog(@"卡拉  开始配置  开始播放了，取消静帧");
-    //    if (judgeVideoIsStatic == 1) {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
-    judgeVideoIsStatic = 0;
+    NSLog(@"judgeVideoIsStatic 为 %d",judgeVideoIsStatic);
+    /*
+    if (judgeVideoIsStatic == 1) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
+            judgeVideoIsStatic = 0;
+            
+            [self.view insertSubview:self.player.view atIndex:0];
+//            if (self.player.playbackState == MPMoviePlaybackStateInterrupted || self.player.playbackState == MPMoviePlaybackStateStopped) {
+                [self.player play];
+                NSLog(@"播放停止了，重新播放");
+                
+//            }
     
-    [self.view insertSubview:self.player.view atIndex:0];
-    if (self.player.playbackState == MPMoviePlaybackStateInterrupted || self.player.playbackState == MPMoviePlaybackStateStopped) {
-        [self.player play];
-        NSLog(@"播放停止了，重新播放");
-        
-    }
-    
-    //    }
+        }
+     */
     NSLog(@"xxxxxx 播放状态改变,  开始播放了，取消静帧");
     if (openTime == 0) {
         self.videoControl.pauseButton.hidden = NO;
@@ -463,11 +466,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
     NSLog(@"卡拉  开始配置 进入方法1");
+    NSLog(@"judgeVideoIsStatic 为 %d",judgeVideoIsStatic);
     if (judgeVideoIsStatic == 0) {
         //        /    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
         NSLog(@"卡拉  开始配置 进入方法11");
+   /*
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
         [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
+    */
 //        double delayInSeconds = KZXVideoStaticTime;
 //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
 //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
