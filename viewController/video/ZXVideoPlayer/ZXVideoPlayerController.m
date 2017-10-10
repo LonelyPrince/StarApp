@@ -1004,7 +1004,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
                 //                [self restoreOriginalScreen];
-                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400 )  {           // Device oriented vertically, home button on the bottom
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420 )  {           // Device oriented vertically, home button on the bottom
                     //此时是竖屏状态
                     NSLog(@"home键在 下");
                     [self restoreOriginalScreen];
@@ -1229,7 +1229,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {           // Device oriented vertically, home button on the bottom
                 NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
                 //                [self restoreOriginalScreen];
-                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400)  {           // Device oriented vertically, home button on the bottom
+                if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420)  {           // Device oriented vertically, home button on the bottom
                     //此时是竖屏状态
                     NSLog(@"home键在 下");
                     [self restoreOriginalScreen];
@@ -1447,11 +1447,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     //        [self.view addSubview:radioImageView];
                     [self.view insertSubview:radioImageView atIndex:1];
                 }
-                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) { //全屏
+                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
                     radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
                 }else //竖屏
                 {
                     radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+                    NSLog(@"可能会出错的地方self.view.frame.bounds.width2");
                 }
                 
             }
@@ -1699,7 +1700,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     {
                         NSLog(@"width %f",self.view.frame.size.width);
                         NSLog(@"height %f",self.view.frame.size.height);
-                        if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) //证明此时是竖屏状态
+                        if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) //证明此时是竖屏状态
                         {           // Device oriented vertically, home button on the bottom
                             NSLog(@"home键在 下");
                             [self restoreOriginalScreen];
@@ -1797,7 +1798,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     }
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     
-                    if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) {
+                    if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) {
                         CGSize size=[lab.text sizeWithAttributes:attrs];
                         lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     }else
@@ -2037,6 +2038,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
         }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
         {
+            NSLog(@"==-=-===-==000==-全屏了");
             //new====
             
             if (self.isFullscreenMode) {
@@ -2139,6 +2141,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
             NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
             self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+            NSLog(@"==-=-===-==000==-全屏了了了了了");
             self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
             //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
             YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
@@ -2261,6 +2264,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 切换到竖屏模式
 - (void)restoreOriginalScreen
 {
+    NSLog(@"==-=-===-==000==-竖屏了");
     if (!self.isFullscreenMode) {
         return;
     }
@@ -4715,10 +4719,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"UIScreen mainScreen].bounds.size.width %@",NSStringFromCGRect([UIScreen mainScreen].bounds));
             
             
-            if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) { //全屏
+            if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
                 [self abctest];  //全屏页面时候，加载跑马灯的名字
             }
-            
+            NSLog(@"可能会出错的地方self.view.frame.bounds.width3");
         }
             break;
     }
@@ -5028,7 +5032,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     {
                         NSLog(@"width %f",self.view.frame.size.width);
                         NSLog(@"height %f",self.view.frame.size.height);
-                        if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) //证明此时是竖屏状态
+                        if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) //证明此时是竖屏状态
                         {           // Device oriented vertically, home button on the bottom
                             NSLog(@"home键在 下");
                             [self restoreOriginalScreen];
@@ -5126,7 +5130,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     }
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     
-                    if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) {
+                    if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) {
                         CGSize size=[lab.text sizeWithAttributes:attrs];
                         lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     }else
