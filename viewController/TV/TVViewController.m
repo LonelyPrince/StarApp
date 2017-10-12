@@ -3141,7 +3141,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             
                             if (touchArr.count >= 4) {
                                 NSInteger row = [touchArr[2] integerValue];
-                                NSDictionary * dic = touchArr [3];
+//                                NSDictionary * dic = touchArr [3];
+                                 NSDictionary * dic = storeLastChannelArr [3];
+                                NSLog(@"storeLastChannelArr %@",storeLastChannelArr);
+                                NSLog(@"storeLastChannelArr[3] %@",storeLastChannelArr[3]);
                                 NSLog(@"row %ld",(long)row);
 //                                NSLog(@"dic %@",dic);
                                 //在这里添加判断 机顶盒是否加密
@@ -5731,6 +5734,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         STBAlert.title = @"It's wrong,Once more";
         if (self.showTVView == YES) {
             [STBAlert show];
+            NSLog(@"asoabsfbasfbaofbasobfasbfjbasbdn c");
         }else
         {
             NSLog(@"已经不是TV页面了");
@@ -5752,6 +5756,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     STBAlert.title = @"Please input your Decoder PIN";
     if (self.showTVView == YES) {
         [STBAlert show];
+        NSLog(@"asoabsfbasfbaofbasobfasbfjbasbdn111 c");
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -5814,6 +5819,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             STBAlert.title = @"Please input your Decoder PIN";
             if (self.showTVView == YES) {
                 [STBAlert show];
+                NSLog(@"asoabsfbasfbaofbasobfasbfjbasbdn222 c");
             }else
             {
                 NSLog(@"已经不是TV页面了");
@@ -8149,6 +8155,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)getChangeLockNotice:(NSNotification *)text//当节目正在播放时，收到加锁通知
 {
+    NSLog(@"*****机顶盒改变节目的加锁状态 准备进入下一阶段");
     //1.处理信息，如果发现是当前正在播放的节目，则执行第二步，否则只要修改self.dictemp这个字典就可以，还有dictemp可能被序列化了，所以需要修改 2.取消掉当前播放  3.重新执行播放
     
     //处理信息
@@ -8171,6 +8178,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
  */
 -(void)updateChannelService:(NSData *)updateChannelServiceDataTemp
 {
+    NSLog(@"*****机顶盒改变节目的加锁状态 ： 进入了节目判断阶段");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //获取全部的channel数据，判断当前点击的channel是哪一个dic
         NSData * updateChannelServiceData = updateChannelServiceDataTemp;
@@ -8290,12 +8298,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSDictionary * judgeIsEqualDic_Two = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
                 BOOL * judgeIsEqual = [GGUtil judgeTwoEpgDicIsEqual:judgeIsEqualDic_One TwoDic:judgeIsEqualDic_Two];
                 
+                NSString * service_service_name1 = [judgeIsEqualDic_One objectForKey:@"service_name"];
+                NSString * service_service_name2 = [judgeIsEqualDic_Two objectForKey:@"service_name"];
+                
+                NSLog(@"*****机顶盒改变节目的加锁状态 name1 : %@",service_service_name1);
+                NSLog(@"*****机顶盒改变节目的加锁状态 name2 : %@",service_service_name2);
                 
                 //            uint32_t character_And =  service_character_id1_int &  0x02;
                 //            NSLog(@"character2 与运算 %d",character_And);
                 
                 //是当前正在播放的节目，所以说当前节目一定改变了，修改
                 if (judgeIsEqual) {
+                    
+                   
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         //关闭当前正在播放的节目
@@ -8334,6 +8349,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%d",row]]];
                     [USER_DEFAULT setObject:[serviceData_DefaultTemp copy]  forKey :@"serviceData_Default"]; // 存到serviceData_Default 中
+                    
+                    /*
+                     
+                     storeLastChannelArr
+                     1. 修改storeLastArr = self.dicTemp;
+                     2.修改storeLastARR
+                     
+                     */
+                    
+                    storeLastChannelArr = [NSMutableArray arrayWithObjects:storeLastChannelArr[0],storeLastChannelArr[1],storeLastChannelArr[2],self.dicTemp,nil];
+//                    storeLastChannelArr[3] = self.dicTemp;
                     NSLog(@"asfjalsbfabfba 5 %@",[USER_DEFAULT objectForKey:@"historySeed"]);
                     NSLog(@"asfjalsbfabfba 6 %@",[USER_DEFAULT objectForKey:@"serviceData_Default"]);
                     
@@ -8387,18 +8413,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }else //不是当前正在播放的节目
                 {
+                    NSLog(@"*****机顶盒改变节目的加锁状态 ： 不是当前播放的节目");
                     //修改数据
                     //赋予新值
-                    NSMutableDictionary * tempDic_updateCharacter =[[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
+                    
+                    //正在播放的第一个节目
+//                    NSMutableDictionary * tempDic_updateCharacter =[[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
+                    NSMutableDictionary * tempDic_updateCharacter =[[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)i]] mutableCopy];
+                    NSLog(@"tempDic_updateCharacter %@",tempDic_updateCharacter);
+                    //修改后的加锁状态值
                     NSString * newService_character =  [NSString stringWithFormat:@"%ld",(long)program_character_int];
-                    
-                    NSLog(@"asfjalsbfabfba 3 %@",newService_character);
-                    
+                    NSLog(@"newService_character 3 %@",newService_character);
+                    //修改了character的值
                     [tempDic_updateCharacter setObject:newService_character forKey:@"service_character"];
                     
-                    NSLog(@"asfjalsbfabfba 4 %@",tempDic_updateCharacter);
+                    NSLog(@"tempDic_updateCharacter 4 %@",tempDic_updateCharacter);
                     NSMutableDictionary * mutableDicTemp = [dic mutableCopy];
-                    [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)row]];
+                    
+                    NSLog(@"mutableDicTemp%@",mutableDicTemp);
+//                    [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)row]];
+                    [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)i]];
+                    NSLog(@"mutableDicTemp11%@",mutableDicTemp);
                     dic = [mutableDicTemp copy];
                     
                     NSLog(@"asfjalsbfabfba 2 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
@@ -8409,7 +8444,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
                     
-                    [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]]];
+                    NSLog(@"dic==dic %@",dic);
+                    NSLog(@"dongcidaci %@",[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]]);
+//                    [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]]];
+                    [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)i]]];
                     [USER_DEFAULT setObject:[serviceData_DefaultTemp copy]  forKey :@"serviceData_Default"]; // 存到serviceData_Default 中
                     NSLog(@"asfjalsbfabfba 55555 %@",[USER_DEFAULT objectForKey:@"historySeed"]);
                     NSLog(@"asfjalsbfabfba 6666 %@",[USER_DEFAULT objectForKey:@"serviceData_Default"]);
@@ -8542,21 +8580,28 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             
             //                NSDictionary * epgDicToSocket_temp = mutablearrHistoryNow[mutablearrHistoryNow.count - 1][0];
+            
             NSString * seedNowTime_temp = mutablearrHistoryNow[i][1];
             NSNumber *aNumber_temp = mutablearrHistoryNow[i][2];
+            NSLog(@"seedNowTime_temp %@",seedNowTime_temp);
+            NSLog(@"aNumber_temp %@",aNumber_temp);
             
             NSMutableDictionary * mutableEpgDicToSocket_temp = [epgDicToSocket_temp mutableCopy]; //历史数组中的最后一个总数据，我们现在修改他
             [mutableEpgDicToSocket_temp setObject:service_character_id1 forKey:@"service_character"];
+            NSLog(@"mutableEpgDicToSocket_temp %@",mutableEpgDicToSocket_temp);
             
             
             
             NSArray * seedNowArr_temp = [NSArray arrayWithObjects:[mutableEpgDicToSocket_temp copy],seedNowTime_temp,aNumber_temp,dic_history3Dic,nil];
             
+            NSLog(@"seedNowArr_temp %@",seedNowArr_temp);
+            
             //                [mutablearrHistoryNow removeObjectAtIndex:0];
             //
             //                [mutablearrHistoryNow addObject:seedNowArr_temp];
             [mutablearrHistoryNow replaceObjectAtIndex:i withObject:seedNowArr_temp];
-            
+            NSLog(@"mutablearrHistoryNow %@",mutablearrHistoryNow);
+
             
             NSArray *myArray_temp = [NSArray arrayWithArray:mutablearrHistoryNow];
             //                //获取播放的第一个节目信息
