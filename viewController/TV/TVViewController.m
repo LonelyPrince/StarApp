@@ -6848,6 +6848,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             NSLog(@"zidong  刷新了一次");
             [self removeTopProgressView]; //删除进度条
+            NSLog(@"[USER_DEFAULT objectForKey:] %@",[USER_DEFAULT objectForKey:@"deliveryPlayState"]);
+            if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
+                NSLog(@"[USER_DEFAULT objectForKey:] 11111");
+                [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            }
         }else
         {
             NSLog(@"做一次显示的操作222");
@@ -6928,6 +6937,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"zidong  刷新了一次");
             [self removeTopProgressView]; //删除进度条
             
+            NSLog(@"[USER_DEFAULT objectForKey:] %@",[USER_DEFAULT objectForKey:@"deliveryPlayState"]);
+            if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
+                NSLog(@"[USER_DEFAULT objectForKey:] 222222");
+                [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            }
         }else
         {
             NSLog(@"做一次显示的操作222");
