@@ -5184,34 +5184,118 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    [self.player play];
     
     
-    [self.player shutdown];
-    [self.player.view removeFromSuperview];
-    self.player = nil;
-    [self.player stop];
+//    [self.player shutdown];
+//    [self.player.view removeFromSuperview];
+//    self.player = nil;
+//    [self.player stop];
+//
+//
+//    NSLog(@"self.View %@",self.view);
+//
+//
+//    self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:tempUrl withOptions:nil playView:nil];
+//
+//    NSLog(@"self.playerView %@",self.player);
+//    self.player.view.frame = self.view.bounds;
+//
+//    [self.view insertSubview:self.player.view atIndex:0];
+//
+//    if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
+//        [self.player prepareToPlay:0];
+//        [self.player play];
+//        //            [self.player play];
+//        //            [self.player play];
+//        //            [self.player play];
+//    }else
+//    {
+//        [self.player shutdown];
+//        [self.player.view removeFromSuperview];
+//        self.player = nil;
+//    }
+    
+
     
     
-    NSLog(@"self.View %@",self.view);
- 
     
-    self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:tempUrl withOptions:nil playView:nil];
+        audioRow = 0;
+        subtRow = 0;
+        NSLog(@"shang 上一个节目");
+        
+        NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+        historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        
+        NSArray * touchArr = historyArr[historyArr.count - 1];
+        NSLog(@"touchArr：%@",touchArr);
+        //    [self touchToSee :touchArr];
+        
+        
+        NSInteger row = [touchArr[2] intValue];
+        NSDictionary * dic = touchArr [3];
+        
+//        if (row >= 1) {
+            self.videoControl.lastChannelButton.enabled = YES;
+            self.videoControl.nextChannelButton.enabled = YES;
+            NSNumber * numIndex = [NSNumber numberWithInt:row];
+            //添加 字典，将label的值通过key值设置传递
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+            
+            
+            //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+            NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+            
+            NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+            
+            
+            if (characterStr != NULL && characterStr != nil) {
+                
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                    // 此处代表需要记性机顶盒加密验证
+                    //弹窗
+                    //发送通知
+                    
+                    //        [self popSTBAlertView];
+                    //        [self popCAAlertView];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                    //创建通知
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                    NSLog(@"POPPOPPOPPOP66666666666");
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    //                [self.tabBarController setSelectedIndex:1];
+                    
+                }else //正常播放的步骤
+                {
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    //                [self.tabBarController setSelectedIndex:1];
+                }
+                
+                
+            }else //正常播放的步骤
+            {
+                
+                
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            }
     
-    NSLog(@"self.playerView %@",self.player);
-    self.player.view.frame = self.view.bounds;
+    NSLog(@"jsbfabsfasbfaosbfo'asubf'oubaso'fbos'abfuoasb");
+//        }else
+//        {
+//            NSLog(@"对不起，已经没有上一个节目了");
+//            self.videoControl.lastChannelButton.enabled = NO;
+//        }
     
-    [self.view insertSubview:self.player.view atIndex:0];
-   
-    if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
-        [self.player prepareToPlay:0];
-        [self.player play];
-        //            [self.player play];
-        //            [self.player play];
-        //            [self.player play];
-    }else
-    {
-        [self.player shutdown];
-        [self.player.view removeFromSuperview];
-        self.player = nil;
-    }
+    
 }
+
+
+
+
 
 @end

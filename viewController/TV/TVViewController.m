@@ -2347,9 +2347,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         socketView.socket_ServiceModel = [[ServiceModel alloc]init];
         audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
         subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
+        if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
+
+
         socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
         socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
-        
+        }else
+        {
+            return;
+        }
         NSLog(@"socketView.socket_ServiceModel.subt_pid :%@",socketView.socket_ServiceModel.subt_pid );
         socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
         socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
@@ -2381,9 +2387,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"self.service_videoname %@",self.service_videoname);
         
         epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+        if (epg_infoArr.count > 0) {
+            self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+            self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+            self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+        }else
+        {
+            return;
+        }
+       
         isEventStartTimeBiger_NowTime = NO;
         BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
         if (isEventStartTimeBigNowTime == YES) {
@@ -7262,7 +7274,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@"ip has change");
     NSLog(@"并且 HMC has change");
-    
+    NSLog(@"执行执行执行执行====iphaschange");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
