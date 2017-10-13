@@ -105,7 +105,9 @@
     epgArr = [[NSArray alloc]init];
     //****
     epgArr = [_dataDic objectForKey:@"epg_info"];
+    if (epgArr.count >0) {
     epgDic = epgArr[0];
+    
     
     //判断第一个数据是不是没有时间戳，或者时间戳是不是比当前时间还要打，如果是，则要将数据后移
     NSString * firstDicStartTime = [epgDic objectForKey:@"event_starttime"]; //获得第一个epg的开始时间
@@ -206,7 +208,7 @@
         }
     }
     
-    
+    }
     
     
     

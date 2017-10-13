@@ -1158,7 +1158,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
     
-    
+    NSLog(@"执行执行执行执行2222");
     
     NSLog(@"333channelCount==--==--22222= %d ",self.video.channelCount);
 //    NSLog(@"333self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
@@ -5033,6 +5033,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    NSLog(@"执行执行执行执行8888");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self updateFullScreenDic];
     });
@@ -5081,8 +5082,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         socketView.socket_ServiceModel = [[ServiceModel alloc]init];
         audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
         subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-        socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
-        socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+        if (subt_infoArr.count > 0 && audio_infoArr.count > 0) {
+            socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+            socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+        }else
+        {
+            return;
+        }
+//        socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+//        socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
         socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
         socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
         socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
@@ -5112,6 +5120,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@" self.service_videoname %@",self.service_videoname);
         
         epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+        
+        if (epg_infoArr.count > 0) {
+       
         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
         NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
@@ -5178,11 +5189,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //    [self.socketView viewDidLoad];
         
         NSLog(@"self.socket:%@",self.socketView);
-        
+        NSLog(@"执行执行执行执行9999");
         if (self.showTVView == YES) {
             self.videoController.socketView1 = self.socketView;
             NSLog(@"playState---== 第一次打开发送数据111");
             [self.socketView  serviceTouch ];
+            NSLog(@"执行执行执行执行101010");
             NSLog(@"playState---== 第一次打开发送数据222");
             NSLog(@"测试播放22222222222222");
         }else
@@ -5196,7 +5208,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"已经不是TV页面了");
         [self ifNotISTVView];
     }
-    
+    }
 }
 
 -(UIViewController*) findBestViewController:(UIViewController*)vc {
@@ -7300,6 +7312,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
+        NSLog(@"执行执行执行执行1111");
         NSLog(@" playVideo getserviceDataForIpChange");
         NSLog(@"playVideo55-IP :");
         
@@ -7414,8 +7427,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             NSLog(@"DMSIP:6666");
             [self.socketView viewDidLoad];
+            NSLog(@"执行执行执行执行4444");
             if (firstfirst == YES) {
                 
+                NSLog(@"执行执行执行执行5555");
                 //                   self.socketView  = [[SocketView  alloc]init];
                 NSLog(@"DMSIP:1111");
                 //                   [self.socketView viewDidLoad];
@@ -7441,6 +7456,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }else //正常播放的步骤
                     {
+                        NSLog(@"执行执行执行执行6666");
                         //======
                         [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                         firstOpenAPP = firstOpenAPP+1;
@@ -7450,7 +7466,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     //======机顶盒加密
-                    
+                    NSLog(@"执行执行执行执行7777");
                     [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                     firstOpenAPP = firstOpenAPP+1;
                     

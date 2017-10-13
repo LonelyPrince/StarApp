@@ -29,7 +29,7 @@ return sharedInstance; \
 
 @property (nonatomic, strong) SocketView    *socketView;       // socketview
 
-@property (nonatomic, assign) int            connectStatus;    // 主要是用于判断socket的连接状态，如果第一次断开连接，则connectStatus =1，然后重新连接后，socket再次断开连接，则connectStatus = 2，此时会显示断开连接的提示
+@property (nonatomic, assign) int            connectStatus;    // 主要是用于判断socket的连接状态，如果第一次断开连接，则connectStatus =1，然后重新连接后，socket再次断开连接，直到connectStatus = 3，此时会显示断开连接的提示
 //断开时候用
 enum{
     SocketOfflineByServer,// 服务器掉线，默认为0

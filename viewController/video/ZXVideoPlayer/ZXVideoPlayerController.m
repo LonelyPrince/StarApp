@@ -3065,7 +3065,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        self.player = [self.player initWithContentURL:url withOptions:nil playView:nil];
         
         //    }
-        
+        NSLog(@"执行执行执行执行3333 %@",url);
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
         tempUrl = url;
         //    UIView *playerView = [self.player view];
@@ -4477,18 +4477,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
-    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+    NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
+    if (arrNowPlayingTemp.count > 0) {
+        NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+        
+        self.video.channelId =channelIdLabStr;
+        self.video.channelName =channelNameLabStr;
+        self.video.playEventName =eventNameLabStr;
+        
+        self.videoControl.channelIdLab.text = self.video.channelId;
+        
+        self.videoControl.channelNameLab.text = self.video.channelName;
+        
+        self.videoControl.eventnameLabel.text = self.video.playEventName;
+    }
+//    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
     
     
-    self.video.channelId =channelIdLabStr;
-    self.video.channelName =channelNameLabStr;
-    self.video.playEventName =eventNameLabStr;
-    
-    self.videoControl.channelIdLab.text = self.video.channelId;
-    
-    self.videoControl.channelNameLab.text = self.video.channelName;
-    
-    self.videoControl.eventnameLabel.text = self.video.playEventName;
 }
 
 
@@ -4575,6 +4580,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int  EPGArrindex = 0; //先随便初始化一下
     NSString * tempIndexStr;
     NSArray * arr = [USER_DEFAULT objectForKey:@"NowChannelEPG"];
+    if (arr.count > 0) {
+
     tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];   //一直没变，应该让他先变
     EPGArrindex = [tempIndexStr intValue];
     NSLog(@"EPGArrindexEPGArrindexEPGArrindex %d",EPGArrindex);
@@ -4647,7 +4654,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }
     
-    
+    }
     
     
 }

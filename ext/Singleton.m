@@ -53,7 +53,7 @@
     NSLog(@"socket连接成功");
     NSLog(@"接下来开始发送心跳");
     
-    if (self.connectStatus >2) {
+    if (self.connectStatus >3) {
         //从断开状态到连接状态，开始重新播放
         NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -179,18 +179,19 @@
         
         self.connectStatus ++ ; //连接成功，则赋值为0
         // 服务器掉线，重连
-        double delayInSeconds = 1.2;
+        double delayInSeconds = 0.1;   //如果没有延迟，则会一直连接，造成CPU飙升
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
         [self socketConnectHost];
         });
         NSLog(@"sorry the connect is 服务器断开");
-        
-        if (self.connectStatus == 2) {
+        NSLog(@"self.connectStatus %d",self.connectStatus);
+        if (self.connectStatus == 3) {
             [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
             [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
             
+            NSLog(@"sorry the connect is 服务器断开,并且要显示无网络连接的图");
             NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
