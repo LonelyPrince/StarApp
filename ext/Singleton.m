@@ -199,6 +199,11 @@
             NSNotification *notification1 =[NSNotification notificationWithName:@"netWorkIsColseNotice" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            //route页面，网络通知，如果没网，显示没有网络图片
+            NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
         }
         
         
@@ -223,6 +228,10 @@
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
         
+        //route页面，网络通知，如果没网，显示没有网络图片
+        NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
         return;
     }
     

@@ -60,6 +60,7 @@
 @synthesize deviceView;
 @synthesize aboutView;
 @synthesize routeManageView;
+@synthesize routeSingIn;
 
 @synthesize DeviceConView; //test
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -434,24 +435,34 @@
         ////        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithTitle:@"主页" style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
         //        self.routeView.navigationItem.leftBarButtonItem = myButton;
         
-        self.routeManageView = [[RouteManageViewController alloc]init];
+//        self.routeManageView = [[RouteManageViewController alloc]init];
+        self.routeSingIn = [[RouteSingIn alloc]init];
         //        [self presentModalViewController:self.routeView animated:YES];
 //        [self.navigationController pushViewController:self.routeManageView animated:YES];
-        if(![self.navigationController.topViewController isKindOfClass:[self.routeManageView class]]) {
-            [self.navigationController pushViewController:self.routeManageView animated:YES];
+//        if(![self.navigationController.topViewController isKindOfClass:[self.routeManageView class]]) {
+//            [self.navigationController pushViewController:self.routeManageView animated:YES];
+//        }else
+//        {
+//            NSLog(@"此处可能会由于页面跳转过快报错");
+//        }
+        if(![self.navigationController.topViewController isKindOfClass:[self.routeSingIn class]]) {
+            [self.navigationController pushViewController:self.routeSingIn animated:YES];
         }else
         {
             NSLog(@"此处可能会由于页面跳转过快报错");
         }
         
-        
         UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-        self.routeManageView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-        
-        
-        self.routeManageView.navigationItem.leftBarButtonItem = myButton;
-        self.routeManageView.tabBarController.tabBar.hidden = YES;
-        
+//        self.routeManageView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+//
+//
+//        self.routeManageView.navigationItem.leftBarButtonItem = myButton;
+//        self.routeManageView.tabBarController.tabBar.hidden = YES;
+        self.routeSingIn.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+
+
+        self.routeSingIn.navigationItem.leftBarButtonItem = myButton;
+        self.routeSingIn.tabBarController.tabBar.hidden = YES;
         
     }  else   if (indexPath.row == 1) {
         

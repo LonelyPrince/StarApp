@@ -15,6 +15,7 @@
 #import "AboutViewController.h"
 #import "RouteManageViewController.h"
 #import "DeviceManageController.h"   //test
+#import "RouteSingIn.h"              //route的首页面
 
 @interface MEViewController : UIViewController<UITabBarDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
@@ -27,4 +28,5 @@
 
 @property(nonatomic,strong) DeviceManageController* DeviceConView;  // test
 @property(nonatomic,strong) RouteManageViewController* routeManageView;  // routemanage
+@property(nonatomic,strong) RouteSingIn * routeSingIn;
 @end

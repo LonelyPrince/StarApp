@@ -35,6 +35,9 @@
 
 #import "Singleton.h"
 #import <objc/runtime.h>
+
+#import "RouteSingIn.h"
+#import "RouteMenuView.h"
 //#import "DeviceManageViewController.h"
 //ext
 #import "AppConfig.h"
