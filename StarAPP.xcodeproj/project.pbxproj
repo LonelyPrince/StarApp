@@ -37,6 +37,30 @@
 		701077E21F94C88B00593014 /* 安全中心@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701077DF1F94C88B00593014 /* 安全中心@1x.png */; };
 		701077E31F94C88B00593014 /* 安全中心@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701077E01F94C88B00593014 /* 安全中心@3x.png */; };
 		701077EA1F95B70800593014 /* RouteMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 701077E81F95B70800593014 /* RouteMenuView.m */; };
+		701078541F96DAF800593014 /* Router-Status@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010783C1F96DAF300593014 /* Router-Status@3x.png */; };
+		701078551F96DAF800593014 /* WLAN-Settings@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010783D1F96DAF300593014 /* WLAN-Settings@3x.png */; };
+		701078561F96DAF800593014 /* 背景@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010783E1F96DAF300593014 /* 背景@2x.png */; };
+		701078571F96DAF800593014 /* Reboot-Device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010783F1F96DAF400593014 /* Reboot-Device@2x.png */; };
+		701078581F96DAF800593014 /* Router-Status@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078401F96DAF400593014 /* Router-Status@1x.png */; };
+		7010785A1F96DAF800593014 /* Backup-&-Restore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078421F96DAF400593014 /* Backup-&-Restore@2x.png */; };
+		7010785B1F96DAF800593014 /* Devices-List@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078431F96DAF400593014 /* Devices-List@3x.png */; };
+		7010785C1F96DAF800593014 /* Reboot-Device@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078441F96DAF400593014 /* Reboot-Device@1x.png */; };
+		7010785D1F96DAF800593014 /* 背景@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078451F96DAF400593014 /* 背景@1x.png */; };
+		7010785E1F96DAF800593014 /* Backup-&-Restore@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078461F96DAF500593014 /* Backup-&-Restore@3x.png */; };
+		701078601F96DAF800593014 /* Devices-List@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078481F96DAF500593014 /* Devices-List@1x.png */; };
+		701078611F96DAF800593014 /* Security-Center@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078491F96DAF500593014 /* Security-Center@1x.png */; };
+		701078621F96DAF800593014 /* Security-Center@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010784A1F96DAF500593014 /* Security-Center@2x.png */; };
+		701078631F96DAF800593014 /* Security-Center@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010784B1F96DAF500593014 /* Security-Center@3x.png */; };
+		701078641F96DAF800593014 /* WLAN-Settings@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010784C1F96DAF600593014 /* WLAN-Settings@1x.png */; };
+		701078661F96DAF800593014 /* Reboot-Device@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010784E1F96DAF600593014 /* Reboot-Device@3x.png */; };
+		701078671F96DAF800593014 /* 背景@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7010784F1F96DAF600593014 /* 背景@3x.png */; };
+		701078681F96DAF800593014 /* Devices-List@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078501F96DAF600593014 /* Devices-List@2x.png */; };
+		701078691F96DAF800593014 /* WLAN-Settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078511F96DAF600593014 /* WLAN-Settings@2x.png */; };
+		7010786A1F96DAF800593014 /* Backup-&-Restore@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078521F96DAF700593014 /* Backup-&-Restore@1x.png */; };
+		7010786B1F96DAF800593014 /* Router-Status@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078531F96DAF700593014 /* Router-Status@2x.png */; };
+		7010787A1F96F02000593014 /* 顶部@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078771F96F02000593014 /* 顶部@1x.png */; };
+		7010787B1F96F02000593014 /* 顶部@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078781F96F02000593014 /* 顶部@2x.png */; };
+		7010787C1F96F02000593014 /* 顶部@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078791F96F02000593014 /* 顶部@3x.png */; };
 		701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */; };
 		701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294E11D80F4A3003139D5 /* NSObject+JSONCategories.m */; };
 		701294E61D80F4A3003139D5 /* NSString+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294E31D80F4A3003139D5 /* NSString+JSONCategories.m */; };
@@ -702,6 +726,30 @@
 		701077E01F94C88B00593014 /* 安全中心@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "安全中心@3x.png"; sourceTree = "<group>"; };
 		701077E71F95B70800593014 /* RouteMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouteMenuView.h; sourceTree = "<group>"; };
 		701077E81F95B70800593014 /* RouteMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouteMenuView.m; sourceTree = "<group>"; };
+		7010783C1F96DAF300593014 /* Router-Status@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Router-Status@3x.png"; sourceTree = "<group>"; };
+		7010783D1F96DAF300593014 /* WLAN-Settings@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WLAN-Settings@3x.png"; sourceTree = "<group>"; };
+		7010783E1F96DAF300593014 /* 背景@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "背景@2x.png"; sourceTree = "<group>"; };
+		7010783F1F96DAF400593014 /* Reboot-Device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Reboot-Device@2x.png"; sourceTree = "<group>"; };
+		701078401F96DAF400593014 /* Router-Status@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Router-Status@1x.png"; sourceTree = "<group>"; };
+		701078421F96DAF400593014 /* Backup-&-Restore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Backup-&-Restore@2x.png"; sourceTree = "<group>"; };
+		701078431F96DAF400593014 /* Devices-List@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Devices-List@3x.png"; sourceTree = "<group>"; };
+		701078441F96DAF400593014 /* Reboot-Device@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Reboot-Device@1x.png"; sourceTree = "<group>"; };
+		701078451F96DAF400593014 /* 背景@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "背景@1x.png"; sourceTree = "<group>"; };
+		701078461F96DAF500593014 /* Backup-&-Restore@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Backup-&-Restore@3x.png"; sourceTree = "<group>"; };
+		701078481F96DAF500593014 /* Devices-List@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Devices-List@1x.png"; sourceTree = "<group>"; };
+		701078491F96DAF500593014 /* Security-Center@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Security-Center@1x.png"; sourceTree = "<group>"; };
+		7010784A1F96DAF500593014 /* Security-Center@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Security-Center@2x.png"; sourceTree = "<group>"; };
+		7010784B1F96DAF500593014 /* Security-Center@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Security-Center@3x.png"; sourceTree = "<group>"; };
+		7010784C1F96DAF600593014 /* WLAN-Settings@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WLAN-Settings@1x.png"; sourceTree = "<group>"; };
+		7010784E1F96DAF600593014 /* Reboot-Device@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Reboot-Device@3x.png"; sourceTree = "<group>"; };
+		7010784F1F96DAF600593014 /* 背景@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "背景@3x.png"; sourceTree = "<group>"; };
+		701078501F96DAF600593014 /* Devices-List@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Devices-List@2x.png"; sourceTree = "<group>"; };
+		701078511F96DAF600593014 /* WLAN-Settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WLAN-Settings@2x.png"; sourceTree = "<group>"; };
+		701078521F96DAF700593014 /* Backup-&-Restore@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Backup-&-Restore@1x.png"; sourceTree = "<group>"; };
+		701078531F96DAF700593014 /* Router-Status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Router-Status@2x.png"; sourceTree = "<group>"; };
+		701078771F96F02000593014 /* 顶部@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部@1x.png"; sourceTree = "<group>"; };
+		701078781F96F02000593014 /* 顶部@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部@2x.png"; sourceTree = "<group>"; };
+		701078791F96F02000593014 /* 顶部@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部@3x.png"; sourceTree = "<group>"; };
 		701294DE1D80F4A3003139D5 /* NSData+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONCategories.h"; sourceTree = "<group>"; };
 		701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONCategories.m"; sourceTree = "<group>"; };
 		701294E01D80F4A3003139D5 /* NSObject+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSONCategories.h"; sourceTree = "<group>"; };
@@ -1514,6 +1562,37 @@
 			name = RouteSignIn;
 			sourceTree = "<group>";
 		};
+		7010783B1F96DAAC00593014 /* RouteMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				701078771F96F02000593014 /* 顶部@1x.png */,
+				701078781F96F02000593014 /* 顶部@2x.png */,
+				701078791F96F02000593014 /* 顶部@3x.png */,
+				701078451F96DAF400593014 /* 背景@1x.png */,
+				7010783E1F96DAF300593014 /* 背景@2x.png */,
+				7010784F1F96DAF600593014 /* 背景@3x.png */,
+				701078521F96DAF700593014 /* Backup-&-Restore@1x.png */,
+				701078421F96DAF400593014 /* Backup-&-Restore@2x.png */,
+				701078461F96DAF500593014 /* Backup-&-Restore@3x.png */,
+				701078481F96DAF500593014 /* Devices-List@1x.png */,
+				701078501F96DAF600593014 /* Devices-List@2x.png */,
+				701078431F96DAF400593014 /* Devices-List@3x.png */,
+				701078441F96DAF400593014 /* Reboot-Device@1x.png */,
+				7010783F1F96DAF400593014 /* Reboot-Device@2x.png */,
+				7010784E1F96DAF600593014 /* Reboot-Device@3x.png */,
+				701078401F96DAF400593014 /* Router-Status@1x.png */,
+				701078531F96DAF700593014 /* Router-Status@2x.png */,
+				7010783C1F96DAF300593014 /* Router-Status@3x.png */,
+				701078491F96DAF500593014 /* Security-Center@1x.png */,
+				7010784A1F96DAF500593014 /* Security-Center@2x.png */,
+				7010784B1F96DAF500593014 /* Security-Center@3x.png */,
+				7010784C1F96DAF600593014 /* WLAN-Settings@1x.png */,
+				701078511F96DAF600593014 /* WLAN-Settings@2x.png */,
+				7010783D1F96DAF300593014 /* WLAN-Settings@3x.png */,
+			);
+			name = RouteMenuView;
+			sourceTree = "<group>";
+		};
 		701294DD1D80F4A3003139D5 /* Json */ = {
 			isa = PBXGroup;
 			children = (
@@ -1844,6 +1923,7 @@
 		70231CA41DC0FE8C00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				7010783B1F96DAAC00593014 /* RouteMenuView */,
 				701077DA1F949EAE00593014 /* RouteSignIn */,
 				7024C5EF1DD403910053F313 /* RouteM */,
 				70231D081DC2E9FA00F73202 /* Back@1x.png */,
@@ -2763,6 +2843,7 @@
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
 				70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */,
 				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
+				701078671F96DAF800593014 /* 背景@3x.png in Resources */,
 				70362D161F009E4B0012A309 /* New圆环-3@2x.png in Resources */,
 				7045C46C1DC715FB002647F9 /* 矩形2@2x.png in Resources */,
 				70170C3D1D74156000CC3951 /* more.png in Resources */,
@@ -2773,6 +2854,7 @@
 				70362CFB1F009CCD0012A309 /* placeholder1@2x.png in Resources */,
 				70D6B8F01E2DAF3D00957A81 /* 个性化@3x.png in Resources */,
 				7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */,
+				701078691F96DAF800593014 /* WLAN-Settings@2x.png in Resources */,
 				7040E2391DAE12B80063DB66 /* Group 15 Copy 2@1x.png in Resources */,
 				701A98B91DB47A3100460220 /* 小窗@3x.png in Resources */,
 				70F9B9A71DD452A300A62200 /* routenoKnow@3x.png in Resources */,
@@ -2815,6 +2897,7 @@
 				706A1C911DAF5DA400DADE86 /* play@2x.png in Resources */,
 				70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */,
 				70D6B8FF1E2DAF3D00957A81 /* Life Style@3x.png in Resources */,
+				701078661F96DAF800593014 /* Reboot-Device@3x.png in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
 				70362D151F009E4B0012A309 /* New圆环-3@1x.png in Resources */,
 				70FFA4E01DE7DFF4006BFE5E /* Verticalpic.png in Resources */,
@@ -2860,6 +2943,7 @@
 				70231CC31DC0FE8C00F73202 /* off.png in Resources */,
 				707FE74C1DACC3C30087C361 /* me icon@1x.png in Resources */,
 				70231CBF1DC0FE8C00F73202 /* Edit-256@3x.png in Resources */,
+				7010785B1F96DAF800593014 /* Devices-List@3x.png in Resources */,
 				70FFE40B1DE421A700223E43 /* monitor-jd@1x.png in Resources */,
 				70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */,
 				70170C391D74156000CC3951 /* hot.png in Resources */,
@@ -2870,6 +2954,7 @@
 				701A98AD1DB47A3100460220 /* Rectangle@3x.png in Resources */,
 				702CE4341DDA9881000A0513 /* 2@2x.png in Resources */,
 				7040E2411DAE12B80063DB66 /* Group 8 Copy 2@3x.png in Resources */,
+				7010786A1F96DAF800593014 /* Backup-&-Restore@1x.png in Resources */,
 				702CE4441DDA9881000A0513 /* 7@3x.png in Resources */,
 				70FFE3FF1DE3EF4800223E43 /* 时间.png in Resources */,
 				70362D261F009EB90012A309 /* New_Four@3x.png in Resources */,
@@ -2884,6 +2969,7 @@
 				701A98A41DB47A3100460220 /* 音轨@3x.png in Resources */,
 				70FFE3CD1DE2D07600223E43 /* 圆环-1 in Resources */,
 				70D6B9031E2DAF3D00957A81 /* Movies@1x.png in Resources */,
+				701078541F96DAF800593014 /* Router-Status@3x.png in Resources */,
 				70FFE3D41DE2D07600223E43 /* 圆环-8.png in Resources */,
 				707FE7381DACC3C30087C361 /* background@2x.png in Resources */,
 				70D6B9191E2DAF3D00957A81 /* Startimes@2x.png in Resources */,
@@ -2914,6 +3000,7 @@
 				70362D3D1F00A0180012A309 /* Factual@1x.png in Resources */,
 				70FC30DD1D75714E00BD06FE /* kr-video-player-fullscreen@2x.png in Resources */,
 				70FC30F41D75714E00BD06FE /* zx-video-player-volume@3x.png in Resources */,
+				701078611F96DAF800593014 /* Security-Center@1x.png in Resources */,
 				7040E23F1DAE12B80063DB66 /* Group 8 Copy 2@1x.png in Resources */,
 				70FFE3E61DE2DBA200223E43 /* M5.png in Resources */,
 				7022F8681DC0860A0079C0BD /* SettingCell.xib in Resources */,
@@ -2932,6 +3019,7 @@
 				70231CD31DC0FE8C00F73202 /* 路由设置IP不可用.png in Resources */,
 				706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */,
 				70D6B8EF1E2DAF3D00957A81 /* 个性化@2x.png in Resources */,
+				7010786B1F96DAF800593014 /* Router-Status@2x.png in Resources */,
 				702CE4471DDA9881000A0513 /* 8@3x.png in Resources */,
 				70FC30E11D75714E00BD06FE /* kr-video-player-play@2x.png in Resources */,
 				7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */,
@@ -2953,6 +3041,7 @@
 				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */,
+				7010785C1F96DAF800593014 /* Reboot-Device@1x.png in Resources */,
 				702CE43F1DDA9881000A0513 /* 6.png in Resources */,
 				70231CF11DC1D5AC00F73202 /* 灰@2x.png in Resources */,
 				707FE74B1DACC3C30087C361 /* me icon copy@3x.png in Resources */,
@@ -2974,6 +3063,7 @@
 				70362D001F009D720012A309 /* All Channel@1x.png in Resources */,
 				70FFE3EA1DE2DBA200223E43 /* M9.png in Resources */,
 				70FC30E01D75714E00BD06FE /* kr-video-player-pause@3x.png in Resources */,
+				701078631F96DAF800593014 /* Security-Center@3x.png in Resources */,
 				70848AF31F7DE1A5005A4FA6 /* 关于@3x.png in Resources */,
 				703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */,
 				70FFA4EA1DE836DF006BFE5E /* white.png in Resources */,
@@ -3033,6 +3123,7 @@
 				70362D1A1F009E4B0012A309 /* New圆环-4@3x.png in Resources */,
 				70FC30E91D75714E00BD06FE /* zx-video-player-brightness@2x.png in Resources */,
 				70362D3E1F00A0180012A309 /* Factual@2x.png in Resources */,
+				7010785A1F96DAF800593014 /* Backup-&-Restore@2x.png in Resources */,
 				702CE4481DDA9881000A0513 /* 9.png in Resources */,
 				7045C4781DC715FB002647F9 /* 矩形6@2x.png in Resources */,
 				702CE4311DDA9881000A0513 /* 1@2x.png in Resources */,
@@ -3062,6 +3153,7 @@
 				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
 				7074D7D61DB8BA30008F8EAE /* 渐变@3x.png in Resources */,
+				701078551F96DAF800593014 /* WLAN-Settings@3x.png in Resources */,
 				706C26391E03AF9A003AA695 /* 全屏顶背景@1x.png in Resources */,
 				7040E2441DAE12B80063DB66 /* Viasat-Explore@3x.png in Resources */,
 				70362D181F009E4B0012A309 /* New圆环-4@1x.png in Resources */,
@@ -3095,6 +3187,7 @@
 				7040E23C1DAE12B80063DB66 /* Group 6@1x.png in Resources */,
 				702CE4421DDA9881000A0513 /* 7.png in Resources */,
 				701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */,
+				701078681F96DAF800593014 /* Devices-List@2x.png in Resources */,
 				70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */,
 				70362D4A1F00A0180012A309 /* Series@2x.png in Resources */,
 				70362CF51F0092480012A309 /* Movies & Series@3x.png in Resources */,
@@ -3113,6 +3206,7 @@
 				70362D141F009E4B0012A309 /* New圆环-2@3x.png in Resources */,
 				706C26361E03AF9A003AA695 /* 全屏底背景@1x.png in Resources */,
 				70F9B9A61DD452A300A62200 /* routenoKnow@2x.png in Resources */,
+				701078561F96DAF800593014 /* 背景@2x.png in Resources */,
 				707FE75E1DACC3C30087C361 /* time@1x.png in Resources */,
 				707FE74A1DACC3C30087C361 /* me icon copy@2x.png in Resources */,
 				70D6B8F71E2DAF3D00957A81 /* Documentary@1x.png in Resources */,
@@ -3126,6 +3220,8 @@
 				70FFE3C21DE2D05700223E43 /* nine.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
 				70362D491F00A0180012A309 /* Series@1x.png in Resources */,
+				701078621F96DAF800593014 /* Security-Center@2x.png in Resources */,
+				7010785D1F96DAF800593014 /* 背景@1x.png in Resources */,
 				7024C5FB1DD407AE0053F313 /* mingcheng@3x.png in Resources */,
 				707FE7461DACC3C30087C361 /* live icon@1x.png in Resources */,
 				70231CDD1DC19FEA00F73202 /* 组-55.png in Resources */,
@@ -3138,6 +3234,7 @@
 				7040E23B1DAE12B80063DB66 /* Group 15 Copy 2@3x.png in Resources */,
 				70D6B9121E2DAF3D00957A81 /* Special Characteristics@1x.png in Resources */,
 				70FC30F61D75714E00BD06FE /* zx-video-player-volumeMute@3x.png in Resources */,
+				7010787B1F96F02000593014 /* 顶部@2x.png in Resources */,
 				70FFA4E21DE7DFF4006BFE5E /* Verticalpic@3x.png in Resources */,
 				70362D461F00A0180012A309 /* Music@1x.png in Resources */,
 				702CE44B1DDA9881000A0513 /* 设备管理.png in Resources */,
@@ -3145,8 +3242,10 @@
 				703D5D4B1DF5746200C4412A /* CategoryViewController.xib in Resources */,
 				701077E21F94C88B00593014 /* 安全中心@1x.png in Resources */,
 				702CE4541DDA9881000A0513 /* 组-51-拷贝@3x.png in Resources */,
+				701078571F96DAF800593014 /* Reboot-Device@2x.png in Resources */,
 				7010175C1DCADA2500F9D5FF /* duihao@1x.png in Resources */,
 				702CE43C1DDA9881000A0513 /* 5.png in Resources */,
+				7010785E1F96DAF800593014 /* Backup-&-Restore@3x.png in Resources */,
 				7040E2371DAE12B80063DB66 /* Group 12 Copy 2@2x.png in Resources */,
 				70848ADE1F7DD663005A4FA6 /* 联系我们@3x.png in Resources */,
 				70D6B9141E2DAF3D00957A81 /* Special Characteristics@3x.png in Resources */,
@@ -3161,6 +3260,7 @@
 				7093368D1F5907C000328799 /* 无频道列表@3x.png in Resources */,
 				70FFE3CF1DE2D07600223E43 /* 圆环-3.png in Resources */,
 				704858091E46D0E60052318D /* placeholder@1x.png in Resources */,
+				701078601F96DAF800593014 /* Devices-List@1x.png in Resources */,
 				701A98A71DB47A3100460220 /* lock@3x.png in Resources */,
 				7045C4771DC715FB002647F9 /* 矩形6@1x.png in Resources */,
 				701077E31F94C88B00593014 /* 安全中心@3x.png in Resources */,
@@ -3173,6 +3273,7 @@
 				70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */,
 				702218C01E5AE0D7005D96A0 /* Back Arrow Blue@1x.png in Resources */,
 				7024C5D11DD0B2A10053F313 /* LinkViewController.xib in Resources */,
+				7010787A1F96F02000593014 /* 顶部@1x.png in Resources */,
 				702218B91E5AD304005D96A0 /* 未加锁 @1x.png in Resources */,
 				7040E1BB1DAE10890063DB66 /* categorys@3x.png in Resources */,
 				70FFA4E61DE7E6BE006BFE5E /* 直方图.png in Resources */,
@@ -3185,6 +3286,7 @@
 				701017611DCADA2500F9D5FF /* quan@3x.png in Resources */,
 				70FC30E21D75714E00BD06FE /* kr-video-player-play@3x.png in Resources */,
 				707FE7511DACC3C30087C361 /* 竖屏顶背景@3x.png in Resources */,
+				7010787C1F96F02000593014 /* 顶部@3x.png in Resources */,
 				707FE7411DACC3C30087C361 /* 竖屏底背景@2x.png in Resources */,
 				7045C46D1DC715FB002647F9 /* 矩形2@3x.png in Resources */,
 				7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */,
@@ -3195,6 +3297,7 @@
 				70FFE3C01DE2D03700223E43 /* 监控渐变背景.png in Resources */,
 				70231D0B1DC2E9FA00F73202 /* Back@1x.png in Resources */,
 				7059B2DA1F330A4600C005A4 /* Tunermonitor.png in Resources */,
+				701078641F96DAF800593014 /* WLAN-Settings@1x.png in Resources */,
 				A48574B815A3155500294C34 /* DLNAPlaybackViewController.xib in Resources */,
 				70170C3A1D74156000CC3951 /* hot@2x.png in Resources */,
 				702CE4411DDA9881000A0513 /* 6@3x.png in Resources */,
@@ -3228,6 +3331,7 @@
 				70362D4B1F00A0180012A309 /* Series@3x.png in Resources */,
 				70848AF11F7DE1A5005A4FA6 /* 关于@1x.png in Resources */,
 				70FC30E31D75714E00BD06FE /* kr-video-player-point@2x.png in Resources */,
+				701078581F96DAF800593014 /* Router-Status@1x.png in Resources */,
 				70FFE3E41DE2DBA200223E43 /* M3.png in Resources */,
 				70EFCAF31E0A7C22003EAE08 /* 无历史@2x.png in Resources */,
 				702CE4561DDA9881000A0513 /* nor@2x.png in Resources */,

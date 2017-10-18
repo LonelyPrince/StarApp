@@ -79,61 +79,444 @@
         registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code0] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
     
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
-        NSLog(@"此刻是5s和4s的大小");
+        NSLog(@"此刻是4 的大小");
         
         if (securityImageView == NULL) {
-            securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 80)/2, 60, 80, 80)];
+            securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 120)/2, 90, 120, 120)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
             [self.view addSubview:securityImageView];
         }
+        if (setNewRouteLab == NULL) {
+            setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 270)/2, 400, 280, 100)];
+            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteLab.font = FONT(12);
+            setNewRouteLab.numberOfLines = 0;
+            
+            //            [self.view addSubview:securityImageView];
+        }
+
+        if (saveBtn == NULL) {
+            saveBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
+            saveBtn.frame = CGRectMake((SCREEN_WIDTH - 280)/2, 380, 280, 40);
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            [saveBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+            [saveBtn setTitle:@"" forState:UIControlStateNormal];
+            //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+            [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            saveBtn.layer.cornerRadius = 20;
+            
+            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, 80, 30 )];
+            saveLab.text =@"SAVE";
+            saveLab.font = FONT(16);
+            [saveBtn addSubview:saveLab];
+            saveLab.textColor = [UIColor whiteColor];
+            //            [self.view addSubview:saveBtn];
+        }
+        if (inputText == NULL) {
+            
+            inputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 280)/2, securityImageView.frame.origin.y + 150, 280, 40)];
+            inputTextView.layer.borderWidth = 1.0f;
+            inputTextView.layer.cornerRadius = 20;
+            inputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
+            inputText.delegate = self;
+            inputText.autocorrectionType = UITextAutocorrectionTypeNo;
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            inputText.placeholder = @"Input Route PIN";
+            inputText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:inputText];
+            inputText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
+        }
         if (okBtn == NULL) {
             okBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
-            okBtn.frame = CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40);
-            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            okBtn.frame = CGRectMake((SCREEN_WIDTH - 280)/2, inputTextView.frame.origin.y+70, 280, 40);
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            [okBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+            [okBtn setTitle:@"" forState:UIControlStateNormal];
             //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
             [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            okBtn.layer.cornerRadius = 20;
+            
+            UILabel * okLab = [[UILabel alloc]initWithFrame:CGRectMake(140, 5, 80, 30 )];
+            okLab.text =@"OK";
+            okLab.font = FONT(16);
+            [okBtn addSubview:okLab];
+            okLab.textColor = [UIColor whiteColor];
+            //                saveBtn.titleLabel.text = @"SAVE";
+            //                [saveBtn setTitle:@"SAVE" forState:UIControlStateNormal];
+            //
+            //                saveBtn.backgroundColor = RGBA(96, 163, 236, 1);
+            //    saveBtn.layer.cornerRadius = 20.0;
+            
+            
+            
             //        [pswTextFieldImage addSubview:pswBtn];
-            [self.view addSubview:okBtn];
+            //            [self.view addSubview:okBtn];
+        }
+        if (setNewRouteText == NULL) {
+            
+            inputTextView1 = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 280)/2, securityImageView.frame.origin.y + 150 + 10, 280, 40)];
+            inputTextView1.layer.borderWidth = 1.0f;
+            inputTextView1.layer.cornerRadius = 20;
+            inputTextView1.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
+            setNewRouteText.delegate = self;
+            setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewRouteText.placeholder = @"New";
+            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:setNewRouteText];
+            setNewRouteText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
+        }
+        if (confirmText == NULL) {
+            
+            inputTextView2 = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 280)/2, securityImageView.frame.origin.y + 150 + 10+60, 280, 40)];
+            inputTextView2.layer.borderWidth = 1.0f;
+            inputTextView2.layer.cornerRadius = 20;
+            inputTextView2.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
+            confirmText.delegate = self;
+            confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            confirmText.placeholder = @"Comfirm";
+            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:confirmText];
+            confirmText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
+        }
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
+        NSLog(@"此刻是5 的大小");
+        
+        if (securityImageView == NULL) {
+            securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 140)/2, 110, 140, 140)];
+            securityImageView.image = [UIImage imageNamed:@"安全中心"];
+            [self.view addSubview:securityImageView];
+        }
+        if (setNewRouteLab == NULL) {
+            setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 270)/2, 420, 280, 200)];
+            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteLab.font = FONT(12);
+            setNewRouteLab.numberOfLines = 0;
+            
+            //            [self.view addSubview:securityImageView];
+        }
+        if (okBtn == NULL) {
+            okBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
+            okBtn.frame = CGRectMake((SCREEN_WIDTH - 280)/2, 400, 280, 40);
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            [okBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+            [okBtn setTitle:@"" forState:UIControlStateNormal];
+            //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+            [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            okBtn.layer.cornerRadius = 20;
+            
+            UILabel * okLab = [[UILabel alloc]initWithFrame:CGRectMake(140, 5, 80, 30 )];
+            okLab.text =@"OK";
+            okLab.font = FONT(16);
+            [okBtn addSubview:okLab];
+            okLab.textColor = [UIColor whiteColor];
+            //                saveBtn.titleLabel.text = @"SAVE";
+            //                [saveBtn setTitle:@"SAVE" forState:UIControlStateNormal];
+            //
+            //                saveBtn.backgroundColor = RGBA(96, 163, 236, 1);
+            //    saveBtn.layer.cornerRadius = 20.0;
+            
+            
+            
+            //        [pswTextFieldImage addSubview:pswBtn];
+            //            [self.view addSubview:okBtn];
         }
         if (saveBtn == NULL) {
             saveBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
-            saveBtn.frame = CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40);
-            [saveBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            saveBtn.frame = CGRectMake((SCREEN_WIDTH - 280)/2, 440, 280, 40);
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            [saveBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+            [saveBtn setTitle:@"" forState:UIControlStateNormal];
             //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:saveBtn];
+            saveBtn.layer.cornerRadius = 20;
+            
+            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(120, 5, 80, 30 )];
+            saveLab.text =@"SAVE";
+            saveLab.font = FONT(16);
+            [saveBtn addSubview:saveLab];
+            saveLab.textColor = [UIColor whiteColor];
+            //            [self.view addSubview:saveBtn];
         }
         if (inputText == NULL) {
+            
+            inputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 280)/2, securityImageView.frame.origin.y + 150 + 50, 280, 40)];
+            inputTextView.layer.borderWidth = 1.0f;
+            inputTextView.layer.cornerRadius = 20;
+            inputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-            [self.view addSubview:inputText];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            inputText.placeholder = @"Input Route PIN";
+            inputText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:inputText];
+            inputText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
         }
         if (setNewRouteText == NULL) {
+            
+            inputTextView1 = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 280)/2, securityImageView.frame.origin.y + 150 + 30, 280, 40)];
+            inputTextView1.layer.borderWidth = 1.0f;
+            inputTextView1.layer.cornerRadius = 20;
+            inputTextView1.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-            [self.view addSubview:saveBtn];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewRouteText.placeholder = @"New";
+            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:setNewRouteText];
+            setNewRouteText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
         }
         if (confirmText == NULL) {
+            
+            inputTextView2 = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 280)/2, securityImageView.frame.origin.y + 150 + 50+40, 280, 40)];
+            inputTextView2.layer.borderWidth = 1.0f;
+            inputTextView2.layer.cornerRadius = 20;
+            inputTextView2.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-            [self.view addSubview:confirmText];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            confirmText.placeholder = @"Comfirm";
+            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:confirmText];
+            confirmText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
         }
         
-    }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
-        NSLog(@"此刻是6的大小");
-        
-//        imageView = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1435)];
-//        imageView.image = [UIImage imageNamed:@"联系我们"];
         
     }
     else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
-        NSLog(@"此刻是6的大小");
+        NSLog(@"此刻是6 的大小");
         
-//        imageView = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1435)];
-//        imageView.image = [UIImage imageNamed:@"联系我们"];
+        if (securityImageView == NULL) {
+            securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, 120, 150, 150)];
+            securityImageView.image = [UIImage imageNamed:@"安全中心"];
+            [self.view addSubview:securityImageView];
+        }
+        if (setNewRouteLab == NULL) {
+            setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 290)/2, 440, 300, 200)];
+            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteLab.font = FONT(13);
+            setNewRouteLab.numberOfLines = 0;
+            
+            //            [self.view addSubview:securityImageView];
+        }
+        if (okBtn == NULL) {
+            okBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
+            okBtn.frame = CGRectMake((SCREEN_WIDTH - 300)/2, 400, 300, 40);
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            [okBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+            [okBtn setTitle:@"" forState:UIControlStateNormal];
+            //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+            [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            okBtn.layer.cornerRadius = 20;
+            
+            UILabel * okLab = [[UILabel alloc]initWithFrame:CGRectMake(140, 5, 80, 30 )];
+            okLab.text =@"OK";
+            okLab.font = FONT(16);
+            [okBtn addSubview:okLab];
+            okLab.textColor = [UIColor whiteColor];
+            //                saveBtn.titleLabel.text = @"SAVE";
+            //                [saveBtn setTitle:@"SAVE" forState:UIControlStateNormal];
+            //
+            //                saveBtn.backgroundColor = RGBA(96, 163, 236, 1);
+            //    saveBtn.layer.cornerRadius = 20.0;
+            
+            
+            
+            //        [pswTextFieldImage addSubview:pswBtn];
+            //            [self.view addSubview:okBtn];
+        }
+        if (saveBtn == NULL) {
+            saveBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
+            saveBtn.frame = CGRectMake((SCREEN_WIDTH - 300)/2, 460, 300, 40);
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            [saveBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+            [saveBtn setTitle:@"" forState:UIControlStateNormal];
+            //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+            [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            saveBtn.layer.cornerRadius = 20;
+            
+            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(130, 5, 80, 30 )];
+            saveLab.text =@"SAVE";
+            saveLab.font = FONT(16);
+            [saveBtn addSubview:saveLab];
+            saveLab.textColor = [UIColor whiteColor];
+            //            [self.view addSubview:saveBtn];
+        }
+        if (inputText == NULL) {
+            
+            inputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, securityImageView.frame.origin.y + 150 + 50, 300, 40)];
+            inputTextView.layer.borderWidth = 1.0f;
+            inputTextView.layer.cornerRadius = 20;
+            inputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
+            inputText.delegate = self;
+            inputText.autocorrectionType = UITextAutocorrectionTypeNo;
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            inputText.placeholder = @"Input Route PIN";
+            inputText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:inputText];
+            inputText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
+        }
+        if (setNewRouteText == NULL) {
+            
+            inputTextView1 = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, securityImageView.frame.origin.y + 150 + 50, 300, 40)];
+            inputTextView1.layer.borderWidth = 1.0f;
+            inputTextView1.layer.cornerRadius = 20;
+            inputTextView1.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
+            setNewRouteText.delegate = self;
+            setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewRouteText.placeholder = @"New";
+            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:setNewRouteText];
+            setNewRouteText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
+        }
+        if (confirmText == NULL) {
+            
+            inputTextView2 = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, securityImageView.frame.origin.y + 150 + 50+60, 300, 40)];
+            inputTextView2.layer.borderWidth = 1.0f;
+            inputTextView2.layer.cornerRadius = 20;
+            inputTextView2.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
+            confirmText.delegate = self;
+            confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            confirmText.placeholder = @"Comfirm";
+            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            
+            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:confirmText];
+            confirmText.secureTextEntry = YES;
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
+        }
+        
         
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
