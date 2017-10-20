@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WLANSettingView.h"
 @interface RouteMenuView : UIViewController<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *scrollView;
@@ -42,5 +42,7 @@
 @property(nonatomic,strong)UILabel * btnLab6;
 
 @property(nonatomic,strong)UILabel * generalSettingLab;
+
+@property(nonatomic,strong)WLANSettingView  * wLANSettingView;
 
 @end

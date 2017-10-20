@@ -13,6 +13,7 @@
 {
 
     NSString * deviceString;     //用于判断手机型号
+    NSString * DMSIP;
 }
 @end
 
@@ -65,13 +66,26 @@
 {
     [self loadScroll];
     [self loadUI];
+   
+    NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
+    routeNameLab.text = [tempDic objectForKey:@"name"];
+    NSString * pswStr = [tempDic objectForKey:@"password"];
+    if (![pswStr isEqualToString:@"none"]) {
+        secrityTypeLab.text =[NSString stringWithFormat:@"Security Type:%@",[tempDic objectForKey:@"encryption"]] ;
+        PINProtectionLab.text = @"PIN Protection:ON";
+    }else
+    {
+        secrityTypeLab.text = @"Security Type:Open";
+        PINProtectionLab.text = @"PIN Protection:OFF";
+    }
+//    [self getWifi];
     
 }
 -(void)initData
 {
-    deviceString = [GGUtil deviceVersion];
     
     //  [self loadNav];
+    self.wLANSettingView = [[WLANSettingView alloc]init];
     scrollView = [[UIScrollView alloc]init];
     colorView = [[UIImageView alloc]init];
     routeImage = [[UIImageView alloc]init];
@@ -161,24 +175,24 @@
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(135, 70, 200, 20);
-        routeNameLab.font = FONT(17);
+        routeNameLab.frame = CGRectMake(135, 65, 200, 20);
+        routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(135, 100, 200, 17);
-        secrityTypeLab.font = FONT(15);
+        secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(135, 130, 200, 17);
-        PINProtectionLab.font = FONT(15);
+        PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -250,24 +264,24 @@
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(135, 70, 200, 20);
-        routeNameLab.font = FONT(17);
+        routeNameLab.frame = CGRectMake(135, 65, 200, 20);
+        routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(135, 100, 200, 17);
-        secrityTypeLab.font = FONT(15);
+        secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(135, 130, 200, 17);
-        PINProtectionLab.font = FONT(15);
+        PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -339,24 +353,24 @@
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(170, 80, 200, 20);
-        routeNameLab.font = FONT(17);
+        routeNameLab.frame = CGRectMake(170, 75, 200, 20);
+        routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(170, 110, 200, 17);
-        secrityTypeLab.font = FONT(15);
+        secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(170, 140, 200, 17);
-        PINProtectionLab.font = FONT(15);
+        PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -428,24 +442,24 @@
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(170, 80, 200, 20);
-        routeNameLab.font = FONT(17);
+        routeNameLab.frame = CGRectMake(170, 75, 200, 20);
+        routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(170, 110, 200, 17);
-        secrityTypeLab.font = FONT(15);
+        secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(170, 140, 200, 17);
-        PINProtectionLab.font = FONT(15);
+        PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -671,7 +685,7 @@
         [btn2 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn2 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn2.tag = 1;
+        btn2.tag = 2;
         [btn2 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn2];
         [scrollView bringSubviewToFront:btn2];
@@ -709,7 +723,7 @@
         [btn2 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn2 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn2.tag = 1;
+        btn2.tag = 2;
         [btn2 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn2];
         [scrollView bringSubviewToFront:btn2];
@@ -747,7 +761,7 @@
         [btn2 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn2 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn2.tag = 1;
+        btn2.tag = 2;
         [btn2 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn2];
         [scrollView bringSubviewToFront:btn2];
@@ -786,7 +800,7 @@
         [btn2 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn2 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn2.tag = 1;
+        btn2.tag = 2;
         [btn2 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn2];
         [scrollView bringSubviewToFront:btn2];
@@ -838,7 +852,7 @@
         [btn3 setFrame:CGRectMake(0, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn1.frame.size.height+3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn3 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn3.tag = 1;
+        btn3.tag = 3;
         [btn3 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn3];
         [scrollView bringSubviewToFront:btn3];
@@ -870,7 +884,7 @@
         [btn3 setFrame:CGRectMake(0, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn1.frame.size.height+3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn3 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn3.tag = 1;
+        btn3.tag = 3;
         [btn3 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn3];
         [scrollView bringSubviewToFront:btn3];
@@ -902,7 +916,7 @@
         [btn3 setFrame:CGRectMake(0, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn1.frame.size.height+3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn3 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn3.tag = 1;
+        btn3.tag = 3;
         [btn3 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn3];
         [scrollView bringSubviewToFront:btn3];
@@ -935,7 +949,7 @@
         [btn3 setFrame:CGRectMake(0, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn1.frame.size.height+3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn3 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn3.tag = 1;
+        btn3.tag = 3;
         [btn3 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn3];
         [scrollView bringSubviewToFront:btn3];
@@ -977,7 +991,7 @@
         [btn4 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn2.frame.size.height + 3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn4 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn4.tag = 1;
+        btn4.tag = 4;
         [btn4 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn4];
         [scrollView bringSubviewToFront:btn4];
@@ -1016,7 +1030,7 @@
         [btn4 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn2.frame.size.height + 3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn4 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn4.tag = 1;
+        btn4.tag = 4;
         [btn4 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn4];
         [scrollView bringSubviewToFront:btn4];
@@ -1055,7 +1069,7 @@
         [btn4 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn2.frame.size.height + 3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn4 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn4.tag = 1;
+        btn4.tag = 4;
         [btn4 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn4];
         [scrollView bringSubviewToFront:btn4];
@@ -1094,7 +1108,7 @@
         [btn4 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn2.frame.size.height + 3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn4 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn4.tag = 1;
+        btn4.tag = 4;
         [btn4 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn4];
         [scrollView bringSubviewToFront:btn4];
@@ -1137,7 +1151,7 @@
         [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn5.tag = 1;
+        btn5.tag = 5;
         [btn5 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
@@ -1176,7 +1190,7 @@
         [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn5.tag = 1;
+        btn5.tag = 5;
         [btn5 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
@@ -1215,7 +1229,7 @@
         [btn5 setFrame:CGRectMake(0, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn5.tag = 1;
+        btn5.tag = 5;
         [btn5 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
@@ -1254,7 +1268,7 @@
         [btn5 setFrame:CGRectMake(0, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn5.tag = 1;
+        btn5.tag = 5;
         [btn5 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
@@ -1297,7 +1311,7 @@
         [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn6.tag = 1;
+        btn6.tag = 6;
         [btn6 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
@@ -1336,7 +1350,7 @@
         [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn6.tag = 1;
+        btn6.tag = 6;
         [btn6 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
@@ -1375,7 +1389,7 @@
         [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn6.tag = 1;
+        btn6.tag = 6;
         [btn6 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
@@ -1414,7 +1428,7 @@
         [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
-        btn6.tag = 1;
+        btn6.tag = 6;
         [btn6 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
@@ -1445,9 +1459,9 @@
 }
 -(void)clickEvent
 {
-    
+
     [self.navigationController popViewControllerAnimated:YES];
-    self.tabBarController.tabBar.hidden = NO;
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 
@@ -1459,6 +1473,26 @@
     
     
     NSInteger tagIndex = [sender tag];
+    NSLog(@"tatatatatatatatatindex %d",tagIndex);
+    if (tagIndex == 1) {
+
+        if(![self.navigationController.topViewController isKindOfClass:[self.wLANSettingView class]]) {
+            [self.navigationController pushViewController:self.wLANSettingView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
+        NSLog(@"self.navigationController %@",self.navigationController );
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        
+        
+        self.wLANSettingView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.wLANSettingView.navigationItem.leftBarButtonItem = myButton;
+        
+    }else if (tagIndex == 2){
+        
+    }
+    
 //    if (tagIndex == 6) {
 //        //进入历史界面
 //        //    self.tableView.editing = YES;
@@ -1572,5 +1606,135 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//-(void)getWifi
+//{
+//
+//    //获取数据的链接
+//    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+//    //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+//
+//    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+//
+//    [request startAsynchronous ];
+//
+//    //    NSError *error = [request error ];
+//    //    assert (!error);
+//    // 如果请求成功，返回 Response
+//
+//
+//    [request setCompletionBlock:^{
+//        NSLog ( @"request:%@" ,request);
+//        NSDictionary *onlineWifi = [request responseData].JSONValue;
+//        NSLog ( @"onlineDeviceArr333:%@" ,onlineWifi);
+//        //        wifiDic = [[NSDictionary alloc]init];
+//        //        wifiDic = onlineWifi;
+//        //
+//        //
+//        //        routeNameLab.text = [wifiDic objectForKey:@"name"];
+//        //
+//        //        //        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+//        //        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
+//    }];
+//
+//
+//
+//
+//}
+//#pragma mark - 初始化创建不同的通知
+//-(void)initNotific
+//{
+//    //////////////////////////// 从socket返回数据
+//    //此处接收到路由器IP地址的消息
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getSocketIpInfoNotice" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getSocketIpInfo:) name:@"getSocketIpInfoNotice" object:nil];
+//
+//    //获取网络链接的通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"socketGetIPAddressNotific" object:nil userInfo:nil];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+//    ///创建通知，用于判断网络是否正常
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
+//
+//}
+//- (void)getSocketIpInfo:(NSNotification *)text{
+//
+//    NSData * socketIPData = text.userInfo[@"socketIPAddress"];
+//    NSData * ipStrData ;
+//    NSLog(@"socketIPData :%@",socketIPData);
+//
+//    if (socketIPData != NULL  && socketIPData != nil  &&  socketIPData.length > 0 ) {
+//
+//        if (socketIPData.length >38) {
+//
+//            if ([socketIPData length] >= 1 + 37 + socketIPData.length - 38) {
+//                ipStrData = [socketIPData subdataWithRange:NSMakeRange(1 + 37,socketIPData.length - 38)];
+//            }else
+//            {
+//                return;
+//            }
+//
+//            NSLog(@"ipStrData %@",ipStrData);
+//
+//            DMSIP =  [[NSString alloc] initWithData:ipStrData  encoding:NSUTF8StringEncoding];
+//            NSLog(@" DMSIP %@",DMSIP);
+//
+//            //            [self loadNav];
+//            [self viewWillAppear:YES];
+//        }
+//
+//    }
+//
+//
+//}
+////-(void)getCurrentWifi
+////{
+////
+////    //获取数据的链接
+////    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/getLoginPasswd",DMSIP];
+////    //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+////
+////    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+////
+////    [request startAsynchronous ];
+////
+////    //    NSError *error = [request error ];
+////    //    assert (!error);
+////    // 如果请求成功，返回 Response
+////
+////
+////    [request setCompletionBlock:^{
+////        NSLog ( @"request:%@" ,request);
+////        NSDictionary *pwdDic = [request responseData].JSONValue;
+////        NSLog ( @"onlineDeviceArr:%@" ,pwdDic);
+////
+////        NSString * pwdStr =[pwdDic objectForKey:@"pwd"];
+////
+////        if ([pwdStr isEqualToString:@"MGadmin"] || [pwdStr isEqualToString:@""] || pwdStr == NULL) {
+////            NSLog(@"需要展示修改密码的界面");
+////            [self showPwdRegistrView];
+////
+////        }else
+////        {
+////            NSLog(@"用户输入PIN 进入");
+////            [self showLoginView];
+////            //            [self showPwdRegistrView];
+////        }
+////        //        wifiDic = [[NSDictionary alloc]init];
+////        //        wifiDic = onlineWifi;
+////        //
+////        //
+////        //        routeNameLab.text = [wifiDic objectForKey:@"name"];
+////        //
+////        //        //        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+////        //        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
+////    }];
+////
+////
+////
+////
+////}
 @end

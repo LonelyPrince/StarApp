@@ -23,8 +23,8 @@
 @property(nonatomic,strong) UIButton *  saveBtn;    //confirm route pin
 
 @property(nonatomic,strong)UIView * inputTextView;      //登录页面的inputview
-@property(nonatomic,strong)UIView * inputTextView1;      //登录页面的inputview
-@property(nonatomic,strong)UIView * inputTextView2;      //登录页面的inputview
+@property(nonatomic,strong)UIView * inputTextView1;      //登录页面的  setNewRouteText的view
+@property(nonatomic,strong)UIView * inputTextView2;      //登录页面的 confirmText 的View
 
 @property(nonatomic,strong)UILabel * setNewRouteLab;      //注册页面的Lab文字
 @property(nonatomic,strong)UIAlertView * registerPwdTip;     //新注册密码时的提醒

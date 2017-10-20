@@ -65,6 +65,35 @@
     self.tabBarController.tabBar.hidden = YES;
     [self initData];
     [self getCurrentWifi];
+    [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+}
+-(void)getWifiInfo
+{
+    
+    //获取数据的链接
+    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+    //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+    
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    
+    [request startAsynchronous ];
+    
+    //    NSError *error = [request error ];
+    //    assert (!error);
+    // 如果请求成功，返回 Response
+    
+    
+    [request setCompletionBlock:^{
+        NSLog ( @"request:%@" ,request);
+        NSDictionary *onlineWifi = [request responseData].JSONValue;
+        NSLog ( @"onlineDeviceArrLLLLL:%@" ,onlineWifi);
+        
+        [USER_DEFAULT setObject:onlineWifi forKey:@"WiFiInfo"];
+    }];
+    
+    
+    
+    
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [inputText resignFirstResponder];
@@ -1006,10 +1035,22 @@
     
     
 }
+//-(void)clickEvent
+//{
+//
+//    [self.navigationController popViewControllerAnimated:YES];
+//    self.tabBarController.tabBar.hidden = NO;
+//}
 -(void)clickEvent
 {
+    MEViewController * meViewController = [[MEViewController alloc]init];
+    //    [self.navigationController popViewControllerAnimated:YES];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    for (UIViewController *temp in self.navigationController.viewControllers) {
+        if ([temp isKindOfClass:[meViewController class]]) {
+            [self.navigationController popToViewController:temp animated:YES];
+        }
+    }
     self.tabBarController.tabBar.hidden = NO;
 }
 -(void)viewDidAppear:(BOOL)animated
