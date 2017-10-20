@@ -56,16 +56,32 @@
     [super viewDidLoad];
     
     [self initNotific];
-   
-    
-}
--(void)viewWillAppear:(BOOL)animated
-{
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     [self initData];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+   
+    [self addHud];
     [self getCurrentWifi];
     [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+}
+-(void)addHud
+{
+    HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    
+    //如果设置此属性则当前的view置于后台
+    
+    [HUD showAnimated:YES];
+    
+    
+    //设置对话框文字
+    
+    HUD.labelText = @"loading";
+    NSLog(@"HUD : %@",HUD);
+    [self.view addSubview:HUD];
+
 }
 -(void)getWifiInfo
 {
@@ -113,7 +129,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 120)/2, 90, 120, 120)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-            [self.view addSubview:securityImageView];
+//            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 270)/2, 400, 280, 100)];
@@ -260,7 +276,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 140)/2, 110, 140, 140)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-            [self.view addSubview:securityImageView];
+//            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 270)/2, 420, 280, 200)];
@@ -407,7 +423,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, 120, 150, 150)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-            [self.view addSubview:securityImageView];
+//            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 290)/2, 440, 300, 200)];
@@ -553,7 +569,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 150)/2, 120, 150, 150)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-            [self.view addSubview:securityImageView];
+//            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 290)/2, 440, 300, 200)];
@@ -711,7 +727,7 @@
     //    centerGrayView = [[UIView alloc]init];
     //    connectDevice = [[UILabel alloc]init];
     //
-    //    HUD = [[MBProgressHUD alloc]init];
+        HUD = [[MBProgressHUD alloc]init];
     //    netWorkErrorView = [[UIView alloc]init];
     //    tableView = [[UITableView alloc]init];
 }
@@ -730,40 +746,40 @@
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     ///创建通知，用于判断网络是否正常
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
-    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
+//
 }
 //显示无网络的状态图
--(void)routeNetWorkError
-{
-    //xianshi
-    [self temp];
-    
-    [self.activeView removeFromSuperview];
-    [HUD removeFromSuperview];
-    HUD = nil;
-    self.activeView.backgroundColor = [UIColor whiteColor];
-    [self.activeView addSubview:hudImage];
-    [self.activeView addSubview:hudLab];
-    [self.view addSubview:activeView];
-
-    
-}
--(void)temp
-{
-    hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
-    hudImage.image = [UIImage imageNamed:@"网络无连接"];
-    //调用上面的方法，获取 字体的 Size
-    
-    CGSize size = [GGUtil sizeWithText: @"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-    hudLab.text = @"Network Error";
-    hudLab.font = FONT(15);
-    hudLab.textColor = [UIColor grayColor];
-    
-}
+//-(void)routeNetWorkError
+//{
+//    //xianshi
+//    [self temp];
+//
+//    [self.activeView removeFromSuperview];
+//    [HUD removeFromSuperview];
+//    HUD = nil;
+//    self.activeView.backgroundColor = [UIColor whiteColor];
+//    [self.activeView addSubview:hudImage];
+//    [self.activeView addSubview:hudLab];
+//    [self.view addSubview:activeView];
+//
+//
+//}
+//-(void)temp
+//{
+//    hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
+//    hudImage.image = [UIImage imageNamed:@"网络无连接"];
+//    //调用上面的方法，获取 字体的 Size
+//
+//    CGSize size = [GGUtil sizeWithText: @"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+//    hudLab.text = @"Network Error";
+//    hudLab.font = FONT(15);
+//    hudLab.textColor = [UIColor grayColor];
+//
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -816,8 +832,35 @@
     //    assert (!error);
     // 如果请求成功，返回 Response
     
+//    [request setStartedBlock:^{
+//        //请求开始的时候调用
+//        //用转圈代替
+//
+//
+//        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//
+//        //如果设置此属性则当前的view置于后台
+//
+//        [HUD showAnimated:YES];
+//
+//
+//        //设置对话框文字
+//
+//        HUD.labelText = @"loading";
+//        NSLog(@"HUD : %@",HUD);
+//        [self.view addSubview:HUD];
+//
+//
+//        NSLog(@"请求开始的时候调用");
+//    }];
+
     
     [request setCompletionBlock:^{
+        //1.取消掉加载圈
+        [self hudHidden];
+        //添加securityImageView 顶部图标
+        [self.view addSubview:securityImageView];
+        
         NSLog ( @"request:%@" ,request);
         NSDictionary *pwdDic = [request responseData].JSONValue;
         NSLog ( @"onlineDeviceArr:%@" ,pwdDic);
@@ -846,6 +889,14 @@
     
     
     
+    
+}
+-(void)hudHidden
+{
+//    [self.activeView removeFromSuperview];
+    [HUD setHidden:YES];
+    [HUD removeFromSuperview];
+    HUD = nil;
     
 }
 
