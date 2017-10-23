@@ -13,7 +13,7 @@
 #define errorStr @"\n incorrect PIN,please input again \n\n"    //PIN码有特殊字符
 #define setNewRouteLabStr @"Please set your Router PIN.We recommend you \nto change the PIN to insure the security."    //PIN码有特殊字符
 
-#define dontMatch @"The new PINs do not match \nplease try again"
+#define dontMatch @"The new PINs do not match"
 #define code1 @"old pasword same new passwd!"
 #define code2 @"login_passwd invalid params!"
 #define code3 @"set login_passwd error!"
@@ -198,7 +198,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Route PIN";
+            inputText.placeholder = @"Input Router PIN";
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -344,7 +344,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Route PIN";
+            inputText.placeholder = @"Input Router PIN";
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -491,7 +491,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Route PIN";
+            inputText.placeholder = @"Input Router PIN";
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -637,7 +637,7 @@
 //            inputText.layer.borderWidth = 1.0f;
 //            inputText.layer.cornerRadius = 20;
 //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Route PIN";
+            inputText.placeholder = @"Input Router PIN";
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
 
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
