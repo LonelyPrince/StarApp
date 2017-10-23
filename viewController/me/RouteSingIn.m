@@ -24,7 +24,7 @@
 @interface RouteSingIn ()
 {
     NSString * DMSIP;
-
+    
     UIImageView * hudImage; //无网络图片
     MBProgressHUD *HUD; //网络加载HUD
     UILabel * hudLab ;//无网络文字
@@ -62,7 +62,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-   
+    
     [self addHud];
     [self getCurrentWifi];
     [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
@@ -81,7 +81,7 @@
     HUD.labelText = @"loading";
     NSLog(@"HUD : %@",HUD);
     [self.view addSubview:HUD];
-
+    
 }
 -(void)getWifiInfo
 {
@@ -119,10 +119,10 @@
 }
 -(void)initData
 {
-        self.title = @"Router Setting";
-        deviceString = [GGUtil deviceVersion];
-        self.routeMenuView = [[RouteMenuView alloc]init];
-        registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code0] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+    self.title = @"Router Setting";
+    deviceString = [GGUtil deviceVersion];
+    self.routeMenuView = [[RouteMenuView alloc]init];
+    registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code0] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
     
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
@@ -276,7 +276,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 100)/2, 50 + 64, 100, 100)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-//            [self.view addSubview:securityImageView];
+            //            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 270)/2, 400, 280, 200)];
@@ -423,7 +423,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 100)/2, 50+64, 100, 100)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-//            [self.view addSubview:securityImageView];
+            //            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 290)/2, 400, 300, 200)];
@@ -569,7 +569,7 @@
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 120)/2, 120, 120, 120)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-//            [self.view addSubview:securityImageView];
+            //            [self.view addSubview:securityImageView];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 285)/2, 410, 320, 200)];
@@ -578,12 +578,12 @@
             setNewRouteLab.font = FONT(13);
             setNewRouteLab.numberOfLines = 0;
             
-//            [self.view addSubview:securityImageView];
+            //            [self.view addSubview:securityImageView];
         }
         if (okBtn == NULL) {
             okBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
             okBtn.frame = CGRectMake((SCREEN_WIDTH - 320)/2, securityImageView.frame.origin.y + 150+90, 320, 40);
-//            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
+            //            [okBtn setBackgroundColor:RGB(0xf5, 0xf5, 0xf5)];
             [okBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
             [okBtn setTitle:@"" forState:UIControlStateNormal];
             //            [okBtn setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
@@ -595,16 +595,16 @@
             okLab.font = FONT(16);
             [okBtn addSubview:okLab];
             okLab.textColor = [UIColor whiteColor];
-//                saveBtn.titleLabel.text = @"SAVE";
-//                [saveBtn setTitle:@"SAVE" forState:UIControlStateNormal];
-//
-//                saveBtn.backgroundColor = RGBA(96, 163, 236, 1);
+            //                saveBtn.titleLabel.text = @"SAVE";
+            //                [saveBtn setTitle:@"SAVE" forState:UIControlStateNormal];
+            //
+            //                saveBtn.backgroundColor = RGBA(96, 163, 236, 1);
             //    saveBtn.layer.cornerRadius = 20.0;
             
             
             
             //        [pswTextFieldImage addSubview:pswBtn];
-//            [self.view addSubview:okBtn];
+            //            [self.view addSubview:okBtn];
         }
         if (saveBtn == NULL) {
             saveBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -621,7 +621,7 @@
             saveLab.font = FONT(16);
             [saveBtn addSubview:saveLab];
             saveLab.textColor = [UIColor whiteColor];
-//            [self.view addSubview:saveBtn];
+            //            [self.view addSubview:saveBtn];
         }
         if (inputText == NULL) {
             
@@ -633,23 +633,23 @@
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
             inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
-//
-//            inputText.layer.borderWidth = 1.0f;
-//            inputText.layer.cornerRadius = 20;
-//            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //
+            //            inputText.layer.borderWidth = 1.0f;
+            //            inputText.layer.cornerRadius = 20;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
             inputText.placeholder = @"Input Router PIN";
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
-
+            
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-//            inputText.image = [UIImage imageNamed:@"灰"];
-//            inputText.userInteractionEnabled = YES;
+            //            inputText.image = [UIImage imageNamed:@"灰"];
+            //            inputText.userInteractionEnabled = YES;
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                         name:@"UITextFieldTextDidChangeNotification"
                                                       object:inputText];
             inputText.secureTextEntry = YES;
-//            [self.view addSubview:inputTextView];
-//            [inputTextView addSubview:inputText];
-//            [inputText bringSubviewToFront:inputTextView];
+            //            [self.view addSubview:inputTextView];
+            //            [inputTextView addSubview:inputText];
+            //            [inputText bringSubviewToFront:inputTextView];
         }
         if (setNewRouteText == NULL) {
             
@@ -708,7 +708,7 @@
             //            [inputText bringSubviewToFront:inputTextView];
         }
         
-
+        
     }
     
     
@@ -727,7 +727,7 @@
     //    centerGrayView = [[UIView alloc]init];
     //    connectDevice = [[UILabel alloc]init];
     //
-        HUD = [[MBProgressHUD alloc]init];
+    HUD = [[MBProgressHUD alloc]init];
     //    netWorkErrorView = [[UIView alloc]init];
     //    tableView = [[UITableView alloc]init];
 }
@@ -746,10 +746,10 @@
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     ///创建通知，用于判断网络是否正常
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
-//
+    //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+    //    //注册通知
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
+    //
 }
 //显示无网络的状态图
 //-(void)routeNetWorkError
@@ -832,28 +832,28 @@
     //    assert (!error);
     // 如果请求成功，返回 Response
     
-//    [request setStartedBlock:^{
-//        //请求开始的时候调用
-//        //用转圈代替
-//
-//
-//        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//
-//        //如果设置此属性则当前的view置于后台
-//
-//        [HUD showAnimated:YES];
-//
-//
-//        //设置对话框文字
-//
-//        HUD.labelText = @"loading";
-//        NSLog(@"HUD : %@",HUD);
-//        [self.view addSubview:HUD];
-//
-//
-//        NSLog(@"请求开始的时候调用");
-//    }];
-
+    //    [request setStartedBlock:^{
+    //        //请求开始的时候调用
+    //        //用转圈代替
+    //
+    //
+    //        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    //
+    //        //如果设置此属性则当前的view置于后台
+    //
+    //        [HUD showAnimated:YES];
+    //
+    //
+    //        //设置对话框文字
+    //
+    //        HUD.labelText = @"loading";
+    //        NSLog(@"HUD : %@",HUD);
+    //        [self.view addSubview:HUD];
+    //
+    //
+    //        NSLog(@"请求开始的时候调用");
+    //    }];
+    
     
     [request setCompletionBlock:^{
         //1.取消掉加载圈
@@ -874,17 +874,17 @@
         }else
         {
             NSLog(@"用户输入PIN 进入");
-            [self showLoginView];
-//            [self showPwdRegistrView];
+//            [self showLoginView];
+                        [self showPwdRegistrView];
         }
-//        wifiDic = [[NSDictionary alloc]init];
-//        wifiDic = onlineWifi;
-//
-//
-//        routeNameLab.text = [wifiDic objectForKey:@"name"];
-//
-//        //        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
-//        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
+        //        wifiDic = [[NSDictionary alloc]init];
+        //        wifiDic = onlineWifi;
+        //
+        //
+        //        routeNameLab.text = [wifiDic objectForKey:@"name"];
+        //
+        //        //        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+        //        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
     }];
     
     
@@ -893,7 +893,7 @@
 }
 -(void)hudHidden
 {
-//    [self.activeView removeFromSuperview];
+    //    [self.activeView removeFromSuperview];
     [HUD setHidden:YES];
     [HUD removeFromSuperview];
     HUD = nil;
@@ -911,66 +911,69 @@
         //    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
         
         [linkAlert show];
+        
+        inputText.text = @"";
     }else if(inputText.text.length < 6)
     {
         UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
         
         [linkAlert show];
-        
+        inputText.text = @"";
     }else
     {
         NSString *toBeString = inputText.text;
         BOOL temp = YES;
-            NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-            for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-                unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-                // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-                if (character < 45)
-                {
-                    temp = NO;
-//                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                    return NO; // 48 unichar for 0..
-                }
-        
-                if (character > 45 && character < 48)
-                {
-                    temp = NO;
-//                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                    return NO; // 48 unichar for 0..
-                }
-                if (character > 57 && character < 65)
-                {
-                    temp = NO;
-//                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                    return NO; //
-                }
-                if (character > 90 && character < 95)
-                {
-                    temp = NO;
-//                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                    return NO; //
-                }
-                if (character > 95 && character < 97)
-                {
-                    temp = NO;
-//                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                    return NO; //
-                }
-                if (character > 122)
-                {
-                    temp = NO;
-//                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                    return NO; //
-                }
-                
-        
-        
+        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+            if (character < 45)
+            {
+                temp = NO;
+                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                //                    return NO; // 48 unichar for 0..
             }
+            
+            if (character > 45 && character < 48)
+            {
+                temp = NO;
+                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                //                    return NO; // 48 unichar for 0..
+            }
+            if (character > 57 && character < 65)
+            {
+                temp = NO;
+                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                //                    return NO; //
+            }
+            if (character > 90 && character < 95)
+            {
+                temp = NO;
+                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                //                    return NO; //
+            }
+            if (character > 95 && character < 97)
+            {
+                temp = NO;
+                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                //                    return NO; //
+            }
+            if (character > 122)
+            {
+                temp = NO;
+                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                //                    return NO; //
+            }
+            
+            
+            
+        }
         
         if (temp == NO) {
             UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
             
             [linkAlert show];
+            inputText.text = @"";
         }else   //正确情况
         {
             //发送链接判断是不是正确
@@ -987,46 +990,46 @@
     
     
     
-//    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-//    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-//        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-//        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-//        if (character < 45)
-//        {
-//
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; // 48 unichar for 0..
-//        }
-//
-//        if (character > 45 && character < 48)
-//        {
-//
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; // 48 unichar for 0..
-//        }
-//        if (character > 57 && character < 65)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//        if (character > 90 && character < 95)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//        if (character > 95 && character < 97)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//        if (character > 122)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//
-//
-//    }
+    //    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    //    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+    //        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+    //        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+    //        if (character < 45)
+    //        {
+    //
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; // 48 unichar for 0..
+    //        }
+    //
+    //        if (character > 45 && character < 48)
+    //        {
+    //
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; // 48 unichar for 0..
+    //        }
+    //        if (character > 57 && character < 65)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //        if (character > 90 && character < 95)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //        if (character > 95 && character < 97)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //        if (character > 122)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //
+    //
+    //    }
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {
@@ -1071,6 +1074,7 @@
             UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:errorStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
             
             [linkAlert show];
+            inputText.text = @"";
         }
         //        wifiDic = [[NSDictionary alloc]init];
         //        wifiDic = onlineWifi;
@@ -1207,25 +1211,33 @@
                 //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
                 [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
                 [registerPwdTip show];
+                setNewRouteText.text = @"";
+                confirmText.text = @"";
                 
             }else if ([[resDict objectForKey:@"code"] isEqual:@2])
             {
                 [registerPwdTip setMessage:[NSString stringWithFormat:code2]];
                 [registerPwdTip show];
+                setNewRouteText.text = @"";
+                confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@3])
             {
                 [registerPwdTip setMessage:[NSString stringWithFormat:code3]];
                 [registerPwdTip show];
+                setNewRouteText.text = @"";
+                confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@4])
             {
                 [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
                 //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
                 [registerPwdTip show];
+                setNewRouteText.text = @"";
+                confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@0])
             {
-//                [registerPwdTip setMessage:[NSString stringWithFormat:code0]];
-//                [registerPwdTip show];
-             
+                //                [registerPwdTip setMessage:[NSString stringWithFormat:code0]];
+                //                [registerPwdTip show];
+                
                 [self judgeNextView];
             }
             
@@ -1233,9 +1245,12 @@
             
             
         }
+    }else{
+        setNewRouteText.text = @"";
+        confirmText.text = @"";
     }
-   
-
+    
+    
     
 }
 #pragma mark - 判断PIN码是否合规定
@@ -1264,65 +1279,65 @@
     }
     else
     {
-//        NSString *toBeString = setNewRouteText.text;
-//        BOOL temp = YES;
-//        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-//        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-//            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-//            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-//            if (character < 45)
-//            {
-//                temp = NO;
-//                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                //                    return NO; // 48 unichar for 0..
-//            }
-//
-//            if (character > 45 && character < 48)
-//            {
-//                temp = NO;
-//                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                //                    return NO; // 48 unichar for 0..
-//            }
-//            if (character > 57 && character < 65)
-//            {
-//                temp = NO;
-//                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                //                    return NO; //
-//            }
-//            if (character > 90 && character < 95)
-//            {
-//                temp = NO;
-//                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                //                    return NO; //
-//            }
-//            if (character > 95 && character < 97)
-//            {
-//                temp = NO;
-//                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                //                    return NO; //
-//            }
-//            if (character > 122)
-//            {
-//                temp = NO;
-//                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                //                    return NO; //
-//            }
-//
-//
-//
-//        }
-//
-//        if (temp == NO) {
-//            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
-//
-//            [linkAlert show];
-//        }else   //正确情况
-//        {
-            //发送链接判断是不是正确
-            return true;
-            
-        }
-//    }
+        //        NSString *toBeString = setNewRouteText.text;
+        //        BOOL temp = YES;
+        //        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+        //        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+        //            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+        //            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+        //            if (character < 45)
+        //            {
+        //                temp = NO;
+        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+        //                //                    return NO; // 48 unichar for 0..
+        //            }
+        //
+        //            if (character > 45 && character < 48)
+        //            {
+        //                temp = NO;
+        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+        //                //                    return NO; // 48 unichar for 0..
+        //            }
+        //            if (character > 57 && character < 65)
+        //            {
+        //                temp = NO;
+        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+        //                //                    return NO; //
+        //            }
+        //            if (character > 90 && character < 95)
+        //            {
+        //                temp = NO;
+        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+        //                //                    return NO; //
+        //            }
+        //            if (character > 95 && character < 97)
+        //            {
+        //                temp = NO;
+        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+        //                //                    return NO; //
+        //            }
+        //            if (character > 122)
+        //            {
+        //                temp = NO;
+        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+        //                //                    return NO; //
+        //            }
+        //
+        //
+        //
+        //        }
+        //
+        //        if (temp == NO) {
+        //            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        //
+        //            [linkAlert show];
+        //        }else   //正确情况
+        //        {
+        //发送链接判断是不是正确
+        return true;
+        
+    }
+    //    }
     
 }
 #pragma mark -跳转到下一个页面
@@ -1345,3 +1360,5 @@
     self.routeMenuView.navigationItem.leftBarButtonItem = myButton;
 }
 @end
+
+
