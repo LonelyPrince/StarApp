@@ -13,6 +13,7 @@
     NSString * deviceString;     //用于判断手机型号
     NSString * DMSIP;
 }
+@property(nonatomic,strong)UIAlertView * alertView;  //对于密码的判断框
 @end
 
 @implementation WLANSettingView
@@ -34,6 +35,7 @@
 @synthesize SecurityLab;
 @synthesize PINLab;
 @synthesize saveBtn;
+@synthesize alertView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,6 +56,7 @@
 //    [self loadScroll];
 //    [self loadUI];
 //    [self getWifi];
+    [self addWlanInfo];
 }
 -(void)loadNav
 {
@@ -80,6 +83,7 @@
     saveBtn = [[UIButton alloc]init];
     nameEidtImageView = [[UIImageView alloc]init];
     pswEidtImageView = [[UIImageView alloc]init];
+//    alertView = [[UIAlertView alloc]init];
 }
 -(void)loadUI
 {
@@ -99,7 +103,7 @@
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
-        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-100 );
+        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-120 );
         
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
@@ -107,9 +111,32 @@
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-128 );
     }
     
-    
+//    [self addWlanInfo];
     
   
+}
+-(void)addWlanInfo
+{
+    NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
+    setNameText.text = [tempDic objectForKey:@"name"];
+//    setPswText.text = [tempDic objectForKey:@"password"];
+    if (![[tempDic objectForKey:@"password"] isEqualToString:@"none"]) {
+        setPswText.text = [tempDic objectForKey:@"password"];
+//        SecurityStatusLab.text =[tempDic objectForKey:@"encryption"] ;
+//        PINProtectionLab.text = @"PIN Protection:ON";
+        SecurityStatusLab.text =@"WPA2-PSK" ;
+        [PINSwitch setOn:YES];
+        SecurityStatusLab.font = FONT(12);
+        SecurityStatusLab.frame =  CGRectMake(securityInputTextView.frame.size.width - 85, 8, 100, 20);
+    }else
+    {
+        [setPswText setEnabled:NO];
+        setPswText.text = @"";
+        SecurityStatusLab.text = @"Open";
+//        PINProtectionLab.text = @"PIN Protection:OFF";
+        [PINSwitch setOn:NO];
+    }
+    
 }
 -(void)loadScroll
 {
@@ -129,7 +156,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 280 - 50, 40)];
+        setNameText.frame = CGRectMake(20, 0, 280 - 50, 40);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
         
@@ -151,9 +178,139 @@
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-60 );
         
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
-        NSLog(@"此刻是6的大小");
+        NSLog(@"此刻是6 的大小");
         
-        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-100 );
+        //0 .顶部图标
+        WLANImageView.frame = CGRectMake(SCREEN_WIDTH/3, SCREEN_WIDTH/10, SCREEN_WIDTH/3, SCREEN_WIDTH/3);
+        WLANImageView.image = [UIImage imageNamed:@"顶部icon"];
+        [scrollView addSubview:WLANImageView];
+        
+        
+        //1.name输入
+        nameInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 200 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        nameInputTextView.layer.borderWidth = 1.0f;
+        nameInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        nameInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:nameInputTextView];
+        
+        nameEidtImageView.frame = CGRectMake(20, 10, 20, 20);
+        nameEidtImageView.image = [UIImage imageNamed:@"SSID"];
+        [nameInputTextView addSubview:nameEidtImageView];
+        
+        
+        setNameText.delegate = self;
+        setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
+        setNameText.frame = CGRectMake(50, 0, 250 - 50, 40);
+        setNameText.placeholder = @"";
+        setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                    name:@"UITextFieldTextDidChangeNotification"
+                                                  object:setNameText];
+        //        setNameText.secureTextEntry = YES;
+        
+        
+        [nameInputTextView addSubview:setNameText];
+        
+        //2.密码输入
+        pswInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 260 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        pswInputTextView.layer.borderWidth = 1.0f;
+        pswInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        pswInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:pswInputTextView];
+        
+        pswEidtImageView.frame = CGRectMake(20, 10, 20, 20);
+        pswEidtImageView.image = [UIImage imageNamed:@"密码"];
+        [pswInputTextView addSubview:pswEidtImageView];
+        
+        
+        isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 40, 11, 25, 15);
+        //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+        //        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        
+        [isViewBtn addTarget:self action:@selector(pswBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [pswInputTextView addSubview:isViewBtn];
+        
+        
+        
+        setPswText.delegate = self;
+        setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
+        setPswText.frame = CGRectMake(50, 0, 200, 40);
+        setPswText.placeholder = @"";
+        setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                    name:@"UITextFieldTextDidChangeNotification"
+                                                  object:setPswText];
+        setPswText.secureTextEntry = YES;
+        
+        
+        [pswInputTextView addSubview:setPswText];
+        
+        
+        // 3. security Type
+        securityInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 320 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        securityInputTextView.layer.borderWidth = 1.0f;
+        securityInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        securityInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:securityInputTextView];
+        
+        SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, 8, 50, 20);
+        SecurityStatusLab.text = @"open";
+        SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+        [securityInputTextView addSubview:SecurityStatusLab];
+        
+        
+        SecurityLab.frame = CGRectMake(30, 10, 200, 20);
+        SecurityLab.text = @"Security Type";
+        SecurityLab.font = FONT(15);
+        SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
+        [securityInputTextView addSubview:SecurityLab];
+        
+        
+        // 4. PIN Protection
+        PINInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 380 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        PINInputTextView.layer.borderWidth = 1.0f;
+        PINInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        PINInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:PINInputTextView];
+        
+        PINSwitch.frame = CGRectMake(PINInputTextView.frame.size.width - 60, 3, 35, 10);
+        PINSwitch.transform = CGAffineTransformMakeScale(0.8, 0.8);
+        
+        //        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
+        [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+        [PINSwitch setThumbTintColor:[UIColor whiteColor]];
+        PINSwitch.layer.cornerRadius = 10.0f;
+        PINSwitch.layer.masksToBounds = YES;
+        [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+        
+        [PINInputTextView addSubview:PINSwitch];
+        
+        
+        PINLab.frame = CGRectMake(30, 10, 200, 20);
+        PINLab.text = @"PIN Protection";
+        PINLab.font = FONT(15);
+        PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
+        [PINInputTextView addSubview:PINLab];
+        
+        // 4. save BTN
+        saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        saveBtn.frame = CGRectMake(SCREEN_WIDTH/9, 440 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        [saveBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+        saveBtn.layer.cornerRadius =SCREEN_WIDTH/20;
+        
+        [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [scrollView addSubview:saveBtn];
+        
+        UILabel * saveLab = [[UILabel alloc]init];
+        saveLab.text = @"SAVE";
+        saveLab.textColor = [UIColor whiteColor];
+        saveLab.frame = CGRectMake(130, 10, 80, 20);
+        [saveBtn addSubview:saveLab];
+        
         
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
@@ -178,7 +335,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText = [[UITextField alloc]initWithFrame:CGRectMake(50, 0, 280 - 50, 40)];
+        setNameText.frame = CGRectMake(50, 0, 280 - 50, 40);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -215,7 +372,7 @@
         
         setPswText.delegate = self;
         setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setPswText = [[UITextField alloc]initWithFrame:CGRectMake(50, 0, 280 - 50, 40)];
+        setPswText.frame = CGRectMake(50, 0, 280 - 50, 40);
         setPswText.placeholder = @"";
         setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -261,7 +418,7 @@
         [PINSwitch setThumbTintColor:[UIColor whiteColor]];
         PINSwitch.layer.cornerRadius = 10.0f;
         PINSwitch.layer.masksToBounds = YES;
-//        [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+        [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
  
         [PINInputTextView addSubview:PINSwitch];
         
@@ -299,10 +456,136 @@
     scrollView.bounces = NO;
     scrollView.backgroundColor = [UIColor colorWithRed:0xf4/255.0 green:0xf5/255.0 blue:0xf9/255.0 alpha:1];
 }
+-(void)switchAction:(id)sender
+{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    if (isButtonOn) {
+        NSLog(@"开啊开开");
+        [setPswText setEnabled:YES];
+    }else {
+        [setPswText setEnabled:NO];
+        setPswText.text = @"";
+        
+        NSLog(@"管管管‘’‘’");
+    }
+}
 -(void)saveBtnClick
 {
+    if (setNameText.text.length<6) {
+        alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alertView addButtonWithTitle:@"Confirm"];
+        [alertView show];
+    }else if (setPswText.text.length < 8 && PINSwitch.on){
+        alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alertView addButtonWithTitle:@"Confirm"];
+        [alertView show];
+
+    }else{
     NSLog(@"点击了保存按钮");
+    NSString * DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
+    NSString * serviceIp;
+    if (DMSIP != NULL ) {
+        serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+    }else
+    {
+        //        serviceIp =@"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?";   //服务器地址
+    }
+    //获取数据的链接
+    NSString *linkUrl = [NSString stringWithFormat:@"%@",serviceIp];
+    //    SString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
     
+    NSURL *url = [NSURL URLWithString:linkUrl];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request addRequestHeader:@"Content-Type" value:@"application/json; encoding=utf-8"];
+    [request addRequestHeader:@"Accept" value:@"application/json"];
+    [request setRequestMethod:@"POST"];
+    
+    
+    
+    NSLog(@"setPswText.text %@",setPswText.text);
+    NSLog(@"setNameText %@",setNameText.text);
+    NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:setNameText.text,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
+    NSLog(@"detailDic %@",detailDic);
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
+    //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
+    
+    [request setPostBody:tempJsonData];
+    [request startSynchronous];
+    NSError *error1 = [request error];
+    
+    
+    
+    
+    NSData *data = [request responseData];
+    
+        NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+
+       NSString * str = [resDict objectForKey:@"result"];
+        if ([str isEqualToString:@"failed"]) {
+            alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"Save faild" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [alertView addButtonWithTitle:@"Confirm"];
+            [alertView show];
+        }else if ([str isEqualToString:@"success"])
+        {
+            alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [alertView addButtonWithTitle:@"Confirm"];
+            [alertView show];
+        }
+        
+            NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
+//    if (!error1) {
+//        //        NSString *response = [request responseString];
+//        //        NSLog(@"Test：%@",response);
+//        //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
+//        //            NSString *response = [request responseString];
+//
+//        NSData *data = [request responseData];
+//
+//        NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+//        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//
+//        NSLog(@"resDictresDict %@",resDict);
+//        NSLog(@"strstrstrstrstr %@",str);
+//        NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
+////        if ([[resDict objectForKey:@"code"] isEqual:@1]) {
+////            //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+////            [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
+////            [registerPwdTip show];
+////
+////        }else if ([[resDict objectForKey:@"code"] isEqual:@2])
+////        {
+////            [registerPwdTip setMessage:[NSString stringWithFormat:code2]];
+////            [registerPwdTip show];
+////        }else if ([[resDict objectForKey:@"code"] isEqual:@3])
+////        {
+////            [registerPwdTip setMessage:[NSString stringWithFormat:code3]];
+////            [registerPwdTip show];
+////        }else if ([[resDict objectForKey:@"code"] isEqual:@4])
+////        {
+////            [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
+////            //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+////            [registerPwdTip show];
+////        }else if ([[resDict objectForKey:@"code"] isEqual:@0])
+////        {
+////            //                [registerPwdTip setMessage:[NSString stringWithFormat:code0]];
+////            //                [registerPwdTip show];
+////
+////            [self judgeNextView];
+////        }
+//
+//
+//
+//
+//    }else
+//    {
+//
+//    }
+
+    }
 }
 -(void)pswBtnClick
 {
@@ -331,46 +614,46 @@
     
     
     
-    //    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-    //    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-    //        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-    //        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-    //        if (character < 45)
-    //        {
-    //
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; // 48 unichar for 0..
-    //        }
-    //
-    //        if (character > 45 && character < 48)
-    //        {
-    //
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; // 48 unichar for 0..
-    //        }
-    //        if (character > 57 && character < 65)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //        if (character > 90 && character < 95)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //        if (character > 95 && character < 97)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //        if (character > 122)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //
-    //
-    //    }
+        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+            if (character < 45)
+            {
+    
+                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                return NO; // 48 unichar for 0..
+            }
+    
+            if (character > 45 && character < 48)
+            {
+    
+                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                return NO; // 48 unichar for 0..
+            }
+            if (character > 57 && character < 65)
+            {
+                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                return NO; //
+            }
+            if (character > 90 && character < 95)
+            {
+                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                return NO; //
+            }
+            if (character > 95 && character < 97)
+            {
+                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                return NO; //
+            }
+            if (character > 122)
+            {
+                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+                return NO; //
+            }
+    
+    
+        }
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {

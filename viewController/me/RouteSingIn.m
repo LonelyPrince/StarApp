@@ -88,6 +88,7 @@
     
     //获取数据的链接
     NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+    [USER_DEFAULT setObject:DMSIP forKey:@"RouterPsw"];
     //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
     
     ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
