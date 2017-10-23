@@ -86,6 +86,7 @@
     
     //  [self loadNav];
     self.wLANSettingView = [[WLANSettingView alloc]init];
+    self.securityCenterView = [[SecurityCenterView alloc]init];
     scrollView = [[UIScrollView alloc]init];
     colorView = [[UIImageView alloc]init];
     routeImage = [[UIImageView alloc]init];
@@ -1490,7 +1491,18 @@
         self.wLANSettingView.navigationItem.leftBarButtonItem = myButton;
         
     }else if (tagIndex == 2){
+        if(![self.navigationController.topViewController isKindOfClass:[self.securityCenterView class]]) {
+            [self.navigationController pushViewController:self.securityCenterView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
+        NSLog(@"self.navigationController %@",self.navigationController );
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
         
+        
+        self.securityCenterView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.securityCenterView.navigationItem.leftBarButtonItem = myButton;
     }
     
 //    if (tagIndex == 6) {

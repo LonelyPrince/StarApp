@@ -584,11 +584,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530415957.387156"
+            timestampString = "530429939.872408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "539"
             endingLineNumber = "539"
+            landmarkName = "-saveBtnClick"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/me/SecurityCenterView.m"
+            timestampString = "530429939.872523"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "753"
+            endingLineNumber = "753"
             landmarkName = "-saveBtnClick"
             landmarkType = "7">
          </BreakpointContent>

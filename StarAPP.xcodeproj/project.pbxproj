@@ -245,6 +245,8 @@
 		7024C6111DD441490053F313 /* bianji@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60E1DD441490053F313 /* bianji@1x.png */; };
 		7024C6121DD441490053F313 /* bianji@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C60F1DD441490053F313 /* bianji@2x.png */; };
 		7024C6131DD441490053F313 /* bianji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6101DD441490053F313 /* bianji@3x.png */; };
+		70261DFA1F9D846A00D7F4F0 /* SecurityCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */; };
+		70261DFE1F9D902D00D7F4F0 /* DeviceListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */; };
 		7027B3D71F308F89001CDFAE /* XYZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3D61F308F89001CDFAE /* XYZNavigationController.m */; };
 		7027B3E91F309C93001CDFAE /* UIViewController+animationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */; };
 		702A36D61E95EC8700C6FC39 /* 音频背景.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 702A36D51E95EC8700C6FC39 /* 音频背景.jpg */; };
@@ -994,6 +996,10 @@
 		7024C60E1DD441490053F313 /* bianji@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@1x.png"; sourceTree = "<group>"; };
 		7024C60F1DD441490053F313 /* bianji@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@2x.png"; sourceTree = "<group>"; };
 		7024C6101DD441490053F313 /* bianji@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bianji@3x.png"; sourceTree = "<group>"; };
+		70261DF81F9D846A00D7F4F0 /* SecurityCenterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecurityCenterView.h; sourceTree = "<group>"; };
+		70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecurityCenterView.m; sourceTree = "<group>"; };
+		70261DFC1F9D902D00D7F4F0 /* DeviceListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListView.h; sourceTree = "<group>"; };
+		70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListView.m; sourceTree = "<group>"; };
 		7027B3D51F308F89001CDFAE /* XYZNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZNavigationController.h; sourceTree = "<group>"; };
 		7027B3D61F308F89001CDFAE /* XYZNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZNavigationController.m; sourceTree = "<group>"; };
 		7027B3E71F309C93001CDFAE /* UIViewController+animationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animationView.h"; sourceTree = "<group>"; };
@@ -1973,6 +1979,10 @@
 				701077E81F95B70800593014 /* RouteMenuView.m */,
 				701078B21F98355800593014 /* WLANSettingView.h */,
 				701078B31F98355800593014 /* WLANSettingView.m */,
+				70261DF81F9D846A00D7F4F0 /* SecurityCenterView.h */,
+				70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */,
+				70261DFC1F9D902D00D7F4F0 /* DeviceListView.h */,
+				70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */,
 			);
 			name = Route;
 			sourceTree = "<group>";
@@ -3485,6 +3495,7 @@
 				7012951C1D80F4CF003139D5 /* UINavigationController+GGInteractiveTransition.m in Sources */,
 				703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */,
 				701295181D80F4CF003139D5 /* BUIView.m in Sources */,
+				70261DFA1F9D846A00D7F4F0 /* SecurityCenterView.m in Sources */,
 				70130EAC1D8FEBDA005F0A49 /* SocketUtils.m in Sources */,
 				70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */,
 				7012953C1D80FC0A003139D5 /* TVCell.m in Sources */,
@@ -3526,6 +3537,7 @@
 				701295231D80F4CF003139D5 /* UIViewController+BaseUISetting.m in Sources */,
 				705650691DB9EFA2002DD47E /* subtCell.m in Sources */,
 				70FFE3B71DE1CA0E00223E43 /* MonitorCell.m in Sources */,
+				70261DFE1F9D902D00D7F4F0 /* DeviceListView.m in Sources */,
 				7045830F1D9D0C0B0061C154 /* DeviceManageCell.m in Sources */,
 				7024C5E51DD2C5960053F313 /* DeviceManageController.m in Sources */,
 				70231CFD1DC1EC0F00F73202 /* HistoryViewController.m in Sources */,

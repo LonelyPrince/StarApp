@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 #import "WLANSettingView.h"
+#import "SecurityCenterView.h"
+#import "DeviceListView.h"
 @interface RouteMenuView : UIViewController<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *scrollView;
@@ -44,5 +46,7 @@
 @property(nonatomic,strong)UILabel * generalSettingLab;
 
 @property(nonatomic,strong)WLANSettingView  * wLANSettingView;
+@property(nonatomic,strong)SecurityCenterView * securityCenterView;
+@property(nonatomic,strong)DeviceListView * deviceListView;
 
 @end
