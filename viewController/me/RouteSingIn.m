@@ -15,7 +15,7 @@
 
 #define dontMatch @"The new PINs do not match"
 #define code1 @"The new PIN should not be the same as the original PIN"
-#define code2 @"login_passwd invalid params!"
+#define code2 @"PIN should be 6-16.Please enter letters,numbers,\"-\" or \"_\""  //点击save按钮后，提示语
 #define code3 @"set login_passwd error!"
 #define code4 @"old pasword not right!"
 #define code0 @"reset password success!"
