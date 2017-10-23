@@ -1503,6 +1503,11 @@
         
         self.securityCenterView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         self.securityCenterView.navigationItem.leftBarButtonItem = myButton;
+        
+    }
+    else if (tagIndex == 3){
+        
+        NSLog(@"点击了第三个按钮");
     }
     
 //    if (tagIndex == 6) {
