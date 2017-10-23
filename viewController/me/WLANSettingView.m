@@ -140,42 +140,309 @@
 }
 -(void)loadScroll
 {
-    if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+    if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"])
+//    {
+//        NSLog(@"此刻是4s的大小");
+//        
+//        
+//        //顶部图标
+//        WLANImageView.frame = CGRectMake(SCREEN_WIDTH/8*3, SCREEN_WIDTH/9, SCREEN_WIDTH/4, SCREEN_WIDTH/4);
+//        WLANImageView.image = [UIImage imageNamed:@"顶部icon"];
+//        [scrollView addSubview:WLANImageView];
+//        
+//        nameInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - SCREEN_WIDTH/5)/2, 2*SCREEN_WIDTH/5 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/8)];
+//        nameInputTextView.layer.borderWidth = 1.0f;
+//        nameInputTextView.layer.cornerRadius = SCREEN_WIDTH/8/2;
+//        nameInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+//        
+//        setNameText.delegate = self;
+//        setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
+//        setNameText.frame = CGRectMake(20, 0, 280 - 50, 40);
+//        setNameText.placeholder = @"";
+//        setNameText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+//        
+//        //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
+//        //            inputText.image = [UIImage imageNamed:@"灰"];
+//        //            inputText.userInteractionEnabled = YES;
+//        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+//                                                    name:@"UITextFieldTextDidChangeNotification"
+//                                                  object:setNameText];
+//        setNameText.secureTextEntry = YES;
+//        
+//        [scrollView addSubview:nameInputTextView];
+//        [nameInputTextView addSubview:setNameText];
+//        
+//        
+        //    }
+    {
         NSLog(@"此刻是4s的大小");
+    
+    //0 .顶部图标
+    WLANImageView.frame = CGRectMake(SCREEN_WIDTH/3, SCREEN_WIDTH/10, SCREEN_WIDTH/3, SCREEN_WIDTH/3);
+    WLANImageView.image = [UIImage imageNamed:@"顶部icon"];
+    [scrollView addSubview:WLANImageView];
+    
+    
+    //1.name输入
+    nameInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 200 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+    nameInputTextView.layer.borderWidth = 1.0f;
+    nameInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+    nameInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+    [scrollView addSubview:nameInputTextView];
+    
+    nameEidtImageView.frame = CGRectMake(20, 8, 20, 20);
+    nameEidtImageView.image = [UIImage imageNamed:@"SSID"];
+    [nameInputTextView addSubview:nameEidtImageView];
+    
+    
+    setNameText.delegate = self;
+    setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
+    setNameText.frame = CGRectMake(50, 0, 250 - 50, 35);
+    setNameText.placeholder = @"";
+    setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                name:@"UITextFieldTextDidChangeNotification"
+                                              object:setNameText];
+    //        setNameText.secureTextEntry = YES;
+    
+    
+    [nameInputTextView addSubview:setNameText];
+    
+    //2.密码输入
+    pswInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 260 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+    pswInputTextView.layer.borderWidth = 1.0f;
+    pswInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+    pswInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+    [scrollView addSubview:pswInputTextView];
+    
+    pswEidtImageView.frame = CGRectMake(20, 8, 20, 20);
+    pswEidtImageView.image = [UIImage imageNamed:@"密码"];
+    [pswInputTextView addSubview:pswEidtImageView];
+    
+    
+    isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 40, 11, 25, 15);
+    //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+    //        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+    [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+    
+    [isViewBtn addTarget:self action:@selector(pswBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [pswInputTextView addSubview:isViewBtn];
+    
+    
+    
+    setPswText.delegate = self;
+    setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
+    setPswText.frame = CGRectMake(50, 0, 200, 35);
+    setPswText.placeholder = @"";
+    setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                name:@"UITextFieldTextDidChangeNotification"
+                                              object:setPswText];
+    setPswText.secureTextEntry = YES;
+    
+    
+    [pswInputTextView addSubview:setPswText];
+    
+    
+    // 3. security Type
+    securityInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 320 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+    securityInputTextView.layer.borderWidth = 1.0f;
+    securityInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+    securityInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+    [scrollView addSubview:securityInputTextView];
+    
+    SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, 6, 50, 20);
+    SecurityStatusLab.text = @"open";
+    SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+    [securityInputTextView addSubview:SecurityStatusLab];
+    
+    
+    SecurityLab.frame = CGRectMake(30, 6, 200, 20);
+    SecurityLab.text = @"Security Type";
+    SecurityLab.font = FONT(15);
+    SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
+    [securityInputTextView addSubview:SecurityLab];
+    
+    
+    // 4. PIN Protection
+    PINInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 380 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+    PINInputTextView.layer.borderWidth = 1.0f;
+    PINInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+    PINInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+    [scrollView addSubview:PINInputTextView];
+    
+    PINSwitch.frame = CGRectMake(PINInputTextView.frame.size.width - 60, 1, 35, 10);
+    PINSwitch.transform = CGAffineTransformMakeScale(0.7, 0.7);
+    
+    //        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
+    [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+    [PINSwitch setThumbTintColor:[UIColor whiteColor]];
+    PINSwitch.layer.cornerRadius = 10.0f;
+    PINSwitch.layer.masksToBounds = YES;
+    [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+    
+    [PINInputTextView addSubview:PINSwitch];
+    
+    
+    PINLab.frame = CGRectMake(30, 6, 200, 20);
+    PINLab.text = @"PIN Protection";
+    PINLab.font = FONT(15);
+    PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
+    [PINInputTextView addSubview:PINLab];
+    
+    // 4. save BTN
+    saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    saveBtn.frame = CGRectMake(SCREEN_WIDTH/9, 440 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+    [saveBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+    saveBtn.layer.cornerRadius =SCREEN_WIDTH/20;
+    
+    [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:saveBtn];
+    
+    UILabel * saveLab = [[UILabel alloc]init];
+    saveLab.text = @"SAVE";
+    saveLab.textColor = [UIColor whiteColor];
+    saveLab.frame = CGRectMake(110, 7, 80, 20);
+    [saveBtn addSubview:saveLab];
+    
+}
+    else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString
+                                                                                                        isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
+        NSLog(@"此刻是5的大小");
         
-        
-        //顶部图标
-        WLANImageView.frame = CGRectMake(SCREEN_WIDTH/8*3, SCREEN_WIDTH/9, SCREEN_WIDTH/4, SCREEN_WIDTH/4);
+        //0 .顶部图标
+        WLANImageView.frame = CGRectMake(SCREEN_WIDTH/3, SCREEN_WIDTH/10, SCREEN_WIDTH/3, SCREEN_WIDTH/3);
         WLANImageView.image = [UIImage imageNamed:@"顶部icon"];
         [scrollView addSubview:WLANImageView];
         
-        nameInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - SCREEN_WIDTH/5)/2, 2*SCREEN_WIDTH/5 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/8)];
+        
+        //1.name输入
+        nameInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 200 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
         nameInputTextView.layer.borderWidth = 1.0f;
-        nameInputTextView.layer.cornerRadius = SCREEN_WIDTH/8/2;
+        nameInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
         nameInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:nameInputTextView];
+        
+        nameEidtImageView.frame = CGRectMake(20, 8, 20, 20);
+        nameEidtImageView.image = [UIImage imageNamed:@"SSID"];
+        [nameInputTextView addSubview:nameEidtImageView];
+        
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(20, 0, 280 - 50, 40);
+        setNameText.frame = CGRectMake(50, 0, 250 - 50, 35);
         setNameText.placeholder = @"";
-        setNameText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+        setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
-        //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-        //            inputText.image = [UIImage imageNamed:@"灰"];
-        //            inputText.userInteractionEnabled = YES;
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:setNameText];
-        setNameText.secureTextEntry = YES;
+        //        setNameText.secureTextEntry = YES;
         
-        [scrollView addSubview:nameInputTextView];
+        
         [nameInputTextView addSubview:setNameText];
         
+        //2.密码输入
+        pswInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 260 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        pswInputTextView.layer.borderWidth = 1.0f;
+        pswInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        pswInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:pswInputTextView];
         
-    }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
-        NSLog(@"此刻是5的大小");
+        pswEidtImageView.frame = CGRectMake(20, 8, 20, 20);
+        pswEidtImageView.image = [UIImage imageNamed:@"密码"];
+        [pswInputTextView addSubview:pswEidtImageView];
         
-        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-60 );
+        
+        isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 40, 11, 25, 15);
+        //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+        //        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        
+        [isViewBtn addTarget:self action:@selector(pswBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [pswInputTextView addSubview:isViewBtn];
+        
+        
+        
+        setPswText.delegate = self;
+        setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
+        setPswText.frame = CGRectMake(50, 0, 200, 35);
+        setPswText.placeholder = @"";
+        setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                    name:@"UITextFieldTextDidChangeNotification"
+                                                  object:setPswText];
+        setPswText.secureTextEntry = YES;
+        
+        
+        [pswInputTextView addSubview:setPswText];
+        
+        
+        // 3. security Type
+        securityInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 320 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        securityInputTextView.layer.borderWidth = 1.0f;
+        securityInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        securityInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:securityInputTextView];
+        
+        SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, 6, 50, 20);
+        SecurityStatusLab.text = @"open";
+        SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+        [securityInputTextView addSubview:SecurityStatusLab];
+        
+        
+        SecurityLab.frame = CGRectMake(30, 6, 200, 20);
+        SecurityLab.text = @"Security Type";
+        SecurityLab.font = FONT(15);
+        SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
+        [securityInputTextView addSubview:SecurityLab];
+        
+        
+        // 4. PIN Protection
+        PINInputTextView.frame = CGRectMake(SCREEN_WIDTH/9, 380 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        PINInputTextView.layer.borderWidth = 1.0f;
+        PINInputTextView.layer.cornerRadius = SCREEN_WIDTH/10/2;
+        PINInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+        [scrollView addSubview:PINInputTextView];
+        
+        PINSwitch.frame = CGRectMake(PINInputTextView.frame.size.width - 60, 1, 35, 10);
+        PINSwitch.transform = CGAffineTransformMakeScale(0.7, 0.7);
+        
+        //        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
+        [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+        [PINSwitch setThumbTintColor:[UIColor whiteColor]];
+        PINSwitch.layer.cornerRadius = 10.0f;
+        PINSwitch.layer.masksToBounds = YES;
+        [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+        
+        [PINInputTextView addSubview:PINSwitch];
+        
+        
+        PINLab.frame = CGRectMake(30, 6, 200, 20);
+        PINLab.text = @"PIN Protection";
+        PINLab.font = FONT(15);
+        PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
+        [PINInputTextView addSubview:PINLab];
+        
+        // 4. save BTN
+        saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        saveBtn.frame = CGRectMake(SCREEN_WIDTH/9, 440 , SCREEN_WIDTH/5*4, SCREEN_WIDTH/10);
+        [saveBtn setBackgroundColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+        saveBtn.layer.cornerRadius =SCREEN_WIDTH/20;
+        
+        [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [scrollView addSubview:saveBtn];
+        
+        UILabel * saveLab = [[UILabel alloc]init];
+        saveLab.text = @"SAVE";
+        saveLab.textColor = [UIColor whiteColor];
+        saveLab.frame = CGRectMake(110, 7, 80, 20);
+        [saveBtn addSubview:saveLab];
         
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
@@ -552,7 +819,7 @@
 //        NSLog(@"strstrstrstrstr %@",str);
 //        NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
 ////        if ([[resDict objectForKey:@"code"] isEqual:@1]) {
-////            //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+////            //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
 ////            [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
 ////            [registerPwdTip show];
 ////
@@ -567,7 +834,7 @@
 ////        }else if ([[resDict objectForKey:@"code"] isEqual:@4])
 ////        {
 ////            [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
-////            //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+////            //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
 ////            [registerPwdTip show];
 ////        }else if ([[resDict objectForKey:@"code"] isEqual:@0])
 ////        {

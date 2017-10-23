@@ -66,7 +66,7 @@
 {
     
     scrollView = [[UIScrollView alloc]init];
-    registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code0] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+    registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code0] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
 //    securityImageView = [[UIImageView alloc]init];
 //    currentInputTextView = [[UIView alloc]init];
 //    setNewInputTextView = [[UIView alloc]init];
@@ -727,7 +727,7 @@
             NSLog(@"resDict %@",resDict);
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {
-                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
                 [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
                 [registerPwdTip show];
                 
@@ -742,7 +742,7 @@
             }else if ([[resDict objectForKey:@"code"] isEqual:@4])
             {
                 [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
-                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
                 [registerPwdTip show];
             }else if ([[resDict objectForKey:@"code"] isEqual:@0])
             {
@@ -767,20 +767,20 @@
     if (setNewRouteText.text.length == 0 || confirmText.text.length == 0) {
         //用户没有输入任何东西，弹窗提醒
         NSLog(@"输入的东西不能为空");
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:emptyStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:emptyStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
         
         //    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
         
         [linkAlert show];
     }else if(setNewRouteText.text.length < 6 || confirmText.text.length < 6)
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
         
         [linkAlert show];
         
     }else if (![setNewRouteText.text isEqualToString:confirmText.text])
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:dontMatch] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:dontMatch] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
         
         [linkAlert show];
         
@@ -836,7 +836,7 @@
         //        }
         //
         //        if (temp == NO) {
-        //            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confilm", nil];
+        //            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
         //
         //            [linkAlert show];
         //        }else   //正确情况
