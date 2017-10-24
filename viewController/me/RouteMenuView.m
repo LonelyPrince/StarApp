@@ -71,12 +71,12 @@
     routeNameLab.text = [tempDic objectForKey:@"name"];
     NSString * pswStr = [tempDic objectForKey:@"password"];
     if (![pswStr isEqualToString:@"none"]) {
-        secrityTypeLab.text =[NSString stringWithFormat:@"Security Type:%@",[tempDic objectForKey:@"encryption"]] ;
-        PINProtectionLab.text = @"PIN Protection:ON";
+        secrityTypeLab.text =[NSString stringWithFormat:@"Security Type: WPA2-PSK"] ;
+        PINProtectionLab.text = @"PIN Protection: ON";
     }else
     {
-        secrityTypeLab.text = @"Security Type:Open";
-        PINProtectionLab.text = @"PIN Protection:OFF";
+        secrityTypeLab.text = @"Security Type: Open";
+        PINProtectionLab.text = @"PIN Protection: OFF";
     }
 //    [self getWifi];
     

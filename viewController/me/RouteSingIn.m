@@ -874,8 +874,8 @@
         }else
         {
             NSLog(@"用户输入PIN 进入");
-//            [self showLoginView];
-                        [self showPwdRegistrView];
+            [self showLoginView];
+//                        [self showPwdRegistrView];
         }
         //        wifiDic = [[NSDictionary alloc]init];
         //        wifiDic = onlineWifi;
