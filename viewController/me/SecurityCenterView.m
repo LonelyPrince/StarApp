@@ -578,6 +578,9 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
+    currentPINText.text = @"";
+    setNewRouteText.text = @"";
+    confirmText.text = @"";
     
     [super  viewDidDisappear:animated];
     self.Animating = NO;
@@ -764,7 +767,7 @@
 #pragma mark - 判断PIN码是否合规定
 -(BOOL)judgePINIsLegal
 {
-    if (setNewRouteText.text.length == 0 || confirmText.text.length == 0) {
+    if (currentPINText.text.length == 0|| setNewRouteText.text.length == 0 || confirmText.text.length == 0) {
         //用户没有输入任何东西，弹窗提醒
         NSLog(@"输入的东西不能为空");
         UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:emptyStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
