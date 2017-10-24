@@ -784,6 +784,12 @@
         
         [linkAlert show];
         
+    }else if ([setNewRouteText.text isEqualToString:@"MGadmin"])
+    {
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        
+        [linkAlert show];
+        
     }
     else
     {

@@ -3099,8 +3099,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
                         
                         if (storeLastChannelArr.count >= 4) {
-                            NSInteger row = [storeLastChannelArr[2] integerValue];
-                            NSDictionary * dic = storeLastChannelArr [3];
+                            NSInteger row ;
+                            NSDictionary * dic = [[NSDictionary alloc]init];
+                            if (storeLastChannelArr.count >= 2) {
+                             row = [storeLastChannelArr[2] integerValue];
+                                NSLog(@"row %d",row);
+                            }else
+                            {
+                                return;
+                            }
+                            if(storeLastChannelArr.count >= 3) {
+                             dic = storeLastChannelArr [3];
+                                NSLog(@"row %@",dic);
+                            }else
+                            {
+                                return;
+                            }
                             NSLog(@"row %d",row);
 //                            NSLog(@"dic %@",dic);
                             //在这里添加判断 机顶盒是否加密
