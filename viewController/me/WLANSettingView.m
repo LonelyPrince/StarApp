@@ -771,7 +771,7 @@
         alertView = [[UIAlertView alloc]initWithTitle:nil message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
-    }else if (setPswText.text.length < 8 && PINSwitch.on){
+    }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
         alertView = [[UIAlertView alloc]initWithTitle:nil message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
