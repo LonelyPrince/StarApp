@@ -768,11 +768,11 @@
 -(void)saveBtnClick
 {
     if (setNameText.text.length<6) {
-        alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
     }else if (setPswText.text.length < 8 && PINSwitch.on){
-        alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
 
@@ -824,22 +824,22 @@
     
     NSData *data = [request responseData];
         NSLog(@" data--data %@",data);
-        if(![NSJSONSerialization isValidJSONObject:data]){
-            NSLog(@"it is not a JSONdata!");
-            NSLog(@"222detailDic %@",data);
-            return ;
-        }
+//        if(![NSJSONSerialization isValidJSONObject:data]){
+//            NSLog(@"it is not a JSONdata!");
+//            NSLog(@"222detailDic %@",data);
+//            return ;
+//        }
         NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 
        NSString * str = [resDict objectForKey:@"result"];
         if ([str isEqualToString:@"failed"]) {
-            alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"Save faild" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save faild" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [alertView addButtonWithTitle:@"Confirm"];
             [alertView show];
         }else if ([str isEqualToString:@"success"])
         {
-            alertView = [[UIAlertView alloc]initWithTitle:@"" message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [alertView addButtonWithTitle:@"Confirm"];
             [alertView show];
         }
