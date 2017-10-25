@@ -128,6 +128,7 @@
         [PINSwitch setOn:YES];
         SecurityStatusLab.font = FONT(12);
         SecurityStatusLab.frame =  CGRectMake(securityInputTextView.frame.size.width - 85, 8, 100, 20);
+
     }else
     {
         [setPswText setEnabled:NO];
@@ -278,9 +279,16 @@
     PINSwitch.transform = CGAffineTransformMakeScale(0.7, 0.7);
     
     //        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
+//    [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+//    [PINSwitch setThumbTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+//    [PINSwitch setBackgroundColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+//    PINSwitch.layer.cornerRadius = 10.0f;
     [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
     [PINSwitch setThumbTintColor:[UIColor whiteColor]];
-    PINSwitch.layer.cornerRadius = 10.0f;
+    [PINSwitch setBackgroundColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+    [PINSwitch setTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+    PINSwitch.layer.cornerRadius = 33/2;
+
     PINSwitch.layer.masksToBounds = YES;
     [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     
@@ -413,10 +421,15 @@
         PINSwitch.frame = CGRectMake(PINInputTextView.frame.size.width - 60, 1, 35, 10);
         PINSwitch.transform = CGAffineTransformMakeScale(0.7, 0.7);
         
-        //        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
+//        [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+//        [PINSwitch setThumbTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+//        PINSwitch.layer.cornerRadius = 10.0f;
         [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
         [PINSwitch setThumbTintColor:[UIColor whiteColor]];
-        PINSwitch.layer.cornerRadius = 10.0f;
+        [PINSwitch setBackgroundColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+        [PINSwitch setTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+        PINSwitch.layer.cornerRadius = 33/2;
+        
         PINSwitch.layer.masksToBounds = YES;
         [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
         
@@ -550,7 +563,14 @@
         //        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
         [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
         [PINSwitch setThumbTintColor:[UIColor whiteColor]];
-        PINSwitch.layer.cornerRadius = 10.0f;
+        [PINSwitch setBackgroundColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+        [PINSwitch setTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+//        PINSwitch.tintColor = [UIColor redColor];
+//        PINSwitch.onTintColor = [UIColor blackColor];
+//        PINSwitch.thumbTintColor = [UIColor yellowColor];
+//        PINSwitch.backgroundColor = [UIColor purpleColor];
+
+        PINSwitch.layer.cornerRadius = 33/2;
         PINSwitch.layer.masksToBounds = YES;
         [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
         
@@ -627,11 +647,14 @@
         
         
         isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 50, 13, 30, 20);
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 50, 2, pswInputTextView.frame.size.height, 40);
         //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
-//        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-        
+        [isViewBtn setImage:[UIImage imageNamed:@"密文"]  forState:UIControlStateNormal];
+//        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+//        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+//        UIImage * titleimage = [UIImage imageNamed:@"密文@3x"];
+//        [isViewBtn setImage:[titleimage transformWidth:90 height:125] forState:UIControlStateNormal];
+
         [isViewBtn addTarget:self action:@selector(pswBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [pswInputTextView addSubview:isViewBtn];
         
@@ -680,10 +703,15 @@
         
         PINSwitch.frame = CGRectMake(PINInputTextView.frame.size.width - 60, 5, 50, 20);
         
-//        [PINSwitch setTintColor:HEXCOLOR(0x99999)];
+//        [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
+//        [PINSwitch setThumbTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+//        PINSwitch.layer.cornerRadius = 10.0f;
         [PINSwitch setOnTintColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]];
         [PINSwitch setThumbTintColor:[UIColor whiteColor]];
-        PINSwitch.layer.cornerRadius = 10.0f;
+        [PINSwitch setBackgroundColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+        [PINSwitch setTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
+        PINSwitch.layer.cornerRadius = 33/2;
+        
         PINSwitch.layer.masksToBounds = YES;
         [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
  
@@ -774,7 +802,15 @@
     NSLog(@"setNameText %@",setNameText.text);
     NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:setNameText.text,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
     NSLog(@"detailDic %@",detailDic);
+        
+        if(![NSJSONSerialization isValidJSONObject:detailDic]){
+            NSLog(@"it is not a JSONObject!");
+            NSLog(@"222detailDic %@",detailDic);
+            return ;
+        }
+        
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
+        NSLog(@"jsonData %@",jsonData);
     //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
@@ -787,7 +823,12 @@
     
     
     NSData *data = [request responseData];
-    
+        NSLog(@" data--data %@",data);
+        if(![NSJSONSerialization isValidJSONObject:data]){
+            NSLog(@"it is not a JSONdata!");
+            NSLog(@"222detailDic %@",data);
+            return ;
+        }
         NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 
@@ -860,16 +901,18 @@
         isOn = NO;
         setPswText.secureTextEntry = YES;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
-//        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+//        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
     }
     else if (isOn == NO)
     {
         isOn = YES;
         setPswText.secureTextEntry = NO;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
-//        [isViewBtn setImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
-        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
+        [isViewBtn setImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
+        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+//        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
     }
     
     NSLog(@"点击了眼睛按钮");

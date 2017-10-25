@@ -75,7 +75,6 @@
 		701078CF1F98418D00593014 /* 明文显示@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C01F98418C00593014 /* 明文显示@1x.png */; };
 		701078D01F98418D00593014 /* 顶部icon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C11F98418C00593014 /* 顶部icon@1x.png */; };
 		701078D11F98418D00593014 /* 明文显示@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C21F98418C00593014 /* 明文显示@3x.png */; };
-		701078D21F98418D00593014 /* 密文@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C31F98418C00593014 /* 密文@3x.png */; };
 		701078D31F98418D00593014 /* SSID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C41F98418C00593014 /* SSID@3x.png */; };
 		701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */; };
 		701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294E11D80F4A3003139D5 /* NSObject+JSONCategories.m */; };
@@ -247,6 +246,7 @@
 		7024C6131DD441490053F313 /* bianji@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7024C6101DD441490053F313 /* bianji@3x.png */; };
 		70261DFA1F9D846A00D7F4F0 /* SecurityCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */; };
 		70261DFE1F9D902D00D7F4F0 /* DeviceListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */; };
+		70261E121F9F11B400D7F4F0 /* 密文@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70261E111F9F11B400D7F4F0 /* 密文@3x.png */; };
 		7027B3D71F308F89001CDFAE /* XYZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3D61F308F89001CDFAE /* XYZNavigationController.m */; };
 		7027B3E91F309C93001CDFAE /* UIViewController+animationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */; };
 		702A36D61E95EC8700C6FC39 /* 音频背景.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 702A36D51E95EC8700C6FC39 /* 音频背景.jpg */; };
@@ -783,7 +783,6 @@
 		701078C01F98418C00593014 /* 明文显示@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@1x.png"; sourceTree = "<group>"; };
 		701078C11F98418C00593014 /* 顶部icon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部icon@1x.png"; sourceTree = "<group>"; };
 		701078C21F98418C00593014 /* 明文显示@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@3x.png"; sourceTree = "<group>"; };
-		701078C31F98418C00593014 /* 密文@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密文@3x.png"; sourceTree = "<group>"; };
 		701078C41F98418C00593014 /* SSID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSID@3x.png"; sourceTree = "<group>"; };
 		701294DE1D80F4A3003139D5 /* NSData+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONCategories.h"; sourceTree = "<group>"; };
 		701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONCategories.m"; sourceTree = "<group>"; };
@@ -1000,6 +999,7 @@
 		70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecurityCenterView.m; sourceTree = "<group>"; };
 		70261DFC1F9D902D00D7F4F0 /* DeviceListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListView.h; sourceTree = "<group>"; };
 		70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListView.m; sourceTree = "<group>"; };
+		70261E111F9F11B400D7F4F0 /* 密文@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密文@3x.png"; sourceTree = "<group>"; };
 		7027B3D51F308F89001CDFAE /* XYZNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZNavigationController.h; sourceTree = "<group>"; };
 		7027B3D61F308F89001CDFAE /* XYZNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZNavigationController.m; sourceTree = "<group>"; };
 		7027B3E71F309C93001CDFAE /* UIViewController+animationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animationView.h"; sourceTree = "<group>"; };
@@ -1635,6 +1635,7 @@
 		701078B51F98414000593014 /* WLANSetting */ = {
 			isa = PBXGroup;
 			children = (
+				70261E111F9F11B400D7F4F0 /* 密文@3x.png */,
 				701078C11F98418C00593014 /* 顶部icon@1x.png */,
 				701078BA1F98418B00593014 /* 顶部icon@2x.png */,
 				701078B81F98418B00593014 /* 顶部icon@3x.png */,
@@ -1643,7 +1644,6 @@
 				701078B61F98418A00593014 /* 密码@3x.png */,
 				701078B91F98418B00593014 /* 密文@1x.png */,
 				701078BD1F98418B00593014 /* 密文@2x.png */,
-				701078C31F98418C00593014 /* 密文@3x.png */,
 				701078C01F98418C00593014 /* 明文显示@1x.png */,
 				701078B71F98418B00593014 /* 明文显示@2x.png */,
 				701078C21F98418C00593014 /* 明文显示@3x.png */,
@@ -3117,7 +3117,6 @@
 				70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */,
 				7010785C1F96DAF800593014 /* Reboot-Device@1x.png in Resources */,
 				702CE43F1DDA9881000A0513 /* 6.png in Resources */,
-				701078D21F98418D00593014 /* 密文@3x.png in Resources */,
 				701078CD1F98418D00593014 /* 密码@2x.png in Resources */,
 				70231CF11DC1D5AC00F73202 /* 灰@2x.png in Resources */,
 				707FE74B1DACC3C30087C361 /* me icon copy@3x.png in Resources */,
@@ -3274,6 +3273,7 @@
 				70362CF51F0092480012A309 /* Movies & Series@3x.png in Resources */,
 				7045C4761DC715FB002647F9 /* 矩形5@3x.png in Resources */,
 				7040E2471DAE12B80063DB66 /* Viasat-Nature-logo@3x.png in Resources */,
+				70261E121F9F11B400D7F4F0 /* 密文@3x.png in Resources */,
 				70FFE3F91DE3EF4800223E43 /* 分发.png in Resources */,
 				7040E24D1DAE12B80063DB66 /* zOOm-Logo@3x.png in Resources */,
 				702CE4451DDA9881000A0513 /* 8.png in Resources */,

@@ -7,17 +7,17 @@
 
 #import "SecurityCenterView.h"
 #define emptyStr @"\n The PIN can not be empty \n\n"    //PIN码为空
-#define lengthLessStr @"\n PIN Length 6-16 \n\n"    //PIN码长度短
+#define lengthLessStr @"PIN should be 6-16.Please enter letters,number,\"-\"or\"_\"."    //PIN码长度短
 #define specialStr @"\n PIN should be 6-16.Please enter letters,number,\"-\"or\"_\".\n\n"    //PIN码有特殊字符
 #define errorStr @"\n incorrect PIN,please input again \n\n"    //PIN码有特殊字符
 #define setNewRouteLabStr @"Please set your Router PIN.We recommend you \nto change the PIN to insure the security."    //PIN码有特殊字符
 
 #define dontMatch @"The new PINs do not match"
-#define code1 @"The new PIN should not be the same as the original PIN"
+#define code1 @"The new PIN should not be the same as the current PIN"
 #define code2 @"PIN should be 6-16.Please enter letters,numbers,\"-\" or \"_\""
 #define code3 @"set login_passwd error!"
-#define code4 @"old pasword not right!"
-#define code0 @"reset password success!"
+#define code4 @"Router PIN is incorrect"
+#define code0 @"Save success"
 @interface SecurityCenterView ()
 {
     NSString * deviceString;     //用于判断手机型号
