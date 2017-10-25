@@ -7,6 +7,9 @@
 
 #import "WLANSettingView.h"
 
+#define code3 @"Please enter letters,numbers,\"-\" or \"_\""
+#define code4 @"Please enter letters,numbers,\"-\" or \"_\""
+
 @interface WLANSettingView ()
 {
     
@@ -830,10 +833,16 @@
 //            return ;
 //        }
         NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                NSLog(@"222detailDic %@",resDict);
         //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 
        NSString * str = [resDict objectForKey:@"result"];
-        if ([str isEqualToString:@"failed"]) {
+        if ([[resDict objectForKey:@"code"] isEqual:@3] || [[resDict objectForKey:@"code"] isEqual:@4]) {
+            alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [alertView addButtonWithTitle:@"Confirm"];
+            [alertView show];
+            
+        }else if ([str isEqualToString:@"failed"]) {
             alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [alertView addButtonWithTitle:@"Confirm"];
             [alertView show];
@@ -925,45 +934,45 @@
     
     
         NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-            if (character < 45)
-            {
-    
-                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-                return NO; // 48 unichar for 0..
-            }
-    
-            if (character > 45 && character < 48)
-            {
-    
-                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-                return NO; // 48 unichar for 0..
-            }
-            if (character > 57 && character < 65)
-            {
-                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-                return NO; //
-            }
-            if (character > 90 && character < 95)
-            {
-                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-                return NO; //
-            }
-            if (character > 95 && character < 97)
-            {
-                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-                return NO; //
-            }
-            if (character > 122)
-            {
-                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-                return NO; //
-            }
-    
-    
-        }
+//        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+//            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+//            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+//            if (character < 45)
+//            {
+//
+//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//                return NO; // 48 unichar for 0..
+//            }
+//
+//            if (character > 45 && character < 48)
+//            {
+//
+//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//                return NO; // 48 unichar for 0..
+//            }
+//            if (character > 57 && character < 65)
+//            {
+//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//                return NO; //
+//            }
+//            if (character > 90 && character < 95)
+//            {
+//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//                return NO; //
+//            }
+//            if (character > 95 && character < 97)
+//            {
+//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//                return NO; //
+//            }
+//            if (character > 122)
+//            {
+//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//                return NO; //
+//            }
+//
+//
+//        }
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {
