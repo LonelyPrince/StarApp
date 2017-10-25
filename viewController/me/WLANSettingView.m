@@ -834,7 +834,7 @@
 
        NSString * str = [resDict objectForKey:@"result"];
         if ([str isEqualToString:@"failed"]) {
-            alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save faild" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [alertView addButtonWithTitle:@"Confirm"];
             [alertView show];
         }else if ([str isEqualToString:@"success"])
