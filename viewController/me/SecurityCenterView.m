@@ -47,6 +47,7 @@
     [self loadUI];
     [self loadScroll];
     [self addToScroll];
+    [self configRemoveUITextFieldEding];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -55,6 +56,19 @@
 //    [self addHud];
 //    [self getCurrentWifi];
 //    [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+}
+-(void)configRemoveUITextFieldEding
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeUITextFieldEding" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeUITextFieldEding) name:@"removeUITextFieldEding" object:nil];
+    
+}
+
+-(void)removeUITextFieldEding
+{
+    [self onTap];
 }
 -(void)loadNav
 {

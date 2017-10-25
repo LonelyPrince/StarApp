@@ -1460,11 +1460,13 @@
 }
 -(void)clickEvent
 {
-
+    NSNotification *notification =[NSNotification notificationWithName:@"removeUITextFieldEding" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     [self.navigationController popViewControllerAnimated:YES];
     self.tabBarController.tabBar.hidden = YES;
 }
-
 
 //点击观看历史直接播放
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr

@@ -50,10 +50,11 @@
     [self loadNav];
     [self loadScroll];
     [self loadUI];
+    [self configRemoveUITextFieldEding];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-   
+    [self reInitState]; //恢复初始状态
 //    [self initData];
 //    [self loadNav];
 //    [self loadScroll];
@@ -61,6 +62,23 @@
 //    [self getWifi];
     [self addWlanInfo];
 }
+//恢复初始状态
+-(void)reInitState
+{
+    //眼睛和密码
+    if (isOn == YES) {
+        isOn = NO;
+        setPswText.secureTextEntry = YES;
+        //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
+        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+        //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+    }
+    
+
+
+}
+
 -(void)loadNav
 {
     self.title = @"WLAN Settings";
@@ -1002,7 +1020,6 @@
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
-    
     [super  viewDidDisappear:animated];
     self.Animating = NO;
 }
@@ -1031,10 +1048,28 @@
 
 -(void)onTap
 {
+    NSLog(@"setPswText %@",setPswText);
+    NSLog(@"setNameText %@",setNameText);
     [setPswText resignFirstResponder];
     [setNameText resignFirstResponder];
+    
+   
+    
 }
 
+-(void)configRemoveUITextFieldEding
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"removeUITextFieldEding" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeUITextFieldEding) name:@"removeUITextFieldEding" object:nil];
+    
+}
+
+-(void)removeUITextFieldEding
+{
+    [self onTap];
+}
 //-(void)getWifi
 //{
 //    
