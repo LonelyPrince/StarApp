@@ -770,7 +770,12 @@
 }
 -(void)saveBtnClick
 {
-    if (setNameText.text.length<6) {
+    if ([setNameText.text isEqualToString:@""]) {
+        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"The SSID can not be empty" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alertView addButtonWithTitle:@"Confirm"];
+        [alertView show];
+    }
+   else if (setNameText.text.length<6) {
         alertView = [[UIAlertView alloc]initWithTitle:nil message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
