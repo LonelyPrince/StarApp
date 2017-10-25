@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "RouteMenuView.h"
 
-@interface RouteSingIn : UIViewController<UITextFieldDelegate,UITextInputDelegate>
+@interface RouteSingIn : UIViewController<UITextFieldDelegate,UITextInputDelegate,UIScrollViewDelegate>
 
 @property (strong,nonatomic)UIView * activeView;    //无网络的显示
 

@@ -66,6 +66,7 @@
     [self addHud];
     [self getCurrentWifi];
     [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+    
 }
 -(void)addHud
 {
@@ -1139,6 +1140,8 @@
     [inputTextView2 addSubview:confirmText];
     [confirmText bringSubviewToFront:inputTextView2];
     [self.view addSubview:setNewRouteLab];
+    confirmText.delegate = self;
+    setNewRouteText.delegate = self;
 }
 #pragma mark - 用户登录界面
 -(void)showLoginView
@@ -1157,6 +1160,7 @@
     [inputTextView addSubview:inputText];
     [inputText bringSubviewToFront:inputTextView];
     
+    inputText.delegate = self;
     
 }
 -(void)saveBtnClick
@@ -1358,6 +1362,21 @@
     
     self.routeMenuView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
     self.routeMenuView.navigationItem.leftBarButtonItem = myButton;
+}
+#pragma mark - 防止textfield删除时，如果遇到密码模式，则单个删除，否则系统会一次全部删除
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    //得到输入框的内容
+    NSString * textfieldContent = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//    NSLog(@"textField %@",textField);
+//    NSLog(@"textFieldconfirmText %@",confirmText);
+//    NSLog(@"textFieldconfirmText2 %@",setNewRouteText);
+//    NSLog(@"textFieldconfirmText3 %@",inputText);
+//    if (textField == confirmText && [textField isEqual: setNewRouteText ]&& textField == inputText && textField && textField.secureTextEntry) {
+        textField.text = textfieldContent;
+        return NO;
+//    }
+//    return YES;
 }
 @end
 
