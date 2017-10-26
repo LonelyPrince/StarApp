@@ -797,26 +797,25 @@
             return ;
         }
         
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
+        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
         NSLog(@"jsonData %@",jsonData);
     //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
-    
-    [request setPostBody:tempJsonData];
-    [request startSynchronous];
-    NSError *error1 = [request error];
-    
+        NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
+        [request setPostBody:tempJsonData];
+        [request startSynchronous];
+        NSError *error1 = [request error];
     
     
     
-    NSData *data = [request responseData];
+    
+        NSData *data = [request responseData];
         NSLog(@" data--data %@",data);
-//        if(![NSJSONSerialization isValidJSONObject:data]){
-//            NSLog(@"it is not a JSONdata!");
-//            NSLog(@"222detailDic %@",data);
-//            return ;
-//        }
+      
+        if ([data isEqual:NULL] || data == nil ) {
+            return;
+        }
+        
         NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
                 NSLog(@"222detailDic %@",resDict);
         //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];

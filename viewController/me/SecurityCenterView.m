@@ -756,6 +756,9 @@
             
             NSData *data = [request responseData];
             
+            if ([data isEqual:NULL] || data == nil ) {
+                return;
+            }
             NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             NSLog(@"resDict %@",resDict);
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
