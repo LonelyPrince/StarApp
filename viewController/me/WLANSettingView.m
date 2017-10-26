@@ -71,7 +71,14 @@
         setPswText.secureTextEntry = YES;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+            NSLog(@"此刻是6 plus的大小");
+            
+            isViewBtn.bounds = CGRectMake(0, 0, 48, 48);
+        }else
+        {
+            isViewBtn.bounds = CGRectMake(0, 0, 43, 43);
+        }
         //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
     }
     
@@ -211,7 +218,7 @@
         
         
         isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 3, 40, 40);
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 0, 43, 43);
         //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
         //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
@@ -223,7 +230,7 @@
         
         setPswText.delegate = self;
         setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setPswText.frame = CGRectMake(50, 2, 200, 43);
+        setPswText.frame = CGRectMake(50, 2, 190, 43);
         setPswText.placeholder = @"";
         setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -350,7 +357,7 @@
         
         
         isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 3, 40, 40);
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 0, 43, 43);
         //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
         //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
@@ -362,7 +369,7 @@
         
         setPswText.delegate = self;
         setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setPswText.frame = CGRectMake(50, 2, 200, 43);
+        setPswText.frame = CGRectMake(50, 2, 190, 43);
         setPswText.placeholder = @"";
         setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -487,7 +494,7 @@
         
         
         isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 3, 40, 40);
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 0, 43, 43);
         //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
                 [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
 //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
@@ -499,7 +506,7 @@
         
         setPswText.delegate = self;
         setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setPswText.frame = CGRectMake(50, 2, 200, 43);
+        setPswText.frame = CGRectMake(50, 2, 190, 43);
         setPswText.placeholder = @"";
         setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -625,7 +632,7 @@
         
         
         isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 4, 40, 40);
+        isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 50, 0, 48, 48);
         //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
         //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
@@ -637,7 +644,7 @@
         
         setPswText.delegate = self;
         setPswText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setPswText.frame = CGRectMake(50, 2, 200, 43);
+        setPswText.frame = CGRectMake(50, 2, 190, 43);
         setPswText.placeholder = @"";
         setPswText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -889,7 +896,16 @@
         setPswText.secureTextEntry = YES;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+        
+         if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+            NSLog(@"此刻是6 plus的大小");
+            
+            isViewBtn.bounds = CGRectMake(0, 0, 48, 48);
+        }else
+        {
+            isViewBtn.bounds = CGRectMake(0, 0, 43, 43);
+        }
+        
 //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
     }
     else if (isOn == NO)
@@ -898,7 +914,14 @@
         setPswText.secureTextEntry = NO;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
-        isViewBtn.bounds = CGRectMake(0, 0, 30, 30);
+        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+            NSLog(@"此刻是6 plus的大小");
+            
+            isViewBtn.bounds = CGRectMake(0, 0, 48, 48);
+        }else
+        {
+            isViewBtn.bounds = CGRectMake(0, 0, 43, 43);
+        }
 //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
     }
     
