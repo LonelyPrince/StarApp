@@ -256,7 +256,7 @@
         [securityInputTextView addSubview:SecurityStatusLab];
         
         
-        SecurityLab.frame = CGRectMake(30, 12, 200, 20);
+        SecurityLab.frame = CGRectMake(20, 12, 200, 20);
         SecurityLab.text = @"Security Type";
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -286,7 +286,7 @@
         [PINInputTextView addSubview:PINSwitch];
         
         
-        PINLab.frame = CGRectMake(30, 12, 200, 20);
+        PINLab.frame = CGRectMake(20, 12, 200, 20);
         PINLab.text = @"PIN Protection";
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -395,7 +395,7 @@
         [securityInputTextView addSubview:SecurityStatusLab];
         
         
-        SecurityLab.frame = CGRectMake(30, 12, 200, 20);
+        SecurityLab.frame = CGRectMake(20, 12, 200, 20);
         SecurityLab.text = @"Security Type";
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -425,7 +425,7 @@
         [PINInputTextView addSubview:PINSwitch];
         
         
-        PINLab.frame = CGRectMake(30, 12, 200, 20);
+        PINLab.frame = CGRectMake(20, 12, 200, 20);
         PINLab.text = @"PIN Protection";
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -532,7 +532,7 @@
         [securityInputTextView addSubview:SecurityStatusLab];
         
         
-        SecurityLab.frame = CGRectMake(30, 12, 200, 20);
+        SecurityLab.frame = CGRectMake(20, 12, 200, 20);
         SecurityLab.text = @"Security Type";
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -562,7 +562,7 @@
         [PINInputTextView addSubview:PINSwitch];
         
         
-        PINLab.frame = CGRectMake(30, 12, 200, 20);
+        PINLab.frame = CGRectMake(20, 12, 200, 20);
         PINLab.text = @"PIN Protection";
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -670,7 +670,7 @@
         [securityInputTextView addSubview:SecurityStatusLab];
         
         
-        SecurityLab.frame = CGRectMake(30, 12+1, 200, 20);
+        SecurityLab.frame = CGRectMake(20, 12+1, 200, 20);
         SecurityLab.text = @"Security Type";
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
@@ -700,7 +700,7 @@
         [PINInputTextView addSubview:PINSwitch];
         
         
-        PINLab.frame = CGRectMake(30, 12, 200, 20);
+        PINLab.frame = CGRectMake(20, 12, 200, 20);
         PINLab.text = @"PIN Protection";
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0xcb/255.0 green:0xcb/255.0 blue:0xcb/255.0 alpha:1];
