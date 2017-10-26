@@ -2354,7 +2354,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
         }else
         {
-            return;
+            if (audio_infoArr.count > 0 ) {
+                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+            }else
+            {
+                socketView.socket_ServiceModel.audio_pid = nil;
+            }
+            if (subt_infoArr.count > 0 ) {
+                socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+            }else
+            {
+                socketView.socket_ServiceModel.subt_pid = nil;
+            }
+            
         }
         NSLog(@"socketView.socket_ServiceModel.subt_pid :%@",socketView.socket_ServiceModel.subt_pid );
         socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
@@ -4610,7 +4622,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"socketView.socket_ServiceModel.subt_pid :%@",socketView.socket_ServiceModel.subt_pid);
     }else
     {
-        return;
+//        return;
+        if (audio_infoArr.count > 0 ) {
+            socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+        }else
+        {
+            socketView.socket_ServiceModel.audio_pid = nil;
+        }
+        if (subt_infoArr.count > 0 ) {
+            socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+        }else
+        {
+            socketView.socket_ServiceModel.subt_pid = nil;
+        }
     }
 //    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
 //    NSLog(@"socketView.socket_ServiceModel.audio_pid :%@",socketView.socket_ServiceModel.audio_pid);

@@ -360,11 +360,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.382769"
+            timestampString = "530671895.264212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8393"
-            endingLineNumber = "8393"
+            startingLineNumber = "8417"
+            endingLineNumber = "8417"
             landmarkName = "-updateChannelService:"
             landmarkType = "7">
          </BreakpointContent>
@@ -376,11 +376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.382837"
+            timestampString = "530671895.265208"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8408"
-            endingLineNumber = "8408"
+            startingLineNumber = "8432"
+            endingLineNumber = "8432"
             landmarkName = "-updateChannelService:"
             landmarkType = "7">
          </BreakpointContent>
@@ -488,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.382996"
+            timestampString = "530671895.266093"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8380"
-            endingLineNumber = "8380"
+            startingLineNumber = "8404"
+            endingLineNumber = "8404"
             landmarkName = "-updateChannelService:"
             landmarkType = "7">
          </BreakpointContent>
@@ -504,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.383046"
+            timestampString = "530671895.266865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8624"
-            endingLineNumber = "8624"
+            startingLineNumber = "8648"
+            endingLineNumber = "8648"
             landmarkName = "-notIsPlayingUpdateHistoryArr:ts_int:service_int:character_int:dic_history3Dic:"
             landmarkType = "7">
          </BreakpointContent>
@@ -520,11 +520,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.38309"
+            timestampString = "530671895.267643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8642"
-            endingLineNumber = "8642"
+            startingLineNumber = "8666"
+            endingLineNumber = "8666"
             landmarkName = "-notIsPlayingUpdateHistoryArr:ts_int:service_int:character_int:dic_history3Dic:"
             landmarkType = "7">
          </BreakpointContent>
@@ -536,11 +536,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.383135"
+            timestampString = "530671895.268388"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "8653"
-            endingLineNumber = "8653"
+            startingLineNumber = "8677"
+            endingLineNumber = "8677"
             landmarkName = "-notIsPlayingUpdateHistoryArr:ts_int:service_int:character_int:dic_history3Dic:"
             landmarkType = "7">
          </BreakpointContent>
@@ -552,28 +552,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.383178"
+            timestampString = "530671895.269146"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6411"
-            endingLineNumber = "6411"
+            startingLineNumber = "6435"
+            endingLineNumber = "6435"
             landmarkName = "-tableViewDataRefreshForMjRefresh"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.38322"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6896"
-            endingLineNumber = "6896"
-            landmarkName = "-tableViewDataRefreshForMjRefresh2222222"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -584,7 +568,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.76798"
+            timestampString = "530671895.269894"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "827"
@@ -600,11 +584,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "530605106.383836"
+            timestampString = "530671895.269994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3070"
-            endingLineNumber = "3070"
+            startingLineNumber = "3082"
+            endingLineNumber = "3082"
             landmarkName = "-judgeJumpFromOtherView"
             landmarkType = "7">
          </BreakpointContent>
@@ -616,7 +600,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/SecurityCenterView.m"
-            timestampString = "530613106.768113"
+            timestampString = "530671895.270719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "770"
@@ -632,7 +616,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/SecurityCenterView.m"
-            timestampString = "530613106.768462"
+            timestampString = "530671895.270784"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "713"
@@ -648,7 +632,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/SecurityCenterView.m"
-            timestampString = "530613106.768713"
+            timestampString = "530671895.270841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "731"
@@ -664,7 +648,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.768952"
+            timestampString = "530671895.270897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "869"
@@ -680,7 +664,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.76903"
+            timestampString = "530671895.270975"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "874"
@@ -696,7 +680,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.7691"
+            timestampString = "530671895.271046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "862"
@@ -712,7 +696,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.769197"
+            timestampString = "530671895.271121"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "845"
@@ -728,7 +712,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.769268"
+            timestampString = "530671895.271195"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1011"
@@ -744,7 +728,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/RouteSingIn.m"
-            timestampString = "530613106.769322"
+            timestampString = "530671895.271253"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1369"
@@ -760,12 +744,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "530613106.769375"
+            timestampString = "530671895.27131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1077"
             endingLineNumber = "1077"
             landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ext/Singleton.m"
+            timestampString = "530671043.313895"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-Play_ServiceSocket"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "530671895.271387"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2353"
+            endingLineNumber = "2353"
+            landmarkName = "-touchSelectChannel:diction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "530671895.272129"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2320"
+            endingLineNumber = "2320"
+            landmarkName = "-touchSelectChannel:diction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
