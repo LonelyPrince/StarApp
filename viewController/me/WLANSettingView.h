@@ -28,7 +28,7 @@
 @property(nonatomic,strong) UISwitch *  PINSwitch;  //PIN的开关锁
 
 @property(nonatomic,strong) UIButton *  isViewBtn;  //密码是否可见的button
-@property(nonatomic,strong) UIScrollView *  scrollView;  //密码是否可见的button
+@property(nonatomic,strong) UIScrollView *  scrollView; 
 
 @property(nonatomic,strong) UIButton *  saveBtn;  
 @property(nonatomic,assign) bool isOn ;
