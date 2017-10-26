@@ -265,21 +265,21 @@
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(135, 65, 200, 20);
+        routeNameLab.frame = CGRectMake(145, 70, 200, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
 //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
-        secrityTypeLab.frame = CGRectMake(135, 100, 200, 17);
+        secrityTypeLab.frame = CGRectMake(145, 100, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
 //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
-        PINProtectionLab.frame = CGRectMake(135, 130, 200, 17);
+        PINProtectionLab.frame = CGRectMake(145, 125, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
 //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
@@ -349,26 +349,26 @@
         colorView.image = [UIImage imageNamed:@"背景"];
         [scrollView addSubview:colorView];
         
-        routeImage.frame = CGRectMake(55, 74, 90, 90);
+        routeImage.frame = CGRectMake(55, 74, 180/2, 180/2);
         routeImage.image = [UIImage imageNamed:@"顶部"];
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(170, 75, 200, 20);
+        routeNameLab.frame = CGRectMake(176, 82, 200, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
 //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
-        secrityTypeLab.frame = CGRectMake(170, 110, 200, 17);
+        secrityTypeLab.frame = CGRectMake(176, 115, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
 //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
-        PINProtectionLab.frame = CGRectMake(170, 140, 200, 17);
+        PINProtectionLab.frame = CGRectMake(176, 140, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
 //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
@@ -438,26 +438,26 @@
         colorView.image = [UIImage imageNamed:@"背景"];
         [scrollView addSubview:colorView];
         
-        routeImage.frame = CGRectMake(55, 74, 90, 90);
+        routeImage.frame = CGRectMake(55, 74, 100, 100);
         routeImage.image = [UIImage imageNamed:@"顶部"];
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
-        routeNameLab.frame = CGRectMake(170, 75, 200, 20);
+        routeNameLab.frame = CGRectMake(192, 85, 205, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
 //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
-        secrityTypeLab.frame = CGRectMake(170, 110, 200, 17);
+        secrityTypeLab.frame = CGRectMake(192, 117, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
 //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
-        PINProtectionLab.frame = CGRectMake(170, 140, 200, 17);
+        PINProtectionLab.frame = CGRectMake(192, 143, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
 //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
