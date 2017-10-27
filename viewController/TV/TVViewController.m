@@ -4681,9 +4681,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    if (epg_infoArr.count == 0 || epg_infoArr == nil) {
+//        return;
+    }else
+    {
+        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    }
+    
     isEventStartTimeBiger_NowTime = NO;
     BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
     if (isEventStartTimeBigNowTime == YES) {

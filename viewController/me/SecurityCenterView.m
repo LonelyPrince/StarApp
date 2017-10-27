@@ -13,7 +13,7 @@
 #define setNewRouteLabStr @"Please set your Router PIN.We recommend you \nto change the PIN to insure the security."    //PIN码有特殊字符
 
 #define dontMatch @"The new PINs do not match"
-#define code1 @"The new PIN should not be the same as the current PIN"
+#define code1 @"The new PIN should not be the same as the original PIN"
 #define code2 @"PIN should be 6-16.Please enter letters,numbers,\"-\" or \"_\""
 #define code3 @"set login_passwd error!"
 #define code4 @"Router PIN is incorrect"
