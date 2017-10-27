@@ -156,7 +156,7 @@
         [PINSwitch setOn:YES];
         SecurityStatusLab.font = FONT(12);
         SecurityStatusLab.frame =  CGRectMake(securityInputTextView.frame.size.width - 85, (securityInputTextView.frame.size.height - 17)/2, 100, 20);
-
+        [setPswText setEnabled:YES];
     }else
     {
         [setPswText setEnabled:NO];
