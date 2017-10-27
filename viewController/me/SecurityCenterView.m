@@ -891,15 +891,15 @@
     
 }
 #pragma mark - 防止textfield删除时，如果遇到密码模式，则单个删除，否则系统会一次全部删除
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    //得到输入框的内容
-    NSString * textfieldContent = [textField.text stringByReplacingCharactersInRange:range withString:string];
-//    if (textField == currentPINText && textField.isSecureTextEntry && textField == setNewRouteText && textField == confirmText) {
-        textField.text = textfieldContent;
-        return NO;
-//    }
-//    return YES;
-}
+//-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    //得到输入框的内容
+//    NSString * textfieldContent = [textField.text stringByReplacingCharactersInRange:range withString:string];
+////    if (textField == currentPINText && textField.isSecureTextEntry && textField == setNewRouteText && textField == confirmText) {
+//        textField.text = textfieldContent;
+//        return NO;
+////    }
+////    return YES;
+//}
 
 @end
