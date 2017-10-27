@@ -121,14 +121,14 @@
             currentInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, securityImageView.frame.origin.y + 99 + 49, 576/2, 43)];
             currentInputTextView.layer.borderWidth = 1.0f;
             currentInputTextView.layer.cornerRadius = 43/2;
-            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
             currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
             
             currentPINText.placeholder = @"Current PIN";
-            currentPINText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
@@ -145,7 +145,7 @@
             setNewInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, currentInputTextView.frame.origin.y + 43 + 15, 576/2, 43)];
             setNewInputTextView.layer.borderWidth = 1.0f;
             setNewInputTextView.layer.cornerRadius = 43/2;
-            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -153,9 +153,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             setNewRouteText.placeholder = @"New PIN";
-            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -174,7 +174,7 @@
             ConfirmInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, setNewInputTextView.frame.origin.y + 43 + 15, 576/2, 43)];
             ConfirmInputTextView.layer.borderWidth = 1.0f;
             ConfirmInputTextView.layer.cornerRadius = 43/2;
-            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -182,9 +182,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             confirmText.placeholder = @"Confirm PIN";
-            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -234,14 +234,14 @@
             currentInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, securityImageView.frame.origin.y + 99 + 49, 576/2, 43)];
             currentInputTextView.layer.borderWidth = 1.0f;
             currentInputTextView.layer.cornerRadius = 43/2;
-            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
             currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
             
             currentPINText.placeholder = @"Current PIN";
-            currentPINText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
@@ -258,7 +258,7 @@
             setNewInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, currentInputTextView.frame.origin.y + 43 + 15, 576/2, 43)];
             setNewInputTextView.layer.borderWidth = 1.0f;
             setNewInputTextView.layer.cornerRadius = 43/2;
-            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -266,9 +266,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             setNewRouteText.placeholder = @"New PIN";
-            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -287,7 +287,7 @@
             ConfirmInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, setNewInputTextView.frame.origin.y + 43 + 15, 576/2, 43)];
             ConfirmInputTextView.layer.borderWidth = 1.0f;
             ConfirmInputTextView.layer.cornerRadius = 43/2;
-            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -295,9 +295,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             confirmText.placeholder = @"Confirm PIN";
-            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -347,14 +347,14 @@
             currentInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, securityImageView.frame.origin.y + 99 + 49, 576/2, 43)];
             currentInputTextView.layer.borderWidth = 1.0f;
             currentInputTextView.layer.cornerRadius = 43/2;
-            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
             currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
         
             currentPINText.placeholder = @"Current PIN";
-            currentPINText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
 
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
@@ -371,7 +371,7 @@
             setNewInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, currentInputTextView.frame.origin.y + 43 + 15, 576/2, 43)];
             setNewInputTextView.layer.borderWidth = 1.0f;
             setNewInputTextView.layer.cornerRadius = 43/2;
-            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -379,9 +379,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             setNewRouteText.placeholder = @"New PIN";
-            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -400,7 +400,7 @@
             ConfirmInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, setNewInputTextView.frame.origin.y + 43 + 15, 576/2, 43)];
             ConfirmInputTextView.layer.borderWidth = 1.0f;
             ConfirmInputTextView.layer.cornerRadius = 43/2;
-            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -408,9 +408,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             confirmText.placeholder = @"Confirm PIN";
-            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -460,14 +460,14 @@
             currentInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2*1.1)/2, securityImageView.frame.origin.y + 99 + 49+30, 576/2*1.1, 43*1.1)];
             currentInputTextView.layer.borderWidth = 1.0f;
             currentInputTextView.layer.cornerRadius = 43/2*1.1;
-            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            currentInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
             currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
             
             currentPINText.placeholder = @"Current PIN";
-            currentPINText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
@@ -484,7 +484,7 @@
             setNewInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2*1.1)/2, currentInputTextView.frame.origin.y + 43 + 15, 576/2*1.1, 43*1.1)];
             setNewInputTextView.layer.borderWidth = 1.0f;
             setNewInputTextView.layer.cornerRadius = 43/2*1.1;
-            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            setNewInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -492,9 +492,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             setNewRouteText.placeholder = @"New PIN";
-            setNewRouteText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
@@ -513,7 +513,7 @@
             ConfirmInputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2*1.1)/2, setNewInputTextView.frame.origin.y + 43 + 15, 576/2*1.1, 43*1.1)];
             ConfirmInputTextView.layer.borderWidth = 1.0f;
             ConfirmInputTextView.layer.cornerRadius = 43/2*1.1;
-            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            ConfirmInputTextView.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -521,9 +521,9 @@
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            //            inputText.layer.borderColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1].CGColor;
             confirmText.placeholder = @"Confirm PIN";
-            confirmText.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
+            confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
             //            inputText.image = [UIImage imageNamed:@"灰"];
