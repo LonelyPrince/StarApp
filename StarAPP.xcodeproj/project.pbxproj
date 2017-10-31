@@ -247,6 +247,9 @@
 		70261DFA1F9D846A00D7F4F0 /* SecurityCenterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */; };
 		70261DFE1F9D902D00D7F4F0 /* DeviceListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */; };
 		70261E121F9F11B400D7F4F0 /* 密文@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70261E111F9F11B400D7F4F0 /* 密文@3x.png */; };
+		70261E1F1FA1F62B00D7F4F0 /* 路由无网络@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70261E1A1FA1F62800D7F4F0 /* 路由无网络@3x.png */; };
+		70261E201FA1F62B00D7F4F0 /* 路由无网络@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70261E1D1FA1F62900D7F4F0 /* 路由无网络@1x.png */; };
+		70261E211FA1F62B00D7F4F0 /* 路由无网络@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70261E1E1FA1F62900D7F4F0 /* 路由无网络@2x.png */; };
 		7027B3D71F308F89001CDFAE /* XYZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3D61F308F89001CDFAE /* XYZNavigationController.m */; };
 		7027B3E91F309C93001CDFAE /* UIViewController+animationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */; };
 		702A36D61E95EC8700C6FC39 /* 音频背景.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 702A36D51E95EC8700C6FC39 /* 音频背景.jpg */; };
@@ -378,6 +381,13 @@
 		7040E24B1DAE12B80063DB66 /* zOOm-Logo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E2301DAE12B80063DB66 /* zOOm-Logo@1x.png */; };
 		7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E2311DAE12B80063DB66 /* zOOm-Logo@2x.png */; };
 		7040E24D1DAE12B80063DB66 /* zOOm-Logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E2321DAE12B80063DB66 /* zOOm-Logo@3x.png */; };
+		704511281FA6B5FF00E6DB3B /* DeviceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704511261FA6B5FF00E6DB3B /* DeviceListCell.m */; };
+		704511291FA6B5FF00E6DB3B /* DeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704511271FA6B5FF00E6DB3B /* DeviceListCell.xib */; };
+		704524DA1FA6BA1400E6DB3B /* 设备@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112B1FA6BA0400E6DB3B /* 设备@2x.png */; };
+		704524DB1FA6BA1400E6DB3B /* 设备@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112C1FA6BA0400E6DB3B /* 设备@1x.png */; };
+		704524DC1FA6BA1400E6DB3B /* 设备@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112D1FA6BA0400E6DB3B /* 设备@3x.png */; };
+		704534331FA6EBEE00E6DB3B /* RouterStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 704534311FA6EBEE00E6DB3B /* RouterStatusView.m */; };
+		704534341FA6EBEE00E6DB3B /* RouterStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */; };
 		704582F51D9A193D0061C154 /* GGUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 704582F41D9A193D0061C154 /* GGUtil.m */; };
 		704582F81D9A63170061C154 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC93DB1A295C7D0070697C /* Images.xcassets */; };
 		7045830A1D9D04CE0061C154 /* DeviceManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704583081D9D04CE0061C154 /* DeviceManageViewController.m */; };
@@ -1000,6 +1010,9 @@
 		70261DFC1F9D902D00D7F4F0 /* DeviceListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListView.h; sourceTree = "<group>"; };
 		70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListView.m; sourceTree = "<group>"; };
 		70261E111F9F11B400D7F4F0 /* 密文@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密文@3x.png"; sourceTree = "<group>"; };
+		70261E1A1FA1F62800D7F4F0 /* 路由无网络@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路由无网络@3x.png"; sourceTree = "<group>"; };
+		70261E1D1FA1F62900D7F4F0 /* 路由无网络@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路由无网络@1x.png"; sourceTree = "<group>"; };
+		70261E1E1FA1F62900D7F4F0 /* 路由无网络@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路由无网络@2x.png"; sourceTree = "<group>"; };
 		7027B3D51F308F89001CDFAE /* XYZNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZNavigationController.h; sourceTree = "<group>"; };
 		7027B3D61F308F89001CDFAE /* XYZNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZNavigationController.m; sourceTree = "<group>"; };
 		7027B3E71F309C93001CDFAE /* UIViewController+animationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+animationView.h"; sourceTree = "<group>"; };
@@ -1140,6 +1153,15 @@
 		7040E2301DAE12B80063DB66 /* zOOm-Logo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zOOm-Logo@1x.png"; sourceTree = "<group>"; };
 		7040E2311DAE12B80063DB66 /* zOOm-Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zOOm-Logo@2x.png"; sourceTree = "<group>"; };
 		7040E2321DAE12B80063DB66 /* zOOm-Logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zOOm-Logo@3x.png"; sourceTree = "<group>"; };
+		704511251FA6B5FF00E6DB3B /* DeviceListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListCell.h; sourceTree = "<group>"; };
+		704511261FA6B5FF00E6DB3B /* DeviceListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListCell.m; sourceTree = "<group>"; };
+		704511271FA6B5FF00E6DB3B /* DeviceListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceListCell.xib; sourceTree = "<group>"; };
+		7045112B1FA6BA0400E6DB3B /* 设备@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备@2x.png"; sourceTree = "<group>"; };
+		7045112C1FA6BA0400E6DB3B /* 设备@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备@1x.png"; sourceTree = "<group>"; };
+		7045112D1FA6BA0400E6DB3B /* 设备@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备@3x.png"; sourceTree = "<group>"; };
+		704534301FA6EBEE00E6DB3B /* RouterStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouterStatusView.h; sourceTree = "<group>"; };
+		704534311FA6EBEE00E6DB3B /* RouterStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterStatusView.m; sourceTree = "<group>"; };
+		704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouterStatusView.xib; sourceTree = "<group>"; };
 		704582F31D9A193D0061C154 /* GGUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGUtil.h; sourceTree = "<group>"; };
 		704582F41D9A193D0061C154 /* GGUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGUtil.m; sourceTree = "<group>"; };
 		704583071D9D04CE0061C154 /* DeviceManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageViewController.h; sourceTree = "<group>"; };
@@ -1964,6 +1986,7 @@
 		70231CA21DC0FD4E00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				704511241FA6B5B500E6DB3B /* Cell */,
 				70231CD51DC0FFB800F73202 /* RouteSetting.h */,
 				70231CD61DC0FFB800F73202 /* RouteSetting.m */,
 				70231CD71DC0FFB800F73202 /* RouteSetting.xib */,
@@ -1983,6 +2006,9 @@
 				70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */,
 				70261DFC1F9D902D00D7F4F0 /* DeviceListView.h */,
 				70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */,
+				704534301FA6EBEE00E6DB3B /* RouterStatusView.h */,
+				704534311FA6EBEE00E6DB3B /* RouterStatusView.m */,
+				704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */,
 			);
 			name = Route;
 			sourceTree = "<group>";
@@ -1990,6 +2016,10 @@
 		70231CA41DC0FE8C00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				7045112A1FA6B98200E6DB3B /* DeviceList */,
+				70261E1D1FA1F62900D7F4F0 /* 路由无网络@1x.png */,
+				70261E1E1FA1F62900D7F4F0 /* 路由无网络@2x.png */,
+				70261E1A1FA1F62800D7F4F0 /* 路由无网络@3x.png */,
 				701078B51F98414000593014 /* WLANSetting */,
 				7010783B1F96DAAC00593014 /* RouteMenuView */,
 				701077DA1F949EAE00593014 /* RouteSignIn */,
@@ -2341,6 +2371,26 @@
 			);
 			name = ME;
 			path = "me切图";
+			sourceTree = "<group>";
+		};
+		704511241FA6B5B500E6DB3B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				704511251FA6B5FF00E6DB3B /* DeviceListCell.h */,
+				704511261FA6B5FF00E6DB3B /* DeviceListCell.m */,
+				704511271FA6B5FF00E6DB3B /* DeviceListCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		7045112A1FA6B98200E6DB3B /* DeviceList */ = {
+			isa = PBXGroup;
+			children = (
+				7045112C1FA6BA0400E6DB3B /* 设备@1x.png */,
+				7045112B1FA6BA0400E6DB3B /* 设备@2x.png */,
+				7045112D1FA6BA0400E6DB3B /* 设备@3x.png */,
+			);
+			name = DeviceList;
 			sourceTree = "<group>";
 		};
 		704583051D9D049B0061C154 /* DeviceManage */ = {
@@ -2909,6 +2959,7 @@
 				702A36D61E95EC8700C6FC39 /* 音频背景.jpg in Resources */,
 				707FE7481DACC3C30087C361 /* live icon@3x.png in Resources */,
 				7024C6081DD4098B0053F313 /* iphone@1x.png in Resources */,
+				704524DC1FA6BA1400E6DB3B /* 设备@3x.png in Resources */,
 				70FFE3E81DE2DBA200223E43 /* M7.png in Resources */,
 				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
@@ -3038,6 +3089,7 @@
 				701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */,
 				70FFE4011DE3EF4800223E43 /* 时间@3x.png in Resources */,
 				70CCF3621F45312500F77CD5 /* 引导页4.png in Resources */,
+				704524DA1FA6BA1400E6DB3B /* 设备@2x.png in Resources */,
 				70362D021F009D720012A309 /* All Channel@3x.png in Resources */,
 				701A98A41DB47A3100460220 /* 音轨@3x.png in Resources */,
 				70FFE3CD1DE2D07600223E43 /* 圆环-1 in Resources */,
@@ -3110,6 +3162,7 @@
 				70FFE4101DE421A700223E43 /* monitor@3x.png in Resources */,
 				70231CF01DC1D5AC00F73202 /* 灰.png in Resources */,
 				70FFE4021DE3EF4800223E43 /* 时移1.png in Resources */,
+				70261E1F1FA1F62B00D7F4F0 /* 路由无网络@3x.png in Resources */,
 				70D6B8F61E2DAF3D00957A81 /* Chinese Channel@3x.png in Resources */,
 				701A98A21DB47A3100460220 /* 音轨@1x.png in Resources */,
 				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
@@ -3176,12 +3229,14 @@
 				702CE44D1DDA9881000A0513 /* 圆角矩形-10@2x.png in Resources */,
 				70231D121DC3026500F73202 /* HistoryCell.xib in Resources */,
 				702218C11E5AE0D7005D96A0 /* Back Arrow Blue@2x.png in Resources */,
+				704511291FA6B5FF00E6DB3B /* DeviceListCell.xib in Resources */,
 				7024C6111DD441490053F313 /* bianji@1x.png in Resources */,
 				702CE4461DDA9881000A0513 /* 8@2x.png in Resources */,
 				7012953D1D80FC0A003139D5 /* TVCell.xib in Resources */,
 				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
+				704534341FA6EBEE00E6DB3B /* RouterStatusView.xib in Resources */,
 				70362D4C1F00A0180012A309 /* Tuner monitor.png in Resources */,
 				70D6B8F21E2DAF3D00957A81 /* Entertainment@2x.png in Resources */,
 				70231CCE1DC0FE8C00F73202 /* 组-54@3x.png in Resources */,
@@ -3214,6 +3269,7 @@
 				707FE7561DACC3C30087C361 /* Pause@2x.png in Resources */,
 				702CE4021DDA97EC000A0513 /* mima@1x.png in Resources */,
 				70362D1F1F009E970012A309 /* New圆环@2x.png in Resources */,
+				704524DB1FA6BA1400E6DB3B /* 设备@1x.png in Resources */,
 				7045C46F1DC715FB002647F9 /* 矩形3@2x.png in Resources */,
 				706376151E0B5EB8004238B1 /* 网络无连接@2x.png in Resources */,
 				70FC30EC1D75714E00BD06FE /* zx-video-player-fastForward@3x.png in Resources */,
@@ -3400,6 +3456,7 @@
 				706C263A1E03AF9A003AA695 /* 全屏顶背景@2x.png in Resources */,
 				707FE7501DACC3C30087C361 /* 竖屏顶背景@2x.png in Resources */,
 				702CE44A1DDA9881000A0513 /* 9@3x.png in Resources */,
+				70261E211FA1F62B00D7F4F0 /* 路由无网络@2x.png in Resources */,
 				701078CB1F98418D00593014 /* 密码@1x.png in Resources */,
 				7024C5ED1DD3F8D60053F313 /* RouteManageViewController.xib in Resources */,
 				706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */,
@@ -3410,6 +3467,7 @@
 				70FFE3D21DE2D07600223E43 /* 圆环-6.png in Resources */,
 				702CE43B1DDA9881000A0513 /* 4@3x.png in Resources */,
 				70D6B9171E2DAF3D00957A81 /* Sports@3x.png in Resources */,
+				70261E201FA1F62B00D7F4F0 /* 路由无网络@1x.png in Resources */,
 				70FFE4031DE3EF4800223E43 /* 时移@2x.png in Resources */,
 				70362D4B1F00A0180012A309 /* Series@3x.png in Resources */,
 				70848AF11F7DE1A5005A4FA6 /* 关于@1x.png in Resources */,
@@ -3520,6 +3578,7 @@
 				70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */,
 				604F37CC159B2FDC00FF1F91 /* ServerContentViewController.m in Sources */,
 				60CAD287159C304100B7E28C /* NDLUtility.m in Sources */,
+				704534331FA6EBEE00E6DB3B /* RouterStatusView.m in Sources */,
 				701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */,
 				705650641DB9B95F002DD47E /* AudioCell.m in Sources */,
 				70231CD81DC0FFB800F73202 /* RouteSetting.m in Sources */,
@@ -3563,6 +3622,7 @@
 				700770821D829EA3003C0D68 /* YGPCache.m in Sources */,
 				704582F51D9A193D0061C154 /* GGUtil.m in Sources */,
 				70231D111DC3026500F73202 /* HistoryCell.m in Sources */,
+				704511281FA6B5FF00E6DB3B /* DeviceListCell.m in Sources */,
 				7024C5D91DD1ABCB0053F313 /* AboutViewController.m in Sources */,
 				700770791D829C30003C0D68 /* YLSlideTitleView.m in Sources */,
 				70FC30F81D75714E00BD06FE /* ZXVideoPlayerBatteryView.m in Sources */,

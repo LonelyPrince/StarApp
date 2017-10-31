@@ -9,6 +9,8 @@
 #import "WLANSettingView.h"
 #import "SecurityCenterView.h"
 #import "DeviceListView.h"
+#import "RouterStatusView.h"
+
 @interface RouteMenuView : UIViewController<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *scrollView;
@@ -48,5 +50,6 @@
 @property(nonatomic,strong)WLANSettingView  * wLANSettingView;
 @property(nonatomic,strong)SecurityCenterView * securityCenterView;
 @property(nonatomic,strong)DeviceListView * deviceListView;
+@property(nonatomic,strong)RouterStatusView * routerStatusView;
 
 @end

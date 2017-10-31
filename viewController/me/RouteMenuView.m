@@ -87,6 +87,8 @@
     //  [self loadNav];
     self.wLANSettingView = [[WLANSettingView alloc]init];
     self.securityCenterView = [[SecurityCenterView alloc]init];
+    self.deviceListView = [[DeviceListView alloc]init];
+    self.routerStatusView = [[RouterStatusView alloc]init];
     scrollView = [[UIScrollView alloc]init];
     colorView = [[UIImageView alloc]init];
     routeImage = [[UIImageView alloc]init];
@@ -1509,7 +1511,33 @@
     }
     else if (tagIndex == 3){
         
-        NSLog(@"点击了第三个按钮");
+        if(![self.navigationController.topViewController isKindOfClass:[self.deviceListView class]]) {
+            [self.navigationController pushViewController:self.deviceListView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
+        NSLog(@"self.navigationController %@",self.navigationController );
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        
+        
+        self.deviceListView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.deviceListView.navigationItem.leftBarButtonItem = myButton;
+    }
+    else if (tagIndex == 4){
+        
+        if(![self.navigationController.topViewController isKindOfClass:[self.routerStatusView class]]) {
+            [self.navigationController pushViewController:self.routerStatusView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
+        NSLog(@"self.navigationController %@",self.navigationController );
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        
+        
+        self.routerStatusView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.routerStatusView.navigationItem.leftBarButtonItem = myButton;
     }
     
 //    if (tagIndex == 6) {
