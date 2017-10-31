@@ -9,11 +9,16 @@
 
 #define EDITWIDTH  17
 #define ROUTENAME_Y  66
+#define reStartTip  @"The router is restarting , the current network will be disconnected,please reconnect StarTimes ONE after restart"
 @interface RouteMenuView ()
 {
 
     NSString * deviceString;     //用于判断手机型号
     NSString * DMSIP;
+    UIAlertView * rebootAlert;
+    NSDictionary * deviceDic;
+    MBProgressHUD * HUD;
+    UIAlertView *restartingAlert;
 }
 @end
 
@@ -120,12 +125,8 @@
     btnLab6 = [[UILabel alloc]init];
     
     generalSettingLab = [[UILabel alloc]init];
-//    centerGrayView = [[UIView alloc]init];
-//    connectDevice = [[UILabel alloc]init];
-//
-//    HUD = [[MBProgressHUD alloc]init];
-//    netWorkErrorView = [[UIView alloc]init];
-//    tableView = [[UITableView alloc]init];
+
+    rebootAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to reboot?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
 }
 -(void)loadScroll
 {
@@ -1555,7 +1556,15 @@
         self.backupRestoreView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         self.backupRestoreView.navigationItem.leftBarButtonItem = myButton;
     }
-    
+    else if (tagIndex == 6){
+        
+        //reboot
+        //弹窗
+       
+        [rebootAlert show];
+        
+        
+    }
 //    if (tagIndex == 6) {
 //        //进入历史界面
 //        //    self.tableView.editing = YES;
@@ -1800,4 +1809,102 @@
 ////
 ////
 ////}
+
+#pragma mark - 弹窗点击事件
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+   
+        if(buttonIndex == 1)
+        {
+            
+        }else{
+            
+            //验证
+            [self rebootOKClick];
+            
+            
+        }
+}
+-(void)rebootOKClick
+{
+    NSLog(@"dandkjasdabdas");
+    
+    DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
+    
+    if (DMSIP != nil && DMSIP != NULL && DMSIP.length > 0) {
+        
+    }else
+    {
+        return;
+    }
+    
+    //获取数据的链接
+    NSString * url =[NSString stringWithFormat:@"http://%@/lua/update/reboot",DMSIP];
+    
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    [request setNumberOfTimesToRetryOnTimeout:5];
+    request.delegate = self;
+    
+    [request startAsynchronous ];
+    
+//    [request setStartedBlock:^{
+//        //请求开始的时候调用
+//        //用转圈代替
+//
+//
+//        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//
+//        //如果设置此属性则当前的view置于后台
+//
+//        [HUD showAnimated:YES];
+//
+//
+//        //设置对话框文字
+//
+//        HUD.labelText = @"loading";
+//        //        NSLog(@"scroller : %@",scrollView);
+//        NSLog(@"HUD : %@",HUD);
+//        [self.view addSubview:HUD];
+//
+//
+//        NSLog(@"请求开始的时候调用");
+//    }];
+    
+    
+    
+    [request setCompletionBlock:^{
+        
+        NSArray *onlineDeviceDic = [request responseData].JSONValue;
+        deviceDic = onlineDeviceDic;
+        NSLog(@"deviceDic :%@",deviceDic);
+        
+        
+        if ([deviceDic objectForKey:@"result"] != NULL || [deviceDic objectForKey:@"result"] != nil) {
+            if ([[deviceDic objectForKey:@"code"] isEqual:@0] ) {
+               //成功，显示图片
+                
+                
+                restartingAlert = [[UIAlertView alloc] initWithTitle:@"Restarting"
+                                                    message:reStartTip delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
+                
+                [restartingAlert show];
+                
+                //加入断网消息，如果网络断开，则显示没有网络界面
+                
+            }else
+            {
+               //重启失败
+            }
+
+        }
+        
+    }];
+    
+    
+    
+    
+    
+    
+    
+}
 @end
