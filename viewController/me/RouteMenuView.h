@@ -10,6 +10,7 @@
 #import "SecurityCenterView.h"
 #import "DeviceListView.h"
 #import "RouterStatusView.h"
+#import "BackupRestoreView.h"
 
 @interface RouteMenuView : UIViewController<UIScrollViewDelegate>
 
@@ -51,5 +52,5 @@
 @property(nonatomic,strong)SecurityCenterView * securityCenterView;
 @property(nonatomic,strong)DeviceListView * deviceListView;
 @property(nonatomic,strong)RouterStatusView * routerStatusView;
-
+@property(nonatomic,strong)BackupRestoreView * backupRestoreView; 
 @end

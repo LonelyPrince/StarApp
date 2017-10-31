@@ -388,6 +388,10 @@
 		704524DC1FA6BA1400E6DB3B /* 设备@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112D1FA6BA0400E6DB3B /* 设备@3x.png */; };
 		704534331FA6EBEE00E6DB3B /* RouterStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 704534311FA6EBEE00E6DB3B /* RouterStatusView.m */; };
 		704534341FA6EBEE00E6DB3B /* RouterStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */; };
+		704534631FA80DDC00E6DB3B /* BackupRestoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 704534621FA80DDC00E6DB3B /* BackupRestoreView.m */; };
+		704534681FA82B2C00E6DB3B /* 备份还原@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704534651FA82B2C00E6DB3B /* 备份还原@3x.png */; };
+		704534691FA82B2C00E6DB3B /* 备份还原@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704534661FA82B2C00E6DB3B /* 备份还原@2x.png */; };
+		7045346A1FA82B2C00E6DB3B /* 备份还原@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704534671FA82B2C00E6DB3B /* 备份还原@1x.png */; };
 		704582F51D9A193D0061C154 /* GGUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 704582F41D9A193D0061C154 /* GGUtil.m */; };
 		704582F81D9A63170061C154 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ABC93DB1A295C7D0070697C /* Images.xcassets */; };
 		7045830A1D9D04CE0061C154 /* DeviceManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704583081D9D04CE0061C154 /* DeviceManageViewController.m */; };
@@ -1162,6 +1166,11 @@
 		704534301FA6EBEE00E6DB3B /* RouterStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouterStatusView.h; sourceTree = "<group>"; };
 		704534311FA6EBEE00E6DB3B /* RouterStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterStatusView.m; sourceTree = "<group>"; };
 		704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouterStatusView.xib; sourceTree = "<group>"; };
+		704534611FA80DDC00E6DB3B /* BackupRestoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackupRestoreView.h; sourceTree = "<group>"; };
+		704534621FA80DDC00E6DB3B /* BackupRestoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackupRestoreView.m; sourceTree = "<group>"; };
+		704534651FA82B2C00E6DB3B /* 备份还原@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "备份还原@3x.png"; sourceTree = "<group>"; };
+		704534661FA82B2C00E6DB3B /* 备份还原@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "备份还原@2x.png"; sourceTree = "<group>"; };
+		704534671FA82B2C00E6DB3B /* 备份还原@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "备份还原@1x.png"; sourceTree = "<group>"; };
 		704582F31D9A193D0061C154 /* GGUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGUtil.h; sourceTree = "<group>"; };
 		704582F41D9A193D0061C154 /* GGUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGUtil.m; sourceTree = "<group>"; };
 		704583071D9D04CE0061C154 /* DeviceManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManageViewController.h; sourceTree = "<group>"; };
@@ -2009,6 +2018,8 @@
 				704534301FA6EBEE00E6DB3B /* RouterStatusView.h */,
 				704534311FA6EBEE00E6DB3B /* RouterStatusView.m */,
 				704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */,
+				704534611FA80DDC00E6DB3B /* BackupRestoreView.h */,
+				704534621FA80DDC00E6DB3B /* BackupRestoreView.m */,
 			);
 			name = Route;
 			sourceTree = "<group>";
@@ -2016,6 +2027,7 @@
 		70231CA41DC0FE8C00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				704534641FA82B0700E6DB3B /* Backup&Restore */,
 				7045112A1FA6B98200E6DB3B /* DeviceList */,
 				70261E1D1FA1F62900D7F4F0 /* 路由无网络@1x.png */,
 				70261E1E1FA1F62900D7F4F0 /* 路由无网络@2x.png */,
@@ -2391,6 +2403,16 @@
 				7045112D1FA6BA0400E6DB3B /* 设备@3x.png */,
 			);
 			name = DeviceList;
+			sourceTree = "<group>";
+		};
+		704534641FA82B0700E6DB3B /* Backup&Restore */ = {
+			isa = PBXGroup;
+			children = (
+				704534671FA82B2C00E6DB3B /* 备份还原@1x.png */,
+				704534661FA82B2C00E6DB3B /* 备份还原@2x.png */,
+				704534651FA82B2C00E6DB3B /* 备份还原@3x.png */,
+			);
+			name = "Backup&Restore";
 			sourceTree = "<group>";
 		};
 		704583051D9D049B0061C154 /* DeviceManage */ = {
@@ -2974,6 +2996,7 @@
 				70362D101F009E4B0012A309 /* New圆环-1@2x.png in Resources */,
 				70231CC71DC0FE8C00F73202 /* on@2x.png in Resources */,
 				70362CFB1F009CCD0012A309 /* placeholder1@2x.png in Resources */,
+				704534691FA82B2C00E6DB3B /* 备份还原@2x.png in Resources */,
 				70D6B8F01E2DAF3D00957A81 /* 个性化@3x.png in Resources */,
 				7040E1B91DAE10890063DB66 /* categorys@1x.png in Resources */,
 				701078691F96DAF800593014 /* WLAN-Settings@2x.png in Resources */,
@@ -3211,6 +3234,7 @@
 				707FE7601DACC3C30087C361 /* time@3x.png in Resources */,
 				702CE4331DDA9881000A0513 /* 2.png in Resources */,
 				70362D401F00A0180012A309 /* Guide@1x.png in Resources */,
+				704534681FA82B2C00E6DB3B /* 备份还原@3x.png in Resources */,
 				701A98A61DB47A3100460220 /* lock@2x.png in Resources */,
 				707FE7451DACC3C30087C361 /* live icon copy@3x.png in Resources */,
 				70FC30E81D75714E00BD06FE /* zx-video-banner-back@2x.png in Resources */,
@@ -3315,6 +3339,7 @@
 				701078D31F98418D00593014 /* SSID@3x.png in Resources */,
 				70FFE3D11DE2D07600223E43 /* 圆环-5.png in Resources */,
 				70FC30E41D75714E00BD06FE /* kr-video-player-point@3x.png in Resources */,
+				7045346A1FA82B2C00E6DB3B /* 备份还原@1x.png in Resources */,
 				70D6B90F1E2DAF3D00957A81 /* South African@1x.png in Resources */,
 				70FFE3FA1DE3EF4800223E43 /* 分发@2x.png in Resources */,
 				7040E2461DAE12B80063DB66 /* Viasat-Nature-logo@2x.png in Resources */,
@@ -3601,6 +3626,7 @@
 				7024C5E51DD2C5960053F313 /* DeviceManageController.m in Sources */,
 				70231CFD1DC1EC0F00F73202 /* HistoryViewController.m in Sources */,
 				60CAD2A5159C461300B7E28C /* UPnPTableViewCell.m in Sources */,
+				704534631FA80DDC00E6DB3B /* BackupRestoreView.m in Sources */,
 				709746771D6D8E3F002E7A39 /* Singleton.m in Sources */,
 				701077EA1F95B70800593014 /* RouteMenuView.m in Sources */,
 				A48574B715A3155500294C34 /* DLNAPlaybackViewController.m in Sources */,

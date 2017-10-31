@@ -89,6 +89,7 @@
     self.securityCenterView = [[SecurityCenterView alloc]init];
     self.deviceListView = [[DeviceListView alloc]init];
     self.routerStatusView = [[RouterStatusView alloc]init];
+    self.backupRestoreView = [[BackupRestoreView alloc]init];
     scrollView = [[UIScrollView alloc]init];
     colorView = [[UIImageView alloc]init];
     routeImage = [[UIImageView alloc]init];
@@ -1538,6 +1539,21 @@
         
         self.routerStatusView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         self.routerStatusView.navigationItem.leftBarButtonItem = myButton;
+    }
+    else if (tagIndex == 5){
+        
+        if(![self.navigationController.topViewController isKindOfClass:[self.backupRestoreView class]]) {
+            [self.navigationController pushViewController:self.backupRestoreView animated:YES];
+        }else
+        {
+            NSLog(@"此处可能会由于页面跳转过快报错");
+        }
+        NSLog(@"self.navigationController %@",self.navigationController );
+        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+        
+        
+        self.backupRestoreView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        self.backupRestoreView.navigationItem.leftBarButtonItem = myButton;
     }
     
 //    if (tagIndex == 6) {
