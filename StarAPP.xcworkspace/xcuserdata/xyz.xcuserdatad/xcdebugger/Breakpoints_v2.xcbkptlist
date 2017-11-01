@@ -392,7 +392,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "529552476.622711"
+            timestampString = "531216976.613199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "347"
@@ -408,7 +408,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "529552476.623397"
+            timestampString = "531216976.613273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1522"
@@ -807,24 +807,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/me/RouteSingIn.m"
-            timestampString = "531142253.485503"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1443"
-            endingLineNumber = "1443"
-            landmarkName = "-showNetWorkErrorView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ext/Singleton.m"
-            timestampString = "531043199.500452"
+            timestampString = "531216976.613587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "218"
@@ -942,6 +926,38 @@
             startingLineNumber = "1843"
             endingLineNumber = "1843"
             landmarkName = "-rebootOKClick"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/me/RouteSingIn.m"
+            timestampString = "531216976.614064"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-getWifiInfo"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/me/RouteSingIn.m"
+            timestampString = "531216976.614312"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -1408,7 +1408,7 @@
     NSLog(@"测试播放33333333333333");
 }
 
-//对socket读取文件进行操作   case = 24
+//获得路由器自己的IP地址   case = 24
 -(void)readSocketCommandTypeISTwentyFour :(NSData *)dataToOperate
 {
     

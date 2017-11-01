@@ -38,5 +38,12 @@
 @property(nonatomic,strong)NSDictionary * wifiIP;  //wifi IP地址
 @property(nonatomic,strong)NSDictionary * wifiPwd;  //wifi 密码
 
+@property(nonatomic,strong)UIView * NetWorkErrorView;
+@property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
+@property(nonatomic,strong)UILabel * NetWorkErrorLab;
+
+@property(nonatomic,strong)NSTimer * timerForASIHttp;
+
+
 
 @end

@@ -61,13 +61,32 @@
     [self initData];
 //    [self loadScroll];
 //    [self loadUI];
+
+    //网络回复连接通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsConnectNotice" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showView) name:@"netWorkIsConnectNotice" object:nil];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     
     [self addHud];
+    [self addTimer];
     [self getCurrentWifi];
     [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+    
+//    [self performSelector:@selector(showNetWorkErrorView) withObject:self afterDelay:5];
+//    [self performSelector:@selector(disNetWorkErrorView) withObject:self afterDelay:10];
+}
+-(void)addTimer
+{
+    
+    NSLog(@"jba;sdb;absdjbas;db");
+    //如果15秒内没有数据，则显示没有网络的图
+    if (self.timerForASIHttp == nil) {
+        self.timerForASIHttp = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(showNetWorkErrorView) userInfo:nil repeats:NO];
+        
+    }
     
 }
 -(void)addHud
@@ -95,7 +114,9 @@
     //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
     
     ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
-    
+    request.timeOutSeconds = 10;
+    request.delegate = self;
+
     [request startAsynchronous ];
     
     //    NSError *error = [request error ];
@@ -111,10 +132,10 @@
         [USER_DEFAULT setObject:onlineWifi forKey:@"WiFiInfo"];
     }];
     
-    
-    
+   
     
 }
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [inputText resignFirstResponder];
     [confirmText resignFirstResponder];
@@ -122,6 +143,10 @@
 }
 -(void)initData
 {
+    self.NetWorkErrorView = [[UIView alloc]init];
+    self.NetWorkErrorImageView = [[UIImageView alloc]init];
+    self.NetWorkErrorLab = [[UILabel alloc]init];
+    
     self.title = @"Router Setting";
     deviceString = [GGUtil deviceVersion];
     self.routeMenuView = [[RouteMenuView alloc]init];
@@ -292,7 +317,7 @@
             
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -753,9 +778,9 @@
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     ///创建通知，用于判断网络是否正常
-    //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
-    //    //注册通知
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
     //
 }
 //显示无网络的状态图
@@ -824,9 +849,9 @@
     
     
 }
+#pragma mark - 获取连接，并且判断是不是需要显示密码设置界面还是下是登录界面
 -(void)getCurrentWifi
 {
-    
     //获取数据的链接
     NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/getLoginPasswd",DMSIP];
     //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
@@ -863,8 +888,9 @@
     
     
     [request setCompletionBlock:^{
-        //1.取消掉加载圈
-        [self hudHidden];
+        
+        [self disNetWorkErrorView];
+        
         //添加securityImageView 顶部图标
         [self.view addSubview:securityImageView];
         
@@ -997,46 +1023,46 @@
     
     
     
-    //    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-    //    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-    //        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-    //        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-    //        if (character < 45)
-    //        {
+    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    //        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+    //            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+    //            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+    //            if (character < 45)
+    //            {
     //
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; // 48 unichar for 0..
-    //        }
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; // 48 unichar for 0..
+    //            }
     //
-    //        if (character > 45 && character < 48)
-    //        {
+    //            if (character > 45 && character < 48)
+    //            {
     //
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; // 48 unichar for 0..
-    //        }
-    //        if (character > 57 && character < 65)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //        if (character > 90 && character < 95)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //        if (character > 95 && character < 97)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
-    //        if (character > 122)
-    //        {
-    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //            return NO; //
-    //        }
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; // 48 unichar for 0..
+    //            }
+    //            if (character > 57 && character < 65)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 90 && character < 95)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 95 && character < 97)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 122)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
     //
     //
-    //    }
+    //        }
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {
@@ -1047,6 +1073,46 @@
     
     
 }
+#pragma mark - 防止textfield删除时，如果遇到密码模式，则单个删除，否则系统会一次全部删除（但是会引起textFiledEditChanged方法不执行）
+//-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    //得到输入框的内容
+//    NSString * textfieldContent = [textField.text stringByReplacingCharactersInRange:range withString:string];
+////    NSLog(@"textField %@",textField);
+////    NSLog(@"textFieldconfirmText %@",confirmText);
+////    NSLog(@"textFieldconfirmText2 %@",setNewRouteText);
+////    NSLog(@"textFieldconfirmText3 %@",inputText);
+////    if (textField == confirmText && [textField isEqual: setNewRouteText ]&& textField == inputText && textField && textField.secureTextEntry) {
+//    NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
+//    if (proposedNewLength > 16) {
+//        textField.text = [textfieldContent substringToIndex:16];
+//        return NO;//限制长度
+//    }else
+//    {
+//        textField.text = textfieldContent;
+//        return NO;
+//
+//    }
+//
+//
+////    return YES;
+//
+//
+//
+////    NSString *toBeString = textField.text;
+////
+////
+////    // Check for total length
+////    NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
+////    if (proposedNewLength > 16) {
+////        textField.text = [toBeString substringToIndex:16];
+////        return NO;//限制长度
+////    }
+////    return YES;
+//
+//
+//
+//}
 -(void)judgeIsTrue{
     
     //获取数据的链接
@@ -1371,20 +1437,104 @@
     self.routeMenuView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
     self.routeMenuView.navigationItem.leftBarButtonItem = myButton;
 }
-#pragma mark - 防止textfield删除时，如果遇到密码模式，则单个删除，否则系统会一次全部删除
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+
+
+#pragma mark - 加载无网络图
+-(void)showNetWorkErrorView
 {
-    //得到输入框的内容
-    NSString * textfieldContent = [textField.text stringByReplacingCharactersInRange:range withString:string];
-//    NSLog(@"textField %@",textField);
-//    NSLog(@"textFieldconfirmText %@",confirmText);
-//    NSLog(@"textFieldconfirmText2 %@",setNewRouteText);
-//    NSLog(@"textFieldconfirmText3 %@",inputText);
-//    if (textField == confirmText && [textField isEqual: setNewRouteText ]&& textField == inputText && textField && textField.secureTextEntry) {
-        textField.text = textfieldContent;
-        return NO;
-//    }
-//    return YES;
+    NSLog(@"showNetWorkErroshowNetWorkErrorVasdadsads");
+    //1.取消掉加载圈
+    [self hudHidden];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.timerForASIHttp invalidate];
+        self.timerForASIHttp = nil;
+    
+    });
+    
+    if (self.NetWorkErrorView == nil) {
+        self.NetWorkErrorView = [[UIView alloc]init];
+    }
+    if (self.NetWorkErrorImageView == nil) {
+        self.NetWorkErrorImageView = [[UIImageView alloc]init];
+    }
+    if (self.NetWorkErrorLab == nil) {
+        self.NetWorkErrorLab = [[UILabel alloc]init];
+    }
+    self.NetWorkErrorView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.NetWorkErrorView.backgroundColor = [UIColor whiteColor];
+    
+    
+    self.NetWorkErrorImageView.frame =CGRectMake((SCREEN_WIDTH - 139*0.5)/2, (SCREEN_HEIGHT - 90)/2, 139*0.5, 110*0.5);
+    self.NetWorkErrorImageView.image = [UIImage imageNamed:@"路由无网络"];
+    
+    
+    self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
+    self.NetWorkErrorLab.text = @"NetWork Error";
+    self.NetWorkErrorLab.font = FONT(15);
+    
+    
+    
+    
+
+    [self.view addSubview:self.NetWorkErrorView];
+    [self.NetWorkErrorView addSubview:self.NetWorkErrorImageView];
+    [self.NetWorkErrorView addSubview:self.NetWorkErrorLab];
+    
+    
+}
+
+-(void)disNetWorkErrorView
+{
+    //1.取消掉加载圈
+    [self hudHidden];
+    
+    
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.timerForASIHttp invalidate];
+        self.timerForASIHttp = nil;
+    NSLog(@"self.timerForASIHttpself.timerForASIHttp %@",self.timerForASIHttp);
+    NSLog(@"disNetWorkErrorVdisNetWorkErrorV");
+    [self.NetWorkErrorView removeFromSuperview];
+    [self.NetWorkErrorImageView removeFromSuperview];
+    [self.NetWorkErrorLab removeFromSuperview];
+    
+        NSLog(@"self.NetWorkErrorLab %@",self.NetWorkErrorLab);
+    [self.NetWorkErrorView removeFromSuperview];
+    [self.NetWorkErrorImageView removeFromSuperview];
+    [self.NetWorkErrorLab removeFromSuperview];
+    NSLog(@"self.NetWorkErrorLab %@",self.NetWorkErrorLab);
+    self.NetWorkErrorView = nil;
+    self.NetWorkErrorImageView = nil;
+    self.NetWorkErrorLab = nil;
+    
+    self.NetWorkErrorView = nil;
+    self.NetWorkErrorImageView = nil;
+    self.NetWorkErrorLab = nil;
+    
+    NSLog(@"self.NetWorkErrorView %@",self.NetWorkErrorView);
+    NSLog(@"NetWorkErrorImageView %@",self.NetWorkErrorImageView);
+        
+        
+//        [self addHud];
+//        [self getCurrentWifi];
+//        [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+        
+//        [self viewWillAppear:YES];
+        
+    });
+}
+
+#pragma mark - 取消掉网络错误图片，展示页面
+-(void)showView
+{
+    [self disNetWorkErrorView];
+    
+    //////////
+    [self initNotific];
+    
+    
 }
 @end
 
