@@ -901,6 +901,7 @@
     }
     
     NSLog(@"点击了眼睛按钮");
+    [setPswText becomeFirstResponder];
 }
 -(BOOL)textFiledEditChanged:(NSNotification *)obj{
     UITextField *textField = (UITextField *)obj.object;
