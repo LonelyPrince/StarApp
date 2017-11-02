@@ -750,52 +750,57 @@
         NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
         
         [request setPostBody:tempJsonData];
-        [request startSynchronous];
-        NSError *error1 = [request error];
-        if (!error1) {
-            //        NSString *response = [request responseString];
-            //        NSLog(@"Test：%@",response);
-            //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
-            //            NSString *response = [request responseString];
-            
-            NSData *data = [request responseData];
-            
-            if ([data isEqual:NULL] || data == nil ) {
-                return;
-            }
-            NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"resDict %@",resDict);
-            NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
-            if ([[resDict objectForKey:@"code"] isEqual:@1]) {
-                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
-                [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
-                [registerPwdTip show];
+//        [request startSynchronous];
+        [request startAsynchronous];
+        [request setCompletionBlock:^{
+        
+            NSError *error1 = [request error];
+            if (!error1) {
+                //        NSString *response = [request responseString];
+                //        NSLog(@"Test：%@",response);
+                //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
+                //            NSString *response = [request responseString];
                 
-            }else if ([[resDict objectForKey:@"code"] isEqual:@2])
-            {
-                [registerPwdTip setMessage:[NSString stringWithFormat:code2]];
-                [registerPwdTip show];
-            }else if ([[resDict objectForKey:@"code"] isEqual:@3])
-            {
-                [registerPwdTip setMessage:[NSString stringWithFormat:code3]];
-                [registerPwdTip show];
-            }else if ([[resDict objectForKey:@"code"] isEqual:@4])
-            {
-                [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
-                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
-                [registerPwdTip show];
-            }else if ([[resDict objectForKey:@"code"] isEqual:@0])
-            {
-                [registerPwdTip setMessage:[NSString stringWithFormat:code0]];
-                [registerPwdTip show];
+                NSData *data = [request responseData];
                 
-//                [self judgeNextView];
+                if ([data isEqual:NULL] || data == nil ) {
+                    return;
+                }
+                NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+                NSLog(@"resDict %@",resDict);
+                NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
+                if ([[resDict objectForKey:@"code"] isEqual:@1]) {
+                    //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+                    [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
+                    [registerPwdTip show];
+                    
+                }else if ([[resDict objectForKey:@"code"] isEqual:@2])
+                {
+                    [registerPwdTip setMessage:[NSString stringWithFormat:code2]];
+                    [registerPwdTip show];
+                }else if ([[resDict objectForKey:@"code"] isEqual:@3])
+                {
+                    [registerPwdTip setMessage:[NSString stringWithFormat:code3]];
+                    [registerPwdTip show];
+                }else if ([[resDict objectForKey:@"code"] isEqual:@4])
+                {
+                    [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
+                    //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+                    [registerPwdTip show];
+                }else if ([[resDict objectForKey:@"code"] isEqual:@0])
+                {
+                    [registerPwdTip setMessage:[NSString stringWithFormat:code0]];
+                    [registerPwdTip show];
+                    
+                    //                [self judgeNextView];
+                }
+                
+                
+                
+                
             }
-            
-            
-            
-            
-        }
+        }];
+
     }
     
     

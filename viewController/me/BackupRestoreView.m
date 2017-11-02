@@ -425,7 +425,9 @@
 //        NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
 //
         [request setPostBody:NULL];
-        [request startSynchronous];
+    //        [request startSynchronous];
+    [request startAsynchronous];
+    [request setCompletionBlock:^{
         NSError *error1 = [request error];
         if (!error1) {
             //        NSString *response = [request responseString];
@@ -441,7 +443,7 @@
             NSLog(@"resDict %@",resDict);
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {//失败
-
+                
                 NSLog(@"备份失败");
                 NSLog(@"code code 1");
                 hudType = @"backup";
@@ -451,18 +453,21 @@
             }
             else if ([[resDict objectForKey:@"code"] isEqual:@0]) //成功
             {
-
+                
                 NSLog(@"备份成功");
                 NSLog(@"code code 0");
                 hudType = @"backup";
                 [self showSuccessHUD];
                 
+                 [self updateBackupInfo];
             }
-                
+            
             
             
             
         }
+    }];
+
    
     
     
@@ -559,45 +564,49 @@
     [request setRequestMethod:@"POST"];
    
     [request setPostBody:NULL];
-    [request startSynchronous];
-    NSError *error1 = [request error];
-    if (!error1) {
-        //        NSString *response = [request responseString];
-        //        NSLog(@"Test：%@",response);
-        //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
-        //            NSString *response = [request responseString];
-        
-        NSData *data = [request responseData];
-        if ([data isEqual:NULL] || data == nil ) {
-            return;
+    //        [request startSynchronous];
+    [request startAsynchronous];
+    [request setCompletionBlock:^{
+        NSError *error1 = [request error];
+        if (!error1) {
+            //        NSString *response = [request responseString];
+            //        NSLog(@"Test：%@",response);
+            //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
+            //            NSString *response = [request responseString];
+            
+            NSData *data = [request responseData];
+            if ([data isEqual:NULL] || data == nil ) {
+                return;
+            }
+            NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"resDict %@",resDict);
+            NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
+            if ([[resDict objectForKey:@"code"] isEqual:@1]) {//失败
+                
+                NSLog(@"备份失败");
+                NSLog(@"code code 1");
+                hudType = @"restore";
+                [self showFailHUD];
+                
+                
+            }
+            else if ([[resDict objectForKey:@"code"] isEqual:@0]) //成功
+            {
+                
+                NSLog(@"备份成功");
+                NSLog(@"code code 0");
+                hudType = @"restore";
+                [self showSuccessHUD];
+                
+//                [self updateBackupInfo];
+            }
+            
+            
+            
+            
         }
-        NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        NSLog(@"resDict %@",resDict);
-        NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
-        if ([[resDict objectForKey:@"code"] isEqual:@1]) {//失败
-            
-            NSLog(@"备份失败");
-            NSLog(@"code code 1");
-            hudType = @"restore";
-            [self showFailHUD];
-            
-            
-        }
-        else if ([[resDict objectForKey:@"code"] isEqual:@0]) //成功
-        {
-            
-            NSLog(@"备份成功");
-            NSLog(@"code code 0");
-            hudType = @"restore";
-            [self showSuccessHUD];
-            
-            
-        }
-        
-        
-        
-        
-    }
+    }];
+    
     
     
     
@@ -676,6 +685,103 @@
     
     
     self.tabBarController.tabBar.hidden = YES;
+    
+}
+
+-(void)updateBackupInfo
+{
+    
+    //获取数据的链接
+    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/backup",DMSIP];
+    //    NSString *url = [NSString stringWithFormat:@"%@",G_device];
+    //    NSString *url = [NSString stringWithFormat:@"%@",G_device];
+    
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    [request setNumberOfTimesToRetryOnTimeout:5];
+    [request startAsynchronous ];
+    
+    
+    [request setStartedBlock:^{
+        //请求开始的时候调用
+        //用转圈代替
+        
+        
+        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        //如果设置此属性则当前的view置于后台
+        
+        [HUD showAnimated:YES];
+        
+        
+        //设置对话框文字
+        
+        HUD.labelText = @"loading";
+        //        NSLog(@"scroller : %@",scrollView);
+        NSLog(@"HUD : %@",HUD);
+        [self.view addSubview:HUD];
+        
+        
+        NSLog(@"请求开始的时候调用");
+    }];
+    
+    
+    
+    [request setCompletionBlock:^{
+        
+        NSArray *onlineDeviceDic = [request responseData].JSONValue;
+        deviceDic = onlineDeviceDic;
+        NSLog(@"deviceDic :%@",deviceDic);
+        if (deviceDic.count == 0|| deviceDic ==NULL ) {
+            
+            NSLog(@"请求失败的时候调用");
+            
+            [HUD removeFromSuperview];
+            HUD = nil;
+            
+            netWorkErrorView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
+            hudImage.image = [UIImage imageNamed:@"网络无连接"];
+            
+            CGSize size = [GGUtil sizeWithText:@"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+            hudLab.text = @"Network Error";
+            hudLab.font = FONT(15);
+            hudLab.textColor = [UIColor grayColor];
+            
+            //        [scrollView addSubview:netWorkErrorView];
+            //            [scrollView addSubview:netWorkErrorView];
+            [self.view addSubview:netWorkErrorView];
+            [netWorkErrorView addSubview:hudImage];
+            [netWorkErrorView addSubview:hudLab];
+            
+        }else
+        {
+            [HUD removeFromSuperview];
+            HUD = nil;
+            [netWorkErrorView removeFromSuperview];
+            netWorkErrorView = nil;
+            
+            NSError *error = [request error ];
+            assert (!error);
+            // 如果请求成功，返回 Response
+            NSLog ( @"request:%@" ,request);
+            
+            BackupStatusString = @"";
+            if ([deviceDic objectForKey:@"backup"] != NULL || [deviceDic objectForKey:@"backup"] != nil) {
+                if (![[deviceDic objectForKey:@"backup"] isEqualToString:@"no backup data"] ) {
+                    backUPLab.text = [deviceDic objectForKey:@"backup"];
+                }else
+                {
+                    backUPLab.text = NOBackUP;
+                }
+                BackupStatusString = backUPLab.text;
+                
+            }
+            
+            
+        }
+    }];
+
     
 }
 @end
