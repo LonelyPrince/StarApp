@@ -809,40 +809,43 @@
         NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
         [request setPostBody:tempJsonData];
         [request startAsynchronous];
-        NSError *error1 = [request error];
+//[request startSynchronous];
+//        NSError *error1 = [request error];
     
     
-    
-    
-        NSData *data = [request responseData];
-        NSLog(@" data--data %@",data);
-      
-        if ([data isEqual:NULL] || data == nil ) {
-            return;
-        }
-        
-        NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-                NSLog(@"222detailDic %@",resDict);
-        //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-
-       NSString * str = [resDict objectForKey:@"result"];
-        if ([[resDict objectForKey:@"code"] isEqual:@3] || [[resDict objectForKey:@"code"] isEqual:@4]) {
-            alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-            [alertView addButtonWithTitle:@"Confirm"];
-            [alertView show];
+        [request setCompletionBlock:^{
+            NSData *data = [request responseData];
+            NSLog(@" data--data %@",data);
             
-        }else if ([str isEqualToString:@"failed"]) {
-            alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-            [alertView addButtonWithTitle:@"Confirm"];
-            [alertView show];
-        }else if ([str isEqualToString:@"success"])
-        {
-            alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-            [alertView addButtonWithTitle:@"Confirm"];
-            [alertView show];
-        }
-        
+            if ([data isEqual:NULL] || data == nil ) {
+                return;
+            }
+            
+            NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"222detailDic %@",resDict);
+            //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            
+            NSString * str = [resDict objectForKey:@"result"];
+            if ([[resDict objectForKey:@"code"] isEqual:@3] || [[resDict objectForKey:@"code"] isEqual:@4]) {
+                alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alertView addButtonWithTitle:@"Confirm"];
+                [alertView show];
+                
+            }else if ([str isEqualToString:@"failed"]) {
+                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alertView addButtonWithTitle:@"Confirm"];
+                [alertView show];
+            }else if ([str isEqualToString:@"success"])
+            {
+                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alertView addButtonWithTitle:@"Confirm"];
+                [alertView show];
+            }
+            
             NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
+        }];
+    
+      
 //    if (!error1) {
 //        //        NSString *response = [request responseString];
 //        //        NSLog(@"Test：%@",response);
