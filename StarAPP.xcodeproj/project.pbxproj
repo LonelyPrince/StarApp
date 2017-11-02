@@ -63,7 +63,6 @@
 		7010787C1F96F02000593014 /* 顶部@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078791F96F02000593014 /* 顶部@3x.png */; };
 		701078B41F98355900593014 /* WLANSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 701078B31F98355800593014 /* WLANSettingView.m */; };
 		701078C51F98418D00593014 /* 密码@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078B61F98418A00593014 /* 密码@3x.png */; };
-		701078C61F98418D00593014 /* 明文显示@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078B71F98418B00593014 /* 明文显示@2x.png */; };
 		701078C71F98418D00593014 /* 顶部icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078B81F98418B00593014 /* 顶部icon@3x.png */; };
 		701078C81F98418D00593014 /* 密文@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078B91F98418B00593014 /* 密文@1x.png */; };
 		701078C91F98418D00593014 /* 顶部icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078BA1F98418B00593014 /* 顶部icon@2x.png */; };
@@ -72,9 +71,7 @@
 		701078CC1F98418D00593014 /* 密文@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078BD1F98418B00593014 /* 密文@2x.png */; };
 		701078CD1F98418D00593014 /* 密码@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078BE1F98418C00593014 /* 密码@2x.png */; };
 		701078CE1F98418D00593014 /* SSID@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078BF1F98418C00593014 /* SSID@1x.png */; };
-		701078CF1F98418D00593014 /* 明文显示@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C01F98418C00593014 /* 明文显示@1x.png */; };
 		701078D01F98418D00593014 /* 顶部icon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C11F98418C00593014 /* 顶部icon@1x.png */; };
-		701078D11F98418D00593014 /* 明文显示@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C21F98418C00593014 /* 明文显示@3x.png */; };
 		701078D31F98418D00593014 /* SSID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701078C41F98418C00593014 /* SSID@3x.png */; };
 		701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */; };
 		701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 701294E11D80F4A3003139D5 /* NSObject+JSONCategories.m */; };
@@ -559,6 +556,9 @@
 		70EFCAF21E0A7C22003EAE08 /* 无历史@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70EFCAEF1E0A7C22003EAE08 /* 无历史@1x.png */; };
 		70EFCAF31E0A7C22003EAE08 /* 无历史@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70EFCAF01E0A7C22003EAE08 /* 无历史@2x.png */; };
 		70EFCAF41E0A7C22003EAE08 /* 无历史@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70EFCAF11E0A7C22003EAE08 /* 无历史@3x.png */; };
+		70F0C4F91FAAC7D50054669B /* 明文显示@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0C4F61FAAC7D40054669B /* 明文显示@1x.png */; };
+		70F0C4FA1FAAC7D50054669B /* 明文显示@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0C4F71FAAC7D50054669B /* 明文显示@2x.png */; };
+		70F0C4FB1FAAC7D50054669B /* 明文显示@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0C4F81FAAC7D50054669B /* 明文显示@3x.png */; };
 		70F9B99F1DD4508B00A62200 /* RouteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F9B99D1DD4508B00A62200 /* RouteCell.m */; };
 		70F9B9A01DD4508B00A62200 /* RouteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B99E1DD4508B00A62200 /* RouteCell.xib */; };
 		70F9B9A51DD452A300A62200 /* routenoKnow@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F9B9A21DD452A300A62200 /* routenoKnow@1x.png */; };
@@ -785,7 +785,6 @@
 		701078B21F98355800593014 /* WLANSettingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLANSettingView.h; sourceTree = "<group>"; };
 		701078B31F98355800593014 /* WLANSettingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLANSettingView.m; sourceTree = "<group>"; };
 		701078B61F98418A00593014 /* 密码@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密码@3x.png"; sourceTree = "<group>"; };
-		701078B71F98418B00593014 /* 明文显示@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@2x.png"; sourceTree = "<group>"; };
 		701078B81F98418B00593014 /* 顶部icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部icon@3x.png"; sourceTree = "<group>"; };
 		701078B91F98418B00593014 /* 密文@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密文@1x.png"; sourceTree = "<group>"; };
 		701078BA1F98418B00593014 /* 顶部icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部icon@2x.png"; sourceTree = "<group>"; };
@@ -794,9 +793,7 @@
 		701078BD1F98418B00593014 /* 密文@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密文@2x.png"; sourceTree = "<group>"; };
 		701078BE1F98418C00593014 /* 密码@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密码@2x.png"; sourceTree = "<group>"; };
 		701078BF1F98418C00593014 /* SSID@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSID@1x.png"; sourceTree = "<group>"; };
-		701078C01F98418C00593014 /* 明文显示@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@1x.png"; sourceTree = "<group>"; };
 		701078C11F98418C00593014 /* 顶部icon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "顶部icon@1x.png"; sourceTree = "<group>"; };
-		701078C21F98418C00593014 /* 明文显示@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@3x.png"; sourceTree = "<group>"; };
 		701078C41F98418C00593014 /* SSID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SSID@3x.png"; sourceTree = "<group>"; };
 		701294DE1D80F4A3003139D5 /* NSData+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+JSONCategories.h"; sourceTree = "<group>"; };
 		701294DF1D80F4A3003139D5 /* NSData+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+JSONCategories.m"; sourceTree = "<group>"; };
@@ -1350,6 +1347,9 @@
 		70EFCAEF1E0A7C22003EAE08 /* 无历史@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无历史@1x.png"; sourceTree = "<group>"; };
 		70EFCAF01E0A7C22003EAE08 /* 无历史@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无历史@2x.png"; sourceTree = "<group>"; };
 		70EFCAF11E0A7C22003EAE08 /* 无历史@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无历史@3x.png"; sourceTree = "<group>"; };
+		70F0C4F61FAAC7D40054669B /* 明文显示@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@1x.png"; sourceTree = "<group>"; };
+		70F0C4F71FAAC7D50054669B /* 明文显示@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@2x.png"; sourceTree = "<group>"; };
+		70F0C4F81FAAC7D50054669B /* 明文显示@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "明文显示@3x.png"; sourceTree = "<group>"; };
 		70F9B99C1DD4508B00A62200 /* RouteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteCell.h; sourceTree = "<group>"; };
 		70F9B99D1DD4508B00A62200 /* RouteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteCell.m; sourceTree = "<group>"; };
 		70F9B99E1DD4508B00A62200 /* RouteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteCell.xib; sourceTree = "<group>"; };
@@ -1666,6 +1666,9 @@
 		701078B51F98414000593014 /* WLANSetting */ = {
 			isa = PBXGroup;
 			children = (
+				70F0C4F61FAAC7D40054669B /* 明文显示@1x.png */,
+				70F0C4F71FAAC7D50054669B /* 明文显示@2x.png */,
+				70F0C4F81FAAC7D50054669B /* 明文显示@3x.png */,
 				70261E111F9F11B400D7F4F0 /* 密文@3x.png */,
 				701078C11F98418C00593014 /* 顶部icon@1x.png */,
 				701078BA1F98418B00593014 /* 顶部icon@2x.png */,
@@ -1675,9 +1678,6 @@
 				701078B61F98418A00593014 /* 密码@3x.png */,
 				701078B91F98418B00593014 /* 密文@1x.png */,
 				701078BD1F98418B00593014 /* 密文@2x.png */,
-				701078C01F98418C00593014 /* 明文显示@1x.png */,
-				701078B71F98418B00593014 /* 明文显示@2x.png */,
-				701078C21F98418C00593014 /* 明文显示@3x.png */,
 				701078BF1F98418C00593014 /* SSID@1x.png */,
 				701078BB1F98418B00593014 /* SSID@2x.png */,
 				701078C41F98418C00593014 /* SSID@3x.png */,
@@ -2970,7 +2970,6 @@
 				701078D01F98418D00593014 /* 顶部icon@1x.png in Resources */,
 				702CE4391DDA9881000A0513 /* 4.png in Resources */,
 				702CE4351DDA9881000A0513 /* 2@3x.png in Resources */,
-				701078CF1F98418D00593014 /* 明文显示@1x.png in Resources */,
 				701078C51F98418D00593014 /* 密码@3x.png in Resources */,
 				704582F81D9A63170061C154 /* Images.xcassets in Resources */,
 				70848ADC1F7DD663005A4FA6 /* 联系我们@1x.png in Resources */,
@@ -3244,6 +3243,7 @@
 				7010176A1DCADA3300F9D5FF /* dian@3x.png in Resources */,
 				70FFE3E51DE2DBA200223E43 /* M4.png in Resources */,
 				707FE75C1DACC3C30087C361 /* Rectangle 149@2x.png in Resources */,
+				70F0C4FA1FAAC7D50054669B /* 明文显示@2x.png in Resources */,
 				7045C46B1DC715FB002647F9 /* 矩形2@1x.png in Resources */,
 				70362D241F009EB90012A309 /* New_Four@1x.png in Resources */,
 				70362D201F009E970012A309 /* New圆环@3x.png in Resources */,
@@ -3275,6 +3275,7 @@
 				702CE43A1DDA9881000A0513 /* 4@2x.png in Resources */,
 				707FE7571DACC3C30087C361 /* Pause@3x.png in Resources */,
 				70362D1A1F009E4B0012A309 /* New圆环-4@3x.png in Resources */,
+				70F0C4FB1FAAC7D50054669B /* 明文显示@3x.png in Resources */,
 				70FC30E91D75714E00BD06FE /* zx-video-player-brightness@2x.png in Resources */,
 				70362D3E1F00A0180012A309 /* Factual@2x.png in Resources */,
 				7010785A1F96DAF800593014 /* Backup-&-Restore@2x.png in Resources */,
@@ -3306,6 +3307,7 @@
 				70231CE91DC1A00100F73202 /* save.png in Resources */,
 				70D6B9001E2DAF3D00957A81 /* Local@1x.png in Resources */,
 				706C26371E03AF9A003AA695 /* 全屏底背景@2x.png in Resources */,
+				70F0C4F91FAAC7D50054669B /* 明文显示@1x.png in Resources */,
 				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
 				707FE7551DACC3C30087C361 /* Pause@1x.png in Resources */,
 				7074D7D61DB8BA30008F8EAE /* 渐变@3x.png in Resources */,
@@ -3317,7 +3319,6 @@
 				70231CF71DC1DF5A00F73202 /* Back Arrow@1x.png in Resources */,
 				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
-				701078C61F98418D00593014 /* 明文显示@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
 				707C4AF41E4AB0DE008F289A /* routenoKnow1@3x.png in Resources */,
 				70D6B9101E2DAF3D00957A81 /* South African@2x.png in Resources */,
@@ -3349,7 +3350,6 @@
 				701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */,
 				701078681F96DAF800593014 /* Devices-List@2x.png in Resources */,
 				70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */,
-				701078D11F98418D00593014 /* 明文显示@3x.png in Resources */,
 				70362D4A1F00A0180012A309 /* Series@2x.png in Resources */,
 				70362CF51F0092480012A309 /* Movies & Series@3x.png in Resources */,
 				7045C4761DC715FB002647F9 /* 矩形5@3x.png in Resources */,
