@@ -170,7 +170,7 @@
             
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, inputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -224,7 +224,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView1.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -252,7 +252,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView2.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -317,7 +317,7 @@
             
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -371,7 +371,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView1.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -399,7 +399,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView2.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -465,7 +465,7 @@
             
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, inputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -519,7 +519,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView1.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -547,7 +547,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView2.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -612,7 +612,7 @@
             
             inputText.delegate = self;
             inputText.autocorrectionType = UITextAutocorrectionTypeNo;
-            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, 300 - 50, 40)];
+            inputText = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, inputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -666,7 +666,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView1.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -694,7 +694,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView2.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;

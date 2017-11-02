@@ -198,7 +198,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, 250 - 50, 43);
+        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -337,7 +337,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, 250 - 50, 43);
+        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -474,7 +474,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, 250 - 50, 43);
+        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -612,7 +612,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, 250 - 50, 43);
+        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         

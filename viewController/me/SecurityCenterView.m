@@ -134,7 +134,7 @@
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
-            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, currentInputTextView.frame.size.width - 20, 40)];
             
             currentPINText.placeholder = @"Current PIN";
             currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
@@ -158,7 +158,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, setNewInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -187,7 +187,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, ConfirmInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -247,7 +247,7 @@
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
-            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, currentInputTextView.frame.size.width - 20, 40)];
             
             currentPINText.placeholder = @"Current PIN";
             currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
@@ -271,7 +271,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, setNewInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -300,7 +300,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, ConfirmInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -360,7 +360,7 @@
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
-            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, currentInputTextView.frame.size.width - 20, 40)];
         
             currentPINText.placeholder = @"Current PIN";
             currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
@@ -384,7 +384,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, setNewInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -413,7 +413,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, ConfirmInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -473,7 +473,7 @@
             
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
-            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, currentInputTextView.frame.size.width - 20, 40)];
             
             currentPINText.placeholder = @"Current PIN";
             currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
@@ -497,7 +497,7 @@
             
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
-            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, setNewInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
@@ -526,7 +526,7 @@
             
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
-            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, 300 - 50, 40)];
+            confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, ConfirmInputTextView.frame.size.width - 20, 40)];
             //
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
