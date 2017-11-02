@@ -52,5 +52,11 @@
 @property(nonatomic,strong)SecurityCenterView * securityCenterView;
 @property(nonatomic,strong)DeviceListView * deviceListView;
 @property(nonatomic,strong)RouterStatusView * routerStatusView;
-@property(nonatomic,strong)BackupRestoreView * backupRestoreView; 
+@property(nonatomic,strong)BackupRestoreView * backupRestoreView;
+
+
+
+@property(nonatomic,strong)UIView * NetWorkErrorView;
+@property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
+@property(nonatomic,strong)UILabel * NetWorkErrorLab;
 @end

@@ -10,6 +10,7 @@
 #define EDITWIDTH  17
 #define ROUTENAME_Y  66
 #define reStartTip  @"The router is restarting , the current network will be disconnected,please reconnect StarTimes ONE after restart"
+
 @interface RouteMenuView ()
 {
 
@@ -59,6 +60,10 @@
     deviceString = [GGUtil deviceVersion];
     [self loadNav];
     [self initData];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
 }
 
 -(void)loadNav
@@ -95,6 +100,7 @@
     self.deviceListView = [[DeviceListView alloc]init];
     self.routerStatusView = [[RouterStatusView alloc]init];
     self.backupRestoreView = [[BackupRestoreView alloc]init];
+    
     scrollView = [[UIScrollView alloc]init];
     colorView = [[UIImageView alloc]init];
     routeImage = [[UIImageView alloc]init];
@@ -1470,6 +1476,7 @@
     
     [self.navigationController popViewControllerAnimated:YES];
     self.tabBarController.tabBar.hidden = YES;
+    
 }
 
 //点击观看历史直接播放
@@ -1901,9 +1908,50 @@
     }];
     
     
+
+}
+
+#pragma mark - 加载无网络图
+-(void)showNetWorkErrorView
+{
+    NSLog(@"showNetWorkErroshowNetWorkErrorVasdadsads");
+    //1.取消掉加载圈
+//    [self hudHidden];
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.timerForASIHttp invalidate];
+//        self.timerForASIHttp = nil;
+//
+//    });
+    
+    if (self.NetWorkErrorView == nil) {
+        self.NetWorkErrorView = [[UIView alloc]init];
+    }
+    if (self.NetWorkErrorImageView == nil) {
+        self.NetWorkErrorImageView = [[UIImageView alloc]init];
+    }
+    if (self.NetWorkErrorLab == nil) {
+        self.NetWorkErrorLab = [[UILabel alloc]init];
+    }
+    self.NetWorkErrorView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.NetWorkErrorView.backgroundColor = [UIColor whiteColor];
+    
+    
+    self.NetWorkErrorImageView.frame =CGRectMake((SCREEN_WIDTH - 139*0.5)/2, (SCREEN_HEIGHT - 90)/2, 139*0.5, 110*0.5);
+    self.NetWorkErrorImageView.image = [UIImage imageNamed:@"路由无网络"];
+    
+    
+    self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
+    self.NetWorkErrorLab.text = @"NetWork Error";
+    self.NetWorkErrorLab.font = FONT(15);
     
     
     
+    
+    
+    [self.view addSubview:self.NetWorkErrorView];
+    [self.NetWorkErrorView addSubview:self.NetWorkErrorImageView];
+    [self.NetWorkErrorView addSubview:self.NetWorkErrorLab];
     
     
 }

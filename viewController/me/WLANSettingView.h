@@ -32,4 +32,9 @@
 
 @property(nonatomic,strong) UIButton *  saveBtn;  
 @property(nonatomic,assign) bool isOn ;
+
+@property(nonatomic,strong)UIView * NetWorkErrorView;
+@property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
+@property(nonatomic,strong)UILabel * NetWorkErrorLab;
+
 @end

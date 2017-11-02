@@ -38,4 +38,7 @@
 @property(nonatomic,strong) RouteSetting * routeSetting;
 @property(nonatomic,strong) DeviceListCell * deviceListCell;
 
+@property(nonatomic,strong)UIView * NetWorkErrorView;
+@property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
+@property(nonatomic,strong)UILabel * NetWorkErrorLab;
 @end

@@ -6,7 +6,7 @@
 //
 
 #import "RouterStatusView.h"
-
+#import "MEViewController.h"
 @interface RouterStatusView ()
 {
     NSDictionary * deviceDic;
@@ -18,6 +18,7 @@
     
     NSString * DMSIP;
 }
+@property(nonatomic,strong)MEViewController * meViewController;
 @end
 
 @implementation RouterStatusView
@@ -42,6 +43,10 @@
     [super viewDidLoad];
     
     [self loadNav];
+    self.meViewController = [[MEViewController alloc]init];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
 }
 -(void)loadNav
 {
@@ -483,5 +488,75 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 加载无网络图
+-(void)showNetWorkErrorView
+{
+    NSLog(@"showNetWorkErroshowNetWorkErrorVasdadsads");
+    //1.取消掉加载圈
+    //    [self hudHidden];
+    
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //        [self.timerForASIHttp invalidate];
+    //        self.timerForASIHttp = nil;
+    //
+    //    });
+    
+    if (self.NetWorkErrorView == nil) {
+        self.NetWorkErrorView = [[UIView alloc]init];
+    }
+    if (self.NetWorkErrorImageView == nil) {
+        self.NetWorkErrorImageView = [[UIImageView alloc]init];
+    }
+    if (self.NetWorkErrorLab == nil) {
+        self.NetWorkErrorLab = [[UILabel alloc]init];
+    }
+    self.NetWorkErrorView.frame =CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.NetWorkErrorView.backgroundColor = [UIColor whiteColor];
+    
+    
+    self.NetWorkErrorImageView.frame =CGRectMake((SCREEN_WIDTH - 139*0.5)/2, (SCREEN_HEIGHT - 90)/2, 139*0.5, 110*0.5);
+    self.NetWorkErrorImageView.image = [UIImage imageNamed:@"路由无网络"];
+    
+    
+    self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
+    self.NetWorkErrorLab.text = @"NetWork Error";
+    self.NetWorkErrorLab.font = FONT(15);
+    
+    
+    
+    
+    
+    [self.view addSubview:self.NetWorkErrorView];
+    [self.NetWorkErrorView addSubview:self.NetWorkErrorImageView];
+    [self.NetWorkErrorView addSubview:self.NetWorkErrorLab];
+    
+    
+    
+    UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    
+    
+    self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    self.navigationItem.leftBarButtonItem = myButton;
+}
 
+-(void)clickEvent
+{
+    
+    NSLog(@"self.navigationController %@",self.navigationController.viewControllers);
+    
+    //遍历看是否有MEViewcontroller这个页面
+    UIViewController *target = nil;
+    for (UIViewController * controller in self.navigationController.viewControllers) { //遍历
+        if ([controller isKindOfClass:[self.meViewController class]]) { //这里判断是否为你想要跳转的页面
+            target = controller;
+        }
+    }
+    if (target) {
+        [self.navigationController popToViewController:target animated:YES]; //跳转
+    }
+    
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
 @end

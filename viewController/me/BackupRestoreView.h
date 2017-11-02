@@ -20,4 +20,7 @@
 @property(nonatomic,strong)UIButton * restoreBtn;
 @property(nonatomic,strong)UIButton * backUpBtn;
 
+@property(nonatomic,strong)UIView * NetWorkErrorView;
+@property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
+@property(nonatomic,strong)UILabel * NetWorkErrorLab;
 @end
