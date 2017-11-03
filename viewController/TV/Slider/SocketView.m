@@ -117,6 +117,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_heatbeat.module_name= @"BEAT";
     cs_heatbeat.Ret=0;
+    cs_heatbeat.Reserved=0x4D504445;
     //    cs_heatbeat.client_ip= [self getIPArr];
     
     do {
@@ -156,6 +157,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
+    cs_service.Reserved=0x4D504445;
     //    cs_service.client_ip= [self getIPArr];
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
@@ -248,6 +250,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_playExit.module_name= @"MDMM";
     cs_playExit.Ret=0;
+    cs_playExit.Reserved=0x4D504445;
     //    cs_playExit.client_ip= [self getIPArr];
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
@@ -302,6 +305,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_passwordCheck.module_name= @"MDMM";
     cs_passwordCheck.Ret=0;
+    cs_passwordCheck.Reserved=0x4D504445;
     //    cs_passwordCheck.client_ip= [self getIPArr];
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
@@ -368,6 +372,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_getResource.module_name= @"MDMM";
     cs_getResource.Ret=0;
+    cs_getResource.Reserved=0x4D504445;
     
     //do - while 循环
     
@@ -431,6 +436,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_getRouteIPAddress.module_name= @"MDMM";
     cs_getRouteIPAddress.Ret=0;
+    cs_getRouteIPAddress.Reserved=0x4D504445;
     
     //do - while 循环
     
