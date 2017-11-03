@@ -1901,6 +1901,11 @@
             }else
             {
                //重启失败
+                
+                restartingAlert = [[UIAlertView alloc] initWithTitle:@"Restore Failed"
+                                                             message:nil delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles: nil];
+                
+                [restartingAlert show];
             }
 
         }
@@ -1914,6 +1919,10 @@
 #pragma mark - 加载无网络图
 -(void)showNetWorkErrorView
 {
+    //取消掉弹窗
+    [restartingAlert dismissWithClickedButtonIndex:[restartingAlert cancelButtonIndex] animated:NO];
+    
+    
     NSLog(@"showNetWorkErroshowNetWorkErrorVasdadsads");
     //1.取消掉加载圈
 //    [self hudHidden];
@@ -1942,7 +1951,7 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"NetWork Error";
+    self.NetWorkErrorLab.text = @"Network Error";
     self.NetWorkErrorLab.font = FONT(15);
     
     

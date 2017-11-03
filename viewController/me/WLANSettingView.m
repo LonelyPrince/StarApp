@@ -1195,7 +1195,7 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"NetWork Error";
+    self.NetWorkErrorLab.text = @"Network Error";
     self.NetWorkErrorLab.font = FONT(15);
     
     
