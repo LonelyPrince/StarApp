@@ -2405,7 +2405,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
         }else
         {
-            return;
+//            return;
         }
        
         isEventStartTimeBiger_NowTime = NO;
@@ -5147,13 +5147,38 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         socketView.socket_ServiceModel = [[ServiceModel alloc]init];
         audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
         subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-        if (subt_infoArr.count > 0 && audio_infoArr.count > 0) {
+//        if (subt_infoArr.count > 0 && audio_infoArr.count > 0) {
+//            socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+//            socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+//        }else
+//        {
+////            return;
+//        }
+        
+        if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
+            
+            
             socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
             socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
         }else
         {
-            return;
+            if (audio_infoArr.count > 0 ) {
+                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+            }else
+            {
+                socketView.socket_ServiceModel.audio_pid = nil;
+            }
+            if (subt_infoArr.count > 0 ) {
+                socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+            }else
+            {
+                socketView.socket_ServiceModel.subt_pid = nil;
+            }
+            
         }
+        
+        
+        ////////
 //        socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
 //        socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
         socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
@@ -5192,6 +5217,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
         self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+        }else
+        {
+            
+        }
         isEventStartTimeBiger_NowTime = NO;
         BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
         if (isEventStartTimeBigNowTime == YES) {
@@ -5267,12 +5296,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"已经不是TV页面了");
             [self ifNotISTVView];
         }
-    }
-    else
-    {
-        NSLog(@"已经不是TV页面了");
-        [self ifNotISTVView];
-    }
+//    }
+//    else
+//    {
+//        NSLog(@"已经不是TV页面了");
+//        [self ifNotISTVView];
+//    }
     }
 }
 

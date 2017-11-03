@@ -176,7 +176,12 @@
     epgArr = [[NSArray alloc]init];
     
     epgArr = [tunerDic objectForKey:@"epg_info"];
-    epgDic = epgArr[0];
+    if (epgDic.count < 1) {
+        //没有数据不执行
+    }else
+    {
+        epgDic = epgArr[0];
+    }
     
     
     NSString * startTime1 =  [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
