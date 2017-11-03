@@ -556,8 +556,8 @@
                                     
                                     //此处是验证机顶盒密码，将会这个消息传到TV页面
                                     NSData * data_CA_Ret = [[NSData alloc]init];
-                                    if ([bigDataReduceSmallData length] >= 37 + 6) {
-                                        data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                    if ([bigDataReduceSmallData length] >= 37 + 10) {
+                                        data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,10)];
                                     }else
                                     {
                                         return;
@@ -771,8 +771,8 @@
                         //第一步：获得必要的CA消息
                         //此处是验证机顶盒密码，将会这个消息传到TV页面
                         NSData * data_CA_Ret = [[NSData alloc]init];
-                        if ([data length] >= 37 + 6) {
-                        data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                        if ([data length] >= 37 + 10) {
+                        data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,10)];
                         }else
                         {
                             return;
@@ -1097,9 +1097,9 @@
                                     
                                     NSData * data_CA_Ret = [[NSData alloc]init];
                                     
-                                    if ([bigDataReduceSmallData length] >=  37 +6 ) {
+                                    if ([bigDataReduceSmallData length] >=  37 +10 ) {
                                         
-                                        data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,6)];
+                                        data_CA_Ret = [bigDataReduceSmallData subdataWithRange:NSMakeRange(37,10)];
                                     }else
                                     {
                                         return;
@@ -1304,9 +1304,9 @@
                         NSData * data_CA_Ret = [[NSData alloc]init];
                         //获得数据区的长度
                         
-                        if ([data length] >=  43) {
+                        if ([data length] >=  47) {
                             
-                            data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,6)];
+                            data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,10)];
                         }else
                         {
                             return;

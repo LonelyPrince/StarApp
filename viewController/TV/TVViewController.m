@@ -6012,7 +6012,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
 }
 #pragma mark - CA弹窗
--(void)popCAAlertView : (NSNotification *)text
+-(void)popCAAlertView: (NSNotification *)text
 {
     STBTouchType_Str = nil; //用于判断是哪个类型，如果此类型有数据，则代表是STB，否则代表是CA
     
@@ -6026,46 +6026,60 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
+    //协议改版后，这里的CAThreeData其实应该修改为CAFourData
     NSData * CAThreeData = text.userInfo[@"CAThreedata"];
+    
+    NSData * CATuner_modeData = [[NSData alloc]init];
+    //获得数据区的长度
+    if ([CAThreeData length] >=  4) {
+        
+        CATuner_modeData = [CAThreeData subdataWithRange:NSMakeRange(0,4)];
+    }else
+    {
+        return;
+    }
+    
     NSData * CANetwork_idData = [[NSData alloc]init];
     //获得数据区的长度
-    if ([CAThreeData length] >=  2) {
+    if ([CAThreeData length] >=  6) {
         
-        CANetwork_idData = [CAThreeData subdataWithRange:NSMakeRange(0,2)];
+        CANetwork_idData = [CAThreeData subdataWithRange:NSMakeRange(4,2)];
     }else
     {
         return;
     }
     
     NSData * CATs_idData = [[NSData alloc]init];
-    if ([CAThreeData length] >=  4) {
+    if ([CAThreeData length] >=  8) {
         
-        CATs_idData = [CAThreeData subdataWithRange:NSMakeRange(2,2)];
+        CATs_idData = [CAThreeData subdataWithRange:NSMakeRange(6,2)];
     }else
     {
         return;
     }
     
     NSData * CAService_idData = [[NSData alloc]init];
-    if ([CAThreeData length] >=  6) {
+    if ([CAThreeData length] >=  10) {
         
-        CAService_idData = [CAThreeData subdataWithRange:NSMakeRange(4,2)];
+        CAService_idData = [CAThreeData subdataWithRange:NSMakeRange(8,2)];
     }else
     {
         return;
     }
     
+    uint32_t  CATuner_modeStr = [SocketUtils uint16FromBytes:CATuner_modeData]; //
     
     uint16_t  CANetwork_idStr = [SocketUtils uint16FromBytes:CANetwork_idData]; // [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
     uint16_t  CATs_idStr =  [SocketUtils uint16FromBytes:CATs_idData]; //[[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
     uint16_t  CAService_idStr =  [SocketUtils uint16FromBytes:CAService_idData];//[[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
     //判断当前节目是不是CA弹窗节目
     
+    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_tuner_mode) ;
     NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_ts_id) ;
     NSLog(@"socketView.socket_ServiceModel.service_net_id :%@",socketView.socket_ServiceModel.service_network_id) ;
     NSLog(@"socketView.socket_ServiceModel.service_service_id :%@",socketView.socket_ServiceModel.service_service_id) ;
     
-    if (CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
+    if (CATuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
         //证明一致，是这个CA节目
         
         [self stopVideoPlay];
@@ -6342,8 +6356,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     socketView.socket_ServiceModel = [[ServiceModel alloc]init];
     audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
     subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
-    socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+    if (audio_infoArr.count > 1) {
+        socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+    }
+    if (subt_infoArr.count > 1) {
+        socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+    }
+    
     socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
     socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
     socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];

@@ -312,14 +312,18 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     cs_passwordCheck.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
     cs_passwordCheck.command_type = DTV_SERVICE_MD_PASSWD_CHECK;  // CMD_VERIFY_PASSWORD;
+    
+    int arcx = 2+arc4random() % 1000;  //获取一个2到1000的随机整数
+    cs_passwordCheck.passwd_id = arcx;//1;
+    
     cs_passwordCheck.passwd_type = passwd_type_int;//1;
     
     if(cs_passwordCheck.passwd_type == 1){
         cs_passwordCheck.passwd_string = passWordStr;//@"000000";
-        cs_passwordCheck. data_len= 16;
+        cs_passwordCheck. data_len= 20;
     }else if(cs_passwordCheck.passwd_type == 0){
         cs_passwordCheck.passwd_string =passWordStr;//@"123a";
-        cs_passwordCheck. data_len= 14;
+        cs_passwordCheck. data_len= 18;
     }
     
     //除了CRC和tag其他数据
