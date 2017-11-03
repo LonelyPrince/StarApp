@@ -11,7 +11,7 @@
 #define NOBackUPAlert  @"No backup can be restored"
 #define RestoreAlert  @"You will be to restore the backup"
 #define BackUPAlert  @"You will be to make a backup"
-#define BackUPTip  @"You can back up your settings now or restore the setting you backed up last time."
+#define BackUPTip  @"You can back up your settings now or restore the settings you backed up last time."
 
 
 @interface BackupRestoreView ()<UIAlertViewDelegate>
@@ -247,7 +247,7 @@
     backUpBtn.frame =CGRectMake(40, restoreBtn.frame.origin.y + 43+15 , SCREEN_WIDTH - 40 *2, 43);
     backUpBtn.backgroundColor =[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
     backUpBtn.layer.cornerRadius = 43/2;
-    [backUpBtn setTitle:@"BackUp" forState:UIControlStateNormal];
+    [backUpBtn setTitle:@"Backup" forState:UIControlStateNormal];
     backUpBtn.titleLabel.textColor = [UIColor whiteColor];
     [backUpBtn addTarget:self action:@selector(backUpBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: backUpBtn];
