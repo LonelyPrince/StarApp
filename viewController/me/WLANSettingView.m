@@ -117,6 +117,7 @@
     nameEidtImageView = [[UIImageView alloc]init];
     pswEidtImageView = [[UIImageView alloc]init];
 //    alertView = [[UIAlertView alloc]init];
+    alertView = [[UIAlertView alloc]initWithTitle:nil message:@"The SSID can not be empty" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
 }
 -(void)loadUI
 {
@@ -756,16 +757,19 @@
 -(void)saveBtnClick
 {
     if ([setNameText.text isEqualToString:@""]) {
-        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"The SSID can not be empty" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"The SSID can not be empty" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alertView setMessage:@"The SSID can not be empty"];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
     }
    else if (setNameText.text.length<6) {
-        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+       [alertView setMessage:@"SSID Length 6-16"];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
     }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
-        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alertView setMessage:@"PIN Length 8-16"];
         [alertView addButtonWithTitle:@"Confirm"];
         [alertView show];
 
@@ -827,17 +831,20 @@
             
             NSString * str = [resDict objectForKey:@"result"];
             if ([[resDict objectForKey:@"code"] isEqual:@3] || [[resDict objectForKey:@"code"] isEqual:@4]) {
-                alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//                alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alertView setMessage:code3];
                 [alertView addButtonWithTitle:@"Confirm"];
                 [alertView show];
                 
             }else if ([str isEqualToString:@"failed"]) {
-                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alertView setMessage:@"Save failed"];
                 [alertView addButtonWithTitle:@"Confirm"];
                 [alertView show];
             }else if ([str isEqualToString:@"success"])
             {
-                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [alertView setMessage:@"Save success"];
                 [alertView addButtonWithTitle:@"Confirm"];
                 [alertView show];
             }
