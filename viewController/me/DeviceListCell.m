@@ -33,7 +33,7 @@
 //    self.ip.text = @"ip:";
 //    self.mac.text = @"mac:";
     
-    self.DeviceNameLab.textColor = RGBA(148, 148, 148, 1);
+    self.DeviceNameLab.textColor = RGBA(0x46, 0x46, 0x46, 1);
     self.DeviceIPLab.textColor = RGBA(193, 193, 193, 1);
     self.DeviceMACLab.textColor = RGBA(193, 193, 193, 1);
     

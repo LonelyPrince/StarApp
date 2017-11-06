@@ -64,7 +64,7 @@
 }
 -(void)loadNav
 {
-    self.title = @"Device List";
+    self.title = @"Devices List";
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     self.deviceListCell = [[DeviceListCell alloc]init];
