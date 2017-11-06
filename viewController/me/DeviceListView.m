@@ -378,6 +378,7 @@
             [self loadUI];
             //            [self getWifi];
             [self loadTableView];
+            [self.tableView reloadData];
         }
     }];
     
