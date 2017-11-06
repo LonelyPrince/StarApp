@@ -21,6 +21,16 @@
 //设置接口数据
 -(void) setDataDic:(NSDictionary *)dataDic
 {
+    deviceString = [GGUtil deviceVersion];
+    
+    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        self.DeviceNameLab.font = FONT(16);
+        self.DeviceIPLab.font = FONT(14);
+        self.DeviceMACLab.font = FONT(14);
+        self.DeviceIPLab.frame = CGRectMake(63, 40, 130, 21);
+        self.DeviceMACLab.frame = CGRectMake(230, 40, 200, 21);
+        self.DeviceImage.frame = CGRectMake(19, 24, 31, 31);
+    }
     _dataDic = dataDic;
     self.userInteractionEnabled = NO;
 

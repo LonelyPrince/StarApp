@@ -10,7 +10,9 @@
 #import "ServiceModel.h"
 
 @interface DeviceListCell : UITableViewCell
-
+{
+    NSString * deviceString;     //用于判断手机型号
+}
 @property (weak, nonatomic) IBOutlet UIImageView *DeviceImage;
 @property (weak, nonatomic) IBOutlet UILabel *DeviceNameLab;
 @property (weak, nonatomic) IBOutlet UILabel *DeviceIPLab;

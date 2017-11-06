@@ -16,6 +16,7 @@
     UIView *  netWorkErrorView;
     
     NSString * DMSIP;
+    NSString * deviceString ;
 }
 @property(nonatomic,strong)MEViewController * meViewController;
 @end
@@ -44,7 +45,7 @@
     [self initData];    //初始化数据，new
     [self loadScroll];
     
-    
+    deviceString = [GGUtil deviceVersion];
     //////////////////////////// 从socket返回数据
     //此处接收到路由器IP地址的消息
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getSocketIpInfoNotice" object:nil];
@@ -173,9 +174,17 @@
 }
 -(void)loadTableView
 {
+    
     tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, deviceArr.count*69);
     
     scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, deviceArr.count*69 - 64 + 50);
+    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        
+        tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, deviceArr.count*75);
+        
+        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, deviceArr.count*75 - 64 + 50);
+        
+    }
     //    tableView.style = UITableViewStylePlain;
     //    tableView  UITableViewStylePlain;
     //tableview 的高度待定
@@ -201,7 +210,15 @@
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        return 75;
+        
+    }
+    
     return 69;
+   
+    
+    
     
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
