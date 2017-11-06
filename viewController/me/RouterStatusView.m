@@ -273,11 +273,6 @@
             
             
             
-            //        NSArray *onlineDeviceArr = [request responseData].JSONValue;
-            //        deviceArr = onlineDeviceArr;
-            //            deviceArr = [arrOnline copy];
-            //            //        NSLog ( @"onlineDeviceArr:%@" ,onlineDeviceArr);
-            //            NSLog ( @"deviceArr:%@" ,deviceArr);
             
             //            [self loadNav];
             //            [self loadScroll];
@@ -285,9 +280,9 @@
             //            [self getWifi];
             //            [self loadTableView];
             
-            MacAddressLab.text = [deviceDic2 objectForKey:@"netmask"];
-            SubnetMaskLab.text = [deviceDic2 objectForKey:@"mac"];
-            IPAddressLab.text = [deviceDic2 objectForKey:@"gateway"];
+            MacAddressLab.text = [deviceDic2 objectForKey:@"mac"] ;
+            SubnetMaskLab.text = [deviceDic2 objectForKey:@"netmask"];
+            IPAddressLab.text = [deviceDic2 objectForKey:@"gateway"] ;
             
         }
     }];

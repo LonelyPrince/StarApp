@@ -15,11 +15,11 @@
             <connections>
                 <outlet property="BuildDataLab" destination="MWc-AX-diH" id="eFG-sU-7ud"/>
                 <outlet property="HardwareVersionLab" destination="xSb-c0-sfc" id="K4E-yh-oAG"/>
-                <outlet property="IPAddressLab" destination="e0j-0U-pMu" id="MEl-AV-xoW"/>
-                <outlet property="MacAddressLab" destination="qNZ-NI-MXb" id="GZO-ni-HiP"/>
+                <outlet property="IPAddressLab" destination="xYA-ky-gvx" id="hTN-Si-KKP"/>
+                <outlet property="MacAddressLab" destination="qNZ-NI-MXb" id="2ub-YF-IXa"/>
                 <outlet property="SerialNumberLab" destination="9nD-sm-am4" id="eLy-KP-YqR"/>
                 <outlet property="SortwareVersionLab" destination="fyC-DW-9wY" id="aIb-We-gre"/>
-                <outlet property="SubnetMaskLab" destination="xYA-ky-gvx" id="SuT-Jj-w31"/>
+                <outlet property="SubnetMaskLab" destination="e0j-0U-pMu" id="XXD-X7-i7N"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
