@@ -140,3 +140,4 @@ typedef enum{
 #define deliveryStopTip @"Delivery has been stopped！"   //停止分发后 节目黑屏提示“Delivery has been stopped！”
 #define mediaDisConnect @"  StarTimes ONE is not connected \n please check the network settings"   //关机后,或者socket断开后
 //#define CANOTINPUT @"Please Decoder PIN"
+#define ResourcesFull @"No resources,this video can't play.\n Please checkin Devices Management \n on StarTimes ONE"

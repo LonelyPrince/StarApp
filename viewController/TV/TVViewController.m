@@ -2008,200 +2008,206 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         int value = CFSwapInt32BigToHost(*(int*)([retData bytes]));
         NSLog(@"value : %d",value);
         //通过获得data数据减去发送的data数据得到播放连接，一下是返回数据的ret，如果ret不等于0则报错
-        [self  getLinkData :value];
-        //    //调用GGutil的方法
-        //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT  objectForKey:@"data_service11"]];
-        //
-        
-        NSLog(@"---urlDataTV接收%@",_byteDatas);
-        NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
-        
-        //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
-        self.video.playUrl = @"";
-        self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
-        //    self.video.playUrl =@"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
-        NSLog(@"self.video :%@",self.video);
-        NSLog(@"playState-==self.video.playUrl 22 %@ ",self.video.playUrl);
-        
-        //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
-        
-        self.video.channelId = self.service_videoindex;
-        self.video.channelName = self.service_videoname;
-        NSLog(@"self.video.channelName %@",self.video.channelName);
-        
-        self.video.playEventName = self.event_videoname;
-        NSLog(@"self.event_videoname 获取列表中 replaceEventNameNotific %@",self.event_videoname);
-        NSLog(@"replaceEventNameNotific self.video.playeventName :%@",self.video.playEventName);
-        self.video.startTime = self.event_startTime;
-        self.video.endTime = self.event_endTime;
-        //    self.video.dicSubAudio = self.TVSubAudioDic;
-        
-        [self setStateNonatic];
-        
-        NSLog(@"byteValue1 TVTVTVTVTVTV");
-        
-        
-        [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
-        
-        
-        //==========正文
-        double delayInSeconds = 0;
-        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, mainQueue, ^{
-            NSLog(@"延时执行的2秒");
-            //        [self runThread1];
-            NSLog(@"byteValue1 TVTVTVTVTVTV222");
+        BOOL getLinkDataBool = [self  getLinkData :value];
+        if (getLinkDataBool == YES) {
+            //    //调用GGutil的方法
+            //    byteDatas =  [GGUtil convertNSDataToByte:[USER_DEFAULT objectForKey:@"data_service"] bData:[USER_DEFAULT  objectForKey:@"data_service11"]];
+            //
             
-            [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
-            NSLog(@"666channelCount==--==--22222= %d ",self.video.channelCount);
-            NSLog(@"666self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+            NSLog(@"---urlDataTV接收%@",_byteDatas);
+            NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
             
-            [self playVideo];
-            NSLog(@" playVideo getDataService");
-            NSLog(@"byteValue1 TVTVTVTVTVTV333");
+            //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
+            self.video.playUrl = @"";
+            self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
+            //    self.video.playUrl =@"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
+            NSLog(@"self.video :%@",self.video);
+            NSLog(@"playState-==self.video.playUrl 22 %@ ",self.video.playUrl);
             
-            NSLog(@"555channelCount==--==--22222= %d ",self.video.channelCount);
-            NSLog(@"555self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
-        });
-        
-        
-        
-        NSLog(@"playvideo 后面的线程");
-        NSLog(@"playVideo11 :");
-        
-        playState = NO;
-        
-        
-        NSLog(@"playState:111111 %d",playState);
-        //    [timerState invalidate];
-        //    timerState = nil;
-        
-        
-        if (self.showTVView == YES) {
-            [self ifNeedPlayClick];
-        }else
-        {
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-            NSLog(@"取消25秒的等待2");
-        }
-        NSLog(@"开始==计时===");
-        
-        //    }
-        
-        
-        [self removeTopProgressView];
-        [self.timer invalidate];
-        self.timer = nil;
-        
-        
-        //** 计算进度条
-        if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
-        {
-            [self.view addSubview:self.topProgressView];
-            [self.view bringSubviewToFront:self.topProgressView];
-            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+            //    self.video.title = [self.service_videoindex stringByAppendingString:self.service_videoname];
             
-            NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
-            NSLog(@"self.event_startTime--==%@",self.event_startTime);
-            NSLog(@"self.event_startTime--==%@",self.event_endTime);
-            if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
+            self.video.channelId = self.service_videoindex;
+            self.video.channelName = self.service_videoname;
+            NSLog(@"self.video.channelName %@",self.video.channelName);
+            
+            self.video.playEventName = self.event_videoname;
+            NSLog(@"self.event_videoname 获取列表中 replaceEventNameNotific %@",self.event_videoname);
+            NSLog(@"replaceEventNameNotific self.video.playeventName :%@",self.video.playEventName);
+            self.video.startTime = self.event_startTime;
+            self.video.endTime = self.event_endTime;
+            //    self.video.dicSubAudio = self.TVSubAudioDic;
+            
+            [self setStateNonatic];
+            
+            NSLog(@"byteValue1 TVTVTVTVTVTV");
+            
+            
+            [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+            
+            
+            //==========正文
+            double delayInSeconds = 0;
+            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, mainQueue, ^{
+                NSLog(@"延时执行的2秒");
+                //        [self runThread1];
+                NSLog(@"byteValue1 TVTVTVTVTVTV222");
                 
-                NSLog(@"此处可能报错，因为StarTime不为空 ");
-                NSLog(@"z在getDataService里面调用 replaceEventNameNotific");
-                NSLog(@"---删除进度条的地方101010");
-                [self removeProgressNotific];
+                [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
+                NSLog(@"666channelCount==--==--22222= %d ",self.video.channelCount);
+                NSLog(@"666self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+                
+                [self playVideo];
+                NSLog(@" playVideo getDataService");
+                NSLog(@"byteValue1 TVTVTVTVTVTV333");
+                
+                NSLog(@"555channelCount==--==--22222= %d ",self.video.channelCount);
+                NSLog(@"555self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+            });
+            
+            
+            
+            NSLog(@"playvideo 后面的线程");
+            NSLog(@"playVideo11 :");
+            
+            playState = NO;
+            
+            
+            NSLog(@"playState:111111 %d",playState);
+            //    [timerState invalidate];
+            //    timerState = nil;
+            
+            
+            if (self.showTVView == YES) {
+                [self ifNeedPlayClick];
             }else
             {
-                NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
-                NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+                NSLog(@"取消25秒的等待2");
+            }
+            NSLog(@"开始==计时===");
+            
+            //    }
+            
+            
+            [self removeTopProgressView];
+            [self.timer invalidate];
+            self.timer = nil;
+            
+            
+            //** 计算进度条
+            if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
+            {
+                [self.view addSubview:self.topProgressView];
+                [self.view bringSubviewToFront:self.topProgressView];
+                [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
                 
-                [dict setObject:self.event_startTime forKey:@"StarTime"];
-                [dict setObject:self.event_endTime forKey:@"EndTime"];
-                
-                
-                
-                //判断当前是不是一个节目（此处应该没有实质价值）
-                eventName1 = self.event_videoname;
-                eventName2 = self.event_videoname;
-                //        eventNameTemp ;
-                eventNameTemp = eventName1;
-                if (eventName2 != eventNameTemp) {
-                    // 不同的节目   @"同一个节目";
+                NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
+                NSLog(@"self.event_startTime--==%@",self.event_startTime);
+                NSLog(@"self.event_startTime--==%@",self.event_endTime);
+                if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
+                    
+                    NSLog(@"此处可能报错，因为StarTime不为空 ");
+                    NSLog(@"z在getDataService里面调用 replaceEventNameNotific");
+                    NSLog(@"---删除进度条的地方101010");
+                    [self removeProgressNotific];
                 }else
                 {
-                    //@"同一个节目";
-                    eventName2 = eventNameTemp;
+                    NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
+                    NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
                     
-                    //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
-                    
-                    
-                    //                if (TVViewTouchPlay == YES) {
-                    progressEPGArrIndex = 0;
-                    //                }else
-                    //                {
-                    ////                //progressEPGArrIndex 不变
-                    //                }
-                    
-                    
-                    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
-                    
-                    int tempIndex =progressEPGArrIndex;
-                    NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
-                    [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
-                    //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
-                    NSInteger endTime =[self.event_endTime intValue ];
-                    //                NSInteger startTime =[self.event_startTime intValue ];
-                    
-                    //                NSDate *senddate = [NSDate date];
-                    //                NSLog(@"date1时间戳 = %ld",time(NULL));
-                    NSString *nowDate = [GGUtil GetNowTimeString];
-                    NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
-                    
-                    NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
-                    NSLog(@"replaceEventNameNotific 计算进度条的里面");
-                    NSLog(@"progressRefreshprogressRefresh 111");
+                    [dict setObject:self.event_startTime forKey:@"StarTime"];
+                    [dict setObject:self.event_endTime forKey:@"EndTime"];
                     
                     
                     
-                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-                    [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
-                    
-                    NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
-                    
+                    //判断当前是不是一个节目（此处应该没有实质价值）
+                    eventName1 = self.event_videoname;
+                    eventName2 = self.event_videoname;
+                    //        eventNameTemp ;
+                    eventNameTemp = eventName1;
+                    if (eventName2 != eventNameTemp) {
+                        // 不同的节目   @"同一个节目";
+                    }else
+                    {
+                        //@"同一个节目";
+                        eventName2 = eventNameTemp;
+                        
+                        //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
+                        
+                        
+                        //                if (TVViewTouchPlay == YES) {
+                        progressEPGArrIndex = 0;
+                        //                }else
+                        //                {
+                        ////                //progressEPGArrIndex 不变
+                        //                }
+                        
+                        
+                        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
+                        
+                        int tempIndex =progressEPGArrIndex;
+                        NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
+                        [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
+                        //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+                        NSInteger endTime =[self.event_endTime intValue ];
+                        //                NSInteger startTime =[self.event_startTime intValue ];
+                        
+                        //                NSDate *senddate = [NSDate date];
+                        //                NSLog(@"date1时间戳 = %ld",time(NULL));
+                        NSString *nowDate = [GGUtil GetNowTimeString];
+                        NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+                        
+                        NSLog(@"djbaisbdoabsdbaisbdiuabsdub");
+                        NSLog(@"replaceEventNameNotific 计算进度条的里面");
+                        NSLog(@"progressRefreshprogressRefresh 111");
+                        
+                        
+                        
+                        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                        [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                        
+                        NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
+                        
+                    }
                 }
+                //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
+                //
+                //        }else
+                //        {
+                //            NSLog(@"此处可能报错，因为StarTime不为空 ");
+                //
+                //        }
+                
+                
+                
+                
+            }else{
+                
+                NSLog(@"---删除进度条的地方111");
+                [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+                
+                
             }
-            //        if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil) {
-            //
-            //        }else
-            //        {
-            //            NSLog(@"此处可能报错，因为StarTime不为空 ");
-            //
-            //        }
+            //**
+            NSLog(@"---urlData接收页面下面的video.playurl%@",self.video.playUrl);
+            
+            
+            NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
+            
+            //    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            //    [alertview show];
             
             
             
-            
-        }else{
-            
-            NSLog(@"---删除进度条的地方111");
-            [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
-            
+            NSLog(@"111channelCount==--==--22222= %d ",self.video.channelCount);
+            NSLog(@"111self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+        }else
+        {
             
         }
-        //**
-        NSLog(@"---urlData接收页面下面的video.playurl%@",self.video.playUrl);
-        
-        
-        NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
-        
-        //    UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"data信息"message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        //    [alertview show];
-        
-        
-        
-        NSLog(@"111channelCount==--==--22222= %d ",self.video.channelCount);
-        NSLog(@"111self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
+       
         
     }
     else
@@ -2492,7 +2498,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 
 #pragma  mark -视频分发返回来的RET区的结果
--(void)getLinkData : (int )val
+-(BOOL)getLinkData : (int )val
 {
     NSLog(@"val :%d",val);
     if (val == 0)  {
@@ -2512,7 +2518,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else if(val == 3)
     {
-        NSLog(@"资源连接");
+        NSLog(@"访问资源冲突，需要显示No resources,this video can't play. Please check in Devices Management on StarTimes ONE");
+        [USER_DEFAULT setObject:ResourcesFull forKey:@"playStateType"];
+        [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+//        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+//            NSLog(@"取消25秒的等待7");
+//            NSLog(@"取消播放第二次");
+//            NSLog(@"取消播放第二次 %@",[NSThread currentThread]);
+//            if (self.showTVView == YES) {
+//                [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
+//                NSLog(@"开始25秒的等待");
+//            }else
+//            {
+//
+//                NSLog(@"进入了这个方法");
+//            }
+            
+        });
+        return NO;
     }
     else if(val == 4)
     {
@@ -2547,6 +2576,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"无效");
         
     }
+    
+    return YES;
 }
 
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic

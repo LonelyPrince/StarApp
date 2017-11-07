@@ -150,6 +150,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         openTime = 0;
         self.view.frame = frame;
         self.view.backgroundColor = [UIColor blackColor]; //blackColor
+        NSLog(@"页面要显示了，显示了，显示了");
         //        self.view.backgroundColor = [UIColor redColor];
         //        tvViewController = [[TVViewController alloc]init];
         //        self.controlStyle = MPMovieControlStyleNone;
@@ -1556,6 +1557,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }
                                 else
                                 {
@@ -1569,6 +1574,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -1598,6 +1604,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }
                                 else
                                 {
@@ -1608,6 +1618,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 lab.text = videoCantPlayTip;
                             }
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -1637,6 +1648,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }
                                 else
                                 {
@@ -1647,6 +1662,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 lab.text = videoCantPlayTip;
                             }
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -1678,6 +1694,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }else
                                 {
                                     lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -1687,6 +1707,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 lab.text = videoCantPlayTip;
                             }
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -1721,6 +1742,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     {
                                         lab.numberOfLines = 0;
                                         lab.text = mediaDisConnect;
+                                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                    {
+                                        lab.numberOfLines = 0;
+                                        lab.text = ResourcesFull;
                                     }else
                                     {
                                         lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -1732,6 +1757,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                                 
                                 lab.font = FONT(17);
+                                lab.textAlignment = NSTextAlignmentCenter;
                                 lab.textColor = [UIColor whiteColor];
                                 [self.view addSubview:lab];
                                 NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -1760,6 +1786,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     {
                                         lab.numberOfLines = 0;
                                         lab.text = mediaDisConnect;
+                                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                    {
+                                        lab.numberOfLines = 0;
+                                        lab.text = ResourcesFull;
                                     }else
                                     {
                                         lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -1769,6 +1799,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     lab.text = videoCantPlayTip;
                                 }
                                 lab.font = FONT(17);
+                                lab.textAlignment = NSTextAlignmentCenter;
                                 lab.textColor = [UIColor whiteColor];
                                 [self.view addSubview:lab];
                                 NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -1798,6 +1829,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     {
                         lab.numberOfLines = 0;
                         lab.text = mediaDisConnect;
+                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                    {
+                        lab.numberOfLines = 0;
+                        lab.textAlignment = NSTextAlignmentCenter;
+                        lab.text = ResourcesFull;
+                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                    {
+                        lab.numberOfLines = 0;
+                        lab.text = ResourcesFull;
                     }else
                     {
                         lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -2089,6 +2129,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 {
                     lab.numberOfLines = 0;
                     lab.text = mediaDisConnect;
+                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                {
+                    lab.numberOfLines = 0;
+                    lab.text = ResourcesFull;
                 }else
                 {
                     lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -2098,7 +2142,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 lab.text = videoCantPlayTip;
             }
             lab.font = FONT(17);
-            
+            lab.textAlignment = NSTextAlignmentCenter;
             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
             CGSize size=[lab.text sizeWithAttributes:attrs];
             lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
@@ -2326,6 +2370,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
             lab.numberOfLines = 0;
             lab.text = mediaDisConnect;
+        }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+        {
+            lab.numberOfLines = 0;
+            lab.text = ResourcesFull;
         }else
         {
             lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -2335,7 +2383,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         lab.text = videoCantPlayTip;
     }
     lab.font = FONT(17);
-    
+    lab.textAlignment = NSTextAlignmentCenter;
     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
     CGSize size=[lab.text sizeWithAttributes:attrs];
     lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
@@ -4897,6 +4945,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }
                                 else
                                 {
@@ -4910,6 +4962,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -4939,6 +4992,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }
                                 else
                                 {
@@ -4949,6 +5006,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 lab.text = videoCantPlayTip;
                             }
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -4978,6 +5036,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }
                                 else
                                 {
@@ -4988,6 +5050,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 lab.text = videoCantPlayTip;
                             }
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -5019,6 +5082,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 {
                                     lab.numberOfLines = 0;
                                     lab.text = mediaDisConnect;
+                                }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                {
+                                    lab.numberOfLines = 0;
+                                    lab.text = ResourcesFull;
                                 }else
                                 {
                                     lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -5028,6 +5095,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 lab.text = videoCantPlayTip;
                             }
                             lab.font = FONT(17);
+                            lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -5062,6 +5130,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     {
                                         lab.numberOfLines = 0;
                                         lab.text = mediaDisConnect;
+                                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                    {
+                                        lab.numberOfLines = 0;
+                                        lab.text = ResourcesFull;
                                     }else
                                     {
                                         lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -5073,6 +5145,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                                 
                                 lab.font = FONT(17);
+                                lab.textAlignment = NSTextAlignmentCenter;
                                 lab.textColor = [UIColor whiteColor];
                                 [self.view addSubview:lab];
                                 NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -5101,6 +5174,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     {
                                         lab.numberOfLines = 0;
                                         lab.text = mediaDisConnect;
+                                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                                    {
+                                        lab.numberOfLines = 0;
+                                        lab.text = ResourcesFull;
                                     }else
                                     {
                                         lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
@@ -5110,6 +5187,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     lab.text = videoCantPlayTip;
                                 }
                                 lab.font = FONT(17);
+                                lab.textAlignment = NSTextAlignmentCenter;
                                 lab.textColor = [UIColor whiteColor];
                                 [self.view addSubview:lab];
                                 NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
@@ -5139,6 +5217,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     {
                         lab.numberOfLines = 0;
                         lab.text = mediaDisConnect;
+                    }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
+                    {
+                        lab.numberOfLines = 0;
+                        lab.textAlignment = NSTextAlignmentCenter;
+                        lab.text = ResourcesFull;
                     }else
                     {
                         lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
