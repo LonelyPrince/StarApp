@@ -319,7 +319,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 - (void)applicationWillResignActive:(NSNotification *)notification
 {
     self.video.playUrl = @"";
-    //    [self playVideo];
+    
     [self.videoController.player stop];
     
     
@@ -478,11 +478,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        });
         
         
+//        if (!isValidArray(data1) || data1.count != 0){
+//            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
+//
+//            if (response[@"data_valid_flag"] == NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
         if (!isValidArray(data1) || data1.count == 0){
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
-            
+
             if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
                 
@@ -519,9 +522,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }else
             {
-                //机顶盒连接出错了，所以要显示没有网络的加载图
-                [self getServiceData]; //如果数据为空，则重新获取数据
+                double delayInSeconds = 1;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+                    NSLog(@"延时执行的2秒");
+                    //机顶盒连接出错了，所以要显示没有网络的加载图
+                    [self getServiceData]; //如果数据为空，则重新获取数据
+                });
+                
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"可能会出现播放器空白的情况");
                 return ;
             }
             //            [self getServiceData]; //如果数据为空，则重新获取数据
@@ -2216,17 +2227,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self ifNotISTVView];
     }
 }
-//-(void)abcd
-//{
-//    [self playVideo];
-//    double delayInSeconds = 0.5;
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, mainQueue, ^{
-//        NSLog(@"延时执行的2秒");
-//        [self playVideo];
-//    });
-//}
 
 //-(void)getAndSetSubLanguage {
 //
@@ -4038,7 +4038,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        [self.activeView removeFromSuperview];
 //        self.activeView = nil;
 //        [self lineAndSearchBtnShow];
-//        //        [self playVideo];
+
 //
 //
 //        //////
@@ -4356,7 +4356,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)HMCHasChanged
 {
     NSLog(@"执行方法 HMC 改变了");
-    //    [self getServiceData];
     [self getServiceDataForIPChange];
     
 }
@@ -4365,7 +4364,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     NSLog(@"执行方法  IP地址改变了");
-    //    [self getServiceData];
     [self getServiceDataForIPChange];
 }
 -(void)setStateNonatic
@@ -4482,7 +4480,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"playState111---.self.videoController.loadState %lu",(unsigned long)self.videoController.loadState);
         NSLog(@"首页的暂停状态，就是将正在播放的暂停");
         NSLog(@"playState---首页的暂停状态，就是将正在播放的暂停2222");
-        //        [self playVideo];
+        
         //        [self.videoController pause];
         //        self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
         //        NSLog(@"playVideo33 :");
@@ -5455,6 +5453,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
+#pragma mark - 获取表数据的不含有socket 的初始化方法
 -(void)getServiceDataNotHaveSocket
 {
     //获取数据的链接
@@ -5504,7 +5503,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.activeView = nil;
         [self lineAndSearchBtnShow];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
-        //        [self playVideo];
+        
         NSLog(@" playVideo getservicedataNotHaveSocket");
         NSLog(@"playVideo44 :");
         
@@ -5541,7 +5540,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 
-                
+                [self playVideo];
                 //判断是不是全屏
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
@@ -7322,7 +7321,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 
-                
+//                [self playVideo];
                 //判断是不是全屏
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
@@ -7507,7 +7506,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 
-                
+                [self playVideo];
                 
                 //判断是不是全屏
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
@@ -8927,7 +8926,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@" viewDidDisappear viewDidDisappear");
     [self removeONEMinuteTimer];
     self.video.playUrl = @"";
-    //    [self playVideo];
+    
     [self.videoController.player stop];
     [self.videoController.player shutdown];
     [self.videoController.player.view removeFromSuperview];
@@ -8944,7 +8943,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@" viewWillDisappear viewWillDisappear");
     [self removeONEMinuteTimer];
     self.video.playUrl = @"";
-    //    [self playVideo];
+    
     [self.videoController.player stop];
     [self.videoController.player shutdown];
     [self.videoController.player.view removeFromSuperview];
