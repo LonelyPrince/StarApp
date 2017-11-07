@@ -114,16 +114,6 @@
 		70170BD51D74038B00CC3951 /* StarMainTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BD41D74038B00CC3951 /* StarMainTabController.m */; };
 		70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BD71D7403AC00CC3951 /* TVViewController.m */; };
 		70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BDA1D7403C300CC3951 /* MEViewController.m */; };
-		70170C351D74156000CC3951 /* block_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C2B1D74156000CC3951 /* block_bg.png */; };
-		70170C361D74156000CC3951 /* block_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C2C1D74156000CC3951 /* block_bg@2x.png */; };
-		70170C371D74156000CC3951 /* guang.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C2D1D74156000CC3951 /* guang.png */; };
-		70170C381D74156000CC3951 /* guang@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C2E1D74156000CC3951 /* guang@2x.png */; };
-		70170C391D74156000CC3951 /* hot.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C2F1D74156000CC3951 /* hot.png */; };
-		70170C3A1D74156000CC3951 /* hot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C301D74156000CC3951 /* hot@2x.png */; };
-		70170C3B1D74156000CC3951 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C311D74156000CC3951 /* like.png */; };
-		70170C3C1D74156000CC3951 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C321D74156000CC3951 /* like@2x.png */; };
-		70170C3D1D74156000CC3951 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C331D74156000CC3951 /* more.png */; };
-		70170C3E1D74156000CC3951 /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70170C341D74156000CC3951 /* more@2x.png */; };
 		70170C481D74234900CC3951 /* MonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170C461D74234900CC3951 /* MonitorViewController.m */; };
 		70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70170C471D74234900CC3951 /* MonitorViewController.xib */; };
 		701A98A21DB47A3100460220 /* 音轨@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701A98841DB47A3100460220 /* 音轨@1x.png */; };
@@ -183,9 +173,6 @@
 		70231CCC1DC0FE8C00F73202 /* 组-54.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CB41DC0FE8C00F73202 /* 组-54.png */; };
 		70231CCD1DC0FE8C00F73202 /* 组-54@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CB51DC0FE8C00F73202 /* 组-54@2x.png */; };
 		70231CCE1DC0FE8C00F73202 /* 组-54@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CB61DC0FE8C00F73202 /* 组-54@3x.png */; };
-		70231CD21DC0FE8C00F73202 /* 路由设置.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CBA1DC0FE8C00F73202 /* 路由设置.png */; };
-		70231CD31DC0FE8C00F73202 /* 路由设置IP不可用.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CBB1DC0FE8C00F73202 /* 路由设置IP不可用.png */; };
-		70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CBC1DC0FE8C00F73202 /* 路由设置编辑.png */; };
 		70231CD81DC0FFB800F73202 /* RouteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 70231CD61DC0FFB800F73202 /* RouteSetting.m */; };
 		70231CD91DC0FFB800F73202 /* RouteSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70231CD71DC0FFB800F73202 /* RouteSetting.xib */; };
 		70231CDD1DC19FEA00F73202 /* 组-55.png in Resources */ = {isa = PBXBuildFile; fileRef = 70231CDA1DC19FEA00F73202 /* 组-55.png */; };
@@ -869,16 +856,6 @@
 		70170BD71D7403AC00CC3951 /* TVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TVViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		70170BD91D7403C300CC3951 /* MEViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEViewController.h; sourceTree = "<group>"; };
 		70170BDA1D7403C300CC3951 /* MEViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEViewController.m; sourceTree = "<group>"; };
-		70170C2B1D74156000CC3951 /* block_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_bg.png; sourceTree = "<group>"; };
-		70170C2C1D74156000CC3951 /* block_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "block_bg@2x.png"; sourceTree = "<group>"; };
-		70170C2D1D74156000CC3951 /* guang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guang.png; sourceTree = "<group>"; };
-		70170C2E1D74156000CC3951 /* guang@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guang@2x.png"; sourceTree = "<group>"; };
-		70170C2F1D74156000CC3951 /* hot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hot.png; sourceTree = "<group>"; };
-		70170C301D74156000CC3951 /* hot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hot@2x.png"; sourceTree = "<group>"; };
-		70170C311D74156000CC3951 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
-		70170C321D74156000CC3951 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@2x.png"; sourceTree = "<group>"; };
-		70170C331D74156000CC3951 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
-		70170C341D74156000CC3951 /* more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@2x.png"; sourceTree = "<group>"; };
 		70170C451D74234900CC3951 /* MonitorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorViewController.h; sourceTree = "<group>"; };
 		70170C461D74234900CC3951 /* MonitorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorViewController.m; sourceTree = "<group>"; };
 		70170C471D74234900CC3951 /* MonitorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitorViewController.xib; sourceTree = "<group>"; };
@@ -940,9 +917,6 @@
 		70231CB41DC0FE8C00F73202 /* 组-54.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "组-54.png"; sourceTree = "<group>"; };
 		70231CB51DC0FE8C00F73202 /* 组-54@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "组-54@2x.png"; sourceTree = "<group>"; };
 		70231CB61DC0FE8C00F73202 /* 组-54@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "组-54@3x.png"; sourceTree = "<group>"; };
-		70231CBA1DC0FE8C00F73202 /* 路由设置.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路由设置.png"; sourceTree = "<group>"; };
-		70231CBB1DC0FE8C00F73202 /* 路由设置IP不可用.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路由设置IP不可用.png"; sourceTree = "<group>"; };
-		70231CBC1DC0FE8C00F73202 /* 路由设置编辑.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "路由设置编辑.png"; sourceTree = "<group>"; };
 		70231CD51DC0FFB800F73202 /* RouteSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteSetting.h; sourceTree = "<group>"; };
 		70231CD61DC0FFB800F73202 /* RouteSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteSetting.m; sourceTree = "<group>"; };
 		70231CD71DC0FFB800F73202 /* RouteSetting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteSetting.xib; sourceTree = "<group>"; };
@@ -1894,26 +1868,8 @@
 				7040E2171DAE12B80063DB66 /* ME */,
 				707FE70B1DACC3740087C361 /* Live */,
 				70FC2FED1D75207300BD06FE /* StarTime */,
-				70170C2A1D74156000CC3951 /* tabIcons */,
 			);
 			path = images;
-			sourceTree = "<group>";
-		};
-		70170C2A1D74156000CC3951 /* tabIcons */ = {
-			isa = PBXGroup;
-			children = (
-				70170C2B1D74156000CC3951 /* block_bg.png */,
-				70170C2C1D74156000CC3951 /* block_bg@2x.png */,
-				70170C2D1D74156000CC3951 /* guang.png */,
-				70170C2E1D74156000CC3951 /* guang@2x.png */,
-				70170C2F1D74156000CC3951 /* hot.png */,
-				70170C301D74156000CC3951 /* hot@2x.png */,
-				70170C311D74156000CC3951 /* like.png */,
-				70170C321D74156000CC3951 /* like@2x.png */,
-				70170C331D74156000CC3951 /* more.png */,
-				70170C341D74156000CC3951 /* more@2x.png */,
-			);
-			path = tabIcons;
 			sourceTree = "<group>";
 		};
 		70170C441D74234900CC3951 /* Monitor */ = {
@@ -2067,9 +2023,6 @@
 				70231CDA1DC19FEA00F73202 /* 组-55.png */,
 				70231CDB1DC19FEA00F73202 /* 组-55@2x.png */,
 				70231CDC1DC19FEA00F73202 /* 组-55@3x.png */,
-				70231CBA1DC0FE8C00F73202 /* 路由设置.png */,
-				70231CBB1DC0FE8C00F73202 /* 路由设置IP不可用.png */,
-				70231CBC1DC0FE8C00F73202 /* 路由设置编辑.png */,
 				70231CE01DC1A00100F73202 /* save-不可.png */,
 				70231CE11DC1A00100F73202 /* save-不可@2x.png */,
 				70231CE31DC1A00100F73202 /* save.png */,
@@ -2982,14 +2935,11 @@
 				7024C6081DD4098B0053F313 /* iphone@1x.png in Resources */,
 				704524DC1FA6BA1400E6DB3B /* 设备@3x.png in Resources */,
 				70FFE3E81DE2DBA200223E43 /* M7.png in Resources */,
-				70170C3C1D74156000CC3951 /* like@2x.png in Resources */,
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
 				70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */,
-				70170C381D74156000CC3951 /* guang@2x.png in Resources */,
 				701078671F96DAF800593014 /* 背景@3x.png in Resources */,
 				70362D161F009E4B0012A309 /* New圆环-3@2x.png in Resources */,
 				7045C46C1DC715FB002647F9 /* 矩形2@2x.png in Resources */,
-				70170C3D1D74156000CC3951 /* more.png in Resources */,
 				701443401DDD3708008EAAC6 /* GroupEnter@1x.png in Resources */,
 				701A98AC1DB47A3100460220 /* Rectangle@2x.png in Resources */,
 				70362D101F009E4B0012A309 /* New圆环-1@2x.png in Resources */,
@@ -3092,7 +3042,6 @@
 				7010785B1F96DAF800593014 /* Devices-List@3x.png in Resources */,
 				70FFE40B1DE421A700223E43 /* monitor-jd@1x.png in Resources */,
 				70170C491D74234900CC3951 /* MonitorViewController.xib in Resources */,
-				70170C391D74156000CC3951 /* hot.png in Resources */,
 				7010176B1DCADA3300F9D5FF /* lan@1x.png in Resources */,
 				707FE7431DACC3C30087C361 /* live icon copy@1x.png in Resources */,
 				701A98BA1DB47A3100460220 /* 频道列表@1x.png in Resources */,
@@ -3107,7 +3056,6 @@
 				707FE7421DACC3C30087C361 /* 竖屏底背景@3x.png in Resources */,
 				70362D411F00A0180012A309 /* Guide@2x.png in Resources */,
 				7040E24B1DAE12B80063DB66 /* zOOm-Logo@1x.png in Resources */,
-				70231CD21DC0FE8C00F73202 /* 路由设置.png in Resources */,
 				701A98B51DB47A3100460220 /* 字幕@2x.png in Resources */,
 				70FFE4011DE3EF4800223E43 /* 时间@3x.png in Resources */,
 				70CCF3621F45312500F77CD5 /* 引导页4.png in Resources */,
@@ -3159,12 +3107,10 @@
 				70FFE3D31DE2D07600223E43 /* 圆环-7.png in Resources */,
 				7040E2331DAE12B80063DB66 /* Group 10 Copy 2@1x.png in Resources */,
 				70231CC91DC0FE8C00F73202 /* password.png in Resources */,
-				70170C3E1D74156000CC3951 /* more@2x.png in Resources */,
 				70362D3C1F00A0180012A309 /* Education@3x.png in Resources */,
 				70D6B8F31E2DAF3D00957A81 /* Entertainment@3x.png in Resources */,
 				70FFE3E91DE2DBA200223E43 /* M8.png in Resources */,
 				707FE73E1DACC3C30087C361 /* Group 5@2x.png in Resources */,
-				70231CD31DC0FE8C00F73202 /* 路由设置IP不可用.png in Resources */,
 				706376141E0B5EB8004238B1 /* 网络无连接@1x.png in Resources */,
 				70D6B8EF1E2DAF3D00957A81 /* 个性化@2x.png in Resources */,
 				7010786B1F96DAF800593014 /* Router-Status@2x.png in Resources */,
@@ -3189,7 +3135,6 @@
 				701A98A21DB47A3100460220 /* 音轨@1x.png in Resources */,
 				7024C60B1DD4098B0053F313 /* Mac@1x.png in Resources */,
 				70FC30E51D75714E00BD06FE /* kr-video-player-shrinkscreen@2x.png in Resources */,
-				70231CD41DC0FE8C00F73202 /* 路由设置编辑.png in Resources */,
 				7010785C1F96DAF800593014 /* Reboot-Device@1x.png in Resources */,
 				702CE43F1DDA9881000A0513 /* 6.png in Resources */,
 				701078CD1F98418D00593014 /* 密码@2x.png in Resources */,
@@ -3344,7 +3289,6 @@
 				70D6B90F1E2DAF3D00957A81 /* South African@1x.png in Resources */,
 				70FFE3FA1DE3EF4800223E43 /* 分发@2x.png in Resources */,
 				7040E2461DAE12B80063DB66 /* Viasat-Nature-logo@2x.png in Resources */,
-				70170C371D74156000CC3951 /* guang.png in Resources */,
 				7040E23C1DAE12B80063DB66 /* Group 6@1x.png in Resources */,
 				702CE4421DDA9881000A0513 /* 7.png in Resources */,
 				701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */,
@@ -3378,7 +3322,6 @@
 				70231D0D1DC2E9FA00F73202 /* Back@3x.png in Resources */,
 				7056506A1DB9EFA2002DD47E /* subtCell.xib in Resources */,
 				70D6B90E1E2DAF3D00957A81 /* Religion@3x.png in Resources */,
-				70170C361D74156000CC3951 /* block_bg@2x.png in Resources */,
 				70FFE3C21DE2D05700223E43 /* nine.png in Resources */,
 				707FE7391DACC3C30087C361 /* background@3x.png in Resources */,
 				70362D491F00A0180012A309 /* Series@1x.png in Resources */,
@@ -3390,7 +3333,6 @@
 				70362D011F009D720012A309 /* All Channel@2x.png in Resources */,
 				70FFE4001DE3EF4800223E43 /* 时间@2x.png in Resources */,
 				702CE4401DDA9881000A0513 /* 6@2x.png in Resources */,
-				70170C3B1D74156000CC3951 /* like.png in Resources */,
 				701295161D80F4CF003139D5 /* MBProgressHUD.bundle in Resources */,
 				701A98A81DB47A3100460220 /* Rectangle 2@1x.png in Resources */,
 				7040E23B1DAE12B80063DB66 /* Group 15 Copy 2@3x.png in Resources */,
@@ -3414,7 +3356,6 @@
 				70FC30F21D75714E00BD06FE /* zx-video-player-unlock@3x.png in Resources */,
 				70FC2FF51D7524C000BD06FE /* SearchViewController.xib in Resources */,
 				701078CE1F98418D00593014 /* SSID@1x.png in Resources */,
-				70170C351D74156000CC3951 /* block_bg.png in Resources */,
 				A4A66A1E1555E44100AED3AF /* DetailViewController.xib in Resources */,
 				702CE4491DDA9881000A0513 /* 9@2x.png in Resources */,
 				702218BB1E5AD304005D96A0 /* 未加锁 @3x.png in Resources */,
@@ -3462,7 +3403,6 @@
 				7059B2DA1F330A4600C005A4 /* Tunermonitor.png in Resources */,
 				701078641F96DAF800593014 /* WLAN-Settings@1x.png in Resources */,
 				A48574B815A3155500294C34 /* DLNAPlaybackViewController.xib in Resources */,
-				70170C3A1D74156000CC3951 /* hot@2x.png in Resources */,
 				702CE4411DDA9881000A0513 /* 6@3x.png in Resources */,
 				702CE4531DDA9881000A0513 /* 组-51-拷贝@2x.png in Resources */,
 				70FC30F11D75714E00BD06FE /* zx-video-player-unlock@2x.png in Resources */,

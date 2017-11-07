@@ -449,7 +449,7 @@
         [scrollView addSubview:colorView];
         
         routeImage.frame = CGRectMake(55, 74, 100, 100);
-        routeImage.image = [UIImage imageNamed:@"顶部"];
+        routeImage.image = [UIImage imageNamed:@"顶部@3x.png"];
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
         
