@@ -213,7 +213,8 @@
         
         self.programeClass.image = [UIImage imageNamed:@"play"];
         
-        if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""])
+        NSLog(@"[epgDic objectForKey: %@",[epgDic objectForKey:@"event_name"]);
+        if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
             self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
         }else{
@@ -229,7 +230,7 @@
     {
         self.programeClass.image = [UIImage imageNamed:@"录制"];
         
-        if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""])
+        if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
             self.nameLab.text = [NSString stringWithFormat:@"Recording--%@",[epgDic objectForKey:@"event_name"]];
         }else{
@@ -260,7 +261,7 @@
             self.programeClass.image = [UIImage imageNamed:@"分发"];
             
             NSLog(@"self.nameLab.text :%@",[epgDic objectForKey:@"event_name"]);
-            if([[epgDic objectForKey:@"event_name"] isEqualToString:@""])
+            if([[epgDic objectForKey:@"event_name"] isEqualToString:@""] || [epgDic objectForKey:@"event_name"] == NULL)
             {
                 NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
                
@@ -281,7 +282,7 @@
         {
             self.programeClass.image = [UIImage imageNamed:@"分发"];
             
-            if([epgDic objectForKey:@"event_name"])
+            if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
             {
                 
                 self.nameLab.text = [NSString stringWithFormat:@"No Device Name--%@",[epgDic objectForKey:@"event_name"]];

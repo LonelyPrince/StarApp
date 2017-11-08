@@ -18,11 +18,11 @@
 @interface MonitorViewController ()
 {
     NSInteger tunerNum;
-    NSMutableArray *  livePlayArr;
-    NSMutableArray *  liveRecordArr;
-    NSMutableArray *  liveTimeShiteArr;
-    NSMutableArray *  deliveryArr;
-    NSMutableArray *  pushVodArr;
+//    NSMutableArray *  livePlayArr;
+//    NSMutableArray *  liveRecordArr;
+//    NSMutableArray *  liveTimeShiteArr;
+//    NSMutableArray *  deliveryArr;
+//    NSMutableArray *  pushVodArr;
     
     NSInteger   livePlayCount;
     NSInteger   liveRecordCount;
@@ -92,10 +92,12 @@
     
     viewFirstOpen = YES;
     networIsConnect = YES;
+    
+
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    
+ 
     if (viewFirstOpen == YES) {
         [self viewWillAppearDealyFunction];
         viewFirstOpen = NO;
@@ -123,17 +125,8 @@
 //    [self.view addSubview:btn1];
 //    [scrollView addSubview:btn1];
 //    [btn1 addTarget:self action:@selector(netWorkIsConnect) forControlEvents:UIControlEventTouchUpInside];
+    
 }
-//-(void)aaaaaa
-//{
-//
-////    [self.tableView reloadData];
-//    NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
-//    //    //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//        [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];
-//    [self getNotificInfoByMySelf];
-//}
 #define mark - 网络断开时出发此方法
 -(void)netWorkIsColse
 {
@@ -146,6 +139,7 @@
     
     lastPosition = 0;
     livePlayCount = 0;
+    NSLog(@"livePlayCount livePlayCount ccccc %ld",livePlayCount);
     liveRecordCount = 0;
     liveTimeShiteCount = 0;
     deliveryCount = 0;
@@ -160,6 +154,7 @@
     [self emptyCircleAndLabel];
     networIsConnect = NO;
     
+  
 }
 -(void)emptyCircleAndLabel
 {
@@ -171,7 +166,7 @@
     
     
     liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
-    
+    NSLog(@"livePlayCount livePlayCount 66 %ld",livePlayCount);
     recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
     
     //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
@@ -353,6 +348,7 @@
     tunerNum = 0; ///******
     [monitorTableArr removeAllObjects];
     livePlayCount = 0;
+    NSLog(@"livePlayCount livePlayCount bbbb %ld",livePlayCount);
     liveRecordCount = 0;
     liveTimeShiteCount = 0;
     deliveryCount = 0;
@@ -409,16 +405,17 @@
     scrollUp = NO;
     lastPosition = 0;
     livePlayCount = 0;
+    NSLog(@"livePlayCount livePlayCount www %ld",livePlayCount);
     liveRecordCount = 0;
     liveTimeShiteCount = 0;
     deliveryCount = 0;
     pushVodCount = 0;
     tunerNum = 0;
-    livePlayArr = [[NSMutableArray alloc]init];
-    liveRecordArr = [[NSMutableArray alloc]init];
-    liveTimeShiteArr = [[NSMutableArray alloc]init];
-    deliveryArr = [[NSMutableArray alloc]init];
-    pushVodArr = [[NSMutableArray alloc]init];
+//    livePlayArr = [[NSMutableArray alloc]init];
+//    liveRecordArr = [[NSMutableArray alloc]init];
+//    liveTimeShiteArr = [[NSMutableArray alloc]init];
+//    deliveryArr = [[NSMutableArray alloc]init];
+//    pushVodArr = [[NSMutableArray alloc]init];
     monitorTableDic = [[NSMutableDictionary alloc]init];
     monitorTableArr = [[NSMutableArray alloc]init];
     
@@ -427,7 +424,7 @@
     
     ///
     //    socketUtils = [[SocketUtils alloc]init];
-    [self initNotific];
+//    [self initNotific];
 }
 
 -(void)initNotific
@@ -629,6 +626,7 @@
         //     liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
         liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+27, liveNumLab.frame.origin.y-26, 16, 20)];
         liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        NSLog(@"livePlayCount livePlayCount 11 %ld",livePlayCount);
         liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
         liveNum_Lab.font = FONT(24);
         [colorImageView addSubview:liveNum_Lab];
@@ -682,6 +680,7 @@
         
         liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+30 , liveNumLab.frame.origin.y-34, 16, 20)];
         liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        NSLog(@"livePlayCount livePlayCount 22 %ld",livePlayCount);
         liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
         liveNum_Lab.font = FONT(24);
         [colorImageView addSubview:liveNum_Lab];
@@ -733,6 +732,7 @@
         
         liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+27, liveNumLab.frame.origin.y-40 + 10, 16, 20)];
         liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+        NSLog(@"livePlayCount livePlayCount 33 %ld",livePlayCount);
         liveNum_Lab.textColor = RGBA(245, 245, 245, 0.65);
         liveNum_Lab.font = FONT(24);
         [colorImageView addSubview:liveNum_Lab];
@@ -1144,6 +1144,7 @@
             
             
             liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
+            NSLog(@"livePlayCount livePlayCount 44 %ld",livePlayCount);
             
             recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
             
@@ -1259,7 +1260,8 @@
     }
     
     
-    
+    //新加 防止在未进入monitor页面的情况下，触发无网络的通知
+    [self initNotific];
     
 }
 
@@ -1279,6 +1281,7 @@
             break;
         case LIVE_PLAY:
             livePlayCount ++;
+            NSLog(@"livePlayCount livePlayCount 55 %ld",livePlayCount);
             break;
         case LIVE_RECORD:
             liveRecordCount ++;

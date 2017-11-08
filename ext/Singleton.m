@@ -180,10 +180,10 @@
         self.connectStatus ++ ; //连接成功，则赋值为0
         // 服务器掉线，重连
         double delayInSeconds = 0.1;   //如果没有延迟，则会一直连接，造成CPU飙升
-        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, mainQueue, ^{
-        [self socketConnectHost];
+            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, mainQueue, ^{
+                [self socketConnectHost];
         });
         NSLog(@"sorry the connect is 服务器断开");
         NSLog(@"self.connectStatus %d",self.connectStatus);
