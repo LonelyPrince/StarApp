@@ -308,12 +308,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         
-        //用于显示全屏的按钮
-        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-        
-        NSLog(@"此时数据有，删除啦啦占位图");
+//        //用于显示全屏的按钮
+//        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//
+//        NSLog(@"此时数据有，删除啦啦占位图");
         return;
     }
     
