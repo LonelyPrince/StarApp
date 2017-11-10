@@ -337,7 +337,7 @@
     //    dataTemp = [USER_DEFAULT objectForKey:@"retDataForMonitor"];
     NSLog(@"retDataByMySelf: %@",retDataByMySelf);
     
-    [monitorTableArr removeAllObjects];
+//    [monitorTableArr removeAllObjects];
     
     [self getEffectiveData:retDataByMySelf];
     
@@ -861,6 +861,7 @@
 //获得有效数据的信息，不同tuner的信息
 -(void)getEffectiveData:(NSData *) allTunerData
 {
+    [monitorTableArr removeAllObjects];
     if (networIsConnect == YES) {
     NSLog(@"=======================test gettuner");
     NSLog(@"allTunerData :%@",allTunerData);
@@ -1549,6 +1550,9 @@
         
         ///////******
         NSLog(@"monitorTableArr:%@",monitorTableArr);
+        if (monitorTableArr.count == 0 ) {
+            return;
+        }
         [monitorTableArr removeObjectAtIndex:indexPath.row];
         //这里添加删除的socket
         /*删除tableView中的一行*/
