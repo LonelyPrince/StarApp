@@ -688,26 +688,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 
                 
-                
-                
-                
-                
-                //                //设置滑动条
-                //                _slideView = [YLSlideView alloc];
-                //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                  SCREEN_WIDTH,
-                //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                
-                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                    SCREEN_WIDTH,
-                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                      SCREEN_WIDTH,
-                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                //                                                 forTitles:self.categorys];
                 
                 
                 _slideView.backgroundColor = [UIColor whiteColor];
@@ -1961,11 +1943,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"响应了一次");
                 //======
                 [self touchSelectChannel:indexPathRow diction:self.dicTemp];
-                //            [self stopOldVideoAndGetInfo:indexPath.row diction:self.dicTemp]; //可以删除这个方法
-                //            [self serviceEPGSetData:indexPath.row diction:self.dicTemp];
-                ////
-                //            self.videoController.socketView1 = self.socketView;
-                //            [self.socketView  serviceTouch ];
                 
                 firstOpenAPP = firstOpenAPP+1;
                 
@@ -2101,9 +2078,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             });
             
             
-            
-            NSLog(@"playvideo 后面的线程");
-            NSLog(@"playVideo11 :");
+    
             
             playState = NO;
             
@@ -2497,16 +2472,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
         });
-        
-        //        double delayInSeconds = 2;
-        //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-        //        dispatch_after(popTime, mainQueue, ^{
-        //
-        //            self.videoController.socketView1 = self.socketView;
-        //            [self.socketView  serviceTouch ];
-        //            NSLog(@"测试播放2222222222222233333");
-        //        });
+    
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -3450,41 +3416,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
-            
-            //
-            //            if (!_slideView) {
-            //
-            //
-            //                //设置滑动条
-            //                _slideView = [YLSlideView alloc];
-            //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-            //                                                                  SCREEN_WIDTH,
-            //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-            //
-            //                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-            //                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-            //
-            //                _slideView.backgroundColor = [UIColor whiteColor];
-            //                _slideView.delegate        = self;
-            //
-            //                [self.view addSubview:_slideView];
-            //                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-            //
-            //            }
-            //            else
-            //            {
-            //
-            //            }
-            
-            //            [self.socketView viewDidLoad];
+   
             if (firstfirst == YES) {
                 
                 
-                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                //                firstOpenAPP = firstOpenAPP+1;
-                
-                //                firstfirst = NO;
-                
+             
             }else
             {}
             
@@ -3967,192 +3903,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }];
 }
-//#pragma mark - 机顶盒发送通知，需要刷新节目了
-//-(void)getMediaDeliverUpdate
-//{
-//    //获取数据的链接
-//    NSString *url = [NSString stringWithFormat:@"%@",S_category];
-//
-//    LBGetHttpRequest *request = CreateGetHTTP(url);
-//
-//
-//
-//    [request startAsynchronous];
-//
-//    WEAKGET
-//    [request setCompletionBlock:^{
-//
-//
-//
-//        NSDictionary *response = httpRequest.responseString.JSONValue;
-//
-//        //将数据本地化
-//        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
-//
-//        //        NSLog(@"response = %@",response);
-//        NSArray *data1 = response[@"service"];
-//
-////        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-////        //异步执行队列任务
-////        dispatch_async(globalQueue, ^{
-////            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-////        });
-//
-//        if (!isValidArray(data1) || data1.count == 0){
-//
-//            [self getMediaDeliverUpdate];
-//            return ;
-//        }
-//        self.serviceData = (NSMutableArray *)data1;
-//        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-//
-//        //        NSLog(@"--------%@",self.serviceData);
-//
-//
-//
-//        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-//
-//            [self getMediaDeliverUpdate];
-//        }
-//
-//        [self.activeView removeFromSuperview];
-//        self.activeView = nil;
-//        [self lineAndSearchBtnShow];
-
-//
-//
-//        //////
-//        //获取数据的链接
-//        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
-//
-//
-//        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
-//
-//
-//
-//        [request startAsynchronous];
-//
-//        WEAKGET
-//        [request setCompletionBlock:^{
-//            NSDictionary *response = httpRequest.responseString.JSONValue;
-//
-//
-//
-//            NSArray *data = response[@"category"];
-//
-//            if (!isValidArray(data) || data.count == 0){
-//                return ;
-//            }
-//            self.categorys = (NSMutableArray *)data;
-//
-//
-//            if (!_slideView) {
-//                NSLog(@"上山打老虎3");
-//                //判断是不是全屏
-//                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-//                if (isFullScreen == NO) {   //竖屏状态
-//
-//
-//                    //设置滑动条
-//                    _slideView = [YLSlideView alloc];
-//                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-//                                                                      SCREEN_WIDTH,
-//                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-//                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-//                    NSLog(@"removeAllObjects 第 2 次");
-//                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-//                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-//                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
-//                    NSLog(@"self.dicTemp %@",self.dicTemp);
-//                    _slideView.backgroundColor = [UIColor whiteColor];
-//                    _slideView.delegate        = self;
-//
-//                    [self.view addSubview:_slideView];
-//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-//
-//
-//                }else //横屏状态，不刷新
-//                {
-//
-//                    //设置滑动条
-//                    _slideView = [YLSlideView alloc];
-//                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
-//                                                                      SCREEN_WIDTH,
-//                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-//                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-//                    NSLog(@"removeAllObjects 第 3 次");
-//                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
-//                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-//                    NSLog(@"ArrayTocategory %@",ArrayTocategory);
-//                    NSLog(@"self.dicTemp %@",self.dicTemp);
-//                    _slideView.backgroundColor = [UIColor whiteColor];
-//                    _slideView.delegate        = self;
-//
-//                    [self.view addSubview:_slideView];
-//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-//                }
-//
-//
-//
-//
-//            }
-//            else
-//            {
-//
-//            }
-//
-//            [self judgeVideoByDelete];
-//
-//            //            NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"];
-//            //            NSLog(@"history Arr0: %@",arrHistoryNow[0][0]);  //wor
-//            //            NSLog(@"history Arr1: %@",arrHistoryNow[1][0]);  //wor
-//            //            NSLog(@"history Arr2: %@",arrHistoryNow[2][0]);  //wor
-//            //            NSLog(@"history Arr6: %@",arrHistoryNow[6][0]);  //wor
-//            //            NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
-//            //
-//            //
-//            //            for (int i = 0; i<self.dicTemp.count; i++) {
-//            //                [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
-//            //                NSLog(@"i - 1%d",(i));
-//            //
-//            //
-//            //                if ([arrHistoryNow[6][0] isEqual: [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]]]) { //此处判断，如果被播放的视频被删除了，则播放第一个
-//            //                    NSLog(@"aaabbbb");
-//            //                                }
-//            //                else{
-//            //                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-//            //                    NSLog(@"asdasdasdasdasdasdasdasdasdasdas");
-//            //                }
-//            //            }
-//            ////                if (![self.dicTemp isEqualToArray:self.dicTemp]) { //此处判断，如果被播放的视频被删除了，则播放第一个
-//            ////                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-//            ////                }
-//            //
-//            //
-//            ////            [self.socketView viewDidLoad];
-//            if (firstfirst == YES) {
-//
-//
-//                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-//                //                firstOpenAPP = firstOpenAPP+1;
-//
-//                //                firstfirst = NO;
-//
-//            }else
-//            {}
-//
-//        }];
-//
-//
-//        //        [self initProgressLine];
-//
-//        [self.table reloadData];
-//
-//
-//    }];
-//
-//
-//}
 //判断列表变化后，是否把正在播放的那个节目给删除了，如果是的，则刷新列表，并且重新播放第一个视频
 -(void)judgeVideoByDelete
 {
@@ -4461,11 +4211,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"首页的暂停状态，就是将正在播放的暂停");
         NSLog(@"playState---首页的暂停状态，就是将正在播放的暂停2222");
         
-        //        [self.videoController pause];
-        //        self.videoController.contentURL = [NSURL URLWithString:self.video.playUrl];
-        //        NSLog(@"playVideo33 :");
-        //        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
-        //        [self performSelector:@selector(judegeIsPlaying) withObject:nil afterDelay:0.2];
+   
         
     }else{
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judegeIsPlaying) object:nil];
@@ -5549,26 +5295,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 
-                
-                
-                
-                //                //设置滑动条
-                //                _slideView = [YLSlideView alloc];
-                //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                  SCREEN_WIDTH,
-                //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                
-                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                    SCREEN_WIDTH,
-                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                      SCREEN_WIDTH,
-                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                //                                                 forTitles:self.categorys];
-                
                 
                 _slideView.backgroundColor = [UIColor whiteColor];
                 _slideView.delegate        = self;
@@ -7317,12 +7045,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             _slideView = nil;
             
             if (!_slideView) {
-                NSLog(@"上山打老虎4");
+                NSLog(@"上山打老虎44");
                 
                 
                 
                 
-//                [self playVideo];
                 //判断是不是全屏
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
@@ -7336,7 +7063,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                    NSLog(@"removeAllObjects 第 6 次");
+                    NSLog(@"removeAllObjects 第 66 次");
                 }else //横屏状态，不刷新
                 {
                     
@@ -7351,25 +7078,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 
-                
-                
-                
-                //                //设置滑动条
-                //                _slideView = [YLSlideView alloc];
-                //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                  SCREEN_WIDTH,
-                //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                
-                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                    SCREEN_WIDTH,
-                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                      SCREEN_WIDTH,
-                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                //                                                 forTitles:self.categorys];
                 
                 
                 _slideView.backgroundColor = [UIColor whiteColor];
@@ -7463,8 +7173,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
         NSLog(@"执行执行执行执行1111");
-        NSLog(@" playVideo getserviceDataForIpChange");
-        NSLog(@"playVideo55-IP :");
         
         
         //////
@@ -7543,25 +7251,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 
-                
-                
-                
-                //                //设置滑动条
-                //                _slideView = [YLSlideView alloc];
-                //                _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                  SCREEN_WIDTH,
-                //                                                                  SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.categorys];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                
-                //            _slideView.frame =  [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                    SCREEN_WIDTH,
-                //                                                                     SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.categorys];
-                //            _slideView = [[YLSlideView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                      SCREEN_WIDTH,
-                //                                                                      SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)
-                //                                                 forTitles:self.categorys];
                 
                 
                 _slideView.backgroundColor = [UIColor whiteColor];
