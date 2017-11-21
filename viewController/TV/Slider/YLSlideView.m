@@ -37,14 +37,17 @@
         //        _titles  = [titles copy];
         _titles = [[NSMutableArray alloc]init];
         self.triangleView = [[UIImageView alloc] init];
-        for (int i = 0 ; i < titles.count; i++) {
-            NSDictionary *item = titles[i];
-            NSString * tempArray;
-            tempArray =item[@"category_name"];
-            
-            [_titles addObject:tempArray];
-            
-        }
+        
+        _titles = [self titleArrReplace:titles];
+        NSLog(@"_titles_titles %@",_titles);
+//        for (int i = 0 ; i < titles.count; i++) {
+//            NSDictionary *item = titles[i];
+//            NSString * tempArray;
+//            tempArray =item[@"category_name"];
+//
+//            [_titles addObject:tempArray];
+//
+//        }
         _prePageIndex = 1000;
         [self configSlideView];
         
@@ -60,7 +63,117 @@
     
     return self;
 }
-
+-(NSMutableArray *)titleArrReplace:(NSMutableArray*)titles
+{
+    NSMutableArray * tempTitlesArr = [[NSMutableArray alloc]init];
+    /*
+     1.先判断是那种类型，录制和直播节目是否同时存在
+     2.根部不同的类别进行数据组合和最后的赋值
+     **/
+    //#define   RecAndLiveNotHave  @"0"      //录制和直播都不存在
+    //#define   RecExit            @"1"      //录制存在直播不存在
+    //#define   LiveExit           @"2"      //录制不存在直播存在
+    //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
+    NSString * RECAndLiveType = [USER_DEFAULT objectForKey:@"RECAndLiveType"];
+    NSLog(@"RECAndLiveType %@",RECAndLiveType);
+    
+    if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
+         _titles = tempTitlesArr;
+    }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
+        [_titles addObject:@"Recordings"];
+    }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
+     
+        tempTitlesArr =titles[0];
+        for (int i = 0 ; i < tempTitlesArr.count; i++) {
+            NSDictionary *item = tempTitlesArr[i];
+            NSString * tempArray;
+            tempArray =item[@"category_name"];
+            
+            [_titles addObject:tempArray];
+            
+        }
+        
+    }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
+        if (titles.count == 2 ) {   //正常情况
+            tempTitlesArr =titles[0];
+            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+                NSLog(@"tempTitlesArr %@",tempTitlesArr);
+                NSDictionary *item = tempTitlesArr[i];
+                NSString * tempArray;
+                tempArray =item[@"category_name"];
+                
+                [_titles addObject:tempArray];
+                
+            }
+            [_titles insertObject:@"Recordings" atIndex:1];
+            NSLog(@"_titles %@",_titles);
+        }else if(titles.count == 1 )  //异常刷新，数组中只有一个元素
+        {
+            tempTitlesArr =titles[0];
+            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+//                NSDictionary *item = tempTitlesArr[i];
+//                NSString * tempArray;
+//                tempArray =item[@"category_name"];
+//
+//                [_titles addObject:tempArray];
+                
+            }
+        }
+       
+    }
+    
+    
+    
+//    switch ([RECAndLiveType intValue]) {
+//        case 0: //都不存在
+//            _titles = tempTitlesArr;
+//            break;
+//        case 1: //录制存在直播不存在
+//            
+////            tempTitlesArr =titles[0];
+////            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+////                NSDictionary *item = tempTitlesArr[i];
+////                NSString * tempArray;
+////                tempArray =item[@"category_name"];
+////
+////                [_titles addObject:tempArray];
+////
+////            }
+//            
+//            [_titles addObject:@"Recordings"];
+//        
+//            break;
+//        case 2: //录制不存在直播存在
+//            tempTitlesArr =titles[0];
+//            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+//                    NSDictionary *item = tempTitlesArr[i];
+//                    NSString * tempArray;
+//                    tempArray =item[@"category_name"];
+//        
+//                    [_titles addObject:tempArray];
+//        
+//                }
+//            
+//            break;
+//        case 3: //都存在
+//            
+//            tempTitlesArr =titles[0];
+//            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+//                NSDictionary *item = tempTitlesArr[i];
+//                NSString * tempArray;
+//                tempArray =item[@"category_name"];
+//                
+//                [_titles addObject:tempArray];
+//                
+//            }
+//            [_titles insertObject:@"Recordings" atIndex:1];
+//            break;
+//        default:
+//            break;
+//    }
+//    
+    return _titles;
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
     if ([keyPath isEqualToString:@"delegate"]) {
@@ -197,7 +310,7 @@
     NSInteger row2 = [text.userInfo[@"textTwo"]integerValue];
     NSInteger row3 = [text.userInfo[@"textThree"]integerValue];
     
-    //    NSArray * newArray = [array objectsAtIndexes:indexSet];
+    //    NSArray * newArray = [array objectsAtIndexes:indexSet];==
     dispatch_async(dispatch_get_main_queue(), ^{
     
         tableViewForSliderView =   [self visibleCellForIndex:row];
@@ -283,7 +396,7 @@
                 
                 [tableViewForSliderView reloadData];
                 
-                NSLog(@"]]]]]]]]]]]]]]]]]]]]]]]==========");
+                NSLog(@"1]2]1]2]1]2]1]2]1]2]1]2]1]21]1]2]1]2]1]2]1]2]1]2==========");
             });
         }else
             
@@ -406,6 +519,7 @@
         
         scrollView;
     });
+    NSLog(@"_mainScrollview.f %@",_mainScrollview);
     [self addSubview:_mainScrollview];
     
     self.slideTitleView = ({

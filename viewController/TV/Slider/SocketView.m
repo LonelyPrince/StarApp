@@ -50,6 +50,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  cs_getResource;        //7
 @synthesize  cs_getRouteIPAddress;  //8
 @synthesize socket_ServiceModel;  //给service传值用
+@synthesize  cs_serviceREC;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -64,6 +65,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_CAMatureLock = [[Cs_CAMatureLock alloc]init];
     cs_getResource = [[Cs_GetResource alloc]init];
     cs_getRouteIPAddress = [[Cs_GetRouteIPAddress alloc]init];
+    cs_serviceREC = [[Cs_serviceREC alloc]init];
     
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
@@ -243,6 +245,68 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
 }
 
+//点击准备播放录制文件
+-(void)serviceRECTouch{
+    
+    
+    cs_serviceREC.module_name= @"MDMM";
+    cs_serviceREC.Ret=0;
+    cs_serviceREC.Reserved=0x4D504445;  //后期做过修改的东西，让机顶盒做区分用的
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_serviceREC.client_ip= [self getIPArr];
+    } while (ISNULL(cs_serviceREC.client_ip));
+    
+    
+    cs_serviceREC.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_serviceREC.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_serviceREC.command_type =DTV_SERVICE_MD_PLAY_FILE;// 25 ;
+    
+    NSString * phoneModel =  [self deviceVersion];
+    NSLog(@"手机型号:%@",phoneModel);
+
+    cs_serviceREC.client_name = [NSString stringWithFormat:@"%@",phoneModel];  //***
+    cs_serviceREC.client_name_len =cs_serviceREC.client_name.length   ;    //****
+    
+    NSLog(@"foleName %@",cs_serviceREC.file_name);
+    NSLog(@"foleName %d",cs_serviceREC.file_name_len);
+    cs_serviceREC. data_len= 11 + cs_serviceREC.file_name_len + cs_serviceREC.client_name_len ;
+//    cs_serviceREC.data_len_m3u8 = 0;
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_serviceREC];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_serviceREC]];
+ 
+    NSLog(@"foleName=-= %@",cs_serviceREC.file_name);
+    NSLog(@"foleName=-= %d",cs_serviceREC.file_name_len);
+    //转换成字节后，存起来
+    [USER_DEFAULT setObject:data_service forKey:@"data_serviceREC"];
+    NSLog(@"data_service=-= %@",data_service);
+    [USER_DEFAULT synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] Play_ServiceRECSocket];
+    
+}
 
 //退出视频分发
 

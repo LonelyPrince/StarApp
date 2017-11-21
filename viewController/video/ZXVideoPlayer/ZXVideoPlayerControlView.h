@@ -45,7 +45,7 @@
 /// 屏幕锁定按钮
 @property (nonatomic, strong, readwrite) UIButton *lockButton;
 /// 缓冲进度条
-@property (nonatomic, strong, readwrite) UIProgressView *bufferProgressView;
+//@property (nonatomic, strong, readwrite) UIProgressView *bufferProgressView;
 /// 快进、快退指示器
 @property (nonatomic, strong, readwrite) ZXVideoPlayerTimeIndicatorView *timeIndicatorView;
 /// 亮度指示器
@@ -64,6 +64,9 @@
 @property (nonatomic, strong, readwrite) UIButton *lastChannelButton;
 ////下一个频道
 @property (nonatomic, strong, readwrite) UIButton *nextChannelButton;
+
+//暂停按钮/启动按钮
+@property (nonatomic, strong, readwrite) UIButton * suspendButton;
 
 ///字幕按钮
 @property (nonatomic, strong, readwrite) UIButton *subtBtn;

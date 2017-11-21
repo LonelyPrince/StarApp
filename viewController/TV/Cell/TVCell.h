@@ -27,6 +27,7 @@
 ///数据源
 @property (nonatomic, strong) NSString *nowTimeStr;
 @property (nonatomic, strong) NSDictionary *dataDic;
+@property (nonatomic, strong) NSMutableArray *RECAndLiveDataArr;
 
 @property (nonatomic, strong) CategoryModel *categorymodel;
 @property (nonatomic, strong) ServiceModel *servicemodel;

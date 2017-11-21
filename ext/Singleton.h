@@ -46,4 +46,5 @@ enum{
 -(void)passwordCheck;
 -(void)GetResource_socket;
 -(void)GetIPAddress_socket;
+-(void)Play_ServiceRECSocket; //播放录制视频
 @end

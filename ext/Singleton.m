@@ -107,6 +107,21 @@
     
     NSLog(@"playState---== socket 第一次打开发送播放命令");
 }
+#pragma mark - 播放录制视频
+-(void)Play_ServiceRECSocket{
+    
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，这也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_serviceREC"];
+    NSLog(@"singleton data_service :%@",data_service);
+    
+    NSLog(@"asdjbajsbdsabdjbasdasbdksjb");
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+//    NSLog(@"playState---== socket 发送录制消息");
+}
 //退出播放
 -(void)Play_ExitSocket{
     
@@ -365,6 +380,37 @@
                                     }
                                     
                                  
+                                    [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
+                                }
+                                    break;
+                                 
+                                case 25: //播放录制信息
+                                {
+                                    NSLog(@"playState---== socket 播放录制信息");
+                                    
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt ) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
                                     [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
                                 }
                                     break;
@@ -711,6 +757,13 @@
 
                     }
                         break;
+                    case 25:
+                    {
+                        NSLog(@"playState---== socket 正在录制");
+                        [self readSocketCommandTypeISTwelve:data];
+                        
+                    }
+                        break;
                         
                     case 24:
                     {
@@ -903,7 +956,36 @@
 
                                 }
                                     break;
+                                case 25:
+                                {
+                                    NSLog(@"playState---== socket 录制");
                                     
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
+                                    
+                                }
+                                    break;
                                 case 24:
                                 {
                                     NSLog(@"playState---== socket 获取IP地址的消息");
@@ -1243,6 +1325,13 @@
                     }
                         break;
                         
+                    case 25:
+                    {
+                        NSLog(@"playState---== socket 录制");
+                        
+                        [self readSocketCommandTypeISTwentyFive:data];
+                    }
+                        break;
                         
                         
                     case 24:
@@ -1606,5 +1695,50 @@
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 
+}
+
+//播放录制节目   case = 25
+-(void)readSocketCommandTypeISTwentyFive :(NSData *)dataToOperate
+{
+    NSLog(@"==%@",dataToOperate);
+    uint32_t dataLengthForUrl;
+    NSData * dataForDataLength;
+    if ([dataToOperate length] >=  28) {
+        
+        dataForDataLength = [dataToOperate subdataWithRange:NSMakeRange(24,4)];
+        dataLengthForUrl = [SocketUtils uint32FromBytes:dataForDataLength];
+        
+        NSLog(@" dataLengthForUrl %d",dataLengthForUrl);
+        
+        
+    }else
+    {
+        return;
+    }
+    
+    if ([dataToOperate length] >=  dataLengthForUrl) {
+        
+        dataToOperate = [dataToOperate subdataWithRange:NSMakeRange(0,dataLengthForUrl + 28)];
+        
+        NSLog(@" dataToOperate ==  %@",dataToOperate);
+        
+    }else
+    {
+        return;
+    }
+    
+    
+    [USER_DEFAULT setObject:dataToOperate forKey:@"data_service11REC"];
+    
+    [USER_DEFAULT synchronize];//把数据同步到本地
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"playdata",nil];
+    
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"noticeREC" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"测试播放33333333333333");
 }
 @end

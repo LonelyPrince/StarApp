@@ -809,25 +809,6 @@
     }
     //否则什么都不是
     return 0;
-    
-//    NSString * service_indexForJudgeType = [NowServiceDic objectForKey:@"service_index"];
-//    NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
-//    for (int i = 0; i < categoryArrForJudgeType.count; i++) {
-//        NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
-//        NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
-//        for (int y = 0; y < categoryServiceIndexArr.count; y++) {
-//            NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
-//            NSLog(@"没有进入判断方法1 %@",serviceIndexForJundgeStr);
-//            NSLog(@"没有进入判断方法2 %@",service_indexForJudgeType);
-//            if ([serviceIndexForJundgeStr isEqualToString:service_indexForJudgeType]) {
-//                NSLog(@"没有进入判断方法这里要输出 i %d",i);
-//                return i;
-//            }
-//        
-//        }
-//        
-//    }
-//    return 0;
 }
 -(void)tableViewCellToBlue :(NSInteger)numberOfIndex  indexhah :(NSInteger)numberOfIndexForService AllNumberOfService:(NSInteger)AllNumberOfServiceIndex
 {

@@ -51,6 +51,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int64_t byteValue1;   //视频缓存1
     int64_t byteValue2;   //视频缓存2
     
+    int currentProgress;
     int subtRow;
     int audioRow;
     
@@ -148,6 +149,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self = [super init:frame];
     if (self) {
         openTime = 0;
+        currentProgress = 0;
         self.view.frame = frame;
         self.view.backgroundColor = [UIColor blackColor]; //blackColor
         NSLog(@"页面要显示了，显示了，显示了");
@@ -262,6 +264,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     //////
     [self.videoControl.lastChannelButton addTarget:self action:@selector(lastChannelButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.suspendButton addTarget:self action:@selector(suspendButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.nextChannelButton addTarget:self action:@selector(nextChannelButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.subtBtn addTarget:self action:@selector(subtBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.audioBtn addTarget:self action:@selector(audioBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -281,22 +284,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 开始播放时根据视频文件长度设置slider最值
 - (void)setProgressSliderMaxMinValues
 {
-    CGFloat duration = self.duration;
+//    CGFloat duration = self.duration;
     self.videoControl.progressSlider.minimumValue = 0.f;
-    self.videoControl.progressSlider.maximumValue = floor(duration);
+    self.videoControl.progressSlider.maximumValue = 0.f;
 }
 
 /// 监听播放进度
 - (void)monitorVideoPlayback
 {
-    double currentTime = floor(self.currentPlaybackTime);
-    double totalTime = floor(self.duration);
-    // 更新时间
-    [self setTimeLabelValues:currentTime totalTime:totalTime];
-    // 更新播放进度
-    self.videoControl.progressSlider.value = ceil(currentTime);
+    currentProgress ++;
+    NSLog(@"skfbssssbfsbfjsbd");
+//    double currentTime = currentProgress;
+//    double totalTime = 50;
+////    // 更新时间
+//    [self setTimeLabelValues:currentTime totalTime:totalTime];
+////     更新播放进度
+    self.videoControl.progressSlider.value =  (self.videoControl.progressSlider.minimumValue + self.videoControl.progressSlider.maximumValue) / 2;// ceil(currentTime);
+    
+    NSLog(@"ajsfbabfaf %f",self.videoControl.progressSlider.value);
+//    self.videoControl.progressSlider.minimumValue = 0.5;
+//    self.videoControl.progressSlider.value = 0.8;
+    
     // 更新缓冲进度
-    self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
+//    self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
     
     //    if (self.duration == self.playableDuration && self.playableDuration != 0.0) {
     //        NSLog(@"缓冲完成");
@@ -324,7 +334,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.durationTimer) {
         [self.durationTimer setFireDate:[NSDate date]];
     } else {
-        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
     }
 }
@@ -549,8 +559,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMovieDurationAvailableNotification
 {
     NSLog(@"MPMovie  DurationAvailable  Notification");
-    [self startDurationTimer];
-    [self setProgressSliderMaxMinValues];
+//    [self startDurationTimer];
+//    [self setProgressSliderMaxMinValues];
     
     //    self.videoControl.fullScreenButton.hidden = NO;
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
@@ -562,6 +572,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    self.videoControl.shrinkScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton1.hidden = YES;
     self.videoControl.lastChannelButton.hidden = YES;
+    self.videoControl.suspendButton.hidden = YES;
     self.videoControl.nextChannelButton.hidden = YES;
     self.videoControl.subtBtn.hidden = YES;
     self.videoControl.audioBtn.hidden = YES;
@@ -803,6 +814,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)setChannelNameOrOtherInfoNotic :(NSNotification *)text{
     
+    NSLog(@"kasdbfo;bsafobassssssss");
     NSString * channelIdLabStr = text.userInfo[@"channelIdStr"];
     NSString * channelNameLabStr = text.userInfo[@"channelNameStr"];
     self.video.channelId =channelIdLabStr;
@@ -2109,6 +2121,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //    self.videoControl.shrinkScreenButton.hidden = NO;
             self.videoControl.shrinkScreenButton1.hidden = NO;
             self.videoControl.lastChannelButton.hidden = NO;
+            self.videoControl.suspendButton.hidden = YES;
             self.videoControl.nextChannelButton.hidden = NO;
             self.videoControl.subtBtn.hidden = NO;
             self.videoControl.audioBtn.hidden = NO;
@@ -2185,17 +2198,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
             self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
             
+          
             sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
             NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
             self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
-            NSLog(@"==-=-===-==000==-全屏了了了了了");
+
             self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
             //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
             YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
             //    }
+            
+
+            
             
             
 //            __weak typeof(self) weakSelf = self;
@@ -2225,6 +2242,30 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [self abctest];
             //    }
             
+            
+            //判断是不是播放的录制节目
+            if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                //此时是录制节目
+                self.videoControl.channelIdLab.hidden = YES;
+                self.videoControl.channelNameLab.hidden = YES;
+                self.videoControl.FulleventNameLab.hidden = YES;
+                self.videoControl.FulleventNameLab.frame = CGRectMake( 20, 20, 200, 30);
+                
+                self.videoControl.FullEventYFlabel.frame = CGRectMake( 45, 38, 200, 30);
+            
+                // 1. 暂停按钮出现 2. Nextbutton和时间右移
+                
+                self.videoControl.suspendButton.hidden = NO;
+                
+               
+                self.videoControl.nextChannelButton.frame = CGRectMake(100, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13, 44, 44);
+                
+                 self.videoControl.suspendButton.frame = CGRectMake((self.videoControl.nextChannelButton.frame.origin.x - self.videoControl.lastChannelButton.frame.origin.x -  44 -44)/2 + self.videoControl.lastChannelButton.frame.origin.x + 44,CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13,44, 44);
+                
+                self.videoControl.eventTimeLabNow.frame = CGRectMake(164, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
+                self.videoControl.eventTimeLabAll.frame = CGRectMake(164+80, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
+
+            }
             //test
             //此处销毁通知，防止一个通知被多次调用
             [[NSNotificationCenter defaultCenter] removeObserver:self name:@"abctest" object:nil];
@@ -2281,6 +2322,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSLog(@"FullEventYFlabel lalal3 :%@",self.videoControl.FullEventYFlabel);
     self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 260, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+    
+    //进行判断，防止出现录制节目
+    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+        
+          self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake( 45, 38, 200, 30)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+    }
+    
+    
+    
+    
     NSLog(@"FullEventYFlabel lalal2 :%@",self.videoControl.FullEventYFlabel);
     NSString * abcaa =self.videoControl.eventnameLabel.text;
     NSArray * arr = [[NSArray alloc]init];
@@ -2349,6 +2400,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.videoControl.lastChannelButton.hidden = YES;
+    self.videoControl.suspendButton.hidden = YES;
     self.videoControl.nextChannelButton.hidden = YES;
     self.videoControl.subtBtn.hidden = YES;
     self.videoControl.audioBtn.hidden = YES;
@@ -2411,6 +2463,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:12];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:12];
+    
+    
+   
+    
+    if (self.video.channelId == @"") {
+        
+        self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
+        self.videoControl.channelIdLab.hidden = NO;
+        self.videoControl.channelNameLab.hidden = NO;
+    }
+
+    
     
     //切换到竖屏，跑马灯消失
     if (self.videoControl.FullEventYFlabel) {
@@ -2529,6 +2593,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
     //    //通过通知中心发送通知
     //    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+#pragma  mark -点击了暂停按钮
+- (void)suspendButtonClick
+{
+    
+    
+    if ([self.player isPlaying]) {
+        [self.player pause];
+        NSLog(@"用户点击了暂停按钮");
+        //给通知，暂停进度条
+        
+        
+    }else
+    {
+        [self.player play];
+        NSLog(@"用户点击了播放按钮");
+        //重新启动进度条
+    }
+    
+    
 }
 - (void)nextChannelButtonClick
 {
@@ -3788,18 +3872,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //不需要加号码
                 cell.dataDic = audioArr[indexPath.row];
             }
-            
-            //            int aaa = audioPositionIndex;
-            //            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
-            //            [tableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            //
-            ////            subtCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            //            if (indexPath.row == audioPositionIndex) {
-            //                [cell.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            //            }
-            //
-            
-            
+
             
             if (audio_languageIndex > 1) {
                 //需要加号码
@@ -4505,44 +4578,103 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //先获取当前正在播放的节目字典
     NSDictionary * nowPlayingDic = text.userInfo[@"nowPlayingDic"];
     
-    NSString * channelIdLabStr = [nowPlayingDic objectForKey:@"service_logic_number"];
+    NSLog(@" nowPlayingDic %@",nowPlayingDic);
+    NSLog(@" nowPlayingDic.count %d",nowPlayingDic.count);
     
-    
-    if(channelIdLabStr.length == 1)
-    {
-        channelIdLabStr = [NSString stringWithFormat:@"00%@", channelIdLabStr];
-    }
-    else if (channelIdLabStr.length == 2)
-    {
-        channelIdLabStr = [NSString stringWithFormat:@"0%@", channelIdLabStr];
-    }
-    else if (channelIdLabStr.length == 3)
-    {
-        channelIdLabStr = [NSString stringWithFormat:@"%@", channelIdLabStr];
-    }
-    else if (channelIdLabStr.length > 3)
-    {
-        channelIdLabStr= [ channelIdLabStr substringFromIndex: channelIdLabStr.length - 3];
-    }
-    
-    
-    NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
-    NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
-    if (arrNowPlayingTemp.count > 0) {
-        NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+    if (nowPlayingDic.count < 20) {
         
-        self.video.channelId =channelIdLabStr;
-        self.video.channelName =channelNameLabStr;
-        self.video.playEventName =eventNameLabStr;
+        NSLog(@"kdjfb;asddasdadasasbf==");
         
-        self.videoControl.channelIdLab.text = self.video.channelId;
+        NSString * channelIdLabStr = [nowPlayingDic objectForKey:@"service_logic_number"];
         
-        self.videoControl.channelNameLab.text = self.video.channelName;
         
-        self.videoControl.eventnameLabel.text = self.video.playEventName;
-    }
-//    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+        if(channelIdLabStr.length == 1)
+        {
+            channelIdLabStr = [NSString stringWithFormat:@"00%@", channelIdLabStr];
+        }
+        else if (channelIdLabStr.length == 2)
+        {
+            channelIdLabStr = [NSString stringWithFormat:@"0%@", channelIdLabStr];
+        }
+        else if (channelIdLabStr.length == 3)
+        {
+            channelIdLabStr = [NSString stringWithFormat:@"%@", channelIdLabStr];
+        }
+        else if (channelIdLabStr.length > 3)
+        {
+            channelIdLabStr= [ channelIdLabStr substringFromIndex: channelIdLabStr.length - 3];
+        }
+        
+        
+        NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
+        NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
+        if (arrNowPlayingTemp.count > 0) {
+            NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+            self.video.playEventName =eventNameLabStr;
+        }
+            self.video.channelId =channelIdLabStr;
+            self.video.channelName =channelNameLabStr;
+        
+            
+            self.videoControl.channelIdLab.text = self.video.channelId;
+            
+            self.videoControl.channelNameLab.text = self.video.channelName;
+            self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+            self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
+            self.videoControl.eventnameLabel.text = self.video.playEventName;
+//
+        //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+        
+    }else
+    {
+        NSLog(@"kdjfb;asddasdadasasbf");
+        
+        NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
+//        NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
+//        if (arrNowPlayingTemp.count > 0) {
+            NSString * eventNameLabStr = [nowPlayingDic objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+        
+//            self.video.channelId =channelIdLabStr;
+            
+            self.video.channelId = @"";
+            self.video.channelName =channelNameLabStr;
+        
+        
+            self.video.playEventName =eventNameLabStr;
+            
+            self.videoControl.channelIdLab.text = self.video.channelId;
+        
+            self.videoControl.channelNameLab.text = self.video.channelName;
+        
+        //通过判断是不是全屏或者是竖屏来展示频道名称
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+            
+            
+           self.videoControl.channelNameLab.frame = CGRectMake(42, 26, 56+200 , 55);
+            
+        }else //竖屏
+        {
+            if (self.video.channelId == @"") {
+              
+                self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
+            }
+            
+             self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
+            
+            NSLog(@"可能会出错的地方self.view.frame.bounds.width2");
+        }
+        
+        
+        
+        
+            
+            self.videoControl.eventnameLabel.text = self.video.playEventName;
+        }
+        //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+        
+//    }
     
+   
     
 }
 
@@ -4582,19 +4714,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
     }
     
-    //    NSString * topProgressViewISNotExist = [USER_DEFAULT objectForKey:@"topProgressViewISNotExist"];
-    //    if ([topProgressViewISNotExist isEqualToString:@"NO"]) { //证明进度条不存在，需要重新开启
-    //
-    //
-    //       NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.startTime,@"StarTime",self.video.endTime,@"EndTime",nil];
-    //
-    //        NSNotification *notification =[NSNotification notificationWithName:@"restartTopProgressView" object:nil userInfo:dict];
-    //        //通过通知中心发送通知
-    //        [[NSNotificationCenter defaultCenter] postNotification:notification];
-    //
-    //        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-    //
-    //    }
     
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
     

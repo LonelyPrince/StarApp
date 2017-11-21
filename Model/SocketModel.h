@@ -29,6 +29,11 @@
 @end
 
 
+
+
+
+
+
 //22222222
 // 客户端向服务器发送节目信息获取数据包
 @interface Cs_Service : NSObject
@@ -205,4 +210,6 @@
 @property (nonatomic, assign) uint32_t  port;
 @property (nonatomic, strong) NSString  *pdata;     //此处放数据，但类型不确定
 @end
+
+
 

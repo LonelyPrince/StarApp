@@ -49,166 +49,327 @@
 {
     _dataDic = dataDic;
     
-    
-    self.backImage.image = [UIImage imageNamed:@"background"];
-    UIImage * imageWithImage = [[UIImage alloc]init];
-    imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
-    
-    //    self.channelImg.image = imageWithImage; //两张图片叠加
-    //   [self.channelImg setImageWithURL:[NSURL URLWithString:@"http://192.168.1.55/channelIcon/222_4965_7102.png"] placeholderImage:[UIImage imageNamed:@"分发@2x"] ];
-    
-    
-    //    self.channelImg.frame = CGRectMake(26, 10, 81, 50);
-    //    self.channelImg.layer.masksToBounds = YES;
-    
-    //    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-    //        //[UIImage imageNamed:@"placeholder"]
-    //
-    //        //[_dataDic objectForKey:@"epg_info"]
-    //        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-    //
-    //        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
-    //        self.channelImg.clipsToBounds = YES;
-    //
-    //
-    //        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-    //        [self.backImage bringSubviewToFront:self.placeholderImage1];
-    //        if (self.channelImg.image == nil) {
-    //            self.placeholderImage1.alpha = 1;
-    //            NSLog(@"placeholderImage 为空");
-    //        }else
-    //        {
-    //            self.placeholderImage1.alpha = 0;
-    //            NSLog(@"placeholderImage 为空");
-    //        }
-    //
-    //    }];
-    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-        //[_dataDic objectForKey:@"epg_info"]
-        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-        
-        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+    if (dataDic.count <= 14) { //直播
         
         
-    }];
-    
-    self.event_Img.image = [UIImage imageNamed:@"play"];
-    self.event_nextImg.image = [UIImage imageNamed:@"time"];
-    
-    //***
-    NSDictionary * epgDic;
-    NSDictionary * nextEpgDic;
-    NSArray * epgArr;
-    epgDic  = [[NSDictionary alloc]init];
-    nextEpgDic = [[NSDictionary alloc]init];
-    epgArr = [[NSArray alloc]init];
-    //****
-    epgArr = [_dataDic objectForKey:@"epg_info"];
-    if (epgArr.count >0) {
-    epgDic = epgArr[0];
-    
-    
-    //判断第一个数据是不是没有时间戳，或者时间戳是不是比当前时间还要打，如果是，则要将数据后移
-    NSString * firstDicStartTime = [epgDic objectForKey:@"event_starttime"]; //获得第一个epg的开始时间
-    //    NSLog(@"firstDicStartTime %@",firstDicStartTime);
-    //    NSLog(@"firstDicStartTime_nowTimeStr %@",_nowTimeStr);
-    if([firstDicStartTime intValue] >[_nowTimeStr intValue])
+        //    NSLog(@"_dataDic %@",_dataDic);
+        //
+        // if dataDic 包含某个标记，则使用AA 显示,否则使用BB 显示
+        
+        self.backImage.image = [UIImage imageNamed:@"background"];
+        UIImage * imageWithImage = [[UIImage alloc]init];
+        imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
+        
+        [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            //[_dataDic objectForKey:@"epg_info"]
+            //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+            
+            self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
+            
+            
+        }];
+        
+        self.event_Img.image = [UIImage imageNamed:@"play"];
+        self.event_nextImg.image = [UIImage imageNamed:@"time"];
+        
+        //***
+        NSDictionary * epgDic;
+        NSDictionary * nextEpgDic;
+        NSArray * epgArr;
+        epgDic  = [[NSDictionary alloc]init];
+        nextEpgDic = [[NSDictionary alloc]init];
+        epgArr = [[NSArray alloc]init];
+        //****
+        epgArr = [_dataDic objectForKey:@"epg_info"];
+        if (epgArr.count >0) {
+            epgDic = epgArr[0];
+            
+            
+            //判断第一个数据是不是没有时间戳，或者时间戳是不是比当前时间还要打，如果是，则要将数据后移
+            NSString * firstDicStartTime = [epgDic objectForKey:@"event_starttime"]; //获得第一个epg的开始时间
+            //    NSLog(@"firstDicStartTime %@",firstDicStartTime);
+            //    NSLog(@"firstDicStartTime_nowTimeStr %@",_nowTimeStr);
+            if([firstDicStartTime intValue] >[_nowTimeStr intValue])
+            {
+                self.event_nameLab.text =@"No Event";  //设置第一个epg 信息为空
+                
+                if (epgArr.count >1) {
+                    nextEpgDic = epgArr[0];
+                    //        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
+                    NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    
+                    if (![startTimeisHas isEqualToString:@""]) {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text =@"--:--";
+                    }
+                    
+                    
+                    
+                    //        NSLog(@"shijian时间：%@",self.event_nextTime.text);
+                    if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                        self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
+                    }else
+                    {
+                        self.event_nextNameLab.text =@"No Event";
+                    }
+                    
+                }
+                else
+                {
+                    NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    if(![endTimeisHas isEqualToString:@""])
+                    {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text = @"--:--";
+                    }
+                    
+                    self.event_nextNameLab.text = @"No Event";
+                }
+                
+                
+                //        if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                //            self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+                //        }else
+                //        {
+                //            self.event_nameLab.text =@"No Event";
+                //        }
+            }
+            
+            //====================
+            else
+            {
+                if (epgArr.count >1) {
+                    nextEpgDic = epgArr[1];
+                    //        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
+                    NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    
+                    if (![startTimeisHas isEqualToString:@""]) {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text =@"--:--";
+                    }
+                    
+                    
+                    
+                    //        NSLog(@"shijian时间：%@",self.event_nextTime.text);
+                    if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                        self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
+                    }else
+                    {
+                        self.event_nextNameLab.text =@"No Event";
+                    }
+                    
+                }
+                else
+                {
+                    NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    if(![endTimeisHas isEqualToString:@""])
+                    {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text = @"--:--";
+                    }
+                    
+                    self.event_nextNameLab.text = @"No Event";
+                }
+                
+                //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+                if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+                }else
+                {
+                    self.event_nameLab.text =@"No Event";
+                }
+            }
+            
+        }
+    }else //录播
     {
-        self.event_nameLab.text =@"No Event";  //设置第一个epg 信息为空
+        NSLog(@"lubo 录播");
         
-        if (epgArr.count >1) {
-            nextEpgDic = epgArr[0];
-            //        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
-            NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+        //    NSLog(@"_dataDic %@",_dataDic);
+        //
+        // if dataDic 包含某个标记，则使用AA 显示,否则使用BB 显示
+        
+        self.backImage.image = [UIImage imageNamed:@"background"];
+        UIImage * imageWithImage = [[UIImage alloc]init];
+        imageWithImage = [self addImage:@"background" withImage:@"zOOm-Logo"];
+        
+        [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
-            if (![startTimeisHas isEqualToString:@""]) {
-                self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-            }else{
-                self.event_nextTime.text =@"--:--";
-            }
+            //[_dataDic objectForKey:@"epg_info"]
+            //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+            
+            self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
             
             
-            
-            //        NSLog(@"shijian时间：%@",self.event_nextTime.text);
-            if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
-                self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
-            }else
-            {
-                self.event_nextNameLab.text =@"No Event";
-            }
-            
-        }
-        else
-        {
-            NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-            if(![endTimeisHas isEqualToString:@""])
-            {
-                self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
-            }else{
-                self.event_nextTime.text = @"--:--";
-            }
-            
-            self.event_nextNameLab.text = @"No Event";
-        }
+        }];
+        
+        self.event_Img.image = [UIImage imageNamed:@"play"];
+        self.event_nextImg.image = [UIImage imageNamed:@"time"];
         
         
-        //        if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
-        //            self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
-        //        }else
-        //        {
-        //            self.event_nameLab.text =@"No Event";
-        //        }
-    }
-    
-    //====================
-    else
-    {
-        if (epgArr.count >1) {
-            nextEpgDic = epgArr[1];
-            //        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
-            NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-            
-            if (![startTimeisHas isEqualToString:@""]) {
-                self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-            }else{
-                self.event_nextTime.text =@"--:--";
-            }
-            
-            
-            
-            //        NSLog(@"shijian时间：%@",self.event_nextTime.text);
-            if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
-                self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
-            }else
-            {
-                self.event_nextNameLab.text =@"No Event";
-            }
-            
-        }
-        else
-        {
-            NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-            if(![endTimeisHas isEqualToString:@""])
-            {
-                self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
-            }else{
-                self.event_nextTime.text = @"--:--";
-            }
-            
-            self.event_nextNameLab.text = @"No Event";
-        }
+        NSString * serviceName = [dataDic objectForKey:@"service_name"];
+        NSString * recordTime = [dataDic objectForKey:@"record_time"];
+        NSString * durationTime = [dataDic objectForKey:@"duration"];
         
-        //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
-        if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
-            self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+        NSLog(@"serviceName %@",serviceName);
+        NSLog(@"recordTime %@",recordTime);
+        NSLog(@"durationTime %@",durationTime);
+        
+        //节目名称
+        if (serviceName != NULL && ![serviceName isEqualToString:@""]) {
+            self.event_nameLab.text =serviceName;
         }else
         {
             self.event_nameLab.text =@"No Event";
         }
+
+        //总时间
+        if (durationTime != NULL && ![durationTime isEqualToString:@""]) {
+            
+            //[durationTime doubleValue]   此处的时间不会大于24小时
+            double timeTemp = [durationTime doubleValue] - 28800;
+            NSString * timeTempStr = [NSString stringWithFormat:@"%f",timeTemp];
+            self.event_nextTime.text =[GGUtil  timeHMSWithTimeIntervalString:timeTempStr];
+            
+            self.event_nextTime.frame = CGRectMake(157, 49, 60, 14);
+            self.event_nextNameLab.frame = CGRectMake(230, 49, 112, 14);
+            
+        }else
+        {
+            self.event_nextTime.text =@"--:--";
+        }
+        
+        //开始时间
+        if (recordTime != NULL  && ![recordTime isEqualToString:@""]) {
+            
+//            NSString * timeTempStr = [NSString stringWithFormat:@"%@",recordTime];
+            self.event_nextNameLab.text = [GGUtil  timeYMDHMWithTimeIntervalString:recordTime];
+        }else
+        {
+            self.event_nextNameLab.text =@"No Event";
+        }
+
+        
+        //***
+        NSDictionary * epgDic;
+        NSDictionary * nextEpgDic;
+        NSArray * epgArr;
+        epgDic  = [[NSDictionary alloc]init];
+        nextEpgDic = [[NSDictionary alloc]init];
+        epgArr = [[NSArray alloc]init];
+        //****
+        epgArr = [_dataDic objectForKey:@"epg_info"];
+        if (epgArr.count >0) {
+            epgDic = epgArr[0];
+            
+            
+            //判断第一个数据是不是没有时间戳，或者时间戳是不是比当前时间还要打，如果是，则要将数据后移
+            NSString * firstDicStartTime = [epgDic objectForKey:@"event_starttime"]; //获得第一个epg的开始时间
+            //    NSLog(@"firstDicStartTime %@",firstDicStartTime);
+            //    NSLog(@"firstDicStartTime_nowTimeStr %@",_nowTimeStr);
+            if([firstDicStartTime intValue] >[_nowTimeStr intValue])
+            {
+                self.event_nameLab.text =@"No Event";  //设置第一个epg 信息为空
+                
+                if (epgArr.count >1) {
+                    nextEpgDic = epgArr[0];
+                    //        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
+                    NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    
+                    if (![startTimeisHas isEqualToString:@""]) {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text =@"--:--";
+                    }
+                    
+                    
+                    
+                    //        NSLog(@"shijian时间：%@",self.event_nextTime.text);
+                    if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                        self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
+                    }else
+                    {
+                        self.event_nextNameLab.text =@"No Event";
+                    }
+                    
+                }
+                else
+                {
+                    NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    if(![endTimeisHas isEqualToString:@""])
+                    {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text = @"--:--";
+                    }
+                    
+                    self.event_nextNameLab.text = @"No Event";
+                }
+                
+                
+                //        if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                //            self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+                //        }else
+                //        {
+                //            self.event_nameLab.text =@"No Event";
+                //        }
+            }
+            
+            //====================
+            else
+            {
+                if (epgArr.count >1) {
+                    nextEpgDic = epgArr[1];
+                    //        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
+                    NSString * startTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    
+                    if (![startTimeisHas isEqualToString:@""]) {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text =@"--:--";
+                    }
+                    
+                    
+                    
+                    //        NSLog(@"shijian时间：%@",self.event_nextTime.text);
+                    if (![[nextEpgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                        self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
+                    }else
+                    {
+                        self.event_nextNameLab.text =@"No Event";
+                    }
+                    
+                }
+                else
+                {
+                    NSString * endTimeisHas =  [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
+                    if(![endTimeisHas isEqualToString:@""])
+                    {
+                        self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
+                    }else{
+                        self.event_nextTime.text = @"--:--";
+                    }
+                    
+                    self.event_nextNameLab.text = @"No Event";
+                }
+                
+                //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+                if (![[epgDic objectForKey:@"event_name"] isEqualToString:@""]) {
+                    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
+                }else
+                {
+                    self.event_nameLab.text =@"No Event";
+                }
+            }
+            
+        }
     }
-    
-    }
+
     
     
     

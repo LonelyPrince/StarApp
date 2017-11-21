@@ -1,8 +1,8 @@
-        //
+//
 //  main.m
 //  DLNASample
 //
-//  Created by 健司 古山 on 12/05/06.
+//  Created by 艳智 薛 on 12/05/06.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 

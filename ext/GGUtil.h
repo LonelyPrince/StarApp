@@ -92,7 +92,7 @@
 
 
 //Data
-+(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData ;
++(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData dataType:(NSString * )typeStr;
 + (NSString *)GetNowTimeString;
 
 //+ (NSString *)getIPAddress;   //这个方法只能获取WiFi的IP地址，如果是流量的话获取不到
@@ -103,4 +103,7 @@
 +(BOOL)isCADEncrypt :(NSString *)characterStr;
 +(NSString *)judgeIsNeedSTBDecrypt :(NSInteger)row  serviceListDic :(NSDictionary *)dic;
 + (BOOL)judgeTwoEpgDicIsEqual: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic;
++(int)judgePlayTypeClass;
++ (NSString *)timeHMSWithTimeIntervalString:(NSString *)timeString;
++ (NSString *)timeYMDHMWithTimeIntervalString:(NSString *)timeString;
 @end

@@ -43,4 +43,5 @@
 
 -(void)setaudioOrSubtRowIsZero;
 
+-(void)startDurationTimer;
 @end

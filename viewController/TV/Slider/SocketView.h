@@ -10,8 +10,7 @@
 #import "AsyncSocket.h"
 
 #import "SocketModel.h"
-
-
+#import "Cs_serviceREC.h"
 extern NSString * const TYPE_UINT8;
 extern NSString * const TYPE_UINT16;
 extern NSString * const TYPE_UINT32;
@@ -35,6 +34,7 @@ extern NSString * const TYPE_ARRAY;
 @property(nonatomic,strong)Cs_GetResource * cs_getResource;         //7
 
 @property(nonatomic,strong)Cs_GetRouteIPAddress * cs_getRouteIPAddress;         //8
+@property(nonatomic,strong)Cs_serviceREC * cs_serviceREC;  //播放录制文件
 
 @property(nonatomic,strong)ServiceModel *socket_ServiceModel;
 -(void)socketConnectHost;// socket连接
@@ -45,6 +45,7 @@ extern NSString * const TYPE_ARRAY;
 -(void)passwordCheck :(NSString *)passWordStr  passwordType:(int)passwd_type_int;
 -(void)csGetResource;
 -(void)csGetRouteIPAddress;
+-(void)serviceRECTouch;
 
 -(int)getCRC : (NSData *)data ;
 + (NSMutableData *)GetNowTimes;

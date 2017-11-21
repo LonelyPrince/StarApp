@@ -36,7 +36,9 @@ NSMutableArray    *_titles;
         
         self.backgroundColor = SET_COLOS_YLSLIDE(250, 250, 250);
         self.backgroundColor = [UIColor whiteColor];
+//        _titles              = [self titleArrReplace:titles];
         _titles              = [titles copy];
+        
         _previousPage        = 0;
         self.delegate        = self;
         self.showsHorizontalScrollIndicator = NO;
@@ -47,7 +49,6 @@ NSMutableArray    *_titles;
     
     return self;
 }
-
 - (void)configView{
 
     //设置 content size
@@ -111,11 +112,11 @@ NSMutableArray    *_titles;
        //设置 Button 可见
         CGFloat x = offsetx * (60 / self.frame.size.width) - 60;
       
-        NSLog(@"self.frame.size.width %f",self.frame.size.width);
-        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
-        
-        
-        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
+//        NSLog(@"self.frame.size.width %f",self.frame.size.width);
+//        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
+//
+//
+//        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
         
         [strongSelf scrollRectToVisible:CGRectMake(x, 0,
                                                    strongSelf.frame.size.width,

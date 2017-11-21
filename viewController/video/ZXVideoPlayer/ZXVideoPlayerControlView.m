@@ -91,6 +91,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        [self.bottomBar addSubview:self.shrinkScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton1];
         [self.bottomBar addSubview:self.lastChannelButton];
+        [self.bottomBar addSubview:self.suspendButton]; //新添加暂停按钮
         [self.bottomBar addSubview:self.nextChannelButton];
         [self.bottomBar addSubview:self.subtBtn];
         [self.bottomBar addSubview:self.audioBtn];
@@ -114,6 +115,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        self.shrinkScreenButton.hidden = YES;
         self.shrinkScreenButton1.hidden = YES;
         self.lastChannelButton.hidden = YES;
+        self.suspendButton.hidden = YES;     //暂停按钮
         self.nextChannelButton.hidden = YES;
         self.subtBtn.hidden = YES;
         self.audioBtn.hidden =YES;
@@ -122,7 +124,17 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.eventTimeLabNow.hidden = YES;
         self.eventTimeLabAll.hidden = YES;
         
-        //        [self.bottomBar addSubview:self.progressSlider];
+#pragma mark - 此处注意：如果是录制则添加slider，否则不添加
+        //===
+        [self.bottomBar addSubview:self.progressSlider];
+        
+        CGSize s=CGSizeMake(1, 1);
+        UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
+        UIRectFill(CGRectMake(0, 0, 1, 1));
+        UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
+        
         //        [self.bottomBar addSubview:self.timeLabel];
         [self addSubview:self.indicatorView];
         //****
@@ -314,7 +326,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
 
     // 缓冲进度条a    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
-    self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
+//    self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
     // 快进、快退指示器
     //  self.timeIndicatorView.center = self.indicatorView.center;
     // 亮度指示器
@@ -370,6 +382,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.eventTimeLabAll.frame = CGRectMake(134+80, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
         self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
 
+        self.suspendButton.frame = CGRectMake(self.lastChannelButton.frame.origin.x + 30,CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13,44, 44);
+        
         self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
         self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
         self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
@@ -915,6 +929,19 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     }
     return _lastChannelButton;
 }
+///暂停按钮
+- (UIButton *)suspendButton
+{
+    
+    if (!_suspendButton) {
+        _suspendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_suspendButton setImage:[UIImage imageNamed:@"上一频道"] forState:UIControlStateNormal];
+        _suspendButton.bounds = CGRectMake(0, 0, 17, 17);
+        
+        //        [_lastChannelButton setEnlargeEdgeWithTop:15 right:15 bottom:15 left:20];
+    }
+    return _suspendButton;
+}
 ///下一个频道
 - (UIButton *)nextChannelButton
 {
@@ -1102,10 +1129,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_progressSlider) {
         _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
-        [_progressSlider setMinimumTrackTintColor:[UIColor whiteColor]];
-        [_progressSlider setMaximumTrackTintColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.4]];
+        [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
+        [_progressSlider setMaximumTrackTintColor:[[UIColor blueColor] colorWithAlphaComponent:0.4]];
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
+        //progressSlider 隐藏
+        _progressSlider.alpha = 0;
+        _progressSlider.hidden = YES;
     }
     return _progressSlider;
 }
@@ -1162,15 +1192,15 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _lockButton;
 }
 
-- (UIProgressView *)bufferProgressView
-{
-    if (!_bufferProgressView) {
-        _bufferProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        _bufferProgressView.progressTintColor = [UIColor colorWithWhite:1 alpha:0.3];
-        _bufferProgressView.trackTintColor = [UIColor clearColor];
-    }
-    return _bufferProgressView;
-}
+//- (UIProgressView *)bufferProgressView
+//{
+//    if (!_bufferProgressView) {
+//        _bufferProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+//        _bufferProgressView.progressTintColor = [UIColor colorWithWhite:1 alpha:0.3];
+//        _bufferProgressView.trackTintColor = [UIColor clearColor];
+//    }
+//    return _bufferProgressView;
+//}
 
 - (ZXVideoPlayerTimeIndicatorView *)timeIndicatorView
 {

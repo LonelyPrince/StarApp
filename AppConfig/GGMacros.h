@@ -147,3 +147,10 @@ typedef void(^dictionaryBlock)(NSDictionary *results);
 #define VIDEOHEIGHT  64+0.5
 
 #define topViewHeight  50
+
+
+//TV 页面 录制、直播播放类别  @"RECAndLiveType"
+#define   RecAndLiveNotHave  @"0"      //录制和直播都不存在
+#define   RecExit            @"1"      //录制存在直播不存在
+#define   LiveExit           @"2"      //录制不存在直播存在
+#define   RecAndLiveAllHave  @"3"      //录制直播都存在

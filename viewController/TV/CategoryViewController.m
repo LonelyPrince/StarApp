@@ -44,7 +44,8 @@
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
     //    [scroll removeFromSuperview];
     //    scroll = nil;
-    categorysArr = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+    
+    categorysArr = [self titleArrReplace:[USER_DEFAULT objectForKey:@"categorysToCategoryView"]];
     NSLog(@"categorysArr:--%@",categorysArr);
     [self loadScroll];
     [self loadBtn];
@@ -93,7 +94,13 @@
     for (int i = 0 ; i < categorysArr.count; i++) {
         NSDictionary *item = categorysArr[i];
         NSString * tempStr;
-        tempStr =item[@"category_name"];
+        if ([item isEqual:@"Recordings" ]) {
+            tempStr = @"Recordings";
+        }else
+        {
+                tempStr =item[@"category_name"];
+        }
+        
         
         //        [_titles addObject:tempArray];
         
@@ -232,6 +239,10 @@
     {
         imageView.image = [UIImage imageNamed:@"Guide"];
     }
+    else if ([name isEqualToString:@"Recordings"] || [name isEqualToString:@"Recording"])  //OK1
+    {
+        imageView.image = [UIImage imageNamed:@"录制带色"];
+    }
     else if ([name isEqualToString:@"Indian"] || [name isEqualToString:@"indian"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Indian"];
@@ -262,6 +273,47 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+-(NSMutableArray *)titleArrReplace:(NSMutableArray*)titles
+{
+    NSMutableArray * tempTitlesArr = [[NSMutableArray alloc]init];
+    /*
+     1.先判断是那种类型，录制和直播节目是否同时存在
+     2.根部不同的类别进行数据组合和最后的赋值
+     **/
+    //#define   RecAndLiveNotHave  @"0"      //录制和直播都不存在
+    //#define   RecExit            @"1"      //录制存在直播不存在
+    //#define   LiveExit           @"2"      //录制不存在直播存在
+    //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
+    NSString * RECAndLiveType = [USER_DEFAULT objectForKey:@"RECAndLiveType"];
+    NSLog(@"RECAndLiveType %@",RECAndLiveType);
+    
+    if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
+        
+    }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
+        
+    }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
+        
+        tempTitlesArr =titles[0];
+       
+        
+    }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
+        if (titles.count == 2 ) {   //正常情况
+            tempTitlesArr =[titles[0] mutableCopy];
+            
+            [tempTitlesArr insertObject:@"Recordings" atIndex:1];
+            NSLog(@"_titles %@",tempTitlesArr);
+        }else if(titles.count == 1 )  //异常刷新，数组中只有一个元素
+        {
+            tempTitlesArr =titles[0];
+            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+                
+            }
+        }
+        
+    }
+    
+ 
+    return tempTitlesArr;
+}
 
 @end

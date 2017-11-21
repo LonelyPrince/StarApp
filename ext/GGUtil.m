@@ -592,29 +592,54 @@ static const char *getPropertyType(objc_property_t property) {
 
 
 //bNSData减去aNSData按字节获取---->指定字节数据NSMutableData
-+(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData
++(NSMutableData *)convertNSDataToByte:(NSMutableData *)aData  bData:(NSMutableData *)bData dataType:(NSString * )typeStr
 {
-    NSLog(@"aData :%@",aData);
-    NSLog(@"bData :%@",bData);
-    
-    
-    uint8_t byteArray[[bData length]];
-    NSMutableData * byteToDatas;
-    [bData getBytes:&byteArray length:[bData length]];
-    int bReduceALength =bData.length-aData.length;
-    
-    uint8_t bReduceAbyteArray[bReduceALength];
-    for (int i = 0; i <bReduceALength ; i++ ) {
-        //转换
-        bReduceAbyteArray[i] = byteArray[aData.length +i];
-        //        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
+    if ([typeStr isEqualToString:@"Live"]) {
+        NSLog(@"aData :%@",aData);
+        NSLog(@"bData :%@",bData);
+        
+        
+        uint8_t byteArray[[bData length]];
+        NSMutableData * byteToDatas;
+        [bData getBytes:&byteArray length:[bData length]];
+        int bReduceALength =bData.length-aData.length;
+        
+        uint8_t bReduceAbyteArray[bReduceALength];
+        for (int i = 0; i <bReduceALength ; i++ ) {
+            //转换
+            bReduceAbyteArray[i] = byteArray[aData.length +i];
+            //        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
+        }
+        
+        byteToDatas = [[NSMutableData alloc]init];
+        byteToDatas =  [[NSMutableData alloc]initWithBytes:bReduceAbyteArray length:bReduceALength];
+        NSLog(@"---urlDataGGUtil%@",byteToDatas);
+        return byteToDatas;
+        
+    }else if([typeStr isEqualToString:@"REC"]){
+        NSLog(@"aData :%@",aData);
+        NSLog(@"bData :%@",bData);
+        
+        
+        uint8_t byteArray[[bData length]];
+        NSMutableData * byteToDatas;
+        [bData getBytes:&byteArray length:[bData length]];
+        int bReduceALength =bData.length-aData.length -1;
+        
+        uint8_t bReduceAbyteArray[bReduceALength];
+        for (int i = 0; i <bReduceALength ; i++ ) {
+            //转换
+            bReduceAbyteArray[i] = byteArray[aData.length +1 +i];
+            //        NSLog(@"---byteArray2%x",bReduceAbyteArray[i]);
+        }
+        
+        byteToDatas = [[NSMutableData alloc]init];
+        byteToDatas =  [[NSMutableData alloc]initWithBytes:bReduceAbyteArray length:bReduceALength];
+        NSLog(@"---urlDataGGUtil%@",byteToDatas);
+        return byteToDatas;
+        
     }
-    
-    byteToDatas = [[NSMutableData alloc]init];
-    byteToDatas =  [[NSMutableData alloc]initWithBytes:bReduceAbyteArray length:bReduceALength];
-    NSLog(@"---urlDataGGUtil%@",byteToDatas);
-    return byteToDatas;
-    
+   
 }
 
 //返回时间戳的string类型
@@ -874,5 +899,91 @@ static const char *getPropertyType(objc_property_t property) {
         return NO;
     }
     
+}
+
++(int)judgePlayTypeClass
+{
+    /*
+     1.先判断是那种类型，录制和直播节目是否同时存在
+     2.根部不同的类别进行数据组合和最后的赋值
+     **/
+    //#define   RecAndLiveNotHave  @"0"      //录制和直播都不存在
+    //#define   RecExit            @"1"      //录制存在直播不存在
+    //#define   LiveExit           @"2"      //录制不存在直播存在
+    //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
+    NSString * RECAndLiveType = [USER_DEFAULT objectForKey:@"RECAndLiveType"];
+    NSLog(@"RECAndLiveType %@",RECAndLiveType);
+    
+    if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
+        return 0;
+    }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
+        return 1;
+    }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
+        return 2;
+    }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
+        return 3;
+        
+    }
+    return 0;
+}
+//用于将时间戳转化为  时：分：秒
++ (NSString *)timeHMSWithTimeIntervalString:(NSString *)timeString
+{
+    //    NSTimeInterval time=[timeString doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
+    NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
+    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+    if ([[detaildate description] isEqualToString:@"1970-01-01 00:00:00 +0000"]) {
+        return @"--:--";
+    }
+    NSLog(@"date:%@",[detaildate description]);
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    //     [dateFormatter setDateFormat:@"现在日期：yyyy年MM月dd日 \n 现在时刻： HH:mm:ss             "];
+    NSLog(@"dateFormatter:%@",dateFormatter);
+    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+    NSLog(@"currentDateStr:%@",currentDateStr);
+    //    // 格式化时间
+    //    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    //    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
+    //    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    //    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    //    [formatter setDateFormat:@" HH:mm"];
+    //
+    //    // 毫秒值转化为秒
+    //    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+    //    NSString* dateString = [formatter stringFromDate:date];
+    return currentDateStr;
+}
+//用于将时间戳转化为  YYMMDD 时：分
++ (NSString *)timeYMDHMWithTimeIntervalString:(NSString *)timeString
+{
+    //    NSTimeInterval time=[timeString doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
+    NSTimeInterval time=[timeString doubleValue];//因为时差问题要加8小时 == 28800 sec
+    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
+    if ([[detaildate description] isEqualToString:@"1970-01-01 00:00:00 +0000"]) {
+        return @"--:--";
+    }
+    NSLog(@"date:%@",[detaildate description]);
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+//    [dateFormatter setDateFormat:@"HH:mm:ss"];
+         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSLog(@"dateFormatter:%@",dateFormatter);
+    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
+    NSLog(@"currentDateStr:%@",currentDateStr);
+    //    // 格式化时间
+    //    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    //    formatter.timeZone = [NSTimeZone timeZoneWithName:@"beijing"];
+    //    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    //    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    //    [formatter setDateFormat:@" HH:mm"];
+    //
+    //    // 毫秒值转化为秒
+    //    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+    //    NSString* dateString = [formatter stringFromDate:date];
+    return currentDateStr;
 }
 @end
