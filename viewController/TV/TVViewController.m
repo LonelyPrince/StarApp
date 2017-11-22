@@ -2175,10 +2175,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         BOOL getLinkDataBool = [self  getLinkData :value tempDataA:[USER_DEFAULT objectForKey:@"data_serviceREC"] tempDataB:[USER_DEFAULT objectForKey:@"data_service11REC"] type:@"REC"];
         if (getLinkDataBool == YES) {
             
-            NSLog(@"---urlDataTV接收%@",_byteDatas);
-            NSLog(@"---urlData接收页面shang面的video.playurl 111%@",self.video.playUrl);
-            
-            //        self.video.playUrl = [@"h"stringByAppendingString:[[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding]];
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
             //    self.video.playUrl =@"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
@@ -2199,6 +2195,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.endTime = self.event_endTime;
             NSLog(@"self.video.startTime %@",self.video.startTime);
             NSLog(@"self.video.endTime %@",self.video.endTime);
+            
+            [USER_DEFAULT setObject:self.video.startTime forKey:@"RECVideoStartTime"];
+            [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
+            
+            int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
+            NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
+            [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
+            [USER_DEFAULT setBool:YES forKey:@"IsfirstPlayRECVideo"];
             
             [self setStateNonatic];
 
@@ -8195,11 +8199,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
     
-    if(isEventStartTimeBiger_NowTime == YES) //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
-    {
+    if(isEventStartTimeBiger_NowTime == YES){
+        //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
         progressEPGArrIndex = progressEPGArrIndex - 1;  //如果节目的开始时间比当前时间还大，那么则把索引减一
-    }else
-    {
+    }else{
         
     }
     
@@ -8219,10 +8222,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSInteger abcd = progressEPGArr.count -1;
         if(progressEPGArrIndex <= abcd && progressEPGArrIndex > 0){    //如果索引正常
             NSInteger abcd = progressEPGArr.count -1;
-            NSLog(@"abcd== %ld",abcd);
-            if (1 <= -1) {
-                NSLog(@"func");
-            }
+            
             if(![[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"] isEqualToString:@""])
                 
             {
@@ -8247,7 +8247,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
-                NSLog(@"replaceEventNameNotific 的通知发出去了");
                 //======
                 
                 

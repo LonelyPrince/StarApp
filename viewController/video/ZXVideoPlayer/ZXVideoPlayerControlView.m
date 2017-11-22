@@ -278,7 +278,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
                         screenWidthTemp = 0;
                     }else
-                    {NSLog(@"==-=-===-==000==-DDDD");
+                    {
+                        NSLog(@"==-=-===-==000==-DDDD");
                         //竖屏
                         self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
                         self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
@@ -935,7 +936,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     if (!_suspendButton) {
         _suspendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_suspendButton setImage:[UIImage imageNamed:@"上一频道"] forState:UIControlStateNormal];
+        [_suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
         _suspendButton.bounds = CGRectMake(0, 0, 17, 17);
         
         //        [_lastChannelButton setEnlargeEdgeWithTop:15 right:15 bottom:15 left:20];
@@ -1130,10 +1131,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
         [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
-        [_progressSlider setMaximumTrackTintColor:[[UIColor blueColor] colorWithAlphaComponent:0.4]];
+        [_progressSlider setMaximumTrackTintColor:[[UIColor grayColor] colorWithAlphaComponent:0.4]];
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
         //progressSlider 隐藏
+                
         _progressSlider.alpha = 0;
         _progressSlider.hidden = YES;
     }

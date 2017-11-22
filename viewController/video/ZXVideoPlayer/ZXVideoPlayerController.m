@@ -72,6 +72,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int judgeVideoIsStatic;  //判断视频是否出现了静帧，如果静帧时间超过3秒，则提示不能播放的文字。视频静帧的时候，会触发“媒体网络状态改变的方法”，视频恢复正常播放的时候会触发“播放状态改变”的方法
     
     NSString *  tempUrl;
+    
+    float RECTime;
+    int durationTimeTemp;
 }
 
 
@@ -148,6 +151,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     self = [super init:frame];
     if (self) {
+        RECTime = 0.f;
         openTime = 0;
         currentProgress = 0;
         self.view.frame = frame;
@@ -278,7 +282,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchCancel];
     
     [self setProgressSliderMaxMinValues];
-    [self monitorVideoPlayback];
+//    [self monitorVideoPlayback];
 }
 
 /// 开始播放时根据视频文件长度设置slider最值
@@ -292,14 +296,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 监听播放进度
 - (void)monitorVideoPlayback
 {
-    currentProgress ++;
+    RECTime ++;
     NSLog(@"skfbssssbfsbfjsbd");
 //    double currentTime = currentProgress;
 //    double totalTime = 50;
 ////    // 更新时间
 //    [self setTimeLabelValues:currentTime totalTime:totalTime];
 ////     更新播放进度
-    self.videoControl.progressSlider.value =  (self.videoControl.progressSlider.minimumValue + self.videoControl.progressSlider.maximumValue) / 2;// ceil(currentTime);
+    self.videoControl.progressSlider.minimumValue = 0;// 设置最小值
+    self.videoControl.progressSlider.maximumValue = 100;// 设置最大值
+    self.videoControl.progressSlider.value = RECTime/durationTimeTemp * 100 ;// 设置初始值
+//    此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
+    
+    
+    
+    
+//    self.videoControl.progressSlider.value = 5.f; //(self.videoControl.progressSlider.minimumValue + self.videoControl.progressSlider.maximumValue) / 2;// ceil(currentTime);
     
     NSLog(@"ajsfbabfaf %f",self.videoControl.progressSlider.value);
 //    self.videoControl.progressSlider.minimumValue = 0.5;
@@ -331,11 +343,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 开启定时器
 - (void)startDurationTimer
 {
+    BOOL IsfirstPlayRECVideo = [USER_DEFAULT objectForKey:@"IsfirstPlayRECVideo"];
+    durationTimeTemp = [[USER_DEFAULT objectForKey:@"RECVideoDurationTime"] intValue];
+    if ( IsfirstPlayRECVideo == YES) { //第一次操作
+        self.videoControl.progressSlider.value = 0;
+    }else
+    {
+        self.videoControl.progressSlider.value = RECTime/durationTimeTemp * 100;
+    }
+    
     if (self.durationTimer) {
         [self.durationTimer setFireDate:[NSDate date]];
     } else {
         self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
+        
+        [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
     }
 }
 
@@ -420,44 +443,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"openTimeopenTimeopenTimeopenTime");
     }
     
-    
-    //    NSLog(@"MPMoviePlayer  PlaybackStateDidChange  Notification");
-    //    NSLog(@"MPMoviePlayer  播放状态改变");
-    //
-    //    if (self.playbackState == MPMoviePlaybackStateInterrupted) {
-    //        NSLog(@"playState---=====视频中断 播放了！！");
-    //    }
-    //    if (self.playbackState == MPMoviePlaybackStatePlaying) {
-    //        NSLog(@"视频正在播放");
-    //        NSLog(@"准备开始播放");
-    //        NSLog(@"playState---=====准备开始播放");
-    //        NSLog(@"MPMoviePlayer  正在播放");
-    //        self.videoControl.pauseButton.hidden = NO;
-    //        self.videoControl.playButton.hidden = YES;
-    //        [self startDurationTimer];
-    //
-    //        [self.videoControl.indicatorView stopAnimating];
-    //        [self.videoControl autoFadeOutControlBar];
-    //        NSLog(@"视频正在播放，圆圈暂停");
-    //        //        [self play];
-    //    } else {
-    //        //        [self play];
-    //
-    //        //        NSLog(@"视频正在播放停止");
-    //        //        NSLog(@"playState---=====视频正在播放停止");
-    //        self.videoControl.pauseButton.hidden = YES;
-    //        self.videoControl.playButton.hidden = NO;
-    //        [self stopDurationTimer];
-    //        if (self.playbackState == MPMoviePlaybackStateStopped) {
-    //            NSLog(@"playState---=====视频stop 了！！");
-    //            [self.videoControl.indicatorView startAnimating];
-    //            [self.videoControl animateShow];
-    //
-    //        }
-    //    }
-    //
-    //
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(quality) name:@"" object:nil];
 }
 
 -(void)stopPlayAndShowLabel  //如果静帧超过3秒钟，显示不能播放的文字
@@ -2265,6 +2250,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.videoControl.eventTimeLabNow.frame = CGRectMake(164, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
                 self.videoControl.eventTimeLabAll.frame = CGRectMake(164+80, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
 
+                
+                //全屏
+                self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height -50 , SCREEN_HEIGHT, 2);
             }
             //test
             //此处销毁通知，防止一个通知被多次调用
@@ -2323,7 +2311,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"FullEventYFlabel lalal3 :%@",self.videoControl.FullEventYFlabel);
     self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 260, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
     
-    //进行判断，防止出现录制节目
+    //进行判断,看是不是录制节目
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
         
           self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake( 45, 38, 200, 30)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
@@ -2474,7 +2462,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.channelNameLab.hidden = NO;
     }
 
-    
+    //判断是不是播放的录制节目
+    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+        
+        //竖屏状态 progressSlider的frame
+         self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height - 1.5, SCREEN_WIDTH, 1.5f);
+    }
     
     //切换到竖屏，跑马灯消失
     if (self.videoControl.FullEventYFlabel) {
@@ -2599,17 +2592,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     
     
-    if ([self.player isPlaying]) {
+    if ([self.player isPlaying]) {  //暂停
         [self.player pause];
         NSLog(@"用户点击了暂停按钮");
         //给通知，暂停进度条
         
+        [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"播放"] forState:UIControlStateNormal];
         
-    }else
+        [self stopDurationTimer];
+    }else  //重新播放
     {
         [self.player play];
         NSLog(@"用户点击了播放按钮");
         //重新启动进度条
+        
+        [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
+        [self startDurationTimer];
     }
     
     
@@ -4625,9 +4623,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //
         //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
         
+        self.videoControl.progressSlider.hidden = YES;
+        self.videoControl.progressSlider.alpha = 0;
+        
     }else
     {
         NSLog(@"kdjfb;asddasdadasasbf");
+        
+        self.videoControl.progressSlider.hidden = NO;
+        self.videoControl.progressSlider.alpha = 1;
         
         NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
 //        NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
@@ -4649,11 +4653,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //通过判断是不是全屏或者是竖屏来展示频道名称
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             
+            NSLog(@"REC  横屏");
             
            self.videoControl.channelNameLab.frame = CGRectMake(42, 26, 56+200 , 55);
             
+            self.videoControl.progressSlider.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
+            
         }else //竖屏
         {
+            NSLog(@"REC  竖屏");
             if (self.video.channelId == @"") {
               
                 self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
@@ -4662,12 +4670,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
              self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
             
             NSLog(@"可能会出错的地方self.view.frame.bounds.width2");
+ 
+            self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height - 1.5, SCREEN_WIDTH, 1.5f);
+
         }
         
-        
-        
-        
-            
+ 
             self.videoControl.eventnameLabel.text = self.video.playEventName;
         }
         //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
@@ -4687,6 +4695,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void)setEventTime
 {
+    NSLog(@"this is 00000");
     float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
     NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
     
@@ -4702,8 +4711,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } else
     {
-        NSLog(@" [[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
-        NSLog(@" [self.video.startTime intValue] %d",[self.video.startTime intValue]);
+        
         bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
         
         NSLog(@" bb1 %d",bb1);
@@ -4745,90 +4753,90 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)setEventTime1 //判断进度条是不是需要显示
 {
+    NSLog(@"this is 11111");
     NSLog(@"zxvideo 判断进度条是不是需要显示");
     int  EPGArrindex = 0; //先随便初始化一下
     NSString * tempIndexStr;
     NSArray * arr = [USER_DEFAULT objectForKey:@"NowChannelEPG"];
     if (arr.count > 0) {
-
-    tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];   //一直没变，应该让他先变
-    EPGArrindex = [tempIndexStr intValue];
-    NSLog(@"EPGArrindexEPGArrindexEPGArrindex %d",EPGArrindex);
-    //    NSLog(@"EPGArrindex lal :%d",EPGArrindex);
-    //    NSLog(@"arr lal :%@",arr);
-    if (EPGArrindex > arr.count-1) {
-        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-    }else
-    {
         
-        self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
-        self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
-        
-        if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue]) {
+        tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];   //一直没变，应该让他先变
+        EPGArrindex = [tempIndexStr intValue];
+        NSLog(@"EPGArrindexEPGArrindexEPGArrindex %d",EPGArrindex);
+        if (EPGArrindex > arr.count-1) {
+            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }else
+        {
             
             self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
             self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
             
-            NSLog(@"self.video.startTime lalala22 :%@",self.video.startTime);
-            NSLog(@"endTime lalala22 :%@",self.video.endTime);
-            
-            float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];  //时间差
-            NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
-            NSLog(@"nowTime %@",aa);
-            
-            int bb1 ;
-            
-            //如果时间为0 ,或者没有获取到时间，则显示为0
-            if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
-                bb1 = 0;
-            } else
-            {
-                NSLog(@"self.video.startTime lalala :%@",self.video.startTime);
-                bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];  //当前时间和开始时间比较
-            }
-            if (bb1 < 0) {
-                bb1 = 0;
-                aa1 = 0;
-                aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
-                //创建通知
-                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-            }
-            NSLog(@"bb1 bb1 :%d",bb1);
-            
-            NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
-            NSLog(@"nowTime %@",nowTime);
-            
-            //            if([nowTime intValue] >= [aa intValue] )
-            if(bb1 >= aa1  )
-            {
-                NSLog(@"出错了，节目的当前时间不能大于结束时间");
-                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue]) {
                 
-            }
-            else{
-                NSLog(@"nowTime nowTime :%@",nowTime);
-                NSLog(@"nowTime nowTime :%@",aa);
+                self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
+                self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
                 
-                self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
-                self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+                NSLog(@"self.video.startTime lalala22 :%@",self.video.startTime);
+                NSLog(@"endTime lalala22 :%@",self.video.endTime);
+                
+                float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];  //时间差
+                NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+                NSLog(@"nowTime %@",aa);
+                
+                int bb1 ;
+                
+                //如果时间为0 ,或者没有获取到时间，则显示为0
+                if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
+                    bb1 = 0;
+                } else
+                {
+                    NSLog(@"self.video.startTime lalala :%@",self.video.startTime);
+                    bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];  //当前时间和开始时间比较
+                }
+                if (bb1 < 0) {
+                    bb1 = 0;
+                    aa1 = 0;
+                    aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+                NSLog(@"bb1 bb1 :%d",bb1);
+                
+                NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+                NSLog(@"nowTime %@",nowTime);
+                
+                //            if([nowTime intValue] >= [aa intValue] )
+                if(bb1 >= aa1  )
+                {
+                    NSLog(@"出错了，节目的当前时间不能大于结束时间");
+                    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    
+                }
+                else{
+                    NSLog(@"nowTime nowTime :%@",nowTime);
+                    NSLog(@"nowTime nowTime :%@",aa);
+                    
+                    self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+                    self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+                }
+                
             }
             
         }
         
     }
     
-    }
-    
     
 }
 - (void)setVideo:(ZXVideo *)video
-{   NSLog(@"contentURL 22ZXVideo");
+{
+    NSLog(@"contentURL 22ZXVideo");
     _video = video;
     
     // 标题
@@ -4853,9 +4861,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    self.subAudioDic = [[NSMutableDictionary alloc]init];
     
     //    self.subAudioDic = self.video.dicSubAudio;
-    //    NSLog(@"self.video.dicSubAudio:%@",self.video.dicSubAudio);
-    //    NSLog(@"self.video.dicSubAudio:%@",self.subAudioDic);
-    //self.video.dicSubAudio;
+    
     [self setEventTime1];
     timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
     
