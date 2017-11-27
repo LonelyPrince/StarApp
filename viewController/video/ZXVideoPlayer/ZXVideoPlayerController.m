@@ -297,34 +297,35 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)monitorVideoPlayback
 {
     RECTime ++;
-    NSLog(@"skfbssssbfsbfjsbd");
-//    double currentTime = currentProgress;
-//    double totalTime = 50;
-////    // 更新时间
-//    [self setTimeLabelValues:currentTime totalTime:totalTime];
-////     更新播放进度
+    
+    //    double currentTime = currentProgress;
+    //    double totalTime = 50;
+    ////    // 更新时间
+    //    [self setTimeLabelValues:currentTime totalTime:totalTime];
+    ////     更新播放进度
     self.videoControl.progressSlider.minimumValue = 0;// 设置最小值
     self.videoControl.progressSlider.maximumValue = 100;// 设置最大值
-    self.videoControl.progressSlider.value = RECTime/durationTimeTemp * 100 ;// 设置初始值
-//    此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
+    NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
+    self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值
+    //    此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
     
     
     
     
-//    self.videoControl.progressSlider.value = 5.f; //(self.videoControl.progressSlider.minimumValue + self.videoControl.progressSlider.maximumValue) / 2;// ceil(currentTime);
+    //    self.videoControl.progressSlider.value = 5.f; //(self.videoControl.progressSlider.minimumValue + self.videoControl.progressSlider.maximumValue) / 2;// ceil(currentTime);
     
     NSLog(@"ajsfbabfaf %f",self.videoControl.progressSlider.value);
-//    self.videoControl.progressSlider.minimumValue = 0.5;
-//    self.videoControl.progressSlider.value = 0.8;
+    //    self.videoControl.progressSlider.minimumValue = 0.5;
+    //    self.videoControl.progressSlider.value = 0.8;
     
-    // 更新缓冲进度
-//    self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
+        // 更新缓冲进度
+    //    self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
     
-    //    if (self.duration == self.playableDuration && self.playableDuration != 0.0) {
-    //        NSLog(@"缓冲完成");
-    //    }
-    //    int percentage = self.playableDuration / self.duration * 100;
-    //    NSLog(@"缓冲进度: %d%%", percentage);
+        //    if (self.duration == self.playableDuration && self.playableDuration != 0.0) {
+        //        NSLog(@"缓冲完成");
+        //    }
+        //    int percentage = self.playableDuration / self.duration * 100;
+        //    NSLog(@"缓冲进度: %d%%", percentage);
 }
 
 /// 更新播放时间显示
@@ -349,17 +350,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.progressSlider.value = 0;
     }else
     {
-        self.videoControl.progressSlider.value = RECTime/durationTimeTemp * 100;
+        self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100;
     }
-    
-    if (self.durationTimer) {
-        [self.durationTimer setFireDate:[NSDate date]];
-    } else {
+    if ( IsfirstPlayRECVideo == YES) {
+        RECTime = 0;
+        [self.durationTimer invalidate];
+        self.durationTimer = nil;
+        
         self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
         
         [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
+    }else
+    {
+        if (self.durationTimer) {
+            [self.durationTimer setFireDate:[NSDate date]];
+        } else {
+            self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
+            
+            [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
+        }
     }
+   
 }
 
 /// 暂停定时器
@@ -535,6 +548,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 视频显示状态改变
 - (void)onMPMoviePlayerReadyForDisplayDidChangeNotification
 {
+    NSLog(@"开始播放");
+    
+    NSString * channelType = [USER_DEFAULT objectForKey:@"ChannelType"];
+    if ([channelType isEqualToString:@"RECChannel"]) {
+        [self startDurationTimer];
+    }
+    
     NSLog(@"xxxxxx MPMoviePlayer  Notification 视频显示状态改变");
     NSLog(@"MPMoviePlayer  视频显示状态改变");
     NSLog(@"playState---=====视频显示状态改变");
@@ -4692,7 +4712,48 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     
 }
-
+-(void)RECsetEventTime
+{
+    NSLog(@"this is 33333");
+    float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
+    NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+    
+    
+    int bb1 ;
+    
+    
+    //如果时间为0 ,或者没有获取到时间，则显示为0
+    if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
+        bb1 = 0;
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    } else
+    {
+        bb1 = (int)self.player.playableDuration;
+    }
+    if (bb1 <0) {
+        bb1 = 0;
+        aa1 = 0;
+        aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+    }
+    if (bb1 < aa1) {
+        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+        
+        self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+        self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+    }else
+    {
+        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+        self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",aa];
+        self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+    }
+    
+  
+    
+    
+}
 -(void)setEventTime
 {
     NSLog(@"this is 00000");
@@ -4858,12 +4919,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelNameLab.text = self.video.channelName;
     
     
-    //    self.subAudioDic = [[NSMutableDictionary alloc]init];
-    
-    //    self.subAudioDic = self.video.dicSubAudio;
-    
     [self setEventTime1];
-    timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+    
+    NSString * channelType = [USER_DEFAULT objectForKey:@"ChannelType"];
+    if ([channelType isEqualToString:@"RECChannel"]) {
+        [self startDurationTimer];
+        [timerOfEventTime invalidate];
+        timerOfEventTime = nil;
+        
+        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+    }else
+    {
+        [timerOfEventTime invalidate];
+        timerOfEventTime = nil;
+        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+    }
+    
     
     
     [self.videoControl.FullEventYFlabel removeFromSuperview];

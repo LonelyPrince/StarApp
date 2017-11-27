@@ -2019,11 +2019,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             playState = NO;
             
-            
-            NSLog(@"playState:111111 %d",playState);
-            //    [timerState invalidate];
-            //    timerState = nil;
-            
+           
             
             if (self.showTVView == YES) {
                 [self ifNeedPlayClick];
@@ -2041,6 +2037,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.timer invalidate];
             self.timer = nil;
             
+            //用于判断进度条类型
+            [USER_DEFAULT setObject:@"LiveChannel" forKey:@"ChannelType"];
             
             //** 计算进度条
             if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
@@ -2212,7 +2210,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
-                NSLog(@"延时执行的2秒");
 
                 [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
    
@@ -2232,93 +2229,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
                 NSLog(@"取消25秒的等待2");
             }
-            NSLog(@"开始==计时===");
-            
-            //    }
-            
             
             [self removeTopProgressView];
             [self.timer invalidate];
             self.timer = nil;
             
-            //新加的进度条
-            [self.videoController startDurationTimer];
-            
-            
-            //** 计算进度条
-            if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
-            {
-                [self.view addSubview:self.topProgressView];
-                [self.view bringSubviewToFront:self.topProgressView];
-                [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-                
-                NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
-                NSLog(@"self.event_startTime--==%@",self.event_startTime);
-                NSLog(@"self.event_startTime--==%@",self.event_endTime);
-                if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
-                    
-                    NSLog(@"此处可能报错，因为StarTime不为空 ");
-                    NSLog(@"z在getDataService里面调用 replaceEventNameNotific");
-                    NSLog(@"---删除进度条的地方101010");
-                    [self removeProgressNotific];
-                }else
-                {
-                    NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
-                    NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
-                    
-                    [dict setObject:self.event_startTime forKey:@"StarTime"];
-                    [dict setObject:self.event_endTime forKey:@"EndTime"];
-                    
-                    
-                    
-                    //判断当前是不是一个节目（此处应该没有实质价值）
-                    eventName1 = self.event_videoname;
-                    eventName2 = self.event_videoname;
-                    //        eventNameTemp ;
-                    eventNameTemp = eventName1;
-                    if (eventName2 != eventNameTemp) {
-                        // 不同的节目   @"同一个节目";
-                    }else
-                    {
-                        //@"同一个节目";
-                        eventName2 = eventNameTemp;
-                      
-                        progressEPGArrIndex = 0;
-                    
-                        
-                        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
-                        
-                        int tempIndex =progressEPGArrIndex;
-                        NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
-                        [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
-                        //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
-                        NSInteger endTime =[self.event_endTime intValue ];
- 
-                        NSString *nowDate = [GGUtil GetNowTimeString];
-                        NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
-                     
-                        
-                        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-                        [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
-                        
-                        NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
-                        
-                    }
-                }
-         
-                
-            }else{
-                
-                NSLog(@"---删除进度条的地方111");
-                [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
-                
-                
-            }
-            //**
-            NSLog(@"---urlData接收页面下面的video.playurl%@",self.video.playUrl);
-            
-            
-            NSString * str = [NSString stringWithFormat:@"%@",self.video.playUrl];
+            /**
+             *新加的进度条
+             */
+            [USER_DEFAULT setObject:@"RECChannel" forKey:@"ChannelType"];
+            //            [self.videoController startDurationTimer];
+            [self removeTopProgressView]; //删除直播的进度条
  
         }else
         {
