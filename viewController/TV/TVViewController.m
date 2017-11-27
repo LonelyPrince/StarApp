@@ -885,9 +885,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 被播放的节目变蓝
 -(void)tableViewCellToBlue :(NSInteger)numberOfIndex  indexhah :(NSInteger)numberOfIndexForService AllNumberOfService:(NSInteger)AllNumberOfServiceIndex
 {
-    NSNumber * numIndex = [NSNumber numberWithInteger:numberOfIndex];
-    NSNumber * numIndex2 = [NSNumber numberWithInteger:numberOfIndexForService];
-    NSNumber * numIndex3 = [NSNumber numberWithInteger:AllNumberOfServiceIndex];
+    NSNumber * numIndex = [NSNumber numberWithInteger:numberOfIndex];   //分类中第几个
+    NSNumber * numIndex2 = [NSNumber numberWithInteger:numberOfIndexForService];  //列表中的第几个
+    NSNumber * numIndex3 = [NSNumber numberWithInteger:AllNumberOfServiceIndex];    //列表一共有几个
     
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",numIndex2,@"textTwo", numIndex3,@"textThree",nil];
@@ -1321,6 +1321,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if(index < 10000)
     {
         self.category_index = index;
+        NSLog(@"self.category_index %d",self.category_index);
         cell.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         //self.categorys[i]                          不同类别
         //self.categoryModel.service_indexArr        类别的索引数组
@@ -1620,11 +1621,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"self.dicTempself.dicTemp%@",self.dicTemp);
             
             if (numberOfRowsForTable == 1) {
-                NSLog(@"nknknkknknnnknknknnknkn");
             }else
             {
                 
-                NSLog(@"=-=-=-=-=-=-=-=-=-=s-d=a-=d-=-=-=-a=sd-=-=-=-sd=");
             }
 
         }
@@ -1634,6 +1633,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //焦点
         NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];
         
+        NSLog(@"cell.dataDic==cell.dataDic== %@",cell.dataDic);
+        NSLog(@"cell.dataDic==cell.dataDic== %@",fourceDic);
         if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) { //[cell.dataDic isEqualToDictionary:fourceDic]
             
             //                int indexForJudgeService = i;
@@ -1641,10 +1642,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            
+            NSLog(@"asbfabsfkabfjabfkab11");
             
         }else
         {
+            NSLog(@"asbfabsfkabfjabfkab");
             [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
             [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
             [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
@@ -1793,14 +1795,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //加入历史记录
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSLog(@"dangqin 线程 %@",[NSThread currentThread]);
         [self addHistory:indexPath.row diction:self.dicTemp];
         [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
         [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
         [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
         [self.videoController setaudioOrSubtRowIsZero];
-        
-        NSLog(@"==--==--==--=11%@",[NSThread currentThread] );
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -1822,6 +1821,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
 }
 
+#pragma mark - 点击tableView 变蓝
 -(void)performChangeColor
 {
     int indexOfCategory =  self.category_index;  //[self judgeCategoryType:[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
@@ -1834,19 +1834,25 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (categoryTempArr.count >1 && categoryTempArr != NULL && categoryTempArr !=nil) {
         //有录制有直播
         
-        if (self.categorys.count > indexOfCategory) {
-            allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
-            
-            [self tableViewCellToBlue:indexOfCategory indexhah:[indexpathRowStr integerValue] AllNumberOfService:allNumberOfServiceArr.count];
-        }else if(self.categorys.count == indexOfCategory)
-        {
-            allNumberOfServiceArr = categoryTempArr;
-            
-            [self tableViewCellToBlue:indexOfCategory indexhah:[indexpathRowStr integerValue] AllNumberOfService:allNumberOfServiceArr.count];
-        }else
-        {
-            return;
-        }
+       
+
+            if (indexOfCategory == 0) {
+                allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+
+                [self tableViewCellToBlue:indexOfCategory indexhah:[indexpathRowStr integerValue] AllNumberOfService:allNumberOfServiceArr.count];
+            }else if (indexOfCategory == 1) {
+                allNumberOfServiceArr = categoryTempArr;
+
+                [self tableViewCellToBlue:indexOfCategory indexhah:[indexpathRowStr integerValue] AllNumberOfService:allNumberOfServiceArr.count];
+            }else if (indexOfCategory > 1){
+                allNumberOfServiceArr = [self.categorys[indexOfCategory -1] objectForKey:@"service_index"];
+
+                [self tableViewCellToBlue:indexOfCategory indexhah:[indexpathRowStr integerValue] AllNumberOfService:allNumberOfServiceArr.count];
+            }else
+            {
+                return;
+            }
+       
         
         
     }else
@@ -1866,8 +1872,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 #pragma mark - didselecttableview 方法中播放事件
 -(void)didselectRowToPlayClick
-{ 
-    NSLog(@"asdasdasdasdasdasd");
+{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
         NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);
@@ -1877,7 +1882,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
             if (judgeIsSTBDecrypt == YES) {
                 
-                NSLog(@"asdasdasdasdasdasd111");
                 //将上一个节目关闭
                 [self stopVideoPlay];
             
@@ -1927,12 +1931,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    
-    //    int indexOfCategory =  self.category_index;  //[self judgeCategoryType:[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
-    //    NSArray * allNumberOfServiceArr = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
-    //    [self tableViewCellToBlue:indexOfCategory indexhah:indexPathRow AllNumberOfService:allNumberOfServiceArr.count];
-    
-    //    [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
 
@@ -2442,7 +2440,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //创建通知
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
-            NSLog(@"POPPOPPOPPOP==setchannelNameOrOtherInfo");
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
             
@@ -2557,8 +2554,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 socketView.socket_ServiceModel.service_service_id = @"0";
             }
             
-            NSLog(@"------%@",socketView.socket_ServiceModel);
-            
             
             [self getsubt];
             //此处销毁通知，防止一个通知被多次调用    // 1
@@ -2566,19 +2561,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //注册通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
             
-            
-            //    self.socketView  = [[SocketView  alloc]init];
-            //    [self.socketView viewDidLoad];
-            
-            NSLog(@"self.socket:%@",self.socketView);
-            
-            
+       
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (self.showTVView == YES) {
                     self.videoController.socketView1 = self.socketView;
                     [self.socketView  serviceTouch ];
-                    NSLog(@"测试播放2222222222222233333");
                 }else
                 {
                     NSLog(@"已经不是TV页面了");
@@ -4153,8 +4141,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //
     //    }
     int indexOfCategory = [self judgeCategoryType:epgDicToSocket]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
-    //===
-    //\\\\\\
+   
     
     NSDictionary *item;
     if (indexOfCategory <= self.categorys.count -1) {
@@ -4601,13 +4588,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_startTime = @"";
         self.event_endTime = @"";
     }
-    //    self.TVSubAudioDic = [[NSDictionary alloc]init];
+    
     self.TVSubAudioDic = epgDicToSocket;
-    //    self.TVChannlDic = [[NSDictionary alloc]init];
-    NSLog(@"self.TVChannlDic.count 1:%d",self.TVChannlDic.count);
     self.TVChannlDic = self.dicTemp;
-    NSLog(@"self.TVChannlDic.count 2:%d",self.TVChannlDic.count);
-    NSLog(@"eventname :%@",self.event_startTime);
+    
     //*********
     //    tempBoolForServiceArr = YES;
     //    tempArrForServiceArr =  self.categoryModel.service_indexArr;

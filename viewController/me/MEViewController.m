@@ -3210,6 +3210,9 @@
     else if (astring.length > 3)
     {
         astring = [ astring substringFromIndex: astring.length - 3];
+    }else
+    {
+        astring = @"";
     }
     return astring;
 }
