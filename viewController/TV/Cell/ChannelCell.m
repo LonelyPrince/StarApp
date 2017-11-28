@@ -74,7 +74,11 @@
     
     
     
+    NSLog(@"cell.channelId %@ ",self.channelId.text);
+    if (self.channelId.text == NULL || [self.channelId.text isEqualToString:@""] || self.channelId.text == nil) {
 
+        self.channelName.frame = CGRectMake(25, 16, self.frame.size.width, 15);
+    }
     
 
 //    //字体设置

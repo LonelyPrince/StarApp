@@ -1446,8 +1446,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     numberOfRowsForTable = self.categoryModel.service_indexArr.count;
                 }else if (index == 1)
                 {
+                    
+                    
+                    
                     //如果发现第二列，则展示REC这个数组
                     NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                    self.categoryModel.service_indexArr = RECTempArr;
                     NSLog(@"RECTempArr %lu",(unsigned long)RECTempArr.count);
                     numberOfRowsForTable = RECTempArr.count;
                     
@@ -1764,7 +1768,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
     self.video.channelCount = tempArrForServiceArr.count;
-
+    NSLog(@"self.video.channelCount ]]] %d",self.video.channelCount);
     tempIndexpathForFocus = indexPath;
  
     //====快速切换频道名称和节目名称
@@ -6540,12 +6544,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSDictionary *item ;
             if (index > 0 ) {
                 item = self.categorys[index];   //当前页面类别下的信息
-//
-////                NSLog(@"要显示了，没有隐藏");
-////                NSLog(@"mediaDeliveryUpdate 要显示了，没有隐藏" );
-////                NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
-////                //通过通知中心发送通知
-////                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+ 
             }else
             {
 

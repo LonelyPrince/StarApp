@@ -2867,7 +2867,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.subAudioDic = self.video.dicSubAudio;
     
-    
+    NSLog(@"self.video.dicChannl= %@",self.video.dicChannl);
     self.channelDic = self.video.dicChannl;
     
     
@@ -3674,7 +3674,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"22self.video =======----===---==---==-= %@ ",self.video);
         
         
-        NSLog(@"self.video.channelCount :%d",self.video.channelCount);
+        NSLog(@"self.video.channelCountababab :%d",self.video.channelCount);
         if (self.video.channelCount <= 8) {
             self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
         }else
@@ -3953,16 +3953,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         ChannelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelCell"];
         if (cell == nil){
             cell = [ChannelCell loadFromNib];
-            cell.channelId.textAlignment = UITextAlignmentCenter;
-            cell.channelName.textAlignment = UITextAlignmentLeft;
+            cell.channelId.textAlignment =  NSTextAlignmentCenter;
+            cell.channelName.textAlignment = NSTextAlignmentLeft;
+           
+//            NSLog(@"cell.channelId %@ ",cell.channelId.text);
+//            if (cell.channelId.text == NULL || [cell.channelId.text isEqualToString:@""] || cell.channelId.text == nil) {
+//
+//                cell.channelName.frame = CGRectMake(20, 10, cell.frame.size.width, 15);
+//            }
             
             cell.backgroundColor=[UIColor clearColor];
             
             
             
-            //            self.viewClick.frame = cell.frame;
-            //            self.grayViewUP.frame = CGRectMake(12.8, 0, cell.frame.size.width, 0.5);
-            //            self.grayViewDown.frame = CGRectMake(12.8, cell.frame.size.height - 1, cell.frame.size.width, 0.5);
+           
             UIView * viewClick = [[UIView alloc]initWithFrame:cell.frame];
             viewClick.backgroundColor = [UIColor clearColor];
             UIView * grayViewUP = [[UIView alloc]initWithFrame:CGRectMake(12.8, 0, cell.frame.size.width, 0.5)];
@@ -3975,14 +3979,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell.selectedBackgroundView=viewClick;
             
             
-            //            cell.selectedBackgroundView=[[UIView alloc]initWithFrame:cell.frame];
             
-            //            cell.selectedBackgroundView.backgroundColor=[UIColor  clearColor];
-            
-            //            cell.backgroundView = viewClick;
-            
-            //            [cell.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            //            [cell.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
         }
         
@@ -3991,18 +3988,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             
-            NSLog(@"self.video.dicChannl %@",self.video.dicChannl);
-            NSLog(@"cell.dataDic %@",cell.dataDic);
-            
-            
-            
-            
+  
             //焦点
             NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-            NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
-            //            if ([cell.dataDic isEqualToDictionary:fourceDic]) {
-            
+          
             __block BOOL boolTemp;
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 
@@ -4014,18 +4003,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         
                         [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                         [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                        ////                        NSIndexPath *path=[NSIndexPath indexPathForItem:0 inSection:2];
-                        ////                        [self tableView:tableView didSelectRowAtIndexPath:indexPath];
-                        //                         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                        
-                        
-                        //                        NSIndexPath *selectedIndexPath = indexPath;
-                        //
-                        //                        [tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-                        
-                        NSLog(@"cell1122bbiubibibb -- %@====%ld",cell,(long)indexPath.row);
-                        
-                        //                [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                         
                     }else
                     {
@@ -4072,28 +4049,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-            //            NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-            //            NSLog(@"nameTemp :%@",self.videoControl);
-            //            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab);
-            //            NSLog(@"nameTemp :%@",self.videoControl.channelNameLab.text);
-            //
-            //            NSString * channelName = self.videoControl.channelNameLab.text;
-            //            NSDictionary * dicChannelName  = self.video.dicChannl;
-            //            for (int i = 0; i<self.video.channelCount; i++) {
-            //                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
-            //                NSLog(@"nameTemp :%@",nameTemp);
-            //                NSLog(@"channelName :%@",channelName);
-            //                if ([nameTemp isEqualToString:channelName]) {
-            //                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-            //                    NSLog(@"i :%d",i);
-            //                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
-            //                    rowIndex = i;
-            //                    break;
-            //                }
-            //            }
-            
-            
-            
             
             NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
             historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
@@ -4107,40 +4062,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSDictionary * dic = touchArr [3];
             
             
-            
-            
-            
-            
-            //            NSDictionary * didName  = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-            //            self.video.channelCount
-            
-            
-            //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
-            //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
-            //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
             subtRow = indexPath.row;
             //            audioRow = 0;
             [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
-            
-            
-            //            //先全部变白
-            //            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
-            //                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-            //
-            //                subtCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-            //                [cell1.languageLab setTextColor:[UIColor whiteColor]];
-            //
-            //            }
-            //
-            //
-            //
-            //
-            //            //选中的变蓝
-            //            subtCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            //            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
@@ -4154,20 +4081,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {
-            //            NSString * channelName = self.videoControl.channelNameLab.text;
-            //            NSDictionary * dicChannelName  = self.video.dicChannl;
-            //            for (int i = 0; i<self.video.channelCount; i++) {
-            //                NSString * nameTemp = [[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i ]] objectForKey:@"service_name"];
-            //                NSLog(@"nameTemp :%@",nameTemp);
-            //                NSLog(@"channelName :%@",channelName);
-            //                if ([nameTemp isEqualToString:channelName]) {
-            //                    NSLog(@"self.video.dicChannl :%@",self.video.dicChannl);
-            //                    NSLog(@"i :%d",i);
-            //                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",i]];
-            //                    break;
-            //                }
-            //            }
-            
+         
             
             NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
             historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
@@ -4182,40 +4096,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             
-            
-            
-            
-            //            NSDictionary * didName  = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-            //            self.video.channelCount
-            
-            
-            //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
-            //            NSNumber * subtNum = [NSNumber numberWithInteger:0];
-            //            NSNumber * audioNum = [NSNumber numberWithInteger:indexPath.row];
-            
-            //            subtRow = 0;
+          
             audioRow = indexPath.row;
             [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
-            
-            
-            //            //先全部变白
-            //            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
-            //                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-            //
-            //                AudioCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-            //                [cell1.languageLab setTextColor:[UIColor whiteColor]];
-            //
-            //            }
-            //
-            //
-            //
-            //            //选中的变蓝
-            //            AudioCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            //            [cell2.languageLab setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
             
             
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
@@ -4248,26 +4135,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 tableView.separatorColor = [UIColor whiteColor];
                 
             });
-            
-            //先全部变白
-            //            for (NSInteger  i = 0; i<self.video.channelCount; i++) {
-            //                NSIndexPath *indexPath1 = [NSIndexPath indexPathForRow:i inSection:0];
-            //
-            //                ChannelCell *cell1 = [tableView cellForRowAtIndexPath:indexPath1];
-            //                [cell1.channelId setTextColor:[UIColor redColor]];
-            //                [cell1.channelName setTextColor:[UIColor redColor]];
-            //
-            //            }
-            
-            
-            
-            
-            ////            //选中的变蓝
-            //            ChannelCell *cell2 = [tableView cellForRowAtIndexPath:indexPath];
-            //            [cell2.channelId setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            //            [cell2.channelName setHighlightedTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            //
-            //
+      
             //刷新注意的焦点
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
@@ -5565,18 +5433,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
             }
     
-    NSLog(@"jsbfabsfasbfaosbfo'asubf'oubaso'fbos'abfuoasb");
-//        }else
-//        {
-//            NSLog(@"对不起，已经没有上一个节目了");
-//            self.videoControl.lastChannelButton.enabled = NO;
-//        }
-    
     
 }
-
-
-
 
 
 @end
