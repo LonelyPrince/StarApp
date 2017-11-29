@@ -3956,11 +3956,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             cell.channelId.textAlignment =  NSTextAlignmentCenter;
             cell.channelName.textAlignment = NSTextAlignmentLeft;
            
-//            NSLog(@"cell.channelId %@ ",cell.channelId.text);
-//            if (cell.channelId.text == NULL || [cell.channelId.text isEqualToString:@""] || cell.channelId.text == nil) {
-//
-//                cell.channelName.frame = CGRectMake(20, 10, cell.frame.size.width, 15);
-//            }
+    //            NSLog(@"cell.channelId %@ ",cell.channelId.text);
+    //            if (cell.channelId.text == NULL || [cell.channelId.text isEqualToString:@""] || cell.channelId.text == nil) {
+    //
+    //                cell.channelName.frame = CGRectMake(20, 10, cell.frame.size.width, 15);
+    //            }
             
             cell.backgroundColor=[UIColor clearColor];
             
@@ -4218,7 +4218,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     //创建通知
     NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
-    NSLog(@"POPPOPPOPPOP==setchannelNameOrOtherInfo");
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification2];
     
@@ -4265,10 +4264,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        //    [self.navigationController popViewControllerAnimated:YES];
-        //    [self.navigationController popToViewController:_tvViewController animated:YES];
-        //    [self.navigationController pushViewController:_tvViewController animated:YES];
-        //    [self.tabBarController setSelectedIndex:1];
+      
     }
 }
 

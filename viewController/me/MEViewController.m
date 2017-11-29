@@ -682,7 +682,42 @@
                 }
                 
             }];
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -826,7 +861,42 @@
                 }
                 
             }];
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -955,6 +1025,35 @@
                 }
                 
             }];
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
             
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
@@ -1082,7 +1181,29 @@
                 
             }];
             
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+          
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -1175,9 +1296,22 @@
             
             
             
-            
-            
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+          
             
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
@@ -1257,7 +1391,15 @@
             }];
             
             
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+           
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
             [historyBtnPiece1 addSubview:channelImage];
             
@@ -1400,11 +1542,19 @@
                 }
                 
             }];
+           
             
+//            if (historyDic3.count > 15) {
+//                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+//                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+//
+//                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+//                channelImage3.clipsToBounds = YES;
+//            }else
+//            {
             [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
-                //[_dataDic objectForKey:@"epg_info"]
-                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
                 
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage3.clipsToBounds = YES;
@@ -1412,6 +1562,7 @@
                 
                 
                 if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                  
                     channelImage3.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -1419,6 +1570,7 @@
                 }
                 
             }];
+//            }
             [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
@@ -1455,7 +1607,43 @@
                 }
                 
             }];
-            
+          
+//            ==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -1599,7 +1787,42 @@
                 }
                 
             }];
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -1728,6 +1951,35 @@
                 }
                 
             }];
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
             
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
@@ -1855,7 +2107,29 @@
                 
             }];
             
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+         
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -1947,9 +2221,22 @@
             
             
             
-            
-            
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+ 
             
             
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
@@ -2029,7 +2316,15 @@
                 
             }];
             
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+         
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
             [historyBtnPiece1 addSubview:channelImage];
@@ -2228,7 +2523,42 @@
                 }
                 
             }];
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -2372,7 +2702,42 @@
                 }
                 
             }];
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -2501,7 +2866,36 @@
                 }
                 
             }];
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+           
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -2628,7 +3022,29 @@
                 
             }];
             
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+           
             NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
             NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
             
@@ -2722,6 +3138,21 @@
             
             
             
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
             
             
             
@@ -2803,7 +3234,15 @@
             }];
             
             
-            
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+          
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
             [historyBtnPiece1 addSubview:channelImage];
             

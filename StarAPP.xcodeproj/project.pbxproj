@@ -152,6 +152,7 @@
 		702218C01E5AE0D7005D96A0 /* Back Arrow Blue@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BD1E5AE0D7005D96A0 /* Back Arrow Blue@1x.png */; };
 		702218C11E5AE0D7005D96A0 /* Back Arrow Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BE1E5AE0D7005D96A0 /* Back Arrow Blue@2x.png */; };
 		702218C21E5AE0D7005D96A0 /* Back Arrow Blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BF1E5AE0D7005D96A0 /* Back Arrow Blue@3x.png */; };
+		7022F5071FCE445800A1537A /* 录制透明.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5041FCE445700A1537A /* 录制透明.png */; };
 		7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7022F8601DBF98F70079C0BD /* MEViewController.xib */; };
 		7022F8671DC0860A0079C0BD /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7022F8651DC0860A0079C0BD /* SettingCell.m */; };
 		7022F8681DC0860A0079C0BD /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7022F8661DC0860A0079C0BD /* SettingCell.xib */; };
@@ -900,6 +901,7 @@
 		702218BD1E5AE0D7005D96A0 /* Back Arrow Blue@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@1x.png"; sourceTree = "<group>"; };
 		702218BE1E5AE0D7005D96A0 /* Back Arrow Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@2x.png"; sourceTree = "<group>"; };
 		702218BF1E5AE0D7005D96A0 /* Back Arrow Blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@3x.png"; sourceTree = "<group>"; };
+		7022F5041FCE445700A1537A /* 录制透明.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制透明.png"; sourceTree = "<group>"; };
 		7022F8601DBF98F70079C0BD /* MEViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MEViewController.xib; sourceTree = "<group>"; };
 		7022F8641DC0860A0079C0BD /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		7022F8651DC0860A0079C0BD /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
@@ -2325,6 +2327,7 @@
 		7040E2171DAE12B80063DB66 /* ME */ = {
 			isa = PBXGroup;
 			children = (
+				7022F5041FCE445700A1537A /* 录制透明.png */,
 				7045C4551DC715FB002647F9 /* 历史磁铁 */,
 				7040E2181DAE12B80063DB66 /* Group 10 Copy 2@1x.png */,
 				7040E2191DAE12B80063DB66 /* Group 10 Copy 2@2x.png */,
@@ -3279,6 +3282,7 @@
 				7040E2441DAE12B80063DB66 /* Viasat-Explore@3x.png in Resources */,
 				70362D181F009E4B0012A309 /* New圆环-4@1x.png in Resources */,
 				70FFE3FC1DE3EF4800223E43 /* 录制.png in Resources */,
+				7022F5071FCE445800A1537A /* 录制透明.png in Resources */,
 				70231CF71DC1DF5A00F73202 /* Back Arrow@1x.png in Resources */,
 				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
