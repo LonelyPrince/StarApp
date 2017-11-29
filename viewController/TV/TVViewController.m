@@ -6377,7 +6377,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)tableViewDataRefreshForMjRefresh2222222
 {
     
-    NSLog(@"我要刷新一次呀======啦啦啦啦啦啦啦😝😝😝😝😝😝😝😝");
+    NSLog(@"我要刷新一次呀=^_^");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -6459,9 +6459,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             NSLog(@"zidong  刷新了一次");
             [self removeTopProgressView]; //删除进度条
-            NSLog(@"[USER_DEFAULT objectForKey:] %@",[USER_DEFAULT objectForKey:@"deliveryPlayState"]);
+          
             if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
-                NSLog(@"[USER_DEFAULT objectForKey:] 11111");
+
                 [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
                 
                 NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
@@ -7697,7 +7697,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     NSLog(@"mutableDicTemp%@",mutableDicTemp);
 //                    [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)row]];
-                    [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)i]];
+                    
+                    if (tempDic_updateCharacter == nil || tempDic_updateCharacter.count == 0) {
+                        
+                    }else
+                    {
+                        [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)i]];
+                    }
+                    
                     NSLog(@"mutableDicTemp11%@",mutableDicTemp);
                     dic = [mutableDicTemp copy];
                     

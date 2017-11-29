@@ -44,39 +44,35 @@
     self.backImage.image = [UIImage imageNamed:@"background"];
     UIImage * imageWithImage = [[UIImage alloc]init];
     
-    //    self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-    //    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-    //        //[UIImage imageNamed:@"placeholder"]
-    //
-    //        //[_dataDic objectForKey:@"epg_info"]
-    //        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-    //
-    //        self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
-    //        self.channelImage.clipsToBounds = YES;
-    //
-    //
-    //        self.placeholderImage1.image = [UIImage imageNamed:@"placeholder"];
-    //        [self.backImage bringSubviewToFront:self.placeholderImage1];
-    //        if (self.channelImage.image == nil) {
-    //            self.placeholderImage1.alpha = 1;
-    //            NSLog(@"placeholderImage 为空");
-    //        }else
-    //        {
-    //            self.placeholderImage1.alpha = 0;
-    //            NSLog(@"placeholderImage 为空");
-    //        }
-    //
-    //    }];
-    
-    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
-        //[_dataDic objectForKey:@"epg_info"]
-        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-        
-        self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
-        
-        
-    }];
+//
+//
+//    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//
+//        //[_dataDic objectForKey:@"epg_info"]
+//        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+//
+//        self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
+//
+//
+//    }];
+    if (_dataDic.count > 14) {
+        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"RECPlaceholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            
+            self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
+            
+            
+        }];
+    }else
+    {
+        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            
+            self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
+            
+            
+        }];
+    }
     
     
     
@@ -101,6 +97,10 @@
     else if (self.logicLab.text.length > 3)
     {
         self.logicLab.text = [ self.logicLab.text substringFromIndex: self.logicLab.text.length - 3];
+    }else
+    {
+        [self.logicLab setAlpha:0];
+        self.nameLab.frame = CGRectMake(162, 29, 200, 21);
     }
     
     
@@ -108,40 +108,6 @@
     
     
     self.nameLab.text = [_dataDic objectForKey:@"service_name"];
-    ////    self.event_Img.image = [UIImage imageNamed:@"play"];
-    ////    self.event_nextImg.image = [UIImage imageNamed:@"time"];
-    //    //***
-    //    NSDictionary * epgDic;
-    //    NSDictionary * nextEpgDic;
-    //    NSArray * epgArr;
-    //    epgDic  = [[NSDictionary alloc]init];
-    //    nextEpgDic = [[NSDictionary alloc]init];
-    //    epgArr = [[NSArray alloc]init];
-    //    //****
-    //    epgArr = [_dataDic objectForKey:@"epg_info"];
-    
-    
-    
-    
-    
-    //    epgDic = epgArr[0];
-    //
-    ////    if (epgArr.count >1) {
-    ////        nextEpgDic = epgArr[1];
-    ////        NSLog(@"shijian时间：%@",[nextEpgDic  objectForKey:@"event_starttime"] );
-    ////        self.event_nextTime.text = [self timeWithTimeIntervalString:[nextEpgDic  objectForKey:@"event_starttime"]];
-    ////        NSLog(@"shijian时间：%@",self.event_nextTime.text);
-    ////        self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
-    ////    }
-    ////    else
-    ////    {
-    ////        self.event_nextTime.text = [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
-    ////        self.event_nextNameLab.text = @"";
-    ////    }
-    ////
-    //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
-    //
-    
     
     
     //字体设置

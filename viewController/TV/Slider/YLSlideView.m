@@ -82,17 +82,18 @@
     }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
         [_titles addObject:@"Recordings"];
     }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
-     
-        tempTitlesArr =titles[0];
-        for (int i = 0 ; i < tempTitlesArr.count; i++) {
-            NSDictionary *item = tempTitlesArr[i];
-            NSString * tempArray;
-            tempArray =item[@"category_name"];
-            
-            [_titles addObject:tempArray];
-            
+        if(titles.count > 0){
+         tempTitlesArr =titles[0];
+            for (int i = 0 ; i < tempTitlesArr.count; i++) {
+                NSDictionary *item = tempTitlesArr[i];
+                NSString * tempArray;
+                tempArray =item[@"category_name"];
+                
+                [_titles addObject:tempArray];
+                
+            }
         }
-        
+       
     }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
         if (titles.count == 2 ) {   //正常情况
             tempTitlesArr =titles[0];
