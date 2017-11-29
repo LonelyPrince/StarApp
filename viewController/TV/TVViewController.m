@@ -6848,25 +6848,129 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
-        //        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        //        //异步执行队列任务
-        //        dispatch_async(globalQueue, ^{
-        //            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-        //        });
         
+        //录制节目,保存数据
+        NSArray *recFileData = response[@"rec_file_info"];
+        NSLog(@"recFileData %@",recFileData);
+        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
-        if (!isValidArray(data1) || data1.count == 0){
-            [self getServiceDataForIPChange];
-            return ;
+        if ( data1.count == 0 && recFileData.count == 0){
+//            [self getServiceDataForIPChange];
+//            return ;
+            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                self.NoDataImageview = [[UIImageView alloc]init];
+                self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+                self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+                self.NoDataImageview.alpha = 1;
+                [self.view addSubview:self.NoDataImageview];
+                self.NoDataLabel = [[UILabel alloc]init];
+                self.NoDataLabel.text = @"Channel List is empty";
+                self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+                //
+                CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                
+                self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+                self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+                self.NoDataLabel.alpha = 1;
+                [self.view addSubview:self.NoDataLabel];
+                
+                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                
+
+            
+            }else
+            {
+                double delayInSeconds = 1;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+                    NSLog(@"延时执行的2秒");
+                    //机顶盒连接出错了，所以要显示没有网络的加载图
+                    [self getServiceDataForIPChange]; //如果数据为空，则重新获取数据
+                });
+                
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NOChannelDataDefault 111");
+                NSLog(@"可能会出现播放器空白的情况");
+                return ;
+            }
+            
         }
         self.serviceData = (NSMutableArray *)data1;
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //        NSLog(@"--------%@",self.serviceData);
         
         
-        
-        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            [self getServiceDataForIPChange];
+        BOOL serviceDatabool = [self judgeServiceDataIsnull];
+        if (serviceDatabool && recFileData.count == 0) {
+//            [self getServiceDataForIPChange];
+            
+            if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                    
+                }
+                
+                
+                self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
+                
+                self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+                
+                self.NoDataImageview.alpha = 1;
+                [self.view addSubview:self.NoDataImageview];
+                
+                
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                    
+                }
+                self.NoDataLabel.text = @"Channel List is empty";
+                self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
+                //
+                CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                
+                self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
+                self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
+                self.NoDataLabel.alpha = 1;
+                [self.view addSubview:self.NoDataLabel];
+                
+                //
+                
+                
+                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            }else
+            {
+                //机顶盒连接出错了，所以要显示没有网络的加载图
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NOChannelDataDefault 222");
+                [self getServiceDataForIPChange]; //如果数据为空，则重新获取数据
+                //                return ;
+            }
         }
         
         [self.activeView removeFromSuperview];
@@ -6896,25 +7000,42 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //        NSLog(@"response = %@",response);
             NSArray *data = response[@"category"];
             
-            if (!isValidArray(data) || data.count == 0){
+//            if (!isValidArray(data) || data.count == 0){
+//                return ;
+//            }
+            if (data.count == 0 && recFileData.count == 0){ //没有数据
+                
+                [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
                 return ;
+            }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
+                
+                [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
+                
+                // 特殊情况，有录制但是没有service数据
+                [self.CategoryAndREC removeAllObjects];
+                NSLog(@"recFileData %@",recFileData);
+                [self.CategoryAndREC addObject: recFileData];
+                
+            }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
+            {
+                [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
+                
+                [self.CategoryAndREC removeAllObjects];
+                [self.CategoryAndREC addObject:data];
+            }else //两种都有
+            {
+                [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
+                
+                [self.CategoryAndREC removeAllObjects];
+                NSLog(@"self.categorys %@",self.categorys);
+                [self.CategoryAndREC addObject:data];
+                NSLog(@"recFileData %@",recFileData);
+                [self.CategoryAndREC addObject: recFileData];
             }
+
             self.categorys = (NSMutableArray *)data;
             
-            //            if (tableviewinit == 2) {
-            NSLog(@"_slideView %@",_slideView);
-            
-            //先判断是竖屏还是横屏，如果是竖屏   则竖屏，则刷新。如果是横屏，则不刷新
-            //判断是不是全屏
-            //            BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-            //            if (isFullScreen == NO) {   //竖屏状态
-            //                [_slideView removeFromSuperview];
-            //                _slideView = nil;
-            //
-            //            }else
-            //            {
-            //
-            //            }
+           
             [_slideView removeFromSuperview];
             _slideView = nil;
             
@@ -6973,11 +7094,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"执行执行执行执行4444");
             if (firstfirst == YES) {
                 
-                NSLog(@"执行执行执行执行5555");
-                //                   self.socketView  = [[SocketView  alloc]init];
-                NSLog(@"DMSIP:1111");
-                //                   [self.socketView viewDidLoad];
-                NSLog(@"DMSIP:2222");
                 
                 //=======机顶盒加密
                 NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
@@ -7018,41 +7134,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {}
             
-            //            //刷新EPG数据。把所有的时间信息
-            //
-            //            NSArray *EPGservice_data = response[@"service"];
-            //            if (!isValidArray(EPGservice_data) || EPGservice_data.count == 0){
-            //            }
-            //            else   //此时有数据
-            //            {
-            //                NSDictionary * dicEpg = [[NSDictionary alloc]init];
-            //                for (int e = 0; e<EPGservice_data.count; e++) {
-            //
-            //                    dicEpg = EPGservice_data[e];
-            //
-            //                    NSArray * arrEpg = [[NSArray alloc]init];
-            //                    arrEpg = [dicEpg objectForKey:@"epg_info"];   //epg 小数组
-            //
-            //                    //重新声明一个一个epg数组加载epg信息
-            ////                    NSDictionary * epgTimeInfo = [[NSDictionary alloc]init];
-            //                    for (int f = 0; f<arrEpg.count; f++) {
-            //                        NSString * startTimeString = [arrEpg[f] objectForKey:@"event_starttime"];
-            //
-            //
-            //                            if (![allStartEpgTime containsObject:startTimeString]) {
-            //                                [allStartEpgTime addObject:startTimeString];
-            //                            }
-            //
-            //
-            //                    }
-            //                }
-            //
-            //
-            //            }
-            //            NSLog(@"allStartEpgTime:--%@",allStartEpgTime);
-            //            NSLog(@"allStartEpgTime.count:--%lu",(unsigned long)allStartEpgTime.count);
-            //
-            
+           
             [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
             
         }];

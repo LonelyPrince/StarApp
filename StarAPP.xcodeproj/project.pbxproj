@@ -153,10 +153,10 @@
 		702218C11E5AE0D7005D96A0 /* Back Arrow Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BE1E5AE0D7005D96A0 /* Back Arrow Blue@2x.png */; };
 		702218C21E5AE0D7005D96A0 /* Back Arrow Blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BF1E5AE0D7005D96A0 /* Back Arrow Blue@3x.png */; };
 		7022F5071FCE445800A1537A /* 录制透明.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5041FCE445700A1537A /* 录制透明.png */; };
-		7022F5161FCE9AEB00A1537A /* 录制带色.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5151FCE9AEB00A1537A /* 录制带色.png */; };
 		7022F51A1FCE9C7500A1537A /* RECPlaceholder@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5171FCE9C7400A1537A /* RECPlaceholder@1x.png */; };
 		7022F51B1FCE9C7500A1537A /* RECPlaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5181FCE9C7500A1537A /* RECPlaceholder@3x.png */; };
 		7022F51C1FCE9C7500A1537A /* RECPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5191FCE9C7500A1537A /* RECPlaceholder@2x.png */; };
+		7022F5281FCEA58A00A1537A /* 录制带色.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5271FCEA58A00A1537A /* 录制带色.png */; };
 		7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7022F8601DBF98F70079C0BD /* MEViewController.xib */; };
 		7022F8671DC0860A0079C0BD /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7022F8651DC0860A0079C0BD /* SettingCell.m */; };
 		7022F8681DC0860A0079C0BD /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7022F8661DC0860A0079C0BD /* SettingCell.xib */; };
@@ -905,10 +905,10 @@
 		702218BE1E5AE0D7005D96A0 /* Back Arrow Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@2x.png"; sourceTree = "<group>"; };
 		702218BF1E5AE0D7005D96A0 /* Back Arrow Blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@3x.png"; sourceTree = "<group>"; };
 		7022F5041FCE445700A1537A /* 录制透明.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制透明.png"; sourceTree = "<group>"; };
-		7022F5151FCE9AEB00A1537A /* 录制带色.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制带色.png"; sourceTree = "<group>"; };
 		7022F5171FCE9C7400A1537A /* RECPlaceholder@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@1x.png"; sourceTree = "<group>"; };
 		7022F5181FCE9C7500A1537A /* RECPlaceholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@3x.png"; sourceTree = "<group>"; };
 		7022F5191FCE9C7500A1537A /* RECPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@2x.png"; sourceTree = "<group>"; };
+		7022F5271FCEA58A00A1537A /* 录制带色.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制带色.png"; sourceTree = "<group>"; };
 		7022F8601DBF98F70079C0BD /* MEViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MEViewController.xib; sourceTree = "<group>"; };
 		7022F8641DC0860A0079C0BD /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		7022F8651DC0860A0079C0BD /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
@@ -2261,7 +2261,7 @@
 		703D5D4C1DF58EC400C4412A /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
-				7022F5151FCE9AEB00A1537A /* 录制带色.png */,
+				7022F5271FCEA58A00A1537A /* 录制带色.png */,
 				70362D271F00A0180012A309 /* Education@1x.png */,
 				70362D281F00A0180012A309 /* Education@2x.png */,
 				70362D291F00A0180012A309 /* Education@3x.png */,
@@ -3023,6 +3023,7 @@
 				70D6B8FF1E2DAF3D00957A81 /* Life Style@3x.png in Resources */,
 				701078661F96DAF800593014 /* Reboot-Device@3x.png in Resources */,
 				7040E2491DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@2x.png in Resources */,
+				7022F5281FCEA58A00A1537A /* 录制带色.png in Resources */,
 				70362D151F009E4B0012A309 /* New圆环-3@1x.png in Resources */,
 				70FFA4E01DE7DFF4006BFE5E /* Verticalpic.png in Resources */,
 				70362CFA1F009CCD0012A309 /* placeholder1@1x.png in Resources */,
@@ -3110,7 +3111,6 @@
 				702CE4361DDA9881000A0513 /* 3.png in Resources */,
 				70231CDE1DC19FEA00F73202 /* 组-55@2x.png in Resources */,
 				70231CD91DC0FFB800F73202 /* RouteSetting.xib in Resources */,
-				7022F5161FCE9AEB00A1537A /* 录制带色.png in Resources */,
 				70D6B8FD1E2DAF3D00957A81 /* Life Style@1x.png in Resources */,
 				701078C71F98418D00593014 /* 顶部icon@3x.png in Resources */,
 				70D6B90D1E2DAF3D00957A81 /* Religion@2x.png in Resources */,
