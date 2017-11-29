@@ -2295,7 +2295,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"row: %ld",(long)row);
             /*此处添加一个加入历史版本的函数*/
-            [self addHistory:row diction:dic];
+//            [self addHistory:row diction:dic];
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
             
@@ -2577,6 +2577,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
 {
+    NSLog(@"ajsbd;absd;asbdkasbd");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
@@ -2612,10 +2613,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
         
         
-//        NSLog(@"epgDicToSocket %@",epgDicToSocket );
-//        NSLog(@"audio_Pid  %@",[[epgDicToSocket objectForKey:@"audio_info"][0]objectForKey:@"audio_pid"]);
-//        NSLog(@"audio_language  %@",[[epgDicToSocket objectForKey:@"audio_info"][0]objectForKey:@"audio_language"]);
-        //    [self storeNowDicForEventName :epgDicToSocket]; //epgDicToSocket是当前正在播放的节目信息，将他存储起来，用作切换eventName
+        //epgDicToSocket是当前正在播放的节目信息，将他存储起来，用作切换eventName
         [self judgeNowISRadio:epgDicToSocket]; //此处加个方法，判断是不是音频
         progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
         
@@ -2635,57 +2633,124 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //4.将点击的数据加入可变数组
         //此处进行判断看新添加的节目是否曾经添加过
         BOOL addNewData = YES;
-        //    if (mutaArray.count == 0) {
-        //         [mutaArray addObject:epgDicToSocket];
-        //    }
-        //    else{
-//        NSLog(@"mutaArray ===-- %@",mutaArray);
+      
         NSMutableArray *duplicateArray = [mutaArray mutableCopy];
         
-        for (int i = 0; i <duplicateArray.count ; i++) {
-            //原始数据
-            NSString * service_network =  [duplicateArray[i][0] objectForKey:@"service_network_id"];
-            NSString * service_ts =  [duplicateArray[i][0] objectForKey:@"service_ts_id"];
-            NSString * service_service =  [duplicateArray[i][0] objectForKey:@"service_service_id"];
-            NSString * service_tuner =  [duplicateArray[i][0] objectForKey:@"service_tuner_mode"];
-            //        NSLog(@"mutaArray[0] :%@",mutaArray[0]);
-            //        NSLog(@"mutaArray[1] :%@",mutaArray[1]);
-            //        NSLog(@"mutaArray[2] :%@",mutaArray[2]);
-            //        NSLog(@"mutaArray[3] :%@",mutaArray[3]);
-            //新添加的数据
-            NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
-            NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
-            NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
-            NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
-            
-            if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
-                addNewData = NO;
+        if (epgDicToSocket.count > 14) { //节目是录制，按照录制来判断
+
+            for (int i = 0; i <duplicateArray.count ; i++) {
+                NSDictionary * dupDicTemp = duplicateArray[i][0];
+                if (dupDicTemp.count > 14) { //录制
+                    
+                    //原始数据
+                    NSString * tuner_mode1 =  [dupDicTemp objectForKey:@"tuner_mode"];
+                    NSString * network_id1 =  [dupDicTemp objectForKey:@"network_id"];
+                    NSString * ts_id1 =  [dupDicTemp objectForKey:@"ts_id"];
+                    NSString * service_id1 =  [dupDicTemp objectForKey:@"service_id"];
+                    NSString * record_time1 =  [dupDicTemp objectForKey:@"record_time"];
+                    
+                    //新添加的数据
+                    NSString * tuner_mode2 =  [epgDicToSocket objectForKey:@"tuner_mode"];
+                    NSString * network_id2 =  [epgDicToSocket objectForKey:@"network_id"];
+                    NSString * ts_id2 =  [epgDicToSocket objectForKey:@"ts_id"];
+                    NSString * service_id2 =  [epgDicToSocket objectForKey:@"service_id"];
+                    NSString * record_time2 =  [epgDicToSocket objectForKey:@"record_time"];
+                  
+
                 
-                NSArray * equalArr = duplicateArray[i];
-                NSMutableArray * tempArr = [equalArr mutableCopy];
-                //            [tempArr[3] removeLastObject];
-                //            [tempArr[3] addObject:dic];
-                //            [tempArr insertObject:dic atIndex:3];
-                NSString * seedNowTime = [GGUtil GetNowTimeString];
-                NSNumber *aNumber = [NSNumber numberWithInteger:row];
-                [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
-                [tempArr replaceObjectAtIndex:2 withObject:aNumber];
-                [tempArr replaceObjectAtIndex:3 withObject:dic];
-//                NSLog(@"tempArr :%@",tempArr);
-                //            equalArr = [tempArr copy];
+                    
+                    if ([tuner_mode1 isEqualToString:tuner_mode2] && [network_id1 isEqualToString:network_id2] && [ts_id1 isEqualToString:ts_id2] && [service_id1 isEqualToString:service_id2] && [record_time1 isEqualToString:record_time2]) {
+                        addNewData = NO;
+                        
+                        NSArray * equalArr = duplicateArray[i];
+                        NSMutableArray * tempArr = [equalArr mutableCopy];
+                        //            [tempArr[3] removeLastObject];
+                        //            [tempArr[3] addObject:dic];
+                        //            [tempArr insertObject:dic atIndex:3];
+                        NSString * seedNowTime = [GGUtil GetNowTimeString];
+                        NSNumber *aNumber = [NSNumber numberWithInteger:row];
+                        [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
+                        [tempArr replaceObjectAtIndex:2 withObject:aNumber];
+                        [tempArr replaceObjectAtIndex:3 withObject:dic];
+                        //                NSLog(@"tempArr :%@",tempArr);
+                        //            equalArr = [tempArr copy];
+                        
+                        
+                        
+                        [mutaArray removeObjectAtIndex:i];
+                        [mutaArray  addObject:[tempArr copy]];
+                        
+                        //                NSLog(@"mutaArray: %@",mutaArray);
+                        //            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
+                        break;
+                    }
+                }
+                else
+                {
+
+                }
+ 
                 
-                
-                
-                [mutaArray removeObjectAtIndex:i];
-                [mutaArray  addObject:[tempArr copy]];
-                
-                //                NSLog(@"mutaArray: %@",mutaArray);
-                //            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
-                break;
             }
-            
-            
+        }else //节目是直播，按照直播来判断
+        {
+            for (int i = 0; i <duplicateArray.count ; i++) {
+                NSDictionary * dupDicTemp = duplicateArray[i][0];
+                if (dupDicTemp.count > 14 ) { //录制
+                    
+                    
+                }
+                else
+                {
+                    //原始数据
+                    NSString * service_network =  [duplicateArray[i][0] objectForKey:@"service_network_id"];
+                    NSString * service_ts =  [duplicateArray[i][0] objectForKey:@"service_ts_id"];
+                    NSString * service_service =  [duplicateArray[i][0] objectForKey:@"service_service_id"];
+                    NSString * service_tuner =  [duplicateArray[i][0] objectForKey:@"service_tuner_mode"];
+                    //        NSLog(@"mutaArray[0] :%@",mutaArray[0]);
+                    //        NSLog(@"mutaArray[1] :%@",mutaArray[1]);
+                    //        NSLog(@"mutaArray[2] :%@",mutaArray[2]);
+                    //        NSLog(@"mutaArray[3] :%@",mutaArray[3]);
+                    //新添加的数据
+                    NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
+                    NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
+                    NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
+                    NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
+                    
+                    if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
+                        addNewData = NO;
+                        
+                        NSArray * equalArr = duplicateArray[i];
+                        NSMutableArray * tempArr = [equalArr mutableCopy];
+                        //            [tempArr[3] removeLastObject];
+                        //            [tempArr[3] addObject:dic];
+                        //            [tempArr insertObject:dic atIndex:3];
+                        NSString * seedNowTime = [GGUtil GetNowTimeString];
+                        NSNumber *aNumber = [NSNumber numberWithInteger:row];
+                        [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
+                        [tempArr replaceObjectAtIndex:2 withObject:aNumber];
+                        [tempArr replaceObjectAtIndex:3 withObject:dic];
+                        //                NSLog(@"tempArr :%@",tempArr);
+                        //            equalArr = [tempArr copy];
+                        
+                        
+                        
+                        [mutaArray removeObjectAtIndex:i];
+                        [mutaArray  addObject:[tempArr copy]];
+                        
+                        //                NSLog(@"mutaArray: %@",mutaArray);
+                        //            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
+                        break;
+                    }
+                }
+                
+                
+                
+                
+                
+            }
         }
+
         //    }
         if (addNewData == YES) {
             NSString * seedNowTime = [GGUtil GetNowTimeString];

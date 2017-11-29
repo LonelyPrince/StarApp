@@ -4461,7 +4461,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSDictionary * nowPlayingDic = text.userInfo[@"nowPlayingDic"];
     
     NSLog(@" nowPlayingDic %@",nowPlayingDic);
-    NSLog(@" nowPlayingDic.count %d",nowPlayingDic.count);
+    NSLog(@" nowPlayingDic.count %lu",(unsigned long)nowPlayingDic.count);
     
     if (nowPlayingDic.count < 20) {
         
