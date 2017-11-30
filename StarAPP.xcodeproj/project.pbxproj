@@ -156,9 +156,9 @@
 		7022F51A1FCE9C7500A1537A /* RECPlaceholder@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5171FCE9C7400A1537A /* RECPlaceholder@1x.png */; };
 		7022F51B1FCE9C7500A1537A /* RECPlaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5181FCE9C7500A1537A /* RECPlaceholder@3x.png */; };
 		7022F51C1FCE9C7500A1537A /* RECPlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5191FCE9C7500A1537A /* RECPlaceholder@2x.png */; };
-		7022F5421FCEB61F00A1537A /* 录制带色@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F53F1FCEB61E00A1537A /* 录制带色@1x.png */; };
-		7022F5431FCEB61F00A1537A /* 录制带色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5401FCEB61F00A1537A /* 录制带色@2x.png */; };
-		7022F5441FCEB61F00A1537A /* 录制带色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5411FCEB61F00A1537A /* 录制带色@3x.png */; };
+		7022F5521FCEDC5900A1537A /* 录制带色@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F54F1FCEDC5700A1537A /* 录制带色@1x.png */; };
+		7022F5531FCEDC5900A1537A /* 录制带色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5501FCEDC5700A1537A /* 录制带色@2x.png */; };
+		7022F5541FCEDC5900A1537A /* 录制带色@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5511FCEDC5800A1537A /* 录制带色@3x.png */; };
 		7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7022F8601DBF98F70079C0BD /* MEViewController.xib */; };
 		7022F8671DC0860A0079C0BD /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7022F8651DC0860A0079C0BD /* SettingCell.m */; };
 		7022F8681DC0860A0079C0BD /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7022F8661DC0860A0079C0BD /* SettingCell.xib */; };
@@ -910,9 +910,9 @@
 		7022F5171FCE9C7400A1537A /* RECPlaceholder@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@1x.png"; sourceTree = "<group>"; };
 		7022F5181FCE9C7500A1537A /* RECPlaceholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@3x.png"; sourceTree = "<group>"; };
 		7022F5191FCE9C7500A1537A /* RECPlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@2x.png"; sourceTree = "<group>"; };
-		7022F53F1FCEB61E00A1537A /* 录制带色@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "录制带色@1x.png"; path = "../../录制带色@1x.png"; sourceTree = "<group>"; };
-		7022F5401FCEB61F00A1537A /* 录制带色@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "录制带色@2x.png"; path = "../../录制带色@2x.png"; sourceTree = "<group>"; };
-		7022F5411FCEB61F00A1537A /* 录制带色@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "录制带色@3x.png"; path = "../../录制带色@3x.png"; sourceTree = "<group>"; };
+		7022F54F1FCEDC5700A1537A /* 录制带色@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制带色@1x.png"; sourceTree = "<group>"; };
+		7022F5501FCEDC5700A1537A /* 录制带色@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制带色@2x.png"; sourceTree = "<group>"; };
+		7022F5511FCEDC5800A1537A /* 录制带色@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制带色@3x.png"; sourceTree = "<group>"; };
 		7022F8601DBF98F70079C0BD /* MEViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MEViewController.xib; sourceTree = "<group>"; };
 		7022F8641DC0860A0079C0BD /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		7022F8651DC0860A0079C0BD /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
@@ -2265,9 +2265,9 @@
 		703D5D4C1DF58EC400C4412A /* Categorys */ = {
 			isa = PBXGroup;
 			children = (
-				7022F53F1FCEB61E00A1537A /* 录制带色@1x.png */,
-				7022F5401FCEB61F00A1537A /* 录制带色@2x.png */,
-				7022F5411FCEB61F00A1537A /* 录制带色@3x.png */,
+				7022F54F1FCEDC5700A1537A /* 录制带色@1x.png */,
+				7022F5501FCEDC5700A1537A /* 录制带色@2x.png */,
+				7022F5511FCEDC5800A1537A /* 录制带色@3x.png */,
 				70362D271F00A0180012A309 /* Education@1x.png */,
 				70362D281F00A0180012A309 /* Education@2x.png */,
 				70362D291F00A0180012A309 /* Education@3x.png */,
@@ -2973,6 +2973,7 @@
 				7045C4721DC715FB002647F9 /* 矩形4@2x.png in Resources */,
 				70D6B9051E2DAF3D00957A81 /* Movies@3x.png in Resources */,
 				701078671F96DAF800593014 /* 背景@3x.png in Resources */,
+				7022F5541FCEDC5900A1537A /* 录制带色@3x.png in Resources */,
 				70362D161F009E4B0012A309 /* New圆环-3@2x.png in Resources */,
 				7045C46C1DC715FB002647F9 /* 矩形2@2x.png in Resources */,
 				701443401DDD3708008EAAC6 /* GroupEnter@1x.png in Resources */,
@@ -3013,7 +3014,6 @@
 				707FE7541DACC3C30087C361 /* Path 2@3x.png in Resources */,
 				70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */,
 				70D6B8EE1E2DAF3D00957A81 /* 个性化@1x.png in Resources */,
-				7022F5431FCEB61F00A1537A /* 录制带色@2x.png in Resources */,
 				7024C5C21DD00CAC0053F313 /* Del@2x.png in Resources */,
 				70FC30EF1D75714E00BD06FE /* zx-video-player-rewind@2x.png in Resources */,
 				70FFE3CE1DE2D07600223E43 /* 圆环-2.png in Resources */,
@@ -3076,7 +3076,6 @@
 				707FE73F1DACC3C30087C361 /* Group 5@3x.png in Resources */,
 				70231CC31DC0FE8C00F73202 /* off.png in Resources */,
 				707FE74C1DACC3C30087C361 /* me icon@1x.png in Resources */,
-				7022F5441FCEB61F00A1537A /* 录制带色@3x.png in Resources */,
 				70231CBF1DC0FE8C00F73202 /* Edit-256@3x.png in Resources */,
 				7010785B1F96DAF800593014 /* Devices-List@3x.png in Resources */,
 				70FFE40B1DE421A700223E43 /* monitor-jd@1x.png in Resources */,
@@ -3111,6 +3110,7 @@
 				70FFE40F1DE421A700223E43 /* monitor@2x.png in Resources */,
 				70848AF21F7DE1A5005A4FA6 /* 关于@2x.png in Resources */,
 				7024C6091DD4098B0053F313 /* iphone@2x.png in Resources */,
+				7022F5531FCEDC5900A1537A /* 录制带色@2x.png in Resources */,
 				7040E2341DAE12B80063DB66 /* Group 10 Copy 2@2x.png in Resources */,
 				70D6B8F81E2DAF3D00957A81 /* Documentary@2x.png in Resources */,
 				70231CBD1DC0FE8C00F73202 /* Edit-256.png in Resources */,
@@ -3207,7 +3207,6 @@
 				70FC30E61D75714E00BD06FE /* kr-video-player-shrinkscreen@3x.png in Resources */,
 				70D6B8FE1E2DAF3D00957A81 /* Life Style@2x.png in Resources */,
 				70EFCAF41E0A7C22003EAE08 /* 无历史@3x.png in Resources */,
-				7022F5421FCEB61F00A1537A /* 录制带色@1x.png in Resources */,
 				7094D83A1FC408B600F22B14 /* 暂停@1x.png in Resources */,
 				7024C60D1DD4098B0053F313 /* Mac@3x.png in Resources */,
 				7024C6071DD4098B0053F313 /* ipad@3x.png in Resources */,
@@ -3467,6 +3466,7 @@
 				702CE44A1DDA9881000A0513 /* 9@3x.png in Resources */,
 				70261E211FA1F62B00D7F4F0 /* 路由无网络@2x.png in Resources */,
 				701078CB1F98418D00593014 /* 密码@1x.png in Resources */,
+				7022F5521FCEDC5900A1537A /* 录制带色@1x.png in Resources */,
 				7024C5ED1DD3F8D60053F313 /* RouteManageViewController.xib in Resources */,
 				706A1C901DAF5DA400DADE86 /* play@1x.png in Resources */,
 				70231CFE1DC1EC0F00F73202 /* HistoryViewController.xib in Resources */,
