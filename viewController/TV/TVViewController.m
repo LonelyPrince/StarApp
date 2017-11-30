@@ -6052,7 +6052,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
     LBGetHttpRequest *request = CreateGetHTTP(url);
-    
  
     [request startAsynchronous];   //异步
     
@@ -6072,10 +6071,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
   
-        if (!isValidArray(data1) || data1.count == 0){
+        if ( data1.count == 0 && recFileData.count == 0){
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
                 
                 if (_slideView) {
                     [_slideView removeFromSuperview];
@@ -6105,7 +6106,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.NoDataImageview.alpha = 1;
             [self.view addSubview:self.NoDataImageview];
             
-            
+
             self.NoDataLabel.text = @"Channel List is empty";
             self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
             //
@@ -6117,11 +6118,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.view addSubview:self.NoDataLabel];
             //
             
-            
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-            NSLog(@"zidong  刷新了一次");
+
             [self removeTopProgressView]; //删除进度条
           
             if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
@@ -6134,7 +6134,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
         }else
         {
-            NSLog(@"做一次显示的操作222");
             if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
                 if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) {
                     
@@ -6155,9 +6154,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
-        NSLog(@"self.serviceData-c-c-c- %@",self.serviceData);
-        if (self.serviceData.count == 0 || self.serviceData == nil|| self.serviceData == NULL )
-        {
+        BOOL serviceDatabool = [self judgeServiceDataIsnull];
+        
+        if (serviceDatabool && recFileData.count == 0) {
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL || [response[@"data_valid_flag"] isEqualToString:@"0"] ) {
@@ -6168,9 +6167,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }
                 
-                //机顶盒连接成功了，但是没有数据
-                //显示列表为空的数据
-                NSLog(@"zidong  刷新了一次22");
                 if (!self.NoDataImageview) {
                     self.NoDataImageview = [[UIImageView alloc]init];
                     
@@ -6254,75 +6250,67 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        self.tableForSliderView = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
         if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
             
-            id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+//            id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
             
             NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
             
             NSInteger index = [numTemp integerValue];
-            NSLog(@"jfabdjasbajsbd index %d",index);
-//            if (index >= self.categorys.count) {
-//
-//            }
+            NSLog(@"jfabdjasbajsbd index %ld",(long)index);
+ 
             //此处可能出现崩溃-----数组为空
             NSDictionary *item ;
             if (index > 0 ) {
-                item = self.categorys[index];   //当前页面类别下的信息
-               
-                self.categoryModel = [[CategoryModel alloc]init];
-                
-                self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+//                item = self.categorys[index];   //当前页面类别下的信息
+                [self returnItem:index]; //根据是否有录制返回不同的item
+//                self.categoryModel = [[CategoryModel alloc]init];
+//
+//                self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
             }else
             {
-
             }
-            
-       
-            [self.dicTemp removeAllObjects];
-            //获取不同类别下的节目，然后是节目下不同的cell值                10
-            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                
-                int indexCat ;
-                indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                //cell.tabledataDic = self.serviceData[indexCat -1];
-                
-                
-                //此处判断是否为空，防止出错
-                if ( ISNULL(self.serviceData)) {
-                    
-                }else{
-                    
-                    if (indexCat-1 > self.serviceData.count) {
-                    }
-                    
-                    if (indexCat -1 < self.serviceData.count) {
-              
-                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
-                        abcddArr =  [self.serviceData mutableCopy];
-                        
-                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
-                        
-                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
-                        
-                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                        
-                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
-                        
-                        
-                    }else
-                    {
-                        NSLog(@"不能再往里面添加了，再添加会报错");
-                    }
-                    
-                }
-                
-                
-            }
-            
-          
+//
+//            [self.dicTemp removeAllObjects];
+//            //获取不同类别下的节目，然后是节目下不同的cell值                10
+//            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+//
+//                int indexCat ;
+//                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+//                //cell.tabledataDic = self.serviceData[indexCat -1];
+//
+//
+//                //此处判断是否为空，防止出错
+//                if ( ISNULL(self.serviceData)) {
+//
+//                }else{
+//
+//                    if (indexCat-1 > self.serviceData.count) {
+//                    }
+//
+//                    if (indexCat -1 < self.serviceData.count) {
+//
+//                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
+//                        abcddArr =  [self.serviceData mutableCopy];
+//
+//                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
+//
+//                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
+//
+//                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//
+//                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
+//
+//
+//                    }else
+//                    {
+//                        NSLog(@"不能再往里面添加了，再添加会报错");
+//                    }
+//
+//                }
+//
+//            }
+  
         }
-        
-      
-        
+  
         //==========
         [self.tableForSliderView reloadData];
 
@@ -6392,8 +6380,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //判断是不是全屏
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
-
-
+ 
                     //设置滑动条
                     _slideView = [YLSlideView alloc];
                     _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
@@ -6412,13 +6399,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
                     [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
                 }
-
-
-
+ 
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-
-
+ 
                 _slideView.backgroundColor = [UIColor whiteColor];
                 _slideView.delegate        = self;
 
@@ -6437,11 +6421,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {//此刻是竖屏，不隐藏进度条
 
                     NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
-    //                    通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
                 }
-
-
+ 
             }
             if (firstfirst == YES) {
 
@@ -8200,6 +8182,150 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
        
     }
   
+    
+}
+-(void)returnItem  :(NSInteger)index
+{
+    
+    
+        int playTypeClass;
+        playTypeClass = [GGUtil judgePlayTypeClass];
+        if (playTypeClass == 0) {
+        }else if (playTypeClass == 1){
+            
+        }else if (playTypeClass == 2){
+            
+            NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+            self.categoryModel = [[CategoryModel alloc]init];
+            self.categoryModel.service_indexArr = item[@"service_index"];
+            
+            [self.dicTemp removeAllObjects];
+            
+            //获取不同类别下的节目，然后是节目下不同的cell值
+            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                int indexCat ;
+                if (i < self.categoryModel.service_indexArr.count) {
+                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                }else
+                {
+                    return;
+                }
+                
+                
+                //此处判断是否为空，防止出错
+                if ( ISNULL(self.serviceData)) {
+                    
+                }else{
+                    if (indexCat -1 < self.serviceData.count) {
+                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        
+                    }else
+                    {
+                        return;
+                    }
+                    
+                }
+                
+            }
+            
+        }else if (playTypeClass == 3){
+            
+            if (index == 0) {
+                
+                NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
+                self.categoryModel = [[CategoryModel alloc]init];
+                
+                self.categoryModel.service_indexArr = item[@"service_index"];
+                
+                [self.dicTemp removeAllObjects];
+                
+                //获取不同类别下的节目，然后是节目下不同的cell值                10
+                for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                    
+                    int indexCat ;
+                    if (i < self.categoryModel.service_indexArr.count) {
+                        indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                    }else
+                    {
+                        return;
+                    }
+                    //此处判断是否为空，防止出错
+                    if ( ISNULL(self.serviceData)) {
+                        
+                    }else{
+                        
+                        if (indexCat -1 < self.serviceData.count) {
+                            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                            
+                        }else
+                        {
+                            return;
+                        }
+                        
+                        
+                    }
+                    
+                }
+                
+            }else if (index == 1)
+            {
+ 
+                //如果发现第二列，则展示REC这个数组
+                NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                /*
+                 用于分别获取REC Json数据中的值
+                 **/
+                [self.dicTemp removeAllObjects];
+                for (int i = 0; i< RECTempArr.count ; i++) {
+                    [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
+                }
+                
+            }else  //录制分类之后的节目分类
+            {
+                NSDictionary *item = self.categorys[index - 1];   //当前页面类别下的信息
+                self.categoryModel = [[CategoryModel alloc]init];
+                
+                
+                self.categoryModel.service_indexArr = item[@"service_index"];
+                
+                
+                //获取EPG信息 展示
+                //时间戳转换
+                
+                [self.dicTemp removeAllObjects];
+                
+                //获取不同类别下的节目，然后是节目下不同的cell值                10
+                for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                    
+                    int indexCat ;
+                    if (i < self.categoryModel.service_indexArr.count) {
+                        indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                    }else
+                    {
+                        return;
+                    }
+                    //此处判断是否为空，防止出错
+                    if ( ISNULL(self.serviceData)) {
+                    }else{
+                        
+                        if (indexCat -1 < self.serviceData.count) {
+                            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                            
+                        }else
+                        {
+                            return;
+                        }
+                        
+                        
+                    }
+                    
+                }
+                
+            }
+            
+            
+        }
+    
     
 }
 @end
