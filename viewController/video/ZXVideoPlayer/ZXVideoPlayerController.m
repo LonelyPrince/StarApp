@@ -308,24 +308,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
     self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值
     //    此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
-    
-    
-    
-    
-    //    self.videoControl.progressSlider.value = 5.f; //(self.videoControl.progressSlider.minimumValue + self.videoControl.progressSlider.maximumValue) / 2;// ceil(currentTime);
-    
+  
     NSLog(@"ajsfbabfaf %f",self.videoControl.progressSlider.value);
-    //    self.videoControl.progressSlider.minimumValue = 0.5;
-    //    self.videoControl.progressSlider.value = 0.8;
-    
-        // 更新缓冲进度
-    //    self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
-    
-        //    if (self.duration == self.playableDuration && self.playableDuration != 0.0) {
-        //        NSLog(@"缓冲完成");
-        //    }
-        //    int percentage = self.playableDuration / self.duration * 100;
-        //    NSLog(@"缓冲进度: %d%%", percentage);
+   
 }
 
 /// 更新播放时间显示
@@ -2214,22 +2199,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
             //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
             YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
-            //    }
-            
-
-            
-            
-            
-//            __weak typeof(self) weakSelf = self;
-//            
-//            self.videoControl.animateShowJdugeLastBtnAndNextBtnIsBray = ^(){
-//            __strong typeof(self) strongSelf = weakSelf;
-//                [self judgeLastBtnIsGray];
-//                [self judgeNextBtnIsGray];
-//            };
-            
-            
-            
+   
             self.videoControl.FullEventYFlabel.hidden = NO;
             //    self.videoControl.FullEventYFlabel.speed = 3;
             self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
@@ -2641,19 +2611,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
     NSArray * touchArr = historyArr[historyArr.count - 1];   //最后一个历史
-    
-    NSLog(@"touchArr。count：%lu",(unsigned long)touchArr.count);
-    //    NSLog(@"historyArr.count：%d",[historyArr[3] count]);
-    //    NSLog(@"touchArr。count：%d",touchArr[3]);
-    
-    //    [self touchToSee :touchArr];
-    
-    
+   
     NSInteger row = [touchArr[2] intValue];
     NSDictionary * dic = touchArr [3];
-//    NSLog(@"dic :%@",dic);
-    NSLog(@"dic。count :%lu",(unsigned long)dic.count);
-    NSLog(@"row1 :%ld",(long)row);
     int dic_Count = [[dic allKeys] count] -1;
     if (row < dic_Count) {
         self.videoControl.lastChannelButton.enabled = YES;
@@ -2664,10 +2624,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSNumber * numIndex = [NSNumber numberWithInteger:tempInt];
         //添加 字典，将label的值通过key值设置传递
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-        
-        
-        
-        
+      
         //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
         
@@ -2687,7 +2644,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
                 //创建通知
                 NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                NSLog(@"POPPOPPOPPOP77777777777771");
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification1];
                 [self judgeNextBtnIsGray];
@@ -3009,14 +2965,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-        //        if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
-        //            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
-        //            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-        //        }else
-        //        {
-        //            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        //            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-        //        }
+    
         NSLog(@"channelPositionIndex %d",channelPositionIndex);
         NSLog(@"self.subAudioTableView %@",self.subAudioTableView);
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:channelPositionIndex inSection:0];
@@ -3287,248 +3236,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"444self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
     
 }
-
-//- (void)setContentURL:(NSURL *)contentURL
-//{
-//    NSLog(@"self 线程1：%@",self);
-//    NSLog(@"contentURL %@",contentURL);
-//    [self stop];
-//    //    NSString * abc = @"http://192.168.1.55/segment_delivery/delivery_0/play_tv2ip_0.m3u8";
-//    ////    NSString * abc = @"http://192.168.32.66/vod/mp4:151460.mp4/playlist.m3u8";
-//    //    NSURL * urlabc = [NSURL URLWithString:abc];
-//    //    contentURL = urlabc;
-//    [super setContentURL:contentURL];
-//    NSLog(@"contentURL11 :%@",contentURL);
-//    //    [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(crclePlayUrl) userInfo:nil repeats:YES];
-//    //    self.controlStyle = MPMovieSourceTypeStreaming;
-//    [self setMovieSourceType:MPMovieSourceTypeStreaming];
-//    //    self.shouldAutoplay = YES;
-//    ////////    [self prepareToPlay];
-//    //    [self play];
-//
-//    //==========正文
-//    self.shouldAutoplay = YES;
-//    [self prepareToPlay];
-//    [self play];
-//    //    double delayInSeconds = 3.5;
-//    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//    //    dispatch_after(popTime, mainQueue, ^{
-//    //        NSLog(@"延时执行的2秒");
-//    //        //        [self runThread1];
-//    //        NSLog(@"byteValue1 TVTVTVTVTVTV222");
-//    //    [self play];
-//    //        NSLog(@"byteValue1 TVTVTVTVTVTV333");
-//    //    });
-//
-//
-//    //==========正文
-//
-//    NSLog(@"self 线程2：%@",self);
-//    //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
-//    //    [self performSelector:@selector(runThread1) withObject:nil afterDelay:4];
-//    //    [self stop];
-//    //        self.contentURL = self.contentURL;
-//    //    [self play];
-//    //    [self play];
-//    //    [self stop];
-//    //    [super setContentURL:contentURL];
-//    //    NSLog(@"contentURL22 :%@",contentURL);
-//    //    [self play];
-//
-//
-//
-//    //    [self setMovieSourceType:MPMovieSourceTypeStreaming];
-//    //    [self setShouldAutoplay:YES];//Stop it from autoplaying
-//    //    [self prepareToPlay];//Start preparing the video
-//    //    self.useApplicationAudioSession = NO;
-//    strBytesTemp = 0 ;
-//    temptemp = 0;
-//    [timerForGetBytes invalidate];
-//    timerForGetBytes = nil; //此处把计时器销毁
-//    timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];  //这个方法是获取播放缓冲大小
-//
-//    //    NSLog(@"byteValue1 ZXZXZXXZ 111");
-//    //    double delayInSeconds = 5;
-//    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//    //    dispatch_after(popTime, mainQueue, ^{
-//    //        NSLog(@"延时执行的2秒");
-//    //       NSLog(@"byteValue1 ZXZXZXXZ 222");
-//    //                [self judgeVideoStop];
-//    //        NSLog(@"byteValue1 ZXZXZXXZ 333");
-//    //    });
-//    //
-//
-//    //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
-//    //        [self performSelector:@selector(playplay) withObject:nil afterDelay:2];
-//
-//    isPlayIng = NO;  //这里对判断是否播放的值赋初值
-//    stopPlayTimeOne = 0;
-//    stopPlayTimeTwo = 0;
-//    tempOne = 0.0;
-//    tempTwo = 0.0;
-//}
-//-(void)playplay
-//{
-//    //    [self stop];
-//    //    [self pause];
-//    NSLog(@"lalalal");
-//    self.shouldAutoplay = YES;
-//    [self prepareToPlay:0];
-//    [self.player play];
-//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playplay) object:nil];
-//    [self performSelector:@selector(playplay) withObject:nil afterDelay:1];
-//}
-//-(void)judgeVideoStop
-//{   NSLog(@"byteValue1 ZXZXZXXZ 444");
-//    byteValue1 = byte;
-//    NSLog(@" byte %lld",byte);
-//
-//    double delayInSeconds = 2;
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, mainQueue, ^{
-//        NSLog(@"延时执行的2秒");
-//        //        [self runThread1];
-//        byteValue2 = byte;
-//        NSLog(@"byteValue1 %lld",byteValue1);
-//        NSLog(@"byteValue2 %lld",byteValue2);
-//        if ((float)byteValue2 / (1024 * 1024 * 1024) == (float)byteValue1 / (1024 * 1024 * 1024)) {
-//            NSLog(@"byteValue1 ZXZXZXXZ 555");
-//            [self.player play];
-//            NSLog(@"byteValue1 ZXZXZXXZ 666");
-//        }
-//    });
-//
-//
-//}
-//-(void)runThread1
-//{
-//    NSLog(@"线程");
-////    [self stop];
-//    self.shouldAutoplay = YES;
-//    [self play];
-////    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
-////    [self performSelector:@selector(runThread1) withObject:nil afterDelay:1];
-//}
-//-(void)moviePlay
-//{
-//    NSArray *events = self.accessLog.events;
-//    NSLog(@"events %@",events);
-//    int count = events.count;
-//    NSLog(@"events。count %d",events.count);
-//    //    if (count <= 0 ) {
-//    //        [self stop];
-//    ////        self.contentURL = self.contentURL;
-//    //        [self play];
-//    //        NSLog(@"qweqweqweqwe");
-//    //    }
-//
-//    NSMutableArray  *arrPlist = [[NSMutableArray alloc]init];
-//    for (int i = 0; i < count; i++)
-//    {   strBytesTemp = temptemp;
-//        MPMovieAccessLogEvent *currentEvent = [events objectAtIndex:i];
-//        //        NSLog(@"currentEvent %@",currentEvent);
-//        double byts = currentEvent.indicatedBitrate;
-//        //        NSLog(@"byts %f",byts);
-//        byte = currentEvent.numberOfBytesTransferred;
-//        //        NSLog(@"byte %d",byte);
-//        int64_t bytes = currentEvent.numberOfBytesTransferred >> 10;
-//        //        NSLog(@"bytes %d",bytes);
-//        NSMutableString *strBytes = [[NSMutableString alloc] initWithCapacity:100];
-//        [strBytes appendFormat:@"totalSize = %d byte", bytes];
-//        temptemp = byte;
-//
-//        //        if (temptemp == strBytesTemp && strBytesTemp != 0 ) {
-//        //        if ( strBytesTemp == 0 ) {
-//        //            [self stop];
-//        ////            self.contentURL = self.contentURL;
-//        //            NSLog(@"contentURL22 :%@",self.contentURL);
-//        //            [self play];
-//        //            strBytesTemp = 1;
-//        //        }
-//        NSMutableString * bytesS;
-//        if (bytes > 1024)
-//        {
-//            bytes = bytes >> 10;
-//            [bytesS setString:@""];
-//            [bytesS appendFormat:@"total = %d M", bytes];
-//        }
-//        //        NSLog(@"playstat ===byte = %f M bytes = %lld", (float)byte / (1024 * 1024 * 1024), bytes);
-//        //        NSLog(@"byte :%f",byte);
-//
-//        NSString * bb =  [NSString stringWithFormat:@"playstat ===byte=%fM",(float)byte / (1024 * 1024 * 1024)];
-//        NSLog(@"=============---== %f M",(float)byte / (1024 * 1024));
-//        NSString * cc =  [NSString stringWithFormat:@"bytes ==%lld",bytes];
-//
-//        countBytes1 = (float)byte / (1024 * 1024 * 1024);
-//
-//
-//
-//        //        [arrPlist removeAllObjects];
-//        //         [arrPlist addObject:bb];
-//        //        [arrPlist addObject:cc];
-//
-//        // NSDocumentDirectory 要查找的文件
-//        // NSUserDomainMask 代表从用户文件夹下找
-//        // 在iOS中，只有一个目录跟传入的参数匹配，所以这个集合里面只有一个元素
-//        //        NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-//        ////        NSString *filePath = [path stringByAppendingPathComponent:@"playHistory.plist"];
-//        ////        [[arrPlist copy] writeToFile:filePath atomically:YES];
-//        ////
-//        ////        if (i>10) {
-//        //            NSString *filePath = [path stringByAppendingPathComponent:@"playHistory.plist"];
-//        //            // 解档
-//        //            NSArray *arr = [NSArray arrayWithContentsOfFile:filePath];
-//        //            NSLog(@"cacacacacacacaca%@", arr);
-//        //        }
-//
-//
-//        //        byteValue1 = byte;
-//
-//        //       int a =
-//    }
-//
-//    //    isPlayIng;
-//    stopPlayTimeOne++;
-//
-//    NSLog(@"stopPlayTimeOne %d",stopPlayTimeOne);
-//    if (stopPlayTimeOne%5 == 4) {  //代表间隔24s没有播放视频，一次两秒
-//        isPlayIng = !isPlayIng;   //防止tempOne 重复记录
-//        if (isPlayIng == YES) {
-//            tempOne = countBytes1; //第十秒
-//        }
-//        NSLog(@"stopPlayTimeOne tempOne %f",tempOne);
-//        if(stopPlayTimeTwo%2 == 1)   //第4*2*2 秒
-//        {
-//            tempTwo = countBytes1; //第二十秒
-//            NSLog(@"stopPlayTimeOne tempTwo %f",tempTwo);
-//            if (tempOne == tempTwo) {
-//                //                    [self stop];
-//                [self stop];
-//                [self prepareToPlay];
-//                [self play];
-//                NSLog(@"stopPlayTimeOne 重新开始");
-//                isPlayIng = NO;  //这里对判断是否播放的值赋初值
-//                stopPlayTimeOne = 0;
-//                stopPlayTimeTwo = 0;
-//                tempOne = 0.0;
-//                tempTwo = 0.0;
-//                return;
-//            }
-//        }
-//        stopPlayTimeTwo++; //1
-//    }
-//
-//}
-//-(void)crclePlayUrl
-//{
-//    //    [self prepareToPlay];
-//    [self.player play];
-//    //    NSLog(@"循环播放");
-//}
-
 
 - (ZXVideoPlayerControlView *)videoControl
 {
@@ -4504,7 +4211,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
             self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
             self.videoControl.eventnameLabel.text = self.video.playEventName;
-//
+
         //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
         
         self.videoControl.progressSlider.hidden = YES;
@@ -4512,14 +4219,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-        NSLog(@"kdjfb;asddasdadasasbf");
-        
+   
         self.videoControl.progressSlider.hidden = NO;
         self.videoControl.progressSlider.alpha = 1;
         
         NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
-//        NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
-//        if (arrNowPlayingTemp.count > 0) {
+
             NSString * eventNameLabStr = [nowPlayingDic objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
         
 //            self.video.channelId =channelIdLabStr;
@@ -4541,7 +4246,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
            self.videoControl.channelNameLab.frame = CGRectMake(42, 26, 56+200 , 55);
             
-            self.videoControl.progressSlider.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
+            NSLog(@"SCREEN_WIDTH==SCREEN_WIDTH %f",SCREEN_WIDTH);
+            self.videoControl.progressSlider.frame = CGRectMake(0, self.videoControl.bottomBar.frame.size.height - 50 , SCREEN_HEIGHT, 2);
             
         }else //竖屏
         {
@@ -4550,7 +4256,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
               
                 self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
             }
-            
              self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
             
             NSLog(@"可能会出错的地方self.view.frame.bounds.width2");
@@ -4780,7 +4485,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self newReplaceEventNameNotific];
     self.videoControl.channelIdLab.text = self.video.channelId;
     
-    self.videoControl.channelNameLab.text = self.video.channelName;
+    self.videoControl.channelNameLab.text =  self.video.channelName;
     
     
     [self setEventTime1];
@@ -5404,7 +5109,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
                     //创建通知
                     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                    NSLog(@"POPPOPPOPPOP66666666666");
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
                     //                [self.tabBarController setSelectedIndex:1];
@@ -5417,20 +5121,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                     //                [self.tabBarController setSelectedIndex:1];
                 }
-                
-                
+    
             }else //正常播放的步骤
             {
-                
-                
+      
                 //创建通知
                 NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
             }
     
-    
 }
-
-
 @end

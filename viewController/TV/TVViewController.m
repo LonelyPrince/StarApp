@@ -773,7 +773,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.video.channelId = self.service_videoindex;
     self.video.channelName = self.service_videoname;
-    
+    self.video.playEventName = self.event_videoname;
+    NSLog(@"self.video.channelName : %@",self.video.channelName);
     
     
     
@@ -3918,6 +3919,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.video.channelCount = tempArrForServiceArr.count;
         //*********
        
+        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+        self.service_videoindex= @"";
+        self.event_videoname = [epgDicToSocket objectForKey:@"event_name"];
         
         NSLog(@"LLL------%@",socketView.socket_ServiceModel);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -4031,6 +4035,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //        return;
         }else
         {
+#pragma mark - 需要注意名称变化
             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
             self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
             self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
@@ -4306,18 +4311,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.TVSubAudioDic = epgDicToSocket;
     self.TVChannlDic = self.dicTemp;
-    
-    //*********
-    //    tempBoolForServiceArr = YES;
-    //    tempArrForServiceArr =  self.categoryModel.service_indexArr;
-    //    tempDicForServiceArr = self.TVChannlDic;
-    //
-    //
-    //    [self getsubt];
-    
-    
-    
-    
+   
     
     if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
         socketView.socket_ServiceModel.audio_pid = @"0";
@@ -4332,26 +4326,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
         socketView.socket_ServiceModel.service_service_id = @"0";
     }
-    
-    NSLog(@"------%@",socketView.socket_ServiceModel);
-    
-    
+  
     [self getsubt];
     //此处销毁通知，防止一个通知被多次调用    // 1
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
-    
-    
-    //    self.socketView  = [[SocketView  alloc]init];
-    //    [self.socketView viewDidLoad];
+ 
     
     NSLog(@"self.socket:%@",self.socketView);
     
     if (self.showTVView == YES) {
         self.videoController.socketView1 = self.socketView;
         [self.socketView  serviceTouch ];
-        NSLog(@"测试播放2222222222222233333");
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -6066,8 +6053,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     LBGetHttpRequest *request = CreateGetHTTP(url);
     
-    
-    
+ 
     [request startAsynchronous];   //异步
     
     WEAKGET
@@ -6085,9 +6071,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-        
-
-
+  
         if (!isValidArray(data1) || data1.count == 0){
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
@@ -6101,7 +6085,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
-                NSLog(@"zidong  刷新了一次22");
                 if (!self.NoDataImageview) {
                     self.NoDataImageview = [[UIImageView alloc]init];
                 }
