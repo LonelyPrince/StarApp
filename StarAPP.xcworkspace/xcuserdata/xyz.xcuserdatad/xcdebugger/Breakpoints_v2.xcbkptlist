@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "533745714.075079"
+            timestampString = "533748961.693286"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "812"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "533745714.075145"
+            timestampString = "533749487.25446"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1802"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "533745714.075875"
+            timestampString = "533749487.254547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5656"
-            endingLineNumber = "5656"
+            startingLineNumber = "5605"
+            endingLineNumber = "5605"
             landmarkName = "-serviceEPGSetData:diction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "533745714.076525"
+            timestampString = "533749487.254613"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3865"
-            endingLineNumber = "3865"
+            startingLineNumber = "3814"
+            endingLineNumber = "3814"
             landmarkName = "-VideoTouchNoificClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,12 +74,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "533745714.077096"
+            timestampString = "533749487.254677"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6241"
-            endingLineNumber = "6241"
+            startingLineNumber = "6127"
+            endingLineNumber = "6127"
             landmarkName = "-tableViewDataRefreshForMjRefresh_ONEMinute"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "533749487.254727"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "8146"
+            endingLineNumber = "8146"
+            landmarkName = "-returnDicTemp:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "533749487.254773"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "8109"
+            endingLineNumber = "8109"
+            landmarkName = "-returnDicTemp:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

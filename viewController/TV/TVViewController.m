@@ -2793,7 +2793,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if([jumpFormOtherView isEqualToString:@"YES"])
                 {
                     NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
-                    NSLog(@"挖从奥到底dic come on");
                     if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
                         
                         if (storeLastChannelArr.count >= 4) {
@@ -2842,9 +2841,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 [self firstOpenAppAutoPlay:row diction:dic];
                             }
                             
-                            
-                            
-                            
+              
                             [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
                         }else
                         {
@@ -3142,7 +3139,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data1 = response[@"service"];
         
         
-        
+        //录制节目,保存数据
+        NSArray *recFileData = response[@"rec_file_info"];
+        NSLog(@"recFileData %@",recFileData);
+        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         
         if (!isValidArray(data1) || data1.count == 0){
@@ -3186,12 +3186,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此时self.tableForSliderView 33332%@",self.tableForDicIndexDic);
         //        self.tableForSliderView = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
         if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
-            
-            //            }
-            
-            ////////==================
-            
-            //            id idTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
+          
             
             id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
             //            NSNumber * numTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][0];
@@ -3203,63 +3198,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (index >= self.categorys.count) {
                 
             }
-            NSDictionary *item ;
+
             if (self.categorys.count > index) {
-                item = self.categorys[index];   //当前页面类别下的信息
+                [self returnDicTemp:index]; //根据是否有录制返回不同的item
             }else
             {
                 return;
             }
             
-            self.categoryModel = [[CategoryModel alloc]init];
-            
-            self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
-            
-            //获取EPG信息 展示
-            //时间戳转换
-            
-            [self.dicTemp removeAllObjects];
-            //获取不同类别下的节目，然后是节目下不同的cell值                10
-            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                
-                int indexCat ;
-                indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                //cell.tabledataDic = self.serviceData[indexCat -1];
-                
-                
-                //此处判断是否为空，防止出错
-                if ( ISNULL(self.serviceData)) {
-                    
-                }else{
-                    
-                    if (indexCat-1 > self.serviceData.count) {
-                    }
-                    
-                    if (indexCat -1 < self.serviceData.count) {
-                        
-                        if (self.serviceData.count > indexCat - 1) {
-                            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];
-                        }else
-                        {
-                            return;
-                        }
-                        
-                        
-                    }else
-                    {
-                        NSLog(@"不能再往里面添加了，再添加会报错");
-                        return;
-                    }
-                    
-                }
-                
-                
-            }
-            
-            ////////==================
-            
-            
-            //            }
         }
         
         
@@ -5724,6 +5670,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
+        //录制节目,保存数据
+        NSArray *recFileData = response[@"rec_file_info"];
+        NSLog(@"recFileData %@",recFileData);
+        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        
         if (!isValidArray(data1) || data1.count == 0)
         {
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
@@ -5798,11 +5749,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
         }
-        //        {
-        //
-        //            [self tableViewDataRefreshForMjRefresh];
-        //            return ;
-        //        }
+        
         self.serviceData = (NSMutableArray *)data1;
         
         NSLog(@"before self.categorys %@",self.categorys);
@@ -5881,18 +5828,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }
         
-        //        {
-        //
-        //            [self tableViewDataRefreshForMjRefresh];
-        //        }
-        
+       
         [self.activeView removeFromSuperview];
         self.activeView = nil;
         [self lineAndSearchBtnShow];
         
-        
-        
-        //
+       
         
         NSLog(@"self.tableForDicIndexDic.count :%lu",(unsigned long)self.tableForDicIndexDic.count);
         NSLog(@"self.tableForDicIndexDic :%@",self.tableForDicIndexDic);
@@ -5900,77 +5841,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
         
-        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
         
         //        self.tableForSliderView = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
         NSString *  indexforTableToNum =YLSlideTitleViewButtonTagIndexStr ;
         //        [NSNumber numberWithInteger:YLSlideTitleViewButtonTagIndex];
         self.tableForSliderView = [self.tableForDicIndexDic objectForKey :indexforTableToNum] [1];
-        //            if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexArr.count) {
-        //        if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
+     
         
-        //            }
-        
-        ////////==================
-        
-        //            id idTemp = self.tableForDicIndexArr[YLSlideTitleViewButtonTagIndex][1];
-        //            NSNumber *  indexforTableToNum = [NSNumber numberWithInteger:YLSlideTitleViewButtonTagIndex];
-        id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+//        id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
         NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
      
         NSInteger index = [numTemp integerValue];
         if (index >= self.categorys.count) {
             
         }
-        
-        NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
-        self.categoryModel = [[CategoryModel alloc]init];
-        
-        self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
-        
-        //获取EPG信息 展示
-        //时间戳转换
-        
-        [self.dicTemp removeAllObjects];
-        //获取不同类别下的节目，然后是节目下不同的cell值                10
-        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-            
-            int indexCat ;
-            indexCat =[self.categoryModel.service_indexArr[i] intValue];
-            //cell.tabledataDic = self.serviceData[indexCat -1];
-            
-            
-            //此处判断是否为空，防止出错
-            if ( ISNULL(self.serviceData)) {
-                
-            }else{
-                
-                if (indexCat-1 > self.serviceData.count) {
-                }
-                
-    
-                NSLog(@" indexCat -1 %d",indexCat -1);
-                NSLog(@" self.serviceData.count %lu",(unsigned long)self.serviceData.count);
-                
-                if (indexCat -1 < self.serviceData.count) {
-                    
-                    NSLog(@" self.dicTemp %@",self.dicTemp);
-                    NSLog(@"=-=-===  在 33  中");
-                    //                            [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];
-                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                    //                            aaaaaaa = 1;
-                    
-                }else
-                {
-                    NSLog(@"不能再往里面添加了，再添加会报错");
-                }
-                
-            }
-            
-            
-        }
-        
-       
+        [self returnDicTemp:index]; //根据是否有录制返回不同的item
+ 
         [self.tableForSliderView reloadData];
         [self refreshTableviewByEPGTime];
         // 模拟延迟2秒
@@ -5979,24 +5866,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
-            NSLog(@"延时执行的2秒");
-            //        [self runThread1];
+
             NSLog(@"byteValue1 TVTVTVTVTVTV222");
             [self.tableForSliderView reloadData];
             
             [self refreshTableviewByEPGTime];
-            NSLog(@"byteValue1 TVTVTVTVTVTV333");
         });
         [NSThread sleepForTimeInterval:2];
         //    [self mediaDeliveryUpdate];
         //    [tableForSliderView reloadData];
         // 结束刷新
         
-        //    NSLog(@"tableForSliderView22--:%@",self.tableForSliderView);
         [self.tableForSliderView.mj_header endRefreshing];
         
-        
-        
+      
         //////
         //获取数据的链接
         NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
@@ -6258,56 +6141,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"jfabdjasbajsbd index %ld",(long)index);
  
             //此处可能出现崩溃-----数组为空
-            NSDictionary *item ;
             if (index > 0 ) {
-//                item = self.categorys[index];   //当前页面类别下的信息
-                [self returnItem:index]; //根据是否有录制返回不同的item
-//                self.categoryModel = [[CategoryModel alloc]init];
-//
-//                self.categoryModel.service_indexArr = item[@"service_index"];   //当前类别下包含的节目索引  0--9
+                [self returnDicTemp:index]; //根据是否有录制返回不同的item
             }else
             {
             }
-//
-//            [self.dicTemp removeAllObjects];
-//            //获取不同类别下的节目，然后是节目下不同的cell值                10
-//            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-//
-//                int indexCat ;
-//                indexCat =[self.categoryModel.service_indexArr[i] intValue];
-//                //cell.tabledataDic = self.serviceData[indexCat -1];
-//
-//
-//                //此处判断是否为空，防止出错
-//                if ( ISNULL(self.serviceData)) {
-//
-//                }else{
-//
-//                    if (indexCat-1 > self.serviceData.count) {
-//                    }
-//
-//                    if (indexCat -1 < self.serviceData.count) {
-//
-//                        NSMutableArray * abcddArr = [[NSMutableArray alloc]init];
-//                        abcddArr =  [self.serviceData mutableCopy];
-//
-//                        NSMutableDictionary * cccArr = [abcddArr[0]  mutableCopy] ;
-//
-//                        [abcddArr replaceObjectAtIndex:0 withObject:cccArr];
-//
-//                        [self.dicTemp setObject:abcddArr[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-//
-//                        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];
-//
-//
-//                    }else
-//                    {
-//                        NSLog(@"不能再往里面添加了，再添加会报错");
-//                    }
-//
-//                }
-//
-//            }
+ 
   
         }
   
@@ -8184,10 +8023,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
   
     
 }
--(void)returnItem  :(NSInteger)index
+-(void)returnDicTemp  :(NSInteger)index
 {
-    
-    
         int playTypeClass;
         playTypeClass = [GGUtil judgePlayTypeClass];
         if (playTypeClass == 0) {
@@ -8211,7 +8048,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     return;
                 }
                 
-                
                 //此处判断是否为空，防止出错
                 if ( ISNULL(self.serviceData)) {
                     
@@ -8223,11 +8059,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     {
                         return;
                     }
-                    
                 }
-                
             }
-            
         }else if (playTypeClass == 3){
             
             if (index == 0) {
@@ -8261,10 +8094,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         {
                             return;
                         }
-                        
-                        
+          
                     }
-                    
+    
                 }
                 
             }else if (index == 1)
@@ -8284,8 +8116,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
                 NSDictionary *item = self.categorys[index - 1];   //当前页面类别下的信息
                 self.categoryModel = [[CategoryModel alloc]init];
-                
-                
+             
                 self.categoryModel.service_indexArr = item[@"service_index"];
                 
                 
@@ -8315,17 +8146,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         {
                             return;
                         }
-                        
-                        
+                
                     }
                     
                 }
                 
             }
-            
-            
+    
         }
-    
-    
 }
 @end
