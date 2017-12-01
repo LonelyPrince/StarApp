@@ -6942,6 +6942,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                 progressViewSize.height);
         self.topProgressView.borderTintColor = [UIColor whiteColor];
         self.topProgressView.progressTintColor = ProgressLineColor;
+        self.topProgressView.progressBackgroundColor = [UIColor colorWithRed:0x80 green:0x80 blue:0x80 alpha:0.3];
         [self.view addSubview:self.topProgressView];
         [self.view bringSubviewToFront:self.topProgressView];
         [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];

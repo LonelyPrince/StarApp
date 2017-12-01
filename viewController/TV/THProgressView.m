@@ -22,6 +22,7 @@ static const CGFloat kBorderWidth = 0.0f;
 @interface THProgressLayer : CALayer
 @property (nonatomic, strong) UIColor* progressTintColor;
 @property (nonatomic, strong) UIColor* borderTintColor;
+@property (nonatomic, strong) UIColor* progressBackgroundColor;
 @property (nonatomic) CGFloat progress;
 @property  int timesCount;
 @end
@@ -30,6 +31,7 @@ static const CGFloat kBorderWidth = 0.0f;
 
 @dynamic progressTintColor;
 @dynamic borderTintColor;
+@dynamic progressBackgroundColor;
 
 + (BOOL)needsDisplayForKey:(NSString *)key
 {
@@ -39,11 +41,11 @@ static const CGFloat kBorderWidth = 0.0f;
 - (void)drawInContext:(CGContextRef)context
 {
     CGRect rect = CGRectInset(self.bounds, kBorderWidth, kBorderWidth);
-    //    CGFloat radius = CGRectGetHeight(rect) / 2.0f;
-    //    CGContextSetLineWidth(context, kBorderWidth);
-    //    CGContextSetStrokeColorWithColor(context, self.borderTintColor.CGColor);
-    //    [self drawRectangleInContext:context inRect:rect withRadius:radius];
-    //    CGContextStrokePath(context);
+//        CGFloat radius = CGRectGetHeight(rect) / 2.0f;
+//        CGContextSetLineWidth(context, kBorderWidth);
+//        CGContextSetStrokeColorWithColor(context, self.borderTintColor.CGColor);
+//        [self drawRectangleInContext:context inRect:rect withRadius:radius];
+//        CGContextStrokePath(context);
     
     
     CGContextSetFillColorWithColor(context, self.progressTintColor.CGColor);
@@ -51,6 +53,13 @@ static const CGFloat kBorderWidth = 0.0f;
     CGFloat progressRadius = CGRectGetHeight(progressRect) / 2.0f;
     progressRect.size.width = fmaxf(self.progress * progressRect.size.width, 2.0f * progressRadius);
     [self drawRectangleInContext:context inRect:progressRect withRadius:progressRadius];
+    CGContextFillPath(context);
+    
+    CGContextSetFillColorWithColor(context, self.progressBackgroundColor.CGColor);
+    CGRect progressBackgroundRect = progressRect;
+    progressBackgroundRect.size.width = rect.size.width - 4 * kBorderWidth - progressRect.size.width;
+    progressBackgroundRect.origin.x = progressRect.origin.x + progressRect.size.width;
+    [self drawProgressBackgroundRectangleInContext:context inRect:progressBackgroundRect withRadius:progressRadius];
     CGContextFillPath(context);
 }
 
@@ -67,6 +76,24 @@ static const CGFloat kBorderWidth = 0.0f;
     CGContextAddArc(context, rect.origin.x + radius, rect.origin.y + radius, radius, -M_PI / 2, M_PI, 1);
 }
 
+- (void)drawProgressBackgroundRectangleInContext:(CGContextRef)context inRect:(CGRect)rect withRadius:(CGFloat)radius
+{
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, rect.origin.x - radius, rect.origin.y);
+    CGContextAddArc(context, rect.origin.x - radius, rect.origin.y + radius, radius, 3 * M_PI / 2, 2 * M_PI, 0);
+    CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + rect.size.height - radius);
+    
+    CGContextAddArc(context, rect.origin.x - radius, rect.origin.y + rect.size.height - radius, radius, 0.0f, M_PI / 2, 0);
+    CGContextMoveToPoint(context, rect.origin.x - radius, rect.origin.y + rect.size.height);
+    CGContextAddLineToPoint(context, rect.origin.x + rect.size.width - radius, rect.origin.y + rect.size.height);
+    
+    CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + rect.size.height - radius, radius, M_PI / 2, 0.0f, 1);
+    CGContextAddLineToPoint(context, rect.origin.x, rect.origin.y + radius);
+    
+    CGContextAddArc(context, rect.origin.x + rect.size.width - radius, rect.origin.y + radius, radius, 2 * M_PI, 3 * M_PI / 2, 1);
+    CGContextAddLineToPoint(context, rect.origin.x - radius, rect.origin.y);
+    CGContextClosePath(context);
+}
 @end
 
 
@@ -197,4 +224,14 @@ static const CGFloat kBorderWidth = 0.0f;
     [self.progressLayer setNeedsDisplay];
 }
 
+- (UIColor *)progressBackgroundColor
+{
+    return self.progressLayer.progressBackgroundColor;
+}
+
+- (void)setProgressBackgroundColor:(UIColor *)backgroundColor
+{
+    self.progressLayer.progressBackgroundColor = backgroundColor;
+    [self.progressLayer setNeedsDisplay];
+}
 @end

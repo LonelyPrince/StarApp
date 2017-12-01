@@ -130,7 +130,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         CGSize s=CGSizeMake(1, 1);
         UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
-        UIRectFill(CGRectMake(0, 0, 1, 1));
+        UIRectFill(CGRectMake(0, 0, 0, 0));
         UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
@@ -1131,7 +1131,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
         [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
-        [_progressSlider setMaximumTrackTintColor:[[UIColor grayColor] colorWithAlphaComponent:0]];
+        [_progressSlider setMaximumTrackTintColor:[[UIColor grayColor] colorWithAlphaComponent:0.4]];
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
         //progressSlider 隐藏
@@ -1194,15 +1194,6 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     return _lockButton;
 }
 
-//- (UIProgressView *)bufferProgressView
-//{
-//    if (!_bufferProgressView) {
-//        _bufferProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-//        _bufferProgressView.progressTintColor = [UIColor colorWithWhite:1 alpha:0.3];
-//        _bufferProgressView.trackTintColor = [UIColor clearColor];
-//    }
-//    return _bufferProgressView;
-//}
 
 - (ZXVideoPlayerTimeIndicatorView *)timeIndicatorView
 {
