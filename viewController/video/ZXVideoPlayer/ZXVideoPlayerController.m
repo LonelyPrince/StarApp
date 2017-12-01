@@ -577,6 +577,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //视频播放结束时
 -(void)onMPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
 {
+    //判断是不是播放的录制节目
+    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+        
+        [self shrinkScreenButton1Click];
+    }
     NSLog(@"xxxxxx playState---=====视频播放结束 视频播放结束时");
     
 //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
