@@ -237,7 +237,7 @@
             self.event_nextTime.text =[GGUtil  timeHMSWithTimeIntervalString:timeTempStr];
             
             self.event_nextTime.frame = CGRectMake(157, 49, 60, 14);
-            self.event_nextNameLab.frame = CGRectMake(230, 49, 112, 14);
+            self.event_nextNameLab.frame = CGRectMake(220, 49, 112, 14);
             
         }else
         {
