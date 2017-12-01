@@ -3105,10 +3105,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self setSearchViewData ];
         
         BOOL isHavePlayingChannel = NO;
+//        recFileData
         
-        for (int i = 0; i < self.serviceData.count; i++) {
-          
-            NSDictionary * serviceArrForJudge_dic = self.serviceData[i];
+        
+        NSMutableArray * mutableArrTemp = [self.serviceData mutableCopy];
+        if (recFileData.count > 0) {
+            for (int i = 0; i < recFileData.count ; i++) {
+                [mutableArrTemp addObject:recFileData[i]];
+            }
+        }
+        
+//        for (int i = 0; i < self.serviceData.count; i++) {
+        for (int i = 0; i < mutableArrTemp.count; i++) {
+        
+            NSDictionary * serviceArrForJudge_dic = mutableArrTemp[i];
             
             BOOL isTwoDicEqual =  [GGUtil judgeTwoEpgDicIsEqual:epgDicToSocket TwoDic:serviceArrForJudge_dic];
             
