@@ -100,6 +100,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL TVViewTouchPlay;
     BOOL isHasChannleDataList ;  //是否存频道列表，如果不存在，则在跳转页面的时候不播放
     int  numberOfRowsForTable;  //对于首页列表，每一个分类下的列表数量
+    NSArray * getLastCategoryArr;
+    NSArray * getLastRecFileArr;
 }
 
 
@@ -2993,6 +2995,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
  
     [request startAsynchronous];   //异步
     
+    getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
+    getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
     WEAKGET
     [request setCompletionBlock:^{
  
@@ -3016,9 +3020,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
             return ;
         }
+       
+      
+        
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+        
+        NSLog(@"删除了原先的sliderview22");
+        //判断是不是需要刷新顶部的YLSlider
+        if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+            
+            [_slideView removeFromSuperview];
+            _slideView = nil;
+            
+            NSLog(@"删除了原先的sliderview");
+            [self tableViewDataRefreshForMjRefresh_ONEMinute];
+        }
+        
         
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
             NSLog(@"mediaDeliveryUpdate SDTSDT 方法中触发refresh方法");
@@ -6768,10 +6787,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     searchViewCon.response = [USER_DEFAULT objectForKey:@"TVHttpAllData"];
     
-    NSDictionary * aaa =[USER_DEFAULT objectForKey:@"TVHttpAllData"][@"service"][0];
- 
-    NSDictionary * bbb =[USER_DEFAULT objectForKey:@"serviceData_Default"][0];
- 
+    
     [searchViewCon.dataList removeAllObjects];
     [searchViewCon.showData removeAllObjects];
     searchViewCon.dataList =  [searchViewCon getServiceArray ];  //dataList 是所有的名字和符号的组合
@@ -7666,5 +7682,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.view addSubview:self.NoDataLabel];
     
 }
+-(BOOL)judgeIfNeedRefreshSliderView :(NSArray *)categoryArr recFileArr:(NSArray *)recFileArr lastCategoryArr:(NSArray *)lastCategory lastRECFileArr:(NSArray *)lastFileArr
+{
+//    NSArray * oldCategoryArr = lastCategory;
+//    NSArray * oldRecFileArr = lastFileArr;
+//
+//    NSArray * nowCategoryArr = categoryArr;
+//    NSArray * nowRECFileArr =  recFileArr;
+//
+    
 
+    if ([lastCategory isEqualToArray:categoryArr] && ((lastFileArr.count >0 && recFileArr.count>0) || (lastFileArr.count ==0 && recFileArr.count==0))) {
+        
+        return NO;
+    }else
+    {
+        return YES;
+    }
+}
 @end
