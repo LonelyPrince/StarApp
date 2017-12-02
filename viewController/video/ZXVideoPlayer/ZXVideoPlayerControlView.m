@@ -212,6 +212,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
             self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
             screenWidthTemp = 0;
+            NSLog(@" lalalalalalalalalalalal555==1");
         }else
         {//全屏
             self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
@@ -219,6 +220,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
             //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
         screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
+            NSLog(@" lalalalalalalalalalalal555==2");
         }
 
     }else
@@ -229,6 +231,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
             self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
             screenWidthTemp = 0;
+            NSLog(@" lalalalalalalalalalalal555==3");
         }else
         {
             //竖屏
@@ -238,6 +241,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
         NSLog(@"可能会出错的地方self.view.frame.bounds.width1");
             screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
+            NSLog(@" lalalalalalalalalalalal555==4");
         }
 
     }
@@ -259,6 +263,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
                         self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
                         screenWidthTemp = 0;
+                        NSLog(@" lalalalalalalalalalalal555==5");
                     }else
                     {//全屏
                         NSLog(@"==-=-===-==000==-BBBB");
@@ -267,6 +272,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
                         //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
                         screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
+                        NSLog(@" lalalalalalalalalalalal555==6");
+                        
+                        self.progressSlider.frame = CGRectMake(0, self.bottomBar.frame.size.height -50 , CGRectGetWidth(self.bounds), 2);
+                        
+                        self.suspendButton.frame = CGRectMake((self.nextChannelButton.frame.origin.x - self.lastChannelButton.frame.origin.x -  44 -44)/2 + self.lastChannelButton.frame.origin.x + 44,CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13,44, 44);
                     }
 
                 }else
@@ -277,6 +287,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
                         self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
                         screenWidthTemp = 0;
+                        NSLog(@" lalalalalalalalalalalal555==7");
                     }else
                     {
                         NSLog(@"==-=-===-==000==-DDDD");
@@ -287,6 +298,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
                         NSLog(@"可能会出错的地方self.view.frame.bounds.width1");
                         screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
+                        NSLog(@" lalalalalalalalalalalal555==8");
                     }
 
                 }
@@ -315,8 +327,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
 
     self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 48,52);
-    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), 0, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
-
+//    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.bottomBar.frame), 0, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
+NSLog(@"lalalalalalalalalalalal555");
     self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
 
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
@@ -809,8 +821,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
             
             
-            _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
-            _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
+//            _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
+//            _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
             screenWidthTemp1 = 0;
         }else
         {
@@ -820,8 +832,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
         _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
-        _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
-        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
+//        _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
+//        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
         NSLog(@"可能会出错的地方self.view.frame.bounds.width5");
             screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
         }

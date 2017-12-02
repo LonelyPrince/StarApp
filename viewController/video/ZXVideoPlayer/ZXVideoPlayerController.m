@@ -1973,7 +1973,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         else{
             if (HorTime == 0) {
                 orientationBHor = orientationAVer;  //记住锁屏前最后一次方向s
-                NSLog(@"此时 orientation : %d",orientationBHor);
                 switch (orientationBHor) {
                     case 1:
                         NSLog(@"此时 home键2 在下");
@@ -2247,7 +2246,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
                 
                 //全屏
-                self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height -50 , SCREEN_HEIGHT, 2);
+                self.videoControl.progressSlider.frame = CGRectMake(0, self.videoControl.bottomBar.frame.size.height -50 , SCREEN_HEIGHT+1, 2);
+                
+                NSLog(@"lalalalalalalalalalalal111");
             }
             //test
             //此处销毁通知，防止一个通知被多次调用
@@ -2450,7 +2451,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
    
     
-    if (self.video.channelId == @"") {
+    if ([self.video.channelId isEqualToString: @""]) {
         
         self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
         self.videoControl.channelIdLab.hidden = NO;
@@ -2461,7 +2462,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
         
         //竖屏状态 progressSlider的frame
-         self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height - 1.5, SCREEN_WIDTH, 1.5f);
+         self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height - 1.5, SCREEN_WIDTH+3, 1.5f);
+        NSLog(@"lalalalalalalalalalalal222");
     }
     
     //切换到竖屏，跑马灯消失
@@ -3342,7 +3344,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             return 0;
             
         }else
-        {NSLog(@"subtarr--:%d",subtarr.count);
+        {
             
             NSLog(@"subtarr--:%@",subtarr);
             if (subtarr.count <=8) {
@@ -3759,7 +3761,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         
-        NSDictionary * dic ;
+        
         if (!ISEMPTY(self.video.dicChannl)) {
             
             NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -3791,7 +3793,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
         
-        NSDictionary * dic ;
+        
         if (!ISEMPTY(self.video.dicChannl)) {
          
             
@@ -4252,12 +4254,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
            self.videoControl.channelNameLab.frame = CGRectMake(42, 26, 56+200 , 55);
             
             NSLog(@"SCREEN_WIDTH==SCREEN_WIDTH %f",SCREEN_WIDTH);
-            self.videoControl.progressSlider.frame = CGRectMake(0, self.videoControl.bottomBar.frame.size.height - 50 , SCREEN_HEIGHT, 2);
+            self.videoControl.progressSlider.frame = CGRectMake(0, self.videoControl.bottomBar.frame.size.height - 50 , SCREEN_HEIGHT+1, 2);
+            NSLog(@"lalalalalalalalalalalal3333");
             
         }else //竖屏
         {
             NSLog(@"REC  竖屏");
-            if (self.video.channelId == @"") {
+            if ([self.video.channelId isEqualToString: @""]) {
               
                 self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
             }
@@ -4265,7 +4268,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             NSLog(@"可能会出错的地方self.view.frame.bounds.width2");
  
-            self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height - 1.5, SCREEN_WIDTH, 1.5f);
+            self.videoControl.progressSlider.frame = CGRectMake(-2, self.videoControl.bottomBar.frame.size.height - 1.5, SCREEN_WIDTH+3, 1.5f);
+            NSLog(@"lalalalalalalalalalalal444");
 
         }
         

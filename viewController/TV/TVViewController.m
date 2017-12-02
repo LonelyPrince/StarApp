@@ -7397,38 +7397,54 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (inputCategoryDic == 1) { //录制
  
             for (int i = 0; i< self.CategoryAndREC.count; i++) {
-                NSArray *abc=self.CategoryAndREC;
-                [self.dicTemp setObject:self.CategoryAndREC[1][i] forKey:[NSString stringWithFormat:@"%d",i] ];
+
+                if (self.CategoryAndREC.count > 1) {
+                    NSArray * CategoryAndREC_One = self.CategoryAndREC[1];
+                    if (CategoryAndREC_One.count > i) {
+                        [self.dicTemp setObject:self.CategoryAndREC[1][i] forKey:[NSString stringWithFormat:@"%d",i] ];
+                    }
+                    
+                }
+               
             }
  
         }else  //点击了非录制节目
         {
             if (inputCategoryDic <= self.categorys.count -1) {
 
-                NSDictionary * item = self.CategoryAndREC[0][inputCategoryDic];
-
-                self.categoryModel = [[CategoryModel alloc]init];
-
-                self.categoryModel.service_indexArr = item[@"service_index"];
-
-                [self.dicTemp removeAllObjects];
-
-                //获取不同类别下的节目，然后是节目下不同的cell值                10
-                for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-
-                    int indexCat ;
-                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                   
-                    if ( ISNULL(self.serviceData)) {
-
-                    }else{
-
-                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                if (self.CategoryAndREC.count > 0) {
+                    NSArray * CategoryAndREC_Zero = self.CategoryAndREC[0];
+                    if (CategoryAndREC_Zero.count > inputCategoryDic) {
+                        
+                        NSDictionary * item = self.CategoryAndREC[0][inputCategoryDic];
+                        
+                        self.categoryModel = [[CategoryModel alloc]init];
+                        
+                        self.categoryModel.service_indexArr = item[@"service_index"];
+                        
+                        [self.dicTemp removeAllObjects];
+                        
+                        //获取不同类别下的节目，然后是节目下不同的cell值                10
+                        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                            
+                            int indexCat ;
+                            indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                            
+                            if ( ISNULL(self.serviceData)) {
+                                
+                            }else{
+                                
+                                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                                
+                            }
+                            
+                        }
 
                     }
-
+                    
                 }
-
+                
+     
             }
         }
     }
@@ -7436,29 +7452,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         if (inputCategoryDic <= self.categorys.count -1) {
             
-            NSDictionary * item = self.categorys[inputCategoryDic];
-            
-            self.categoryModel = [[CategoryModel alloc]init];
-            
-            self.categoryModel.service_indexArr = item[@"service_index"];
-            
-            [self.dicTemp removeAllObjects];
-            
-            //获取不同类别下的节目，然后是节目下不同的cell值                10
-            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+            if (self.categorys.count > inputCategoryDic) {
+                NSDictionary * item = self.categorys[inputCategoryDic];
                 
-                int indexCat ;
-                indexCat =[self.categoryModel.service_indexArr[i] intValue];
-        
-                if ( ISNULL(self.serviceData)) {
+                self.categoryModel = [[CategoryModel alloc]init];
+                
+                self.categoryModel.service_indexArr = item[@"service_index"];
+                
+                [self.dicTemp removeAllObjects];
+                
+                //获取不同类别下的节目，然后是节目下不同的cell值                10
+                for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
                     
-                }else{
-                 
-                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                    int indexCat ;
+                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                    
+                    if ( ISNULL(self.serviceData)) {
+                        
+                    }else{
+                        
+                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        
+                    }
                     
                 }
-                
             }
+
             
         }
        
