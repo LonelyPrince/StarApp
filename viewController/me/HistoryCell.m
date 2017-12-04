@@ -71,6 +71,7 @@
     
     
     self.logicLab.text = [_dataDic objectForKey:@"service_logic_number"];
+    self.nameLab.text = [_dataDic objectForKey:@"service_name"];
     
     if(self.logicLab.text.length == 1)
     {
@@ -89,16 +90,13 @@
         self.logicLab.text = [ self.logicLab.text substringFromIndex: self.logicLab.text.length - 3];
     }else
     {
+        self.nameLab.text = [_dataDic objectForKey:@"file_name"];
         [self.logicLab setAlpha:0];
         self.nameLab.frame = CGRectMake(162, 29, 200, 21);
     }
     
     
     
-    
-    
-    self.nameLab.text = [_dataDic objectForKey:@"service_name"];
- 
     
     //字体设置
     self.logicLab.font = FONT(12);

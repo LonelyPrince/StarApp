@@ -676,13 +676,64 @@
                 }
                 
             }];
-            //==
+           
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+            
+            
+            
             if (historyDic1.count > 15) {
                 channelImage.image = [UIImage imageNamed:@"录制透明"];
                 channelImage.frame =  CGRectMake((106-66)/2, (50 - 30), 66, 30);
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage.clipsToBounds = YES;
+                
             }
             if (historyDic2.count > 15) {
                 channelImage2.image = [UIImage imageNamed:@"录制透明"];
@@ -712,20 +763,7 @@
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage5.clipsToBounds = YES;
             }
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
-            
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
-            
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
-            
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
-            
-            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+           
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -890,20 +928,55 @@
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage5.clipsToBounds = YES;
             }
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+           
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
             
-            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -1045,17 +1118,48 @@
                 channelImage4.clipsToBounds = YES;
             }
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+           
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+           
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+           
+            
             
             //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
             //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
@@ -1183,14 +1287,39 @@
                 channelImage3.clipsToBounds = YES;
             }
           
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+          
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+           
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -1292,11 +1421,28 @@
             }
           
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+           
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -1329,9 +1475,17 @@
             
             NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
             
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+               
+            }
             
             
             
@@ -1586,20 +1740,53 @@
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage5.clipsToBounds = YES;
             }
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
             
-            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -1752,21 +1939,55 @@
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage5.clipsToBounds = YES;
             }
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
             
-            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
             
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+                
+ 
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
             [historyBtnPiece1 addSubview:channelImage];
@@ -1892,17 +2113,43 @@
                 channelImage4.clipsToBounds = YES;
             }
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+          
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
             
         
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -2014,15 +2261,35 @@
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage3.clipsToBounds = YES;
             }
-         
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+           
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -2110,13 +2377,25 @@
             }
  
             
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+           
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                
+            }
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
             [historyBtnPiece1 addSubview:channelImage];
@@ -2145,8 +2424,19 @@
             
             NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            
             
             [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
@@ -2372,20 +2662,58 @@
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage5.clipsToBounds = YES;
             }
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
             
-            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+            
+           
+            
+            
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -2538,20 +2866,53 @@
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage5.clipsToBounds = YES;
             }
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
             
-            NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -2696,17 +3057,48 @@
                 channelImage4.clipsToBounds = YES;
             }
            
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-            NSString * service_name4 = [historyDic4 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+           
+            
+            
             
             //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
             //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
@@ -2844,14 +3236,37 @@
                 channelImage3.clipsToBounds = YES;
             }
            
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+          
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
             
-            NSString * service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-            NSString * service_name3 = [historyDic3 objectForKey:@"service_name"];
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+           
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -2955,11 +3370,30 @@
             
             
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
             
-            NSString * service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-            NSString * service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            
+            
+            
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -2990,8 +3424,21 @@
             
             NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
             
-            NSString * service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-            NSString * service_name1 = [historyDic1 objectForKey:@"service_name"];
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+           
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+            
+            }
+            
             
  
             
