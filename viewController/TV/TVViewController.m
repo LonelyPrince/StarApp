@@ -32,16 +32,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSMutableData * urlData;
     
     //引导页
-    UIPageControl *pageControl; //指示当前处于第几个引导页
     UIScrollView *scrollView; //用于存放并显示引导页
     UIImageView *imageViewOne;
     UIImageView *imageViewTwo;
     UIImageView *imageViewThree;
     UIImageView *imageViewFour;
     
-    //    BOOL firstShow;
     BOOL playState;
-    //    NSTimer * timerState;
     int tableviewinit;
     
     //状态栏显示状态
@@ -58,8 +55,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * eventNameTemp ;
     
     BOOL firstfirst;   //第一次打开时，自动播放第一个节目，这时候需要将socket的touch事件放到viewdidload之后
-    
-    NSInteger  playNumCount;
     
     UITableView * tempTableviewForFocus;  //用于保存全屏页面点击时候的焦点
     NSIndexPath * tempIndexpathForFocus;  //用于保存全屏页面点击时候的焦点
@@ -1008,6 +1003,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
     
     //    [self.navigationController pushViewController:searchViewCon animated:YES];
+    
+//    /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
         [self.navigationController pushViewController:searchViewCon animated:YES];
     }else
@@ -1016,6 +1013,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
     NSLog(@"searchViewCon: %@,",searchViewCon);
+//    /**/
     //
     //    //停止播放
     //    [self.socketView  deliveryPlayExit];
@@ -1028,6 +1026,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     //    [self isSTBDEncrypt:@"3"];
+    
 }
 
 //************************************************
@@ -1717,7 +1716,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (self.showTVView == YES) {
         
         NSLog(@"%@",text.userInfo[@"playdata"]);
-        NSLog(@"－－－－－接收到通知------");
+        NSLog(@"－－－－－接收到LIVe通知------");
         //NSData --->byte[]-------NSData----->NSString
         
         _byteDatas = [[NSMutableData alloc]init];
@@ -1873,7 +1872,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     if (self.showTVView == YES) {
         NSLog(@"%@",text.userInfo[@"playdata"]);
-        NSLog(@"－－－－－接收到通知------");
+        NSLog(@"－－－－－接收到REC通知------");
         _byteDatas = [[NSMutableData alloc]init];
         
         //此处加入判断语句，判断返回的结果RET是否满足几个报错信息
@@ -3211,12 +3210,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //没有找到这个节目，则播放第一个视频
             
             //=======机顶盒加密
-            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:rowIndex serviceListDic:self.dicTemp];
+            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
             if (characterStr != NULL && characterStr != nil) {
                 BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
                 if (judgeIsSTBDecrypt == YES) {
                     // 此处代表需要记性机顶盒加密验证
-                    NSNumber  *numIndex = [NSNumber numberWithInteger:rowIndex];
+                    NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
                     //创建通知
                     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
@@ -3229,7 +3228,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     //======
-                    [self firstOpenAppAutoPlay:rowIndex diction:self.dicTemp];
+                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                     firstOpenAPP = firstOpenAPP+1;
                     
                     firstfirst = NO;
@@ -3237,7 +3236,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else //正常播放的步骤
             {
                 //======机顶盒加密
-                [self firstOpenAppAutoPlay:rowIndex diction:self.dicTemp];
+                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                NSLog(@"ajsbdakjbfsabfasbflkab %@",self.dicTemp);
+               
+                
+                
+                double delayInSeconds = 0.5;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+
+//                    NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//                    NSInteger YLSlideTitleViewButtonTagIndexStr_tempInteger = 0;
+//                    YLSlideTitleViewButtonTagIndexStr_tempInteger = [YLSlideTitleViewButtonTagIndexStr integerValue];
+//
+//
+//                    [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndexStr_tempInteger  indexhah:0 AllNumberOfService:self.dicTemp.count];
+                    NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
+                    [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+                });
+              
+               
             }
   
         }
@@ -3461,13 +3480,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //    //注册通知,用来取消循环播放
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timerStateInvalidate) name:@"timerStateInvalidate" object:nil];
 //}
-//-(void)timerStateInvalidate
-//{
-//    [timerState invalidate];
-//    timerState = nil;
-//    playNumCount = 0;
-//    NSLog(@"右侧列表asdboasbdiasbidbasidbiasbdiasbdiasbdiuas");
-//}
+
 #pragma mark - 如果视频20秒内不播放，则显示这个文字提示
 //如果视频20秒内不播放，则显示这个文字提示
 -(void)playClick  //:(NSTimer *)timer

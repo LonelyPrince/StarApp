@@ -330,6 +330,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
 
+                NSLog(@"[tableViewForSliderView numberOfRowsInSection:0].count %ld",(long)[tableViewForSliderView numberOfRowsInSection:0]);
                 if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
                     [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
                 }else
