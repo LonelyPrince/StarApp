@@ -3617,10 +3617,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.video.channelCount = tempArrForServiceArr.count;
         //*********
        
-        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+//        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+        self.service_videoname = [epgDicToSocket objectForKey:@"file_name"];
         self.service_videoindex= @"";
-        self.event_videoname = [epgDicToSocket objectForKey:@"event_name"];
-        
+//        self.event_videoname = [epgDicToSocket objectForKey:@"event_name"];
+        self.event_videoname = @"";
+
         
         
     }else//直播

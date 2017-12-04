@@ -305,11 +305,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     ////     更新播放进度
     self.videoControl.progressSlider.minimumValue = 0;// 设置最小值
     self.videoControl.progressSlider.maximumValue = 100;// 设置最大值
-    NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
-    self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值
-    //    此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
+//    NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
+    self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值 ===》  此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
   
-    NSLog(@"ajsfbabfaf %f",self.videoControl.progressSlider.value);
+    NSLog(@"self.player.playableDuration1 %f",self.player.playableDuration);
+    NSLog(@"self.player.playableDuration2 %f",self.videoControl.progressSlider.value);
    
 }
 
@@ -2226,12 +2226,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
                 //此时是录制节目
                 self.videoControl.channelIdLab.hidden = YES;
-                self.videoControl.channelNameLab.hidden = YES;
+                self.videoControl.channelNameLab.hidden = NO;
                 self.videoControl.FulleventNameLab.hidden = YES;
-                self.videoControl.FulleventNameLab.frame = CGRectMake( 20, 20, 200, 30);
-                
-                self.videoControl.FullEventYFlabel.frame = CGRectMake( 45, 38, 200, 30);
-            
+//                self.videoControl.FulleventNameLab.frame = CGRectMake( 20, 20, 200, 30);
+//
+//                self.videoControl.FullEventYFlabel.frame = CGRectMake( 45, 38, 200, 30);
+                self.videoControl.channelNameLab.frame = CGRectMake( 45, 38, 300, 30);
                 // 1. 暂停按钮出现 2. Nextbutton和时间右移
                 
                 self.videoControl.suspendButton.hidden = NO;
@@ -4177,7 +4177,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@" nowPlayingDic %@",nowPlayingDic);
     NSLog(@" nowPlayingDic.count %lu",(unsigned long)nowPlayingDic.count);
     
-    if (nowPlayingDic.count < 20) {
+    if (nowPlayingDic.count < 20) { //直播
         
         NSLog(@"kdjfb;asddasdadasasbf==");
         
@@ -4226,13 +4226,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-   
+        //录制
         self.videoControl.progressSlider.hidden = NO;
         self.videoControl.progressSlider.alpha = 1;
         
-        NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
+        NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"file_name"];
 
-            NSString * eventNameLabStr = [nowPlayingDic objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+//            NSString * eventNameLabStr = [nowPlayingDic objectForKey:@"event_name"];
+            NSString * eventNameLabStr = @"";
+        //这里得做修改，因为不能总播放第一个节目
         
 //            self.video.channelId =channelIdLabStr;
             
@@ -4490,7 +4492,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播";
-    //     self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
+//         self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
     [self newReplaceEventNameNotific];
     self.videoControl.channelIdLab.text = self.video.channelId;
     

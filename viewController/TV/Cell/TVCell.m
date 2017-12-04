@@ -212,7 +212,8 @@
         self.event_nextImg.image = [UIImage imageNamed:@"time"];
         
         
-        NSString * serviceName = [dataDic objectForKey:@"service_name"];
+//        NSString * serviceName = [dataDic objectForKey:@"service_name"];
+        NSString * serviceName = [dataDic objectForKey:@"file_name"];
         NSString * recordTime = [dataDic objectForKey:@"record_time"];
         NSString * durationTime = [dataDic objectForKey:@"duration"];
         
