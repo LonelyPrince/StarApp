@@ -152,7 +152,6 @@
 
 -(void)categoryBtnsClick :(UIButton *)sender
 {
-//    [self TVViewAppearNO];
     [self TVViewAppear];
     NSLog(@"点击了%ld",(long)sender.tag);
     
@@ -291,10 +290,10 @@
         
     }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
         
+        [tempTitlesArr insertObject:@"Recordings" atIndex:0];
     }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
         
         tempTitlesArr =titles[0];
-       
         
     }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
         if (titles.count == 2 ) {   //正常情况
@@ -305,9 +304,6 @@
         }else if(titles.count == 1 )  //异常刷新，数组中只有一个元素
         {
             tempTitlesArr =titles[0];
-            for (int i = 0 ; i < tempTitlesArr.count; i++) {
-                
-            }
         }
         
     }

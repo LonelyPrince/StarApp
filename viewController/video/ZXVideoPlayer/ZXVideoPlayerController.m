@@ -3217,31 +3217,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //                timerForGetBytes = nil; //此处把计时器销毁
         //                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
     }
-    //
-    //
-    //
-    //            //通知主线程刷新
-    //            NSLog(@"Device dispatch1");
-    //            dispatch_async(dispatch_get_main_queue(), ^{
-    //                //回调或者说是通知主线程刷新，
-    //
-    //
-    //                NSLog(@"Device dispatch2");
-    //            });
-    //
-    //        });
-    //
-    //    }];
-    ////
-    ////
-    //    [operationQueue addOperation:op1];
-    //    NSLog(@"执行中1111111");
-    //
-    
-    
-    NSLog(@"444channelCount==--==--22222= %d ",self.video.channelCount);
-    NSLog(@"444self.video.dicChannl==--==--22222= %@ ",self.video.dicChannl);
-    
+  
 }
 
 - (ZXVideoPlayerControlView *)videoControl
@@ -3397,6 +3373,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         
         NSLog(@"self.video.channelCount %d",self.video.channelCount);
+        
+        
         return self.video.channelCount;
         
         //        return 8;
@@ -4570,6 +4548,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {
         self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
         self.video.channelCount =  [[USER_DEFAULT objectForKey:@"VideoTouchOtherViewchannelCount"] intValue];
+        NSLog(@"self.video.channelCountself.video.channelCount");
         self.video.dicSubAudio = [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicSubAudio"];
     }
     
