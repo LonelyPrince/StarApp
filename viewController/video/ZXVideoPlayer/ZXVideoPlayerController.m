@@ -2500,6 +2500,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///上一个节目
 - (void)lastChannelButtonClick
 {
+    [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     subtRow = 0;
     NSLog(@"shang 上一个节目");
@@ -2611,6 +2612,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)nextChannelButtonClick
 {
+    [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     subtRow = 0;
     NSLog(@"下一个节目");
@@ -4624,6 +4626,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         channelPositionIndex = 0;
     }
+    [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     
 }
 -(void)setaudioOrSubtRowIsZero
