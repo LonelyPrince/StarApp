@@ -1015,6 +1015,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     searchViewCon.tabBarController.tabBar.hidden = YES;
     NSLog(@"searchViewCon: %@,",searchViewCon);
 //    /**/
+//    NSLog(@" self.categoryModel.service_indexArr.count : %lu", (unsigned long)self.categoryModel.service_indexArr.count);
     //
     //    //停止播放
     //    [self.socketView  deliveryPlayExit];
@@ -2261,6 +2262,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
 {
+    dic = [dic mutableCopy];
     NSLog(@"ajsbd;absd;asbdkasbd");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -2467,6 +2469,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             storeLastChannelArr = myArray[myArray.count - 1];
 //            NSLog(@"storeLastChannelArr %@",storeLastChannelArr);
+            NSLog(@"self.dicTemp ,:aa==ss :%p",dic);
         }
         
         NSLog(@"获取播放的第一个节目信息 成功");
@@ -2772,7 +2775,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 NSInteger row = [touchArr[2] integerValue];
 //                                NSDictionary * dic = touchArr [3];
                                  NSDictionary * dic = storeLastChannelArr [3];
-                                
+                                NSLog(@"self.dicTemp ,:aa==ss22 :%p",dic);
                                 //在这里添加判断 机顶盒是否加密
                                 //=======机顶盒加密
                                 NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
@@ -2922,6 +2925,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 机顶盒发送通知，需要刷新节目了   socket case = 0
 -(void)tableViewDataRefreshForSDTMonitor
 {
+    NSLog(@"SDTSDTSDTSDTSTD！！！");
     NSLog(@" 机顶盒发送通知，需要刷新节目了 ==");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
@@ -2950,21 +2954,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         
-        if (!isValidArray(data1) || data1.count == 0){
-            //            [self getServiceData];
-            [self tableViewDataRefreshForMjRefresh_ONEMinute];
-            return ;
-        }
-       
-      
-        
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         NSLog(@"删除了原先的sliderview22");
+        NSLog(@"刷新一次一次一次jsjsjsjssjjs！！！");
+        NSLog(@"self.categorys！！！ %@",self.categorys);
+        NSLog(@"self.categorys！！！ %@",recFileData);
+        NSLog(@"self.categorys！！！ %@",getLastCategoryArr);
+        NSLog(@"self.categorys！！！ %@",getLastRecFileArr);
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+            
+            NSLog(@"刷新一次一次一次lolololo！！！");
             
             [_slideView removeFromSuperview];
             _slideView = nil;
@@ -2998,6 +3001,28 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSInteger index = [numTemp integerValue];
             if (self.categorys.count > index) {
                 [self returnDicTemp:index]; //根据是否有录制返回不同的item
+            }else if(self.categorys.count == 0 && recFileData.count > 0)
+            {
+                //======机顶盒加密
+                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                NSLog(@"ajsbdakjbfsabfasbflkab %@",self.dicTemp);
+                
+                
+                
+                double delayInSeconds = 0.5;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+                    
+                    //                    NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+                    //                    NSInteger YLSlideTitleViewButtonTagIndexStr_tempInteger = 0;
+                    //                    YLSlideTitleViewButtonTagIndexStr_tempInteger = [YLSlideTitleViewButtonTagIndexStr integerValue];
+                    //
+                    //
+                    //                    [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndexStr_tempInteger  indexhah:0 AllNumberOfService:self.dicTemp.count];
+                    NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
+                    [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+                });
             }else
             {
                 return;
@@ -3168,6 +3193,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     firstOpenAPP = firstOpenAPP+1;
                     
                     firstfirst = NO;
+                    
+                    double delayInSeconds = 0.5;
+                    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                    dispatch_after(popTime, mainQueue, ^{
+                        NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
+                        [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+                    });
                 }
             }else //正常播放的步骤
             {
@@ -5277,6 +5310,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)tableViewDataRefreshForMjRefresh
 {
+    NSLog(@"准备刷新！！！");
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(endMJRefresh) object:nil];
     [self performSelector:@selector(endMJRefresh) withObject:nil afterDelay:EndMJRefreshTime];
     NSLog(@"12 秒后准备停止刷新");
@@ -5395,8 +5429,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSLog(@"删除了原先的sliderview22");
         //判断是不是需要刷新顶部的YLSlider
+        NSLog(@"准备做判断是否需要刷新！！！");
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            
+        
+            NSLog(@"刷新一次一次一次！！！");
             [_slideView removeFromSuperview];
             _slideView = nil;
             
@@ -6628,7 +6664,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                      
                      */
                     
+//                    NSMutableDictionary * dicTempCopy = [self.dicTemp mutableCopy];
                     storeLastChannelArr = [NSMutableArray arrayWithObjects:storeLastChannelArr[0],storeLastChannelArr[1],storeLastChannelArr[2],self.dicTemp,nil];
+                    
                     //修改 @"TVHttpAllData"   search界面的 self.response
                     [self setSearchViewData :[serviceData_DefaultTemp copy] ];
                     
