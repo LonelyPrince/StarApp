@@ -309,6 +309,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值 ===》  此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
   
     NSLog(@"self.player.playableDuration1 %f",self.player.playableDuration);
+    NSLog(@"self.player.playableDuration33 %d",durationTimeTemp);
     NSLog(@"self.player.playableDuration2 %f",self.videoControl.progressSlider.value);
    
 }
@@ -342,7 +343,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self.durationTimer invalidate];
         self.durationTimer = nil;
         
-        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
         
         [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
@@ -4292,6 +4293,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     } else
     {
         bb1 = (int)self.player.playableDuration;
+        NSLog(@"self.player.playableDuration1bb1 %d",bb1);
     }
     if (bb1 <0) {
         bb1 = 0;
@@ -4487,7 +4489,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [timerOfEventTime invalidate];
         timerOfEventTime = nil;
         
-        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
     }else
     {
         [timerOfEventTime invalidate];
