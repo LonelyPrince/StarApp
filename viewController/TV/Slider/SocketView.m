@@ -689,9 +689,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 {
     // 对得到的data值进行解析与转换即可
     
-    NSLog(@"读--");
-    NSLog(@"%ld",tag);
-    NSLog(@"data:%@",data);
+//    NSLog(@"读--");
+//    NSLog(@"%ld",tag);
+//    NSLog(@"data:%@",data);
     
     [self.socket readDataWithTimeout:30 tag:1];
 }

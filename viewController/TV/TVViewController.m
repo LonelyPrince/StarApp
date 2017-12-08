@@ -193,7 +193,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self initData];    //table表
     self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
-    self.socketView  = [[SocketView  alloc]init];
+    self.socketView = [[SocketView  alloc]init];
     //    [self.socketView viewDidLoad];
     //    firstShow =NO;
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstStartTransform"];
@@ -444,7 +444,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
-    
+      
         if ( data1.count == 0 && recFileData.count == 0){
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
 
@@ -470,19 +470,42 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }else
             {
-                double delayInSeconds = 1;
-                dispatch_queue_t mainQueue = dispatch_get_main_queue();
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-                dispatch_after(popTime, mainQueue, ^{
-                    NSLog(@"延时执行的2秒");
-                    //机顶盒连接出错了，所以要显示没有网络的加载图
-                    [self getServiceData]; //如果数据为空，则重新获取数据
-                });
                 
-                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-                NSLog(@"可能会出现播放器空白的情况");
-                return ;
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                }
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                }
+                [self NOChannelDataShow];
+                NSLog(@"NOChannelDataShow--!!1111111");
+                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             }
+//            {
+//                double delayInSeconds = 1;
+//                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//                dispatch_after(popTime, mainQueue, ^{
+//                    NSLog(@"延时执行的2秒");
+//                    //机顶盒连接出错了，所以要显示没有网络的加载图
+//                    [self getServiceData]; //如果数据为空，则重新获取数据
+//                });
+//
+//                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+//                NSLog(@"可能会出现播放器空白的情况");
+////                return ;
+//            }
            
         }
         self.serviceData = (NSMutableArray *)data1; //data1 代表service
@@ -516,12 +539,35 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             }else
             {
-                //机顶盒连接出错了，所以要显示没有网络的加载图
-                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-
-                [self getServiceData]; //如果数据为空，则重新获取数据
-                //                return ;
+                
+                //机顶盒连接成功了，但是没有数据
+                //显示列表为空的数据
+                if (_slideView) {
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    
+                }
+                
+                if (!self.NoDataImageview) {
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                }
+                if (!self.NoDataLabel) {
+                    self.NoDataLabel = [[UILabel alloc]init];
+                }
+                [self NOChannelDataShow];
+                NSLog(@"NOChannelDataShow--!!1111111");
+                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             }
+//            {
+//                //机顶盒连接出错了，所以要显示没有网络的加载图
+//                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+//
+//                [self getServiceData]; //如果数据为空，则重新获取数据
+//                //                return ;
+//            }
         }
         
         [self.activeView removeFromSuperview];
@@ -531,7 +577,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
         [self playVideo];
         
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        [self.socketView viewDidLoad];
+        });
         //////
         //获取数据的链接
         NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
@@ -627,7 +675,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
                 
             }
-            [self.socketView viewDidLoad];
+//            [self.socketView viewDidLoad];
             if (firstfirst == YES) {
         
                 //=======机顶盒加密
@@ -4007,15 +4055,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"self.socket:%@",self.socketView);
     
-    if (self.showTVView == YES) {
-        self.videoController.socketView1 = self.socketView;
-        [self.socketView  serviceTouch ];
-    }else
-    {
-        NSLog(@"已经不是TV页面了");
-        [self ifNotISTVView];
-    }
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (self.showTVView == YES) {
+            self.videoController.socketView1 = self.socketView;
+            [self.socketView  serviceTouch ];
+        }else
+        {
+            NSLog(@"已经不是TV页面了");
+            [self ifNotISTVView];
+        }
+        
+    });
     
 }
 /////////////本页面的显示播放，打开APP的时候自动播放第一个视频
@@ -4188,14 +4239,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //注册通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
          
-            if (self.showTVView == YES) {
-                self.videoController.socketView1 = self.socketView;
-                [self.socketView  serviceTouch ];
-            }else
-            {
-                NSLog(@"已经不是TV页面了");
-                [self ifNotISTVView];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (self.showTVView == YES) {
+                    self.videoController.socketView1 = self.socketView;
+                    [self.socketView  serviceTouch ];
+                }else
+                {
+                    NSLog(@"已经不是TV页面了");
+                    [self ifNotISTVView];
+                }
+                
+            });
         }
         
     }
@@ -5912,8 +5967,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         if ( data1.count == 0 && recFileData.count == 0){
-//            [self getServiceDataForIPChange];
-//            return ;
+ 
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 //机顶盒连接成功了，但是没有数据
