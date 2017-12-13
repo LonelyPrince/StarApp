@@ -12,6 +12,7 @@
 #import "ZXVideoPlayerVolumeView.h"
 #import "ZXVideoPlayerBatteryView.h"
 #import "YFRollingLabel.h"
+#import "MySlider.h"
 
 #define kZXPlayerControlViewHideNotification @"ZXPlayerControlViewHideNotification"
 
@@ -33,7 +34,7 @@
 @property (nonatomic, strong, readonly) UIButton *fullScreenButton;
 //@property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;
 @property (nonatomic, strong, readonly) UIButton *shrinkScreenButton1;
-@property (nonatomic, strong, readonly) UISlider *progressSlider;
+@property (nonatomic, strong, readonly) MySlider *progressSlider;
 @property (nonatomic, strong, readonly) UILabel *timeLabel;
 
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *indicatorView;

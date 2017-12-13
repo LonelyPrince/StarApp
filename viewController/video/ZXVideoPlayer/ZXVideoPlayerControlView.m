@@ -41,7 +41,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @property (nonatomic, strong) UIButton *fullScreenButton;
 //@property (nonatomic, strong) UIButton *shrinkScreenButton;
 @property (nonatomic, strong) UIButton *shrinkScreenButton1; //new
-@property (nonatomic, strong) UISlider *progressSlider;
+@property (nonatomic, strong) MySlider *progressSlider;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *eventnameLabel;
 
@@ -127,13 +127,21 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 #pragma mark - 此处注意：如果是录制则添加slider，否则不添加
         //===
         [self.bottomBar addSubview:self.progressSlider];
+//        self.progressSlider.thumbTintColor =[UIColor whiteColor];
         
         CGSize s=CGSizeMake(1, 1);
         UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
         UIRectFill(CGRectMake(0, 0, 0, 0));
-        UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+        UIImage *img= [UIImage imageNamed:@"进度条按钮@2x"];//UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
+//取消滑块代码
+//        CGSize s=CGSizeMake(1, 1);
+//        UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
+//        UIRectFill(CGRectMake(0, 0, 0, 0));
+//        UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+//        [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
         
         //        [self.bottomBar addSubview:self.timeLabel];
         [self addSubview:self.indicatorView];
@@ -150,7 +158,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         // 缓冲进度条
         //        [self.bottomBar insertSubview:self.bufferProgressView belowSubview:self.progressSlider];
         // 快进、快退指示器
-        //        [self addSubview:self.timeIndicatorView];
+        [self addSubview:self.timeIndicatorView];
         // 亮度指示器
         [self addSubview:self.brightnessIndicatorView];
         // 音量指示器
@@ -341,7 +349,7 @@ NSLog(@"lalalalalalalalalalalal555");
     // 缓冲进度条a    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
 //    self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
     // 快进、快退指示器
-    //  self.timeIndicatorView.center = self.indicatorView.center;
+      self.timeIndicatorView.center = self.indicatorView.center;
     // 亮度指示器
     self.brightnessIndicatorView.center = self.indicatorView.center;
     // 音量指示器
@@ -1137,10 +1145,10 @@ NSLog(@"lalalalalalalalalalalal555");
 
 
 ///进度条
-- (UISlider *)progressSlider
+- (MySlider *)progressSlider
 {
     if (!_progressSlider) {
-        _progressSlider = [[UISlider alloc] init];
+        _progressSlider = [[MySlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
         [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
         [_progressSlider setMaximumTrackTintColor:[[UIColor grayColor] colorWithAlphaComponent:0.4]];

@@ -647,10 +647,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             CGFloat y = fabs(veloctyPoint.y);
             
             if (x > y) { // 水平移动
-                self.panDirection = ZXPanDirectionHorizontal;
-                self.sumTime = self.currentPlaybackTime; // sumTime初值
-//                [self.player pause];
-//                [self stopDurationTimer];
+                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                    //录制
+                    self.panDirection = ZXPanDirectionHorizontal;
+                    self.sumTime = self.player.playableDuration; //currentPlaybackTime; // sumTime初值
+                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
+                    [self.player pause];
+                    [self stopDurationTimer];
+                }else
+                {
+                }
+                
             } else if (x < y) { // 垂直移动
                 self.panDirection = ZXPanDirectionVertical;
                 if (locationPoint.x > self.view.bounds.size.width / 2) { // 音量调节
@@ -664,7 +671,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateChanged: { // 正在移动
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-//                    [self horizontalMoved:veloctyPoint.x];
+                    
+                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                        //录制
+                        [self horizontalMoved:veloctyPoint.x];
+                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
+                    }else
+                    {
+                        //                    [self horizontalMoved:veloctyPoint.x];
+                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
+                    }
+
                 }
                     break;
                 case ZXPanDirectionVertical: {
@@ -680,10 +697,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateEnded: { // 移动停止
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-                    //                    [self setCurrentPlaybackTime:floor(self.sumTime)];
-                    [self.player play];
-                    [self startDurationTimer];
-                    [self.videoControl autoFadeOutControlBar];
+                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                        //录制
+                        [self.player seek:floor(self.sumTime)];
+                        [self.player play];
+                        [self startDurationTimer];
+                        [self.videoControl autoFadeOutControlBar];
+                    }else
+                    {
+                        //                    [self.player seek:floor(self.sumTime)];
+                        [self.player play];
+                        [self startDurationTimer];
+                        [self.videoControl autoFadeOutControlBar];
+                    }
+
                 }
                     break;
                 case ZXPanDirectionVertical: {
@@ -707,22 +734,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     // 每次滑动叠加时间
     self.sumTime += value / 200;
-    
+     NSLog(@"self.sumTime01: %f",self.sumTime);
     // 容错处理
-    if (self.sumTime > self.duration) {
-        self.sumTime = self.duration;
+    if (self.sumTime > durationTimeTemp) {
+        self.sumTime = durationTimeTemp;
     } else if (self.sumTime < 0) {
         self.sumTime = 0;
     }
-    
+    NSLog(@"self.sumTime02: %f",self.sumTime);
+    NSLog(@"self.sumTime03: %f",self.player.playableDuration); //self.player.duration);
+    NSLog(@"self.sumTime03！！: %f",self.player.duration); //self.player.duration);
     // 时间更新
     double currentTime = self.sumTime;
-    double totalTime = self.duration;
+    double totalTime =  durationTimeTemp;//self.player.playableDuration;
     [self setTimeLabelValues:currentTime totalTime:totalTime];
     // 提示视图
     self.videoControl.timeIndicatorView.labelText = self.videoControl.timeLabel.text;
     // 播放进度更新
-    self.videoControl.progressSlider.value = self.sumTime;
+    self.videoControl.progressSlider.value =  self.sumTime/durationTimeTemp * 100;//self.sumTime;
     
     // 快进or后退 状态调整
     ZXTimeIndicatorPlayState playState = ZXTimeIndicatorPlayStateRewind;
@@ -3102,26 +3131,28 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 
 /// slider 按下事件
-- (void)progressSliderTouchBegan:(UISlider *)slider
+- (void)progressSliderTouchBegan:(MySlider *)slider
 {
+    NSLog(@"进度条按下了");
     [self.player pause];
     [self stopDurationTimer];
     [self.videoControl cancelAutoFadeOutControlBar];
 }
 
 /// slider 松开事件
-- (void)progressSliderTouchEnded:(UISlider *)slider
+- (void)progressSliderTouchEnded:(MySlider *)slider
 {
+    NSLog(@"进度条松开了");
     //    [self setCurrentPlaybackTime:floor(slider.value)];
     [self.player play];
-    
     [self startDurationTimer];
     [self.videoControl autoFadeOutControlBar];
 }
 
 /// slider value changed
-- (void)progressSliderValueChanged:(UISlider *)slider
+- (void)progressSliderValueChanged:(MySlider *)slider
 {
+    NSLog(@"进度条改变了");
     double currentTime = floor(slider.value);
     double totalTime = floor(self.duration);
     [self setTimeLabelValues:currentTime totalTime:totalTime];
@@ -4293,7 +4324,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     } else
     {
         bb1 = (int)self.player.playableDuration;
-        NSLog(@"self.player.playableDuration1bb1 %d",bb1);
+//        NSLog(@"self.player.playableDuration1bb1 %d",bb1);
     }
     if (bb1 <0) {
         bb1 = 0;

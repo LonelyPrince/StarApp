@@ -416,21 +416,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //获取table
 -(void) getServiceData
 {
+   
     isHasChannleDataList = YES;
     
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
     LBGetHttpRequest *request = CreateGetHTTP(url);
-    
-    
-    
+  
     [request startAsynchronous];
     
     WEAKGET
     [request setCompletionBlock:^{
-        
-        
+ 
         
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
@@ -1671,8 +1669,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.videoController.player shutdown];
     [self.videoController.player.view removeFromSuperview];
     
+    if ([tableView numberOfSections] > 0) {
+             [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
     
-    [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+   
     
     
 }
@@ -1972,6 +1973,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
            
+            NSLog(@"self.video.playUrl %@",self.video.playUrl);
             self.video.startTime = self.event_startTime;
             self.video.endTime = self.event_endTime;
             NSLog(@"self.video.startTime %@",self.video.startTime);
@@ -2991,12 +2993,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //将数据本地化
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
-        
-        //        NSLog(@"response = %@",response);
+    
         NSArray *data1 = response[@"service"];
-        
-        
-        //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];

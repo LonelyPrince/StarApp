@@ -501,6 +501,8 @@
 		70A19CDE1F00A71600DCB18E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CDD1F00A71600DCB18E /* OpenGLES.framework */; };
 		70A19CE01F00A71C00DCB18E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */; };
 		70A19CE21F00A72800DCB18E /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CE11F00A72800DCB18E /* VideoToolbox.framework */; };
+		70C9E40E1FDFC4BC007D2994 /* 进度条按钮@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */; };
+		70C9E4141FDFCD10007D2994 /* MySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9E4131FDFCD10007D2994 /* MySlider.m */; };
 		70CCF3601F45312500F77CD5 /* 引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35C1F45312500F77CD5 /* 引导页2.png */; };
 		70CCF3611F45312500F77CD5 /* 引导页3.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35D1F45312500F77CD5 /* 引导页3.png */; };
 		70CCF3621F45312500F77CD5 /* 引导页4.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35E1F45312500F77CD5 /* 引导页4.png */; };
@@ -1290,6 +1292,9 @@
 		70A19CDD1F00A71600DCB18E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		70A19CE11F00A72800DCB18E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "进度条按钮@2x.png"; sourceTree = "<group>"; };
+		70C9E4121FDFCD10007D2994 /* MySlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySlider.h; sourceTree = "<group>"; };
+		70C9E4131FDFCD10007D2994 /* MySlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySlider.m; sourceTree = "<group>"; };
 		70CCF35C1F45312500F77CD5 /* 引导页2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页2.png"; sourceTree = "<group>"; };
 		70CCF35D1F45312500F77CD5 /* 引导页3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页3.png"; sourceTree = "<group>"; };
 		70CCF35E1F45312500F77CD5 /* 引导页4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页4.png"; sourceTree = "<group>"; };
@@ -2163,6 +2168,8 @@
 				7027B3E81F309C93001CDFAE /* UIViewController+animationView.m */,
 				70FB8AF61F380BD900AA3FCE /* UITextField+NOPasteTextField.h */,
 				70FB8AF71F380BD900AA3FCE /* UITextField+NOPasteTextField.m */,
+				70C9E4121FDFCD10007D2994 /* MySlider.h */,
+				70C9E4131FDFCD10007D2994 /* MySlider.m */,
 			);
 			name = CategoryClass;
 			sourceTree = "<group>";
@@ -2468,6 +2475,7 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */,
 				7093368A1F5907C000328799 /* 无频道列表@2x.png */,
 				7093368B1F5907C000328799 /* 无频道列表@3x.png */,
 				70362CF71F009CCD0012A309 /* placeholder1@1x.png */,
@@ -3438,6 +3446,7 @@
 				7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */,
 				70231CEB1DC1A00100F73202 /* save@3x.png in Resources */,
 				702CE4551DDA9881000A0513 /* nor.png in Resources */,
+				70C9E40E1FDFC4BC007D2994 /* 进度条按钮@2x.png in Resources */,
 				70231CDF1DC19FEA00F73202 /* 组-55@3x.png in Resources */,
 				70FFE3FE1DE3EF4800223E43 /* 录制@3x.png in Resources */,
 				70FFE3C01DE2D03700223E43 /* 监控渐变背景.png in Resources */,
@@ -3642,6 +3651,7 @@
 				701295171D80F4CF003139D5 /* BUIControl.m in Sources */,
 				A491FFD015B67AFA002BCAA6 /* RendererTableViewController.m in Sources */,
 				7022F8671DC0860A0079C0BD /* SettingCell.m in Sources */,
+				70C9E4141FDFCD10007D2994 /* MySlider.m in Sources */,
 				7024C5EC1DD3F8D60053F313 /* RouteManageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
