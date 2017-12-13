@@ -676,10 +676,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         //录制
                         [self horizontalMoved:veloctyPoint.x];
                         NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
+                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
                     }else
                     {
-                        //                    [self horizontalMoved:veloctyPoint.x];
-                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
                     }
 
                 }
@@ -699,6 +698,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 case ZXPanDirectionHorizontal: {
                     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
                         //录制
+//                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
                         [self.player seek:floor(self.sumTime)];
                         [self.player play];
                         [self startDurationTimer];
@@ -3143,7 +3143,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)progressSliderTouchEnded:(MySlider *)slider
 {
     NSLog(@"进度条松开了");
-    //    [self setCurrentPlaybackTime:floor(slider.value)];
+    
+    [self.player seek:floor(slider.value)];
     [self.player play];
     [self startDurationTimer];
     [self.videoControl autoFadeOutControlBar];
@@ -3153,9 +3154,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)progressSliderValueChanged:(MySlider *)slider
 {
     NSLog(@"进度条改变了");
+    NSLog(@"slider.value %f",slider.value);
     double currentTime = floor(slider.value);
     double totalTime = floor(self.duration);
     [self setTimeLabelValues:currentTime totalTime:totalTime];
+    
 }
 
 #pragma mark -
@@ -3251,7 +3254,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //                timerForGetBytes = nil; //此处把计时器销毁
         //                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
     }
-  
 }
 
 - (ZXVideoPlayerControlView *)videoControl
