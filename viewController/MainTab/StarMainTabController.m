@@ -94,18 +94,22 @@
     TVViewController * tvVC = [[TVViewController alloc]init];
     XYZNavigationController * tvViewNav = [[XYZNavigationController alloc]initWithRootViewController:tvVC];
     
-    tvVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Live" image:[UIImage imageNamed:@"live icon copy"] selectedImage:[UIImage imageNamed:@"live icon"]];
+    NSString * LiveLabel = NSLocalizedString(@"LiveLabel", nil);
+    tvVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:LiveLabel image:[UIImage imageNamed:@"live icon copy"] selectedImage:[UIImage imageNamed:@"live icon"]];
     
     
     
     
     MEViewController * meVC = [[MEViewController alloc]init];
     XYZNavigationController * meViewNav = [[XYZNavigationController alloc]initWithRootViewController:meVC];
-    meVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Me" image:[UIImage imageNamed:@"me icon copy"] selectedImage:[UIImage imageNamed:@"me icon"]];
+    
+    NSString * MutilMELabel = NSLocalizedString(@"MutilMELabel", nil);
+    meVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:MutilMELabel image:[UIImage imageNamed:@"me icon copy"] selectedImage:[UIImage imageNamed:@"me icon"]];
     
     MonitorViewController * monVC = [[MonitorViewController alloc]init];
     XYZNavigationController * monViewNav = [[XYZNavigationController alloc]initWithRootViewController:monVC];
-    monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Monitor" image:[UIImage imageNamed:@"monitor"] selectedImage:[UIImage imageNamed:@"monitor-jd"]];
+    NSString * MLMonitor = NSLocalizedString(@"MLMonitor", nil);
+    monVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:MLMonitor image:[UIImage imageNamed:@"monitor"] selectedImage:[UIImage imageNamed:@"monitor-jd"]];
     
     
     //     tvVC.backgroundColor=[UIColor whiteColor];

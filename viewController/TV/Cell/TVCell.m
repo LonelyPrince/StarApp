@@ -47,6 +47,7 @@
 //设置接口数据
 -(void) setDataDic:(NSDictionary *)dataDic
 {
+    NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
     _dataDic = dataDic;
     
     if (dataDic.count <= 14) { //直播
@@ -92,7 +93,8 @@
             //    NSLog(@"firstDicStartTime_nowTimeStr %@",_nowTimeStr);
             if([firstDicStartTime intValue] >[_nowTimeStr intValue])
             {
-                self.event_nameLab.text =@"No Event";  //设置第一个epg 信息为空
+                
+                self.event_nameLab.text =NOEventLabel;  //设置第一个epg 信息为空
                 
                 if (epgArr.count >1) {
                     nextEpgDic = epgArr[0];
@@ -112,7 +114,7 @@
                         self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
                     }else
                     {
-                        self.event_nextNameLab.text =@"No Event";
+                        self.event_nextNameLab.text =NOEventLabel;
                     }
                     
                 }
@@ -126,7 +128,8 @@
                         self.event_nextTime.text = @"--:--";
                     }
                     
-                    self.event_nextNameLab.text = @"No Event";
+                   
+                    self.event_nextNameLab.text = NOEventLabel;
                 }
                 
                 
@@ -159,7 +162,8 @@
                         self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
                     }else
                     {
-                        self.event_nextNameLab.text =@"No Event";
+                        
+                        self.event_nextNameLab.text =NOEventLabel;
                     }
                     
                 }
@@ -173,7 +177,7 @@
                         self.event_nextTime.text = @"--:--";
                     }
                     
-                    self.event_nextNameLab.text = @"No Event";
+                    self.event_nextNameLab.text = NOEventLabel;
                 }
                 
                 //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
@@ -181,10 +185,14 @@
                     self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
                 }else
                 {
-                    self.event_nameLab.text =@"No Event";
+                    self.event_nameLab.text =NOEventLabel;
                 }
             }
             
+        }else
+        {
+            self.event_nameLab.text = NOEventLabel;
+            self.event_nextNameLab.text = NOEventLabel;
         }
     }else //录播
     {
@@ -226,7 +234,7 @@
             self.event_nameLab.text =serviceName;
         }else
         {
-            self.event_nameLab.text =@"No Event";
+            self.event_nameLab.text =NOEventLabel;
         }
 
         //总时间
@@ -252,7 +260,7 @@
             self.event_nextNameLab.text = [GGUtil  timeYMDHMWithTimeIntervalString:recordTime];
         }else
         {
-            self.event_nextNameLab.text =@"No Event";
+            self.event_nextNameLab.text =NOEventLabel;
         }
 
         
@@ -295,7 +303,7 @@
                         self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
                     }else
                     {
-                        self.event_nextNameLab.text =@"No Event";
+                        self.event_nextNameLab.text =NOEventLabel;
                     }
                     
                 }
@@ -309,7 +317,7 @@
                         self.event_nextTime.text = @"--:--";
                     }
                     
-                    self.event_nextNameLab.text = @"No Event";
+                    self.event_nextNameLab.text = NOEventLabel;
                 }
                 
                 
@@ -342,7 +350,7 @@
                         self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
                     }else
                     {
-                        self.event_nextNameLab.text =@"No Event";
+                        self.event_nextNameLab.text =NOEventLabel;
                     }
                     
                 }
@@ -356,7 +364,7 @@
                         self.event_nextTime.text = @"--:--";
                     }
                     
-                    self.event_nextNameLab.text = @"No Event";
+                    self.event_nextNameLab.text = NOEventLabel;
                 }
                 
                 //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
@@ -364,7 +372,7 @@
                     self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
                 }else
                 {
-                    self.event_nameLab.text =@"No Event";
+                    self.event_nameLab.text =NOEventLabel;
                 }
             }
             

@@ -83,7 +83,8 @@
     NSDictionary *dic = @{NSFontAttributeName:font,
                           NSForegroundColorAttributeName: [UIColor blackColor]};
     self.navigationController.navigationBar.titleTextAttributes =dic;
-    self.navigationItem.title = @"Me";
+    NSString * MutilMELabel = NSLocalizedString(@"MutilMELabel", nil);
+    self.navigationItem.title = MutilMELabel;
     
     //    UINavigationController * MENavController = [[UINavigationController alloc]initWithRootViewController:self];
     //    MENavController.navigationBarHidden = YES;
@@ -259,7 +260,8 @@
     //    [self.view addSubview:historyBtn];
     
     UILabel * historyLab = [[UILabel alloc]initWithFrame:CGRectMake(17, HISTORY_TITLE_Y, 70, 18)];
-    historyLab.text = @"History";
+    NSString * HistoryLabel = NSLocalizedString(@"HistoryLabel", nil);
+    historyLab.text = HistoryLabel;
     historyLab.adjustsFontSizeToFitWidth = YES;
     historyLab.font = FONT(17);
     
@@ -289,7 +291,9 @@
     
     
     UILabel * settingLab = [[UILabel alloc]initWithFrame:CGRectMake(17,  HISTORY_TITLE_Y +30 +20 + _allHistoryBtnHeight+35, 70, 20)];
-    settingLab.text = @"Setting";
+    
+    NSString * SettingLabel = NSLocalizedString(@"SettingLabel", nil);
+    settingLab.text = SettingLabel;
     settingLab.adjustsFontSizeToFitWidth = YES;
     settingLab.font = FONT(17);
     
@@ -379,20 +383,27 @@
         if(indexPath.row == 0)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 10 Copy 2"];
-        cell.blackLab.text = @"Router Setting";
-        cell.grayLab.text = @"Router parameters setting";
+        NSString * RouterSettingLabel = NSLocalizedString(@"RouterSettingLabel", nil);
+        cell.blackLab.text = RouterSettingLabel;
+        
+        NSString * RouterParametersSettingLabel = NSLocalizedString(@"RouterParametersSettingLabel", nil);
+        cell.grayLab.text = RouterParametersSettingLabel;
         
     } else  if(indexPath.row == 1)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 12 Copy 2"];
-        cell.blackLab.text = @"Contact Us";
+        NSString * ContactUsLabel = NSLocalizedString(@"ContactUsLabel", nil);
+        cell.blackLab.text = ContactUsLabel;
         cell.grayLab.text = @"Call center in various countries";
         
     }else  if(indexPath.row == 2)
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 15 Copy 2"];
-        cell.blackLab.text = @"About";
-        cell.grayLab.text = @"Information about app";
+        NSString * AboutLabel = NSLocalizedString(@"AboutLabel", nil);
+        cell.blackLab.text = AboutLabel;
+        
+        NSString * InformationLabel = NSLocalizedString(@"InformationLabel", nil);
+        cell.grayLab.text = InformationLabel;
         
     }
     
@@ -3784,7 +3795,9 @@
     //    [scroll addSubview:historyBtnPiece6];
     
         historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(0, 45,historyBtnPiece6.bounds.size.width, 20)];
-        historyNameLab6.text = @"more";
+    
+        NSString * MoreLabel = NSLocalizedString(@"MoreLabel", nil);
+        historyNameLab6.text = MoreLabel;
         historyNameLab6.textColor = [UIColor whiteColor];
         historyNameLab6.font = FONT(16);
         historyNameLab6.textAlignment = NSTextAlignmentCenter;

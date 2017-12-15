@@ -65,7 +65,8 @@
 }
 -(void)loadNav
 {
-    self.title = @"Devices List";
+    NSString * DevicesListLabel = NSLocalizedString(@"DevicesListLabel", nil);
+    self.title = DevicesListLabel;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     self.deviceListCell = [[DeviceListCell alloc]init];
@@ -349,9 +350,10 @@
             UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
             hudImage.image = [UIImage imageNamed:@"网络无连接"];
             
-            CGSize size = [GGUtil sizeWithText:@"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+            CGSize size = [GGUtil sizeWithText:MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-            hudLab.text = @"Network Error";
+            hudLab.text = MLNetworkError;
             hudLab.font = FONT(15);
             hudLab.textColor = [UIColor grayColor];
             
@@ -479,7 +481,8 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"Network Error";
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    self.NetWorkErrorLab.text = MLNetworkError;
     self.NetWorkErrorLab.font = FONT(15);
     
     

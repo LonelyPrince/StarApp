@@ -377,8 +377,6 @@
 		704524DA1FA6BA1400E6DB3B /* 设备@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112B1FA6BA0400E6DB3B /* 设备@2x.png */; };
 		704524DB1FA6BA1400E6DB3B /* 设备@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112C1FA6BA0400E6DB3B /* 设备@1x.png */; };
 		704524DC1FA6BA1400E6DB3B /* 设备@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112D1FA6BA0400E6DB3B /* 设备@3x.png */; };
-		704534331FA6EBEE00E6DB3B /* RouterStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 704534311FA6EBEE00E6DB3B /* RouterStatusView.m */; };
-		704534341FA6EBEE00E6DB3B /* RouterStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */; };
 		704534631FA80DDC00E6DB3B /* BackupRestoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 704534621FA80DDC00E6DB3B /* BackupRestoreView.m */; };
 		704534681FA82B2C00E6DB3B /* 备份还原@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704534651FA82B2C00E6DB3B /* 备份还原@3x.png */; };
 		704534691FA82B2C00E6DB3B /* 备份还原@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704534661FA82B2C00E6DB3B /* 备份还原@2x.png */; };
@@ -411,6 +409,8 @@
 		7048580A1E46D0E60052318D /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858071E46D0E60052318D /* placeholder@2x.png */; };
 		7048580B1E46D0E60052318D /* placeholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 704858081E46D0E60052318D /* placeholder@3x.png */; };
 		704858181E46DA370052318D /* UIButton+EnlargeTouchArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */; };
+		70495DED1FE360A800C435F8 /* RouterStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70495DEA1FE360A700C435F8 /* RouterStatusView.m */; };
+		70495DEE1FE360A800C435F8 /* RouterStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70495DEB1FE360A700C435F8 /* RouterStatusView.xib */; };
 		704F215F1E5D1D570062EE86 /* YFRollingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 704F215E1E5D1D570062EE86 /* YFRollingLabel.m */; };
 		705650641DB9B95F002DD47E /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650621DB9B95F002DD47E /* AudioCell.m */; };
 		705650651DB9B95F002DD47E /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650631DB9B95F002DD47E /* AudioCell.xib */; };
@@ -501,6 +501,7 @@
 		70A19CDE1F00A71600DCB18E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CDD1F00A71600DCB18E /* OpenGLES.framework */; };
 		70A19CE01F00A71C00DCB18E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */; };
 		70A19CE21F00A72800DCB18E /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CE11F00A72800DCB18E /* VideoToolbox.framework */; };
+		70C217D81FE1167800780D7D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70C217DA1FE1167800780D7D /* Localizable.strings */; };
 		70C9E40E1FDFC4BC007D2994 /* 进度条按钮@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */; };
 		70C9E4141FDFCD10007D2994 /* MySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9E4131FDFCD10007D2994 /* MySlider.m */; };
 		70CCF3601F45312500F77CD5 /* 引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CCF35C1F45312500F77CD5 /* 引导页2.png */; };
@@ -1154,9 +1155,6 @@
 		7045112B1FA6BA0400E6DB3B /* 设备@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备@2x.png"; sourceTree = "<group>"; };
 		7045112C1FA6BA0400E6DB3B /* 设备@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备@1x.png"; sourceTree = "<group>"; };
 		7045112D1FA6BA0400E6DB3B /* 设备@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "设备@3x.png"; sourceTree = "<group>"; };
-		704534301FA6EBEE00E6DB3B /* RouterStatusView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouterStatusView.h; sourceTree = "<group>"; };
-		704534311FA6EBEE00E6DB3B /* RouterStatusView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RouterStatusView.m; sourceTree = "<group>"; };
-		704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouterStatusView.xib; sourceTree = "<group>"; };
 		704534611FA80DDC00E6DB3B /* BackupRestoreView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BackupRestoreView.h; sourceTree = "<group>"; };
 		704534621FA80DDC00E6DB3B /* BackupRestoreView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BackupRestoreView.m; sourceTree = "<group>"; };
 		704534651FA82B2C00E6DB3B /* 备份还原@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "备份还原@3x.png"; sourceTree = "<group>"; };
@@ -1193,6 +1191,9 @@
 		704858081E46D0E60052318D /* placeholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@3x.png"; sourceTree = "<group>"; };
 		704858161E46DA370052318D /* UIButton+EnlargeTouchArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+EnlargeTouchArea.h"; sourceTree = "<group>"; };
 		704858171E46DA370052318D /* UIButton+EnlargeTouchArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+EnlargeTouchArea.m"; sourceTree = "<group>"; };
+		70495DEA1FE360A700C435F8 /* RouterStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouterStatusView.m; sourceTree = "<group>"; };
+		70495DEB1FE360A700C435F8 /* RouterStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouterStatusView.xib; sourceTree = "<group>"; };
+		70495DEC1FE360A700C435F8 /* RouterStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouterStatusView.h; sourceTree = "<group>"; };
 		704F215D1E5D1D570062EE86 /* YFRollingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFRollingLabel.h; sourceTree = "<group>"; };
 		704F215E1E5D1D570062EE86 /* YFRollingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFRollingLabel.m; sourceTree = "<group>"; };
 		705650611DB9B95F002DD47E /* AudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCell.h; sourceTree = "<group>"; };
@@ -1292,6 +1293,13 @@
 		70A19CDD1F00A71600DCB18E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		70A19CDF1F00A71C00DCB18E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		70A19CE11F00A72800DCB18E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		70C217D11FE1154600780D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController.xib; sourceTree = "<group>"; };
+		70C217D21FE1154600780D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailViewController.xib; sourceTree = "<group>"; };
+		70C217D31FE1155200780D7D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MasterViewController.strings; sourceTree = "<group>"; };
+		70C217D41FE1155200780D7D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DetailViewController.strings; sourceTree = "<group>"; };
+		70C217D51FE1155300780D7D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		70C217D91FE1167800780D7D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		70C217DB1FE1167A00780D7D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "进度条按钮@2x.png"; sourceTree = "<group>"; };
 		70C9E4121FDFCD10007D2994 /* MySlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySlider.h; sourceTree = "<group>"; };
 		70C9E4131FDFCD10007D2994 /* MySlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySlider.m; sourceTree = "<group>"; };
@@ -1480,8 +1488,6 @@
 		A4A66A141555E44100AED3AF /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MasterViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A4A66A161555E44100AED3AF /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		A4A66A171555E44100AED3AF /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		A4A66A1A1555E44100AED3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
-		A4A66A1D1555E44100AED3AF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 		FDEBE1EC33F8D2BB1F550C37 /* Pods-StarAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StarAPP.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StarAPP/Pods-StarAPP.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1990,6 +1996,9 @@
 		70231CA21DC0FD4E00F73202 /* Route */ = {
 			isa = PBXGroup;
 			children = (
+				70495DEC1FE360A700C435F8 /* RouterStatusView.h */,
+				70495DEA1FE360A700C435F8 /* RouterStatusView.m */,
+				70495DEB1FE360A700C435F8 /* RouterStatusView.xib */,
 				704511241FA6B5B500E6DB3B /* Cell */,
 				70231CD51DC0FFB800F73202 /* RouteSetting.h */,
 				70231CD61DC0FFB800F73202 /* RouteSetting.m */,
@@ -2010,9 +2019,6 @@
 				70261DF91F9D846A00D7F4F0 /* SecurityCenterView.m */,
 				70261DFC1F9D902D00D7F4F0 /* DeviceListView.h */,
 				70261DFD1F9D902D00D7F4F0 /* DeviceListView.m */,
-				704534301FA6EBEE00E6DB3B /* RouterStatusView.h */,
-				704534311FA6EBEE00E6DB3B /* RouterStatusView.m */,
-				704534321FA6EBEE00E6DB3B /* RouterStatusView.xib */,
 				704534611FA80DDC00E6DB3B /* BackupRestoreView.h */,
 				704534621FA80DDC00E6DB3B /* BackupRestoreView.m */,
 			);
@@ -2843,6 +2849,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A66A091555E44100AED3AF /* StarAPP-Info.plist */,
+				70C217DA1FE1167800780D7D /* Localizable.strings */,
 				A4A66A0A1555E44100AED3AF /* InfoPlist.strings */,
 				A4A66A0D1555E44100AED3AF /* main.m */,
 				A4A66A0F1555E44100AED3AF /* StarAPP-Prefix.pch */,
@@ -2896,6 +2903,8 @@
 			knownRegions = (
 				en,
 				English,
+				Base,
+				fr,
 			);
 			mainGroup = A4A669F21555E44100AED3AF;
 			productRefGroup = A4A669FE1555E44100AED3AF /* Products */;
@@ -3212,6 +3221,7 @@
 				70D6B90B1E2DAF3D00957A81 /* News@3x.png in Resources */,
 				702CE44E1DDA9881000A0513 /* 圆角矩形-10@3x.png in Resources */,
 				7024C5F41DD403A60053F313 /* luyou@2x.png in Resources */,
+				70C217D81FE1167800780D7D /* Localizable.strings in Resources */,
 				70FC30E61D75714E00BD06FE /* kr-video-player-shrinkscreen@3x.png in Resources */,
 				70D6B8FE1E2DAF3D00957A81 /* Life Style@2x.png in Resources */,
 				70EFCAF41E0A7C22003EAE08 /* 无历史@3x.png in Resources */,
@@ -3255,7 +3265,6 @@
 				701A98AF1DB47A3100460220 /* 上一频道@2x.png in Resources */,
 				7022F8611DBF98F70079C0BD /* MEViewController.xib in Resources */,
 				707FE74E1DACC3C30087C361 /* me icon@3x.png in Resources */,
-				704534341FA6EBEE00E6DB3B /* RouterStatusView.xib in Resources */,
 				70362D4C1F00A0180012A309 /* Tuner monitor.png in Resources */,
 				70D6B8F21E2DAF3D00957A81 /* Entertainment@2x.png in Resources */,
 				70231CCE1DC0FE8C00F73202 /* 组-54@3x.png in Resources */,
@@ -3344,6 +3353,7 @@
 				701078681F96DAF800593014 /* Devices-List@2x.png in Resources */,
 				70D6B9021E2DAF3D00957A81 /* Local@3x.png in Resources */,
 				70362D4A1F00A0180012A309 /* Series@2x.png in Resources */,
+				70495DEE1FE360A800C435F8 /* RouterStatusView.xib in Resources */,
 				70362CF51F0092480012A309 /* Movies & Series@3x.png in Resources */,
 				7045C4761DC715FB002647F9 /* 矩形5@3x.png in Resources */,
 				7040E2471DAE12B80063DB66 /* Viasat-Nature-logo@3x.png in Resources */,
@@ -3598,7 +3608,6 @@
 				70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */,
 				604F37CC159B2FDC00FF1F91 /* ServerContentViewController.m in Sources */,
 				60CAD287159C304100B7E28C /* NDLUtility.m in Sources */,
-				704534331FA6EBEE00E6DB3B /* RouterStatusView.m in Sources */,
 				701294E51D80F4A3003139D5 /* NSObject+JSONCategories.m in Sources */,
 				705650641DB9B95F002DD47E /* AudioCell.m in Sources */,
 				70231CD81DC0FFB800F73202 /* RouteSetting.m in Sources */,
@@ -3635,6 +3644,7 @@
 				7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */,
 				700770831D829EA3003C0D68 /* YGPCacheDisk.m in Sources */,
 				707FE7641DACC5780087C361 /* THProgressView.m in Sources */,
+				70495DED1FE360A800C435F8 /* RouterStatusView.m in Sources */,
 				70FC30FD1D75714E00BD06FE /* ZXVideoPlayerVolumeView.m in Sources */,
 				701294E61D80F4A3003139D5 /* NSString+JSONCategories.m in Sources */,
 				7027B3E91F309C93001CDFAE /* UIViewController+animationView.m in Sources */,
@@ -3667,10 +3677,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		70C217DA1FE1167800780D7D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				70C217D91FE1167800780D7D /* en */,
+				70C217DB1FE1167A00780D7D /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		A4A66A0A1555E44100AED3AF /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A4A66A0B1555E44100AED3AF /* en */,
+				70C217D51FE1155300780D7D /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3678,7 +3698,8 @@
 		A4A66A191555E44100AED3AF /* MasterViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A4A66A1A1555E44100AED3AF /* en */,
+				70C217D11FE1154600780D7D /* Base */,
+				70C217D31FE1155200780D7D /* fr */,
 			);
 			name = MasterViewController.xib;
 			sourceTree = "<group>";
@@ -3686,7 +3707,8 @@
 		A4A66A1C1555E44100AED3AF /* DetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A4A66A1D1555E44100AED3AF /* en */,
+				70C217D21FE1154600780D7D /* Base */,
+				70C217D41FE1155200780D7D /* fr */,
 			);
 			name = DetailViewController.xib;
 			sourceTree = "<group>";

@@ -25,4 +25,13 @@
 @property(nonatomic,strong)UIView * NetWorkErrorView;
 @property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
 @property(nonatomic,strong)UILabel * NetWorkErrorLab;
+
+@property (weak, nonatomic) IBOutlet UILabel *MHardVersion;
+@property (weak, nonatomic) IBOutlet UILabel *MSoftwareVersion;
+@property (weak, nonatomic) IBOutlet UILabel *MBuildData;
+@property (weak, nonatomic) IBOutlet UILabel *MSerialNum;
+@property (weak, nonatomic) IBOutlet UILabel *MMACAddress;
+@property (weak, nonatomic) IBOutlet UILabel *MSubnetMask;
+@property (weak, nonatomic) IBOutlet UILabel *MIPAddress;
+
 @end

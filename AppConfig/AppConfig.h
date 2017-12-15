@@ -123,21 +123,18 @@ typedef enum{
 #define MainColor [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]
 //[HXColor hx_colorWithHexRGBAString:@"#FF2D55"]//RGB(229,229,229)
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
-////浅色字体
-//#define grobalTextLightColor RGB(152,142,156)
-////深色字体
-//#define grobalTextDarkColor  RGB(108,99,111)
-//
-//#define grobalPageSize 20
-//
-//#define HTTP_REQUEST_TIMEOUTINTERVAL  20
-////
-//#define kNeedForceUpdateApplication @"NeedForceUpdateApplication"
 
-//#define CANOTINPUT @"Please Decoder PIN"
+/**
+ 
+ 
+ 
+ */
 #define APDE_Identify  1095779397 // 0x41504445 = 1095779397  //0x4D504445 =1297105989
 
-#define videoCantPlayTip @"Sorry, this video can't play"
+
+#define videoCantPlayTip @"Sorry,this video can not be played"
+#define videoCantPlayTipF @"Désolé,impossible de lire la vidéo"
+
 #define radioCantPlayTip @"Sorry, this radio can't play"
 #define deliveryStopTip @"Delivery has been stopped！"   //停止分发后 节目黑屏提示“Delivery has been stopped！”
 #define mediaDisConnect @"  StarTimes ONE is not connected \n please check the network settings"   //关机后,或者socket断开后

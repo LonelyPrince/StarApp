@@ -1,0 +1,160 @@
+/* 
+  Localizable.strings
+  StarAPP
+
+  Created by xyz on 2017/12/13.
+  
+*/
+
+//1.视频无法播放。
+"videoCantPlayTip"   = "Désolé,impossible de lire la vidéo";
+//2.请输入CA PIN码
+"CAPIN"              = "Veuillez entrer le code PIN CA";
+//3.请输入Decoder PIN码
+"DecoderPIN"         = "Veuillez entrer le code PIN du décodeur";
+//4.请输入
+"PleaseInputLab"     = "Veuillez entrer";
+//5.CA PIN
+"CAPINLabel"         = "  Code PIN CA  ";
+//6.Decoder PIN
+"DecoderPINLabel"    = " Code PIN Décodeur ";
+//7.CA密码输入错误
+"CAPINIsIncorrect"        = "CA PIN est incorrect, veuillez réessayer!";
+//8.Decoder密码输入错误
+"DecoderPINIsIncorrect"   = "Décodeur PIN est incorrect, veuillez réessayer!";
+//9.视频分发停止
+"DeliveryHasStopped"      = "La livraison a été interrompue!";
+//10.StarTimes ONE未连接，请查看网络设置信息
+"StarTimesNotConnected"   = "  StarTimes ONE n'est pas connecté, \n veuillez vérifier les paramètres réseaux.";
+//11.没有资源，视频无法播放
+"NoResourcesLabel"        = "Cette vidéo ne peut pas être lue.\n Veuillez vérifier la gestion des appareils \n de StarTimes ONE";
+//12.没有节目
+"NOEventLabel"             = "Pas d'événement";
+//13.视频列表为空
+"ChannelListIsEmpty"      = "La liste des chaînes est vide!";
+//14.LIVE
+"LiveLabel"               = "En direct";
+//15.Confirm
+"ConfirmLabel"            = "Confirmer";
+//16.Cancel
+"CancelLabel"             = "Annuler";
+//17.save
+"SaveLabel"               = "Sauvegarder";
+//18.call
+"CallLabel"               = "Appeler";
+//19.Search
+"SearchLabel"             = "Rechercher";
+//20.No search results
+"NoSearchResultsLabel"    = "Pas de résultat de recherche";
+//21.No Search history
+"NoSearchHistorysLabel"   = "Pas d'historique de recherche";
+//22.ME
+"MutilMELabel"            = "Moi";
+//23.history
+"HistoryLabel"            = "Historique";
+//24.Setting
+"SettingLabel"            = "Paramètres";
+//25.Router Setting
+"RouterSettingLabel"      = "Paramètres du routeur";
+//26.Router parameters setting
+"RouterParametersSettingLabel"      = "Paramètres configuration du routeur";
+//27.Contact Us
+"ContactUsLabel"          = "Nous contacter";
+//28.about
+"AboutLabel"              = "À propos";
+//29.Information about app
+"InformationLabel"    = "Information sur l'application";
+//30.more
+"MoreLabel"           = "Plus";
+//31.Today
+"TodayLabel"          = "Aujourd'hui";
+//32.Early
+"EarlyLabel"          = "Plus tôt";
+//33.Delete
+"DeleteLabel"         = "Supprimer";
+//34.设置路由密码。为了安全起见，建议您立即修改路由密码。
+"ChangeRouterPINLabel"             = "Veuillez définir le code PIN de votre routeur.Nous vous  \nto recommandons de changer votre Code PIN pour une meilleure sécurité.";
+//35.Delete
+"NewLabel"                   = "Nouveau";
+//36.新密码不一致，请重新输入
+"PINMatchLabel"              = "Les nouveaux codes PIN sont différents. Veuillez réessayer";
+//37.请输入路由密码
+"InputRoutePINLabel"         = "Entrez le Code PIN du routeur";
+//38.路由密码错误，请重新输入
+"RouterPINIncorrectLabel"    = "Le Code PIN du routeur est incorrect. Veuillez ré-essayer.";
+//39.密码不能为空
+"PINCanNotEmptyLabel"        = "\n Le Code PIN ne peut être vide \n\n";
+//40.保存成功
+"SaveSuccessLabel"           = "Sauvegarde réussie";
+//41.密码保护
+"PINProtectionLabel"         = "Protection Code PIN";
+//42.安全方式
+"SecurityTypeLabel"          = "Type de sécurité";
+//43.安全方式
+"WLANSettingsLabel"          = "Paramètres WLAN";
+//44.安全中心
+"SecurityCenterLabel"        = "Centre de sécurité";
+//45.设备列表
+"DevicesListLabel"           = "Liste d'appareils";
+//46.路由状态
+"RouterStatusLabel"          = "Statut du routeur";
+//47.通用设置
+"GeneralSettingsLabel"       = "Paramètres généraux";
+//48.备份&恢复
+"BackupRestoreLabel"         = "Backup & Restauration";
+//49.设备重启
+"RebootDeviceLabel"          = "Appareil de réinitialisation";
+//50.路由正在重启中，请重启后重新连接StarTimes ONE
+"RouterResetingLabel"        = "Réinitialisation du routeur, veuillez reconnecter StarTimes ONE après réinitialisation";
+//51.无线网络名称不能为空
+"SSIDNotEmptyLabel"          = "Le SSID ne peut être vide";
+//52.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_‘
+"TrueSSIDPINLabel"           = "Réinitialisation du routeur, veuillez reconnecter StarTimes ONE après réinitialisation";
+//53.当前密码
+"CurrentPINLabel"            = "Code PIN actuel";
+//54.新密码
+"NewPINLabel"                = "Nouveau Code PIN";
+//55.确认新密码
+"ConfirmPINLabel"            = "Confirmer le code PIN";
+//56.新密码不应该与当前密码相同
+"SamePINTryAgainLabel"       = "Le nouveau code PIN ne peut pas être le même que le code PIN actuel";
+//57.Hardware version
+"MLHardwareversion"         = "Version du matériel";
+//58.确认新密码
+"MLSoftwareversion"         = "Version du logiciel";
+//59.确认新密码
+"MLBuilddate"               = "Build date";
+//60.确认新密码
+"MLSerialnumber"            = "Numéro de série";
+//61.确认新密码
+"MLMACaddress"              = "Adresse MAC";
+//62.确认新密码
+"MLSubnetmask"              = "Subnet mask";
+//63.确认新密码
+"MLIPaddress"               = "Adresse IP";
+//64.备份还原
+"MLbackupRestore"           = "Vous pouvez récupérer vos paramètres ou restaurer les paramètres de la dernière fois";
+//65.还原
+"MLRestore"                 = "Restaurer";
+//66.还原成功
+"MLRestoresuccess"          = "Restauration réussie";
+//67.还原失败
+"MLRestoreFailure"          = "Restauration échouée";
+//68.没有备份参数
+"MLNOBackupRestored"        = "Pas de backup disponible";
+//69.备份成功
+"MLBackupsuccess"           = "Backup réussi";
+//70.备份失败
+"MLBackupFailure"           = "Backup échoué";
+//71.网络错误
+"MLNetworkError"            = "Erreur réseau";
+//72.路由正在重启中，当前网络会断开连接，请重启后重新连接StarTimes ONE
+"MLRouterRestarting"        = "Le routeur va redémarrer. Le réseau actuel sera déconnecté, veuillez reconnecter StarTimes ONE après le redémarrage";
+//73.重启中
+"MLRestarting"              = "Redémarrage en cours";
+//74.设备监控
+"MLMonitor"                 = "Moniteur";
+//75.录制
+"MLRecording"               = "Enregistrement";
+//76.分发
+"MLDelivery"                = "Livraison";

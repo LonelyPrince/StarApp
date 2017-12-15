@@ -143,14 +143,23 @@
 }
 -(void)initData
 {
+    
+    NSString * ChangeRouterPINLabel = NSLocalizedString(@"ChangeRouterPINLabel", nil);
+    NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+    NSString * SaveLabel = NSLocalizedString(@"SaveLabel", nil);
+    NSString * NewLabel = NSLocalizedString(@"NewLabel", nil);
+    NSString * InputRoutePINLabel = NSLocalizedString(@"InputRoutePINLabel", nil);
+    
     self.NetWorkErrorView = [[UIView alloc]init];
     self.NetWorkErrorImageView = [[UIImageView alloc]init];
     self.NetWorkErrorLab = [[UILabel alloc]init];
     
-    self.title = @"Router Setting";
+    NSString * RouterSettingLabel = NSLocalizedString(@"RouterSettingLabel", nil);
+    self.title = RouterSettingLabel;
     deviceString = [GGUtil deviceVersion];
     self.routeMenuView = [[RouteMenuView alloc]init];
-    registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code0] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+    NSString * SaveSuccessLabel = NSLocalizedString(@"SaveSuccessLabel", nil);
+    registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:SaveSuccessLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
     
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
@@ -175,7 +184,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Router PIN";
+            inputText.placeholder = InputRoutePINLabel;
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -229,7 +238,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            setNewRouteText.placeholder = @"New";
+            setNewRouteText.placeholder = NewLabel;
             setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -257,7 +266,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            confirmText.placeholder = @"Confirm";
+            confirmText.placeholder = ConfirmLabel;
             confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -282,16 +291,11 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 43/2*0.9;
             
-            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(125*0.9, 7, 80, 30 )];
-            saveLab.text =@"SAVE";
-            saveLab.font = FONT(16);
-            [saveBtn addSubview:saveLab];
-            saveLab.textColor = [UIColor whiteColor];
-            //            [self.view addSubview:saveBtn];
+          [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2)/2+5, saveBtn.frame.origin.y +43 +28, 531/2, 40)];
-            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.text = ChangeRouterPINLabel;
             setNewRouteLab.textColor = [UIColor colorWithRed:0x87/255.0 green:0x87/255.0 blue:0x87/255.0 alpha:1];
             setNewRouteLab.font = FONT(11);
             setNewRouteLab.numberOfLines = 0;
@@ -322,7 +326,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Router PIN";
+            inputText.placeholder = InputRoutePINLabel;
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -376,7 +380,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            setNewRouteText.placeholder = @"New";
+            setNewRouteText.placeholder = NewLabel;
             setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -404,7 +408,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            confirmText.placeholder = @"Confirm";
+            confirmText.placeholder = ConfirmLabel;
             confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -429,16 +433,11 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 20;
             
-            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(125, 7, 80, 30 )];
-            saveLab.text =@"SAVE";
-            saveLab.font = FONT(16);
-            [saveBtn addSubview:saveLab];
-            saveLab.textColor = [UIColor whiteColor];
-            //            [self.view addSubview:saveBtn];
+          [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2)/2+5, saveBtn.frame.origin.y +43 +38, 531/2, 40)];
-            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.text = ChangeRouterPINLabel;
             setNewRouteLab.textColor = [UIColor colorWithRed:0x87/255.0 green:0x87/255.0 blue:0x87/255.0 alpha:1];
             setNewRouteLab.font = FONT(11);
             setNewRouteLab.numberOfLines = 0;
@@ -470,7 +469,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Router PIN";
+            inputText.placeholder = InputRoutePINLabel;
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -524,7 +523,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            setNewRouteText.placeholder = @"New";
+            setNewRouteText.placeholder = NewLabel;
             setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -552,7 +551,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            confirmText.placeholder = @"Confirm";
+            confirmText.placeholder = ConfirmLabel;
             confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -577,16 +576,11 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 20;
             
-            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(125, 7, 80, 30 )];
-            saveLab.text =@"SAVE";
-            saveLab.font = FONT(16);
-            [saveBtn addSubview:saveLab];
-            saveLab.textColor = [UIColor whiteColor];
-            //            [self.view addSubview:saveBtn];
+           [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2)/2+5, saveBtn.frame.origin.y +43 +38, 531/2, 40)];
-            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.text = ChangeRouterPINLabel;
             setNewRouteLab.textColor = [UIColor colorWithRed:0x87/255.0 green:0x87/255.0 blue:0x87/255.0 alpha:1];
             setNewRouteLab.font = FONT(11);
             setNewRouteLab.numberOfLines = 0;
@@ -617,7 +611,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            inputText.placeholder = @"Input Router PIN";
+            inputText.placeholder = InputRoutePINLabel;
             inputText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -646,16 +640,7 @@
             okLab.font = FONT(16);
             [okBtn addSubview:okLab];
             okLab.textColor = [UIColor whiteColor];
-            //                saveBtn.titleLabel.text = @"SAVE";
-            //                [saveBtn setTitle:@"SAVE" forState:UIControlStateNormal];
-            //
-            //                saveBtn.backgroundColor = RGBA(96, 163, 236, 1);
-            //    saveBtn.layer.cornerRadius = 20.0;
             
-            
-            
-            //        [pswTextFieldImage addSubview:pswBtn];
-            //            [self.view addSubview:okBtn];
         }
         if (setNewRouteText == NULL) {
             
@@ -671,7 +656,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            setNewRouteText.placeholder = @"New";
+            setNewRouteText.placeholder = NewLabel;
             setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -699,7 +684,7 @@
             //            inputText.layer.borderWidth = 1.0f;
             //            inputText.layer.cornerRadius = 20;
             //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
-            confirmText.placeholder = @"Confirm";
+            confirmText.placeholder = ConfirmLabel;
             confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
             //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
@@ -724,16 +709,12 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 20;
             
-            UILabel * saveLab = [[UILabel alloc]initWithFrame:CGRectMake(125*1.1, 7, 80, 30 )];
-            saveLab.text =@"SAVE";
-            saveLab.font = FONT(16);
-            [saveBtn addSubview:saveLab];
-            saveLab.textColor = [UIColor whiteColor];
-            //            [self.view addSubview:saveBtn];
+            [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+            
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2*1.1)/2+5, saveBtn.frame.origin.y +43 +38, 531/2*1.1, 40)];
-            setNewRouteLab.text = setNewRouteLabStr;
+            setNewRouteLab.text = ChangeRouterPINLabel;
             setNewRouteLab.textColor = [UIColor colorWithRed:0x87/255.0 green:0x87/255.0 blue:0x87/255.0 alpha:1];
             setNewRouteLab.font = FONT(12);
             setNewRouteLab.numberOfLines = 0;
@@ -936,19 +917,22 @@
 #pragma mark - 确认按钮点击
 -(void)okBtnClick
 {
+    NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+    
     if (inputText.text.length == 0) {
         //用户没有输入任何东西，弹窗提醒
         NSLog(@"输入的东西不能为空");
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:emptyStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
         
-        //    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
+        NSString * PINCanNotEmptyLabel = NSLocalizedString(@"PINCanNotEmptyLabel", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:PINCanNotEmptyLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+        
         
         [linkAlert show];
         
         inputText.text = @"";
     }else if(inputText.text.length < 6)
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
         inputText.text = @"";
@@ -1003,7 +987,9 @@
         }
         
         if (temp == NO) {
-            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+            
+            NSString * TrueSSIDPINLabel = NSLocalizedString(@"TrueSSIDPINLabel", nil);
+            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:TrueSSIDPINLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
             
             [linkAlert show];
             inputText.text = @"";
@@ -1115,6 +1101,8 @@
 //}
 -(void)judgeIsTrue{
     
+    NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+    
     //获取数据的链接
     NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/admin?pwd=%@",DMSIP,inputText.text];
     //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
@@ -1144,7 +1132,8 @@
         }else
         {
             NSLog(@"用户输入失败");
-            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:errorStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+            NSString * RouterPINIncorrectLabel = NSLocalizedString(@"RouterPINIncorrectLabel", nil);
+            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:RouterPINIncorrectLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
             
             [linkAlert show];
             inputText.text = @"";
@@ -1286,15 +1275,18 @@
             NSLog(@"resDict %@",resDict);
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {
-                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code1] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
-                [registerPwdTip setMessage:[NSString stringWithFormat:code1]];
+              
+                NSString * SamePINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
+                [registerPwdTip setMessage:SamePINTryAgainLabel];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
                 
             }else if ([[resDict objectForKey:@"code"] isEqual:@2])
             {
-                [registerPwdTip setMessage:[NSString stringWithFormat:code2]];
+                
+                NSString * TrueSSIDPINLabel = NSLocalizedString(@"TrueSSIDPINLabel", nil);
+                [registerPwdTip setMessage:TrueSSIDPINLabel];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
@@ -1313,9 +1305,7 @@
                 confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@0])
             {
-                //                [registerPwdTip setMessage:[NSString stringWithFormat:code0]];
-                //                [registerPwdTip show];
-                
+                 
                 [self judgeNextView];
             }
             
@@ -1334,83 +1324,34 @@
 #pragma mark - 判断PIN码是否合规定
 -(BOOL)judgePINIsLegal
 {
+    NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+    
     if (setNewRouteText.text.length == 0 || confirmText.text.length == 0) {
         //用户没有输入任何东西，弹窗提醒
         NSLog(@"输入的东西不能为空");
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:emptyStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        NSString * PINCanNotEmptyLabel = NSLocalizedString(@"PINCanNotEmptyLabel", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:PINCanNotEmptyLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
-        //    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
         
         [linkAlert show];
     }else if(setNewRouteText.text.length < 6 || confirmText.text.length < 6)
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
         
     }else if (![setNewRouteText.text isEqualToString:confirmText.text])
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:dontMatch] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        
+        NSString * PINMatchLabel = NSLocalizedString(@"PINMatchLabel", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:PINMatchLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
         
     }
     else
     {
-        //        NSString *toBeString = setNewRouteText.text;
-        //        BOOL temp = YES;
-        //        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-        //        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-        //            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-        //            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-        //            if (character < 45)
-        //            {
-        //                temp = NO;
-        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-        //                //                    return NO; // 48 unichar for 0..
-        //            }
-        //
-        //            if (character > 45 && character < 48)
-        //            {
-        //                temp = NO;
-        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-        //                //                    return NO; // 48 unichar for 0..
-        //            }
-        //            if (character > 57 && character < 65)
-        //            {
-        //                temp = NO;
-        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-        //                //                    return NO; //
-        //            }
-        //            if (character > 90 && character < 95)
-        //            {
-        //                temp = NO;
-        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-        //                //                    return NO; //
-        //            }
-        //            if (character > 95 && character < 97)
-        //            {
-        //                temp = NO;
-        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-        //                //                    return NO; //
-        //            }
-        //            if (character > 122)
-        //            {
-        //                temp = NO;
-        //                //                    inputText.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-        //                //                    return NO; //
-        //            }
-        //
-        //
-        //
-        //        }
-        //
-        //        if (temp == NO) {
-        //            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:specialStr] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
-        //
-        //            [linkAlert show];
-        //        }else   //正确情况
-        //        {
+        
         //发送链接判断是不是正确
         return true;
         
@@ -1470,7 +1411,8 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"NetWork Error";
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    self.NetWorkErrorLab.text = MLNetworkError;
     self.NetWorkErrorLab.font = FONT(15);
     
     

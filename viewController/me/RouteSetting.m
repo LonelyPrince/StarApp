@@ -134,7 +134,8 @@
         saveBtn.enabled = NO;
     }else
     {
-        [saveBtn setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+        NSString * SaveLabel = NSLocalizedString(@"SaveLabel", nil);
+        [saveBtn setBackgroundImage:[UIImage imageNamed:SaveLabel] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
         //        textField.text = [textField.text substringToIndex:10];
         saveBtn.enabled = YES;
@@ -148,7 +149,8 @@
     
     UIColor *placeHolderColor = RGBA(192, 192, 192, 0.3);
     
-    self.navigationItem.title = @"Router Setting";
+    NSString * RouterSettingLabel = NSLocalizedString(@"RouterSettingLabel", nil);
+    self.navigationItem.title = RouterSettingLabel;
     UIImageView * routeImageView = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-83.5)/2, 89, 83.5, 83.5)];
     routeImageView.image = [UIImage imageNamed:@"luyou"];
     
@@ -466,7 +468,8 @@
     }
     if (nameText.text.length>=6 ){ //textField.text.length >= 8  &&
         
-        [saveBtn setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+        NSString * SaveLabel = NSLocalizedString(@"SaveLabel", nil);
+        [saveBtn setBackgroundImage:[UIImage imageNamed:SaveLabel] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
         //        textField.text = [textField.text substringToIndex:10];
         
@@ -488,7 +491,8 @@
     }
     if (textField.text.length >= 6   ){ //&&pswText.text.length>=8
         
-        [saveBtn setBackgroundImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+        NSString * SaveLabel = NSLocalizedString(@"SaveLabel", nil);
+        [saveBtn setBackgroundImage:[UIImage imageNamed:SaveLabel] forState:UIControlStateNormal];
         //        //截取文本字符长度为10的内容
         //        textField.text = [textField.text substringToIndex:10];
         saveBtn.enabled = YES;

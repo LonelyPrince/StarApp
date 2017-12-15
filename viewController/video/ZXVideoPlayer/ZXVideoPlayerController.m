@@ -901,7 +901,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)configCAPINShowNotific
 {
-    
+    NSString * CAPINLabel = NSLocalizedString(@"CAPINLabel", nil);
     [USER_DEFAULT setObject:@"POP" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -927,10 +927,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CAPINLab.text = PleaseInputLab;
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:CAPINLabel forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -941,8 +942,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -959,10 +961,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CAPINLab.text = PleaseInputLab;
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:CAPINLabel forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -973,8 +976,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -989,10 +993,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CAPINLab.text = PleaseInputLab;
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:CAPINLabel forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1003,8 +1008,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -1020,10 +1026,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
-                    CAPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CAPINLab.text = PleaseInputLab;
                     CAPINLab.textColor = [UIColor whiteColor];
                     CAPINBtn = [[UIButton alloc]init];
-                    [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
+                    [CAPINBtn setTitle:CAPINLabel forState:UIButtonTypeCustom];
                     [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [CAPINBtn.layer setBorderWidth:2.0f];
                     [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1033,8 +1040,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:CAPINLab];
                     [self.view addSubview:CAPINBtn];                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -1056,10 +1064,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!CAPINLab) {
                         CAPINLab = [[UILabel alloc]init];
-                        CAPINLab.text = @"Please input";
+                        NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                        CAPINLab.text = PleaseInputLab;
                         CAPINLab.textColor = [UIColor whiteColor];
                         CAPINBtn = [[UIButton alloc]init];
-                        [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
+                        [CAPINBtn setTitle:CAPINLabel forState:UIButtonTypeCustom];
                         [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [CAPINBtn.layer setBorderWidth:2.0f];
                         [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1070,8 +1079,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:CAPINBtn];
                         //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];;
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];;
                     CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
                     CAPINLab.textAlignment = NSTextAlignmentCenter;
                     CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -1086,10 +1096,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!CAPINLab) {
                         CAPINLab = [[UILabel alloc]init];
-                        CAPINLab.text = @"Please input";
+                        NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                        CAPINLab.text = PleaseInputLab;
                         CAPINLab.textColor = [UIColor whiteColor];
                         CAPINBtn = [[UIButton alloc]init];
-                        [CAPINBtn setTitle:@"  CA PIN  " forState:UIButtonTypeCustom];
+                        [CAPINBtn setTitle:CAPINLabel forState:UIButtonTypeCustom];
                         [CAPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [CAPINBtn.layer setBorderWidth:2.0f];
                         [CAPINBtn addTarget:self action:@selector(CAPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1099,8 +1110,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:CAPINLab];
                         [self.view addSubview:CAPINBtn];                    //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     CAPINLab.frame = CGRectMake((SCREEN_HEIGHT - sizeCAPIN.width)/2,SCREEN_WIDTH/2-15, sizeCAPIN.width, sizeCAPIN.height);
                     CAPINLab.textAlignment = NSTextAlignmentCenter;
                     CAPINBtn.frame = CGRectMake((SCREEN_HEIGHT - sizeCAPINBtn.width)/2,SCREEN_WIDTH/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -1126,6 +1138,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)configDecoderPINShowNotific
 {
+    NSString * DecoderPINLabel = NSLocalizedString(@"DecoderPINLabel", nil);
     [USER_DEFAULT setObject:@"POP" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -1151,10 +1164,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    decoderPINLab.text = PleaseInputLab;
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:DecoderPINLabel forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1165,8 +1179,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1183,10 +1198,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    decoderPINLab.text = PleaseInputLab;
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:DecoderPINLabel forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1197,8 +1213,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1213,10 +1230,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    decoderPINLab.text = PleaseInputLab;
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:DecoderPINLabel forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1227,8 +1245,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1244,10 +1263,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
-                    decoderPINLab.text = @"Please input";
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    decoderPINLab.text = PleaseInputLab;
                     decoderPINLab.textColor = [UIColor whiteColor];
                     decoderPINBtn = [[UIButton alloc]init];
-                    [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
+                    [decoderPINBtn setTitle:DecoderPINLabel forState:UIButtonTypeCustom];
                     [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                     [decoderPINBtn.layer setBorderWidth:2.0f];
                     [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1258,8 +1278,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [self.view addSubview:decoderPINBtn];
                     //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                 }
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1281,10 +1302,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!decoderPINLab) {
                         decoderPINLab = [[UILabel alloc]init];
-                        decoderPINLab.text = @"Please input";
+                        NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                        decoderPINLab.text = PleaseInputLab;
                         decoderPINLab.textColor = [UIColor whiteColor];
                         decoderPINBtn = [[UIButton alloc]init];
-                        [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
+                        [decoderPINBtn setTitle:DecoderPINLabel forState:UIButtonTypeCustom];
                         [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [decoderPINBtn.layer setBorderWidth:2.0f];
                         [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1295,8 +1317,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:decoderPINBtn];
                         //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                     NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                     decoderPINLab.textAlignment = NSTextAlignmentCenter;
                     decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1311,10 +1334,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     if (!decoderPINLab) {
                         decoderPINLab = [[UILabel alloc]init];
-                        decoderPINLab.text = @"Please input";
+                         NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                        decoderPINLab.text = PleaseInputLab;
                         decoderPINLab.textColor = [UIColor whiteColor];
                         decoderPINBtn = [[UIButton alloc]init];
-                        [decoderPINBtn setTitle:@" Decoder PIN " forState:UIButtonTypeCustom];
+                        [decoderPINBtn setTitle:DecoderPINLabel forState:UIButtonTypeCustom];
                         [decoderPINBtn.layer setBorderColor:[[UIColor grayColor] CGColor] ];//边框颜色
                         [decoderPINBtn.layer setBorderWidth:2.0f];
                         [decoderPINBtn addTarget:self action:@selector(decoderPINBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -1325,8 +1349,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         [self.view addSubview:decoderPINBtn];
                         //                    [self.view insertSubview:decoderPINBtn atIndex:1];
                     }
-                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                    CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                    CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                     decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                     decoderPINLab.textAlignment = NSTextAlignmentCenter;
                     decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
@@ -1531,6 +1556,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  停止播放的动作
 -(void)noPlayShowNotic
 {
+    NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
+    NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
+    NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -1589,24 +1617,27 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }
                                 else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                                 
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
+//                                lab.text = videoCantPlayTip;
                             }
                             
                             
@@ -1636,23 +1667,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }
                                 else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
@@ -1680,23 +1714,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }
                                 else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
@@ -1726,22 +1763,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
@@ -1774,22 +1814,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                                 if (videoOrRadiostr != NULL) {
                                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                                        lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = mediaDisConnect;
+                                        lab.text = StarTimesNotConnected;
                                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = ResourcesFull;
+                                        lab.text = NoResourcesLabel;
                                     }else
                                     {
-                                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                        lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                     }
                                 }else
                                 {
-                                    lab.text = videoCantPlayTip;
+//                                    lab.text = videoCantPlayTip;
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;
                                 }
                                 
                                 
@@ -1818,22 +1861,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                                 if (videoOrRadiostr != NULL) {
                                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                                        lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = mediaDisConnect;
+                                        lab.text = StarTimesNotConnected;
                                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = ResourcesFull;
+                                        lab.text = NoResourcesLabel;
                                     }else
                                     {
-                                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                        lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                     }
                                 }else
                                 {
-                                    lab.text = videoCantPlayTip;
+//                                    lab.text = videoCantPlayTip;
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;
                                 }
                                 lab.font = FONT(17);
                                 lab.textAlignment = NSTextAlignmentCenter;
@@ -1861,23 +1907,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 if (lab) {
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                        lab.text = DeliveryHasStopped;   //如果不为空,则显示
                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                     {
                         lab.numberOfLines = 0;
-                        lab.text = mediaDisConnect;
+                        lab.text = StarTimesNotConnected;
                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                     {
                         lab.numberOfLines = 0;
                         lab.textAlignment = NSTextAlignmentCenter;
-                        lab.text = ResourcesFull;
+                        lab.text = NoResourcesLabel;
                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                     {
                         lab.numberOfLines = 0;
-                        lab.text = ResourcesFull;
+                        lab.text = NoResourcesLabel;
                     }else
                     {
-                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                        lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                     }
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     
@@ -2112,6 +2159,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///// 切换到全屏模式
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
+    NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
+    NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
+    NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         //new====
         NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
@@ -2161,22 +2211,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];
             if (videoOrRadiostr != NULL) {
                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                 {
                     lab.numberOfLines = 0;
-                    lab.text = mediaDisConnect;
+                    lab.text = StarTimesNotConnected;
                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                 {
                     lab.numberOfLines = 0;
-                    lab.text = ResourcesFull;
+                    lab.text = NoResourcesLabel;
                 }else
                 {
-                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                 }
             }else
             {
-                lab.text = videoCantPlayTip;
+//                lab.text = videoCantPlayTip;
+                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                lab.text = labText;
             }
             lab.font = FONT(17);
             lab.textAlignment = NSTextAlignmentCenter;
@@ -2190,16 +2243,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
             }
             if (decoderPINLab) {
-                CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * DecoderPINLabel = NSLocalizedString(@"DecoderPINLabel", nil);
+                CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 decoderPINLab.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPIN.width)/2,self.view.frame.size.height/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
                 decoderPINLab.textAlignment = NSTextAlignmentCenter;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
                 
             }
             if (CAPINLab) {
-                CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-                CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+                CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+                NSString * CAPINLabel = NSLocalizedString(@"CAPINLabel", nil);
+                CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
                 CAPINLab.frame = CGRectMake((self.view.frame.size.width - sizeCAPIN.width)/2,self.view.frame.size.height/2-15, sizeCAPIN.width, sizeCAPIN.height);
                 CAPINLab.textAlignment = NSTextAlignmentCenter;
                 CAPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeCAPINBtn.width)/2,self.view.frame.size.height/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -2351,7 +2408,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSArray * arr = [[NSArray alloc]init];
     if(abcaa == nil|| abcaa == NULL)
     {
-        arr = @[@"NO Event"];
+        NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+        arr = @[NOEventLabel];
     }else
     {
         arr = @[abcaa];
@@ -2379,6 +2437,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 切换到竖屏模式
 - (void)restoreOriginalScreen
 {
+    NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
+    NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
+    NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);
     NSLog(@"==-=-===-==000==-竖屏了");
     if (!self.isFullscreenMode) {
         return;
@@ -2429,24 +2490,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
     NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];
+   
+    
     if (videoOrRadiostr != NULL) {
         if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-            lab.text = deliveryStopTip;   //如果不为空,则显示
+            lab.text = DeliveryHasStopped;   //如果不为空,则显示
         }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
         {
             lab.numberOfLines = 0;
-            lab.text = mediaDisConnect;
+            lab.text = StarTimesNotConnected;
         }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
         {
             lab.numberOfLines = 0;
-            lab.text = ResourcesFull;
+            lab.text = NoResourcesLabel;
         }else
         {
-            lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+            NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+            lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
         }
     }else
     {
-        lab.text = videoCantPlayTip;
+//        lab.text = videoCantPlayTip;
+        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+        lab.text = labText;
     }
     lab.font = FONT(17);
     lab.textAlignment = NSTextAlignmentCenter;
@@ -2459,15 +2525,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         radioImageView.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
     }
     if (decoderPINLab) {
-        CGSize sizeDecoderPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-        CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:@" Decoder PIN " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+        CGSize sizeDecoderPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        NSString * DecoderPINLabel = NSLocalizedString(@"DecoderPINLabel", nil);
+        CGSize sizeDecoderPINBtn = [GGUtil sizeWithText:DecoderPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         decoderPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeDecoderPIN.width, sizeDecoderPIN.height);
         decoderPINLab.textAlignment = NSTextAlignmentCenter;
         decoderPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeDecoderPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
     }
     if (CAPINLab) {
-        CGSize sizeCAPIN = [GGUtil sizeWithText:@"Please input" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-        CGSize sizeCAPINBtn = [GGUtil sizeWithText:@"  CA PIN  " font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
+        CGSize sizeCAPIN = [GGUtil sizeWithText:PleaseInputLab font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        NSString * CAPINLabel = NSLocalizedString(@"CAPINLabel", nil);
+        CGSize sizeCAPINBtn = [GGUtil sizeWithText:CAPINLabel font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         CAPINLab.frame = CGRectMake((SCREEN_WIDTH - sizeCAPIN.width)/2,SCREEN_WIDTH/16*9/2-15, sizeCAPIN.width, sizeCAPIN.height);
         CAPINLab.textAlignment = NSTextAlignmentCenter;
         CAPINBtn.frame = CGRectMake((SCREEN_WIDTH - sizeCAPINBtn.width)/2,SCREEN_WIDTH/16*9/2+15, sizeCAPINBtn.width, sizeCAPIN.height);
@@ -4673,7 +4743,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 #define mark - 数据停止分发3秒后显示不能播放的文字，等到数据缓冲完成，自动重新播放
 -(void)stopPlayAndWaitBuffering
 {
-    NSLog(@"卡拉  开始配置 进入方法3");
+    NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
+    NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
+    NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         
         NSString * isShowLabStr = [USER_DEFAULT objectForKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
@@ -4733,24 +4806,27 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }
                                 else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                                 
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             
                             
@@ -4780,23 +4856,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }
                                 else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
@@ -4824,23 +4903,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }
                                 else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
@@ -4870,22 +4952,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                    lab.text = deliveryStopTip;   //如果不为空,则显示
+                                    lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                 }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = mediaDisConnect;
+                                    lab.text = StarTimesNotConnected;
                                 }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                 {
                                     lab.numberOfLines = 0;
-                                    lab.text = ResourcesFull;
+                                    lab.text = NoResourcesLabel;
                                 }else
                                 {
-                                    lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
                             }else
                             {
-                                lab.text = videoCantPlayTip;
+//                                lab.text = videoCantPlayTip;
+                                NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                lab.text = labText;
                             }
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
@@ -4918,22 +5003,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                                 if (videoOrRadiostr != NULL) {
                                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                                        lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = mediaDisConnect;
+                                        lab.text = StarTimesNotConnected;
                                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = ResourcesFull;
+                                        lab.text = NoResourcesLabel;
                                     }else
                                     {
-                                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                        lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                     }
                                 }else
                                 {
-                                    lab.text = videoCantPlayTip;
+//                                    lab.text = videoCantPlayTip;
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;
                                 }
                                 
                                 
@@ -4962,22 +5050,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                                 if (videoOrRadiostr != NULL) {
                                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                                        lab.text = DeliveryHasStopped;   //如果不为空,则显示
                                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = mediaDisConnect;
+                                        lab.text = StarTimesNotConnected;
                                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                                     {
                                         lab.numberOfLines = 0;
-                                        lab.text = ResourcesFull;
+                                        lab.text = NoResourcesLabel;
                                     }else
                                     {
-                                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                                        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                        lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                     }
                                 }else
                                 {
-                                    lab.text = videoCantPlayTip;
+//                                    lab.text = videoCantPlayTip;
+                                    NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                                    lab.text = labText;
                                 }
                                 lab.font = FONT(17);
                                 lab.textAlignment = NSTextAlignmentCenter;
@@ -5005,19 +5096,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 if (lab) {
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
-                        lab.text = deliveryStopTip;   //如果不为空,则显示
+                        lab.text = DeliveryHasStopped;   //如果不为空,则显示
                     }else if (playStateType != NULL && [playStateType isEqualToString:mediaDisConnect] )
                     {
                         lab.numberOfLines = 0;
-                        lab.text = mediaDisConnect;
+                        lab.text = StarTimesNotConnected;
                     }else if (playStateType != NULL && [playStateType isEqualToString:ResourcesFull] )
                     {
                         lab.numberOfLines = 0;
                         lab.textAlignment = NSTextAlignmentCenter;
-                        lab.text = ResourcesFull;
+                        lab.text = NoResourcesLabel;
                     }else
                     {
-                        lab.text = videoOrRadiostr;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
+                        
+                        NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
+                        lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                     }
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                     

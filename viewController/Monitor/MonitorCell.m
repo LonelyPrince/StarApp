@@ -218,7 +218,9 @@
         {
             self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
         }else{
-            self.nameLab.text = [NSString stringWithFormat:@"TV Live--No Event"];
+            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"TV Live--%@",NOEventLabel];
+            self.nameLab.text = NOEventLabelTemp;
         }
         
         
@@ -234,7 +236,9 @@
         {
             self.nameLab.text = [NSString stringWithFormat:@"Recording--%@",[epgDic objectForKey:@"event_name"]];
         }else{
-            self.nameLab.text = [NSString stringWithFormat:@"Recording--No Event"];
+            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"Recording--%@",NOEventLabel];
+            self.nameLab.text = NOEventLabelTemp;
         }
         
         
@@ -265,7 +269,8 @@
             {
                 NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
                
-                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",clientNameStr];
+
+                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",NSLocalizedString(@"NOEventLabel", nil)];
                 NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
                 
             }else
@@ -289,7 +294,9 @@
                 
             }else
             {
-                self.nameLab.text = [NSString stringWithFormat:@"No Device Name--No Event"];
+                NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+                NSString * NOEventLabelTemp = [NSString stringWithFormat:@"No Device Name--%@",NOEventLabel];
+                self.nameLab.text = NOEventLabelTemp;
                 
             }
             //

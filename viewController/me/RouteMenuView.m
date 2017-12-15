@@ -70,7 +70,8 @@
 {
 //    self.view.backgroundColor = [UIColor redColor];
     self.tabBarController.tabBar.hidden = YES;
-    self.title = @"Router Setting";
+    NSString * RouterSettingLabel = NSLocalizedString(@"RouterSettingLabel", nil);
+    self.title = RouterSettingLabel;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -81,12 +82,19 @@
     routeNameLab.text = [tempDic objectForKey:@"name"];
     NSString * pswStr = [tempDic objectForKey:@"password"];
     if (![pswStr isEqualToString:@"none"]) {
-        secrityTypeLab.text =[NSString stringWithFormat:@"Security Type: WPA2-PSK"] ;
-        PINProtectionLab.text = @"PIN Protection: ON";
+        
+        NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+        secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+        
+        NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+        PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
     }else
     {
-        secrityTypeLab.text = @"Security Type: Open";
-        PINProtectionLab.text = @"PIN Protection: OFF";
+        NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+        secrityTypeLab.text =[NSString stringWithFormat:@"%@: Open",SecurityTypeLabel];
+        
+        NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+        PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
     }
 //    [self getWifi];
     
@@ -132,7 +140,8 @@
     
     generalSettingLab = [[UILabel alloc]init];
 
-    rebootAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to reboot?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+    rebootAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to reboot?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
 }
 -(void)loadScroll
 {
@@ -174,6 +183,7 @@
 }
 -(void)loadUI
 {
+    NSString * GeneralSettingsLabel = NSLocalizedString(@"GeneralSettingsLabel", nil);
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
         
@@ -211,7 +221,7 @@
         generalSettingLab.frame = CGRectMake(20, 490 - 64, 200, 20);
         generalSettingLab.font = FONT(18);
         generalSettingLab.textColor = [UIColor colorWithRed:0x94/255.0 green:0x94/255.0 blue:0x94/255.0 alpha:1];
-        generalSettingLab.text = @"General Settings";
+        generalSettingLab.text = GeneralSettingsLabel;
         //        [scrollView addSubview:generalSettingLab];
         [scrollView addSubview:generalSettingLab];
         [scrollView bringSubviewToFront:generalSettingLab];
@@ -300,7 +310,7 @@
         generalSettingLab.frame = CGRectMake(20, 490 - 64, 200, 20);
         generalSettingLab.font = FONT(18);
         generalSettingLab.textColor = [UIColor colorWithRed:0x94/255.0 green:0x94/255.0 blue:0x94/255.0 alpha:1];
-        generalSettingLab.text = @"General Settings";
+        generalSettingLab.text = GeneralSettingsLabel;
         //        [scrollView addSubview:generalSettingLab];
         [scrollView addSubview:generalSettingLab];
         [scrollView bringSubviewToFront:generalSettingLab];
@@ -389,7 +399,7 @@
         generalSettingLab.frame = CGRectMake(20, 530 - 64, 200, 20);
         generalSettingLab.font = FONT(18);
         generalSettingLab.textColor = [UIColor colorWithRed:0x94/255.0 green:0x94/255.0 blue:0x94/255.0 alpha:1];
-        generalSettingLab.text = @"General Settings";
+        generalSettingLab.text = GeneralSettingsLabel;
         //        [scrollView addSubview:generalSettingLab];
         [scrollView addSubview:generalSettingLab];
         [scrollView bringSubviewToFront:generalSettingLab];
@@ -478,7 +488,7 @@
         generalSettingLab.frame = CGRectMake(20, 570 - 64, 200, 20);
         generalSettingLab.font = FONT(18);
         generalSettingLab.textColor = [UIColor colorWithRed:0x94/255.0 green:0x94/255.0 blue:0x94/255.0 alpha:1];
-        generalSettingLab.text = @"General Settings";
+        generalSettingLab.text = GeneralSettingsLabel;
 //        [scrollView addSubview:generalSettingLab];
         [scrollView addSubview:generalSettingLab];
         [scrollView bringSubviewToFront:generalSettingLab];
@@ -541,7 +551,7 @@
     
   
     
-    
+    NSString * WLANSettingsLabel = NSLocalizedString(@"WLANSettingsLabel", nil);
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
@@ -562,10 +572,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"WLAN Settings" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: WLANSettingsLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab1.frame = CGRectMake((btn1.frame.size.width - size.width)/2, btnImageView1.frame.origin.y+btnImageView1.frame.size.height+ 10, 150, 20);
-        btnLab1.text = @"WLAN Settings";
+        btnLab1.text = WLANSettingsLabel;
         btnLab1.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab1.font = FONT(15);
         [scrollView addSubview:btnLab1];
@@ -594,10 +604,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"WLAN Settings" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: WLANSettingsLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab1.frame = CGRectMake((btn1.frame.size.width - size.width)/2, btnImageView1.frame.origin.y+btnImageView1.frame.size.height+ 10, 150, 20);
-        btnLab1.text = @"WLAN Settings";
+        btnLab1.text = WLANSettingsLabel;
         btnLab1.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab1.font = FONT(15);
         [scrollView addSubview:btnLab1];
@@ -627,10 +637,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"WLAN Settings" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: WLANSettingsLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab1.frame = CGRectMake((btn1.frame.size.width - size.width)/2, btnImageView1.frame.origin.y+btnImageView1.frame.size.height+ 10, 150, 20);
-        btnLab1.text = @"WLAN Settings";
+        btnLab1.text = WLANSettingsLabel;
         btnLab1.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab1.font = FONT(15);
         [scrollView addSubview:btnLab1];
@@ -659,10 +669,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"WLAN Settings" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: WLANSettingsLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab1.frame = CGRectMake((btn1.frame.size.width - size.width)/2, btnImageView1.frame.origin.y+btnImageView1.frame.size.height+ 10, 150, 20);
-        btnLab1.text = @"WLAN Settings";
+        btnLab1.text = WLANSettingsLabel;
         btnLab1.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab1.font = FONT(15);
         [scrollView addSubview:btnLab1];
@@ -682,11 +692,7 @@
 -(void)addSecondBtn
 {
     
-   
-    
-    
-    
-    
+    NSString * SecurityCenterLabel = NSLocalizedString(@"SecurityCenterLabel", nil);
     
     
     deviceString = [GGUtil deviceVersion];
@@ -715,10 +721,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Security Center" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: SecurityCenterLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab2.frame = CGRectMake(btn1.frame.size.width+(btn2.frame.size.width - size.width)/2, btnImageView2.frame.origin.y+btnImageView2.frame.size.height+ 10, 150, 20);
-        btnLab2.text = @"Security Center";
+        btnLab2.text = SecurityCenterLabel;
         btnLab2.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab2.font = FONT(15);
         [scrollView addSubview:btnLab2];
@@ -753,10 +759,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Security Center" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: SecurityCenterLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab2.frame = CGRectMake(btn1.frame.size.width+(btn2.frame.size.width - size.width)/2, btnImageView2.frame.origin.y+btnImageView2.frame.size.height+ 10, 150, 20);
-        btnLab2.text = @"Security Center";
+        btnLab2.text = SecurityCenterLabel;
         btnLab2.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab2.font = FONT(15);
         [scrollView addSubview:btnLab2];
@@ -791,10 +797,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Security Center" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: SecurityCenterLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab2.frame = CGRectMake(btn1.frame.size.width+(btn2.frame.size.width - size.width)/2, btnImageView2.frame.origin.y+btnImageView2.frame.size.height+ 10, 150, 20);
-        btnLab2.text = @"Security Center";
+        btnLab2.text = SecurityCenterLabel;
         btnLab2.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab2.font = FONT(15);
         [scrollView addSubview:btnLab2];
@@ -829,10 +835,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Security Center" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: SecurityCenterLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab2.frame = CGRectMake(btn1.frame.size.width+(btn2.frame.size.width - size.width)/2, btnImageView2.frame.origin.y+btnImageView2.frame.size.height+ 10, 150, 20);
-        btnLab2.text = @"Security Center";
+        btnLab2.text = SecurityCenterLabel;
         btnLab2.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab2.font = FONT(15);
         [scrollView addSubview:btnLab2];
@@ -852,8 +858,7 @@
 #pragma mark - 第三个btn
 -(void)addThirdBtn
 {
-    
-    
+    NSString * DevicesListLabel = NSLocalizedString(@"DevicesListLabel", nil);
     
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
@@ -875,10 +880,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Devices List" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: DevicesListLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView3.frame.size.width - size.width)/2);
         btnLab3.frame = CGRectMake((btn3.frame.size.width - size.width)/2, btnImageView3.frame.origin.y+btnImageView3.frame.size.height+ 10, 150, 20);
-        btnLab3.text = @"Devices List";
+        btnLab3.text = DevicesListLabel;
         btnLab3.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab3.font = FONT(15);
         [scrollView addSubview:btnLab3];
@@ -907,10 +912,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Devices List" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: DevicesListLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView3.frame.size.width - size.width)/2);
         btnLab3.frame = CGRectMake((btn3.frame.size.width - size.width)/2, btnImageView3.frame.origin.y+btnImageView3.frame.size.height+ 10, 150, 20);
-        btnLab3.text = @"Devices List";
+        btnLab3.text = DevicesListLabel;
         btnLab3.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab3.font = FONT(15);
         [scrollView addSubview:btnLab3];
@@ -940,10 +945,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Devices List" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: DevicesListLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView3.frame.size.width - size.width)/2);
         btnLab3.frame = CGRectMake((btn3.frame.size.width - size.width)/2, btnImageView3.frame.origin.y+btnImageView3.frame.size.height+ 10, 150, 20);
-        btnLab3.text = @"Devices List";
+        btnLab3.text = DevicesListLabel;
         btnLab3.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab3.font = FONT(15);
         [scrollView addSubview:btnLab3];
@@ -973,10 +978,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Devices List" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: DevicesListLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView3.frame.size.width - size.width)/2);
         btnLab3.frame = CGRectMake((btn3.frame.size.width - size.width)/2, btnImageView3.frame.origin.y+btnImageView3.frame.size.height+ 10, 150, 20);
-        btnLab3.text = @"Devices List";
+        btnLab3.text = DevicesListLabel;
         btnLab3.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab3.font = FONT(15);
         [scrollView addSubview:btnLab3];
@@ -993,6 +998,7 @@
 -(void)addFourBtn
 {
     
+    NSString * RouterStatusLabel = NSLocalizedString(@"RouterStatusLabel", nil);
   
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
@@ -1021,10 +1027,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Router Status" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RouterStatusLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab4.frame = CGRectMake(btn3.frame.size.width+(btn4.frame.size.width - size.width)/2, btnImageView4.frame.origin.y+btnImageView4.frame.size.height+ 10, 150, 20);
-        btnLab4.text = @"Router Status";
+        btnLab4.text = RouterStatusLabel;
         btnLab4.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab4.font = FONT(15);
         [scrollView addSubview:btnLab4];
@@ -1060,10 +1066,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Router Status" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RouterStatusLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab4.frame = CGRectMake(btn3.frame.size.width+(btn4.frame.size.width - size.width)/2, btnImageView4.frame.origin.y+btnImageView4.frame.size.height+ 10, 150, 20);
-        btnLab4.text = @"Router Status";
+        btnLab4.text = RouterStatusLabel;
         btnLab4.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab4.font = FONT(15);
         [scrollView addSubview:btnLab4];
@@ -1099,10 +1105,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Router Status" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RouterStatusLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab4.frame = CGRectMake(btn3.frame.size.width+(btn4.frame.size.width - size.width)/2, btnImageView4.frame.origin.y+btnImageView4.frame.size.height+ 10, 150, 20);
-        btnLab4.text = @"Router Status";
+        btnLab4.text = RouterStatusLabel;
         btnLab4.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab4.font = FONT(15);
         [scrollView addSubview:btnLab4];
@@ -1132,10 +1138,10 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Router Status" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RouterStatusLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView1.frame.size.width - size.width)/2);
         btnLab4.frame = CGRectMake(btn3.frame.size.width+(btn4.frame.size.width - size.width)/2, btnImageView4.frame.origin.y+btnImageView4.frame.size.height+ 10, 150, 20);
-        btnLab4.text = @"Router Status";
+        btnLab4.text = RouterStatusLabel;
         btnLab4.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         btnLab4.font = FONT(15);
         [scrollView addSubview:btnLab4];
@@ -1152,8 +1158,7 @@
 #pragma mark - 第五个btn
 -(void)addFiveBtn
 {
-    
-    
+    NSString * BackupRestoreLabel = NSLocalizedString(@"BackupRestoreLabel", nil);
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
@@ -1181,12 +1186,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Backup & Restore" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = @"Backup & Restore";
+        btnLab5.text = BackupRestoreLabel;
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(15);
+        btnLab5.font = FONT(11);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
@@ -1220,12 +1225,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Backup & Restore" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = @"Backup & Restore";
+        btnLab5.text = BackupRestoreLabel;
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(15);
+        btnLab5.font = FONT(11);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
@@ -1259,12 +1264,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Backup & Restore" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = @"Backup & Restore";
+        btnLab5.text = BackupRestoreLabel;
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(15);
+        btnLab5.font = FONT(11);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
@@ -1292,12 +1297,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Backup & Restore" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = @"Backup & Restore";
+        btnLab5.text = BackupRestoreLabel;
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(15);
+        btnLab5.font = FONT(11);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
@@ -1312,7 +1317,7 @@
 -(void)addSixBtn
 {
     
-    
+    NSString * RebootDeviceLabel = NSLocalizedString(@"RebootDeviceLabel", nil);
     
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
@@ -1341,12 +1346,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Reboot" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:1] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
         btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = @"Reboot";
+        btnLab6.text = RebootDeviceLabel;
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(15);
+        btnLab6.font = FONT(11);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
@@ -1380,12 +1385,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Reboot" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
         btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = @"Reboot";
+        btnLab6.text = RebootDeviceLabel;
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(15);
+        btnLab6.font = FONT(11);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
@@ -1419,12 +1424,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Reboot" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
         btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = @"Reboot";
+        btnLab6.text = RebootDeviceLabel;
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(15);
+        btnLab6.font = FONT(11);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
@@ -1452,12 +1457,12 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: @"Reboot" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
         btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = @"Reboot";
+        btnLab6.text = RebootDeviceLabel;
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(15);
+        btnLab6.font = FONT(11);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
@@ -1890,9 +1895,10 @@
             if ([[deviceDic objectForKey:@"code"] isEqual:@0] ) {
                //成功，显示图片
                 
-                
-                restartingAlert = [[UIAlertView alloc] initWithTitle:@"Restarting"
-                                                    message:reStartTip delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
+                NSString * RouterResetingLabel = NSLocalizedString(@"RouterResetingLabel", nil);
+                NSString * MLRestarting = NSLocalizedString(@"MLRestarting", nil);
+                restartingAlert = [[UIAlertView alloc] initWithTitle:MLRestarting
+                                                    message:RouterResetingLabel delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
                 
                 [restartingAlert show];
                 
@@ -1901,9 +1907,10 @@
             }else
             {
                //重启失败
-                
-                restartingAlert = [[UIAlertView alloc] initWithTitle:@"Restore Failed"
-                                                             message:nil delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles: nil];
+                NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+                NSString * MLRestoreFailure = NSLocalizedString(@"MLRestoreFailure", nil);
+                restartingAlert = [[UIAlertView alloc] initWithTitle:MLRestoreFailure
+                                                             message:nil delegate:self cancelButtonTitle:ConfirmLabel otherButtonTitles: nil];
                 
                 [restartingAlert show];
             }
@@ -1951,7 +1958,8 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"Network Error";
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    self.NetWorkErrorLab.text = MLNetworkError;
     self.NetWorkErrorLab.font = FONT(15);
     
     

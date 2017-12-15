@@ -47,10 +47,37 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
+    
+    //57.Hardware version
+    NSString * MLHardwareversion = NSLocalizedString(@"MLHardwareversion", nil);
+    self.MHardVersion.text = MLHardwareversion;
+    //58.确认新密码
+    NSString * MLSoftwareversion = NSLocalizedString(@"MLSoftwareversion", nil);
+    self.MSoftwareVersion.text = MLSoftwareversion;
+    //59.确认新密码
+    NSString * MLBuilddate = NSLocalizedString(@"MLBuilddate", nil);
+    self.MBuildData.text = MLBuilddate;
+    //60.确认新密码
+    NSString * MLSerialnumber = NSLocalizedString(@"MLSerialnumber", nil);
+    self.MSerialNum.text = MLSerialnumber;
+    //61.确认新密码
+    NSString * MLMACaddress = NSLocalizedString(@"MLMACaddress", nil);
+    self.MMACAddress.text = MLMACaddress;
+    //62.确认新密码
+    NSString * MLSubnetmask = NSLocalizedString(@"MLSubnetmask", nil);
+    self.MSubnetMask.text = MLSubnetmask;
+    //63.确认新密码
+    NSString * MLIPaddress = NSLocalizedString(@"MLIPaddress", nil);
+    self.MIPAddress.text = MLIPaddress;
+    
+    
+    
+    
 }
 -(void)loadNav
 {
-    self.title = @"Router Status";
+    NSString * RouterStatusLabel = NSLocalizedString(@"RouterStatusLabel", nil);
+    self.title = RouterStatusLabel;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     
@@ -120,9 +147,11 @@
             UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
             hudImage.image = [UIImage imageNamed:@"网络无连接"];
             
-            CGSize size = [GGUtil sizeWithText:@"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            
+            NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+            CGSize size = [GGUtil sizeWithText:MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-            hudLab.text = @"Network Error";
+            hudLab.text = MLNetworkError;
             hudLab.font = FONT(15);
             hudLab.textColor = [UIColor grayColor];
             
@@ -514,18 +543,16 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"Network Error";
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    self.NetWorkErrorLab.text = MLNetworkError;
     self.NetWorkErrorLab.font = FONT(15);
     
-    
-    
-    
+ 
     
     [self.view addSubview:self.NetWorkErrorView];
     [self.NetWorkErrorView addSubview:self.NetWorkErrorImageView];
     [self.NetWorkErrorView addSubview:self.NetWorkErrorLab];
-    
-    
+ 
     
     UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
     

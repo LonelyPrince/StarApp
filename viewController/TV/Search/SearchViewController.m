@@ -54,7 +54,8 @@
     NSLog(@"%lu",(unsigned long)[_dataList count]);
 //    self.showData = [NSMutableArray arrayWithArray:_dataList];
     
-    [self.searchBar setPlaceholder:@"Search"];
+    NSString * SearchLabel = NSLocalizedString(@"SearchLabel", nil);
+    [self.searchBar setPlaceholder:SearchLabel];
     
     // 显示Cancel按钮
     self.searchBar.showsCancelButton = true;
@@ -615,30 +616,7 @@
             
             [alertView show];
             
-            
-//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil  message:@"sorry,can't serarch this video" preferredStyle:UIAlertControllerStyleAlert];
-//            
-//            
-//            NSMutableAttributedString *alertMessageStr = [[NSMutableAttributedString alloc] initWithString:@"sorry,can't serarch this video"];
-//                        [alertMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17] range:NSMakeRange(0, [[alertMessageStr string] length])];
-//                        [alertMessageStr addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, [[alertMessageStr string] length])];
-//                        [alertController setValue:alertMessageStr forKey:@"attributedMessage"];
-//            //修改按钮的颜色，同上可以使用同样的方法修改内容，样式
-//            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-////            [defaultAction setValue:[UIColor blueColor] forKey:@"_titleTextColor"];
-//            
-////            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-////            
-////            [cancelAction setValue:[UIColor greenColor] forKey:@"_titleTextColor"];
-//            
-//            [alertController addAction:defaultAction];
-////            [alertController addAction:cancelAction];
-//            
-//            [self presentViewController:alertController animated:YES completion:nil];
-
-            
-            
-            
+    
             return; //返回
         }
         
@@ -846,9 +824,11 @@
         
         if (self.showData.count == 0) {
             
-            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"No search results" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            NSString * NoSearchResultsLabel = NSLocalizedString(@"NoSearchResultsLabel", nil);
+            CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:NoSearchResultsLabel font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             noResultlab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
-            noResultlab.text = @"No search results";
+            
+            noResultlab.text = NoSearchResultsLabel;
             noResultlab.font = FONT(18);
             noResultlab.textColor = [UIColor blackColor];
             [self.view addSubview:noResultlab];
@@ -870,10 +850,12 @@
         {
             [_showData removeAllObjects];
             [_tableView reloadData];
+           
             
-           CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:@"No search history" font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            NSString * NoSearchHistorysLabel = NSLocalizedString(@"NoSearchHistorysLabel", nil);
+           CGSize sizeOfNoHistorylab = [GGUtil sizeWithText:NoSearchHistorysLabel font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             noHistorylab.frame = CGRectMake((SCREEN_WIDTH - sizeOfNoHistorylab.width)/2, 100, sizeOfNoHistorylab.width, sizeOfNoHistorylab.height+10);
-            noHistorylab.text = @"No search history";
+            noHistorylab.text = NoSearchHistorysLabel;
             noHistorylab.font = FONT(18);
             noHistorylab.textColor = [UIColor blackColor];
             [self.view addSubview:noHistorylab];
@@ -951,8 +933,8 @@
         self.tableView.frame = CGRectMake(0, 1500, SCREEN_WIDTH, SCREEN_HEIGHT);
         
         historySearchLab.frame = CGRectMake(16, 10, 100, 20);
-        
-        historySearchLab.text = @"History";
+        NSString * HistoryLabel = NSLocalizedString(@"HistoryLabel", nil);
+        historySearchLab.text = HistoryLabel;
         historySearchLab.textColor = [UIColor grayColor];
         historySearchLab.font = FONT(17);
         [historySearchView addSubview:historySearchLab];

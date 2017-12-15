@@ -25,7 +25,9 @@
     [super viewDidLoad];
     
     self.tabBarController.tabBar.hidden = YES;
-    self.title = @"About";
+    
+    NSString * AboutLabel = NSLocalizedString(@"AboutLabel", nil);
+    self.title = AboutLabel;
     [self loadUI];
     
     

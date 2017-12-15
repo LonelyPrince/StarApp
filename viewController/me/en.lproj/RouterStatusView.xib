@@ -16,13 +16,6 @@
                 <outlet property="BuildDataLab" destination="MWc-AX-diH" id="eFG-sU-7ud"/>
                 <outlet property="HardwareVersionLab" destination="xSb-c0-sfc" id="K4E-yh-oAG"/>
                 <outlet property="IPAddressLab" destination="xYA-ky-gvx" id="hTN-Si-KKP"/>
-                <outlet property="MBuildData" destination="sEI-YQ-Nrl" id="bgh-8P-KEv"/>
-                <outlet property="MHardVersion" destination="7Uo-4h-NKz" id="AHg-Vr-Ebd"/>
-                <outlet property="MIPAddress" destination="NdI-xG-bAj" id="XWV-t8-R4D"/>
-                <outlet property="MMACAddress" destination="Qna-j0-tO8" id="JZi-xF-yXm"/>
-                <outlet property="MSerialNum" destination="lRg-o5-8Q2" id="vRw-iR-kZM"/>
-                <outlet property="MSoftwareVersion" destination="eKh-zE-gEB" id="qWZ-W5-ZIW"/>
-                <outlet property="MSubnetMask" destination="2Wp-tu-0Da" id="BcH-P1-0Za"/>
                 <outlet property="MacAddressLab" destination="qNZ-NI-MXb" id="2ub-YF-IXa"/>
                 <outlet property="SerialNumberLab" destination="9nD-sm-am4" id="eLy-KP-YqR"/>
                 <outlet property="SortwareVersionLab" destination="fyC-DW-9wY" id="aIb-We-gre"/>
@@ -36,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hardware Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Uo-4h-NKz">
-                    <rect key="frame" x="31" y="80" width="157" height="21"/>
+                    <rect key="frame" x="31" y="80" width="130" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="JwM-Cc-Nov"/>
                     </constraints>

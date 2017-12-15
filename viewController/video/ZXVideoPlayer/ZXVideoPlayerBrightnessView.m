@@ -50,7 +50,9 @@ static const CGFloat kBrightnessIndicatorAutoFadeOutTimeInterval = 1.0;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    CGFloat brightness = [change[@"new"] floatValue];
+    
+    NSString * NewLabel = NSLocalizedString(@"NewLabel", nil);
+    CGFloat brightness = [change[NewLabel] floatValue];
     [self updateBrightnessIndicator:brightness];
 }
 

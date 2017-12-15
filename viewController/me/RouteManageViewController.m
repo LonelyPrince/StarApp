@@ -129,7 +129,8 @@
 }
 -(void)loadNav
 {
-    self.title = @"Router Setting";
+    NSString * RouterSettingLabel = NSLocalizedString(@"RouterSettingLabel", nil);
+    self.title = RouterSettingLabel;
     self.tabBarController.tabBar.hidden = YES;
     
     
@@ -339,9 +340,10 @@
             UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
             hudImage.image = [UIImage imageNamed:@"网络无连接"];
             
-            CGSize size = [self sizeWithText:@"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+            CGSize size = [self sizeWithText:MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-            hudLab.text = @"Network Error";
+            hudLab.text = MLNetworkError;
             hudLab.font = FONT(15);
             hudLab.textColor = [UIColor grayColor];
             

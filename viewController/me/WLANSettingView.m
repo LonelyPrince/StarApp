@@ -93,7 +93,8 @@
 
 -(void)loadNav
 {
-    self.title = @"WLAN Settings";
+    NSString * WLANSettingsLabel = NSLocalizedString(@"WLANSettingsLabel", nil);
+    self.title = WLANSettingsLabel;
     self.tabBarController.tabBar.hidden = YES;
 }
 -(void)initData
@@ -117,7 +118,9 @@
     nameEidtImageView = [[UIImageView alloc]init];
     pswEidtImageView = [[UIImageView alloc]init];
 //    alertView = [[UIAlertView alloc]init];
-    alertView = [[UIAlertView alloc]initWithTitle:nil message:@"The SSID can not be empty" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    NSString * SSIDNotEmptyLabel = NSLocalizedString(@"SSIDNotEmptyLabel", nil);
+    alertView = [[UIAlertView alloc]initWithTitle:nil message:SSIDNotEmptyLabel delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
 }
 -(void)loadUI
 {
@@ -175,6 +178,9 @@
 }
 -(void)loadScroll
 {
+    NSString * SaveLabel = NSLocalizedString(@"SaveLabel", nil);
+    NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+    NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"])
     {
         NSLog(@"此刻是4s的大小");
@@ -263,7 +269,7 @@
         
         
         SecurityLab.frame = CGRectMake(20, 12, 200, 20);
-        SecurityLab.text = @"Security Type";
+        SecurityLab.text = SecurityTypeLabel;
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityLab];
@@ -293,7 +299,7 @@
         
         
         PINLab.frame = CGRectMake(20, 12, 200, 20);
-        PINLab.text = @"PIN Protection";
+        PINLab.text = PINProtectionLabel;
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [PINInputTextView addSubview:PINLab];
@@ -307,11 +313,7 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-        UILabel * saveLab = [[UILabel alloc]init];
-        saveLab.text = @"SAVE";
-        saveLab.textColor = [UIColor whiteColor];
-        saveLab.frame = CGRectMake(125, 10, 80, 20);
-        [saveBtn addSubview:saveLab];
+        [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
     
 }
     else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString
@@ -402,7 +404,7 @@
         
         
         SecurityLab.frame = CGRectMake(20, 12, 200, 20);
-        SecurityLab.text = @"Security Type";
+        SecurityLab.text = SecurityTypeLabel;
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityLab];
@@ -432,7 +434,7 @@
         
         
         PINLab.frame = CGRectMake(20, 12, 200, 20);
-        PINLab.text = @"PIN Protection";
+        PINLab.text = PINProtectionLabel;
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [PINInputTextView addSubview:PINLab];
@@ -446,11 +448,7 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-        UILabel * saveLab = [[UILabel alloc]init];
-        saveLab.text = @"SAVE";
-        saveLab.textColor = [UIColor whiteColor];
-        saveLab.frame = CGRectMake(125, 10, 80, 20);
-        [saveBtn addSubview:saveLab];
+       [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
@@ -539,7 +537,7 @@
         
         
         SecurityLab.frame = CGRectMake(20, 12, 200, 20);
-        SecurityLab.text = @"Security Type";
+        SecurityLab.text = SecurityTypeLabel;
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityLab];
@@ -569,7 +567,7 @@
         
         
         PINLab.frame = CGRectMake(20, 12, 200, 20);
-        PINLab.text = @"PIN Protection";
+        PINLab.text = PINProtectionLabel;
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [PINInputTextView addSubview:PINLab];
@@ -583,11 +581,7 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-        UILabel * saveLab = [[UILabel alloc]init];
-        saveLab.text = @"SAVE";
-        saveLab.textColor = [UIColor whiteColor];
-        saveLab.frame = CGRectMake(125, 10, 80, 20);
-        [saveBtn addSubview:saveLab];
+       [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         
         
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
@@ -677,7 +671,7 @@
         
         
         SecurityLab.frame = CGRectMake(20, 12+1, 200, 20);
-        SecurityLab.text = @"Security Type";
+        SecurityLab.text = SecurityTypeLabel;
         SecurityLab.font = FONT(15);
         SecurityLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityLab];
@@ -707,7 +701,7 @@
         
         
         PINLab.frame = CGRectMake(20, 12, 200, 20);
-        PINLab.text = @"PIN Protection";
+        PINLab.text = PINProtectionLabel;
         PINLab.font = FONT(15);
         PINLab.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
         [PINInputTextView addSubview:PINLab];
@@ -721,11 +715,7 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-        UILabel * saveLab = [[UILabel alloc]init];
-        saveLab.text = @"SAVE";
-        saveLab.textColor = [UIColor whiteColor];
-        saveLab.frame = CGRectMake(125*1.05+2, 10+2, 80, 20);
-        [saveBtn addSubview:saveLab];
+       [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         
         
     }
@@ -756,21 +746,23 @@
 }
 -(void)saveBtnClick
 {
+    NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
     if ([setNameText.text isEqualToString:@""]) {
-//        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"The SSID can not be empty" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-        [alertView setMessage:@"The SSID can not be empty"];
-        [alertView addButtonWithTitle:@"Confirm"];
+
+        NSString * SSIDNotEmptyLabel = NSLocalizedString(@"SSIDNotEmptyLabel", nil);
+        [alertView setMessage:SSIDNotEmptyLabel];
+        [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }
    else if (setNameText.text.length<6) {
-//        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"SSID Length 6-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+ 
        [alertView setMessage:@"SSID Length 6-16"];
-        [alertView addButtonWithTitle:@"Confirm"];
+        [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
-//        alertView = [[UIAlertView alloc]initWithTitle:nil message:@"PIN Length 8-16" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+ 
         [alertView setMessage:@"PIN Length 8-16"];
-        [alertView addButtonWithTitle:@"Confirm"];
+        [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
 
     }else{
@@ -833,19 +825,20 @@
             if ([[resDict objectForKey:@"code"] isEqual:@3] || [[resDict objectForKey:@"code"] isEqual:@4]) {
 //                alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
                 [alertView setMessage:code3];
-                [alertView addButtonWithTitle:@"Confirm"];
+                [alertView addButtonWithTitle:ConfirmLabel];
                 [alertView show];
                 
             }else if ([str isEqualToString:@"failed"]) {
 //                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
                 [alertView setMessage:@"Save failed"];
-                [alertView addButtonWithTitle:@"Confirm"];
+                [alertView addButtonWithTitle:ConfirmLabel];
                 [alertView show];
             }else if ([str isEqualToString:@"success"])
             {
-//                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save success" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                [alertView setMessage:@"Save success"];
-                [alertView addButtonWithTitle:@"Confirm"];
+                
+                NSString * SaveSuccessLabel = NSLocalizedString(@"SaveSuccessLabel", nil);
+                [alertView setMessage:SaveSuccessLabel];
+                [alertView addButtonWithTitle:ConfirmLabel];
                 [alertView show];
             }
             
@@ -1202,7 +1195,8 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"Network Error";
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    self.NetWorkErrorLab.text = MLNetworkError;
     self.NetWorkErrorLab.font = FONT(15);
     
     

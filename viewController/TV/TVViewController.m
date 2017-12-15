@@ -215,9 +215,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     hudImage.image = [UIImage imageNamed:@"网络无连接"];
     //调用上面的方法，获取 字体的 Size
     
-    CGSize size = [self sizeWithText: @"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    CGSize size = [self sizeWithText: MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-    hudLab.text = @"Network Error";
+    hudLab.text = MLNetworkError;
     hudLab.font = FONT(15);
     hudLab.textColor = [UIColor grayColor];
     
@@ -362,6 +363,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
     categoryView = [[CategoryViewController alloc]init];
     monitorView = [[MonitorViewController alloc]init];
     self.dicTemp = [[NSMutableDictionary alloc]init];
@@ -395,11 +397,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     CATextField_Encrypt = [[UITextField alloc]init];
     STBTouch_Dic  = [[NSDictionary alloc]init];
     
-    STBAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input your Decoder PIN" message:@"" delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel",nil]
+    NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
+    NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+    STBAlert = [[UICustomAlertView alloc] initWithTitle:STBTitle message:@"" delegate:self cancelButtonTitle:ConfirmLabel otherButtonTitles:CancelLabel,nil]
     ;
     STBAlert.alertViewStyle = UIAlertViewStyleSecureTextInput;
     
-    CAAlert = [[UICustomAlertView alloc] initWithTitle:@"Please input CA PIN" message:@"" delegate:self cancelButtonTitle:@"Confirm" otherButtonTitles:@"Cancel",nil];
+    NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
+    CAAlert = [[UICustomAlertView alloc] initWithTitle:CAAlertTitle message:@"" delegate:self cancelButtonTitle:ConfirmLabel otherButtonTitles:CancelLabel,nil];
     CAAlert.alertViewStyle = UIAlertViewStyleSecureTextInput; //UIAlertViewStylePlainTextInput;
     
     channelStartimesList = [[NSMutableSet alloc]init];
@@ -2547,8 +2552,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //如果不能播放，则显示sorry , radio 不能播放
         
         
-        [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
-        [USER_DEFAULT setObject:radioCantPlayTip forKey:@"videoOrRadioTip"];
+        [USER_DEFAULT setObject:@"video" forKey:@"videoOrRadioPlay"];
+        [USER_DEFAULT setObject:videoCantPlayTip forKey:@"videoOrRadioTip"];
+//        [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
+//        [USER_DEFAULT setObject:radioCantPlayTip forKey:@"videoOrRadioTip"];
         
     }else { //视频是1  音频是4
         NSLog(@"此时播放的是视频");
@@ -4595,7 +4602,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-    CAAlert.title = @"It's wrong,Once more";
+    NSString * CAPINIsIncorrect = NSLocalizedString(@"CAPINIsIncorrect", nil);
+    CAAlert.title = CAPINIsIncorrect;
     if (self.showTVView == YES) {
         [CAAlert show];
     }else
@@ -4722,7 +4730,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else
     {
         NSLog(@"弹出 STB 窗口 ");
-        STBAlert.title = @"It's wrong,Once more";
+        NSString * DecoderPINIsIncorrect = NSLocalizedString(@"DecoderPINIsIncorrect", nil);
+        STBAlert.title = DecoderPINIsIncorrect;
         if (self.showTVView == YES) {
             [STBAlert show];
             NSLog(@"asoabsfbasfbaofbasobfasbfjbasbdn c");
@@ -4744,7 +4753,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     [self stopVideoPlay];
     
-    STBAlert.title = @"Please input your Decoder PIN";
+    NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
+    STBAlert.title = STBTitle;
     if (self.showTVView == YES) {
         [STBAlert show];
     }else
@@ -4762,7 +4772,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
 -(void)popCAAlertViewInputAgain //: (NSNotification *)text
 {
-    CAAlert.title = @"Please input your CA PIN";
+    NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
+    CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
     if (self.showTVView == YES) {
         [CAAlert show];
     }else
@@ -4806,7 +4817,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
             STBAlert.delegate =  self;
-            STBAlert.title = @"Please input your Decoder PIN";
+            NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
+            STBAlert.title = STBTitle;
             if (self.showTVView == YES) {
                 [STBAlert show];
                 NSLog(@"asoabsfbasfbaofbasobfasbfjbasbdn222 c");
@@ -4831,7 +4843,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                       object:STBTextField_Encrypt];
             //修改decoderPIN 和CA PIN 的 占位文字
             if (STBAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
-                STBTextField_Encrypt.placeholder = @"decoder PIN";
+                NSString * DecoderPINLabel = NSLocalizedString(@"DecoderPINLabel", nil);
+                STBTextField_Encrypt.placeholder = DecoderPINLabel;
             }
             
             
@@ -4968,7 +4981,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
         CAAlert.delegate =  self;
-        CAAlert.title = @"Please input your CA PIN";
+        NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
+        CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
         if (self.showTVView == YES) {
             [CAAlert show];
         }else
@@ -4989,7 +5003,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //修改decoderPIN 和CA PIN 的 占位文字
         if (CAAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
-            CATextField_Encrypt.placeholder = @"CA PIN";
+            NSString * CAPINLabel = NSLocalizedString(@"CAPINLabel", nil);
+            CATextField_Encrypt.placeholder = CAPINLabel;
         }
         
     }else
@@ -5107,11 +5122,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)changeSTBAlertTitle
 {
-    STBAlert.title = @"Please input your Decoder PIN"; //将decoder PIN 的文字改成@"Please input your Decoder PIN"
+    NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
+    STBAlert.title = STBTitle; //将decoder PIN 的文字改成@"Please input your Decoder PIN"
 }
 -(void)changeCAAlertTitle
 {
-    CAAlert.title = @"Please input your CA PIN"; //将CA PIN 的文字改成@"Please input your CA PIN"
+    NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
+    CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
+    
 }
 -(BOOL)textFiledEditChanged:(NSNotification *)obj{
     
@@ -7809,9 +7827,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.NoDataImageview.alpha = 1;
     [self.view addSubview:self.NoDataImageview];
     
-    self.NoDataLabel.text = @"Channel List is empty";
+    NSString * ChannelListIsEmpty = NSLocalizedString(@"ChannelListIsEmpty", nil);
+    
+    self.NoDataLabel.text = ChannelListIsEmpty;
     self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
-    CGSize sizeNoDataLabel = [GGUtil sizeWithText:@"Channel List is empty" font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize sizeNoDataLabel = [GGUtil sizeWithText:ChannelListIsEmpty font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
     self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
     self.NoDataLabel.alpha = 1;

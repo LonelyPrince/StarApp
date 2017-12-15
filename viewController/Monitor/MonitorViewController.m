@@ -590,8 +590,7 @@
 {
     deviceString = [GGUtil deviceVersion];
     
-    
-    
+    NSString * MLDelivery = NSLocalizedString(@"MLDelivery", nil);
     
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]   ) {
         NSLog(@"此刻是5s和4s 的大小");
@@ -605,20 +604,16 @@
         
         
         recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 50 - 4, 360, 142/2, 15)];
-        recoderLab.text = @"Recording";
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
         
-        //        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(160, 360, 142/2, 13)];
-        //        timeShiftLab.text = @"Time Shift";
-        //        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-        //        timeShiftLab.font = FONT(13);
-        //        [colorImageView addSubview:timeShiftLab];
         
-        //    distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 , 360, 142/2, 13)];
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(240 - 12, 360, 142/2, 15)];
-        distributeLab.text = @"Delivery";
+        
+        distributeLab.text = MLDelivery;
         distributeLab.textColor = RGBA(245, 245, 245, 0.65);
         distributeLab.font = FONT(13);
         [colorImageView addSubview:distributeLab];
@@ -661,7 +656,8 @@
         [colorImageView addSubview:liveNumLab];
         
         recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +48 , 360, 142/2, 15)];
-        recoderLab.text = @"Recording";
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
@@ -673,7 +669,7 @@
         //        [colorImageView addSubview:timeShiftLab];
         
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 -10, 360, 142/2, 15)];
-        distributeLab.text = @"Delivery";
+        distributeLab.text = MLDelivery;
         distributeLab.textColor = RGBA(245, 245, 245, 0.65);
         distributeLab.font = FONT(13);
         [colorImageView addSubview:distributeLab];
@@ -713,7 +709,8 @@
         [colorImageView addSubview:liveNumLab];
         
         recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 50 , 360, 142/2, 15)];
-        recoderLab.text = @"Recording";
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
@@ -725,7 +722,7 @@
         //        [colorImageView addSubview:timeShiftLab];
         
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 - 0, 360, 142/2, 15)];
-        distributeLab.text = @"Delivery";
+        distributeLab.text = MLDelivery;
         distributeLab.textColor = RGBA(245, 245, 245, 0.65);
         distributeLab.font = FONT(13);
         [colorImageView addSubview:distributeLab];

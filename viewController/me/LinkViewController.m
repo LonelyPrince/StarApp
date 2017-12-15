@@ -39,8 +39,10 @@
 }
 -(void)loadNav
 {
-    self.navigationController.title = @"Contact Us";
-    self.title =  @"Contact Us";
+    
+    NSString * ContactUsLabel = NSLocalizedString(@"ContactUsLabel", nil);
+    self.navigationController.title = ContactUsLabel;
+    self.title =  ContactUsLabel;
     
     [self loadScroll];
     
@@ -696,10 +698,9 @@
             break;
     }
     
-    
-    UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",tel] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Call", nil];
-    
-    //    UIAlertView * linkAlert =   [[UIAlertView alloc] initWithTitle:@"Alert View"message:@"We Will Call" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:[NSString stringWithFormat:@"22:%@",tel],[NSString stringWithFormat:@"00:%@",tel], nil];
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+    NSString * CallLabel = NSLocalizedString(@"CallLabel", nil);
+    UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"%@",tel] delegate:self cancelButtonTitle:CancelLabel otherButtonTitles:CallLabel, nil];
     
     [linkAlert show];
     

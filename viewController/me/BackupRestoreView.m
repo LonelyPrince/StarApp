@@ -50,22 +50,23 @@
 }
 -(void)loadNav
 {
-    self.title = @"Backup & Restore";
+    NSString * BackupRestoreLabel = NSLocalizedString(@"BackupRestoreLabel", nil);
+    self.title = BackupRestoreLabel;
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     
 }
 -(void)initData
 {
-    
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
     imageView = [[UIImageView alloc]init];
     backUPLab = [[UILabel alloc]init];
     backUPInfoLab = [[UILabel alloc]init];
     grayView = [[UIView alloc]init];
     restoreBtn = [[UIButton alloc]init];
     backUpBtn = [[UIButton alloc]init];
-    backupAlert = [[UIAlertView alloc]initWithTitle:nil message:BackUPAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
-    restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:RestoreAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
+    backupAlert = [[UIAlertView alloc]initWithTitle:nil message:BackUPAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
+    restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:RestoreAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
     
     self.meViewController = [[MEViewController alloc]init];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
@@ -138,9 +139,10 @@
             UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
             hudImage.image = [UIImage imageNamed:@"网络无连接"];
             
-            CGSize size = [GGUtil sizeWithText:@"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+            CGSize size = [GGUtil sizeWithText:MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-            hudLab.text = @"Network Error";
+            hudLab.text = MLNetworkError;
             hudLab.font = FONT(15);
             hudLab.textColor = [UIColor grayColor];
             
@@ -229,7 +231,8 @@
     backUPInfoLab.frame =CGRectMake(20 , grayView.frame.origin.y + 15, SCREEN_WIDTH - 40, 60);
     backUPInfoLab.font = FONT(15);
     backUPInfoLab.numberOfLines = 0;
-    backUPInfoLab.text = BackUPTip;
+    NSString * MLbackupRestore = NSLocalizedString(@"MLbackupRestore", nil);
+    backUPInfoLab.text = MLbackupRestore;
     backUPInfoLab.textColor = [UIColor colorWithRed:0x87/255.0 green:0x87/255.0 blue:0x87/255.0 alpha:0.8];
     [self.view addSubview:backUPInfoLab];
     
@@ -239,7 +242,8 @@
     restoreBtn.frame =CGRectMake(40, SCREEN_HEIGHT - 200+64, SCREEN_WIDTH - 40 *2 , 43);
     restoreBtn.backgroundColor =[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
     restoreBtn.layer.cornerRadius = 43/2;
-    [restoreBtn setTitle:@"Restore" forState:UIControlStateNormal];
+    NSString * MLRestore = NSLocalizedString(@"MLRestore", nil);
+    [restoreBtn setTitle:MLRestore forState:UIControlStateNormal];
     restoreBtn.titleLabel.textColor = [UIColor whiteColor];
     [restoreBtn addTarget:self action:@selector(restoreBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview: restoreBtn];
@@ -268,8 +272,9 @@
         
     }else
     {
-        
-        UIAlertView * noBackUPAlert = [[UIAlertView alloc]initWithTitle:nil message:NOBackUPAlert delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+        NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+        NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+        UIAlertView * noBackUPAlert = [[UIAlertView alloc]initWithTitle:nil message:MLNOBackupRestored delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         
         [noBackUPAlert show];
@@ -278,8 +283,7 @@
 }
 -(void)backUpBtnClick
 {
-        
-//        backupAlert = [[UIAlertView alloc]initWithTitle:nil message:BackUPAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancel", nil];
+ 
     backupAlert.delegate = self;
     [backupAlert show];
         
@@ -480,10 +484,12 @@
     
 //    successHUD.labelText = @"Backup Success";
     if ([hudType isEqualToString: @"backup"]) {
-        successHUD.labelText = @"Backup Success";
+         NSString * MLBackupsuccess = NSLocalizedString(@"MLBackupsuccess", nil);
+        successHUD.labelText = MLBackupsuccess;
     }else if ([hudType isEqualToString: @"restore"])
     {
-        successHUD.labelText = @"Restore Success";
+        NSString * MLRestoresuccess = NSLocalizedString(@"MLRestoresuccess", nil);
+        successHUD.labelText = MLRestoresuccess;
     }else
     {
         successHUD.labelText = @"Success";
@@ -514,10 +520,12 @@
     [self.view addSubview:successHUD];
     
     if ([hudType isEqualToString: @"backup"]) {
-        successHUD.labelText = @"Backup Failed";
+        NSString * MLBackupFailure = NSLocalizedString(@"MLBackupFailure", nil);
+        successHUD.labelText = MLBackupFailure;
     }else if ([hudType isEqualToString: @"restore"])
     {
-        successHUD.labelText = @"Restore Failed";
+        NSString * MLRestoreFailure = NSLocalizedString(@"MLRestoreFailure", nil);
+        successHUD.labelText = MLRestoreFailure;
     }else
     {
         successHUD.labelText = @"Failed";
@@ -647,7 +655,8 @@
     
     
     self.NetWorkErrorLab.frame = CGRectMake((SCREEN_WIDTH - 90)/2, self.NetWorkErrorImageView.frame.origin.y+60, 150, 50);
-    self.NetWorkErrorLab.text = @"Network Error";
+    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+    self.NetWorkErrorLab.text = MLNetworkError;
     self.NetWorkErrorLab.font = FONT(15);
     
     
@@ -741,15 +750,13 @@
             netWorkErrorView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
             hudImage.image = [UIImage imageNamed:@"网络无连接"];
-            
-            CGSize size = [GGUtil sizeWithText:@"Network Error" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+            CGSize size = [GGUtil sizeWithText:MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-            hudLab.text = @"Network Error";
+            hudLab.text = MLNetworkError;
             hudLab.font = FONT(15);
             hudLab.textColor = [UIColor grayColor];
-            
-            //        [scrollView addSubview:netWorkErrorView];
-            //            [scrollView addSubview:netWorkErrorView];
+           
             [self.view addSubview:netWorkErrorView];
             [netWorkErrorView addSubview:hudImage];
             [netWorkErrorView addSubview:hudLab];
