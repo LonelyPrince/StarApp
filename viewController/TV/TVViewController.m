@@ -4385,34 +4385,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
-        //        dispatch_queue_t globalQueue=dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        //        //异步执行队列任务
-        //        dispatch_async(globalQueue, ^{
-        //            [self getStartTimeFromchannelListArr : data1]; //将获得data存到集合
-        //        });
-        
-        if (!isValidArray(data1) || data1.count == 0){
-            [self getServiceDataNotHaveSocket];
-            return ;
-        }
+        //录制节目,保存数据
+        NSArray *recFileData = response[@"rec_file_info"];
+        NSLog(@"recFileData %@",recFileData);
+        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+
+//        if ( data1.count == 0 && recFileData.count == 0){
+//            [self getServiceDataNotHaveSocket];
+//            return ;
+//        }
         self.serviceData = (NSMutableArray *)data1;
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-        
-        //        NSLog(@"--------%@",self.serviceData);
-        
-        
-        
-        if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            [self getServiceDataNotHaveSocket];
-        }
+       
+//        BOOL serviceDatabool = [self judgeServiceDataIsnull];
+//        if (serviceDatabool && recFileData.count == 0) {
+//            [self getServiceDataNotHaveSocket];
+//        }
         
         [self.activeView removeFromSuperview];
         self.activeView = nil;
         [self lineAndSearchBtnShow];
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
-        
-        NSLog(@" playVideo getservicedataNotHaveSocket");
-        NSLog(@"playVideo44 :");
         
         
         //////
@@ -4434,12 +4427,38 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //        NSLog(@"response = %@",response);
             NSArray *data = response[@"category"];
             
-            if (!isValidArray(data) || data.count == 0){
+//            if (!isValidArray(data) || data.count == 0){
+//                return ;
+//            }
+            if (data.count == 0 && recFileData.count == 0){ //没有数据
+                
+                [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
                 return ;
+            }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
+                
+                [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
+                
+                // 特殊情况，有录制但是没有service数据
+                [self.CategoryAndREC removeAllObjects];
+                [self.CategoryAndREC addObject: recFileData];
+                
+            }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
+            {
+                [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
+                
+                [self.CategoryAndREC removeAllObjects];
+                [self.CategoryAndREC addObject:data];
+            }else //两种都有
+            {
+                [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
+                
+                [self.CategoryAndREC removeAllObjects];
+                [self.CategoryAndREC addObject:data];
+                [self.CategoryAndREC addObject: recFileData];
             }
+
             self.categorys = (NSMutableArray *)data;
             
-            //            if (tableviewinit == 2) {
             if (!_slideView) {
                
                 
