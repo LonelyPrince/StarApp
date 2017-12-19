@@ -3915,31 +3915,20 @@
     }else
     {
         NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-        NSLog(@"touchArr：%@",touchArr);
-        //    [self touchToSee :touchArr];
-        
-        
+    
         NSInteger row = [touchArr[2] intValue];
         NSDictionary * dic = touchArr [3];
-        
-        
-        //    self.tvViewController = [[TVViewController alloc]init];
-        //    [self.tvViewController touchSelectChannel:row diction:dic];
-        ////    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
-        //将整形转换为number
+   
         NSNumber * numIndex = [NSNumber numberWithInt:row];
         
         //添加 字典，将label的值通过key值设置传递
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-       
-        
-        
+   
         //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
         
         NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-        
-        
+ 
         if (characterStr != NULL && characterStr != nil) {
             
             BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
@@ -3977,9 +3966,7 @@
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        //    [self.navigationController popViewControllerAnimated:YES];
-        //    [self.navigationController popToViewController:_tvViewController animated:YES];
-        //    [self.navigationController pushViewController:_tvViewController animated:YES];
+   
         [self.tabBarController setSelectedIndex:1];
         }
 

@@ -839,7 +839,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)setChannelNameOrOtherInfoNotic :(NSNotification *)text{
     
-    NSLog(@"kasdbfo;bsafobassssssss");
     NSString * channelIdLabStr = text.userInfo[@"channelIdStr"];
     NSString * channelNameLabStr = text.userInfo[@"channelNameStr"];
     self.video.channelId =channelIdLabStr;

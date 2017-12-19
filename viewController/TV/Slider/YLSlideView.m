@@ -314,8 +314,9 @@
   
     dispatch_async(dispatch_get_main_queue(), ^{
     
+        NSLog(@"此处记录跳转到那个页面 %ld",(long)row);
         tableViewForSliderView =   [self visibleCellForIndex:row];
-        
+
     });
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:row2 inSection:0];
     
