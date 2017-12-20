@@ -1677,7 +1677,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.videoController.player.view removeFromSuperview];
     
     if ([tableView numberOfSections] > 0) {
-             [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        if (indexPath.row > 0) {
+               [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        }
+        
     }
     
    
@@ -2994,6 +2997,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
+        if (data1.count == 0) {
+            
+        }else
+        {
+            
+       
         
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
@@ -3262,6 +3271,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.tableForSliderView reloadData];
         [self refreshTableviewByEPGTime];
         [self.table reloadData];
+
+        }
     }];
     double delayInSeconds = 1;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -5684,6 +5695,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 主页一秒钟刷新一次
 -(void)tableViewDataRefreshForMjRefresh_ONEMinute
 {
+  __block  NSArray *dataForData1;
+  __block  NSArray *dataForrecFileData;
     
     NSLog(@"我要刷新一次呀=^_^");
     //获取数据的链接
@@ -5708,21 +5721,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-  
+        dataForData1 = [data1 copy];
+        dataForrecFileData = [recFileData copy];
+        if ( data1.count == 0 ){
+        }else
+        {
+       
         if ( data1.count == 0 && recFileData.count == 0){
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             channelListMustRefresh = YES;
-            
+
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
-                
+
                 if (_slideView) {
                     [_slideView removeFromSuperview];
                     _slideView = nil;
-                    
+
                 }
-                
+
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
                 if (!self.NoDataImageview) {
@@ -5731,7 +5749,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //显示列表为空的数据
                 if (!self.NoDataLabel) {
                     self.NoDataLabel = [[UILabel alloc]init];
-                    
+
                 }
             }else
             {
@@ -5739,7 +5757,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //                [self tableViewDataRefreshForMjRefresh_ONEMinute]; //如果数据为空，则重新获取数据
                 return ;
             }
- 
+
             [self NOChannelDataShow];
             NSLog(@"NOChannelDataShow--!!44444444");
             NSLog(@"response== 44 :%@",response);
@@ -5748,11 +5766,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
 
             [self removeTopProgressView]; //删除进度条
-          
+
             if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
 
                 [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
-                
+
                 NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -5783,20 +5801,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if (serviceDatabool && recFileData.count == 0) {
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
-            
+
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+
                 if (_slideView) {
                     [_slideView removeFromSuperview];
                     _slideView = nil;
-                    
+
                 }
-                
+
                 if (!self.NoDataImageview) {
                     self.NoDataImageview = [[UIImageView alloc]init];
-                    
+
                     //1. 全屏按钮隐藏 2.取消加载环 3.取消名称
-                    
+
                 }
             }else
             {
@@ -5804,7 +5822,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self tableViewDataRefreshForMjRefresh_ONEMinute]; //如果数据为空，则重新获取数据
                 return ;
             }
- 
+
             [self NOChannelDataShow];
             NSLog(@"NOChannelDataShow--!!5555555");
             NSLog(@"response== 55 :%@",response);
@@ -5813,10 +5831,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             NSLog(@"zidong  刷新了一次");
             [self removeTopProgressView]; //删除进度条
-            
+
             if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
                 [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
-                
+
                 NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -5986,17 +6004,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self refreshTableviewByEPGTime];
         [self.table reloadData];
         
-       
+        }
     }];
-    double delayInSeconds = 1;
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, mainQueue, ^{
+    if ( dataForData1.count == 0 ){
         
-        [self.tableForSliderView reloadData];
-        [self refreshTableviewByEPGTime];
-        [self.table reloadData];
-    });
+    }else
+    {
+        double delayInSeconds = 1;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            
+            [self.tableForSliderView reloadData];
+            [self refreshTableviewByEPGTime];
+            [self.table reloadData];
+        });
+    }
+   
+    
 }
 #pragma mark - IP改变后的刷新方法
 //IP改变后或者是HMC改变后的刷新方法  ,类似于getServiceData
@@ -6039,15 +6064,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
-                
+
                 if (_slideView) {
                     [_slideView removeFromSuperview];
                     _slideView = nil;
-                    
+
                 }
-                
+
                 self.NoDataImageview = [[UIImageView alloc]init];
-  
+
                 self.NoDataLabel = [[UILabel alloc]init];
                 [self NOChannelDataShow];
                 NSLog(@"NOChannelDataShow--!!6666666");
@@ -6055,9 +6080,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-                
 
-            
+
+
             }else
             {
                 double delayInSeconds = 1;
@@ -6068,7 +6093,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接出错了，所以要显示没有网络的加载图
                     [self getServiceDataForIPChange]; //如果数据为空，则重新获取数据
                 });
-                
+
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                 NSLog(@"NOChannelDataDefault 111");
                 NSLog(@"可能会出现播放器空白的情况");
