@@ -27,7 +27,7 @@
 //10.StarTimes ONE未连接，请查看网络设置信息
 "StarTimesNotConnected"   = "  StarTimes ONE is not connected, \n Please check the network settings.";
 //11.没有资源，视频无法播放
-"NoResourcesLabel"        = "No resources,this video can not be played.\n Please check in Devices Management \n on StarTimes ONE";
+"NoResourcesLabel"        = "No resources,this video can't be played.\nPlease check in Devices Management \n on StarTimes ONE";
 //12.没有节目
 "NOEventLabel"            = "No Event";
 //13.视频列表为空
