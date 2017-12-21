@@ -159,6 +159,14 @@
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+20 );
         
+        NSString * BackupRestoreLabel = NSLocalizedString(@"BackupRestoreLabel", nil);
+        if (BackupRestoreLabel.length < 17) {
+            scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+20 );
+        }else
+        {
+            scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+26 );
+        }
+        
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5的大小");
         
@@ -167,7 +175,13 @@
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
-        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-100 );
+        NSString * BackupRestoreLabel = NSLocalizedString(@"BackupRestoreLabel", nil);
+        if (BackupRestoreLabel.length < 17) {
+            scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-100 );
+        }else
+        {
+            scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-85 );
+        }
         
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
@@ -1168,12 +1182,13 @@
 -(void)addFiveBtn
 {
     NSString * BackupRestoreLabel = NSLocalizedString(@"BackupRestoreLabel", nil);
+    NSString * BackupRestoreLabelTemp = NSLocalizedString(@"BackupRestoreLabelTemp", nil);
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
         
         btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn5.tag = 5;
@@ -1181,12 +1196,6 @@
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
         
-        //        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        historyNameLab1.textColor = [UIColor whiteColor];
-        //        historyNameLab1.font = FONT(12);
-        //        historyNameLab1.textAlignment = NSTextAlignmentCenter;
-        //        [historyBtnPiece1 addSubview:historyNameLab1];
         
         btnImageView5.frame = CGRectMake((btn5.frame.size.width - 25)/2, btn5.frame.origin.y+24, 25, 25);
         btnImageView5.image = [UIImage imageNamed:@"Backup-&-Restore@2x"];
@@ -1194,25 +1203,38 @@
         [btn5 bringSubviewToFront:btnImageView5];
         
         
+       
         
-        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = BackupRestoreLabel;
+        
+        if (BackupRestoreLabel.length < 17) {
+            [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab5.text = BackupRestoreLabel;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
+        }else
+        {
+            btnLab5.numberOfLines = 0;
+            btnLab5.text = BackupRestoreLabelTemp;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 40);
+            btnLab5.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab5.lineBreakMode = UILineBreakModeWordWrap;
+        }
+        
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(11);
+        btnLab5.font = FONT(15);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
+        
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5 的大小");
         
         btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn5.tag = 5;
@@ -1220,13 +1242,7 @@
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
         
-        //        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        historyNameLab1.textColor = [UIColor whiteColor];
-        //        historyNameLab1.font = FONT(12);
-        //        historyNameLab1.textAlignment = NSTextAlignmentCenter;
-        //        [historyBtnPiece1 addSubview:historyNameLab1];
-        
+      
         btnImageView5.frame = CGRectMake((btn5.frame.size.width - 25)/2, btn5.frame.origin.y+24, 25, 25);
         btnImageView5.image = [UIImage imageNamed:@"Backup-&-Restore@2x"];
         [scrollView addSubview:btnImageView5];
@@ -1234,24 +1250,35 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = BackupRestoreLabel;
+
+        if (BackupRestoreLabel.length < 17) {
+            [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab5.text = BackupRestoreLabel;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
+        }else
+        {
+            btnLab5.numberOfLines = 0;
+            btnLab5.text = BackupRestoreLabelTemp;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 40);
+            btnLab5.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab5.lineBreakMode = UILineBreakModeWordWrap;
+        }
+        
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(11);
+        btnLab5.font = FONT(15);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
+        
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn5 setFrame:CGRectMake(0, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn5 setFrame:CGRectMake(0, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn5.tag = 5;
@@ -1259,38 +1286,42 @@
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
         
-        //        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        historyNameLab1.textColor = [UIColor whiteColor];
-        //        historyNameLab1.font = FONT(12);
-        //        historyNameLab1.textAlignment = NSTextAlignmentCenter;
-        //        [historyBtnPiece1 addSubview:historyNameLab1];
-        
+     
         btnImageView5.frame = CGRectMake((btn5.frame.size.width - 40)/2, btn5.frame.origin.y+24, 40, 40);
         btnImageView5.image = [UIImage imageNamed:@"Backup-&-Restore@2x"];
         [scrollView addSubview:btnImageView5];
         [btn5 bringSubviewToFront:btnImageView5];
         
         
-        
-        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
-        btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = BackupRestoreLabel;
+        
+        
+        if (BackupRestoreLabel.length < 17) {
+            [btn5 setFrame:CGRectMake(0, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab5.text = BackupRestoreLabel;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
+        }else
+        {
+            btnLab5.numberOfLines = 0;
+            btnLab5.text = BackupRestoreLabelTemp;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 40);
+            btnLab5.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab5.lineBreakMode = UILineBreakModeWordWrap;
+        }
+        
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(11);
+        btnLab5.font = FONT(15);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
+    
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
         btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn5 setFrame:CGRectMake(0, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn5 setFrame:CGRectMake(0, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn5 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn5.tag = 5;
@@ -1306,12 +1337,25 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-        btnLab5.text = BackupRestoreLabel;
+     
+        if (BackupRestoreLabel.length < 17) {
+            [btn5 setFrame:CGRectMake(0, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab5.text = BackupRestoreLabel;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
+        }else
+        {
+            btnLab5.numberOfLines = 0;
+            btnLab5.text = BackupRestoreLabelTemp;
+            btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 40);
+            btnLab5.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab5.lineBreakMode = UILineBreakModeWordWrap;
+        }
         btnLab5.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab5.font = FONT(11);
+        btnLab5.font = FONT(15);
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
@@ -1327,26 +1371,22 @@
 {
     
     NSString * RebootDeviceLabel = NSLocalizedString(@"RebootDeviceLabel", nil);
+    NSString * RebootDeviceLabelTemp = NSLocalizedString(@"RebootDeviceLabelTemp", nil);
     
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
         
         btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
-        //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
+        
         btn6.tag = 6;
         [btn6 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
         
-        //        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        historyNameLab1.textColor = [UIColor whiteColor];
-        //        historyNameLab1.font = FONT(12);
-        //        historyNameLab1.textAlignment = NSTextAlignmentCenter;
-        //        [historyBtnPiece1 addSubview:historyNameLab1];
+        
         
         btnImageView6.frame = CGRectMake((btn6.frame.size.width - 25)/2 + btn5.frame.size.width+3, btn6.frame.origin.y+24, 25, 25);
         btnImageView6.image = [UIImage imageNamed:@"Reboot-Device"];
@@ -1357,22 +1397,35 @@
         
         CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:1] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
-        btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = RebootDeviceLabel;
+        btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
+        
+        if (RebootDeviceLabel.length < 17) {
+            [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab6.text = RebootDeviceLabel;
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            
+        }else
+        {
+            btnLab6.numberOfLines = 0;
+            btnLab6.text = RebootDeviceLabelTemp;
+            CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 40);
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab6.lineBreakMode = UILineBreakModeWordWrap;
+        }
+        
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(11);
+        btnLab6.font = FONT(15);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
+        
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5 的大小");
         
         btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn6.tag = 6;
@@ -1380,12 +1433,6 @@
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
         
-        //        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        historyNameLab1.textColor = [UIColor whiteColor];
-        //        historyNameLab1.font = FONT(12);
-        //        historyNameLab1.textAlignment = NSTextAlignmentCenter;
-        //        [historyBtnPiece1 addSubview:historyNameLab1];
         
         btnImageView6.frame = CGRectMake((btn6.frame.size.width - 25)/2 + btn5.frame.size.width+3, btn6.frame.origin.y+24, 25, 25);
         btnImageView6.image = [UIImage imageNamed:@"Reboot-Device"];
@@ -1394,63 +1441,85 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
-        btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = RebootDeviceLabel;
+        btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
+        
+        if (RebootDeviceLabel.length < 17) {
+            [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab6.text = RebootDeviceLabel;
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            
+        }else
+        {
+            btnLab6.numberOfLines = 0;
+            btnLab6.text = RebootDeviceLabelTemp;
+            CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 40);
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab6.lineBreakMode = UILineBreakModeWordWrap;
+        }
+        
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(11);
+        btnLab6.font = FONT(15);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
-        //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
+        
         btn6.tag = 6;
         [btn6 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
         
-        //        historyNameLab1= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        //        historyNameLab1.textColor = [UIColor whiteColor];
-        //        historyNameLab1.font = FONT(12);
-        //        historyNameLab1.textAlignment = NSTextAlignmentCenter;
-        //        [historyBtnPiece1 addSubview:historyNameLab1];
+      
         
         btnImageView6.frame = CGRectMake((btn6.frame.size.width - 40)/2 + btn5.frame.size.width+3, btn6.frame.origin.y+24, 40, 40);
         btnImageView6.image = [UIImage imageNamed:@"Reboot-Device"];
         [scrollView addSubview:btnImageView6];
         [btn6 bringSubviewToFront:btnImageView6];
+ 
         
-        
-        
-        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
-        btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
+        btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
         btnLab6.text = RebootDeviceLabel;
+        
+        
+        if (RebootDeviceLabel.length < 17) {
+             [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab6.text = RebootDeviceLabel;
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            
+        }else
+        {
+            btnLab6.numberOfLines = 0;
+            btnLab6.text = RebootDeviceLabelTemp;
+            CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 40);
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab6.lineBreakMode = UILineBreakModeWordWrap;
+        }
+
+        
+        
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(11);
+        btnLab6.font = FONT(15);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
         btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+        [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.68)];
         [btn6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
         //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn6.tag = 6;
@@ -1466,19 +1535,33 @@
         
         
         
-        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
-        btnLab6.frame = CGRectMake((btn6.frame.size.width - size.width)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-        btnLab6.text = RebootDeviceLabel;
+        btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
+//        btnLab6.text = RebootDeviceLabel;
+        
+        if (RebootDeviceLabel.length < 17) {
+            [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            btnLab6.text = RebootDeviceLabel;
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            
+        }else
+        {
+            btnLab6.numberOfLines = 0;
+            btnLab6.text = RebootDeviceLabelTemp;
+            CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 40);
+            btnLab6.textAlignment = UITextAlignmentCenter;
+            //自动折行设置
+            btnLab6.lineBreakMode = UILineBreakModeWordWrap;
+        }
+        
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
-        btnLab6.font = FONT(11);
+        btnLab6.font = FONT(15);
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-        //        hudLab.text = @"Network Error";
-        //
-        //        hudLab.textColor = [UIColor grayColor];
+       
     }
     
 }

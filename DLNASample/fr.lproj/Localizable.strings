@@ -102,8 +102,17 @@
 "GeneralSettingsLabel"       = "Paramètres généraux";
 //48.备份&恢复
 "BackupRestoreLabel"         = "Backup & Restauration";
+
+//48.5    =====备份&恢复
+"BackupRestoreLabelTemp"     = "Backup & \n Restauration";
+
 //49.设备重启
 "RebootDeviceLabel"          = "Appareil de réinitialisation";
+
+//49.5     =====设备重启
+"RebootDeviceLabelTemp"      = "Appareil de \n réinitialisation";
+
+
 //50.路由正在重启中，请重启后重新连接StarTimes ONE
 "RouterResetingLabel"        = "Réinitialisation du routeur, veuillez reconnecter StarTimes ONE après réinitialisation";
 //51.无线网络名称不能为空
