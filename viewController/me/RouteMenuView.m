@@ -83,11 +83,20 @@
     NSString * pswStr = [tempDic objectForKey:@"password"];
     if (![pswStr isEqualToString:@"none"]) {
         
-        NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-        secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
-        
         NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
         PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
+        
+        NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+        if (SecurityTypeLabel.length > 4) {
+            secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+            secrityTypeLab.font = FONT(12);
+            PINProtectionLab.font = FONT(12);
+        }else
+        {
+            secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+        }
+        
+       
     }else
     {
         NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
