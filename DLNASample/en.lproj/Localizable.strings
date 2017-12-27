@@ -81,7 +81,7 @@
 //37.请输入路由密码
 "InputRoutePINLabel"       = "Input Router PIN";
 //38.路由密码错误，请重新输入
-"RouterPINIncorrectLabel"  = "incorrect PIN，please input again";
+"RouterPINIncorrectLabel"  = "Router PIN is incorrect, please try again";
 //39.密码不能为空
 "PINCanNotEmptyLabel"      = "\n The PIN can not be empty \n\n";
 //40.保存成功
@@ -95,7 +95,7 @@
 //44.安全中心
 "SecurityCenterLabel"      = "Security Center";
 //45.设备列表
-"DevicesListLabel"         = "Devices List";
+"DevicesListLabel"         = "Device List";
 //46.路由状态
 "RouterStatusLabel"        = "Router Status";
 //47.通用设置
