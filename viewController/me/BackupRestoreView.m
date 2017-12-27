@@ -59,14 +59,17 @@
 -(void)initData
 {
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+    NSString * MLRestoringBackupParameters = NSLocalizedString(@"MLRestoringBackupParameters", nil);
+    NSString * MLBackingUp = NSLocalizedString(@"MLBackingUp", nil);
+    
     imageView = [[UIImageView alloc]init];
     backUPLab = [[UILabel alloc]init];
     backUPInfoLab = [[UILabel alloc]init];
     grayView = [[UIView alloc]init];
     restoreBtn = [[UIButton alloc]init];
     backUpBtn = [[UIButton alloc]init];
-    backupAlert = [[UIAlertView alloc]initWithTitle:nil message:BackUPAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
-    restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:RestoreAlert delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
+    backupAlert = [[UIAlertView alloc]initWithTitle:nil message:MLBackingUp delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
+    restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRestoringBackupParameters delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
     
     self.meViewController = [[MEViewController alloc]init];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
@@ -193,7 +196,9 @@
                     backUPLab.text = [deviceDic objectForKey:@"backup"];
                 }else
                 {
-                    backUPLab.text = NOBackUP;
+                    
+                    NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+                    backUPLab.text = MLNOBackupRestored;
                 }
                 BackupStatusString = backUPLab.text;
                 
@@ -779,7 +784,8 @@
                     backUPLab.text = [deviceDic objectForKey:@"backup"];
                 }else
                 {
-                    backUPLab.text = NOBackUP;
+                    NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+                    backUPLab.text = MLNOBackupRestored;
                 }
                 BackupStatusString = backUPLab.text;
                 

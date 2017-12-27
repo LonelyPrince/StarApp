@@ -100,7 +100,9 @@
     }else
     {
         NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-        secrityTypeLab.text =[NSString stringWithFormat:@"%@: Open",SecurityTypeLabel];
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        
+        secrityTypeLab.text =[NSString stringWithFormat:@"%@: %@",SecurityTypeLabel,MLOpen];
         
         NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
         PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
@@ -150,7 +152,9 @@
     generalSettingLab = [[UILabel alloc]init];
 
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
-    rebootAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to reboot?" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
+    NSString * MLWantRebot = NSLocalizedString(@"MLWantRebot", nil);
+    
+    rebootAlert = [[UIAlertView alloc]initWithTitle:nil message:MLWantRebot delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
 }
 -(void)loadScroll
 {

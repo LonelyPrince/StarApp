@@ -5147,60 +5147,38 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
-//    [self.view insertSubview:self.player.view atIndex:0];
-//    [self.player stop];
-//    [self.player prepareToPlay:0];
-//    [self.player play];
-    
-    
-//    [self.player shutdown];
-//    [self.player.view removeFromSuperview];
-//    self.player = nil;
-//    [self.player stop];
-//
-//
-//    NSLog(@"self.View %@",self.view);
-//
-//
-//    self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:tempUrl withOptions:nil playView:nil];
-//
-//    NSLog(@"self.playerView %@",self.player);
-//    self.player.view.frame = self.view.bounds;
-//
-//    [self.view insertSubview:self.player.view atIndex:0];
-//
-//    if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
-//        [self.player prepareToPlay:0];
-//        [self.player play];
-//        //            [self.player play];
-//        //            [self.player play];
-//        //            [self.player play];
-//    }else
-//    {
-//        [self.player shutdown];
-//        [self.player.view removeFromSuperview];
-//        self.player = nil;
-//    }
-    
-
-    
-    
-    
+ 
         audioRow = 0;
         subtRow = 0;
         NSLog(@"shang 上一个节目");
         
         NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
         historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-        
-        NSArray * touchArr = historyArr[historyArr.count - 1];
-        NSLog(@"touchArr：%@",touchArr);
-        //    [self touchToSee :touchArr];
-        
-        
-        NSInteger row = [touchArr[2] intValue];
-        NSDictionary * dic = touchArr [3];
+    
+        NSArray * touchArr;
+        if (historyArr.count >= 1) {
+            touchArr = historyArr[historyArr.count - 1];
+        }else
+        {
+            return;
+        }
+ 
+        NSInteger row = 0;
+        if (touchArr.count >= 2) {
+            row = [touchArr[2] intValue];
+        }else
+        {
+            return;
+        }
+    
+        NSDictionary * dic ;
+        if (touchArr.count >= 3) {
+            dic = touchArr [3];
+        }else
+        {
+            return;
+        }
+    
         
 //        if (row >= 1) {
             self.videoControl.lastChannelButton.enabled = YES;
@@ -5220,18 +5198,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
                 if (judgeIsSTBDecrypt == YES) {
-                    // 此处代表需要记性机顶盒加密验证
-                    //弹窗
-                    //发送通知
-                    
-                    //        [self popSTBAlertView];
-                    //        [self popCAAlertView];
+               
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
                     //创建通知
                     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    //                [self.tabBarController setSelectedIndex:1];
                     
                 }else //正常播放的步骤
                 {
@@ -5239,7 +5211,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
-                    //                [self.tabBarController setSelectedIndex:1];
                 }
     
             }else //正常播放的步骤

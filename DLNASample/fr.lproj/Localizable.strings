@@ -73,7 +73,7 @@
 //33.Delete
 "DeleteLabel"         = "Supprimer";
 //34.设置路由密码。为了安全起见，建议您立即修改路由密码。
-"ChangeRouterPINLabel"             = "Veuillez définir le code PIN de votre routeur.Nous vous  \nto recommandons de changer votre Code PIN pour une meilleure sécurité.";
+"ChangeRouterPINLabel"             = "Veuillez définir le code PIN de votre routeur.Nous vous to recommandons de changer votre Code PIN pour une meilleure sécurité.";
 //35.Delete
 "NewLabel"                   = "Nouveau";
 //36.新密码不一致，请重新输入
@@ -114,7 +114,7 @@
 
 
 //50.路由正在重启中，请重启后重新连接StarTimes ONE
-"RouterResetingLabel"        = "Réinitialisation du routeur, veuillez reconnecter StarTimes ONE après réinitialisation";
+"RouterResetingLabel"        = "Le routeur va redémarrer. Le réseau actuel sera déconnecté, veuillez reconnecter StarTimes ONE après le redémarrage";
 //51.无线网络名称不能为空
 "SSIDNotEmptyLabel"          = "Le SSID ne peut être vide";
 //52.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_‘
@@ -164,6 +164,30 @@
 //74.设备监控
 "MLMonitor"                 = "Moniteur";
 //75.录制
-"MLRecording"               = "Enregistrement";
+"MLRecording"               = "Enregistrements";
 //76.分发
 "MLDelivery"                = "Livraison";
+//77.各个国家呼叫中心联系方式
+"MLNationalCallCenter"      = "Centre d'appel dans plusieurs pays";
+//78.All
+"MLAll"                     = " Tout ";
+//79.No viewing history
+"MLNoViewingHistory"        = "Vous n'avez pas regardé de programme";
+//80.路由密码应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’
+"MLRouterPINSetting"        = "Le code PIN doit être compris entre 6 et 16 caractères. Vous pouvez utiliser des lettres, des chiffres ainsi que \"-\" ou \"_\".    ";
+//81.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’。
+"MLSSIDSetting"             = "Le SSID doit être compris entre 6 et 16 caractères. Vous pouvez utiliser des lettres, des chiffres ainsi que \"-\" ou \"_\".";
+//82.WLAN PIN
+"MLWLANPINSetting"          = "Le code PIN WLAN doit être compris entre 8 et 16 caractères. veuillez réessayer.";
+//83.Open
+"MLOpen"                    = "Ouvrir";
+//84.Save failed
+"MLSaveFailed"              = "Sauvegarde impossible";
+//85.restoring backup parameters
+"MLRestoringBackupParameters"              = "Vous allez restaurer le backup";
+//86.You will be to make a backup
+"MLBackingUp"               = "Vous aller créer un backup";
+//87.请确认是否重启？
+"MLWantRebot"               = "Voulez-vous redémarrer ?";
+//88.直播
+"MLLive"                    = "  En direct  ";

@@ -33,6 +33,7 @@
 #import "MonitorViewController.h"
 #import "CategoryViewController.h"
 #import "KVO_NoDataPic.h"
+#import "NowPlayChannelInfo.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController<UITextFieldDelegate>
@@ -61,7 +62,7 @@
 @property (strong,nonatomic)KVO_NoDataPic *kvo_NoDataPic;  //KVO
 @property (strong,nonatomic)UIImageView * NoDataImageview;  //底部节目列表为空，展示图片
 @property (strong,nonatomic)UILabel * NoDataLabel;  //底部节目列表为空，展示图片
-
+@property (strong,nonatomic)NowPlayChannelInfo *nowPlayChannelInfo;  //KVO
 
 /// 跳转到其他的页面都自动停止播放，并且取消掉首页的20秒无法播放显示的字体
 @property (nonatomic, copy) void(^TVViewStopVideoPlayAndCancelDealyFunctionBlock)();

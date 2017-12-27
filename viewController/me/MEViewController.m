@@ -393,8 +393,9 @@
     {
         cell.settingImage.image = [UIImage imageNamed:@"Group 12 Copy 2"];
         NSString * ContactUsLabel = NSLocalizedString(@"ContactUsLabel", nil);
+        NSString * MLNationalCallCenter = NSLocalizedString(@"MLNationalCallCenter", nil);
         cell.blackLab.text = ContactUsLabel;
-        cell.grayLab.text = @"Call center in various countries";
+        cell.grayLab.text = MLNationalCallCenter;
         
     }else  if(indexPath.row == 2)
     {

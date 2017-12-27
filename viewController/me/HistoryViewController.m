@@ -95,9 +95,10 @@
     noDataImageView.image = [UIImage imageNamed:@"无历史"];
     //调用上面的方法，获取 字体的 Size
     
-    CGSize size = [self sizeWithText: @"NO History" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    NSString * MLNoViewingHistory = NSLocalizedString(@"MLNoViewingHistory", nil);
+    CGSize size = [self sizeWithText: MLNoViewingHistory font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     UILabel * noDataLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+10, size.width, size.height)];
-    noDataLab.text = @"No History";
+    noDataLab.text = MLNoViewingHistory;
     noDataLab.font = FONT(15);
     noDataLab.textColor = [UIColor grayColor];
     
@@ -208,7 +209,9 @@
 {
     if (self.tableView.editing == NO) {
         
-        UIBarButtonItem *allDelegateBtn = [[UIBarButtonItem alloc] initWithTitle:@" All "style:UIBarButtonItemStyleBordered target:self action:@selector(AllDeleteClick)];
+        NSString * MLAll = NSLocalizedString(@"MLAll", nil);
+        
+        UIBarButtonItem *allDelegateBtn = [[UIBarButtonItem alloc] initWithTitle:MLAll style:UIBarButtonItemStyleBordered target:self action:@selector(AllDeleteClick)];
         self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         
         self.navigationItem.leftBarButtonItem = allDelegateBtn;

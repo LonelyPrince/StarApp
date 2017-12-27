@@ -115,7 +115,7 @@
 "RebootDeviceLabelTemp"    = "Reboot Device";
 
 //50.路由正在重启中，请重启后重新连接StarTimes ONE
-"RouterResetingLabel"      = "The router is reseting, please reconnect StarTimes ONE after reset";
+"RouterResetingLabel"      = "Router restarting…  the current network will be disconnected,please reconnect StarTimes ONE after restart";
 //51.无线网络名称不能为空
 "SSIDNotEmptyLabel"        = "The SSID can not be empty";
 //52.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_‘
@@ -165,6 +165,30 @@
 //74.设备监控
 "MLMonitor"                 = "Monitor";
 //75.录制
-"MLRecording"               = "Recording";
+"MLRecording"               = "Recordings";
 //76.分发
-"MLDelivery"               = "Delivery";
+"MLDelivery"                = "Delivery";
+//77.各个国家呼叫中心联系方式
+"MLNationalCallCenter"      = "National call center";
+//78.All
+"MLAll"                     = " All ";
+//79.No viewing history
+"MLNoViewingHistory"        = "No viewing history";
+//80.路由密码应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’
+"MLRouterPINSetting"        = "Router PIN should contain 6-16 characters.Please input letters, number, \"-\" or \"_\".\"";
+//81.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’。
+"MLSSIDSetting"             = "SSID should contain 6-16 charactersPlease input letters, number, \"-\" or \"_\".";
+//82.WLAN PIN
+"MLWLANPINSetting"          = "WLAN PIN should contain 8-16 characters, please try again.";
+//83.Open
+"MLOpen"                    = "Open";
+//84.Save failed
+"MLSaveFailed"              = "Save failure";
+//85.restoring backup parameters
+"MLRestoringBackupParameters"              = "You're restoring backup parameters";
+//86.You will be to make a backup
+"MLBackingUp"               = "You're backing up the current parameters";
+//87.请确认是否重启？
+"MLWantRebot"               = "Do you want to reboot?";
+//88.直播
+"MLLive"                    = "      Live    ";

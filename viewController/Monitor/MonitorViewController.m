@@ -513,7 +513,14 @@
     [cicleClearImageView addSubview:numImage];
     
     labImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2+10,65, 40)];
-    labImage.image = [UIImage  imageNamed:@"Tunermonitor"];
+    NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+    if (MLRecording.length > 10 ) {
+        labImage.image = [UIImage  imageNamed:@"Devicemonitor"];
+    }else
+    {
+        labImage.image = [UIImage  imageNamed:@"Tunermonitor"];
+    }
+    
     [cicleClearImageView addSubview:labImage];
 }
 #pragma mark - 底部的各项tuner的数量 和底部竖直的细线
@@ -525,20 +532,32 @@
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]    ) {
         NSLog(@"此刻是5s和4s 的大小");
         
-        UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8+14+38, 325, 2, 50)];
-        verticalView1.layer.cornerRadius = 1.0;
-        verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
-        [colorImageView addSubview:verticalView1];
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
         
-        //        UIView * verticalView2 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(1+1)-2 +CutWidth*1 -3, 325, 2, 40)];
-        //        verticalView2.layer.cornerRadius = 1.0;
-        //        verticalView2.backgroundColor = RGBA(245, 245, 245, 0.3);
-        //        [colorImageView addSubview:verticalView2];
-        
-        UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 11-22, 325, 2, 50)];
-        verticalView3.layer.cornerRadius = 1.0;
-        verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
-        [colorImageView addSubview:verticalView3];
+        if (MLRecording > 10) {
+            UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8+14+35-3, 325, 2, 50)];
+            verticalView1.layer.cornerRadius = 1.0;
+            verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
+            [colorImageView addSubview:verticalView1];
+            
+            
+            UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 11-22+6, 325, 2, 50)];
+            verticalView3.layer.cornerRadius = 1.0;
+            verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
+            [colorImageView addSubview:verticalView3];
+        }else
+        {
+            UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8+14+38, 325, 2, 50)];
+            verticalView1.layer.cornerRadius = 1.0;
+            verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
+            [colorImageView addSubview:verticalView1];
+            
+            
+            UIView * verticalView3 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )*(2+1)+3 +CutWidth*2 - 11-22, 325, 2, 50)];
+            verticalView3.layer.cornerRadius = 1.0;
+            verticalView3.backgroundColor = RGBA(245, 245, 245, 0.3);
+            [colorImageView addSubview:verticalView3];
+        }
         
         
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]    || [deviceString isEqualToString:@"iPhone Simulator"] ) {
@@ -595,19 +614,27 @@
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]   ) {
         NSLog(@"此刻是5s和4s 的大小");
         
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLLive = NSLocalizedString(@"MLLive", nil);
         
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(20 + 25 - 22, 360, 142/2 + 15, 15)];
-        liveNumLab.text = @"Live Playing";
+        liveNumLab.text = MLLive;
         liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
         liveNumLab.font = FONT(13);
         [colorImageView addSubview:liveNumLab];
         
         
-        recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 50 - 4, 360, 142/2, 15)];
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        
+        if (MLRecording.length > 10) {
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 32 - 4, 360, 200/2, 15)];
+        }else
+        {
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 50 - 4, 360, 142/2, 15)];
+        }
+        
         recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
-        recoderLab.font = FONT(13);
+        recoderLab.font = FONT(12);
         [colorImageView addSubview:recoderLab];
         
         
@@ -618,7 +645,7 @@
         distributeLab.font = FONT(13);
         [colorImageView addSubview:distributeLab];
         
-        //     liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20, liveNumLab.frame.origin.y-40, 16, 20)];
+        
         liveNum_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+27, liveNumLab.frame.origin.y-26, 16, 20)];
         liveNum_Lab.text = [NSString stringWithFormat:@"%ld",(long)livePlayCount];
         NSLog(@"livePlayCount livePlayCount 11 %ld",livePlayCount);
@@ -626,21 +653,19 @@
         liveNum_Lab.font = FONT(24);
         [colorImageView addSubview:liveNum_Lab];
         
-        //     recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth +CutWidth, liveNumLab.frame.origin.y-40, 16, 20)];
-        recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+21, liveNumLab.frame.origin.y-26, 16, 20)];
+        
+        
+        if (MLRecording.length > 10) {
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+41, liveNumLab.frame.origin.y-26, 16, 20)];
+        }else
+        {
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+21, liveNumLab.frame.origin.y-26, 16, 20)];
+        }
         recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
         recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
         recoder_Lab.font = FONT(24);
         [colorImageView addSubview:recoder_Lab];
-        
-        //    timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
-        //        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(180, liveNumLab.frame.origin.y-40, 16, 20)];
-        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-        //        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
-        //        timeShift_Lab.font = FONT(24);
-        //        [colorImageView addSubview:timeShift_Lab];
-        
-        //    distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*3 +CutWidth*3, liveNumLab.frame.origin.y-40, 16, 20)];
+       
         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(distributeLab.frame.origin.x+18, liveNumLab.frame.origin.y-26, 16, 20)];
         distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
         distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
@@ -649,24 +674,32 @@
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLLive = NSLocalizedString(@"MLLive", nil);
+      
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft + 10, 360, 142/2 + 10, 15)];
-        liveNumLab.text =  @"Live Playing"; //@"TV Live";
+       
+        liveNumLab.text =  MLLive; //@"TV Live";
         liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
         liveNumLab.font = FONT(13);
         [colorImageView addSubview:liveNumLab];
         
-        recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +48 , 360, 142/2, 15)];
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        
+        
+        if (MLRecording.length > 10) {
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +32 , 360, 200/2, 15)];
+        }else
+        {
+             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +48 , 360, 142/2, 15)];
+        }
+       
+        
         recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
         
-        //        timeShiftLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*2 +CutWidth*2 , 360, 142/2, 13)];
-        //        timeShiftLab.text = @"Time Shift";
-        //        timeShiftLab.textColor = RGBA(245, 245, 245, 0.65);
-        //        timeShiftLab.font = FONT(13);
-        //        [colorImageView addSubview:timeShiftLab];
+       
         
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 -10, 360, 142/2, 15)];
         distributeLab.text = MLDelivery;
@@ -681,17 +714,20 @@
         liveNum_Lab.font = FONT(24);
         [colorImageView addSubview:liveNum_Lab];
         
-        recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+20 , liveNumLab.frame.origin.y-30, 16, 20)];
+        
+        if (MLRecording.length > 10) {
+           recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+40 , liveNumLab.frame.origin.y-30, 16, 20)];
+        }else
+        {
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+20 , liveNumLab.frame.origin.y-30, 16, 20)];
+        }
+ 
         recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
         recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
         recoder_Lab.font = FONT(24);
         [colorImageView addSubview:recoder_Lab];
         
-        //        timeShift_Lab = [[UILabel alloc]initWithFrame:CGRectMake(liveNumLab.frame.origin.x+20+TopBottomNameWidth*2 +CutWidth*2, liveNumLab.frame.origin.y-40, 16, 20)];
-        //        timeShift_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveTimeShiteCount];
-        //        timeShift_Lab.textColor = RGBA(245, 245, 245, 0.65);
-        //        timeShift_Lab.font = FONT(24);
-        //        [colorImageView addSubview:timeShift_Lab];
+        
         
         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(distributeLab.frame.origin.x+18 , liveNumLab.frame.origin.y-30, 16, 20)];
         distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
@@ -702,14 +738,21 @@
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]     ) {
         NSLog(@"此刻是6 plus的大小");
         
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLLive = NSLocalizedString(@"MLLive", nil);
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft , 360, 142/2 + 20, 15)];
-        liveNumLab.text = @"Live Playing";
+        liveNumLab.text = MLLive;
         liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
         liveNumLab.font = FONT(13);
         [colorImageView addSubview:liveNumLab];
         
-        recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 50 , 360, 142/2, 15)];
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        
+        if (MLRecording.length > 10) {
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 32 , 360, 200/2, 15)];
+        }else
+        {
+           recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 50 , 360, 142/2, 15)];
+        }
         recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
@@ -734,7 +777,14 @@
         liveNum_Lab.font = FONT(24);
         [colorImageView addSubview:liveNum_Lab];
         
-        recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+20, liveNumLab.frame.origin.y-40 + 10, 16, 20)];
+        
+        
+        if (MLRecording.length > 10) {
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+40, liveNumLab.frame.origin.y-40 + 10, 16, 20)];
+        }else
+        {
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+20, liveNumLab.frame.origin.y-40 + 10, 16, 20)];
+        }
         recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
         recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
         recoder_Lab.font = FONT(24);

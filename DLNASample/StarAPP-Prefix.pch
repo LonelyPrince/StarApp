@@ -76,4 +76,6 @@
 #import "UIViewController+animationView.h"
 #import "XYZNavigationController.h"
 #import "UITextField+NOPasteTextField.h"
+
+#import "NowPlayChannelInfo.h"
 #endif

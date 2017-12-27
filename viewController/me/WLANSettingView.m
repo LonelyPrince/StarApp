@@ -168,9 +168,11 @@
         [setPswText setEnabled:YES];
     }else
     {
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        
         [setPswText setEnabled:NO];
         setPswText.text = @"";
-        SecurityStatusLab.text = @"Open";
+        SecurityStatusLab.text = MLOpen;
 //        PINProtectionLab.text = @"PIN Protection:OFF";
         [PINSwitch setOn:NO];
     }
@@ -263,7 +265,8 @@
         [scrollView addSubview:securityInputTextView];
         
         SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, (securityInputTextView.frame.size.height - 17)/2, 50, 20);
-        SecurityStatusLab.text = @"open";
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        SecurityStatusLab.text = MLOpen;
         SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityStatusLab];
         
@@ -397,8 +400,15 @@
         securityInputTextView.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
         [scrollView addSubview:securityInputTextView];
         
-        SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, (securityInputTextView.frame.size.height - 17)/2, 50, 20);
-        SecurityStatusLab.text = @"open";
+        
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        SecurityStatusLab.text = MLOpen;
+        if (MLOpen.length > 4) {
+            SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 58, (securityInputTextView.frame.size.height - 17)/2, 50, 20);
+        }else
+        {
+            SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, (securityInputTextView.frame.size.height - 17)/2, 50, 20);
+        }
         SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityStatusLab];
         
@@ -531,7 +541,8 @@
         [scrollView addSubview:securityInputTextView];
         
         SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, (securityInputTextView.frame.size.height - 17)/2, 50, 20);
-        SecurityStatusLab.text = @"open";
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        SecurityStatusLab.text = MLOpen;
         SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityStatusLab];
         
@@ -665,7 +676,8 @@
         [scrollView addSubview:securityInputTextView];
         
         SecurityStatusLab.frame = CGRectMake(securityInputTextView.frame.size.width - 50, (securityInputTextView.frame.size.height - 17)/2-1, 50, 20);
-        SecurityStatusLab.text = @"open";
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        SecurityStatusLab.text = MLOpen;
         SecurityStatusLab.textColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1];
         [securityInputTextView addSubview:SecurityStatusLab];
         
@@ -755,13 +767,14 @@
         [alertView show];
     }
    else if (setNameText.text.length<6) {
- 
-       [alertView setMessage:@"SSID Length 6-16"];
+       NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+       [alertView setMessage:MLSSIDSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
  
-        [alertView setMessage:@"PIN Length 8-16"];
+        NSString * MLWLANPINSetting = NSLocalizedString(@"MLWLANPINSetting", nil);
+        [alertView setMessage:MLWLANPINSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
 
@@ -829,8 +842,9 @@
                 [alertView show];
                 
             }else if ([str isEqualToString:@"failed"]) {
-//                alertView = [[UIAlertView alloc]initWithTitle:nil message:@"Save failed" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-                [alertView setMessage:@"Save failed"];
+
+                NSString * MLSaveFailed = NSLocalizedString(@"MLSaveFailed", nil);
+                [alertView setMessage:MLSaveFailed];
                 [alertView addButtonWithTitle:ConfirmLabel];
                 [alertView show];
             }else if ([str isEqualToString:@"success"])

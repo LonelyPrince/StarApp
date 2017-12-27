@@ -94,8 +94,9 @@
     for (int i = 0 ; i < categorysArr.count; i++) {
         NSDictionary *item = categorysArr[i];
         NSString * tempStr;
-        if ([item isEqual:@"Recordings" ]) {
-            tempStr = @"Recordings";
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        if ([item isEqual:MLRecording ]) {
+            tempStr = MLRecording;
         }else
         {
                 tempStr =item[@"category_name"];
@@ -238,7 +239,7 @@
     {
         imageView.image = [UIImage imageNamed:@"Guide"];
     }
-    else if ([name isEqualToString:@"Recordings"] || [name isEqualToString:@"Recording"])  //OK1
+    else if ([name isEqualToString:@"Recordings"] || [name isEqualToString:@"Recording"] || [name isEqualToString:@"Enregistrements"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"录制带色"];
     }
@@ -289,8 +290,8 @@
     if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
         
     }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
-        
-        [tempTitlesArr insertObject:@"Recordings" atIndex:0];
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        [tempTitlesArr insertObject:MLRecording atIndex:0];
     }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
         
         tempTitlesArr =titles[0];
@@ -298,8 +299,8 @@
     }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
         if (titles.count == 2 ) {   //正常情况
             tempTitlesArr =[titles[0] mutableCopy];
-            
-            [tempTitlesArr insertObject:@"Recordings" atIndex:1];
+            NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+            [tempTitlesArr insertObject:MLRecording atIndex:1];
             NSLog(@"_titles %@",tempTitlesArr);
         }else if(titles.count == 1 )  //异常刷新，数组中只有一个元素
         {

@@ -212,32 +212,29 @@
     if (type == LIVE_PLAY) { //        return 1;// @"直播";
         
         self.programeClass.image = [UIImage imageNamed:@"play"];
-        
+        NSString * MLLive = NSLocalizedString(@"MLLive", nil);
         NSLog(@"[epgDic objectForKey: %@",[epgDic objectForKey:@"event_name"]);
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
-            self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLLive,[epgDic objectForKey:@"event_name"]];
         }else{
             NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
-            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"TV Live--%@",NOEventLabel];
+            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLLive,NOEventLabel];
             self.nameLab.text = NOEventLabelTemp;
         }
         
         
-        //        self.nameLab.text = [NSString stringWithFormat:@"TV Live--%@",[epgDic objectForKey:@"event_name"]];
-        
-        
-        
     }else if (type == LIVE_RECORD) //        return 2;//@"录制";
     {
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
         self.programeClass.image = [UIImage imageNamed:@"录制"];
         
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
-            self.nameLab.text = [NSString stringWithFormat:@"Recording--%@",[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLRecording,[epgDic objectForKey:@"event_name"]];
         }else{
             NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
-            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"Recording--%@",NOEventLabel];
+            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLRecording,NOEventLabel];
             self.nameLab.text = NOEventLabelTemp;
         }
         

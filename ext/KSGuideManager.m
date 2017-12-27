@@ -7,7 +7,7 @@
 //
 
 #import "KSGuideManager.h"
-
+#import "GGUtil.h"
 #define kScreenBounds [UIScreen mainScreen].bounds
 
 static NSString *identifier = @"Cell";
@@ -16,7 +16,7 @@ static NSString *identifier = @"Cell";
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIButton *button;
-
+@property (nonatomic, strong) NSString * deviceString;
 @end
 
 @implementation KSGuideViewCell
@@ -64,7 +64,14 @@ static NSString *identifier = @"Cell";
     [self.contentView addSubview:self.button];
     
 //    [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 68)];
-    [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 110)];
+    self.deviceString = [GGUtil deviceVersion];
+    if ( [_deviceString isEqualToString:@"iPhone4S"] || [_deviceString isEqualToString:@"iPhone4"]  ) {
+            [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 60)];//60)];//110)];
+        }else
+        {
+            [self.button setCenter:CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 110)];//60)];//110)];
+        }
+    
 }
 - (BOOL)prefersStatusBarHidden
 {
@@ -72,13 +79,14 @@ static NSString *identifier = @"Cell";
 }
 @end
 
+#import "GGUtil.h"
 @interface KSGuideManager ()<UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UICollectionView *view;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) UIPageControl *pageControl;
-
+@property (nonatomic, strong) NSString *deviceString;
 @end
 
 @implementation KSGuideManager
@@ -132,7 +140,15 @@ static NSString *identifier = @"Cell";
     if (_pageControl == nil) {
         _pageControl = [[UIPageControl alloc] init];
         _pageControl.frame = CGRectMake(0, 0, kScreenBounds.size.width, 44.0f);
-        _pageControl.center = CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 60);
+        
+        _deviceString = [GGUtil deviceVersion];
+        if ( [_deviceString isEqualToString:@"iPhone4S"] || [_deviceString isEqualToString:@"iPhone4"]  ) {
+            _pageControl.center = CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 20);//20);//60);
+        }else
+        {
+           _pageControl.center = CGPointMake(kScreenBounds.size.width / 2, kScreenBounds.size.height - 60);//20);//60);
+        }
+        
 //        _pageControl.backgroundColor = [UIColor redColor];
         _pageControl.pageIndicatorTintColor = RGBA(0x9a, 0xb6, 0xfe, 0.3);
         

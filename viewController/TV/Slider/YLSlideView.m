@@ -40,14 +40,6 @@
         
         _titles = [self titleArrReplace:titles];
         NSLog(@"_titles_titles %@",_titles);
-//        for (int i = 0 ; i < titles.count; i++) {
-//            NSDictionary *item = titles[i];
-//            NSString * tempArray;
-//            tempArray =item[@"category_name"];
-//
-//            [_titles addObject:tempArray];
-//
-//        }
         _prePageIndex = 1000;
         [self configSlideView];
         
@@ -80,7 +72,8 @@
     if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
          _titles = tempTitlesArr;
     }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
-        [_titles addObject:@"Recordings"];
+        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        [_titles addObject:MLRecording];
     }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
         if(titles.count > 0){
          tempTitlesArr =titles[0];
@@ -106,73 +99,19 @@
                 [_titles addObject:tempArray];
                 
             }
-            [_titles insertObject:@"Recordings" atIndex:1];
+            NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+            [_titles insertObject:MLRecording atIndex:1];
             NSLog(@"_titles %@",_titles);
         }else if(titles.count == 1 )  //异常刷新，数组中只有一个元素
         {
             tempTitlesArr =titles[0];
             for (int i = 0 ; i < tempTitlesArr.count; i++) {
-//                NSDictionary *item = tempTitlesArr[i];
-//                NSString * tempArray;
-//                tempArray =item[@"category_name"];
-//
-//                [_titles addObject:tempArray];
-                
+ 
             }
         }
        
     }
     
-    
-    
-//    switch ([RECAndLiveType intValue]) {
-//        case 0: //都不存在
-//            _titles = tempTitlesArr;
-//            break;
-//        case 1: //录制存在直播不存在
-//            
-////            tempTitlesArr =titles[0];
-////            for (int i = 0 ; i < tempTitlesArr.count; i++) {
-////                NSDictionary *item = tempTitlesArr[i];
-////                NSString * tempArray;
-////                tempArray =item[@"category_name"];
-////
-////                [_titles addObject:tempArray];
-////
-////            }
-//            
-//            [_titles addObject:@"Recordings"];
-//        
-//            break;
-//        case 2: //录制不存在直播存在
-//            tempTitlesArr =titles[0];
-//            for (int i = 0 ; i < tempTitlesArr.count; i++) {
-//                    NSDictionary *item = tempTitlesArr[i];
-//                    NSString * tempArray;
-//                    tempArray =item[@"category_name"];
-//        
-//                    [_titles addObject:tempArray];
-//        
-//                }
-//            
-//            break;
-//        case 3: //都存在
-//            
-//            tempTitlesArr =titles[0];
-//            for (int i = 0 ; i < tempTitlesArr.count; i++) {
-//                NSDictionary *item = tempTitlesArr[i];
-//                NSString * tempArray;
-//                tempArray =item[@"category_name"];
-//                
-//                [_titles addObject:tempArray];
-//                
-//            }
-//            [_titles insertObject:@"Recordings" atIndex:1];
-//            break;
-//        default:
-//            break;
-//    }
-//    
     return _titles;
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
@@ -510,14 +449,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"portTriangleFrame" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTriangleFrame:) name:@"portTriangleFrame" object:nil];
-    
-    
-    
-    //
-    //    //此处销毁通知，防止一个通知被多次调用
-    //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"categorysTouchToViews" object:nil];
-    //    //注册通知
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
     
     
     self.triangleView.frame = CGRectMake(25, 48-6, 14, 7);

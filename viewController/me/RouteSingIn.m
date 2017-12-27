@@ -652,23 +652,15 @@
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
             setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView1.frame.size.width - 20, 40)];
-            //
-            //            inputText.layer.borderWidth = 1.0f;
-            //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+           
             setNewRouteText.placeholder = NewLabel;
             setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
-            
-            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-            //            inputText.image = [UIImage imageNamed:@"灰"];
-            //            inputText.userInteractionEnabled = YES;
+           
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                         name:@"UITextFieldTextDidChangeNotification"
                                                       object:setNewRouteText];
             setNewRouteText.secureTextEntry = YES;
-            //            [self.view addSubview:inputTextView];
-            //            [inputTextView addSubview:inputText];
-            //            [inputText bringSubviewToFront:inputTextView];
+           
         }
         if (confirmText == NULL) {
             
@@ -680,23 +672,15 @@
             confirmText.delegate = self;
             confirmText.autocorrectionType = UITextAutocorrectionTypeNo;
             confirmText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView2.frame.size.width - 20, 40)];
-            //
-            //            inputText.layer.borderWidth = 1.0f;
-            //            inputText.layer.cornerRadius = 20;
-            //            inputText.layer.borderColor = [UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1].CGColor;
+            
             confirmText.placeholder = ConfirmLabel;
             confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
-            
-            //            inputText = [[UITextField alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 300)/2, 300, 300, 40)];
-            //            inputText.image = [UIImage imageNamed:@"灰"];
-            //            inputText.userInteractionEnabled = YES;
+ 
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                         name:@"UITextFieldTextDidChangeNotification"
                                                       object:confirmText];
             confirmText.secureTextEntry = YES;
-            //            [self.view addSubview:inputTextView];
-            //            [inputTextView addSubview:inputText];
-            //            [inputText bringSubviewToFront:inputTextView];
+           
         }
         
         if (saveBtn == NULL) {
@@ -723,26 +707,10 @@
         }
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    //    //  [self loadNav];
-    //    scrollView = [[UIScrollView alloc]init];
-    //    routeImage = [[UIImageView alloc]init];
-    
+  
     routeNameLab = [[UILabel alloc]init];
-    //    routeIPLab = [[UILabel alloc]init];
-    //    centerGrayView = [[UIView alloc]init];
-    //    connectDevice = [[UILabel alloc]init];
-    //
+  
     HUD = [[MBProgressHUD alloc]init];
-    //    netWorkErrorView = [[UIView alloc]init];
-    //    tableView = [[UITableView alloc]init];
 }
 #pragma mark - 初始化创建不同的通知
 -(void)initNotific
@@ -932,7 +900,9 @@
         inputText.text = @"";
     }else if(inputText.text.length < 6)
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+        NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+        
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRouterPINSetting delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
         inputText.text = @"";
@@ -1336,7 +1306,8 @@
         [linkAlert show];
     }else if(setNewRouteText.text.length < 6 || confirmText.text.length < 6)
     {
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:lengthLessStr] delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+        NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRouterPINSetting delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
         
