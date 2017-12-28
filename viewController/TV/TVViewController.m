@@ -3840,12 +3840,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //这里获得当前焦点
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
             if (epgDicToSocket.count > 14) { //录制
-        
-//                NSArray *recFileData = response[@"rec_file_info"];
-        //        NSLog(@"recFileData %@",recFileData);
+ 
                 arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-        //
-//                arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+    
             }else
             {
                 if (self.categorys.count >indexOfCategory ) {
@@ -4942,11 +4939,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
         if (epgDicFromPopSTB.count > 14) { //录制
             
-            //                NSArray *recFileData = response[@"rec_file_info"];
-            //        NSLog(@"recFileData %@",recFileData);
             arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-            //
-            //                arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+          
         }else
         {
             if (self.categorys.count >indexOfCategory ) {

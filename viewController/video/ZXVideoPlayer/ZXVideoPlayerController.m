@@ -4298,8 +4298,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.text = self.video.channelId;
             
             self.videoControl.channelNameLab.text = self.video.channelName;
-            self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
-            self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
+
             self.videoControl.eventnameLabel.text = self.video.playEventName;
 
         //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
@@ -4307,6 +4306,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.progressSlider.hidden = YES;
         self.videoControl.progressSlider.alpha = 0;
         
+       
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+            self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //
+            self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+        }else
+        {
+            self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+            self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
+        }
     }else
     {
         //录制
@@ -4340,7 +4348,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             NSLog(@"SCREEN_WIDTH==SCREEN_WIDTH %f",SCREEN_WIDTH);
             self.videoControl.progressSlider.frame = CGRectMake(0, self.videoControl.bottomBar.frame.size.height - 50 , SCREEN_HEIGHT+1, 2);
-            NSLog(@"lalalalalalalalalalalal3333");
             
         }else //竖屏
         {
@@ -4361,11 +4368,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
  
             self.videoControl.eventnameLabel.text = self.video.playEventName;
         }
-        //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
-        
-//    }
     
-   
     
 }
 
