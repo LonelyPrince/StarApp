@@ -260,6 +260,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.playButton addTarget:self action:@selector(playButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.pushBtn addTarget:self action:@selector(pushButtonClick) forControlEvents:UIControlEventTouchUpInside];
     //    [self.videoControl.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.shrinkScreenButton1 addTarget:self action:@selector(shrinkScreenButton1Click) forControlEvents:UIControlEventTouchUpInside];
     
@@ -309,6 +310,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值 ===》  此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
   
     NSLog(@"self.player.playableDuration1 %f",self.player.playableDuration);
+    
+    NSLog(@"Major-playable: %f",self.player.playableDuration);
+    NSLog(@"Major-currentPlay: %f",self.player.currentPlaybackTime);
+    
     NSLog(@"self.player.playableDuration33 %d",durationTimeTemp);
     NSLog(@"self.player.playableDuration2 %f",self.videoControl.progressSlider.value);
    
@@ -550,10 +555,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)onMPMovieDurationAvailableNotification
 {
     NSLog(@"MPMovie  DurationAvailable  Notification");
-//    [self startDurationTimer];
-//    [self setProgressSliderMaxMinValues];
-    
-    //    self.videoControl.fullScreenButton.hidden = NO;
+ 
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         self.videoControl.fullScreenButton.hidden = NO;
     }else
@@ -583,15 +585,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self shrinkScreenButton1Click];
     }
-    NSLog(@"xxxxxx playState---=====视频播放结束 视频播放结束时");
-    
-//    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
-//    [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
-//    
-//    judgeVideoIsStatic = 1;
-    
-    NSLog(@"xxxxxx 新加的方法，如果实现了这个方法，视频将在3秒后停止");
-    
     
     NSNumber* reason = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
     switch ([reason intValue]) {
@@ -601,16 +594,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             break;
         case MPMovieFinishReasonPlaybackError:{
             NSLog(@"playbackFinished. Reason: Playback Error");
-            //new
-            //            [self stop];
-            //            [self prepareToPlay];
-            //            [self play];
-            //            NSLog(@"stopPlayTimeOne 重新开始");
-            //            isPlayIng = NO;  //这里对判断是否播放的值赋初值
-            //            stopPlayTimeOne = 0;
-            //            stopPlayTimeTwo = 0;
-            //            tempOne = 0.0;
-            //            tempTwo = 0.0;
             
         }
             break;
@@ -699,7 +682,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
                         //录制
 //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                        //Failed to open segment of playlist
+                        
+                        
                         [self.player seek:floor(self.sumTime)];
+                        while (self.player.playableDuration < (self.sumTime - 2)) {
+                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
+                            NSLog(@" xyz - sumTime %f",self.sumTime);
+                            sleep(2);
+                            NSLog(@" xyz - 0000");
+                            [self.player seek:floor(self.sumTime)];
+                        }
                         [self.player play];
                         [self startDurationTimer];
                         [self.videoControl autoFadeOutControlBar];
@@ -2283,6 +2277,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
+            self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 75, 26, 56 , 55);
             NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
             self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
 
@@ -2543,6 +2538,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+    self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 55,0, 62 , 40);
     self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
     self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:12];
     self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:12];
@@ -3166,7 +3162,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self changeToOrientation:UIDeviceOrientationLandscapeLeft];
     [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
 }
+/// 投屏按钮点击
+- (void)pushButtonClick
+{
+    
+    NSLog(@"点击投屏按钮");
 
+    NSNotification *notification =[NSNotification notificationWithName:@"popPushAlertViewNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    
+}
 ///// 返回竖屏按钮点击
 //- (void)shrinkScreenButtonClick
 //{
@@ -4310,10 +4317,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //
             self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+            self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 75,26, 56 , 55);
         }else
         {
             self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
             self.videoControl.channelNameLab.frame = CGRectMake(56, 10, 120+50, 18);
+            self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 55,0, 62 , 40);
         }
     }else
     {

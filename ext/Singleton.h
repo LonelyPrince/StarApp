@@ -47,4 +47,5 @@ enum{
 -(void)GetResource_socket;
 -(void)GetIPAddress_socket;
 -(void)Play_ServiceRECSocket; //播放录制视频
+-(void)GetPushDeviceInfo_socket; //获取投屏设备信息
 @end

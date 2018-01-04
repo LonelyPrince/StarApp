@@ -48,7 +48,8 @@
 @implementation Cs_GetRouteIPAddress
 @end
 
-@implementation Sc_20001
+//9.获取投屏设备列表信息
+@implementation Cs_GetPushDeviceInfo
 @end
 
 

@@ -175,6 +175,19 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
+///获取投屏设备信息（待完善）
+-(void)GetPushDeviceInfo_socket{
+    
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"data_cs_GetPushDeviceInfo"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
 // 切断socket
 -(void)cutOffSocket{
     

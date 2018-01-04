@@ -194,6 +194,26 @@
 @end
 
 
+//999999
+// 客户端向服务器发送获取投屏设备信息的消息
+@interface Cs_GetPushDeviceInfo : NSObject
+
+@property (nonatomic, strong) NSString *  module_name;
+@property (nonatomic, assign) uint32_t  Ret;
+@property (nonatomic, assign) uint32_t  Reserved;
+@property (nonatomic, strong) NSArray *   client_ip;
+@property (nonatomic, assign) uint32_t  data_len;
+
+//data区域
+@property (nonatomic, assign) uint32_t  client_port;
+@property (nonatomic, assign) uint32_t  unique_id;        //系统时间  唯一标识
+@property (nonatomic, assign) uint8_t  command_type;       //类型枚举
+
+@property (nonatomic, assign) uint8_t    device_num;        //http请求获得的
+@property (nonatomic, assign) uint32_t   device_ip;             //http请求获得的
+@property (nonatomic, assign) uint8_t    device_client_name_len;        //http请求获得的
+@property (nonatomic, assign) NSString * device_client_name;
+@end
 
 
 ////////////////////////////////////

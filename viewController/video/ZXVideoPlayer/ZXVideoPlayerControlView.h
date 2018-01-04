@@ -95,7 +95,8 @@
 
 //@property (nonatomic, copy) void(^animateShowJdugeLastBtnAndNextBtnIsBray)();
 
-
+////投屏按钮
+@property (nonatomic, strong, readwrite) UIButton * pushBtn;
 
 - (void)animateHide;
 - (void)animateShow;

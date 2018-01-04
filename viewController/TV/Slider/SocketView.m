@@ -49,6 +49,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  cs_CAMatureLock;       //6
 @synthesize  cs_getResource;        //7
 @synthesize  cs_getRouteIPAddress;  //8
+@synthesize  cs_GetPushDeviceInfo;  //9
 @synthesize socket_ServiceModel;  //给service传值用
 @synthesize  cs_serviceREC;
 - (void)viewDidLoad
@@ -66,6 +67,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_getResource = [[Cs_GetResource alloc]init];
     cs_getRouteIPAddress = [[Cs_GetRouteIPAddress alloc]init];
     cs_serviceREC = [[Cs_serviceREC alloc]init];
+    cs_GetPushDeviceInfo = [[Cs_GetPushDeviceInfo alloc]init];
     
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
@@ -557,7 +559,68 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [[Singleton sharedInstance] GetIPAddress_socket];
 }
 
-
+//获取投屏节目信息
+-(void)csGetPushInfo
+{
+    
+    cs_GetPushDeviceInfo.module_name= @"MDMM";
+    cs_GetPushDeviceInfo.Ret=0;
+    cs_GetPushDeviceInfo.Reserved=APDE_Identify;
+    
+    //do - while 循环
+    
+    //    cs_getResource.client_ip= [self getIPArr];
+    
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_GetPushDeviceInfo.client_ip= [self getIPArr];
+    } while (ISNULL(cs_GetPushDeviceInfo.client_ip));
+    
+    
+    
+    cs_GetPushDeviceInfo.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_GetPushDeviceInfo.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_GetPushDeviceInfo.command_type = DTV_SERVICE_MD_GET_PLAY_DEVICE ;
+    cs_GetPushDeviceInfo. data_len= cs_GetPushDeviceInfo.device_client_name.length+15;;
+    
+    
+    
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_GetPushDeviceInfo];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_GetPushDeviceInfo]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] GetPushDeviceInfo_socket];
+}
 
 //int 转16进制
 - (NSString *)hexFromInt:(NSInteger)val {

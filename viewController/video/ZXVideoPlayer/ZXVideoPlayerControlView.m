@@ -103,6 +103,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         
         [self.topBar addSubview:self.channelIdLab];
+        [self.topBar addSubview:self.pushBtn];
+        self.pushBtn.alpha = 0;
         [self.topBar addSubview:self.channelNameLab];
         [self.topBar addSubview:self.FulleventNameLab];
         [self.topBar addSubview:self.FullEventYFlabel];
@@ -237,7 +239,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"==-=-===-==000==-2222");
             //全屏
             self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
-            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+//            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetHeight(self.bounds), 75);
             screenWidthTemp = 0;
             NSLog(@" lalalalalalalalalalalal555==3");
         }else
@@ -276,8 +279,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                     {//全屏
                         NSLog(@"==-=-===-==000==-BBBB");
                         self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
-                        self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
-                        //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
+                        _bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+                        //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);5 2 3
                         //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
                         screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
                         NSLog(@" lalalalalalalalalalalal555==6");
@@ -335,7 +338,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
 
     self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 48,52);
-//    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.bottomBar.frame), 0, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
+ 
 NSLog(@"lalalalalalalalalalalal555");
     self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
 
@@ -410,6 +413,8 @@ NSLog(@"lalalalalalalalalalalal555");
         self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
         self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
 
+        self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,CGRectGetHeight(self.bottomBar.bounds) -16.5-17-19, 48,52);
+        
     }else{
         //    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
         self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
@@ -428,6 +433,7 @@ NSLog(@"lalalalalalalalalalalal555");
     //*********
     if (firstInit == 0) {
         self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
+        self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 55,0, 62 , 40);
         self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
         self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
         self.FullEventYFlabel.frame = CGRectMake(293, 40, 200, 18);
@@ -771,7 +777,7 @@ NSLog(@"lalalalalalalalalalalal555");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixTopBottomImage:) name:@"fixTopBottomImage" object:nil];
         
         
-        _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"竖屏底背景"]]; //@"Group 16"
+//        _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"竖屏底背景"]]; //@"Group 16"
         
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
@@ -798,7 +804,7 @@ NSLog(@"lalalalalalalalalalalal555");
             _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
             
             _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
-            _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
+//            _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
             _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
             _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
             screenWidthTemp1 = 0;
@@ -827,10 +833,7 @@ NSLog(@"lalalalalalalalalalalal555");
             
             _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
             _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
-            
-            
-//            _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
-//            _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
+ 
             screenWidthTemp1 = 0;
         }else
         {
@@ -839,9 +842,6 @@ NSLog(@"lalalalalalalalalalalal555");
         _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
         
         _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
-        _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
-//        _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
-//        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
         NSLog(@"可能会出错的地方self.view.frame.bounds.width5");
             screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
         }
@@ -906,7 +906,6 @@ NSLog(@"lalalalalalalalalalalal555");
         [_fullScreenButton setImage:[UIImage imageNamed:@"Group 5"] forState:UIControlStateNormal];
         _fullScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
         
-        //        [_fullScreenButton setEnlargeEdgeWithTop:20 right:15 bottom:15 left:20];
     }
     return _fullScreenButton;
 }
@@ -1111,6 +1110,17 @@ NSLog(@"lalalalalalalalalalalal555");
     }
     return _channelIdLab;
     
+}
+///推送按钮
+- (UIButton *)pushBtn
+{
+    if (!_pushBtn) {
+        _pushBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_pushBtn setImage:[UIImage imageNamed:@"投屏横"] forState:UIControlStateNormal];
+        _pushBtn.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        
+    }
+    return _pushBtn;
 }
 ///频道名称
 - (UILabel *)channelNameLab

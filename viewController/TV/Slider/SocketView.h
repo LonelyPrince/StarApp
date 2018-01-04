@@ -34,7 +34,9 @@ extern NSString * const TYPE_ARRAY;
 @property(nonatomic,strong)Cs_GetResource * cs_getResource;         //7
 
 @property(nonatomic,strong)Cs_GetRouteIPAddress * cs_getRouteIPAddress;         //8
+@property(nonatomic,strong)Cs_GetPushDeviceInfo * cs_GetPushDeviceInfo;         //9
 @property(nonatomic,strong)Cs_serviceREC * cs_serviceREC;  //播放录制文件
+
 
 @property(nonatomic,strong)ServiceModel *socket_ServiceModel;
 -(void)socketConnectHost;// socket连接

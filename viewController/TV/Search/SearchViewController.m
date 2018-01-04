@@ -768,6 +768,7 @@
             int nowServiceIndex = i+1;
             NSString * service_indexForJudgeType = [NSString  stringWithFormat:@"%d",nowServiceIndex];   //返回当前的i,作为节目的service_index值
             NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+//            NSArray * liveCategory =
             for (int i = 0; i < categoryArrForJudgeType.count; i++) {
                 NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
                 NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];

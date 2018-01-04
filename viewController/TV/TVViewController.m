@@ -14,7 +14,7 @@
 #import "UICustomAlertView.h"
 #import "UIViewController+animationView.h"
 #import "UITextField+NOPasteTextField.h"
-
+#import "JXCustomAlertView.h"
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 #define EndMJRefreshTime 12  //下拉刷新做12秒超时处理
 
@@ -179,6 +179,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @synthesize ONEMinuteTimer;
 @synthesize viewFirstShowTimer;
 @synthesize nowPlayChannelInfo;
+@synthesize pushTableView;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     
@@ -366,6 +367,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    pushTableView = [[UITableView alloc]init];
     nowPlayChannelInfo = [[NowPlayChannelInfo alloc]init];
     nowPlayChannelInfo.numberOfCategoryInt = 0;
     nowPlayChannelInfo.numberOfRowInt = 0;
@@ -1439,109 +1441,153 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //#define   RecExit            @"1"      //录制存在直播不存在
     //#define   LiveExit           @"2"      //录制不存在直播存在
     //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
-    int playTypeClass;
-    playTypeClass = [GGUtil judgePlayTypeClass];
-    if (playTypeClass == 0) {
-        return 0;
-    }else if (playTypeClass == 1){
-        //algorithm /swift / datastruct / OC
-        //jiagou /
-        return numberOfRowsForTable;
-    }else if (playTypeClass == 2){
-        NSLog(@"%lu",(unsigned long)self.serviceData.count);
-        NSLog(@"llself.serviceData %@",self.serviceData);
-        NSLog(@"当前tableView个数 :%lu",self.categoryModel.service_indexArr.count);
-        nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
-        self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)self.categoryModel.service_indexArr.count];
-        
-        return self.categoryModel.service_indexArr.count;
-    }else if (playTypeClass == 3){
-       
-        NSLog(@"%lu",(unsigned long)self.serviceData.count);
-        NSLog(@"当前tableView个数 :%lu",numberOfRowsForTable);
-        nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
-        self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)numberOfRowsForTable];
-        
-        return numberOfRowsForTable;
- 
-    }
     
+    if ([tableView isEqual:pushTableView]) {
+        return 2;
+    }else
+    {
+        int playTypeClass;
+        playTypeClass = [GGUtil judgePlayTypeClass];
+        if (playTypeClass == 0) {
+            return 0;
+        }else if (playTypeClass == 1){
+            //algorithm /swift / datastruct / OC
+            //jiagou /
+            return numberOfRowsForTable;
+        }else if (playTypeClass == 2){
+            NSLog(@"%lu",(unsigned long)self.serviceData.count);
+            NSLog(@"llself.serviceData %@",self.serviceData);
+            NSLog(@"当前tableView个数 :%lu",self.categoryModel.service_indexArr.count);
+            nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
+            self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)self.categoryModel.service_indexArr.count];
+            
+            return self.categoryModel.service_indexArr.count;
+        }else if (playTypeClass == 3){
+            
+            NSLog(@"%lu",(unsigned long)self.serviceData.count);
+            NSLog(@"当前tableView个数 :%lu",numberOfRowsForTable);
+            nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
+            self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)numberOfRowsForTable];
+            
+            return numberOfRowsForTable;
+            
+        }
+        
+    }
+   
     
     
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [TVCell defaultCellHeight];
+    if ([tableView isEqual:pushTableView] ) {
+        return 50;
+    }else
+    {
+        return [TVCell defaultCellHeight];
+    }
+    
+    
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *TableSampleIdentifier = @"TVCell";
-    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    NSLog(@"当前tableView 的cell方法");
-    tempTableviewForFocus = tableView;
-    TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
-    if (cell == nil){
-        cell = [TVCell loadFromNib];
-        //        cell = [[TVCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
-        
-        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
-        
-    }
     
-    
-    
-    if (!ISEMPTY(self.dicTemp)) {
-        cell.nowTimeStr = nwoTimeBreakStr;  //这里的nwoTimeBreakStr 是在numbeOfrows获取的当前时间
-        cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-//        cell.RECAndLiveDataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+    if ([tableView isEqual:pushTableView]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         
-        int playTypeClass;
-        playTypeClass = [GGUtil judgePlayTypeClass];
-        if (playTypeClass == 0) {
-        }else if (playTypeClass == 1){
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        }
+        
+        UIImageView * pushTypeImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 5, 15, 15)];
+        pushTypeImage.image = [UIImage imageNamed:@"BeSelect"];
+        [cell addSubview:pushTypeImage];
+        
+        UILabel * pushDeviceLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 5, 200, 10)];
+        pushDeviceLab.text = @"HMC020202020202020202020";
+        [cell addSubview:pushDeviceLab];
+        
+        UIButton * pushConfirmBtn = [[UIButton alloc]initWithFrame:CGRectMake(220, 5, 20, 20)];
+        [pushConfirmBtn.layer setBorderWidth:2.0f];
+        [cell addSubview:pushConfirmBtn];
+        
+        
+//        indexPath.row == _selectCellIndex ? (cell.accessoryType =UITableViewCellAccessoryCheckmark) : (cell.accessoryType = UITableViewCellAccessoryNone);
+        
+        indexPath.row ==  (cell.accessoryType = UITableViewCellAccessoryNone);
+        return cell;
+    }else
+    {
+        static NSString *TableSampleIdentifier = @"TVCell";
+        tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        NSLog(@"当前tableView 的cell方法");
+        tempTableviewForFocus = tableView;
+        TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
+        if (cell == nil){
+            cell = [TVCell loadFromNib];
+            //        cell = [[TVCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
             
-        }else if (playTypeClass == 2){
-      
-        }else if (playTypeClass == 3){
+            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+            cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
             
-            //            RECAndLiveDataArr
-            NSLog(@"self.dicTempself.dicTemp%@",self.dicTemp);
+        }
+        
+        
+        
+        if (!ISEMPTY(self.dicTemp)) {
+            cell.nowTimeStr = nwoTimeBreakStr;  //这里的nwoTimeBreakStr 是在numbeOfrows获取的当前时间
+            cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+            //        cell.RECAndLiveDataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             
-            if (numberOfRowsForTable == 1) {
-            }else
-            {
+            int playTypeClass;
+            playTypeClass = [GGUtil judgePlayTypeClass];
+            if (playTypeClass == 0) {
+            }else if (playTypeClass == 1){
+                
+            }else if (playTypeClass == 2){
+                
+            }else if (playTypeClass == 3){
+                
+                //            RECAndLiveDataArr
+                NSLog(@"self.dicTempself.dicTemp%@",self.dicTemp);
+                
+                if (numberOfRowsForTable == 1) {
+                }else
+                {
+                    
+                }
                 
             }
-
-        }
-   
-        //焦点
-        NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];
-        if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) { //[cell.dataDic isEqualToDictionary:fourceDic]
             
-            //                int indexForJudgeService = i;
-            //                 NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-            [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-            NSLog(@"asbfabsfkabfjabfkab11");
+            //焦点
+            NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];
+            if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) { //[cell.dataDic isEqualToDictionary:fourceDic]
+                
+                //                int indexForJudgeService = i;
+                //                 NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                NSLog(@"asbfabsfkabfjabfkab11");
+                
+            }else
+            {
+                NSLog(@"asbfabsfkabfjabfkab");
+                [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
+                [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
+                [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
+                
+                
+            }
             
-        }else
-        {
-            NSLog(@"asbfabsfkabfjabfkab");
-            [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
-            [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
-            [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
             
-            
+        }else{//如果为空，什么都不执行
         }
         
-  
-    }else{//如果为空，什么都不执行
+        
+        return cell;
     }
     
-    
-    return cell;
+  
     
 }
 -(void)refreshTableFocus
@@ -1624,6 +1670,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     
     [self updateFullScreenDic];
     TVViewTouchPlay = YES;
@@ -2691,6 +2738,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self returnFromHomeToTVViewNotific];   //用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
         [self cantDeliveryNotific]; //停止分发的通知，这个时候显示停止分发的提示语
+        [self popPushAlertView]; //增加投屏弹窗弹出的通知
     });
     
     
@@ -8090,5 +8138,57 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //2. 通过属性判断
     
     
+}
+- (UIView *)createPushView
+{
+    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 100)];
+    
+    
+    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
+    
+//    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
+    
+    pushTableView.layer.cornerRadius = 7;
+    pushTableView.layer.masksToBounds = YES;
+    pushTableView.delegate = self;
+    pushTableView.dataSource = self;
+    [PushView addSubview:pushTableView];
+    
+    
+    return PushView;
+    
+}
+-(void)createAlertView{
+    JXCustomAlertView *pushAlertView = [[JXCustomAlertView alloc] init];
+    
+    [pushAlertView setContainerView:[self createPushView]];
+    
+    
+    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:@"关闭", @"确定", nil]];
+    pushAlertView.buttonTitleColors = @[[UIColor redColor]];
+    
+    pushAlertView.closeOnTouchUpOutside = YES;
+    pushAlertView.useMotionEffects = YES;
+    
+    
+    
+    [pushAlertView setOnButtonTouchUpInside:^(JXCustomAlertView *pushAlertView, int buttonIndex) {
+        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[pushAlertView tag]);
+        [pushAlertView close];
+    }];
+    
+    
+    [pushAlertView show];
+}
+-(void)popPushAlertView
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"popPushAlertViewNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popPushAlertViewNotific) name:@"popPushAlertViewNotific" object:nil];
+    
+}
+-(void)popPushAlertViewNotific
+{
+    [self createAlertView];
 }
 @end
