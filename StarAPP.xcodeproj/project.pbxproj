@@ -440,9 +440,6 @@
 		7078816A1FF2158500A5ABA1 /* 法语引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881661FF2158500A5ABA1 /* 法语引导页2.png */; };
 		7078816B1FF2158500A5ABA1 /* 法语引导页1.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881671FF2158500A5ABA1 /* 法语引导页1.png */; };
 		7078816C1FF2158500A5ABA1 /* 法语引导页3.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881681FF2158500A5ABA1 /* 法语引导页3.png */; };
-		707881701FF2356600A5ABA1 /* Input@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7078816D1FF2356500A5ABA1 /* Input@3x.png */; };
-		707881711FF2356600A5ABA1 /* Input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7078816E1FF2356600A5ABA1 /* Input@2x.png */; };
-		707881721FF2356600A5ABA1 /* Input@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7078816F1FF2356600A5ABA1 /* Input@1x.png */; };
 		707881751FF236F000A5ABA1 /* 引导页3.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881731FF236F000A5ABA1 /* 引导页3.png */; };
 		707881761FF236F000A5ABA1 /* 引导页4.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881741FF236F000A5ABA1 /* 引导页4.png */; };
 		707881921FF38E1B00A5ABA1 /* Devicemonitor.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881911FF38E1B00A5ABA1 /* Devicemonitor.png */; };
@@ -512,6 +509,9 @@
 		70A19CE21F00A72800DCB18E /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CE11F00A72800DCB18E /* VideoToolbox.framework */; };
 		70A21D121FFB39F30095DACE /* 投屏横@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70A21D0E1FFB39F20095DACE /* 投屏横@2x.png */; };
 		70A21D131FFB39F30095DACE /* 投屏横@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70A21D111FFB39F30095DACE /* 投屏横@3x.png */; };
+		70B41A212004935900930846 /* Input@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A1E2004935800930846 /* Input@1x.png */; };
+		70B41A222004935900930846 /* Input@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A1F2004935800930846 /* Input@3x.png */; };
+		70B41A232004935900930846 /* Input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A202004935800930846 /* Input@2x.png */; };
 		70C217D81FE1167800780D7D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70C217DA1FE1167800780D7D /* Localizable.strings */; };
 		70C9E40E1FDFC4BC007D2994 /* 进度条按钮@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */; };
 		70C9E4141FDFCD10007D2994 /* MySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9E4131FDFCD10007D2994 /* MySlider.m */; };
@@ -1238,9 +1238,6 @@
 		707881661FF2158500A5ABA1 /* 法语引导页2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "法语引导页2.png"; sourceTree = "<group>"; };
 		707881671FF2158500A5ABA1 /* 法语引导页1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "法语引导页1.png"; sourceTree = "<group>"; };
 		707881681FF2158500A5ABA1 /* 法语引导页3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "法语引导页3.png"; sourceTree = "<group>"; };
-		7078816D1FF2356500A5ABA1 /* Input@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@3x.png"; sourceTree = "<group>"; };
-		7078816E1FF2356600A5ABA1 /* Input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@2x.png"; sourceTree = "<group>"; };
-		7078816F1FF2356600A5ABA1 /* Input@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@1x.png"; sourceTree = "<group>"; };
 		707881731FF236F000A5ABA1 /* 引导页3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页3.png"; sourceTree = "<group>"; };
 		707881741FF236F000A5ABA1 /* 引导页4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页4.png"; sourceTree = "<group>"; };
 		707881911FF38E1B00A5ABA1 /* Devicemonitor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Devicemonitor.png; sourceTree = "<group>"; };
@@ -1315,6 +1312,9 @@
 		70A19CE11F00A72800DCB18E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		70A21D0E1FFB39F20095DACE /* 投屏横@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投屏横@2x.png"; sourceTree = "<group>"; };
 		70A21D111FFB39F30095DACE /* 投屏横@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投屏横@3x.png"; sourceTree = "<group>"; };
+		70B41A1E2004935800930846 /* Input@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@1x.png"; sourceTree = "<group>"; };
+		70B41A1F2004935800930846 /* Input@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@3x.png"; sourceTree = "<group>"; };
+		70B41A202004935800930846 /* Input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@2x.png"; sourceTree = "<group>"; };
 		70C217D11FE1154600780D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController.xib; sourceTree = "<group>"; };
 		70C217D21FE1154600780D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 		70C217D31FE1155200780D7D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MasterViewController.strings; sourceTree = "<group>"; };
@@ -2516,11 +2516,11 @@
 		707FE70B1DACC3740087C361 /* Live */ = {
 			isa = PBXGroup;
 			children = (
+				70B41A1E2004935800930846 /* Input@1x.png */,
+				70B41A202004935800930846 /* Input@2x.png */,
+				70B41A1F2004935800930846 /* Input@3x.png */,
 				70A21D0E1FFB39F20095DACE /* 投屏横@2x.png */,
 				70A21D111FFB39F30095DACE /* 投屏横@3x.png */,
-				7078816F1FF2356600A5ABA1 /* Input@1x.png */,
-				7078816E1FF2356600A5ABA1 /* Input@2x.png */,
-				7078816D1FF2356500A5ABA1 /* Input@3x.png */,
 				70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */,
 				7093368A1F5907C000328799 /* 无频道列表@2x.png */,
 				7093368B1F5907C000328799 /* 无频道列表@3x.png */,
@@ -3080,6 +3080,7 @@
 				701017681DCADA3300F9D5FF /* dian@1x.png in Resources */,
 				7078816C1FF2158500A5ABA1 /* 法语引导页3.png in Resources */,
 				70362D251F009EB90012A309 /* New_Four@2x.png in Resources */,
+				70B41A232004935900930846 /* Input@2x.png in Resources */,
 				70FFE3B81DE1CA0E00223E43 /* MonitorCell.xib in Resources */,
 				7040E2381DAE12B80063DB66 /* Group 12 Copy 2@3x.png in Resources */,
 				7040E2451DAE12B80063DB66 /* Viasat-Nature-logo@1x.png in Resources */,
@@ -3315,7 +3316,6 @@
 				70FFE3FD1DE3EF4800223E43 /* 录制@2x.png in Resources */,
 				701A98B31DB47A3100460220 /* 下一频道@3x.png in Resources */,
 				70231CC21DC0FE8C00F73202 /* ip@3x.png in Resources */,
-				707881721FF2356600A5ABA1 /* Input@1x.png in Resources */,
 				702CE43A1DDA9881000A0513 /* 4@2x.png in Resources */,
 				70362D1A1F009E4B0012A309 /* New圆环-4@3x.png in Resources */,
 				70F0C4FB1FAAC7D50054669B /* 明文显示@3x.png in Resources */,
@@ -3358,13 +3358,13 @@
 				7040E2441DAE12B80063DB66 /* Viasat-Explore@3x.png in Resources */,
 				70A21D121FFB39F30095DACE /* 投屏横@2x.png in Resources */,
 				70362D181F009E4B0012A309 /* New圆环-4@1x.png in Resources */,
-				707881711FF2356600A5ABA1 /* Input@2x.png in Resources */,
 				70FFE3FC1DE3EF4800223E43 /* 录制.png in Resources */,
 				7022F5071FCE445800A1537A /* 录制透明.png in Resources */,
 				70231CF71DC1DF5A00F73202 /* Back Arrow@1x.png in Resources */,
 				70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */,
 				701A98A91DB47A3100460220 /* Rectangle 2@2x.png in Resources */,
 				70FC30EE1D75714E00BD06FE /* zx-video-player-lock@3x.png in Resources */,
+				70B41A222004935900930846 /* Input@3x.png in Resources */,
 				707C4AF41E4AB0DE008F289A /* routenoKnow1@3x.png in Resources */,
 				70D6B9101E2DAF3D00957A81 /* South African@2x.png in Resources */,
 				70FFE3E31DE2DBA200223E43 /* M2.png in Resources */,
@@ -3511,6 +3511,7 @@
 				702CE4411DDA9881000A0513 /* 6@3x.png in Resources */,
 				702CE4531DDA9881000A0513 /* 组-51-拷贝@2x.png in Resources */,
 				70FC30F11D75714E00BD06FE /* zx-video-player-unlock@2x.png in Resources */,
+				70B41A212004935900930846 /* Input@1x.png in Resources */,
 				70FFE3BF1DE2D03700223E43 /* 0.png in Resources */,
 				702CE4321DDA9881000A0513 /* 1@3x.png in Resources */,
 				707FE73B1DACC3C30087C361 /* Group 3@2x.png in Resources */,
@@ -3545,7 +3546,6 @@
 				70362D4B1F00A0180012A309 /* Series@3x.png in Resources */,
 				70848AF11F7DE1A5005A4FA6 /* 关于@1x.png in Resources */,
 				707881691FF2158500A5ABA1 /* 法语引导页4.png in Resources */,
-				707881701FF2356600A5ABA1 /* Input@3x.png in Resources */,
 				70FC30E31D75714E00BD06FE /* kr-video-player-point@2x.png in Resources */,
 				701078581F96DAF800593014 /* Router-Status@1x.png in Resources */,
 				70FFE3E41DE2DBA200223E43 /* M3.png in Resources */,

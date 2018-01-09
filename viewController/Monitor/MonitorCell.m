@@ -151,12 +151,12 @@
         
         self.nameLab.frame = CGRectMake(157, 20, 158, 15);
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         self.nameLab.frame = CGRectMake(157, 20, 166, 15);
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]|| [deviceString isEqualToString:@"iPhone8 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
         self.nameLab.frame = CGRectMake(157, 20, 192, 15);
@@ -212,14 +212,14 @@
     if (type == LIVE_PLAY) { //        return 1;// @"直播";
         
         self.programeClass.image = [UIImage imageNamed:@"play"];
-        NSString * MLLive = NSLocalizedString(@"MLLive", nil);
+        NSString * MMLLive = NSLocalizedString(@"MMLLive", nil);
         NSLog(@"[epgDic objectForKey: %@",[epgDic objectForKey:@"event_name"]);
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
-            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLLive,[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MMLLive,[epgDic objectForKey:@"event_name"]];
         }else{
             NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
-            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLLive,NOEventLabel];
+            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MMLLive,NOEventLabel];
             self.nameLab.text = NOEventLabelTemp;
         }
         
@@ -241,21 +241,21 @@
         
         
     }
-//        else if (type == LIVE_TIME_SHIFT) //        return 3;//@"时移";
-//    {
-//        self.programeClass.image = [UIImage imageNamed:@"时移"];
-//        
-//        
-//        if([[epgDic objectForKey:@"event_name"] isEqualToString:@""])
-//        {
-//            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--%@",[epgDic objectForKey:@"event_name"]];
-//        }else{
-//            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--No Event"];
-//        }
-//        
-//        
-//    }
-        else if (type == DELIVERY)
+    //        else if (type == LIVE_TIME_SHIFT) //        return 3;//@"时移";
+    //    {
+    //        self.programeClass.image = [UIImage imageNamed:@"时移"];
+    //
+    //
+    //        if([[epgDic objectForKey:@"event_name"] isEqualToString:@""])
+    //        {
+    //            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--%@",[epgDic objectForKey:@"event_name"]];
+    //        }else{
+    //            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--No Event"];
+    //        }
+    //
+    //
+    //    }
+    else if (type == DELIVERY)
     {
         
         if (!ISNULL(clientNameStr)) {
@@ -265,8 +265,8 @@
             if([[epgDic objectForKey:@"event_name"] isEqualToString:@""] || [epgDic objectForKey:@"event_name"] == NULL)
             {
                 NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
-               
-
+                
+                
                 self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",NSLocalizedString(@"NOEventLabel", nil)];
                 NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
                 
@@ -275,7 +275,7 @@
                 self.nameLab.text = [NSString stringWithFormat:@"%@--%@",clientNameStr,[epgDic objectForKey:@"event_name"]];
                 NSLog(@"self.nameLab.text :%@",self.nameLab.text
                       );
-               
+                
             }
             
             

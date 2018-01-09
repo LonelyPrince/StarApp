@@ -28,7 +28,7 @@
     
     
     self.tabBarController.tabBar.hidden = YES;
-   deviceString = [GGUtil deviceVersion];
+    deviceString = [GGUtil deviceVersion];
     
     [self loadNav];
     
@@ -46,24 +46,24 @@
     
     [self loadScroll];
     
-     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是5s和4s的大小");
         
         imageView = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1224)];
         imageView.image = [UIImage imageNamed:@"联系我们"];
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         imageView = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1435)];
         imageView.image = [UIImage imageNamed:@"联系我们"];
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]|| [deviceString isEqualToString:@"iPhone8 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
         imageView = [[UIImageView  alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1584)];
         imageView.image = [UIImage imageNamed:@"联系我们"];
-//        imageView.alpha = 0.3;
+        //        imageView.alpha = 0.3;
     }
     
     
@@ -80,17 +80,17 @@
         NSLog(@"此刻是5s和4s 的大小");
         
         self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 1224-48);
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]    || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 1435-48);
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 1584-48);
     }
     
-//    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 1435-48);
+    //    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 1435-48);
     //    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 614+105 - 216 +_allHistoryBtnHeight);
     //    scroll.pagingEnabled=YES;
     self.scrollView.showsVerticalScrollIndicator=NO;
@@ -268,11 +268,11 @@
         [btn17 addTarget:self action:@selector(linkBtnClick :) forControlEvents:UIControlEventTouchUpInside];
         [_scrollView addSubview:btn17];
         
-      
         
-     
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  ) {
+        
+        
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] ) {
         NSLog(@"此刻是6的大小");
         
         UIButton * btn0  = [[UIButton alloc]init];
@@ -435,10 +435,10 @@
         [_scrollView addSubview:btn17];
         
         
-       
         
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 plus的大小");
         
         UIButton * btn0  = [[UIButton alloc]init];
@@ -603,28 +603,28 @@
         
         
         
-//        btn0.backgroundColor = [UIColor redColor];
-//        btn1.backgroundColor = [UIColor redColor];
-//        btn2.backgroundColor = [UIColor redColor];
-//        btn3.backgroundColor = [UIColor redColor];
-//        btn4.backgroundColor = [UIColor redColor];
-//        btn5.backgroundColor = [UIColor redColor];
-//        btn6.backgroundColor = [UIColor redColor];
-//        btn7.backgroundColor = [UIColor redColor];
-//        btn8.backgroundColor = [UIColor redColor];
-//        btn9.backgroundColor = [UIColor redColor];
-//        btn10.backgroundColor = [UIColor redColor];
-//        btn11.backgroundColor = [UIColor redColor];
-//        btn12.backgroundColor = [UIColor redColor];
-//        btn13.backgroundColor = [UIColor redColor];
-//        btn14.backgroundColor = [UIColor redColor];
-//        btn15.backgroundColor = [UIColor redColor];
-//        btn16.backgroundColor = [UIColor redColor];
-//        btn17.backgroundColor = [UIColor redColor];
+        //        btn0.backgroundColor = [UIColor redColor];
+        //        btn1.backgroundColor = [UIColor redColor];
+        //        btn2.backgroundColor = [UIColor redColor];
+        //        btn3.backgroundColor = [UIColor redColor];
+        //        btn4.backgroundColor = [UIColor redColor];
+        //        btn5.backgroundColor = [UIColor redColor];
+        //        btn6.backgroundColor = [UIColor redColor];
+        //        btn7.backgroundColor = [UIColor redColor];
+        //        btn8.backgroundColor = [UIColor redColor];
+        //        btn9.backgroundColor = [UIColor redColor];
+        //        btn10.backgroundColor = [UIColor redColor];
+        //        btn11.backgroundColor = [UIColor redColor];
+        //        btn12.backgroundColor = [UIColor redColor];
+        //        btn13.backgroundColor = [UIColor redColor];
+        //        btn14.backgroundColor = [UIColor redColor];
+        //        btn15.backgroundColor = [UIColor redColor];
+        //        btn16.backgroundColor = [UIColor redColor];
+        //        btn17.backgroundColor = [UIColor redColor];
     }
     
-  
-
+    
+    
 }
 
 -(void)linkBtnClick : (id)sender
@@ -721,3 +721,5 @@
 
 
 @end
+
+

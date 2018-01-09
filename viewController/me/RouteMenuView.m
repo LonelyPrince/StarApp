@@ -13,7 +13,7 @@
 
 @interface RouteMenuView ()
 {
-
+    
     NSString * deviceString;     //用于判断手机型号
     NSString * DMSIP;
     UIAlertView * rebootAlert;
@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
+    
     deviceString = [GGUtil deviceVersion];
     [self loadNav];
     [self initData];
@@ -68,7 +68,7 @@
 
 -(void)loadNav
 {
-//    self.view.backgroundColor = [UIColor redColor];
+    //    self.view.backgroundColor = [UIColor redColor];
     self.tabBarController.tabBar.hidden = YES;
     NSString * RouterSettingLabel = NSLocalizedString(@"RouterSettingLabel", nil);
     self.title = RouterSettingLabel;
@@ -77,7 +77,7 @@
 {
     [self loadScroll];
     [self loadUI];
-   
+    
     NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
     routeNameLab.text = [tempDic objectForKey:@"name"];
     NSString * pswStr = [tempDic objectForKey:@"password"];
@@ -96,7 +96,7 @@
             secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
         }
         
-       
+        
     }else
     {
         NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
@@ -107,7 +107,7 @@
         NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
         PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
     }
-//    [self getWifi];
+    //    [self getWifi];
     
 }
 -(void)initData
@@ -123,7 +123,7 @@
     scrollView = [[UIScrollView alloc]init];
     colorView = [[UIImageView alloc]init];
     routeImage = [[UIImageView alloc]init];
-//    editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     routeNameLab = [[UILabel alloc]init];
     secrityTypeLab = [[UILabel alloc]init];
     PINProtectionLab = [[UILabel alloc]init];
@@ -150,7 +150,7 @@
     btnLab6 = [[UILabel alloc]init];
     
     generalSettingLab = [[UILabel alloc]init];
-
+    
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
     NSString * MLWantRebot = NSLocalizedString(@"MLWantRebot", nil);
     
@@ -176,7 +176,7 @@
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-60 );
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         NSString * BackupRestoreLabel = NSLocalizedString(@"BackupRestoreLabel", nil);
@@ -187,10 +187,10 @@
             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-85 );
         }
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
-       scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-128 );
+        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-128 );
     }
     
     scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
@@ -226,21 +226,21 @@
         routeNameLab.frame = CGRectMake(135, 65, 200, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+        //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(135, 100, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+        //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(135, 130, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+        //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -315,21 +315,21 @@
         routeNameLab.frame = CGRectMake(145, 70, 200, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+        //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(145, 100, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+        //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(145, 125, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+        //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -389,7 +389,7 @@
         //        connectDevice.font = FONT(15);
         //        connectDevice.textColor = RGBA(148, 148, 148, 1);
         //        [scrollView addSubview:connectDevice];
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         colorView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 220);
@@ -404,21 +404,21 @@
         routeNameLab.frame = CGRectMake(176, 82, 200, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+        //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(176, 115, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+        //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(176, 140, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+        //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -478,7 +478,7 @@
         //        connectDevice.font = FONT(15);
         //        connectDevice.textColor = RGBA(148, 148, 148, 1);
         //        [scrollView addSubview:connectDevice];
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         colorView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 240);
@@ -493,21 +493,21 @@
         routeNameLab.frame = CGRectMake(192, 85, 205, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-//        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+        //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(192, 117, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+        //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
         
         PINProtectionLab.frame = CGRectMake(192, 143, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
-//        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+        //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
         
@@ -516,7 +516,7 @@
         generalSettingLab.font = FONT(18);
         generalSettingLab.textColor = [UIColor colorWithRed:0x94/255.0 green:0x94/255.0 blue:0x94/255.0 alpha:1];
         generalSettingLab.text = GeneralSettingsLabel;
-//        [scrollView addSubview:generalSettingLab];
+        //        [scrollView addSubview:generalSettingLab];
         [scrollView addSubview:generalSettingLab];
         [scrollView bringSubviewToFront:generalSettingLab];
         
@@ -545,38 +545,38 @@
         
         
         
-
-//
-//
-//        routeIPLab.font = FONT(13);
-//        routeIPLab.textColor = RGBA(193, 193, 193, 1);
-//
-//        routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
-//        [scrollView addSubview:routeNameLab];
-//        [scrollView addSubview:routeIPLab];
+        
+        //
+        //
+        //        routeIPLab.font = FONT(13);
+        //        routeIPLab.textColor = RGBA(193, 193, 193, 1);
+        //
+        //        routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
+        //        [scrollView addSubview:routeNameLab];
+        //        [scrollView addSubview:routeIPLab];
         
         
-//        centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
-//        centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
-//        [scrollView addSubview:centerGrayView];
-//        
-//        
-//        
-//        connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
-//        connectDevice.text = @"Connected devices";
-//        connectDevice.font = FONT(15);
-//        connectDevice.textColor = RGBA(148, 148, 148, 1);
-//        [scrollView addSubview:connectDevice];
+        //        centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
+        //        centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
+        //        [scrollView addSubview:centerGrayView];
+        //
+        //
+        //
+        //        connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
+        //        connectDevice.text = @"Connected devices";
+        //        connectDevice.font = FONT(15);
+        //        connectDevice.textColor = RGBA(148, 148, 148, 1);
+        //        [scrollView addSubview:connectDevice];
     }
     
-  
+    
     
     
 }
 -(void)addFirstBtn
 {
     
-  
+    
     
     NSString * WLANSettingsLabel = NSLocalizedString(@"WLANSettingsLabel", nil);
     deviceString = [GGUtil deviceVersion];
@@ -644,7 +644,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -677,7 +677,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -705,10 +705,10 @@
         [scrollView addSubview:btnLab1];
         [btn1 bringSubviewToFront:btnLab1];
         
-//        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
-//        hudLab.text = @"Network Error";
-//
-//        hudLab.textColor = [UIColor grayColor];
+        //        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+        //        hudLab.text = @"Network Error";
+        //
+        //        hudLab.textColor = [UIColor grayColor];
     }
     
     
@@ -799,7 +799,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn2 setFrame:CGRectMake((SCREEN_WIDTH - 3)/2+3, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
@@ -837,7 +837,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -952,7 +952,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -985,7 +985,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1026,7 +1026,7 @@
 {
     
     NSString * RouterStatusLabel = NSLocalizedString(@"RouterStatusLabel", nil);
-  
+    
     deviceString = [GGUtil deviceVersion];
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s 的大小");
@@ -1106,7 +1106,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn4 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1145,7 +1145,7 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         btn4 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1180,7 +1180,7 @@
         //        hudLab.textColor = [UIColor grayColor];
     }
     
- 
+    
 }
 #pragma mark - 第五个btn
 -(void)addFiveBtn
@@ -1207,7 +1207,7 @@
         [btn5 bringSubviewToFront:btnImageView5];
         
         
-       
+        
         
         
         CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
@@ -1246,7 +1246,7 @@
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
         
-      
+        
         btnImageView5.frame = CGRectMake((btn5.frame.size.width - 25)/2, btn5.frame.origin.y+24, 25, 25);
         btnImageView5.image = [UIImage imageNamed:@"Backup-&-Restore@2x"];
         [scrollView addSubview:btnImageView5];
@@ -1257,7 +1257,7 @@
         CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-
+        
         if (BackupRestoreLabel.length < 17) {
             [btn5 setFrame:CGRectMake(0, 480+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
             btnLab5.text = BackupRestoreLabel;
@@ -1278,7 +1278,7 @@
         [btn5 bringSubviewToFront:btnLab5];
         
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1290,7 +1290,7 @@
         [scrollView addSubview:btn5];
         [scrollView bringSubviewToFront:btn5];
         
-     
+        
         btnImageView5.frame = CGRectMake((btn5.frame.size.width - 40)/2, btn5.frame.origin.y+24, 40, 40);
         btnImageView5.image = [UIImage imageNamed:@"Backup-&-Restore@2x"];
         [scrollView addSubview:btnImageView5];
@@ -1320,8 +1320,8 @@
         [scrollView addSubview:btnLab5];
         [btn5 bringSubviewToFront:btnLab5];
         
-    
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         btn5 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1344,7 +1344,7 @@
         CGSize size = [GGUtil sizeWithText: BackupRestoreLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView5.frame.size.width - size.width)/2);
         btnLab5.frame = CGRectMake((btn5.frame.size.width - size.width)/2, btnImageView5.frame.origin.y+btnImageView5.frame.size.height+ 10, 150, 20);
-     
+        
         if (BackupRestoreLabel.length < 17) {
             [btn5 setFrame:CGRectMake(0, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
             btnLab5.text = BackupRestoreLabel;
@@ -1470,7 +1470,7 @@
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1482,13 +1482,13 @@
         [scrollView addSubview:btn6];
         [scrollView bringSubviewToFront:btn6];
         
-      
+        
         
         btnImageView6.frame = CGRectMake((btn6.frame.size.width - 40)/2 + btn5.frame.size.width+3, btn6.frame.origin.y+24, 40, 40);
         btnImageView6.image = [UIImage imageNamed:@"Reboot-Device"];
         [scrollView addSubview:btnImageView6];
         [btn6 bringSubviewToFront:btnImageView6];
- 
+        
         
         CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
@@ -1497,7 +1497,7 @@
         
         
         if (RebootDeviceLabel.length < 17) {
-             [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
+            [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 520+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
             btnLab6.text = RebootDeviceLabel;
             btnLab6.textAlignment = UITextAlignmentCenter;
             
@@ -1511,7 +1511,7 @@
             //自动折行设置
             btnLab6.lineBreakMode = UILineBreakModeWordWrap;
         }
-
+        
         
         
         btnLab6.textColor = [UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1];
@@ -1519,7 +1519,7 @@
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         btn6 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1542,7 +1542,7 @@
         CGSize size = [GGUtil sizeWithText: RebootDeviceLabel font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
         NSLog(@"%f",(btnImageView6.frame.size.width - size.width)/2);
         btnLab6.frame = CGRectMake((btn6.frame.size.width - 150)/2+ btn5.frame.size.width+3, btnImageView6.frame.origin.y+btnImageView6.frame.size.height+ 10, 150, 20);
-//        btnLab6.text = RebootDeviceLabel;
+        //        btnLab6.text = RebootDeviceLabel;
         
         if (RebootDeviceLabel.length < 17) {
             [btn6 setFrame:CGRectMake(btn5.frame.size.width+3, 570+40 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
@@ -1565,7 +1565,7 @@
         [scrollView addSubview:btnLab6];
         [btn6 bringSubviewToFront:btnLab6];
         
-       
+        
     }
     
 }
@@ -1583,14 +1583,14 @@
 //点击观看历史直接播放
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr
 {
-//    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
-//    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+    //    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+    //    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     
     
     NSInteger tagIndex = [sender tag];
     NSLog(@"tatatatatatatatatindex %d",tagIndex);
     if (tagIndex == 1) {
-
+        
         if(![self.navigationController.topViewController isKindOfClass:[self.wLANSettingView class]]) {
             [self.navigationController pushViewController:self.wLANSettingView animated:YES];
         }else
@@ -1668,105 +1668,105 @@
         
         //reboot
         //弹窗
-       
+        
         [rebootAlert show];
         
         
     }
-//    if (tagIndex == 6) {
-//        //进入历史界面
-//        //    self.tableView.editing = YES;
-//        //跳转到历史界面
-//        self.historyView = [[HistoryViewController alloc]init];
-//        //        [self presentModalViewController:self.routeView animated:YES];
-//        //        [self.navigationController pushViewController:self.historyView animated:YES];
-//        if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
-//            [self.navigationController pushViewController:self.historyView animated:YES];
-//        }else
-//        {
-//            NSLog(@"此处可能会由于页面跳转过快报错");
-//        }
-//
-//
-//
-//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-//        self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-//
-//        self.historyView.navigationItem.leftBarButtonItem = myButton;
-//    }else
-//    {
-//        NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-//        NSLog(@"touchArr：%@",touchArr);
-//        //    [self touchToSee :touchArr];
-//
-//
-//        NSInteger row = [touchArr[2] intValue];
-//        NSDictionary * dic = touchArr [3];
-//
-//
-//        //    self.tvViewController = [[TVViewController alloc]init];
-//        //    [self.tvViewController touchSelectChannel:row diction:dic];
-//        ////    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
-//        //将整形转换为number
-//        NSNumber * numIndex = [NSNumber numberWithInt:row];
-//
-//        //添加 字典，将label的值通过key值设置传递
-//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-//
-//
-//
-//        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-//        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-//
-//        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-//
-//
-//        if (characterStr != NULL && characterStr != nil) {
-//
-//            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-//            if (judgeIsSTBDecrypt == YES) {
-//                // 此处代表需要记性机顶盒加密验证
-//                //弹窗
-//                //发送通知
-//
-//                //        [self popSTBAlertView];
-//                //        [self popCAAlertView];
-//                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-//                //创建通知
-//                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-//                //通过通知中心发送通知
-//                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//
-//                [self.tabBarController setSelectedIndex:1];
-//
-//            }else //正常播放的步骤
-//            {
-//                //创建通知
-//                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//                //通过通知中心发送通知
-//                [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
-//                [self.tabBarController setSelectedIndex:1];
-//            }
-//
-//
-//        }else //正常播放的步骤
-//        {
-//
-//
-//            //创建通知
-//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//            //    [self.navigationController popViewControllerAnimated:YES];
-//            //    [self.navigationController popToViewController:_tvViewController animated:YES];
-//            //    [self.navigationController pushViewController:_tvViewController animated:YES];
-//            [self.tabBarController setSelectedIndex:1];
-//        }
-//
-//    }
+    //    if (tagIndex == 6) {
+    //        //进入历史界面
+    //        //    self.tableView.editing = YES;
+    //        //跳转到历史界面
+    //        self.historyView = [[HistoryViewController alloc]init];
+    //        //        [self presentModalViewController:self.routeView animated:YES];
+    //        //        [self.navigationController pushViewController:self.historyView animated:YES];
+    //        if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
+    //            [self.navigationController pushViewController:self.historyView animated:YES];
+    //        }else
+    //        {
+    //            NSLog(@"此处可能会由于页面跳转过快报错");
+    //        }
+    //
+    //
+    //
+    //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    //        self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    //
+    //        self.historyView.navigationItem.leftBarButtonItem = myButton;
+    //    }else
+    //    {
+    //        NSArray * touchArr = historyArr[historyArr.count - tagIndex];
+    //        NSLog(@"touchArr：%@",touchArr);
+    //        //    [self touchToSee :touchArr];
+    //
+    //
+    //        NSInteger row = [touchArr[2] intValue];
+    //        NSDictionary * dic = touchArr [3];
+    //
+    //
+    //        //    self.tvViewController = [[TVViewController alloc]init];
+    //        //    [self.tvViewController touchSelectChannel:row diction:dic];
+    //        ////    NSLog(@"当前点击了 ：%@",self.showData[indexPath.row]  );
+    //        //将整形转换为number
+    //        NSNumber * numIndex = [NSNumber numberWithInt:row];
+    //
+    //        //添加 字典，将label的值通过key值设置传递
+    //        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+    //
+    //
+    //
+    //        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+    //        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    //
+    //        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+    //
+    //
+    //        if (characterStr != NULL && characterStr != nil) {
+    //
+    //            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+    //            if (judgeIsSTBDecrypt == YES) {
+    //                // 此处代表需要记性机顶盒加密验证
+    //                //弹窗
+    //                //发送通知
+    //
+    //                //        [self popSTBAlertView];
+    //                //        [self popCAAlertView];
+    //                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+    //                //创建通知
+    //                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+    //                //通过通知中心发送通知
+    //                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    //
+    //                [self.tabBarController setSelectedIndex:1];
+    //
+    //            }else //正常播放的步骤
+    //            {
+    //                //创建通知
+    //                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+    //                //通过通知中心发送通知
+    //                [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //
+    //                [self.tabBarController setSelectedIndex:1];
+    //            }
+    //
+    //
+    //        }else //正常播放的步骤
+    //        {
+    //
+    //
+    //            //创建通知
+    //            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+    //            //通过通知中心发送通知
+    //            [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //            //    [self.navigationController popViewControllerAnimated:YES];
+    //            //    [self.navigationController popToViewController:_tvViewController animated:YES];
+    //            //    [self.navigationController pushViewController:_tvViewController animated:YES];
+    //            [self.tabBarController setSelectedIndex:1];
+    //        }
+    //
+    //    }
     
-//    [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
+    //    [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
     
     
 }
@@ -1921,17 +1921,17 @@
 #pragma mark - 弹窗点击事件
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-   
-        if(buttonIndex == 1)
-        {
-            
-        }else{
-            
-            //验证
-            [self rebootOKClick];
-            
-            
-        }
+    
+    if(buttonIndex == 1)
+    {
+        
+    }else{
+        
+        //验证
+        [self rebootOKClick];
+        
+        
+    }
 }
 -(void)rebootOKClick
 {
@@ -1955,28 +1955,28 @@
     
     [request startAsynchronous ];
     
-//    [request setStartedBlock:^{
-//        //请求开始的时候调用
-//        //用转圈代替
-//
-//
-//        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//
-//        //如果设置此属性则当前的view置于后台
-//
-//        [HUD showAnimated:YES];
-//
-//
-//        //设置对话框文字
-//
-//        HUD.labelText = @"loading";
-//        //        NSLog(@"scroller : %@",scrollView);
-//        NSLog(@"HUD : %@",HUD);
-//        [self.view addSubview:HUD];
-//
-//
-//        NSLog(@"请求开始的时候调用");
-//    }];
+    //    [request setStartedBlock:^{
+    //        //请求开始的时候调用
+    //        //用转圈代替
+    //
+    //
+    //        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    //
+    //        //如果设置此属性则当前的view置于后台
+    //
+    //        [HUD showAnimated:YES];
+    //
+    //
+    //        //设置对话框文字
+    //
+    //        HUD.labelText = @"loading";
+    //        //        NSLog(@"scroller : %@",scrollView);
+    //        NSLog(@"HUD : %@",HUD);
+    //        [self.view addSubview:HUD];
+    //
+    //
+    //        NSLog(@"请求开始的时候调用");
+    //    }];
     
     
     
@@ -1989,12 +1989,12 @@
         
         if ([deviceDic objectForKey:@"result"] != NULL || [deviceDic objectForKey:@"result"] != nil) {
             if ([[deviceDic objectForKey:@"code"] isEqual:@0] ) {
-               //成功，显示图片
+                //成功，显示图片
                 
                 NSString * RouterResetingLabel = NSLocalizedString(@"RouterResetingLabel", nil);
                 NSString * MLRestarting = NSLocalizedString(@"MLRestarting", nil);
                 restartingAlert = [[UIAlertView alloc] initWithTitle:MLRestarting
-                                                    message:RouterResetingLabel delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
+                                                             message:RouterResetingLabel delegate:self cancelButtonTitle:nil otherButtonTitles: nil];
                 
                 [restartingAlert show];
                 
@@ -2002,7 +2002,7 @@
                 
             }else
             {
-               //重启失败
+                //重启失败
                 NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
                 NSString * MLRestoreFailure = NSLocalizedString(@"MLRestoreFailure", nil);
                 restartingAlert = [[UIAlertView alloc] initWithTitle:MLRestoreFailure
@@ -2010,13 +2010,13 @@
                 
                 [restartingAlert show];
             }
-
+            
         }
         
     }];
     
     
-
+    
 }
 
 #pragma mark - 加载无网络图
@@ -2028,13 +2028,13 @@
     
     NSLog(@"showNetWorkErroshowNetWorkErrorVasdadsads");
     //1.取消掉加载圈
-//    [self hudHidden];
+    //    [self hudHidden];
     
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.timerForASIHttp invalidate];
-//        self.timerForASIHttp = nil;
-//
-//    });
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //        [self.timerForASIHttp invalidate];
+    //        self.timerForASIHttp = nil;
+    //
+    //    });
     
     if (self.NetWorkErrorView == nil) {
         self.NetWorkErrorView = [[UIView alloc]init];
@@ -2069,3 +2069,5 @@
     
 }
 @end
+
+

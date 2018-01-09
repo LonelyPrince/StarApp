@@ -267,14 +267,14 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     NSString * phoneModel =  [self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
-
+    
     cs_serviceREC.client_name = [NSString stringWithFormat:@"%@",phoneModel];  //***
     cs_serviceREC.client_name_len =cs_serviceREC.client_name.length   ;    //****
     
     NSLog(@"foleName %@",cs_serviceREC.file_name);
     NSLog(@"foleName %d",cs_serviceREC.file_name_len);
     cs_serviceREC. data_len= 11 + cs_serviceREC.file_name_len + cs_serviceREC.client_name_len ;
-//    cs_serviceREC.data_len_m3u8 = 0;
+    //    cs_serviceREC.data_len_m3u8 = 0;
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
@@ -297,7 +297,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //3.计算CRC
     [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_serviceREC]];
- 
+    
     NSLog(@"foleName=-= %@",cs_serviceREC.file_name);
     NSLog(@"foleName=-= %d",cs_serviceREC.file_name_len);
     //转换成字节后，存起来
@@ -752,9 +752,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 {
     // 对得到的data值进行解析与转换即可
     
-//    NSLog(@"读--");
-//    NSLog(@"%ld",tag);
-//    NSLog(@"data:%@",data);
+    //    NSLog(@"读--");
+    //    NSLog(@"%ld",tag);
+    //    NSLog(@"data:%@",data);
     
     [self.socket readDataWithTimeout:30 tag:1];
 }
@@ -784,7 +784,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     if ([deviceString isEqualToString:@"iPhone8,4"])    return @"iPhoneSE";
     if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
     if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7 Plus";
-    
+    if ([deviceString isEqualToString:@"iPhone10,1"] || [deviceString isEqualToString:@"iPhone10,4"])    return @"iPhone8";
+    if ([deviceString isEqualToString:@"iPhone10,2"] || [deviceString isEqualToString:@"iPhone10,5"])    return @"iPhone8 Plus";
+    if ([deviceString isEqualToString:@"iPhone10,3"] || [deviceString isEqualToString:@"iPhone10,6"])    return @"iPhoneX";
     　return deviceString;
 }
 

@@ -106,4 +106,7 @@
 +(int)judgePlayTypeClass;
 + (NSString *)timeHMSWithTimeIntervalString:(NSString *)timeString;
 + (NSString *)timeYMDHMWithTimeIntervalString:(NSString *)timeString;
++(double)getSystemVersion;
 @end
+
+

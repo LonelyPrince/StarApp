@@ -60,11 +60,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self reInitState]; //恢复初始状态
-//    [self initData];
-//    [self loadNav];
-//    [self loadScroll];
-//    [self loadUI];
-//    [self getWifi];
+    //    [self initData];
+    //    [self loadNav];
+    //    [self loadScroll];
+    //    [self loadUI];
+    //    [self getWifi];
     [self addWlanInfo];
 }
 //恢复初始状态
@@ -76,7 +76,7 @@
         setPswText.secureTextEntry = YES;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
             NSLog(@"此刻是6 plus的大小");
             
             isViewBtn.bounds = CGRectMake(0, 0, 48, 48);
@@ -87,8 +87,8 @@
         //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
     }
     
-
-
+    
+    
 }
 
 -(void)loadNav
@@ -117,7 +117,7 @@
     saveBtn = [[UIButton alloc]init];
     nameEidtImageView = [[UIImageView alloc]init];
     pswEidtImageView = [[UIImageView alloc]init];
-//    alertView = [[UIAlertView alloc]init];
+    //    alertView = [[UIAlertView alloc]init];
     
     NSString * SSIDNotEmptyLabel = NSLocalizedString(@"SSIDNotEmptyLabel", nil);
     alertView = [[UIAlertView alloc]initWithTitle:nil message:SSIDNotEmptyLabel delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
@@ -137,30 +137,30 @@
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-90 );
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-120 );
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-128 );
     }
     
-//    [self addWlanInfo];
+    //    [self addWlanInfo];
     
-  
+    
 }
 -(void)addWlanInfo
 {
     NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
     setNameText.text = [tempDic objectForKey:@"name"];
-//    setPswText.text = [tempDic objectForKey:@"password"];
+    //    setPswText.text = [tempDic objectForKey:@"password"];
     if (![[tempDic objectForKey:@"password"] isEqualToString:@"none"]) {
         setPswText.text = [tempDic objectForKey:@"password"];
-//        SecurityStatusLab.text =[tempDic objectForKey:@"encryption"] ;
-//        PINProtectionLab.text = @"PIN Protection:ON";
+        //        SecurityStatusLab.text =[tempDic objectForKey:@"encryption"] ;
+        //        PINProtectionLab.text = @"PIN Protection:ON";
         SecurityStatusLab.text =@"WPA2-PSK" ;
         [PINSwitch setOn:YES];
         SecurityStatusLab.font = FONT(12);
@@ -173,7 +173,7 @@
         [setPswText setEnabled:NO];
         setPswText.text = @"";
         SecurityStatusLab.text = MLOpen;
-//        PINProtectionLab.text = @"PIN Protection:OFF";
+        //        PINProtectionLab.text = @"PIN Protection:OFF";
         [PINSwitch setOn:NO];
     }
     
@@ -186,7 +186,7 @@
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"])
     {
         NSLog(@"此刻是4s的大小");
-    
+        
         //0 .顶部图标
         WLANImageView.frame = CGRectMake((SCREEN_WIDTH - 196/2)/2, 29, 98, 98);
         WLANImageView.image = [UIImage imageNamed:@"顶部icon"];
@@ -317,8 +317,8 @@
         [scrollView addSubview:saveBtn];
         
         [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
-    
-}
+        
+    }
     else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString
                                                                                                         isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5的大小");
@@ -458,9 +458,9 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-       [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+        [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         //0 .顶部图标
@@ -510,8 +510,8 @@
         isViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         isViewBtn.frame = CGRectMake(pswInputTextView.frame.size.width - 46, 0, 43, 43);
         //    [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
-                [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
-//        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
         
         [isViewBtn addTarget:self action:@selector(pswBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [pswInputTextView addSubview:isViewBtn];
@@ -569,7 +569,7 @@
         [PINSwitch setThumbTintColor:[UIColor whiteColor]];
         [PINSwitch setBackgroundColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
         [PINSwitch setTintColor:[UIColor colorWithRed:0xc8/255.0 green:0xc8/255.0 blue:0xc8/255.0 alpha:1]];
-
+        
         PINSwitch.layer.cornerRadius = 33/2;
         PINSwitch.layer.masksToBounds = YES;
         [PINSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
@@ -592,10 +592,10 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-       [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+        [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         //0 .顶部图标
@@ -727,7 +727,7 @@
         [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [scrollView addSubview:saveBtn];
         
-       [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+        [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         
         
     }
@@ -760,50 +760,50 @@
 {
     NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
     if ([setNameText.text isEqualToString:@""]) {
-
+        
         NSString * SSIDNotEmptyLabel = NSLocalizedString(@"SSIDNotEmptyLabel", nil);
         [alertView setMessage:SSIDNotEmptyLabel];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }
-   else if (setNameText.text.length<6) {
-       NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
-       [alertView setMessage:MLSSIDSetting];
+    else if (setNameText.text.length<6) {
+        NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+        [alertView setMessage:MLSSIDSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
- 
+        
         NSString * MLWLANPINSetting = NSLocalizedString(@"MLWLANPINSetting", nil);
         [alertView setMessage:MLWLANPINSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
-
+        
     }else{
-    NSLog(@"点击了保存按钮");
-    NSString * DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
-    NSString * serviceIp;
-    if (DMSIP != NULL ) {
-        serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
-    }else
-    {
-        //        serviceIp =@"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?";   //服务器地址
-    }
-    //获取数据的链接
-    NSString *linkUrl = [NSString stringWithFormat:@"%@",serviceIp];
-    //    SString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
-    
-    NSURL *url = [NSURL URLWithString:linkUrl];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-    [request addRequestHeader:@"Content-Type" value:@"application/json; encoding=utf-8"];
-    [request addRequestHeader:@"Accept" value:@"application/json"];
-    [request setRequestMethod:@"POST"];
-    
-    
-    
-    NSLog(@"setPswText.text %@",setPswText.text);
-    NSLog(@"setNameText %@",setNameText.text);
-    NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:setNameText.text,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
-    NSLog(@"detailDic %@",detailDic);
+        NSLog(@"点击了保存按钮");
+        NSString * DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
+        NSString * serviceIp;
+        if (DMSIP != NULL ) {
+            serviceIp = [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
+        }else
+        {
+            //        serviceIp =@"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?";   //服务器地址
+        }
+        //获取数据的链接
+        NSString *linkUrl = [NSString stringWithFormat:@"%@",serviceIp];
+        //    SString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
+        
+        NSURL *url = [NSURL URLWithString:linkUrl];
+        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+        [request addRequestHeader:@"Content-Type" value:@"application/json; encoding=utf-8"];
+        [request addRequestHeader:@"Accept" value:@"application/json"];
+        [request setRequestMethod:@"POST"];
+        
+        
+        
+        NSLog(@"setPswText.text %@",setPswText.text);
+        NSLog(@"setNameText %@",setNameText.text);
+        NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:setNameText.text,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
+        NSLog(@"detailDic %@",detailDic);
         
         if(![NSJSONSerialization isValidJSONObject:detailDic]){
             NSLog(@"it is not a JSONObject!");
@@ -813,15 +813,15 @@
         
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
         NSLog(@"jsonData %@",jsonData);
-    //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
+        //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
         NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
         [request setPostBody:tempJsonData];
         [request startAsynchronous];
-//[request startSynchronous];
-//        NSError *error1 = [request error];
-    
-    
+        //[request startSynchronous];
+        //        NSError *error1 = [request error];
+        
+        
         [request setCompletionBlock:^{
             NSData *data = [request responseData];
             NSLog(@" data--data %@",data);
@@ -836,13 +836,13 @@
             
             NSString * str = [resDict objectForKey:@"result"];
             if ([[resDict objectForKey:@"code"] isEqual:@3] || [[resDict objectForKey:@"code"] isEqual:@4]) {
-//                alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                //                alertView = [[UIAlertView alloc]initWithTitle:nil message:code3 delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
                 [alertView setMessage:code3];
                 [alertView addButtonWithTitle:ConfirmLabel];
                 [alertView show];
                 
             }else if ([str isEqualToString:@"failed"]) {
-
+                
                 NSString * MLSaveFailed = NSLocalizedString(@"MLSaveFailed", nil);
                 [alertView setMessage:MLSaveFailed];
                 [alertView addButtonWithTitle:ConfirmLabel];
@@ -858,24 +858,24 @@
             
             NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
         }];
-    
-      
-//    if (!error1) {
-//        //        NSString *response = [request responseString];
-//        //        NSLog(@"Test：%@",response);
-//        //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
-//        //            NSString *response = [request responseString];
-//
-//        NSData *data = [request responseData];
-//
-//        NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-//        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-//
-//        NSLog(@"resDictresDict %@",resDict);
-//        NSLog(@"strstrstrstrstr %@",str);
-//        NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
-////        
-
+        
+        
+        //    if (!error1) {
+        //        //        NSString *response = [request responseString];
+        //        //        NSLog(@"Test：%@",response);
+        //        //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
+        //        //            NSString *response = [request responseString];
+        //
+        //        NSData *data = [request responseData];
+        //
+        //        NSDictionary *resDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        //        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        //
+        //        NSLog(@"resDictresDict %@",resDict);
+        //        NSLog(@"strstrstrstrstr %@",str);
+        //        NSLog(@"[strstrstrstr %@",[resDict objectForKey:@"code"]);
+        ////
+        
     }
 }
 -(void)pswBtnClick
@@ -886,7 +886,7 @@
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
         
-         if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]|| [deviceString isEqualToString:@"iPhone8 Plus"] ) {
             NSLog(@"此刻是6 plus的大小");
             
             isViewBtn.bounds = CGRectMake(0, 0, 48, 48);
@@ -895,7 +895,7 @@
             isViewBtn.bounds = CGRectMake(0, 0, 43, 43);
         }
         
-//        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
+        //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"密文"] forState:UIControlStateNormal];
     }
     else if (isOn == NO)
     {
@@ -903,7 +903,7 @@
         setPswText.secureTextEntry = NO;
         //        [pswBtn setBackgroundImage:[UIImage imageNamed:@"on"] forState:UIControlStateNormal];
         [isViewBtn setImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
-        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+        if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
             NSLog(@"此刻是6 plus的大小");
             
             isViewBtn.bounds = CGRectMake(0, 0, 48, 48);
@@ -911,11 +911,11 @@
         {
             isViewBtn.bounds = CGRectMake(0, 0, 43, 43);
         }
-//        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
+        //        [isViewBtn setBackgroundImage:[UIImage imageNamed:@"明文显示"] forState:UIControlStateNormal];
     }
     
     NSLog(@"点击了眼睛按钮");
-//    [setPswText becomeFirstResponder];
+    //    [setPswText becomeFirstResponder];
 }
 -(BOOL)textFiledEditChanged:(NSNotification *)obj{
     UITextField *textField = (UITextField *)obj.object;
@@ -924,46 +924,46 @@
     
     
     
-        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-//        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-//            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-//            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-//            if (character < 45)
-//            {
-//
-//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                return NO; // 48 unichar for 0..
-//            }
-//
-//            if (character > 45 && character < 48)
-//            {
-//
-//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                return NO; // 48 unichar for 0..
-//            }
-//            if (character > 57 && character < 65)
-//            {
-//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                return NO; //
-//            }
-//            if (character > 90 && character < 95)
-//            {
-//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                return NO; //
-//            }
-//            if (character > 95 && character < 97)
-//            {
-//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                return NO; //
-//            }
-//            if (character > 122)
-//            {
-//                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//                return NO; //
-//            }
-//
-//
-//        }
+    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    //        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+    //            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+    //            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+    //            if (character < 45)
+    //            {
+    //
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; // 48 unichar for 0..
+    //            }
+    //
+    //            if (character > 45 && character < 48)
+    //            {
+    //
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; // 48 unichar for 0..
+    //            }
+    //            if (character > 57 && character < 65)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 90 && character < 95)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 95 && character < 97)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 122)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //
+    //
+    //        }
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {
@@ -1016,7 +1016,7 @@
     [setPswText resignFirstResponder];
     [setNameText resignFirstResponder];
     
-   
+    
     
 }
 
@@ -1048,20 +1048,20 @@
 
 //-(void)getWifi
 //{
-//    
+//
 //    //获取数据的链接
 //    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/wifi",DMSIP];
 //    //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
-//    
+//
 //    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
-//    
+//
 //    [request startAsynchronous ];
-//    
+//
 //    //    NSError *error = [request error ];
 //    //    assert (!error);
 //    // 如果请求成功，返回 Response
-//    
-//    
+//
+//
 //    [request setCompletionBlock:^{
 //        NSLog ( @"request:%@" ,request);
 //        NSDictionary *onlineWifi = [request responseData].JSONValue;
@@ -1075,10 +1075,10 @@
 ////        //        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
 ////        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
 //    }];
-//    
-//    
-//    
-//    
+//
+//
+//
+//
 //}
 //#pragma mark - 初始化创建不同的通知
 //-(void)initNotific
@@ -1088,47 +1088,47 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getSocketIpInfoNotice" object:nil];
 //    //注册通知
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getSocketIpInfo:) name:@"getSocketIpInfoNotice" object:nil];
-//    
+//
 //    //获取网络链接的通知
 //    NSNotification *notification =[NSNotification notificationWithName:@"socketGetIPAddressNotific" object:nil userInfo:nil];
 //    //通过通知中心发送通知
 //    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//    
+//
 //    ///创建通知，用于判断网络是否正常
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
 //    //注册通知
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeNetWorkError) name:@"getSocketIpInfoNotice" object:nil];
-//    
+//
 //}
 //- (void)getSocketIpInfo:(NSNotification *)text{
-//    
+//
 //    NSData * socketIPData = text.userInfo[@"socketIPAddress"];
 //    NSData * ipStrData ;
 //    NSLog(@"socketIPData :%@",socketIPData);
-//    
+//
 //    if (socketIPData != NULL  && socketIPData != nil  &&  socketIPData.length > 0 ) {
-//        
+//
 //        if (socketIPData.length >38) {
-//            
+//
 //            if ([socketIPData length] >= 1 + 37 + socketIPData.length - 38) {
 //                ipStrData = [socketIPData subdataWithRange:NSMakeRange(1 + 37,socketIPData.length - 38)];
 //            }else
 //            {
 //                return;
 //            }
-//            
+//
 //            NSLog(@"ipStrData %@",ipStrData);
-//            
+//
 //            DMSIP =  [[NSString alloc] initWithData:ipStrData  encoding:NSUTF8StringEncoding];
 //            NSLog(@" DMSIP %@",DMSIP);
-//            
+//
 //            //            [self loadNav];
 //            [self viewWillAppear:YES];
 //        }
-//        
+//
 //    }
-//    
-//    
+//
+//
 //}
 ////-(void)getCurrentWifi
 ////{
@@ -1221,7 +1221,7 @@
     [self.NetWorkErrorView addSubview:self.NetWorkErrorImageView];
     [self.NetWorkErrorView addSubview:self.NetWorkErrorLab];
     
-
+    
     
     UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
     
@@ -1250,3 +1250,5 @@
     
 }
 @end
+
+

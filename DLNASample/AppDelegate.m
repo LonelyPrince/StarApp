@@ -62,7 +62,7 @@
     //    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
     //    [self getCGData1];
     //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
-    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+    //    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
@@ -78,7 +78,7 @@
     //    UIDevice *device = [UIDevice currentDevice];
     //    if (![[device model]isEqualToString:@"iPad Simulator"]) {
     // 开始保存日志文件
-    //        [self redirectNSlogToDocumentFolder];
+    //            [self redirectNSlogToDocumentFolder];
     //    }
     /*********************************************************************/
     
@@ -87,6 +87,7 @@
     
     [USER_DEFAULT  setObject:@"NO" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面还没有加载完成
     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"]; // 值为YES，代表首页的频道列表还没有展示出来，这个时候不允许旋转
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -111,6 +112,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         // 打开地址
         NSString *mailPath = [mailUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailPath]];
+    
 }
 #pragma mark 输入日志
 - (void)redirectNSlogToDocumentFolder
@@ -563,3 +565,4 @@ void UncaughtExceptionHandler(NSException *exception) {
     }
 }
 @end
+

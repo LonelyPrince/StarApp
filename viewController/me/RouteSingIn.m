@@ -59,9 +59,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     [self initData];
-//    [self loadScroll];
-//    [self loadUI];
-
+    //    [self loadScroll];
+    //    [self loadUI];
+    
     //网络回复连接通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsConnectNotice" object:nil];
     //注册通知
@@ -75,8 +75,8 @@
     [self getCurrentWifi];
     [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
     
-//    [self performSelector:@selector(showNetWorkErrorView) withObject:self afterDelay:5];
-//    [self performSelector:@selector(disNetWorkErrorView) withObject:self afterDelay:10];
+    //    [self performSelector:@selector(showNetWorkErrorView) withObject:self afterDelay:5];
+    //    [self performSelector:@selector(disNetWorkErrorView) withObject:self afterDelay:10];
 }
 -(void)addTimer
 {
@@ -116,7 +116,7 @@
     ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
     request.timeOutSeconds = 10;
     request.delegate = self;
-
+    
     [request startAsynchronous ];
     
     //    NSError *error = [request error ];
@@ -132,7 +132,7 @@
         [USER_DEFAULT setObject:onlineWifi forKey:@"WiFiInfo"];
     }];
     
-   
+    
     
 }
 
@@ -291,7 +291,7 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 43/2*0.9;
             
-          [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+            [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2)/2+5, saveBtn.frame.origin.y +43 +28, 531/2, 40)];
@@ -433,7 +433,7 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 20;
             
-          [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+            [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2)/2+5, saveBtn.frame.origin.y +43 +38, 531/2, 40)];
@@ -446,7 +446,7 @@
         }
         
     }
-    else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         if (securityImageView == NULL) {
@@ -454,7 +454,7 @@
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
             //            [self.view addSubview:securityImageView];
         }
-       
+        
         if (inputText == NULL) {
             
             inputTextView = [[UIView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 576/2)/2, securityImageView.frame.origin.y +99 +49 , 576/2, 43)];
@@ -565,7 +565,7 @@
             //            [inputTextView addSubview:inputText];
             //            [inputText bringSubviewToFront:inputTextView];
         }
-       
+        
         if (saveBtn == NULL) {
             saveBtn   = [UIButton buttonWithType:UIButtonTypeCustom];
             saveBtn.frame = CGRectMake((SCREEN_WIDTH - 576/2)/2, inputTextView2.frame.origin.y +43 +30 , 576/2, 43);
@@ -576,7 +576,7 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 20;
             
-           [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+            [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         if (setNewRouteLab == NULL) {
             setNewRouteLab   = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 531/2)/2+5, saveBtn.frame.origin.y +43 +38, 531/2, 40)];
@@ -588,7 +588,7 @@
             //            [self.view addSubview:securityImageView];
         }
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         if (securityImageView == NULL) {
@@ -652,15 +652,15 @@
             setNewRouteText.delegate = self;
             setNewRouteText.autocorrectionType = UITextAutocorrectionTypeNo;
             setNewRouteText = [[UITextField alloc]initWithFrame:CGRectMake(20, 2, inputTextView1.frame.size.width - 20, 40)];
-           
+            
             setNewRouteText.placeholder = NewLabel;
             setNewRouteText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
-           
+            
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                         name:@"UITextFieldTextDidChangeNotification"
                                                       object:setNewRouteText];
             setNewRouteText.secureTextEntry = YES;
-           
+            
         }
         if (confirmText == NULL) {
             
@@ -675,12 +675,12 @@
             
             confirmText.placeholder = ConfirmLabel;
             confirmText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
- 
+            
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                         name:@"UITextFieldTextDidChangeNotification"
                                                       object:confirmText];
             confirmText.secureTextEntry = YES;
-           
+            
         }
         
         if (saveBtn == NULL) {
@@ -707,9 +707,9 @@
         }
         
     }
-  
+    
     routeNameLab = [[UILabel alloc]init];
-  
+    
     HUD = [[MBProgressHUD alloc]init];
 }
 #pragma mark - 初始化创建不同的通知
@@ -727,9 +727,9 @@
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     ///创建通知，用于判断网络是否正常
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
-        //注册通知
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
     //
 }
 //显示无网络的状态图
@@ -857,7 +857,7 @@
         {
             NSLog(@"用户输入PIN 进入");
             [self showLoginView];
-//                        [self showPwdRegistrView];
+            //                        [self showPwdRegistrView];
         }
         //        wifiDic = [[NSDictionary alloc]init];
         //        wifiDic = onlineWifi;
@@ -1245,7 +1245,7 @@
             NSLog(@"resDict %@",resDict);
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {
-              
+                
                 NSString * SamePINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
                 [registerPwdTip setMessage:SamePINTryAgainLabel];
                 [registerPwdTip show];
@@ -1275,7 +1275,7 @@
                 confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@0])
             {
-                 
+                
                 [self judgeNextView];
             }
             
@@ -1361,7 +1361,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.timerForASIHttp invalidate];
         self.timerForASIHttp = nil;
-    
+        
     });
     
     if (self.NetWorkErrorView == nil) {
@@ -1389,7 +1389,7 @@
     
     
     
-
+    
     [self.view addSubview:self.NetWorkErrorView];
     [self.NetWorkErrorView addSubview:self.NetWorkErrorImageView];
     [self.NetWorkErrorView addSubview:self.NetWorkErrorLab];
@@ -1407,34 +1407,34 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.timerForASIHttp invalidate];
         self.timerForASIHttp = nil;
-    NSLog(@"self.timerForASIHttpself.timerForASIHttp %@",self.timerForASIHttp);
-    NSLog(@"disNetWorkErrorVdisNetWorkErrorV");
-    [self.NetWorkErrorView removeFromSuperview];
-    [self.NetWorkErrorImageView removeFromSuperview];
-    [self.NetWorkErrorLab removeFromSuperview];
-    
+        NSLog(@"self.timerForASIHttpself.timerForASIHttp %@",self.timerForASIHttp);
+        NSLog(@"disNetWorkErrorVdisNetWorkErrorV");
+        [self.NetWorkErrorView removeFromSuperview];
+        [self.NetWorkErrorImageView removeFromSuperview];
+        [self.NetWorkErrorLab removeFromSuperview];
+        
         NSLog(@"self.NetWorkErrorLab %@",self.NetWorkErrorLab);
-    [self.NetWorkErrorView removeFromSuperview];
-    [self.NetWorkErrorImageView removeFromSuperview];
-    [self.NetWorkErrorLab removeFromSuperview];
-    NSLog(@"self.NetWorkErrorLab %@",self.NetWorkErrorLab);
-    self.NetWorkErrorView = nil;
-    self.NetWorkErrorImageView = nil;
-    self.NetWorkErrorLab = nil;
-    
-    self.NetWorkErrorView = nil;
-    self.NetWorkErrorImageView = nil;
-    self.NetWorkErrorLab = nil;
-    
-    NSLog(@"self.NetWorkErrorView %@",self.NetWorkErrorView);
-    NSLog(@"NetWorkErrorImageView %@",self.NetWorkErrorImageView);
+        [self.NetWorkErrorView removeFromSuperview];
+        [self.NetWorkErrorImageView removeFromSuperview];
+        [self.NetWorkErrorLab removeFromSuperview];
+        NSLog(@"self.NetWorkErrorLab %@",self.NetWorkErrorLab);
+        self.NetWorkErrorView = nil;
+        self.NetWorkErrorImageView = nil;
+        self.NetWorkErrorLab = nil;
+        
+        self.NetWorkErrorView = nil;
+        self.NetWorkErrorImageView = nil;
+        self.NetWorkErrorLab = nil;
+        
+        NSLog(@"self.NetWorkErrorView %@",self.NetWorkErrorView);
+        NSLog(@"NetWorkErrorImageView %@",self.NetWorkErrorImageView);
         
         
-//        [self addHud];
-//        [self getCurrentWifi];
-//        [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+        //        [self addHud];
+        //        [self getCurrentWifi];
+        //        [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
         
-//        [self viewWillAppear:YES];
+        //        [self viewWillAppear:YES];
         
     });
 }

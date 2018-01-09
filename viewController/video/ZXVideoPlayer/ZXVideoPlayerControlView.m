@@ -129,7 +129,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 #pragma mark - 此处注意：如果是录制则添加slider，否则不添加
         //===
         [self.bottomBar addSubview:self.progressSlider];
-//        self.progressSlider.thumbTintColor =[UIColor whiteColor];
+        //        self.progressSlider.thumbTintColor =[UIColor whiteColor];
         
         CGSize s=CGSizeMake(1, 1);
         UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
@@ -137,13 +137,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         UIImage *img= [UIImage imageNamed:@"进度条按钮@2x"];//UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
-//取消滑块代码
-//        CGSize s=CGSizeMake(1, 1);
-//        UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
-//        UIRectFill(CGRectMake(0, 0, 0, 0));
-//        UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
-//        UIGraphicsEndImageContext();
-//        [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
+        //取消滑块代码
+        //        CGSize s=CGSizeMake(1, 1);
+        //        UIGraphicsBeginImageContextWithOptions(s, 0, [UIScreen mainScreen].scale);
+        //        UIRectFill(CGRectMake(0, 0, 0, 0));
+        //        UIImage *img=UIGraphicsGetImageFromCurrentImageContext();
+        //        UIGraphicsEndImageContext();
+        //        [self.progressSlider setThumbImage:img forState:UIControlStateNormal];
         
         //        [self.bottomBar addSubview:self.timeLabel];
         [self addSubview:self.indicatorView];
@@ -208,60 +208,197 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    deviceString = [GGUtil deviceVersion];
-
-    NSLog(@"self.view.frame.bounds.height1 %f",[UIScreen mainScreen].bounds.size.height);
-    NSLog(@"self.view.frame.bounds.width1 %f",[UIScreen mainScreen].bounds.size.width);
-    if ( [deviceString isEqualToString:@"iPhone6S"]) {
-    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
-        if (screenWidthTemp == [UIScreen mainScreen].bounds.size.width) {
-            //竖屏
-            NSLog(@"==-=-===-==000==-1111");
-            self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
-            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
-            self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
-            self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
-            screenWidthTemp = 0;
-            NSLog(@" lalalalalalalalalalalal555==1");
-        }else
-        {//全屏
+    
+    double systemVersion = [GGUtil getSystemVersion];
+    
+    if (systemVersion > 10.2) {
+        NSLog(@"self.view.frame.bounds.height1 %f",[UIScreen mainScreen].bounds.size.height);
+        NSLog(@"self.view.frame.bounds.width1 %f",[UIScreen mainScreen].bounds.size.width);
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) { //全屏
             self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
             self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
             //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
             //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
-        screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
-            NSLog(@" lalalalalalalalalalalal555==2");
-        }
-
-    }else
-    {
-        if (screenWidthTemp == [UIScreen mainScreen].bounds.size.width) {
-            NSLog(@"==-=-===-==000==-2222");
-            //全屏
-            self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
-//            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
-            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetHeight(self.bounds), 75);
-            screenWidthTemp = 0;
-            NSLog(@" lalalalalalalalalalalal555==3");
         }else
         {
-            //竖屏
-        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
-        self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
-        self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
-        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
-        NSLog(@"可能会出错的地方self.view.frame.bounds.width1");
-            screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
-            NSLog(@" lalalalalalalalalalalal555==4");
+            self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
+            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
+            self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
+            self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
+            
         }
-
+        
+        NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
+        
+        //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
+        
+        
+        
+        self.rightView.frame = CGRectMake(CGRectGetWidth(self.bounds) - 145, 0, 145, CGRectGetHeight(self.bounds));
+        
+        self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
+        
+        self.pauseButton.frame = self.playButton.frame;
+        
+        
+        
+        
+        //    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
+        
+        self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 48,52);
+        //        self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), 0, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
+        
+        self.progressSlider.frame = CGRectMake(0, self.bottomBar.frame.size.height -50 , CGRectGetWidth(self.bounds), 2);
+        
+        self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
+        
+        self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        
+        // 返回按钮
+        self.backButton.frame = CGRectMake(0, 25, 54, 56);
+        // 锁定按钮
+        self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
+        
+        // 缓冲进度条a    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
+        //        self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
+        // 快进、快退指示器
+        //  self.timeIndicatorView.center = self.indicatorView.center;
+        // 亮度指示器
+        self.brightnessIndicatorView.center = self.indicatorView.center;
+        // 音量指示器
+        self.volumeIndicatorView.center = self.indicatorView.center;
+        // 电池条
+        //    self.batteryView.frame = CGRectMake(CGRectGetMinX(self.lockButton.frame) - CGRectGetWidth(self.batteryView.bounds) - 10, CGRectGetMidY(self.topBar.bounds) - CGRectGetHeight(self.batteryView.bounds) / 2, CGRectGetWidth(self.batteryView.bounds), CGRectGetHeight(self.batteryView.bounds));
+        // 标题
+        //    self.titleLabel.frame = CGRectMake(CGRectGetWidth(self.backButton.bounds), 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+        //    self.titleLabel.frame = CGRectMake(-55, 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+        
+        self.titleLabel.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds)+20, 20, SCREEN_WIDTH, 9);
+        //********
+        //    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
+        
+        
+        
+        
+        
+        
+        deviceString = [GGUtil deviceVersion];
+        if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+            NSLog(@"此刻是5s和4s的大小");
+            
+            //        self.eventTimeLab.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+            self.eventTimeLabNow.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(128-10+5+66, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(72-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-2+10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-2+10, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-2+5, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+            
+        }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+            NSLog(@"此刻是6的大小");
+            
+            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(134+77, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+            
+        }
+        else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] ) {
+            NSLog(@"此刻是6的大小");
+            
+            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(134+80, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+            
+        }else{
+            //    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(134+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+        }
+        
+        
+        
+        
+        //*********
+        self.channelIdLab.frame = CGRectMake(42, 26, 56 , 55);
+        //        self.channelNameLab.frame = CGRectMake(42+60, 34, 200+180, 18);
+        self.FulleventNameLab.frame = CGRectMake(42+60, 52, 300, 18);
+        self.FullEventYFlabel.frame = CGRectMake(42+60, 52, 300, 18);
+        
     }
-    }else
+    else
     {
-//        for (circleTimes = 0; circleTimes < 4; circleTimes++) {
-//            if (circleTimes < 3) {
-//                NSLog(@"xiaoyu 333");
-//            }
+        deviceString = [GGUtil deviceVersion];
+        
+        NSLog(@"self.view.frame.bounds.height1 %f",[UIScreen mainScreen].bounds.size.height);
+        NSLog(@"self.view.frame.bounds.width1 %f",[UIScreen mainScreen].bounds.size.width);
+        if ( [deviceString isEqualToString:@"iPhone6S"]) {
+            if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+                if (screenWidthTemp == [UIScreen mainScreen].bounds.size.width) {
+                    //竖屏
+                    NSLog(@"==-=-===-==000==-1111");
+                    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
+                    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
+                    self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
+                    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
+                    screenWidthTemp = 0;
+                    NSLog(@" lalalalalalalalalalalal555==1");
+                }else
+                {//全屏
+                    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
+                    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+                    //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
+                    //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
+                    screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
+                    NSLog(@" lalalalalalalalalalalal555==2");
+                }
+                
+            }else
+            {
+                if (screenWidthTemp == [UIScreen mainScreen].bounds.size.width) {
+                    NSLog(@"==-=-===-==000==-2222");
+                    //全屏
+                    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 85);//71  //43);
+                    //            self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetWidth(self.bounds), 75);
+                    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75, CGRectGetHeight(self.bounds), 75);
+                    screenWidthTemp = 0;
+                    NSLog(@" lalalalalalalalalalalal555==3");
+                }else
+                {
+                    //竖屏
+                    self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
+                    self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 50, CGRectGetWidth(self.bounds), 50);
+                    self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
+                    self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
+                    NSLog(@"可能会出错的地方self.view.frame.bounds.width1");
+                    screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
+                    NSLog(@" lalalalalalalalalalalal555==4");
+                }
+                
+            }
+        }else
+        {
+            //        for (circleTimes = 0; circleTimes < 4; circleTimes++) {
+            //            if (circleTimes < 3) {
+            //                NSLog(@"xiaoyu 333");
+            //            }
             circleTimes++;
             if (circleTimes == 1) {
                 NSLog(@"xiaoyu ===333");
@@ -289,7 +426,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         
                         self.suspendButton.frame = CGRectMake((self.nextChannelButton.frame.origin.x - self.lastChannelButton.frame.origin.x -  44 -44)/2 + self.lastChannelButton.frame.origin.x + 44,CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13,44, 44);
                     }
-
+                    
                 }else
                 {
                     if (screenWidthTemp == [UIScreen mainScreen].bounds.size.width) {
@@ -311,136 +448,138 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         screenWidthTemp = [UIScreen mainScreen].bounds.size.width;
                         NSLog(@" lalalalalalalalalalalal555==8");
                     }
-
+                    
                 }
-//            }
+                //            }
+            }
+            if (circleTimes == 4) {
+                circleTimes = 0;
+            }
+            
         }
-        if (circleTimes == 4) {
-            circleTimes = 0;
+        NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
+        
+        //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
+        
+        
+        
+        self.rightView.frame = CGRectMake(CGRectGetWidth(self.bounds) - 145, 0, 145, CGRectGetHeight(self.bounds));
+        
+        self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
+        
+        self.pauseButton.frame = self.playButton.frame;
+        
+        
+        
+        
+        //    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
+        
+        self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 48,52);
+        
+        NSLog(@"lalalalalalalalalalalal555");
+        self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
+        
+        self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        
+        // 返回按钮
+        self.backButton.frame = CGRectMake(0, 25, 54, 56);
+        // 锁定按钮
+        self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
+        
+        // 缓冲进度条a    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
+        //    self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
+        // 快进、快退指示器
+        self.timeIndicatorView.center = self.indicatorView.center;
+        // 亮度指示器
+        self.brightnessIndicatorView.center = self.indicatorView.center;
+        // 音量指示器
+        self.volumeIndicatorView.center = self.indicatorView.center;
+        // 电池条
+        //    self.batteryView.frame = CGRectMake(CGRectGetMinX(self.lockButton.frame) - CGRectGetWidth(self.batteryView.bounds) - 10, CGRectGetMidY(self.topBar.bounds) - CGRectGetHeight(self.batteryView.bounds) / 2, CGRectGetWidth(self.batteryView.bounds), CGRectGetHeight(self.batteryView.bounds));
+        // 标题
+        //    self.titleLabel.frame = CGRectMake(CGRectGetWidth(self.backButton.bounds), 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+        //    self.titleLabel.frame = CGRectMake(-55, 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
+        
+        self.titleLabel.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds)+20, 20, SCREEN_WIDTH, 9);
+        //********
+        //    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
+        
+        
+        
+        
+        
+        
+        
+        if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+            NSLog(@"此刻是5s和4s的大小");
+            
+            //        self.eventTimeLab.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+            self.eventTimeLabNow.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(128-10+5+66, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(72-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-2+10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-2+10, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-2+5, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+            
+        }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+            NSLog(@"此刻是6的大小");
+            
+            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(134+77, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+            
         }
-
-    }
-    NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
-
-    //  self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - 75,SCREEN_WIDTH, 75);
-
-
-
-    self.rightView.frame = CGRectMake(CGRectGetWidth(self.bounds) - 145, 0, 145, CGRectGetHeight(self.bounds));
-
-    self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
-
-    self.pauseButton.frame = self.playButton.frame;
-
-
-
-
-    //    self.shrinkScreenButton.frame = self.fullScreenButton.frame;
-
-    self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 48,52);
- 
-NSLog(@"lalalalalalalalalalalal555");
-    self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
-
-    self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-
-    // 返回按钮
-    self.backButton.frame = CGRectMake(0, 25, 54, 56);
-    // 锁定按钮
-    self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
-
-    // 缓冲进度条a    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
-//    self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
-    // 快进、快退指示器
-      self.timeIndicatorView.center = self.indicatorView.center;
-    // 亮度指示器
-    self.brightnessIndicatorView.center = self.indicatorView.center;
-    // 音量指示器
-    self.volumeIndicatorView.center = self.indicatorView.center;
-    // 电池条
-    //    self.batteryView.frame = CGRectMake(CGRectGetMinX(self.lockButton.frame) - CGRectGetWidth(self.batteryView.bounds) - 10, CGRectGetMidY(self.topBar.bounds) - CGRectGetHeight(self.batteryView.bounds) / 2, CGRectGetWidth(self.batteryView.bounds), CGRectGetHeight(self.batteryView.bounds));
-    // 标题
-    //    self.titleLabel.frame = CGRectMake(CGRectGetWidth(self.backButton.bounds), 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
-    //    self.titleLabel.frame = CGRectMake(-55, 20, CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.backButton.bounds) - CGRectGetWidth(self.lockButton.bounds), kVideoControlBarHeight - 20);
-
-    self.titleLabel.frame = CGRectMake(CGRectGetMinX(self.topBar.bounds)+20, 20, SCREEN_WIDTH, 9);
-    //********
-    //    self.eventnameLabel.frame =  CGRectMake(CGRectGetMinX(self.bottomBar.bounds)+CGRectGetWidth(self.playButton.bounds)+5, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds)+70, CGRectGetHeight(self.playButton.bounds));;
-
-
-
-
-
-
-
-    if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
-        NSLog(@"此刻是5s和4s的大小");
-
-        //        self.eventTimeLab.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
-        self.eventTimeLabNow.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.eventTimeLabAll.frame = CGRectMake(128-10+5+66, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
-
-        self.nextChannelButton.frame = CGRectMake(72-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-2+10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-2+10, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
-        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-2+5, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
-
-    }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
-        NSLog(@"此刻是6的大小");
-
-        self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.eventTimeLabAll.frame = CGRectMake(134+77, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
-
-        self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
-        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
-
-    }
-    else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  ) {
-        NSLog(@"此刻是6的大小");
-
-        self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.eventTimeLabAll.frame = CGRectMake(134+80, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
-
-        self.suspendButton.frame = CGRectMake(self.lastChannelButton.frame.origin.x + 30,CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13,44, 44);
+        else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] ) {
+            NSLog(@"此刻是6的大小");
+            
+            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(134+80, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.suspendButton.frame = CGRectMake(self.lastChannelButton.frame.origin.x + 30,CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13,44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+            
+            self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,CGRectGetHeight(self.bottomBar.bounds) -16.5-17-19, 48,52);
+            
+        }else{
+            //    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(134+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            
+            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+            self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
+        }
         
-        self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
-        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
-
-        self.shrinkScreenButton1.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,CGRectGetHeight(self.bottomBar.bounds) -16.5-17-19, 48,52);
         
-    }else{
-        //    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
-        self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.eventTimeLabAll.frame = CGRectMake(134+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-        self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
-
-        self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
-        self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
-        self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
-    }
-
-
-
-
-    //*********
-    if (firstInit == 0) {
-        self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
-        self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 55,0, 62 , 40);
-        self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
-        self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
-        self.FullEventYFlabel.frame = CGRectMake(293, 40, 200, 18);
-        firstInit ++;
+        
+        
+        //*********
+        if (firstInit == 0) {
+            self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
+            self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 55,0, 62 , 40);
+            self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
+            self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
+            self.FullEventYFlabel.frame = CGRectMake(293, 40, 200, 18);
+            firstInit ++;
+        }
+        
     }
     
-
+    
 }
 
 - (void)didMoveToSuperview
@@ -769,7 +908,6 @@ NSLog(@"lalalalalalalalalalalal555");
 {
     if (!_bottomBar) {
         _bottomBar = [UIView new];
-        
         _bottomBar.accessibilityIdentifier = @"bottomBar";
         //此处销毁通知，防止一个通知被多次调用
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixTopBottomImage" object:nil];
@@ -777,7 +915,7 @@ NSLog(@"lalalalalalalalalalalal555");
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixTopBottomImage:) name:@"fixTopBottomImage" object:nil];
         
         
-//        _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"竖屏底背景"]]; //@"Group 16"
+        //        _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"竖屏底背景"]]; //@"Group 16"
         
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
@@ -794,66 +932,99 @@ NSLog(@"lalalalalalalalalalalal555");
 
 - (void)fixTopBottomImage:(NSNotification *)text{
     
-    float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
-    NSLog(@"Imagewidth :%f",[UIScreen mainScreen].bounds.size.width);
-    NSLog(@"SCREEN_HEIGHT :%f",[UIScreen mainScreen].bounds.size.height);
-    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) {  //全屏
-        if (screenWidthTemp1 == [UIScreen mainScreen].bounds.size.width) {
-            NSLog(@"==-=-===-==000==-3333");
+    double systemVersion = [GGUtil getSystemVersion];
+    if (systemVersion >= 10.2) {
+        float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
+        NSLog(@"Imagewidth :%f",[UIScreen mainScreen].bounds.size.width);
+        NSLog(@"SCREEN_HEIGHT :%f",[UIScreen mainScreen].bounds.size.height);
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) {  //全屏
+            _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
+            //        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+            
+            _topControllerImage.image = [UIImage imageNamed:@"顶背景"];
+            _bottomControllerImage.image = [UIImage imageNamed:@"底背景"];
+            
+            
+            _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
+            //        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
+            NSLog(@"jsjsjsjssjsjsj44444");
+        }else  //竖屏
+        {
             _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
             _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
             
-            _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
-//            _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
+            _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
+            _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
             _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
             _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
-            screenWidthTemp1 = 0;
-        }else
-        {
-            NSLog(@"==-=-===-==000==-3333==");
-        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
-        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
-        
-        _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
-        _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
-        
-        
-        _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
-        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
-            screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
-        }
-        
-        
-    }else  //竖屏
-    {
-        if (screenWidthTemp1 == [UIScreen mainScreen].bounds.size.width) {
-            NSLog(@"==-=-===-==000==-4444");
-            _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
-            _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+            NSLog(@"jsjsjsjssjsjsj55555");
             
-            _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
-            _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
- 
-            screenWidthTemp1 = 0;
-        }else
-        {
-            NSLog(@"==-=-===-==000==-4444==");
-        _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
-        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
-        
-        _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
-        NSLog(@"可能会出错的地方self.view.frame.bounds.width5");
-            screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
         }
         
+        
+        _bottomBar.userInteractionEnabled = YES;
+        _topBar.userInteractionEnabled = YES;
+    }else
+    {
+        float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
+        NSLog(@"Imagewidth :%f",[UIScreen mainScreen].bounds.size.width);
+        NSLog(@"SCREEN_HEIGHT :%f",[UIScreen mainScreen].bounds.size.height);
+        if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) {  //全屏
+            if (screenWidthTemp1 == [UIScreen mainScreen].bounds.size.width) {
+                NSLog(@"==-=-===-==000==-3333");
+                _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
+                _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
+                
+                _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
+                //            _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
+                _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
+                _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 50);
+                screenWidthTemp1 = 0;
+            }else
+            {
+                NSLog(@"==-=-===-==000==-3333==");
+                _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
+                _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+                
+                _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
+                _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
+                
+                
+                _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
+                _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
+                screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
+            }
+            
+            
+        }else  //竖屏
+        {
+            if (screenWidthTemp1 == [UIScreen mainScreen].bounds.size.width) {
+                NSLog(@"==-=-===-==000==-4444");
+                _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
+                _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+                
+                _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
+                _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
+                
+                screenWidthTemp1 = 0;
+            }else
+            {
+                NSLog(@"==-=-===-==000==-4444==");
+                _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
+                _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
+                
+                _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
+                NSLog(@"可能会出错的地方self.view.frame.bounds.width5");
+                screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
+            }
+            
+        }
+        
+        
+        _bottomBar.userInteractionEnabled = YES;
+        _topBar.userInteractionEnabled = YES;
     }
     
-    
-    _bottomBar.userInteractionEnabled = YES;
-    _topBar.userInteractionEnabled = YES;
-    //    if (Imagewidth>500) {
-    //        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds)+20, Imagewidth, 43);
-    //    }
     
 }
 
@@ -1165,7 +1336,7 @@ NSLog(@"lalalalalalalalalalalal555");
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
         //progressSlider 隐藏
-                
+        
         _progressSlider.alpha = 0;
         _progressSlider.hidden = YES;
     }

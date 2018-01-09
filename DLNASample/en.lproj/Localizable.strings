@@ -165,7 +165,7 @@
 //74.设备监控
 "MLMonitor"                 = "Monitor";
 //75.录制
-"MLRecording"               = "Recordings";
+"MLRecording"               = "Recording";
 //76.分发
 "MLDelivery"                = "Delivery";
 //77.各个国家呼叫中心联系方式
@@ -175,9 +175,9 @@
 //79.No viewing history
 "MLNoViewingHistory"        = "No viewing history";
 //80.路由密码应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’
-"MLRouterPINSetting"        = "Router PIN should contain 6-16 characters.Please input letters, number, \"-\" or \"_\".\"";
+"MLRouterPINSetting"        = "Router PIN should contain 6-16 characters.Please input letters, number, \"-\" or \"_\".";
 //81.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’。
-"MLSSIDSetting"             = "SSID should contain 6-16 charactersPlease input letters, number, \"-\" or \"_\".";
+"MLSSIDSetting"             = "SSID should contain 6-16 characters. Please input letters, number, \"-\" or \"_\".";
 //82.WLAN PIN
 "MLWLANPINSetting"          = "WLAN PIN should contain 8-16 characters, please try again.";
 //83.Open
@@ -192,3 +192,5 @@
 "MLWantRebot"               = "Do you want to reboot?";
 //88.直播
 "MLLive"                    = "      Live    ";
+//89.monitor直播
+"MMLLive"                   = "Live";

@@ -35,7 +35,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = YES;
 }
 -(void)loadUI
 {
@@ -43,7 +43,7 @@ self.tabBarController.tabBar.hidden = YES;
     if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
         NSLog(@"此刻是4s的大小");
         
-//        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        //        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(89, 150, 148, 103)];
         
         //    imageView.image = [UIImage imageNamed:@"关于about"];
@@ -71,7 +71,7 @@ self.tabBarController.tabBar.hidden = YES;
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是5的大小");
         
-//        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        //        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(89, 170, 148, 103)];
         
         //    imageView.image = [UIImage imageNamed:@"关于about"];
@@ -97,10 +97,10 @@ self.tabBarController.tabBar.hidden = YES;
         self.copyrightLabShow.textColor = RGB(0x6c, 0x6c, 0x6c);
         [self.view addSubview:self.copyrightLabShow];
     }
-    else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  ) {
+    else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] ) {
         NSLog(@"此刻是6的大小");
         
-//        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        //        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(117, 210, 148, 103)];
         
         //    imageView.image = [UIImage imageNamed:@"关于about"];
@@ -115,7 +115,7 @@ self.tabBarController.tabBar.hidden = YES;
         self.verLabShow.frame = CGRectMake((SCREEN_WIDTH - sizeOfVerLabShow.width)/2, 356, sizeOfVerLabShow.width, sizeOfVerLabShow.height);
         self.verLabShow.font = FONT(16);
         self.verLabShow.textColor = RGB(0x32, 0x32, 0x32);
-//        [imageView addSubview:self.verLabShow];
+        //        [imageView addSubview:self.verLabShow];
         [self.view addSubview:self.verLabShow];
         
         //新加版权信息
@@ -127,11 +127,11 @@ self.tabBarController.tabBar.hidden = YES;
         self.copyrightLabShow.textColor = RGB(0x6c, 0x6c, 0x6c);
         [self.view addSubview:self.copyrightLabShow];
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]|| [deviceString isEqualToString:@"iPhone8 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
         
-//        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, -7, SCREEN_WIDTH, SCREEN_HEIGHT+7)];
+        //        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, -7, SCREEN_WIDTH, SCREEN_HEIGHT+7)];
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(135, 238, 148, 103)];
         
         //    imageView.image = [UIImage imageNamed:@"关于about"];
@@ -161,7 +161,7 @@ self.tabBarController.tabBar.hidden = YES;
     
     
     
- 
+    
 }
 
 - (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
@@ -177,3 +177,4 @@ self.tabBarController.tabBar.hidden = YES;
 
 
 @end
+

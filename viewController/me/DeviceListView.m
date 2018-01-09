@@ -61,7 +61,7 @@
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
     
-
+    
 }
 -(void)loadNav
 {
@@ -94,7 +94,7 @@
     routeNameLab = [[UILabel alloc]init];
     routeIPLab = [[UILabel alloc]init];
     centerGrayView = [[UIView alloc]init];
-//    connectDevice = [[UILabel alloc]init];
+    //    connectDevice = [[UILabel alloc]init];
     
     HUD = [[MBProgressHUD alloc]init];
     netWorkErrorView = [[UIView alloc]init];
@@ -104,9 +104,9 @@
 {
     
     
-//    routeImage.frame = CGRectMake(MARGINLEFT, ROUTEMARFINTOP, ROUTEWIDTH, ROUTEWIDTH);
-//    routeImage.image = [UIImage imageNamed:@"luyou"];
-//    [scrollView addSubview:routeImage];
+    //    routeImage.frame = CGRectMake(MARGINLEFT, ROUTEMARFINTOP, ROUTEWIDTH, ROUTEWIDTH);
+    //    routeImage.image = [UIImage imageNamed:@"luyou"];
+    //    [scrollView addSubview:routeImage];
     /**/
     //    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
     //    editImage.image = [UIImage imageNamed:@"bianji"];
@@ -114,43 +114,43 @@
     
     
     
-//    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
-//    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
-//    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//
-//    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-//
-//    [scrollView addSubview:editBtn];
+    //    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
+    //    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
+    //    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    //
+    //    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
+    //
+    //    [scrollView addSubview:editBtn];
     
     
     
     
     
-//    routeNameLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y, 200, 17);
-//
-//    routeNameLab.font = FONT(15);
-//    routeNameLab.textColor = RGBA(148, 148, 148, 1);
-//
-//
-//    routeIPLab.font = FONT(13);
-//    routeIPLab.textColor = RGBA(193, 193, 193, 1);
-//
-//    routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
-//    [scrollView addSubview:routeNameLab];
-//    [scrollView addSubview:routeIPLab];
-//
-//
-//    centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
-//    centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
-//    [scrollView addSubview:centerGrayView];
-//
-//
-//
-//    connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
-//    connectDevice.text = @"Connected devices";
-//    connectDevice.font = FONT(15);
-//    connectDevice.textColor = RGBA(148, 148, 148, 1);
-//    [scrollView addSubview:connectDevice];
+    //    routeNameLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y, 200, 17);
+    //
+    //    routeNameLab.font = FONT(15);
+    //    routeNameLab.textColor = RGBA(148, 148, 148, 1);
+    //
+    //
+    //    routeIPLab.font = FONT(13);
+    //    routeIPLab.textColor = RGBA(193, 193, 193, 1);
+    //
+    //    routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
+    //    [scrollView addSubview:routeNameLab];
+    //    [scrollView addSubview:routeIPLab];
+    //
+    //
+    //    centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
+    //    centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
+    //    [scrollView addSubview:centerGrayView];
+    //
+    //
+    //
+    //    connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
+    //    connectDevice.text = @"Connected devices";
+    //    connectDevice.font = FONT(15);
+    //    connectDevice.textColor = RGBA(148, 148, 148, 1);
+    //    [scrollView addSubview:connectDevice];
     
     
 }
@@ -179,7 +179,7 @@
     tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, deviceArr.count*69);
     
     scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, deviceArr.count*69 - 64 + 50);
-    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         
         tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, deviceArr.count*75);
         
@@ -211,13 +211,13 @@
 }
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         return 75;
         
     }
     
     return 69;
-   
+    
     
     
     
@@ -392,7 +392,7 @@
             //        NSLog ( @"onlineDeviceArr:%@" ,onlineDeviceArr);
             NSLog ( @"deviceArr:%@" ,deviceArr);
             
-//            [self loadNav];
+            //            [self loadNav];
             //            [self loadScroll];
             [self loadUI];
             //            [self getWifi];
@@ -523,3 +523,5 @@
     
 }
 @end
+
+

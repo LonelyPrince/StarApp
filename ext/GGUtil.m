@@ -639,7 +639,7 @@ static const char *getPropertyType(objc_property_t property) {
         return byteToDatas;
         
     }
-   
+    
 }
 
 //返回时间戳的string类型
@@ -792,6 +792,11 @@ static const char *getPropertyType(objc_property_t property) {
     if ([deviceString isEqualToString:@"iPhone8,4"])    return @"iPhoneSE";
     if ([deviceString isEqualToString:@"iPhone9,1"])    return @"iPhone7";
     if ([deviceString isEqualToString:@"iPhone9,2"])    return @"iPhone7 Plus";
+    if ([deviceString isEqualToString:@"iPhone10,1"] || [deviceString isEqualToString:@"iPhone10,4"])    return @"iPhone8";
+    if ([deviceString isEqualToString:@"iPhone10,2"] || [deviceString isEqualToString:@"iPhone10,5"])    return @"iPhone8 Plus";
+    if ([deviceString isEqualToString:@"iPhone10,3"] || [deviceString isEqualToString:@"iPhone10,6"])    return @"iPhoneX";
+    
+    
     if ([deviceString isEqualToString:@"iPod1,1"])   return @"iPod Touch 1G";
     if ([deviceString isEqualToString:@"iPod2,1"])   return @"iPod Touch 2G";
     if ([deviceString isEqualToString:@"iPod3,1"])   return @"iPod Touch 3G";
@@ -923,7 +928,7 @@ static const char *getPropertyType(objc_property_t property) {
         }
     }
     
-   
+    
     
 }
 
@@ -995,8 +1000,8 @@ static const char *getPropertyType(objc_property_t property) {
     //实例化一个NSDateFormatter对象
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //设定时间格式,这里可以设置成自己需要的格式
-//    [dateFormatter setDateFormat:@"HH:mm:ss"];
-         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    //    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSLog(@"dateFormatter:%@",dateFormatter);
     NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
     NSLog(@"currentDateStr:%@",currentDateStr);
@@ -1012,4 +1017,12 @@ static const char *getPropertyType(objc_property_t property) {
     //    NSString* dateString = [formatter stringFromDate:date];
     return currentDateStr;
 }
++(double)getSystemVersion
+{
+    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
+    double systemVersion =  [phoneVersion doubleValue];
+    NSLog(@"CalendarIdentifierGregoria %f",systemVersion);
+    return systemVersion;
+}
 @end
+

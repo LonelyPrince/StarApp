@@ -43,8 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-//    [self initNotific];
+    
+    //    [self initNotific];
     deviceString = [GGUtil deviceVersion];
     [self initData];
     [self loadNav];
@@ -56,15 +56,15 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"routeNetWorkError" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
-
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     
-//    [self addHud];
-//    [self getCurrentWifi];
-//    [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
+    //    [self addHud];
+    //    [self getCurrentWifi];
+    //    [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
 }
 -(void)configRemoveUITextFieldEding
 {
@@ -93,14 +93,14 @@
     scrollView = [[UIScrollView alloc]init];
     NSString * SaveSuccessLabel = NSLocalizedString(@"SaveSuccessLabel", nil);
     registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:SaveSuccessLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
-//    securityImageView = [[UIImageView alloc]init];
-//    currentInputTextView = [[UIView alloc]init];
-//    setNewInputTextView = [[UIView alloc]init];
-//    ConfirmInputTextView = [[UIView alloc]init];
-//    currentPINText = [[UITextField alloc]init];
-//    setNewRouteText = [[UITextField alloc]init];
-//    confirmText = [[UITextField alloc]init];
-//    saveBtn = [[UIButton alloc]init];
+    //    securityImageView = [[UIImageView alloc]init];
+    //    currentInputTextView = [[UIView alloc]init];
+    //    setNewInputTextView = [[UIView alloc]init];
+    //    ConfirmInputTextView = [[UIView alloc]init];
+    //    currentPINText = [[UITextField alloc]init];
+    //    setNewRouteText = [[UITextField alloc]init];
+    //    confirmText = [[UITextField alloc]init];
+    //    saveBtn = [[UIButton alloc]init];
 }
 
 -(void)loadScroll
@@ -231,7 +231,7 @@
         
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5的大小");
-//        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-60 );
+        //        scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-60 );
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 99)/2, 49, 99, 99)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
@@ -331,20 +331,20 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 43/2;
             
-           [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+            [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
         if (securityImageView == NULL) {
             securityImageView   = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 99)/2, 49, 99, 99)];
             securityImageView.image = [UIImage imageNamed:@"安全中心"];
-                        [self.view addSubview:securityImageView];
+            [self.view addSubview:securityImageView];
             [scrollView addSubview:securityImageView];
         }
-       
-
+        
+        
         
         if (currentPINText == NULL) {
             
@@ -356,11 +356,11 @@
             currentPINText.delegate = self;
             currentPINText.autocorrectionType = UITextAutocorrectionTypeNo;
             currentPINText = [[UITextField alloc]initWithFrame:CGRectMake(20, 4, currentInputTextView.frame.size.width - 20, 40)];
-        
+            
             currentPINText.placeholder = CurrentPINLabel;
             currentPINText.textColor = [UIColor colorWithRed:0xcB/255.0 green:0xcB/255.0 blue:0xcB/255.0 alpha:1];
             
-
+            
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
                                                         name:@"UITextFieldTextDidChangeNotification"
                                                       object:currentPINText];
@@ -442,7 +442,7 @@
             [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         if (securityImageView == NULL) {
@@ -547,12 +547,12 @@
             [saveBtn addTarget:self action:@selector(saveBtnClick) forControlEvents:UIControlEventTouchUpInside];
             saveBtn.layer.cornerRadius = 43/2*1.1;
             
-          [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
+            [saveBtn setTitle:SaveLabel forState:UIControlStateNormal];
         }
         
     }
     
-   
+    
 }
 -(void)loadUI
 {
@@ -569,12 +569,12 @@
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-110 );
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]   || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-128 );
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
         scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-128 );
@@ -649,46 +649,46 @@
     
     
     
-//    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-//    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-//        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-//        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-//        if (character < 45)
-//        {
-//
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; // 48 unichar for 0..
-//        }
-//
-//        if (character > 45 && character < 48)
-//        {
-//
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; // 48 unichar for 0..
-//        }
-//        if (character > 57 && character < 65)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//        if (character > 90 && character < 95)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//        if (character > 95 && character < 97)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//        if (character > 122)
-//        {
-//            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//            return NO; //
-//        }
-//
-//
-//    }
+    //    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    //    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+    //        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+    //        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+    //        if (character < 45)
+    //        {
+    //
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; // 48 unichar for 0..
+    //        }
+    //
+    //        if (character > 45 && character < 48)
+    //        {
+    //
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; // 48 unichar for 0..
+    //        }
+    //        if (character > 57 && character < 65)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //        if (character > 90 && character < 95)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //        if (character > 95 && character < 97)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //        if (character > 122)
+    //        {
+    //            textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //            return NO; //
+    //        }
+    //
+    //
+    //    }
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {
@@ -735,10 +735,10 @@
         NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
         
         [request setPostBody:tempJsonData];
-//        [request startSynchronous];
+        //        [request startSynchronous];
         [request startAsynchronous];
         [request setCompletionBlock:^{
-        
+            
             NSError *error1 = [request error];
             if (!error1) {
                 //        NSString *response = [request responseString];
@@ -773,7 +773,7 @@
                 {
                     NSString * RouterPINIncorrectLabel = NSLocalizedString(@"RouterPINIncorrectLabel", nil);
                     [registerPwdTip setMessage:RouterPINIncorrectLabel];
-                     
+                    
                     [registerPwdTip show];
                 }else if ([[resDict objectForKey:@"code"] isEqual:@0])
                 {
@@ -788,7 +788,7 @@
                 
             }
         }];
-
+        
     }
     
     
@@ -830,7 +830,7 @@
     }
     else
     {
-         
+        
         //发送链接判断是不是正确
         return true;
         
@@ -922,3 +922,4 @@
     
 }
 @end
+

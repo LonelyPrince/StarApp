@@ -18,11 +18,11 @@
 @interface MonitorViewController ()
 {
     NSInteger tunerNum;
-//    NSMutableArray *  livePlayArr;
-//    NSMutableArray *  liveRecordArr;
-//    NSMutableArray *  liveTimeShiteArr;
-//    NSMutableArray *  deliveryArr;
-//    NSMutableArray *  pushVodArr;
+    //    NSMutableArray *  livePlayArr;
+    //    NSMutableArray *  liveRecordArr;
+    //    NSMutableArray *  liveTimeShiteArr;
+    //    NSMutableArray *  deliveryArr;
+    //    NSMutableArray *  pushVodArr;
     
     NSInteger   livePlayCount;
     NSInteger   liveRecordCount;
@@ -93,11 +93,11 @@
     viewFirstOpen = YES;
     networIsConnect = YES;
     
-
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
- 
+    
     if (viewFirstOpen == YES) {
         [self viewWillAppearDealyFunction];
         viewFirstOpen = NO;
@@ -111,28 +111,28 @@
     
     [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
     
-//    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 230, 100, 100)];
-//    btn.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:btn];
-//    [scrollView addSubview:btn];
-//    [btn addTarget:self action:@selector(aaaaaa) forControlEvents:UIControlEventTouchUpInside];
-//
-//
-//    UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn1 = [[UIButton alloc]initWithFrame:CGRectMake(120, 230, 100, 100)];
-//    btn1.backgroundColor = [UIColor blackColor];
-//    [self.view addSubview:btn1];
-//    [scrollView addSubview:btn1];
-//    [btn1 addTarget:self action:@selector(netWorkIsConnect) forControlEvents:UIControlEventTouchUpInside];
+    //    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 230, 100, 100)];
+    //    btn.backgroundColor = [UIColor redColor];
+    //    [self.view addSubview:btn];
+    //    [scrollView addSubview:btn];
+    //    [btn addTarget:self action:@selector(aaaaaa) forControlEvents:UIControlEventTouchUpInside];
+    //
+    //
+    //    UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    btn1 = [[UIButton alloc]initWithFrame:CGRectMake(120, 230, 100, 100)];
+    //    btn1.backgroundColor = [UIColor blackColor];
+    //    [self.view addSubview:btn1];
+    //    [scrollView addSubview:btn1];
+    //    [btn1 addTarget:self action:@selector(netWorkIsConnect) forControlEvents:UIControlEventTouchUpInside];
     
 }
 #define mark - 网络断开时出发此方法
 -(void)netWorkIsColse
 {
     NSLog(@"Major aaaaaaaaaaaaaaa");
- 
-//    [self.tableView reloadData];
+    
+    //    [self.tableView reloadData];
     
     [self.tableView removeFromSuperview];
     self.scrollView.scrollEnabled = NO;
@@ -145,16 +145,16 @@
     deliveryCount = 0;
     pushVodCount = 0;
     tunerNum = 0;
-
-//    [self  loadNumAnddelete];
-//    [self changeView];
-//    [self getNotificInfo];
+    
+    //    [self  loadNumAnddelete];
+    //    [self changeView];
+    //    [self getNotificInfo];
     [refreshTimer invalidate];
     refreshTimer = nil;
     [self emptyCircleAndLabel];
     networIsConnect = NO;
     
-  
+    
 }
 -(void)emptyCircleAndLabel
 {
@@ -337,7 +337,7 @@
     //    dataTemp = [USER_DEFAULT objectForKey:@"retDataForMonitor"];
     NSLog(@"retDataByMySelf: %@",retDataByMySelf);
     
-//    [monitorTableArr removeAllObjects];
+    //    [monitorTableArr removeAllObjects];
     
     [self getEffectiveData:retDataByMySelf];
     
@@ -411,11 +411,11 @@
     deliveryCount = 0;
     pushVodCount = 0;
     tunerNum = 0;
-//    livePlayArr = [[NSMutableArray alloc]init];
-//    liveRecordArr = [[NSMutableArray alloc]init];
-//    liveTimeShiteArr = [[NSMutableArray alloc]init];
-//    deliveryArr = [[NSMutableArray alloc]init];
-//    pushVodArr = [[NSMutableArray alloc]init];
+    //    livePlayArr = [[NSMutableArray alloc]init];
+    //    liveRecordArr = [[NSMutableArray alloc]init];
+    //    liveTimeShiteArr = [[NSMutableArray alloc]init];
+    //    deliveryArr = [[NSMutableArray alloc]init];
+    //    pushVodArr = [[NSMutableArray alloc]init];
     monitorTableDic = [[NSMutableDictionary alloc]init];
     monitorTableArr = [[NSMutableArray alloc]init];
     
@@ -424,7 +424,7 @@
     
     ///
     //    socketUtils = [[SocketUtils alloc]init];
-//    [self initNotific];
+    //    [self initNotific];
 }
 
 -(void)initNotific
@@ -560,7 +560,7 @@
         }
         
         
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]    || [deviceString isEqualToString:@"iPhone Simulator"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"] ) {
         NSLog(@"此刻是6的大小");
         
         UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth ) + 30, 325, 2, 48)];
@@ -579,7 +579,7 @@
         [colorImageView addSubview:verticalView3];
         
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
         UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8 + 38, 325, 2, 48)];
@@ -665,20 +665,20 @@
         recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
         recoder_Lab.font = FONT(24);
         [colorImageView addSubview:recoder_Lab];
-       
+        
         distribute_Lab = [[UILabel alloc]initWithFrame:CGRectMake(distributeLab.frame.origin.x+18, liveNumLab.frame.origin.y-26, 16, 20)];
         distribute_Lab.text = [NSString stringWithFormat:@"%ld",(long)deliveryCount];
         distribute_Lab.textColor = RGBA(245, 245, 245, 0.65);
         distribute_Lab.font = FONT(24);
         [colorImageView addSubview:distribute_Lab];
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
+    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]|| [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
         NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
         NSString * MLLive = NSLocalizedString(@"MLLive", nil);
-      
+        
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft + 10, 360, 142/2 + 10, 15)];
-       
+        
         liveNumLab.text =  MLLive; //@"TV Live";
         liveNumLab.textColor = RGBA(245, 245, 245, 0.65);
         liveNumLab.font = FONT(13);
@@ -690,16 +690,16 @@
             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +32 , 360, 200/2, 15)];
         }else
         {
-             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +48 , 360, 142/2, 15)];
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +48 , 360, 142/2, 15)];
         }
-       
+        
         
         recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
         
-       
+        
         
         distributeLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth*3 +CutWidth*3 -10, 360, 142/2, 15)];
         distributeLab.text = MLDelivery;
@@ -716,12 +716,12 @@
         
         
         if (MLRecording.length > 10) {
-           recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+40 , liveNumLab.frame.origin.y-30, 16, 20)];
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+40 , liveNumLab.frame.origin.y-30, 16, 20)];
         }else
         {
             recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+20 , liveNumLab.frame.origin.y-30, 16, 20)];
         }
- 
+        
         recoder_Lab.text = [NSString stringWithFormat:@"%ld",(long)liveRecordCount];
         recoder_Lab.textColor = RGBA(245, 245, 245, 0.65);
         recoder_Lab.font = FONT(24);
@@ -735,7 +735,8 @@
         distribute_Lab.font = FONT(24);
         [colorImageView addSubview:distribute_Lab];
         
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]     ) {
+    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]  || [deviceString isEqualToString:@"iPhone8 Plus"]
+              ) {
         NSLog(@"此刻是6 plus的大小");
         
         NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
@@ -751,7 +752,7 @@
             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 32 , 360, 200/2, 15)];
         }else
         {
-           recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 50 , 360, 142/2, 15)];
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 50 , 360, 142/2, 15)];
         }
         recoderLab.text = MLRecording;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
@@ -910,266 +911,266 @@
 {
     [monitorTableArr removeAllObjects];
     if (networIsConnect == YES) {
-    NSLog(@"=======================test gettuner");
-    NSLog(@"allTunerData :%@",allTunerData);
-    //获取数据总长度
-    NSData * dataLen = [[NSData alloc]init];
-    if ([allTunerData length] >= 24 + 4) {
-        dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
-    }else
-    {
-        return;
-    }
-    
-    
-    NSLog(@"datalen: %@",dataLen);
-    //    int value;
-    //    value = 0;
-    NSLog(@"可能报错3");
-    //    [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
-    uint32_t value = [SocketUtils uint32FromBytes:dataLen];
-    NSLog(@"可能报错4");
-    //    [socketUtils uint16FromBytes:]
-    //tuner的有效数据区
-    NSData * effectiveData = [[NSData alloc]init];
-    
-    if ([allTunerData length] >= 38 + value-10) {
-        effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
-    }else
-    {
-        return;
-    }
-    
-    
-    //定位数据，用于看位于第几个字节，起始位置是在
-    int placeFigure = 3;
-#pragma mark  将11 改成了4
-    for (int ai = 0; ai < 4; ai++ ) {  //目前会返回11条数据
-        
-        
-        //       NSMutableData * tunerDataone = [NSMutableData dataWithData:allTunerData];
-        int mutablefigure = placeFigure;
-        NSLog(@"----len placeFigure:%d",placeFigure);
-        NSLog(@"----len mutablefigure:%d",mutablefigure);
-        NSLog(@"----len effectiveData:%@",effectiveData);
-        //        char buffer;
-        //        [effectiveData getBytes:&buffer range:NSMakeRange(mutablefigure, 4)];
-        
-        NSLog(@"effectiveData: %@",effectiveData);
-        NSData * databuff = [[NSData alloc]init];
-        if ([effectiveData length] >= mutablefigure + 4) {
-            databuff = [effectiveData subdataWithRange:NSMakeRange(mutablefigure, 4)];
+        NSLog(@"=======================test gettuner");
+        NSLog(@"allTunerData :%@",allTunerData);
+        //获取数据总长度
+        NSData * dataLen = [[NSData alloc]init];
+        if ([allTunerData length] >= 24 + 4) {
+            dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
         }else
         {
             return;
         }
         
-        //        Byte *buffer = (Byte *)[databuff bytes];
         
-        char buffer1;
-        int buffer_int1 =placeFigure;
-        [effectiveData getBytes:&buffer1 range:NSMakeRange(buffer_int1, 1)];
-        char buffer2;
-        int buffer_int2 =placeFigure+1;
-        [effectiveData getBytes:&buffer2 range:NSMakeRange(buffer_int2, 1)];
-        char buffer3;
-        int buffer_int3 =placeFigure+2;
-        [effectiveData getBytes:&buffer3 range:NSMakeRange(buffer_int3, 1)];
-        char buffer4;
-        int buffer_int4 =placeFigure+3;
-        [effectiveData getBytes:&buffer4 range:NSMakeRange(buffer_int4, 1)];
+        NSLog(@"datalen: %@",dataLen);
+        //    int value;
+        //    value = 0;
+        NSLog(@"可能报错3");
+        //    [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
+        uint32_t value = [SocketUtils uint32FromBytes:dataLen];
+        NSLog(@"可能报错4");
+        //    [socketUtils uint16FromBytes:]
+        //tuner的有效数据区
+        NSData * effectiveData = [[NSData alloc]init];
         
-        if( buffer1 == 0x00 && buffer2 == 0x00&& buffer3 == 0x00 && buffer4 == 0x00)
+        if ([allTunerData length] >= 38 + value-10) {
+            effectiveData = [allTunerData subdataWithRange:NSMakeRange(38,(value-10))];
+        }else
         {
-            NSLog(@"11");
+            return;
         }
-        else
-        {
+        
+        
+        //定位数据，用于看位于第几个字节，起始位置是在
+        int placeFigure = 3;
+#pragma mark  将11 改成了4
+        for (int ai = 0; ai < 4; ai++ ) {  //目前会返回11条数据
             
-            tunerNum ++;
-            NSLog(@"22");
             
-            //这里获取service_type类型
-            NSData * serviceTypeData = [[NSData alloc]init];
+            //       NSMutableData * tunerDataone = [NSMutableData dataWithData:allTunerData];
+            int mutablefigure = placeFigure;
+            NSLog(@"----len placeFigure:%d",placeFigure);
+            NSLog(@"----len mutablefigure:%d",mutablefigure);
+            NSLog(@"----len effectiveData:%@",effectiveData);
+            //        char buffer;
+            //        [effectiveData getBytes:&buffer range:NSMakeRange(mutablefigure, 4)];
+            
             NSLog(@"effectiveData: %@",effectiveData);
-            NSLog(@"placeFigure: %d",placeFigure);
-            
-            NSLog(@"错误代码在这里");
-            
-            if ([effectiveData length] >= placeFigure+ 4 + 4) {
-                serviceTypeData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+4, 4)];
+            NSData * databuff = [[NSData alloc]init];
+            if ([effectiveData length] >= mutablefigure + 4) {
+                databuff = [effectiveData subdataWithRange:NSMakeRange(mutablefigure, 4)];
             }else
             {
                 return;
             }
             
-            NSLog(@"serviceTypeData: %@",serviceTypeData);
-            //这里获取network_id
-            NSData * networkIdData = [[NSData alloc]init];
-            if ([effectiveData length] >= placeFigure + 12 + 2) {
-                networkIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+12, 2)];
-            }else
+            //        Byte *buffer = (Byte *)[databuff bytes];
+            
+            char buffer1;
+            int buffer_int1 =placeFigure;
+            [effectiveData getBytes:&buffer1 range:NSMakeRange(buffer_int1, 1)];
+            char buffer2;
+            int buffer_int2 =placeFigure+1;
+            [effectiveData getBytes:&buffer2 range:NSMakeRange(buffer_int2, 1)];
+            char buffer3;
+            int buffer_int3 =placeFigure+2;
+            [effectiveData getBytes:&buffer3 range:NSMakeRange(buffer_int3, 1)];
+            char buffer4;
+            int buffer_int4 =placeFigure+3;
+            [effectiveData getBytes:&buffer4 range:NSMakeRange(buffer_int4, 1)];
+            
+            if( buffer1 == 0x00 && buffer2 == 0x00&& buffer3 == 0x00 && buffer4 == 0x00)
             {
-                return;
+                NSLog(@"11");
             }
-            
-            //这里获取ts_id
-            NSData * tsIdData = [[NSData alloc]init];
-            if ([effectiveData length] >= placeFigure+14 + 2) {
-                tsIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+14, 2)];
-            }else
-            {
-                return;
-            }
-            
-            
-            //这里获取service_id
-            NSData * serviceIdData = [[NSData alloc]init];
-            if ([effectiveData length] >= placeFigure + 16 + 2) {
-                serviceIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+16, 2)];
-            }else
-            {
-                return;
-            }
-            
-            //这里获取name_len
-            NSData * nameLenData = [[NSData alloc]init];
-            if ([effectiveData length] >= placeFigure + 18 + 1) {
-                nameLenData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18, 1)];
-            }else
-            {
-                return;
-            }
-            
-            
-            //先看一下长度是不是0
-            char lenBuffer;
-            [nameLenData getBytes: &lenBuffer length: sizeof(lenBuffer)];
-            
-            int clientNameLen = 0;
-            NSData * clientNameData = [[NSData alloc]init];
-            if (lenBuffer == 0x00) {
-                
-                NSString *aString = @"";
-                clientNameData = [aString dataUsingEncoding: NSUTF8StringEncoding];
-            }else
+            else
             {
                 
-                [nameLenData getBytes: &clientNameLen length: sizeof(clientNameLen)];
+                tunerNum ++;
+                NSLog(@"22");
                 
-                int clienNameLenCopy = clientNameLen;
-                int clienNameLenCopy1 = clientNameLen;
+                //这里获取service_type类型
+                NSData * serviceTypeData = [[NSData alloc]init];
+                NSLog(@"effectiveData: %@",effectiveData);
+                NSLog(@"placeFigure: %d",placeFigure);
                 
-                //获取client_name
+                NSLog(@"错误代码在这里");
                 
-                if ([effectiveData length] >= placeFigure + 18 + 1 + clienNameLenCopy1) {
-                    clientNameData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18+1, clienNameLenCopy1)];
+                if ([effectiveData length] >= placeFigure+ 4 + 4) {
+                    serviceTypeData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+4, 4)];
                 }else
                 {
                     return;
                 }
                 
-            }
-            
-            
-            
-            
-            
-            
-            //此处做判断，看一下属于哪个tuner
-            TVhttpDic =  [USER_DEFAULT objectForKey:@"TVHttpAllData"];
-            NSArray * category1 = [TVhttpDic objectForKey:@"category"];
-            NSArray * service1 = [TVhttpDic objectForKey:@"service"];
-            
-            
-            for (int a = 0; a <service1.count ; a++) {
-                //原始数据
-                NSString * service_network =  [service1[a]objectForKey:@"service_network_id"];
-                NSString * service_ts =  [service1[a] objectForKey:@"service_ts_id"];
-                NSString * service_service =  [service1[a] objectForKey:@"service_service_id"];
-                //                NSString * service_tuner =  [service1[ai] objectForKey:@"service_tuner_mode"];
-                
-                
-                //                //新的数据
-                NSString * newservice_network = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: networkIdData]]; //[[NSString alloc]initWithData:networkIdData encoding:NSUTF8StringEncoding];
-                
-                
-                NSString * newservice_ts =   [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: tsIdData]];//[[NSString alloc]initWithData:tsIdData encoding:NSUTF8StringEncoding];
-                NSString * newservice_service = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: serviceIdData]];// [[NSString alloc]initWithData:serviceIdData encoding:NSUTF8StringEncoding];
-                //                NSString * newservice_tunertype =  [[NSString alloc]initWithData:serviceTypeData encoding:NSUTF8StringEncoding];
-                //                NSString * newservice_apiservicetype =  [[NSString alloc]initWithData:serviceTypeData encoding:NSUTF8StringEncoding];
-                
-                if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts]  && [service_service isEqualToString:newservice_service]  //&& [service_tuner isEqualToString:newservice_tunertype]
-                    ) {
-                    
-                    //这种情况下是找到了节目
-                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:service1[a],serviceTypeData,clientNameData, nil];
-                    
-                    [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
-                    
-                    NSLog(@"[self.tableView reloadData]  11111");
-                    [self.tableView reloadData];
-                }
-                else //此处是一种特殊情况，没有找到这个节目
+                NSLog(@"serviceTypeData: %@",serviceTypeData);
+                //这里获取network_id
+                NSData * networkIdData = [[NSData alloc]init];
+                if ([effectiveData length] >= placeFigure + 12 + 2) {
+                    networkIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+12, 2)];
+                }else
                 {
-                    [self.tableView reloadData];
+                    return;
                 }
                 
+                //这里获取ts_id
+                NSData * tsIdData = [[NSData alloc]init];
+                if ([effectiveData length] >= placeFigure+14 + 2) {
+                    tsIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+14, 2)];
+                }else
+                {
+                    return;
+                }
+                
+                
+                //这里获取service_id
+                NSData * serviceIdData = [[NSData alloc]init];
+                if ([effectiveData length] >= placeFigure + 16 + 2) {
+                    serviceIdData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+16, 2)];
+                }else
+                {
+                    return;
+                }
+                
+                //这里获取name_len
+                NSData * nameLenData = [[NSData alloc]init];
+                if ([effectiveData length] >= placeFigure + 18 + 1) {
+                    nameLenData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18, 1)];
+                }else
+                {
+                    return;
+                }
+                
+                
+                //先看一下长度是不是0
+                char lenBuffer;
+                [nameLenData getBytes: &lenBuffer length: sizeof(lenBuffer)];
+                
+                int clientNameLen = 0;
+                NSData * clientNameData = [[NSData alloc]init];
+                if (lenBuffer == 0x00) {
+                    
+                    NSString *aString = @"";
+                    clientNameData = [aString dataUsingEncoding: NSUTF8StringEncoding];
+                }else
+                {
+                    
+                    [nameLenData getBytes: &clientNameLen length: sizeof(clientNameLen)];
+                    
+                    int clienNameLenCopy = clientNameLen;
+                    int clienNameLenCopy1 = clientNameLen;
+                    
+                    //获取client_name
+                    
+                    if ([effectiveData length] >= placeFigure + 18 + 1 + clienNameLenCopy1) {
+                        clientNameData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18+1, clienNameLenCopy1)];
+                    }else
+                    {
+                        return;
+                    }
+                    
+                }
+                
+                
+                
+                
+                
+                
+                //此处做判断，看一下属于哪个tuner
+                TVhttpDic =  [USER_DEFAULT objectForKey:@"TVHttpAllData"];
+                NSArray * category1 = [TVhttpDic objectForKey:@"category"];
+                NSArray * service1 = [TVhttpDic objectForKey:@"service"];
+                
+                
+                for (int a = 0; a <service1.count ; a++) {
+                    //原始数据
+                    NSString * service_network =  [service1[a]objectForKey:@"service_network_id"];
+                    NSString * service_ts =  [service1[a] objectForKey:@"service_ts_id"];
+                    NSString * service_service =  [service1[a] objectForKey:@"service_service_id"];
+                    //                NSString * service_tuner =  [service1[ai] objectForKey:@"service_tuner_mode"];
+                    
+                    
+                    //                //新的数据
+                    NSString * newservice_network = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: networkIdData]]; //[[NSString alloc]initWithData:networkIdData encoding:NSUTF8StringEncoding];
+                    
+                    
+                    NSString * newservice_ts =   [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: tsIdData]];//[[NSString alloc]initWithData:tsIdData encoding:NSUTF8StringEncoding];
+                    NSString * newservice_service = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: serviceIdData]];// [[NSString alloc]initWithData:serviceIdData encoding:NSUTF8StringEncoding];
+                    //                NSString * newservice_tunertype =  [[NSString alloc]initWithData:serviceTypeData encoding:NSUTF8StringEncoding];
+                    //                NSString * newservice_apiservicetype =  [[NSString alloc]initWithData:serviceTypeData encoding:NSUTF8StringEncoding];
+                    
+                    if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts]  && [service_service isEqualToString:newservice_service]  //&& [service_tuner isEqualToString:newservice_tunertype]
+                        ) {
+                        
+                        //这种情况下是找到了节目
+                        NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:service1[a],serviceTypeData,clientNameData, nil];
+                        
+                        [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                        
+                        NSLog(@"[self.tableView reloadData]  11111");
+                        [self.tableView reloadData];
+                    }
+                    else //此处是一种特殊情况，没有找到这个节目
+                    {
+                        [self.tableView reloadData];
+                    }
+                    
+                }
+                
+                
+                
+                
+                
+                //***********
+                
+                //            char serviceTypeBuf;
+                //
+                //            [serviceTypeData getBytes:&buffer range:NSMakeRange(placeFigure, 4)];
+                
+                //            char serviceTypeBuf;
+                //            [serviceTypeData getBytes:&buffer range:NSMakeRange(placeFigure, 4)];
+                
+                //判断service_typedata,判断是不是分发，时移，录制
+                [self judgeTunerClass:serviceTypeData];
+                
+                ////
+                placeFigure  = placeFigure + 15+clientNameLen;
             }
             
+            //        int mutablefigure = ai;
+            //        mutablefigure = mutablefigure*7;
+            placeFigure =placeFigure +7;  //placeFigure+ mutablefigure ;
             
-            
-            
-            
-            //***********
-            
-            //            char serviceTypeBuf;
-            //
-            //            [serviceTypeData getBytes:&buffer range:NSMakeRange(placeFigure, 4)];
-            
-            //            char serviceTypeBuf;
-            //            [serviceTypeData getBytes:&buffer range:NSMakeRange(placeFigure, 4)];
-            
-            //判断service_typedata,判断是不是分发，时移，录制
-            [self judgeTunerClass:serviceTypeData];
-            
-            ////
-            placeFigure  = placeFigure + 15+clientNameLen;
         }
         
-        //        int mutablefigure = ai;
-        //        mutablefigure = mutablefigure*7;
-        placeFigure =placeFigure +7;  //placeFigure+ mutablefigure ;
+        //    [self loadNav];
+        //    [self loadUI];
         
-    }
-    
-    //    [self loadNav];
-    //    [self loadUI];
-    
-    //    [self loadCicle];
-    //    [self loadTableview];
-    //    [self loadNumLab];
-    
-    if (tableInitNum == 0) {
-        [self loadTableview];
-        tableInitNum++;
+        //    [self loadCicle];
+        //    [self loadTableview];
+        //    [self loadNumLab];
         
-    }
-    //    else
-    //    {
-    //     [tableView reloadData];
-    //    }
-    
-    [tableView reloadData];
-    //    [self loadTableview];
-    
-    if (tunerNum == 0) {
+        if (tableInitNum == 0) {
+            [self loadTableview];
+            tableInitNum++;
+            
+        }
+        //    else
+        //    {
+        //     [tableView reloadData];
+        //    }
         
-        self.scrollView.scrollEnabled = NO;
-    }
-    
-    [self changeView];
-    NSLog(@"======222-2-2-2-2");
+        [tableView reloadData];
+        //    [self loadTableview];
+        
+        if (tunerNum == 0) {
+            
+            self.scrollView.scrollEnabled = NO;
+        }
+        
+        [self changeView];
+        NSLog(@"======222-2-2-2-2");
     }
     else
     {}
@@ -1378,7 +1379,7 @@
     }else
     {
         self.scrollView.scrollEnabled = YES;
-    
+        
         if (currentPostion - lastPosition > 30  && scrollUp == NO && tunerNum > 0){
             CGPoint position = CGPointMake(0, 275);
             //        [scrollView     :position animated:YES];
@@ -1496,10 +1497,10 @@
         }
         //    }
         
-  
+        
     }
     
-  
+    
     
 }
 
@@ -1511,37 +1512,37 @@
     NSArray * monitorTypeArr = [[NSArray alloc]init];
     NSLog(@"monitorTableArr.count %d",monitorTableArr.count);
     NSLog(@"indexPath.row %d",indexPath.row);
-
+    
     if (monitorTableArr.count > 0 && monitorTableArr.count > indexPath.row ) {
-
-         monitorTypeArr =   monitorTableArr[indexPath.row];
+        
+        monitorTypeArr =   monitorTableArr[indexPath.row];
     }else
     {
-         NSLog(@"卧槽，差点越界出错");
+        NSLog(@"卧槽，差点越界出错");
         return UITableViewCellEditingStyleNone ;
     }
-
-
+    
+    
     NSLog(@"monitorTypeArr。count %d",monitorTypeArr.count);
-
+    
     NSData * tableTypedata ;
-
+    
     NSData * phoneClientName;
-
+    
     if (monitorTypeArr.count > 2 ) {
-
+        
         tableTypedata = monitorTypeArr[1];
-
+        
         phoneClientName = monitorTypeArr[2];
     }else
     {
         NSLog(@"卧槽，差点越界出错222");
         return UITableViewCellEditingStyleNone ;
     }
-
+    
     int type;
     type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
-
+    
     NSString * clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
     NSString * phoneModel =  [GGUtil deviceVersion]; //[self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
@@ -1553,7 +1554,7 @@
         return UITableViewCellEditingStyleDelete;
     }
     return UITableViewCellEditingStyleNone;
-
+    
     //>>
     
     //    return UITableViewCellEditingStyleDelete;
@@ -1638,3 +1639,4 @@
     // Dispose of any resources that can be recreated.
 }
 @end
+
