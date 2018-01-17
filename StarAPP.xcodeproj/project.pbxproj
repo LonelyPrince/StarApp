@@ -152,6 +152,7 @@
 		702218C01E5AE0D7005D96A0 /* Back Arrow Blue@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BD1E5AE0D7005D96A0 /* Back Arrow Blue@1x.png */; };
 		702218C11E5AE0D7005D96A0 /* Back Arrow Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BE1E5AE0D7005D96A0 /* Back Arrow Blue@2x.png */; };
 		702218C21E5AE0D7005D96A0 /* Back Arrow Blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702218BF1E5AE0D7005D96A0 /* Back Arrow Blue@3x.png */; };
+		70226C402008AE4900A0281F /* MDPhonePushService.m in Sources */ = {isa = PBXBuildFile; fileRef = 70226C3F2008AE4700A0281F /* MDPhonePushService.m */; };
 		7022F5071FCE445800A1537A /* 录制透明.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5041FCE445700A1537A /* 录制透明.png */; };
 		7022F51A1FCE9C7500A1537A /* RECPlaceholder@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5171FCE9C7400A1537A /* RECPlaceholder@1x.png */; };
 		7022F51B1FCE9C7500A1537A /* RECPlaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7022F5181FCE9C7500A1537A /* RECPlaceholder@3x.png */; };
@@ -339,6 +340,7 @@
 		70362D6B1F00A6C50012A309 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70362D6A1F00A6C50012A309 /* CoreVideo.framework */; };
 		7036B0E71F29FAAC0043533D /* UICustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7036B0E61F29FAAC0043533D /* UICustomAlertView.m */; };
 		7036B1421FFDDDCC00A3244F /* JXCustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7036B1411FFDDDCC00A3244F /* JXCustomAlertView.m */; };
+		7038ECB6200F65F80016E350 /* FilePushService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7038ECB5200F65F70016E350 /* FilePushService.m */; };
 		703AC2CD1DC9BD5600ACA687 /* EarilyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */; };
 		703AC2CE1DC9BD5600ACA687 /* EarilyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */; };
 		703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703D5D481DF5746200C4412A /* CategoryViewController.m */; };
@@ -373,6 +375,8 @@
 		7040E24B1DAE12B80063DB66 /* zOOm-Logo@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E2301DAE12B80063DB66 /* zOOm-Logo@1x.png */; };
 		7040E24C1DAE12B80063DB66 /* zOOm-Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E2311DAE12B80063DB66 /* zOOm-Logo@2x.png */; };
 		7040E24D1DAE12B80063DB66 /* zOOm-Logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7040E2321DAE12B80063DB66 /* zOOm-Logo@3x.png */; };
+		70421564200C736700F1D4DE /* pushViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70421562200C736700F1D4DE /* pushViewCell.m */; };
+		70421565200C736700F1D4DE /* pushViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70421563200C736700F1D4DE /* pushViewCell.xib */; };
 		704511281FA6B5FF00E6DB3B /* DeviceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704511261FA6B5FF00E6DB3B /* DeviceListCell.m */; };
 		704511291FA6B5FF00E6DB3B /* DeviceListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 704511271FA6B5FF00E6DB3B /* DeviceListCell.xib */; };
 		704524DA1FA6BA1400E6DB3B /* 设备@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7045112B1FA6BA0400E6DB3B /* 设备@2x.png */; };
@@ -918,6 +922,8 @@
 		702218BD1E5AE0D7005D96A0 /* Back Arrow Blue@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@1x.png"; sourceTree = "<group>"; };
 		702218BE1E5AE0D7005D96A0 /* Back Arrow Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@2x.png"; sourceTree = "<group>"; };
 		702218BF1E5AE0D7005D96A0 /* Back Arrow Blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Back Arrow Blue@3x.png"; sourceTree = "<group>"; };
+		70226C3E2008AE4700A0281F /* MDPhonePushService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDPhonePushService.h; sourceTree = "<group>"; };
+		70226C3F2008AE4700A0281F /* MDPhonePushService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDPhonePushService.m; sourceTree = "<group>"; };
 		7022F5041FCE445700A1537A /* 录制透明.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "录制透明.png"; sourceTree = "<group>"; };
 		7022F5171FCE9C7400A1537A /* RECPlaceholder@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@1x.png"; sourceTree = "<group>"; };
 		7022F5181FCE9C7500A1537A /* RECPlaceholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RECPlaceholder@3x.png"; sourceTree = "<group>"; };
@@ -1124,6 +1130,8 @@
 		7036B0E61F29FAAC0043533D /* UICustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICustomAlertView.m; sourceTree = "<group>"; };
 		7036B1401FFDDDCC00A3244F /* JXCustomAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JXCustomAlertView.h; sourceTree = "<group>"; };
 		7036B1411FFDDDCC00A3244F /* JXCustomAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JXCustomAlertView.m; sourceTree = "<group>"; };
+		7038ECB4200F65F70016E350 /* FilePushService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilePushService.h; sourceTree = "<group>"; };
+		7038ECB5200F65F70016E350 /* FilePushService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilePushService.m; sourceTree = "<group>"; };
 		703AC2CA1DC9BD5600ACA687 /* EarilyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarilyCell.h; sourceTree = "<group>"; };
 		703AC2CB1DC9BD5600ACA687 /* EarilyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarilyCell.m; sourceTree = "<group>"; };
 		703AC2CC1DC9BD5600ACA687 /* EarilyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarilyCell.xib; sourceTree = "<group>"; };
@@ -1160,6 +1168,9 @@
 		7040E2301DAE12B80063DB66 /* zOOm-Logo@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zOOm-Logo@1x.png"; sourceTree = "<group>"; };
 		7040E2311DAE12B80063DB66 /* zOOm-Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zOOm-Logo@2x.png"; sourceTree = "<group>"; };
 		7040E2321DAE12B80063DB66 /* zOOm-Logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zOOm-Logo@3x.png"; sourceTree = "<group>"; };
+		70421561200C736700F1D4DE /* pushViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pushViewCell.h; sourceTree = "<group>"; };
+		70421562200C736700F1D4DE /* pushViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pushViewCell.m; sourceTree = "<group>"; };
+		70421563200C736700F1D4DE /* pushViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = pushViewCell.xib; sourceTree = "<group>"; };
 		704511251FA6B5FF00E6DB3B /* DeviceListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListCell.h; sourceTree = "<group>"; };
 		704511261FA6B5FF00E6DB3B /* DeviceListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListCell.m; sourceTree = "<group>"; };
 		704511271FA6B5FF00E6DB3B /* DeviceListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceListCell.xib; sourceTree = "<group>"; };
@@ -1625,6 +1636,10 @@
 				707424891FBC23AB00EBEC7F /* Cs_serviceREC.m */,
 				708F9F611FED0028003ABBDA /* NowPlayChannelInfo.h */,
 				708F9F621FED0028003ABBDA /* NowPlayChannelInfo.m */,
+				70226C3E2008AE4700A0281F /* MDPhonePushService.h */,
+				70226C3F2008AE4700A0281F /* MDPhonePushService.m */,
+				7038ECB4200F65F70016E350 /* FilePushService.h */,
+				7038ECB5200F65F70016E350 /* FilePushService.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1809,6 +1824,9 @@
 				7056506B1DB9F1E1002DD47E /* ChannelCell.h */,
 				7056506C1DB9F1E1002DD47E /* ChannelCell.m */,
 				7056506D1DB9F1E1002DD47E /* ChannelCell.xib */,
+				70421561200C736700F1D4DE /* pushViewCell.h */,
+				70421562200C736700F1D4DE /* pushViewCell.m */,
+				70421563200C736700F1D4DE /* pushViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3135,6 +3153,7 @@
 				707FE73F1DACC3C30087C361 /* Group 5@3x.png in Resources */,
 				70231CC31DC0FE8C00F73202 /* off.png in Resources */,
 				707FE74C1DACC3C30087C361 /* me icon@1x.png in Resources */,
+				70421565200C736700F1D4DE /* pushViewCell.xib in Resources */,
 				70231CBF1DC0FE8C00F73202 /* Edit-256@3x.png in Resources */,
 				7010785B1F96DAF800593014 /* Devices-List@3x.png in Resources */,
 				70FFE40B1DE421A700223E43 /* monitor-jd@1x.png in Resources */,
@@ -3629,10 +3648,12 @@
 				703D5D4A1DF5746200C4412A /* CategoryViewController.m in Sources */,
 				701295181D80F4CF003139D5 /* BUIView.m in Sources */,
 				70261DFA1F9D846A00D7F4F0 /* SecurityCenterView.m in Sources */,
+				70421564200C736700F1D4DE /* pushViewCell.m in Sources */,
 				70130EAC1D8FEBDA005F0A49 /* SocketUtils.m in Sources */,
 				70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */,
 				7012953C1D80FC0A003139D5 /* TVCell.m in Sources */,
 				704F215F1E5D1D570062EE86 /* YFRollingLabel.m in Sources */,
+				70226C402008AE4900A0281F /* MDPhonePushService.m in Sources */,
 				70170BD51D74038B00CC3951 /* StarMainTabController.m in Sources */,
 				7012951D1D80F4CF003139D5 /* UINavigationController+PushSingleOne.m in Sources */,
 				70130EA71D8FE813005F0A49 /* SocketModel.m in Sources */,
@@ -3651,6 +3672,7 @@
 				7074248A1FBC23AB00EBEC7F /* Cs_serviceREC.m in Sources */,
 				7027B3D71F308F89001CDFAE /* XYZNavigationController.m in Sources */,
 				7007707A1D829C30003C0D68 /* YLSlideView.m in Sources */,
+				7038ECB6200F65F80016E350 /* FilePushService.m in Sources */,
 				70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */,
 				604F37CC159B2FDC00FF1F91 /* ServerContentViewController.m in Sources */,
 				60CAD287159C304100B7E28C /* NDLUtility.m in Sources */,

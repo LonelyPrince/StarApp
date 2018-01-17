@@ -513,8 +513,8 @@
     [cicleClearImageView addSubview:numImage];
     
     labImage = [[UIImageView alloc]initWithFrame:CGRectMake(cicleClearImageView.frame.size.width/2-30, cicleClearImageView.frame.size.height/2+10,65, 40)];
-    NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
-    if (MLRecording.length > 10 ) {
+    NSString * MLRecordingNOS = NSLocalizedString(@"MLRecordingNOS", nil);
+    if (MLRecordingNOS.length > 10 ) {
         labImage.image = [UIImage  imageNamed:@"Devicemonitor"];
     }else
     {
@@ -532,9 +532,9 @@
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]    ) {
         NSLog(@"此刻是5s和4s 的大小");
         
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLRecordingNOS = NSLocalizedString(@"MLRecordingNOS", nil);
         
-        if (MLRecording > 10) {
+        if (MLRecordingNOS > 10) {
             UIView * verticalView1 = [[UIView alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +(TopBottomNameWidth )-8+14+35-3, 325, 2, 50)];
             verticalView1.layer.cornerRadius = 1.0;
             verticalView1.backgroundColor = RGBA(245, 245, 245, 0.3);
@@ -614,7 +614,7 @@
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]   ) {
         NSLog(@"此刻是5s和4s 的大小");
         
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLRecordingNOS = NSLocalizedString(@"MLRecordingNOS", nil);
         NSString * MLLive = NSLocalizedString(@"MLLive", nil);
         
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(20 + 25 - 22, 360, 142/2 + 15, 15)];
@@ -625,14 +625,14 @@
         
         
         
-        if (MLRecording.length > 10) {
-            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 32 - 4, 360, 200/2, 15)];
+        if (MLRecordingNOS.length > 10) {
+            recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 32 +1, 360, 200/2, 15)];
         }else
         {
             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(85 + 50 - 4, 360, 142/2, 15)];
         }
         
-        recoderLab.text = MLRecording;
+        recoderLab.text = MLRecordingNOS;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(12);
         [colorImageView addSubview:recoderLab];
@@ -655,8 +655,8 @@
         
         
         
-        if (MLRecording.length > 10) {
-            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+41, liveNumLab.frame.origin.y-26, 16, 20)];
+        if (MLRecordingNOS.length > 10) {
+            recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+38, liveNumLab.frame.origin.y-26, 16, 20)];
         }else
         {
             recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+21, liveNumLab.frame.origin.y-26, 16, 20)];
@@ -674,7 +674,7 @@
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]|| [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLRecordingNOS = NSLocalizedString(@"MLRecordingNOS", nil);
         NSString * MLLive = NSLocalizedString(@"MLLive", nil);
         
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft + 10, 360, 142/2 + 10, 15)];
@@ -686,7 +686,7 @@
         
         
         
-        if (MLRecording.length > 10) {
+        if (MLRecordingNOS.length > 10) {
             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth +32 , 360, 200/2, 15)];
         }else
         {
@@ -694,7 +694,7 @@
         }
         
         
-        recoderLab.text = MLRecording;
+        recoderLab.text = MLRecordingNOS;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
@@ -715,7 +715,7 @@
         [colorImageView addSubview:liveNum_Lab];
         
         
-        if (MLRecording.length > 10) {
+        if (MLRecordingNOS.length > 10) {
             recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+40 , liveNumLab.frame.origin.y-30, 16, 20)];
         }else
         {
@@ -739,7 +739,7 @@
               ) {
         NSLog(@"此刻是6 plus的大小");
         
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLRecordingNOS = NSLocalizedString(@"MLRecordingNOS", nil);
         NSString * MLLive = NSLocalizedString(@"MLLive", nil);
         liveNumLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft , 360, 142/2 + 20, 15)];
         liveNumLab.text = MLLive;
@@ -748,13 +748,13 @@
         [colorImageView addSubview:liveNumLab];
         
         
-        if (MLRecording.length > 10) {
+        if (MLRecordingNOS.length > 10) {
             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 32 , 360, 200/2, 15)];
         }else
         {
             recoderLab = [[UILabel alloc]initWithFrame:CGRectMake(TopBottomNameMarginLeft +TopBottomNameWidth +CutWidth + 50 , 360, 142/2, 15)];
         }
-        recoderLab.text = MLRecording;
+        recoderLab.text = MLRecordingNOS;
         recoderLab.textColor = RGBA(245, 245, 245, 0.65);
         recoderLab.font = FONT(13);
         [colorImageView addSubview:recoderLab];
@@ -780,7 +780,7 @@
         
         
         
-        if (MLRecording.length > 10) {
+        if (MLRecordingNOS.length > 10) {
             recoder_Lab = [[UILabel alloc]initWithFrame:CGRectMake(recoderLab.frame.origin.x+40, liveNumLab.frame.origin.y-40 + 10, 16, 20)];
         }else
         {
@@ -1004,6 +1004,7 @@
                     return;
                 }
                 
+              
                 NSLog(@"serviceTypeData: %@",serviceTypeData);
                 //这里获取network_id
                 NSData * networkIdData = [[NSData alloc]init];

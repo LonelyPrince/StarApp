@@ -165,7 +165,9 @@
 //74.设备监控
 "MLMonitor"                 = "Monitor";
 //75.录制
-"MLRecording"               = "Recording";
+"MLRecording"               = "Recordings";
+//75.5录制
+"MLRecordingNOS"            = "Recording";
 //76.分发
 "MLDelivery"                = "Delivery";
 //77.各个国家呼叫中心联系方式

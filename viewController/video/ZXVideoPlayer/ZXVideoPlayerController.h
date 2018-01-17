@@ -44,4 +44,6 @@
 -(void)setaudioOrSubtRowIsZero;
 
 -(void)startDurationTimer;
+
+-(void)setPushBtnHasClickNO;
 @end

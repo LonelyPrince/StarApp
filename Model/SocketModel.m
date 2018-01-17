@@ -52,4 +52,11 @@
 @implementation Cs_GetPushDeviceInfo
 @end
 
+//10.手机投电视直播
+@implementation Cs_MDPushService
+@end
+
+//11.手机投电视录制
+@implementation Cs_MDPushFile
+@end
 

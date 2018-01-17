@@ -118,6 +118,7 @@ typedef enum{
 #define grobalRedColor RGB(252,60,101)
 
 #define lineBlackColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]
+#define pushViewBtnColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6]
 #define ProgressLineColor [UIColor colorWithRed:0xFF/255.0 green:0x2d/255.0 blue:0x55/255.0 alpha:1] 
 
 #define MainColor [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]

@@ -1024,5 +1024,29 @@ static const char *getPropertyType(objc_property_t property) {
     NSLog(@"CalendarIdentifierGregoria %f",systemVersion);
     return systemVersion;
 }
+///Data 的信息转换成IP
++(NSString *)switchDataToIp:(NSData *)data
+{
+    if (data.length > 3) {
+        NSData * IPData1 = [data subdataWithRange:NSMakeRange(3, 1)];
+        uint8_t IPInt1 = [SocketUtils uint8FromBytes:IPData1];
+        
+        NSData * IPData2 = [data subdataWithRange:NSMakeRange(2, 1)];
+        uint8_t IPInt2 = [SocketUtils uint8FromBytes:IPData2];
+        
+        NSData * IPData3 = [data subdataWithRange:NSMakeRange(1, 1)];
+        uint8_t IPInt3 = [SocketUtils uint8FromBytes:IPData3];
+        
+        NSData * IPData4 = [data subdataWithRange:NSMakeRange(0, 1)];
+        uint8_t IPInt4 = [SocketUtils uint8FromBytes:IPData4];
+        
+        NSString * IPStr = [NSString stringWithFormat:@"%d.%d.%d.%d",IPInt1,IPInt2,IPInt3,IPInt4];
+        NSLog(@"ipipipipstr : %@",IPStr);
+       
+        return IPStr;
+    }
+    return 0;
+    
+}
 @end
 

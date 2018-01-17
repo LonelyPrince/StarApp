@@ -50,8 +50,11 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  cs_getResource;        //7
 @synthesize  cs_getRouteIPAddress;  //8
 @synthesize  cs_GetPushDeviceInfo;  //9
-@synthesize socket_ServiceModel;  //给service传值用
+@synthesize  cs_MDPushService;       //10
+@synthesize  cs_MDPushFile;          //11
+@synthesize  socket_ServiceModel;  //给service传值用
 @synthesize  cs_serviceREC;
+@synthesize  mdPhonePushService;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,6 +71,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_getRouteIPAddress = [[Cs_GetRouteIPAddress alloc]init];
     cs_serviceREC = [[Cs_serviceREC alloc]init];
     cs_GetPushDeviceInfo = [[Cs_GetPushDeviceInfo alloc]init];
+    cs_MDPushService = [[Cs_MDPushService alloc]init];
+    cs_MDPushFile = [[Cs_MDPushFile alloc]init];
     
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     
@@ -562,6 +567,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 //获取投屏节目信息
 -(void)csGetPushInfo
 {
+    NSLog(@"发送投屏信息");
     
     cs_GetPushDeviceInfo.module_name= @"MDMM";
     cs_GetPushDeviceInfo.Ret=0;
@@ -622,6 +628,185 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [[Singleton sharedInstance] GetPushDeviceInfo_socket];
 }
 
+//手机投机顶盒直播
+-(void)SetCSMDPushService
+{
+    NSLog(@"发送投屏信息");
+    
+    cs_MDPushService.module_name= @"MDMM";
+    cs_MDPushService.Ret=0;
+    cs_MDPushService.Reserved=APDE_Identify;
+    
+ 
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_MDPushService.client_ip= [self getIPArr];
+    } while (ISNULL(cs_MDPushService.client_ip));
+    
+    
+    
+    cs_MDPushService.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_MDPushService.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_MDPushService.command_type = DTV_SERVICE_MD_PUSH_SERVICE ;
+    
+    
+    cs_MDPushService.tuner_type = [mdPhonePushService.service_tuner_type intValue];
+    NSLog(@"cs_MDPushService.tuner_type %d",cs_MDPushService.tuner_type);
+    cs_MDPushService.network_id = [mdPhonePushService.service_network_id intValue];
+    NSLog(@"cs_MDPushService.network_id %d",cs_MDPushService.network_id);
+    cs_MDPushService.ts_id = [mdPhonePushService.service_ts_id intValue];
+    NSLog(@"cs_MDPushService.ts_id %d",cs_MDPushService.ts_id);
+    cs_MDPushService.service_id = [mdPhonePushService.service_service_id intValue];
+    NSLog(@"cs_MDPushService.service_id %d",cs_MDPushService.service_id);
+    cs_MDPushService.audio_pid =  cs_service.audio_index;
+    NSLog(@"cs_MDPushService.audio_pid %d",cs_MDPushService.audio_pid);
+    cs_MDPushService.subt_pid = cs_service.subt_index; //[mdPhonePushService.subt_pid intValue];
+    cs_MDPushService.client_name_len = mdPhonePushService.client_name_len;;
+    cs_MDPushService.client_name = mdPhonePushService.client_name;
+    cs_MDPushService.push_type = mdPhonePushService.push_type;
+    cs_MDPushService.client_count = mdPhonePushService.client_count;
+    NSLog(@"cs_MDPushService.client_count %d",cs_MDPushService.client_count);
+    
+    int dataLen = 26 + cs_MDPushService.client_name_len + cs_MDPushService.client_count*4 ;
+    cs_MDPushService.data_len = dataLen;
+    
+    NSLog(@"cs_MDPushService.client_name_len %d",cs_MDPushService.client_name_len);
+    NSLog(@"cs_MDPushService.client_count %d",cs_MDPushService.client_count);
+    NSLog(@"cs_MDPushService.data_len %d",cs_MDPushService.data_len);
+    
+ 
+    
+    
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_MDPushService];
+    NSLog(@"cs_MDPushServiceaa== %@",cs_MDPushService);
+    NSLog(@"data_serviceaa== %@",data_service);
+//    NSLog(@"mdPhonePushService== %@",mdPhonePushService.push_client_ip);
+    NSLog(@"mdPhonePushService.push_client_ip %@",mdPhonePushService.push_client_ip);
+    for (int y = 0; y < cs_MDPushService.client_count; y++) {
+        NSArray * arr = mdPhonePushService.push_client_ip[y];
+        for (int i = 0; i<4; i++) {
+            NSArray * arrtemp ;
+            arrtemp= [[NSArray alloc]init];
+            arrtemp =  arr;
+            uint8_t arrint = [arrtemp[3-i] intValue];// 8位
+            NSLog(@"arrint22: %d",arrint);
+            [data_service appendData:[SocketUtils byteFromUInt8:arrint]];
+             NSLog(@"[SocketUtils byteFromUInt8:arrint] %@",[SocketUtils byteFromUInt8:arrint]);
+        }
+    }
+
+    
+    
+//        [data_service appendData:[self RequestSpliceAttribute:mdPhonePushService.push_client_ip[i]]];
+//    }
+    NSLog(@"data_service1122== %@",data_service);
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_MDPushService]];
+    
+    for (int y = 0; y < cs_MDPushService.client_count; y++) {
+        NSArray * arr = mdPhonePushService.push_client_ip[y];
+        for (int i = 0; i<4; i++) {
+            NSArray * arrtemp ;
+            arrtemp= [[NSArray alloc]init];
+            arrtemp =  arr;
+            uint8_t arrint = [arrtemp[3-i] intValue];// 8位
+            NSLog(@"arrint22: %d",arrint);
+            [data_service appendData:[SocketUtils byteFromUInt8:arrint]];
+            NSLog(@"[SocketUtils byteFromUInt8:arrint] %@",[SocketUtils byteFromUInt8:arrint]);
+        }
+    }
+    
+    NSLog(@"finaldatapush: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] GetPushDeviceInfo_socket];
+}
+//手机投机顶盒录制
+-(void)SetCSMDPushLive
+{
+    NSLog(@"发送投屏信息");
+    
+    cs_MDPushFile.module_name= @"MDMM";
+    cs_MDPushFile.Ret=0;
+    cs_MDPushFile.Reserved=APDE_Identify;
+    
+    
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        cs_MDPushFile.client_ip= [self getIPArr];
+    } while (ISNULL(cs_MDPushService.client_ip));
+    
+    
+    
+    cs_MDPushFile.client_port = (uint32_t)[_socket localPort] ;
+    
+    cs_MDPushFile.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    cs_MDPushFile.command_type = DTV_SERVICE_MD_GET_PLAY_DEVICE ;
+    //    cs_MDPushService.data_len = cs_MDPushService.device_client_name.length+15;;
+    
+    
+    
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData;
+    serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:cs_MDPushFile];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:cs_MDPushFile]];
+    NSLog(@"finaldata: %@",data_service);
+    NSLog(@"finaldata.length: %d",data_service.length);
+    
+    //转换成字节后，存起来
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
+    
+    [userDef synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] GetPushDeviceInfo_socket];
+}
 //int 转16进制
 - (NSString *)hexFromInt:(NSInteger)val {
     //    NSLog(@"int %d",val);

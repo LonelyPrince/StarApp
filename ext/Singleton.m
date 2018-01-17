@@ -8,12 +8,10 @@
 
 #import "Singleton.h"
 #import <sys/socket.h>
-
 #import <netinet/in.h>
-
 #import <arpa/inet.h>
-
 #import <unistd.h>
+#import "GGUtil.h"
 
 //#import "SocketModel.h"
 @implementation Singleton
@@ -175,9 +173,9 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
-///获取投屏设备信息（待完善）
+///获取投屏设备信息
 -(void)GetPushDeviceInfo_socket{
-    
+    NSLog(@"发送投屏信息11");
     // 根据服务器要求发送固定格式的数据
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     NSMutableData * data_service = [[NSMutableData alloc]init];
@@ -188,6 +186,33 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
 }
+///手机投机顶盒直播
+-(void)CSMDPushToSTBService_socket{
+    NSLog(@"发送投屏信息11");
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"CSMDPushToSTBService_socketInfo"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
+///手机投机顶盒录制
+-(void)CSMDPushToSTBLive_socket{
+    NSLog(@"发送投屏信息11");
+    // 根据服务器要求发送固定格式的数据
+    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
+    NSMutableData * data_service = [[NSMutableData alloc]init];
+    
+    data_service = [userDef objectForKey:@"CSMDPushToSTBLive_socketInfo"];
+    //    NSLog(@"singleton data_service :%@",data_service);
+    
+    [self.socket writeData:data_service withTimeout:1 tag:2];
+    
+}
+
 // 切断socket
 -(void)cutOffSocket{
     
@@ -388,7 +413,36 @@
                                     [self readSocketCommandTypeISZero:bigDataReduceSmallData];
                                 }
                                     break;
+                                case 31:
+                                {
+                                    NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
                                     
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt ) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
+                                    [self readSocketCommandTypeISThirtyOne:bigDataReduceSmallData];
+                                }
+                                    break;
                                 case 12:
                                 {
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
@@ -785,7 +839,13 @@
                         
                     }
                         break;
+                    case 31:
+                    {
+                        NSLog(@"playState---== socket 正在播放的命令");
+                        [self readSocketCommandTypeISThirtyOne:data];
                         
+                    }
+                        break;
                     case 12:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
@@ -986,7 +1046,36 @@
                                     
                                 }
                                     break;
+                                case 31:
+                                {
+                                    NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
                                     
+                                    //首先获得第二段数据的长度 （52，4）
+                                    //======
+                                    
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    [self readSocketCommandTypeISThirtyOne:bigDataReduceSmallData];
+                                    
+                                }
+                                    break;
                                 case 12:
                                 {
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
@@ -1377,7 +1466,13 @@
                         [self readSocketCommandTypeISZero:data];
                     }
                         break;
+                    case 31:
+                    {
+                        NSLog(@"playState---== socket 正在播放的命令");
                         
+                        [self readSocketCommandTypeISThirtyOne:data];
+                    }
+                        break;
                     case 12:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
@@ -1836,5 +1931,101 @@
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     NSLog(@"测试播放33333333333333");
+}
+//获取投屏播放信息   case = 31
+-(void)readSocketCommandTypeISThirtyOne :(NSData *)dataToOperate
+{
+ 
+    uint32_t dataLengthForUrl;
+    NSData * dataForDataLength;
+    if ([dataToOperate length] >=  28) {
+    dataForDataLength = [dataToOperate subdataWithRange:NSMakeRange(24,4)];
+    dataLengthForUrl = [SocketUtils uint32FromBytes:dataForDataLength];
+    NSLog(@" dataLengthForUrl %d",dataLengthForUrl);
+    }else
+    {
+        return;
+    }
+
+    if ([dataToOperate length] >=  dataLengthForUrl) {
+        
+        dataToOperate = [dataToOperate subdataWithRange:NSMakeRange(0,dataLengthForUrl + 28)];
+        
+        NSLog(@" dataToOperate ==  %@",dataToOperate);
+        
+    }else
+    {
+        return;
+    }
+ 
+    uint8_t deviceNum = 0;
+    NSData * deviceDataNum = [dataToOperate subdataWithRange:NSMakeRange(37,1)] ;
+    deviceNum = [SocketUtils uint8FromBytes:deviceDataNum];
+    NSLog(@"dataToOperate-=-= %d",deviceNum);
+    dataToOperate = [dataToOperate subdataWithRange:NSMakeRange(38,dataLengthForUrl-10)];
+    NSMutableArray * pushDataOne = [[NSMutableArray alloc]init];
+    NSMutableArray * pushDataAll = [[NSMutableArray alloc]init];
+    
+    int range = 0;
+    for (int i = 0; i < deviceNum; i++) {
+        // IP
+        NSData * IPData = [dataToOperate subdataWithRange:NSMakeRange(range, 4)];
+        range = range +4;
+        NSString * IPStr = [GGUtil switchDataToIp:IPData];
+        //name length
+        NSData * nameLengthData = [dataToOperate subdataWithRange:NSMakeRange(range , 1)];
+        range = range + 1;
+        uint8_t nameLengthInt = [SocketUtils uint8FromBytes:nameLengthData];
+        NSLog(@"nameLengthData-=-= %d",nameLengthInt);
+        NSString * nameStr;
+        if (dataToOperate.length > 5 + nameLengthInt) {
+            //name
+            NSData * nameData = [dataToOperate subdataWithRange:NSMakeRange(range, nameLengthInt)];
+            range = range + nameLengthInt;
+            nameStr = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
+            NSLog(@"nameStr %@",nameStr);
+        }
+       
+        [pushDataOne addObject:IPStr];
+        NSNumber * nameLengthNum = [NSNumber numberWithInt:nameLengthInt];
+        [pushDataOne addObject:nameLengthNum];
+        [pushDataOne addObject:nameStr];
+        [pushDataAll addObject:[pushDataOne mutableCopy]];
+        [pushDataOne removeAllObjects];
+    }
+    NSLog(@"pushaaaAAA %@",pushDataAll);
+    NSLog(@"pushaaaAAA.count %d",pushDataAll.count);
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:pushDataAll,@"pushDataAll",nil];
+    NSNotification *notification1 =[NSNotification notificationWithName:@"setPushDataNotific" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+//
+//    uint32_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
+//
+//    NSLog(@" dataToOperate %@",dataToOperate);
+//    if(data_Refresh_Status_int == 0) //正确
+//    {
+//        //        //发送播放命令
+//        //        //创建通知
+//        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+//        //        //通过通知中心发送通知
+//        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//        //
+//        //        //                        STBDencryptVideoTouchNotific
+//        NSLog(@"列表为空不做操作");
+//    }else  //if(data_Refresh_Status_int == 1) //验证错误
+//    {
+//
+//        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+//
+//        NSLog(@"列表不为空 需要做操作");
+//    }
+//
+//
+   
 }
 @end

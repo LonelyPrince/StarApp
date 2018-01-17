@@ -463,16 +463,16 @@ CGFloat buttonSpacerHeight = 0;
      ];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if (!self.closeOnTouchUpOutside) {
-        return;
-    }
-    
-    UITouch *touch = [touches anyObject];
-    if ([touch.view isKindOfClass:[JXCustomAlertView class]]) {
-        [self close];
-    }
-}
+//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    if (!self.closeOnTouchUpOutside) {
+//        return;
+//    }
+//
+//    UITouch *touch = [touches anyObject];
+//    if ([touch.view isKindOfClass:[JXCustomAlertView class]]) {
+//        [self close];
+//    }
+//}
 
 @end
 

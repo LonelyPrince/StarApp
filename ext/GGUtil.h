@@ -107,6 +107,7 @@
 + (NSString *)timeHMSWithTimeIntervalString:(NSString *)timeString;
 + (NSString *)timeYMDHMWithTimeIntervalString:(NSString *)timeString;
 +(double)getSystemVersion;
++(NSString *)switchDataToIp:(NSData *)data;
 @end
 
 

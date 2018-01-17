@@ -226,15 +226,15 @@
         
     }else if (type == LIVE_RECORD) //        return 2;//@"录制";
     {
-        NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+        NSString * MLRecordingNOS = NSLocalizedString(@"MLRecordingNOS", nil);
         self.programeClass.image = [UIImage imageNamed:@"录制"];
         
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
-            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLRecording,[epgDic objectForKey:@"event_name"]];
+            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,[epgDic objectForKey:@"event_name"]];
         }else{
             NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
-            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLRecording,NOEventLabel];
+            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,NOEventLabel];
             self.nameLab.text = NOEventLabelTemp;
         }
         

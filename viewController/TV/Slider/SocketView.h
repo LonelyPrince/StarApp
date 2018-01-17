@@ -11,6 +11,7 @@
 
 #import "SocketModel.h"
 #import "Cs_serviceREC.h"
+#import "MDPhonePushService.h"
 extern NSString * const TYPE_UINT8;
 extern NSString * const TYPE_UINT16;
 extern NSString * const TYPE_UINT32;
@@ -36,9 +37,12 @@ extern NSString * const TYPE_ARRAY;
 @property(nonatomic,strong)Cs_GetRouteIPAddress * cs_getRouteIPAddress;         //8
 @property(nonatomic,strong)Cs_GetPushDeviceInfo * cs_GetPushDeviceInfo;         //9
 @property(nonatomic,strong)Cs_serviceREC * cs_serviceREC;  //播放录制文件
+@property(nonatomic,strong)Cs_MDPushService * cs_MDPushService;  //手机投屏播放直播
+@property(nonatomic,strong)Cs_MDPushFile * cs_MDPushFile;         //手机投屏播放录制
 
 
 @property(nonatomic,strong)ServiceModel *socket_ServiceModel;
+@property(nonatomic,strong)MDPhonePushService * mdPhonePushService;
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
 -(void)serviceTouch;
@@ -48,6 +52,11 @@ extern NSString * const TYPE_ARRAY;
 -(void)csGetResource;
 -(void)csGetRouteIPAddress;
 -(void)serviceRECTouch;
+-(void)csGetPushInfo;
+///手机直播投机顶盒
+-(void)SetCSMDPushService;
+//手机投机顶盒录制
+-(void)SetCSMDPushLive;
 
 -(int)getCRC : (NSData *)data ;
 + (NSMutableData *)GetNowTimes;

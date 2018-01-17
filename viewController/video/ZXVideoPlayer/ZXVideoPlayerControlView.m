@@ -104,7 +104,6 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         [self.topBar addSubview:self.channelIdLab];
         [self.topBar addSubview:self.pushBtn];
-        self.pushBtn.alpha = 0;
         [self.topBar addSubview:self.channelNameLab];
         [self.topBar addSubview:self.FulleventNameLab];
         [self.topBar addSubview:self.FullEventYFlabel];

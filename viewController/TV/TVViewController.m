@@ -15,6 +15,7 @@
 #import "UIViewController+animationView.h"
 #import "UITextField+NOPasteTextField.h"
 #import "JXCustomAlertView.h"
+#import "MDPhonePushService.h"
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 #define EndMJRefreshTime 12  //下拉刷新做12秒超时处理
 
@@ -98,6 +99,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSArray * getLastCategoryArr;
     NSArray * getLastRecFileArr;
     BOOL channelListMustRefresh;
+    NSMutableArray * pushDataMutilArr;
+    NSMutableArray * phonePushOtherArr;
+    NSMutableArray * pushBtnSelectArr;
+    pushViewCell * tempPushViewCell;
+ 
 }
 
 
@@ -180,6 +186,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @synthesize viewFirstShowTimer;
 @synthesize nowPlayChannelInfo;
 @synthesize pushTableView;
+@synthesize pushViewCell;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     
@@ -367,6 +374,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    pushBtnSelectArr = [[NSMutableArray alloc]init];
     pushTableView = [[UITableView alloc]init];
     nowPlayChannelInfo = [[NowPlayChannelInfo alloc]init];
     nowPlayChannelInfo.numberOfCategoryInt = 0;
@@ -423,6 +431,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.CategoryAndREC = [[NSMutableArray alloc]init];
     self.RECAndLiveCellForRowsDic = [[NSMutableArray alloc]init];
+    pushDataMutilArr = [[NSMutableArray alloc]init];
+    phonePushOtherArr = [[NSMutableArray alloc]init];
 }
 
 #pragma mark - 获取Json数据的方法
@@ -1444,7 +1454,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
     
     if ([tableView isEqual:pushTableView]) {
-        return 2;
+        return phonePushOtherArr.count ;
     }else
     {
         int playTypeClass;
@@ -1493,26 +1503,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([tableView isEqual:pushTableView]) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        pushViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
         
         if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+            cell = [[pushViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
         }
         
-        UIImageView * pushTypeImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 5, 15, 15)];
-        pushTypeImage.image = [UIImage imageNamed:@"BeSelect"];
-        [cell addSubview:pushTypeImage];
+        cell.pushTypeImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
+        cell.pushTypeImage.image = [UIImage imageNamed:@"pushPhone"];
+        [cell addSubview:cell.pushTypeImage];
         
-        UILabel * pushDeviceLab = [[UILabel alloc]initWithFrame:CGRectMake(40, 5, 200, 10)];
-        pushDeviceLab.text = @"HMC020202020202020202020";
-        [cell addSubview:pushDeviceLab];
+        cell.pushDeviceLab = [[UILabel alloc]initWithFrame:CGRectMake(55, 21, 200, 10)];
+        cell.pushDeviceLab.text = phonePushOtherArr[indexPath.row][2];
+        cell.pushDeviceLab.font = FONT(13);
+        [cell addSubview:cell.pushDeviceLab];
+
+//        cell.pushConfirmBtn = [[UIButton alloc]initWithFrame:CGRectMake(250, 15, 20, 20)];
+//        [cell.pushConfirmBtn.layer setBorderWidth:2.0f];
+//        [cell addSubview:cell.pushConfirmBtn];
+//        [cell.pushConfirmBtn.layer setBorderWidth:0];
+
+        cell.pushBtnImageView = [[UIImageView alloc]initWithFrame:CGRectMake(250, 15, 20, 20)];
+        [cell addSubview:cell.pushBtnImageView];
+        cell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
         
-        UIButton * pushConfirmBtn = [[UIButton alloc]initWithFrame:CGRectMake(220, 5, 20, 20)];
-        [pushConfirmBtn.layer setBorderWidth:2.0f];
-        [cell addSubview:pushConfirmBtn];
         
-        
-        //        indexPath.row == _selectCellIndex ? (cell.accessoryType =UITableViewCellAccessoryCheckmark) : (cell.accessoryType = UITableViewCellAccessoryNone);
+//        indexPath.row == _selectCellIndex ? (cell.accessoryType =UITableViewCellAccessoryCheckmark) : (cell.accessoryType = UITableViewCellAccessoryNone);
         
         indexPath.row ==  (cell.accessoryType = UITableViewCellAccessoryNone);
         return cell;
@@ -1669,86 +1685,196 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
     }
 }
+///点击了投屏弹窗的选择按钮点击事件
+-(void)PushSelectBtnClick:(int)index
+{
+//        int pushDataArrCount = pushDataMutilArr.count;
+//
+//        NSString * str = pushBtnSelectArr[index];
+//        if ([str isEqualToString:@"NO"]) {
+//            [pushBtnSelectArr setObject:@"YES" atIndexedSubscript:index];
+//            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"BeSelect"];
+//        }else
+//        {
+//            [pushBtnSelectArr setObject:@"NO" atIndexedSubscript:index];
+//            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
+//        }
+//        NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
+    
+    
+    
+}
+///点击了投屏弹窗的选择确定按钮
+-(void)PushSelectBtnClick
+{
+    NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
+    
+//    for (int i = 0; i < pushBtnSelectArr.count ; i++) {
+//        if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
+//            <#statements#>
+//        }
+//    }
+    
+//    self.videoController.socketView1 = self.socketView;
+    socketView.mdPhonePushService = [[MDPhonePushService alloc]init];
+    
+    socketView.mdPhonePushService.service_tuner_type = socketView.socket_ServiceModel.service_tuner_mode;
+    socketView.mdPhonePushService.service_network_id = socketView.socket_ServiceModel.service_network_id;
+    socketView.mdPhonePushService.service_ts_id = socketView.socket_ServiceModel.service_ts_id;
+    socketView.mdPhonePushService.service_service_id = socketView.socket_ServiceModel.service_service_id;
+    socketView.mdPhonePushService.audio_pid = socketView.socket_ServiceModel.audio_pid;
+    socketView.mdPhonePushService.subt_pid = socketView.socket_ServiceModel.subt_pid;
+    NSString * clientName = [NSString stringWithFormat:@"Phone%@",[GGUtil deviceVersion]];
+    socketView.mdPhonePushService.client_name = clientName;
+    socketView.mdPhonePushService.client_name_len = clientName.length;
+    socketView.mdPhonePushService.push_type = 0;
+    
+    int tempCount = 0;
+    NSMutableArray *pushDataMutableArray = [[NSMutableArray alloc]init];
+    for (int i = 0; i < pushBtnSelectArr.count ; i++) {
+        if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
+            tempCount ++;
+            NSString * astr = phonePushOtherArr[i][0];
+            NSLog(@"arrrrri %d",i);
+            NSLog(@"astr %@",astr);
+            [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
+        }
+    }
+    NSLog(@"tempCount %d",tempCount);
+    socketView.mdPhonePushService.client_count = tempCount;
+    
+    NSLog(@"pushDataMutableArray %@",pushDataMutableArray);
+    socketView.mdPhonePushService.push_client_ip = pushDataMutableArray;
+    
+    
+    [self.socketView  SetCSMDPushService ];
+    
+    
+}
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    
-    [self updateFullScreenDic];
-    TVViewTouchPlay = YES;
-    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
-    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-    
-    [self getCategoryAndIndex];
-    
-    tempBoolForServiceArr = YES;
-    tempArrForServiceArr =  self.categoryModel.service_indexArr;
-    tempDicForServiceArr = self.TVChannlDic;
-    NSLog(@"self.TVChannlDic %@",self.TVChannlDic);
-    self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-    self.video.channelCount = tempArrForServiceArr.count;
-    tempIndexpathForFocus = indexPath;
-    nowPlayChannelInfo.numberOfRowInt = indexPath.row;
-    
-    //====快速切换频道名称和节目名称
-    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-    NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
-    //创建通知
-    NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification2];
-    //====快速切换频道名称和节目名称
-    
-    
-    indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
-    [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
-    
-    //=====则去掉不能播放的字样，加上加载环
-    //    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
-    //    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    //
-    //    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-    //    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self removeLabAndAddIndecatorView];
-    //=====则去掉不能播放的字样，加上加载环
-    
-    
-    //加入历史记录
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    if ([tableView isEqual:pushTableView]) {
         
-        [self addHistory:indexPath.row diction:self.dicTemp];
-        [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
-        [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-        [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
-        [self.videoController setaudioOrSubtRowIsZero];
+        int pushIndex = indexPath.row;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        NSLog(@"pushIndex %d",pushIndex);
+        
+        NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
+//        [self PushSelectBtnClick:indexPath.row];
+   
+         tempPushViewCell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        
+        int pushDataArrCount = pushDataMutilArr.count;
+        
+        NSString * str = pushBtnSelectArr[indexPath.row];
+        if ([str isEqualToString:@"NO"]) {
+            [pushBtnSelectArr setObject:@"YES" atIndexedSubscript:indexPath.row];
+            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"BeSelect"];
+        }else
+        {
+            [pushBtnSelectArr setObject:@"NO" atIndexedSubscript:indexPath.row];
+            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
+        }
+        
+//        if (tempPushViewCell.selected == NO) {
+//
+//            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"BeSelect"];
+//            tempPushViewCell.selected = YES;
+//            NSLog(@"aksjfbajbfa");
+//        }else  {
+//            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
+//            tempPushViewCell.selected = NO;
+//            NSLog(@"aksjfbajbfa111");
+//        }
+        
+        
+//        TVCell *cell = [tempTableviewForFocus cellForRowAtIndexPath:indexPath];
+//
+//        [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//        [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//        [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+        
+        
+        
+    }else{
+        [self updateFullScreenDic];
+        TVViewTouchPlay = YES;
+        //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+        [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+        
+        [self getCategoryAndIndex];
+        
+        tempBoolForServiceArr = YES;
+        tempArrForServiceArr =  self.categoryModel.service_indexArr;
+        tempDicForServiceArr = self.TVChannlDic;
+        NSLog(@"self.TVChannlDic %@",self.TVChannlDic);
+        self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+        self.video.channelCount = tempArrForServiceArr.count;
+        tempIndexpathForFocus = indexPath;
+        nowPlayChannelInfo.numberOfRowInt = indexPath.row;
+        
+        //====快速切换频道名称和节目名称
+        NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+        //创建通知
+        NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        //====快速切换频道名称和节目名称
+        
+        
+        indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
+        [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
+        
+        //=====则去掉不能播放的字样，加上加载环
+        //    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+        //    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        //
+        //    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+        //    [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [self removeLabAndAddIndecatorView];
+        //=====则去掉不能播放的字样，加上加载环
+        
+        
+        //加入历史记录
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
-            [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
+            [self addHistory:indexPath.row diction:self.dicTemp];
+            [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+            [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+            [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+            [self.videoController setaudioOrSubtRowIsZero];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
+                [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
+            });
+            //变蓝
+            
         });
-        //变蓝
         
-    });
-    
-    //    //关闭当前正在播放的节目
-    [self.videoController.player stop];
-    [self.videoController.player shutdown];
-    [self.videoController.player.view removeFromSuperview];
-    
-    if ([tableView numberOfSections] > 0) {
-        if (indexPath.row > 0) {
-            if ([tableView numberOfSections] > 0 && [tableView numberOfRowsInSection:0] > 0) {
-                [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        //    //关闭当前正在播放的节目
+        [self.videoController.player stop];
+        [self.videoController.player shutdown];
+        [self.videoController.player.view removeFromSuperview];
+        
+        if ([tableView numberOfSections] > 0) {
+            if (indexPath.row > 0) {
+                if ([tableView numberOfSections] > 0 && [tableView numberOfRowsInSection:0] > 0) {
+                    [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+                }
+                
             }
             
         }
         
+        
     }
-    
-    
-    
     
 }
 
@@ -2746,6 +2872,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self returnFromHomeToTVViewNotific];   //用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
         [self cantDeliveryNotific]; //停止分发的通知，这个时候显示停止分发的提示语
         [self popPushAlertView]; //增加投屏弹窗弹出的通知
+        [self setPushDataNotific];///创建通知，用于列表数据
     });
     
     
@@ -8172,8 +8299,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [pushAlertView setContainerView:[self createPushView]];
     
     
-    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:@"关闭", @"确定", nil]];
-    pushAlertView.buttonTitleColors = @[[UIColor redColor]];
+    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel", @"Sharing", nil]];
+    pushAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
     
     pushAlertView.closeOnTouchUpOutside = YES;
     pushAlertView.useMotionEffects = YES;
@@ -8182,6 +8309,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [pushAlertView setOnButtonTouchUpInside:^(JXCustomAlertView *pushAlertView, int buttonIndex) {
         NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[pushAlertView tag]);
+        
+        if (buttonIndex == 0) { //点击了取消
+            NSLog(@"点击了取消按钮");
+            [self.videoController setPushBtnHasClickNO];
+        }else
+        {
+            //发送通知
+            [self PushSelectBtnClick];
+            [self.videoController setPushBtnHasClickNO];
+        }
         [pushAlertView close];
     }];
     
@@ -8197,35 +8334,41 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)popPushAlertViewNotific
 {
-    [self createAlertView];
+    ///发送通知获取Push列表
+    [self.socketView csGetPushInfo];  //密码六位
+  
+    
+  
+    
+    
 }
 
-//- (void)hideTabBar {
-//
-//    NSLog(@"asbakbfkabsfbasbfkjab");
-//    if (self.tabBarController.tabBar.hidden == YES) {
-//
-//        return;
-//
-//    }
-//
-//    UIView *contentView;
-//
-//    if ( [[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] )
-//
-//        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-//
-//    else
-//
-//        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-//
-//    contentView.frame = CGRectMake(contentView.bounds.origin.x,  contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height + self.tabBarController.tabBar.frame.size.height);
-//
-//    self.tabBarController.tabBar.hidden = YES;
-//
-//
-//
-//}
-@end
+///快速设置频道名称和节目名称等信息
+-(void)setPushDataNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setPushDataNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushData:) name:@"setPushDataNotific" object:nil];
+}
+-(void)setPushData:(NSNotification *)text{
+    NSMutableArray * pushDataAllArr = text.userInfo[@"pushDataAll"];
+    NSLog(@"pushDataAllArr= %@",pushDataAllArr);
+    pushDataMutilArr = pushDataAllArr;
+    
+    NSString * strName = [NSString stringWithFormat:@"%@",[GGUtil deviceVersion]];
+    [pushBtnSelectArr removeAllObjects];
+    [phonePushOtherArr removeAllObjects];
+    for (int i = 0; i< pushDataMutilArr.count;i++) {
+        if (![pushDataMutilArr[i][2] isEqualToString:strName]) {
+            [phonePushOtherArr addObject:pushDataMutilArr[i]];
+            [pushBtnSelectArr addObject:@"NO"];
+        }
+    }
+    NSLog(@"phonePushOtherArr %@",phonePushOtherArr);
+   
 
+    [self createAlertView];
+}
+@end
 
