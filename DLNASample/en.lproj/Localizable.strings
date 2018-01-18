@@ -196,3 +196,5 @@
 "MLLive"                    = "      Live    ";
 //89.monitor直播
 "MMLLive"                   = "Live";
+//90.share
+"MMShare"                   = "Share";

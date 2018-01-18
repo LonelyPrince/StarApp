@@ -55,6 +55,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  socket_ServiceModel;  //给service传值用
 @synthesize  cs_serviceREC;
 @synthesize  mdPhonePushService;
+@synthesize  filePushService;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -760,16 +761,32 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_MDPushFile.client_ip= [self getIPArr];
-    } while (ISNULL(cs_MDPushService.client_ip));
+    } while (ISNULL(cs_MDPushFile.client_ip));
     
     
     
     cs_MDPushFile.client_port = (uint32_t)[_socket localPort] ;
-    
     cs_MDPushFile.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
-    cs_MDPushFile.command_type = DTV_SERVICE_MD_GET_PLAY_DEVICE ;
-    //    cs_MDPushService.data_len = cs_MDPushService.device_client_name.length+15;;
+    cs_MDPushFile.command_type = DTV_SERVICE_MD_PUSH_FILE ;
     
+    
+    cs_MDPushFile.file_name_len = filePushService.file_name_len;
+    cs_MDPushFile.file_name = filePushService.file_name;
+    cs_MDPushFile.client_name_len = filePushService.client_name_len;;
+    cs_MDPushFile.client_name = filePushService.client_name;
+    
+    cs_MDPushFile.push_type = filePushService.push_type;
+    NSLog(@"cs_MDPushFile.push_type %hhu",cs_MDPushFile.push_type);
+    cs_MDPushFile.client_count = filePushService.client_count;
+    NSLog(@"cs_MDPushFile.client_count %hhu",cs_MDPushFile.client_count);
+    
+    int dataLen = 13 + filePushService.client_name_len +filePushService.file_name_len+ filePushService.client_count*4 ;
+    NSLog(@"filePushService.file_name %@",filePushService.file_name);
+    NSLog(@"filePushService.client_name %@",filePushService.client_name);
+    NSLog(@"filePushService.file_name_len %d",filePushService.file_name_len);
+    NSLog(@"filePushService.client_name_len %d",filePushService.client_name_len);
+    cs_MDPushFile.data_len = dataLen;
+    NSLog(@"dataLendataLendataLen %d",dataLen);
     
     
     //除了CRC和tag其他数据
@@ -781,9 +798,22 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     serviceCRCData = [[NSMutableData alloc]init];
     
     //1.tag转data
-    
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_MDPushFile];
+    NSLog(@"cs_MDPushServiceaa== %@",cs_MDPushFile);
+    for (int y = 0; y < filePushService.client_count; y++) {
+        NSArray * arr = filePushService.push_client_ip[y];
+        for (int i = 0; i<4; i++) {
+            NSArray * arrtemp ;
+            arrtemp= [[NSArray alloc]init];
+            arrtemp =  arr;
+            uint8_t arrint = [arrtemp[3-i] intValue];// 8位
+            NSLog(@"arrint22: %d",arrint);
+            [data_service appendData:[SocketUtils byteFromUInt8:arrint]];
+            NSLog(@"[SocketUtils byteFromUInt8:arrint] %@",[SocketUtils byteFromUInt8:arrint]);
+        }
+    }
+    
     
     [serviceCRCData appendData:data_service];   //CRC是除了tag和service
     
@@ -795,17 +825,31 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //3.计算CRC
     [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
     [data_service appendData:[self RequestSpliceAttribute:cs_MDPushFile]];
-    NSLog(@"finaldata: %@",data_service);
+    
+    for (int y = 0; y < filePushService.client_count; y++) {
+        NSArray * arr = filePushService.push_client_ip[y];
+        for (int i = 0; i<4; i++) {
+            NSArray * arrtemp ;
+            arrtemp= [[NSArray alloc]init];
+            arrtemp =  arr;
+            uint8_t arrint = [arrtemp[3-i] intValue];// 8位
+            NSLog(@"arrint22: %d",arrint);
+            [data_service appendData:[SocketUtils byteFromUInt8:arrint]];
+            NSLog(@"[SocketUtils byteFromUInt8:arrint] %@",[SocketUtils byteFromUInt8:arrint]);
+        }
+    }
+    
+    NSLog(@"finaldatapushfile: %@",data_service);
     NSLog(@"finaldata.length: %d",data_service.length);
     
     //转换成字节后，存起来
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
-    [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
+    [userDef setObject:data_service forKey:@"CSMDPushToSTBLive_socketInfo"];
     
     [userDef synchronize];//把数据同步到本地
     
     
-    [[Singleton sharedInstance] GetPushDeviceInfo_socket];
+    [[Singleton sharedInstance] CSMDPushToSTBLive_socket];
 }
 //int 转16进制
 - (NSString *)hexFromInt:(NSInteger)val {

@@ -15,7 +15,9 @@
 #import "UIViewController+animationView.h"
 #import "UITextField+NOPasteTextField.h"
 #import "JXCustomAlertView.h"
+#import "GetPushInfoAlertView.h"
 #import "MDPhonePushService.h"
+#import "FilePushService.h"
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 #define EndMJRefreshTime 12  //下拉刷新做12秒超时处理
 
@@ -1071,6 +1073,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 //搜索按钮
 -(void)searchBtnClick
+//{
+//    [self  createGetAlertView];
+//}
 {
     //    searchViewCon = [[SearchViewController alloc]init];
     //    searchViewCon.tableView = [[UITableView alloc]init];
@@ -1078,9 +1083,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    searchViewCon.dataList =  [searchViewCon getServiceArray ];
     //    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
     //     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
-    
+
     //    [self.navigationController pushViewController:searchViewCon animated:YES];
-    
+
     //    /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
         [self.navigationController pushViewController:searchViewCon animated:YES];
@@ -1095,16 +1100,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //
     //    //停止播放
     //    [self.socketView  deliveryPlayExit];
-    
+
     ////    密码校验
     //     [self.socketView passwordCheck];
-    
+
     //    //获取分发资源信息
     //    [self.socketView csGetResource];
-    
-    
+
+
     //    [self isSTBDEncrypt:@"3"];
-    
+
 }
 
 //************************************************
@@ -1709,50 +1714,78 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
     
-//    for (int i = 0; i < pushBtnSelectArr.count ; i++) {
-//        if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
-//            <#statements#>
-//        }
-//    }
     
-//    self.videoController.socketView1 = self.socketView;
-    socketView.mdPhonePushService = [[MDPhonePushService alloc]init];
+    if([self.video.channelId  isEqual: @""] || [self.video.channelId isEqualToString:@""]){
     
-    socketView.mdPhonePushService.service_tuner_type = socketView.socket_ServiceModel.service_tuner_mode;
-    socketView.mdPhonePushService.service_network_id = socketView.socket_ServiceModel.service_network_id;
-    socketView.mdPhonePushService.service_ts_id = socketView.socket_ServiceModel.service_ts_id;
-    socketView.mdPhonePushService.service_service_id = socketView.socket_ServiceModel.service_service_id;
-    socketView.mdPhonePushService.audio_pid = socketView.socket_ServiceModel.audio_pid;
-    socketView.mdPhonePushService.subt_pid = socketView.socket_ServiceModel.subt_pid;
-    NSString * clientName = [NSString stringWithFormat:@"Phone%@",[GGUtil deviceVersion]];
-    socketView.mdPhonePushService.client_name = clientName;
-    socketView.mdPhonePushService.client_name_len = clientName.length;
-    socketView.mdPhonePushService.push_type = 0;
-    
-    int tempCount = 0;
-    NSMutableArray *pushDataMutableArray = [[NSMutableArray alloc]init];
-    for (int i = 0; i < pushBtnSelectArr.count ; i++) {
-        if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
-            tempCount ++;
-            NSString * astr = phonePushOtherArr[i][0];
-            NSLog(@"arrrrri %d",i);
-            NSLog(@"astr %@",astr);
-            [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
+        socketView.filePushService = [[FilePushService alloc]init];
+        socketView.filePushService.file_name = socketView.cs_serviceREC.file_name;
+        socketView.filePushService.file_name_len = socketView.cs_serviceREC.file_name_len;
+        socketView.filePushService.client_name = socketView.cs_serviceREC.client_name;
+        socketView.filePushService.client_name_len = socketView.cs_serviceREC.client_name_len;
+        socketView.filePushService.push_type = 0;
+        
+        
+        int tempCount = 0;
+        NSMutableArray *pushDataMutableArray = [[NSMutableArray alloc]init];
+        for (int i = 0; i < pushBtnSelectArr.count ; i++) {
+            if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
+                tempCount ++;
+                NSString * astr = phonePushOtherArr[i][0];
+                NSLog(@"arrrrri %d",i);
+                NSLog(@"astr %@",astr);
+                [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
+            }
         }
+        NSLog(@"tempCount %d",tempCount);
+        socketView.filePushService.client_count = tempCount;
+        
+        NSLog(@"pushDataMutableArray %@",pushDataMutableArray);
+        socketView.filePushService.push_client_ip = pushDataMutableArray;
+        
+        
+        [self.socketView  SetCSMDPushLive];
+    }else
+    {
+        socketView.mdPhonePushService = [[MDPhonePushService alloc]init];
+        
+        socketView.mdPhonePushService.service_tuner_type = socketView.socket_ServiceModel.service_tuner_mode;
+        socketView.mdPhonePushService.service_network_id = socketView.socket_ServiceModel.service_network_id;
+        socketView.mdPhonePushService.service_ts_id = socketView.socket_ServiceModel.service_ts_id;
+        socketView.mdPhonePushService.service_service_id = socketView.socket_ServiceModel.service_service_id;
+        socketView.mdPhonePushService.audio_pid = socketView.socket_ServiceModel.audio_pid;
+        socketView.mdPhonePushService.subt_pid = socketView.socket_ServiceModel.subt_pid;
+        NSString * clientName = [NSString stringWithFormat:@"Phone%@",[GGUtil deviceVersion]];
+        socketView.mdPhonePushService.client_name = clientName;
+        socketView.mdPhonePushService.client_name_len = clientName.length;
+        socketView.mdPhonePushService.push_type = 0;
+        
+        int tempCount = 0;
+        NSMutableArray *pushDataMutableArray = [[NSMutableArray alloc]init];
+        for (int i = 0; i < pushBtnSelectArr.count ; i++) {
+            if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
+                tempCount ++;
+                NSString * astr = phonePushOtherArr[i][0];
+                NSLog(@"arrrrri %d",i);
+                NSLog(@"astr %@",astr);
+                [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
+            }
+        }
+        NSLog(@"tempCount %d",tempCount);
+        socketView.mdPhonePushService.client_count = tempCount;
+        
+        NSLog(@"pushDataMutableArray %@",pushDataMutableArray);
+        socketView.mdPhonePushService.push_client_ip = pushDataMutableArray;
+        
+        
+        [self.socketView  SetCSMDPushService ];
     }
-    NSLog(@"tempCount %d",tempCount);
-    socketView.mdPhonePushService.client_count = tempCount;
-    
-    NSLog(@"pushDataMutableArray %@",pushDataMutableArray);
-    socketView.mdPhonePushService.push_client_ip = pushDataMutableArray;
-    
-    
-    [self.socketView  SetCSMDPushService ];
+   
+   
     
     
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+{  
     if ([tableView isEqual:pushTableView]) {
         
         int pushIndex = indexPath.row;
@@ -8298,8 +8331,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [pushAlertView setContainerView:[self createPushView]];
     
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+    NSString * MMShare = NSLocalizedString(@"MMShare", nil);
     
-    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel", @"Sharing", nil]];
+    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
     pushAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
     
     pushAlertView.closeOnTouchUpOutside = YES;
@@ -8370,5 +8405,107 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     [self createAlertView];
 }
+
+#pragma mark - 接收投屏弹窗
+- (UIView *)createGetPushAlertView
+{
+    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 100)];
+    
+    
+    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
+    
+    //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
+    
+    pushTableView.layer.cornerRadius = 7;
+    pushTableView.layer.masksToBounds = YES;
+    pushTableView.delegate = self;
+    pushTableView.dataSource = self;
+    [PushView addSubview:pushTableView];
+    
+    
+    return PushView;
+    
+}
+-(void)createGetAlertView{
+    GetPushInfoAlertView *pushAlertView = [[GetPushInfoAlertView alloc] init];
+    
+    [pushAlertView setContainerView:[self createGetPushAlertView]];
+    
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+    NSString * MMShare = NSLocalizedString(@"MMShare", nil);
+    
+    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
+    pushAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
+    
+    pushAlertView.closeOnTouchUpOutside = YES;
+    pushAlertView.useMotionEffects = YES;
+    
+    
+    
+    [pushAlertView setOnButtonTouchUpInside:^(GetPushInfoAlertView *pushAlertView, int buttonIndex) {
+        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[pushAlertView tag]);
+        
+        if (buttonIndex == 0) { //点击了取消
+            NSLog(@"点击了取消按钮");
+            [self.videoController setPushBtnHasClickNO];
+        }else
+        {
+            //发送通知
+            [self PushSelectBtnClick];
+            [self.videoController setPushBtnHasClickNO];
+        }
+        [pushAlertView close];
+    }];
+    
+    
+    [pushAlertView show];
+}
+
+
+//-(void)popPushAlertView
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"popPushAlertViewNotific" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popPushAlertViewNotific) name:@"popPushAlertViewNotific" object:nil];
+//
+//}
+//-(void)popPushAlertViewNotific
+//{
+//    ///发送通知获取Push列表
+//    [self.socketView csGetPushInfo];  //密码六位
+//
+//
+//
+//
+//
+//}
+
+/////快速设置频道名称和节目名称等信息
+//-(void)setPushDataNotific
+//{
+//    //此处销毁通知，防止一个通知被多次调用    // 1
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setPushDataNotific" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushData:) name:@"setPushDataNotific" object:nil];
+//}
+//-(void)setPushData:(NSNotification *)text{
+////    NSMutableArray * pushDataAllArr = text.userInfo[@"pushDataAll"];
+////    NSLog(@"pushDataAllArr= %@",pushDataAllArr);
+////    pushDataMutilArr = pushDataAllArr;
+////
+////    NSString * strName = [NSString stringWithFormat:@"%@",[GGUtil deviceVersion]];
+////    [pushBtnSelectArr removeAllObjects];
+////    [phonePushOtherArr removeAllObjects];
+////    for (int i = 0; i< pushDataMutilArr.count;i++) {
+////        if (![pushDataMutilArr[i][2] isEqualToString:strName]) {
+////            [phonePushOtherArr addObject:pushDataMutilArr[i]];
+////            [pushBtnSelectArr addObject:@"NO"];
+////        }
+////    }
+////    NSLog(@"phonePushOtherArr %@",phonePushOtherArr);
+////
+//
+//    [self createAlertView];
+//}
 @end
 

@@ -207,7 +207,6 @@
     NSMutableData * data_service = [[NSMutableData alloc]init];
     
     data_service = [userDef objectForKey:@"CSMDPushToSTBLive_socketInfo"];
-    //    NSLog(@"singleton data_service :%@",data_service);
     
     [self.socket writeData:data_service withTimeout:1 tag:2];
     

@@ -12,6 +12,7 @@
 #import "SocketModel.h"
 #import "Cs_serviceREC.h"
 #import "MDPhonePushService.h"
+#import "FilePushService.h"
 extern NSString * const TYPE_UINT8;
 extern NSString * const TYPE_UINT16;
 extern NSString * const TYPE_UINT32;
@@ -43,6 +44,7 @@ extern NSString * const TYPE_ARRAY;
 
 @property(nonatomic,strong)ServiceModel *socket_ServiceModel;
 @property(nonatomic,strong)MDPhonePushService * mdPhonePushService;
+@property(nonatomic,strong)FilePushService * filePushService;
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
 -(void)serviceTouch;

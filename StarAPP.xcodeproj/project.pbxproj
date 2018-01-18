@@ -111,6 +111,7 @@
 		701443401DDD3708008EAAC6 /* GroupEnter@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014433D1DDD3708008EAAC6 /* GroupEnter@1x.png */; };
 		701443411DDD3708008EAAC6 /* GroupEnter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014433E1DDD3708008EAAC6 /* GroupEnter@2x.png */; };
 		701443421DDD3708008EAAC6 /* GroupEnter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7014433F1DDD3708008EAAC6 /* GroupEnter@3x.png */; };
+		7015A98F20107B37000B9DE9 /* GetPushInfoAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7015A98E20107B37000B9DE9 /* GetPushInfoAlertView.m */; };
 		70170BD51D74038B00CC3951 /* StarMainTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BD41D74038B00CC3951 /* StarMainTabController.m */; };
 		70170BD81D7403AC00CC3951 /* TVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BD71D7403AC00CC3951 /* TVViewController.m */; };
 		70170BDB1D7403C300CC3951 /* MEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70170BDA1D7403C300CC3951 /* MEViewController.m */; };
@@ -873,6 +874,8 @@
 		7014433D1DDD3708008EAAC6 /* GroupEnter@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupEnter@1x.png"; sourceTree = "<group>"; };
 		7014433E1DDD3708008EAAC6 /* GroupEnter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupEnter@2x.png"; sourceTree = "<group>"; };
 		7014433F1DDD3708008EAAC6 /* GroupEnter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GroupEnter@3x.png"; sourceTree = "<group>"; };
+		7015A98D20107B37000B9DE9 /* GetPushInfoAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetPushInfoAlertView.h; sourceTree = "<group>"; };
+		7015A98E20107B37000B9DE9 /* GetPushInfoAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetPushInfoAlertView.m; sourceTree = "<group>"; };
 		70170BCF1D7401C800CC3951 /* AppApiConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppApiConstants.h; sourceTree = "<group>"; };
 		70170BD01D7401C800CC3951 /* AppPerportyConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppPerportyConstants.h; sourceTree = "<group>"; };
 		70170BD11D7401C800CC3951 /* GGMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGMacros.h; sourceTree = "<group>"; };
@@ -2314,6 +2317,8 @@
 			children = (
 				7036B1401FFDDDCC00A3244F /* JXCustomAlertView.h */,
 				7036B1411FFDDDCC00A3244F /* JXCustomAlertView.m */,
+				7015A98D20107B37000B9DE9 /* GetPushInfoAlertView.h */,
+				7015A98E20107B37000B9DE9 /* GetPushInfoAlertView.m */,
 			);
 			path = PushAlertView;
 			sourceTree = "<group>";
@@ -3682,6 +3687,7 @@
 				701295191D80F4CF003139D5 /* UIActionSheet+Blocks.m in Sources */,
 				7024C5D01DD0B2A10053F313 /* LinkViewController.m in Sources */,
 				701295221D80F4CF003139D5 /* UIView+Utils.m in Sources */,
+				7015A98F20107B37000B9DE9 /* GetPushInfoAlertView.m in Sources */,
 				70FB8AF81F380BD900AA3FCE /* UITextField+NOPasteTextField.m in Sources */,
 				60CAD2A4159C461300B7E28C /* UPnPDeviceTableViewCell.m in Sources */,
 				7033AA2F1E8209EB005C2A43 /* KVO_NoDataPic.m in Sources */,
