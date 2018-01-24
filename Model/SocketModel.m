@@ -60,3 +60,11 @@
 @implementation Cs_MDPushFile
 @end
 
+//12.电视直播投手机
+@implementation Sc_MDOtherPushService
+@end
+
+//13.电视录制投手机
+@implementation Sc_MDOtherPushLive
+@end
+

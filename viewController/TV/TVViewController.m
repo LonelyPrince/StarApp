@@ -18,6 +18,8 @@
 #import "GetPushInfoAlertView.h"
 #import "MDPhonePushService.h"
 #import "FilePushService.h"
+#import "OtherDevicePushService.h"
+#import "OtherDevicePushLive.h"
 #define SCREEN_FRAME ([UIScreen mainScreen].bounds)
 #define EndMJRefreshTime 12  //下拉刷新做12秒超时处理
 
@@ -105,7 +107,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSMutableArray * phonePushOtherArr;
     NSMutableArray * pushBtnSelectArr;
     pushViewCell * tempPushViewCell;
- 
+    UILabel * pushSecNumLab ;
+    UIView * blueCircleView ;
+    int timeNum ;
+    GetPushInfoAlertView * JXAlertView;
+    NSString * channnelNameString;
+    int pushChannelId;
+    NSMutableDictionary * allChannelsDic ;
 }
 
 
@@ -159,6 +167,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @property (nonatomic, strong) NSTimer *viewFirstShowTimer; //用于第一次展示时，计算多少秒刷新tableView列表
 @property (strong,nonatomic)NSMutableArray * CategoryAndREC;        //category和REC录制组合起来之后的数组
 @property (strong,nonatomic)NSMutableDictionary * RECAndLiveCellForRowsDic;  //用于
+@property (nonatomic, strong) NSTimer *pushTVTimer;   //进度条的计时器
 ///*
 // 字幕 音轨
 // */
@@ -186,6 +195,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @synthesize progressEPGArrIndex;
 @synthesize ONEMinuteTimer;
 @synthesize viewFirstShowTimer;
+@synthesize pushTVTimer;
 @synthesize nowPlayChannelInfo;
 @synthesize pushTableView;
 @synthesize pushViewCell;
@@ -376,6 +386,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    blueCircleView = [[UIView alloc]init];
+    pushSecNumLab = [[UILabel alloc]init];
     pushBtnSelectArr = [[NSMutableArray alloc]init];
     pushTableView = [[UITableView alloc]init];
     nowPlayChannelInfo = [[NowPlayChannelInfo alloc]init];
@@ -1598,18 +1610,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
                 [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
                 
-                
             }
-            
-            
+ 
         }else{//如果为空，什么都不执行
         }
-        
-        
+ 
         return cell;
     }
-    
-    
     
 }
 -(void)refreshTableFocus
@@ -2906,6 +2913,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self cantDeliveryNotific]; //停止分发的通知，这个时候显示停止分发的提示语
         [self popPushAlertView]; //增加投屏弹窗弹出的通知
         [self setPushDataNotific];///创建通知，用于列表数据
+        [self OtherDevicePushToPhoneNotific];
+        [self OtherDevicePushToPhoneLiveNotific];
     });
     
     
@@ -3490,7 +3499,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                 NSLog(@"ajsbdakjbfsabfasbflkab %@",self.dicTemp);
                 
-                
+                [self performChangeColor];
                 
                 double delayInSeconds = 0.5;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -6963,12 +6972,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSLog(@"tuner_type_str == %d",program_character_int);
         
-        
-        
         NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
         NSDictionary * serviceArrForJudge_dic ;
-        
-        
         
         for (int i = 0; i<serviceArrForJudge.count; i++) {
             serviceArrForJudge_dic = serviceArrForJudge[i];
@@ -8409,59 +8414,241 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 接收投屏弹窗
 - (UIView *)createGetPushAlertView
 {
-    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 100)];
+    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 130)];
+    PushView.backgroundColor = [UIColor whiteColor];
+    PushView.layer.cornerRadius = 7;
+    
+    blueCircleView = [[UIView alloc]init];
+    blueCircleView.backgroundColor = RGB(80, 143, 231);
+    blueCircleView.frame = CGRectMake((PushView.frame.size.width-45)/2, 8,45, 45);
+    blueCircleView.alpha = 0.6;
+    blueCircleView.layer.cornerRadius = 45/2;
+    
+    [PushView addSubview:blueCircleView];
+    
+    UILabel * getPushInfoLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, (PushView.frame.size.width-30), 100)];
+    getPushInfoLab.text = [NSString stringWithFormat:@"%@ sharing the program %@ to you",socketView.otherDevicePushService.src_client_name,channnelNameString];
+    getPushInfoLab.numberOfLines = 0;
+    getPushInfoLab.font = FONT(13);
+    [PushView addSubview:getPushInfoLab];
     
     
-    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
     
-    //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
+    pushSecNumLab = [[UILabel alloc]init];
+    pushSecNumLab.frame = CGRectMake(7, 1, 45, 45);
+//    pushSecNumLab.text = @"4s";
+        pushSecNumLab.text = @"60s";
     
-    pushTableView.layer.cornerRadius = 7;
-    pushTableView.layer.masksToBounds = YES;
-    pushTableView.delegate = self;
-    pushTableView.dataSource = self;
-    [PushView addSubview:pushTableView];
+    [self setPushSecNumLabFrame];
+
+    pushSecNumLab.font = FONT(18);
+    pushSecNumLab.textColor = [UIColor whiteColor];
+    [blueCircleView addSubview:pushSecNumLab];
     
+    
+    
+    
+//    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
+//
+//    //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
+//
+//    pushTableView.layer.cornerRadius = 7;
+//    pushTableView.layer.masksToBounds = YES;
+//    pushTableView.delegate = self;
+//    pushTableView.dataSource = self;
+//    [PushView addSubview:pushTableView];
+//
+    timeNum = 60;
+     pushTVTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pushTVTimerReduce) userInfo:nil repeats:YES];
     
     return PushView;
     
-}
--(void)createGetAlertView{
-    GetPushInfoAlertView *pushAlertView = [[GetPushInfoAlertView alloc] init];
     
-    [pushAlertView setContainerView:[self createGetPushAlertView]];
+}
+#pragma mark - 接收投屏弹窗录制
+- (UIView *)createLiveGetPushAlertView
+{
+    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 130)];
+    PushView.backgroundColor = [UIColor whiteColor];
+    PushView.layer.cornerRadius = 7;
+    
+    blueCircleView = [[UIView alloc]init];
+    blueCircleView.backgroundColor = RGB(80, 143, 231);
+    blueCircleView.frame = CGRectMake((PushView.frame.size.width-45)/2, 8,45, 45);
+    blueCircleView.alpha = 0.6;
+    blueCircleView.layer.cornerRadius = 45/2;
+    
+    [PushView addSubview:blueCircleView];
+    
+    UILabel * getPushInfoLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, (PushView.frame.size.width-30), 100)];
+    getPushInfoLab.text = [NSString stringWithFormat:@"%@ sharing the program %@ to you",socketView.otherDevicePushLive.src_client_name,channnelNameString];
+    getPushInfoLab.numberOfLines = 0;
+    getPushInfoLab.font = FONT(13);
+    [PushView addSubview:getPushInfoLab];
+    
+    
+    
+    pushSecNumLab = [[UILabel alloc]init];
+    pushSecNumLab.frame = CGRectMake(7, 1, 45, 45);
+    //    pushSecNumLab.text = @"4s";
+    pushSecNumLab.text = @"60s";
+    
+    [self setPushSecNumLabFrame];
+    
+    pushSecNumLab.font = FONT(18);
+    pushSecNumLab.textColor = [UIColor whiteColor];
+    [blueCircleView addSubview:pushSecNumLab];
+    
+    
+    
+    
+    //    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
+    //
+    //    //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
+    //
+    //    pushTableView.layer.cornerRadius = 7;
+    //    pushTableView.layer.masksToBounds = YES;
+    //    pushTableView.delegate = self;
+    //    pushTableView.dataSource = self;
+    //    [PushView addSubview:pushTableView];
+    //
+    timeNum = 60;
+    pushTVTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pushTVTimerReduce) userInfo:nil repeats:YES];
+    
+    return PushView;
+    
+    
+}
+///改变弹出按钮的时间
+-(void) pushTVTimerReduce
+{
+    timeNum --;
+    if (timeNum > 0) {
+        pushSecNumLab.text = [NSString stringWithFormat:@"%ds",timeNum];
+        [self setPushSecNumLabFrame];
+    }else
+    {
+        [JXAlertView close];
+        [pushTVTimer invalidate];
+//        pushTVTimer = nil;
+    }
+    
+}
+///设置投屏时倒计时的位置
+-(void)setPushSecNumLabFrame
+{
+    if (pushSecNumLab.text.length > 2) {
+        pushSecNumLab.frame = CGRectMake(7, 1, 45, 45);
+        [blueCircleView addSubview:pushSecNumLab];
+    }else
+    {
+        pushSecNumLab.frame = CGRectMake(12, 1, 45, 45);
+        [blueCircleView addSubview:pushSecNumLab];
+    }
+}
+///创建机顶盒分享视频到手机
+-(void)createGetAlertView{
+    
+    JXAlertView = [[GetPushInfoAlertView alloc] init];
+    
+    [JXAlertView setContainerView:[self createGetPushAlertView]];
     
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
     NSString * MMShare = NSLocalizedString(@"MMShare", nil);
     
-    [pushAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
-    pushAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
+    [JXAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
+    JXAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
     
-    pushAlertView.closeOnTouchUpOutside = YES;
-    pushAlertView.useMotionEffects = YES;
+    JXAlertView.closeOnTouchUpOutside = YES;
+    JXAlertView.useMotionEffects = YES;
     
+//    JXAlertView
     
-    
-    [pushAlertView setOnButtonTouchUpInside:^(GetPushInfoAlertView *pushAlertView, int buttonIndex) {
-        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[pushAlertView tag]);
+    [JXAlertView setOnButtonTouchUpInside:^(GetPushInfoAlertView *JXAlertView, int buttonIndex) {
+        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[JXAlertView tag]);
         
         if (buttonIndex == 0) { //点击了取消
             NSLog(@"点击了取消按钮");
             [self.videoController setPushBtnHasClickNO];
+            [pushTVTimer invalidate];
         }else
         {
             //发送通知
             [self PushSelectBtnClick];
             [self.videoController setPushBtnHasClickNO];
+            [pushTVTimer invalidate];
+            
+            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
+            firstOpenAPP = firstOpenAPP+1;
+            
+            double delayInSeconds = 0.5;
+            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, mainQueue, ^{
+                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
+                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+            });
         }
-        [pushAlertView close];
+        [JXAlertView close];
     }];
     
     
-    [pushAlertView show];
+    [JXAlertView show];
+    
+   
 }
 
-
+///创建机顶盒分享视频到手机录制
+-(void)createLiveGetAlertView{
+    
+    JXAlertView = [[GetPushInfoAlertView alloc] init];
+    
+    [JXAlertView setContainerView:[self createLiveGetPushAlertView]];
+    
+    NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+    NSString * MMShare = NSLocalizedString(@"MMShare", nil);
+    
+    [JXAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
+    JXAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
+    
+    JXAlertView.closeOnTouchUpOutside = YES;
+    JXAlertView.useMotionEffects = YES;
+    
+    //    JXAlertView
+    
+    [JXAlertView setOnButtonTouchUpInside:^(GetPushInfoAlertView *JXAlertView, int buttonIndex) {
+        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[JXAlertView tag]);
+        
+        if (buttonIndex == 0) { //点击了取消
+            NSLog(@"点击了取消按钮");
+            [self.videoController setPushBtnHasClickNO];
+            [pushTVTimer invalidate];
+        }else
+        {
+            //发送通知
+            [self PushSelectBtnClick];
+            [self.videoController setPushBtnHasClickNO];
+            [pushTVTimer invalidate];
+            
+            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
+            firstOpenAPP = firstOpenAPP+1;
+            
+            double delayInSeconds = 0.5;
+            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, mainQueue, ^{
+                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
+                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+            });
+        }
+        [JXAlertView close];
+    }];
+    
+    
+    [JXAlertView show];
+    
+    
+}
 //-(void)popPushAlertView
 //{
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"popPushAlertViewNotific" object:nil];
@@ -8507,5 +8694,289 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //
 //    [self createAlertView];
 //}
+
+///其他设备投屏手机
+-(void)OtherDevicePushToPhoneNotific
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setOtherDevicePushToPhoneNotific" object:nil];
+    //    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OtherDevicePushToPhone:) name:@"setOtherDevicePushToPhoneNotific" object:nil];
+}
+-(void)OtherDevicePushToPhone:(NSNotification *)text{
+
+    NSLog(@"sbiasdbasbdabsdubasdiua");
+    NSData * data = text.userInfo[@"playdata"];
+    NSLog(@"sbiasdbasbdabsdubasdiua %@",data);
+    
+    NSData * tunerTypeData = [data subdataWithRange:NSMakeRange(37,4)];
+    NSData * netWorkIdData = [data subdataWithRange:NSMakeRange(41,2)];
+    NSData * tsIdData = [data subdataWithRange:NSMakeRange(43,2)];
+    NSData * serviceIdData = [data subdataWithRange:NSMakeRange(45,2)];
+    NSData * audioPidData = [data subdataWithRange:NSMakeRange(47,2)];
+    NSData * subtPidData = [data subdataWithRange:NSMakeRange(49,2)];
+    NSData * srcClientIpData = [data subdataWithRange:NSMakeRange(51,4)];
+    NSData * srcClientNameLenData = [data subdataWithRange:NSMakeRange(55,1)];
+    NSData * srcClientNameData = [data subdataWithRange:NSMakeRange(56,data.length - 56)];
+    
+    socketView.otherDevicePushService.service_tuner_type = [SocketUtils uint32FromBytes:tunerTypeData];
+    socketView.otherDevicePushService.service_network_id = [SocketUtils uint16FromBytes:netWorkIdData];
+    socketView.otherDevicePushService.service_ts_id =[SocketUtils uint16FromBytes:tsIdData];
+    socketView.otherDevicePushService.service_service_id = [SocketUtils uint16FromBytes:serviceIdData];
+    socketView.otherDevicePushService.audio_pid = [SocketUtils uint16FromBytes:audioPidData];
+    socketView.otherDevicePushService.subt_pid = [SocketUtils uint16FromBytes:subtPidData];
+//    socketView.otherDevicePushService.src_push_client_ip = [[NSString alloc]initWithData:srcClientIpData encoding:NSUTF8StringEncoding];
+    socketView.otherDevicePushService.src_client_name_len = [SocketUtils uint8FromBytes:srcClientNameLenData] ;
+    socketView.otherDevicePushService.src_client_name = [[NSString alloc]initWithData:srcClientNameData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_tuner_type);
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_network_id);
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_ts_id);
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_service_id);
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.audio_pid);
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.subt_pid);
+    NSLog(@"tunerTypeData %@",[GGUtil switchDataToIp:srcClientIpData]);
+    
+    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.src_client_name_len);
+    NSLog(@"tunerTypeData %@",socketView.otherDevicePushService.src_client_name);
+    
+   
+//    socketView.otherDevicePushService.src_client_name =
+    
+    
+    
+//    int tempCount = 0;
+//    NSMutableArray *pushDataMutableArray = [[NSMutableArray alloc]init];
+//    for (int i = 0; i < pushBtnSelectArr.count ; i++) {
+//        if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
+//            tempCount ++;
+//            NSString * astr = phonePushOtherArr[i][0];
+//            NSLog(@"arrrrri %d",i);
+//            NSLog(@"astr %@",astr);
+//            [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
+//        }
+//    }
+    
+    //1.判断是不是一个节目
+    //2.弹窗，展示信息
+    
+    NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"]; //历史数据
+    NSArray * nowPlayChannel_Arr ;
+    if (arrHistoryNow.count >= 1) {
+        nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
+    }else
+    {
+        return;
+    }
+    NSLog(@"nowPlayChannel_Arr=== %@",nowPlayChannel_Arr);
+    NSInteger row = [nowPlayChannel_Arr[2] intValue];
+    NSDictionary * dic3 = nowPlayChannel_Arr [3];
+    NSDictionary * dic1 = nowPlayChannel_Arr [0];
+    
+    NSLog(@"nowPlayChannel_Arr===dic11 %@",dic1);
+ 
+    //用于判断是不是需要弹窗
+    if ([[dic1 objectForKey:@"service_tuner_mode"] intValue] == socketView.otherDevicePushService.service_tuner_type && [[dic1 objectForKey:@"service_network_id"] intValue] ==socketView.otherDevicePushService.service_network_id && [[dic1 objectForKey:@"service_ts_id"] intValue] ==socketView.otherDevicePushService.service_ts_id && [[dic1 objectForKey:@"service_service_id"] intValue] ==socketView.otherDevicePushService.service_service_id )
+    {
+        NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
+    }else
+    {
+        
+        for (int i = 0; i<self.dicTemp.count; i++) {
+            [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
+            NSLog(@"i - 1%d",(i));
+            
+            
+            //原始数据
+            NSString * service_network =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_network_id"];
+            NSString * service_ts =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_ts_id"];
+            NSString * service_service =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_service_id"];
+            NSString * service_tuner =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_tuner_mode"];
+            
+//            NSString * newservice_network =  ;
+//            NSString * newservice_ts ;
+//            NSString * newservice_service ;
+//            NSString * newservice_tuner ;
+            //新添加的数据
+            if(arrHistoryNow.count >= 1)
+            {
+//                newservice_network =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_network_id"];
+//                newservice_ts =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_ts_id"];
+//                newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
+//                newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
+//
+//
+                
+                
+                
+                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
+                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
+                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_network_id"] intValue]);
+                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
+                
+                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_ts_id"] intValue]);
+                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_ts_id);
+                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_service_id"] intValue]);
+                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_service_id);
+                
+                
+                if ([service_network intValue] == socketView.otherDevicePushService.service_network_id && [service_ts intValue] == socketView.otherDevicePushService.service_ts_id && [service_tuner intValue] == socketView.otherDevicePushService.service_tuner_type && [service_service intValue] == socketView.otherDevicePushService.service_service_id) {
+                    //证明节目存在，不需要刷新
+//                    allisNO = NO;
+                    
+                    NSLog(@"iiiiii %d",i);
+                    
+                    channnelNameString = [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_name"];
+//                    [self firstOpenAppAutoPlay:i diction:self.dicTemp];
+//                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    pushChannelId = i;
+                    NSLog(@"channnelNameString %@",channnelNameString);
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        NSLog(@"cnmccmcmcncmn");
+        
+        //弹窗
+        [self  createGetAlertView];
+        
+        
+        
+       
+        
+        
+    }
+    
+}
+///其他设备投屏手机Live
+-(void)OtherDevicePushToPhoneLiveNotific
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setOtherDevicePushToPhoneLiveNotific" object:nil];
+    //    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OtherDevicePushToPhoneLive:) name:@"setOtherDevicePushToPhoneLiveNotific" object:nil];
+}
+-(void)OtherDevicePushToPhoneLive:(NSNotification *)text{
+    
+    NSLog(@"sbiasdbasbdabsdubasdiua");
+    NSData * data = text.userInfo[@"playdata"];
+    NSLog(@"sbiasdbasbdabsdubasdiua %@",data);
+    
+    NSData * fileNameLenData = [data subdataWithRange:NSMakeRange(37,1)];
+    NSData * fileNameData = [data subdataWithRange:NSMakeRange(38,[SocketUtils uint8FromBytes:fileNameLenData])];
+ 
+    NSData * srcClientIpData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData],4)];
+    NSData * srcClientNameLenData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData]+4,1)];
+    NSData * srcClientNameData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData]+5,[SocketUtils uint8FromBytes:srcClientNameLenData])];
+   
+    
+    socketView.otherDevicePushLive.file_name_len = [SocketUtils uint8FromBytes:fileNameLenData];
+    socketView.otherDevicePushLive.file_name = [[NSString alloc]initWithData:fileNameData encoding:NSUTF8StringEncoding];
+//    socketView.otherDevicePushLive.src_push_client_ip =[SocketUtils uint16FromBytes:tsIdData];
+    socketView.otherDevicePushLive.src_client_name_len = [SocketUtils uint8FromBytes:srcClientNameLenData];
+    socketView.otherDevicePushLive.src_client_name = [[NSString alloc]initWithData:srcClientNameData encoding:NSUTF8StringEncoding];
+    
+    
+    NSLog(@"tunerTypeData22 %d",socketView.otherDevicePushLive.file_name_len);
+    NSLog(@"tunerTypeData22 %@",socketView.otherDevicePushLive.file_name);
+    NSLog(@"tunerTypeData22 %d",socketView.otherDevicePushLive.src_client_name_len);
+    NSLog(@"tunerTypeData22 %@",socketView.otherDevicePushLive.src_client_name);
+    
+   
+    
+    
+    //1.判断是不是一个节目
+    //2.弹窗，展示信息
+    
+    NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"]; //历史数据
+    NSArray * nowPlayChannel_Arr ;
+    if (arrHistoryNow.count >= 1) {
+        nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
+    }else
+    {
+        return;
+    }
+    NSLog(@"nowPlayChannel_Arr=== %@",nowPlayChannel_Arr);
+    NSInteger row = [nowPlayChannel_Arr[2] intValue];
+    NSDictionary * dic3 = nowPlayChannel_Arr [3];
+    NSDictionary * dic1 = nowPlayChannel_Arr [0];
+    
+    NSLog(@"nowPlayChannel_Arr===dic11 %@",dic1);
+    
+    //用于判断是不是需要弹窗
+    if ([[dic1 objectForKey:@"file_name"] isEqualToString: socketView.otherDevicePushLive.file_name])
+    {
+        NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
+    }else
+    {
+        NSLog(@"self.dicTemp=-= %@",self.dicTemp);
+        for (int i = 0; i<self.dicTemp.count; i++) {
+            [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
+            NSLog(@"i - 1%d",(i));
+            
+            
+            //原始数据
+            NSString * file_name_live =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"file_name"];
+//            NSString * service_ts =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_ts_id"];
+//            NSString * service_service =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_service_id"];
+//            NSString * service_tuner =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_tuner_mode"];
+            
+            //            NSString * newservice_network =  ;
+            //            NSString * newservice_ts ;
+            //            NSString * newservice_service ;
+            //            NSString * newservice_tuner ;
+            //新添加的数据
+            if(arrHistoryNow.count >= 1)
+            {
+                //                newservice_network =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_network_id"];
+                //                newservice_ts =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_ts_id"];
+                //                newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
+                //                newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
+                //
+                //
+                
+                
+                
+//                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
+//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_network_id"] intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
+//
+//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_ts_id"] intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_ts_id);
+//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_service_id"] intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_service_id);
+                
+                
+                if ([file_name_live isEqualToString:socketView.otherDevicePushLive.file_name]) {
+                   
+                    NSLog(@"iiiiii %d",i);
+                    
+                    channnelNameString = [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"file_name"];
+                   
+                    
+                    pushChannelId = i;
+                    NSLog(@"channnelNameString %@",channnelNameString);
+                    
+                }
+                
+            }
+            
+        }
+        
+        //弹窗
+        [self  createLiveGetAlertView];
+ 
+    }
+    
+}
+//[USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
 @end
 

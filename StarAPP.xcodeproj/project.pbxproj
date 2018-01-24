@@ -418,6 +418,7 @@
 		70495DED1FE360A800C435F8 /* RouterStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70495DEA1FE360A700C435F8 /* RouterStatusView.m */; };
 		70495DEE1FE360A800C435F8 /* RouterStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70495DEB1FE360A700C435F8 /* RouterStatusView.xib */; };
 		704F215F1E5D1D570062EE86 /* YFRollingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 704F215E1E5D1D570062EE86 /* YFRollingLabel.m */; };
+		704F396A201771FD002B0535 /* OtherDevicePushLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 704F3969201771FD002B0535 /* OtherDevicePushLive.m */; };
 		705650641DB9B95F002DD47E /* AudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650621DB9B95F002DD47E /* AudioCell.m */; };
 		705650651DB9B95F002DD47E /* AudioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 705650631DB9B95F002DD47E /* AudioCell.xib */; };
 		705650691DB9EFA2002DD47E /* subtCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 705650671DB9EFA2002DD47E /* subtCell.m */; };
@@ -514,6 +515,7 @@
 		70A19CE21F00A72800DCB18E /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A19CE11F00A72800DCB18E /* VideoToolbox.framework */; };
 		70A21D121FFB39F30095DACE /* 投屏横@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70A21D0E1FFB39F20095DACE /* 投屏横@2x.png */; };
 		70A21D131FFB39F30095DACE /* 投屏横@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70A21D111FFB39F30095DACE /* 投屏横@3x.png */; };
+		70ADB3CC2015B62F00CB053F /* OtherDevicePushService.m in Sources */ = {isa = PBXBuildFile; fileRef = 70ADB3CB2015B62F00CB053F /* OtherDevicePushService.m */; };
 		70B41A212004935900930846 /* Input@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A1E2004935800930846 /* Input@1x.png */; };
 		70B41A222004935900930846 /* Input@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A1F2004935800930846 /* Input@3x.png */; };
 		70B41A232004935900930846 /* Input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A202004935800930846 /* Input@2x.png */; };
@@ -1221,6 +1223,8 @@
 		70495DEC1FE360A700C435F8 /* RouterStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouterStatusView.h; sourceTree = "<group>"; };
 		704F215D1E5D1D570062EE86 /* YFRollingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFRollingLabel.h; sourceTree = "<group>"; };
 		704F215E1E5D1D570062EE86 /* YFRollingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFRollingLabel.m; sourceTree = "<group>"; };
+		704F3968201771FD002B0535 /* OtherDevicePushLive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherDevicePushLive.h; sourceTree = "<group>"; };
+		704F3969201771FD002B0535 /* OtherDevicePushLive.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherDevicePushLive.m; sourceTree = "<group>"; };
 		705650611DB9B95F002DD47E /* AudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioCell.h; sourceTree = "<group>"; };
 		705650621DB9B95F002DD47E /* AudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioCell.m; sourceTree = "<group>"; };
 		705650631DB9B95F002DD47E /* AudioCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCell.xib; sourceTree = "<group>"; };
@@ -1326,6 +1330,8 @@
 		70A19CE11F00A72800DCB18E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		70A21D0E1FFB39F20095DACE /* 投屏横@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投屏横@2x.png"; sourceTree = "<group>"; };
 		70A21D111FFB39F30095DACE /* 投屏横@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投屏横@3x.png"; sourceTree = "<group>"; };
+		70ADB3CA2015B62F00CB053F /* OtherDevicePushService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OtherDevicePushService.h; sourceTree = "<group>"; };
+		70ADB3CB2015B62F00CB053F /* OtherDevicePushService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OtherDevicePushService.m; sourceTree = "<group>"; };
 		70B41A1E2004935800930846 /* Input@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@1x.png"; sourceTree = "<group>"; };
 		70B41A1F2004935800930846 /* Input@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@3x.png"; sourceTree = "<group>"; };
 		70B41A202004935800930846 /* Input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@2x.png"; sourceTree = "<group>"; };
@@ -1643,6 +1649,10 @@
 				70226C3F2008AE4700A0281F /* MDPhonePushService.m */,
 				7038ECB4200F65F70016E350 /* FilePushService.h */,
 				7038ECB5200F65F70016E350 /* FilePushService.m */,
+				70ADB3CA2015B62F00CB053F /* OtherDevicePushService.h */,
+				70ADB3CB2015B62F00CB053F /* OtherDevicePushService.m */,
+				704F3968201771FD002B0535 /* OtherDevicePushLive.h */,
+				704F3969201771FD002B0535 /* OtherDevicePushLive.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3645,6 +3655,7 @@
 				7036B0E71F29FAAC0043533D /* UICustomAlertView.m in Sources */,
 				701294E41D80F4A3003139D5 /* NSData+JSONCategories.m in Sources */,
 				A4A66A151555E44100AED3AF /* MasterViewController.m in Sources */,
+				70ADB3CC2015B62F00CB053F /* OtherDevicePushService.m in Sources */,
 				70FC30FC1D75714E00BD06FE /* ZXVideoPlayerTimeIndicatorView.m in Sources */,
 				7012951F1D80F4CF003139D5 /* UITabBarItem+custom.m in Sources */,
 				701295251D80F4CF003139D5 /* UIViewController+NavItem.m in Sources */,
@@ -3714,6 +3725,7 @@
 				70FC30FA1D75714E00BD06FE /* ZXVideoPlayerController.m in Sources */,
 				7012951B1D80F4CF003139D5 /* UILabel+FormattedText.m in Sources */,
 				70FC30FB1D75714E00BD06FE /* ZXVideoPlayerControlView.m in Sources */,
+				704F396A201771FD002B0535 /* OtherDevicePushLive.m in Sources */,
 				7012951A1D80F4CF003139D5 /* UIAlertView+Blocks.m in Sources */,
 				701295141D80F4CF003139D5 /* MBProgressHUD+Add.m in Sources */,
 				7056506E1DB9F1E1002DD47E /* ChannelCell.m in Sources */,

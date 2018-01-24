@@ -291,3 +291,56 @@
 
 @end
 
+
+
+
+///12.电视直播投手机
+@interface Sc_MDOtherPushService : NSObject
+
+@property (nonatomic, strong) NSString *  module_name;
+@property (nonatomic, assign) uint32_t  Ret;
+@property (nonatomic, assign) uint32_t  Reserved;
+@property (nonatomic, strong) NSArray *   client_ip;
+@property (nonatomic, assign) uint32_t  data_len;
+
+//data区域
+@property (nonatomic, assign) uint32_t  client_port;
+@property (nonatomic, assign) uint32_t  unique_id;        //系统时间  唯一标识
+@property (nonatomic, assign) uint8_t  command_type;       //类型枚举
+
+@property (nonatomic, assign) uint32_t    tuner_type;
+@property (nonatomic, assign) uint16_t    network_id;
+@property (nonatomic, assign) uint16_t    ts_id;             //http请求获得的
+@property (nonatomic, assign) uint16_t    service_id;        //http请求获得的
+@property (nonatomic, assign) uint16_t    audio_pid;       //http请求获得的，有可能获取多个，此处可以任选一个
+@property (nonatomic, assign) uint16_t    subt_pid;      //http请求获得的，此处可能为空默认0
+@property (nonatomic, assign) uint8_t     src_client_name_len;   //client_name的长度
+@property (nonatomic, strong) NSString *  src_client_name;  //phone+型号
+
+
+@end
+
+
+
+///13.电视直播投手机
+@interface Sc_MDOtherPushLive : NSObject
+
+@property (nonatomic, strong) NSString *  module_name;
+@property (nonatomic, assign) uint32_t  Ret;
+@property (nonatomic, assign) uint32_t  Reserved;
+@property (nonatomic, strong) NSArray *   client_ip;
+@property (nonatomic, assign) uint32_t  data_len;
+
+//data区域
+@property (nonatomic, assign) uint32_t  client_port;
+@property (nonatomic, assign) uint32_t  unique_id;        //系统时间  唯一标识
+@property (nonatomic, assign) uint8_t  command_type;       //类型枚举
+
+
+@property (nonatomic, assign) uint8_t     file_name_len;   //client_name的长度
+@property (nonatomic, strong) NSString *  file_name;  //phone+型号
+
+@property (nonatomic, assign) uint8_t     src_client_name_len;   //client_name的长度
+@property (nonatomic, strong) NSString *  src_client_name;  //phone+型号
+
+@end

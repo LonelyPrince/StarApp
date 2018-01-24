@@ -13,6 +13,8 @@
 #import "Cs_serviceREC.h"
 #import "MDPhonePushService.h"
 #import "FilePushService.h"
+#import "OtherDevicePushService.h"
+#import "OtherDevicePushLive.h"
 extern NSString * const TYPE_UINT8;
 extern NSString * const TYPE_UINT16;
 extern NSString * const TYPE_UINT32;
@@ -41,10 +43,17 @@ extern NSString * const TYPE_ARRAY;
 @property(nonatomic,strong)Cs_MDPushService * cs_MDPushService;  //手机投屏播放直播
 @property(nonatomic,strong)Cs_MDPushFile * cs_MDPushFile;         //手机投屏播放录制
 
+@property(nonatomic,strong)Sc_MDOtherPushService * sc_MDOtherPushService;
+@property(nonatomic,strong)Sc_MDOtherPushLive * sc_MDOtherPushLive;     
+
+@property(nonatomic,strong)OtherDevicePushService * otherDevicePushService;
+@property(nonatomic,strong)OtherDevicePushLive * otherDevicePushLive;
 
 @property(nonatomic,strong)ServiceModel *socket_ServiceModel;
 @property(nonatomic,strong)MDPhonePushService * mdPhonePushService;
 @property(nonatomic,strong)FilePushService * filePushService;
+
+
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
 -(void)serviceTouch;
