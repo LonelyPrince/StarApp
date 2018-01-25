@@ -8427,7 +8427,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [PushView addSubview:blueCircleView];
     
     UILabel * getPushInfoLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, (PushView.frame.size.width-30), 100)];
-    getPushInfoLab.text = [NSString stringWithFormat:@"%@ sharing the program %@ to you",socketView.otherDevicePushService.src_client_name,channnelNameString];
+    getPushInfoLab.text = [NSString stringWithFormat:@"%@ is sharing the program %@ to you",socketView.otherDevicePushService.src_client_name,channnelNameString];
     getPushInfoLab.numberOfLines = 0;
     getPushInfoLab.font = FONT(13);
     [PushView addSubview:getPushInfoLab];
@@ -8481,7 +8481,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [PushView addSubview:blueCircleView];
     
     UILabel * getPushInfoLab = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, (PushView.frame.size.width-30), 100)];
-    getPushInfoLab.text = [NSString stringWithFormat:@"%@ sharing the program %@ to you",socketView.otherDevicePushLive.src_client_name,channnelNameString];
+    getPushInfoLab.text = [NSString stringWithFormat:@"%@ is sharing the program %@ to you",socketView.otherDevicePushLive.src_client_name,channnelNameString];
     getPushInfoLab.numberOfLines = 0;
     getPushInfoLab.font = FONT(13);
     [PushView addSubview:getPushInfoLab];
