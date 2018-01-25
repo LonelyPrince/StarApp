@@ -8578,6 +8578,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
             
+            NSNumber * currentIndex = [NSNumber numberWithInt:0];
+            NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex,@"currentIndex", nil];
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
             
@@ -8629,6 +8636,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self PushSelectBtnClick];
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
+            
+            NSNumber * currentIndex = [NSNumber numberWithInt:1];
+            NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex,@"currentIndex", nil];
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            [self.navigationController popViewControllerAnimated:YES];
             
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
@@ -8781,31 +8797,39 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else
     {
         
-        for (int i = 0; i<self.dicTemp.count; i++) {
-            [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
+        //新建字典
+        NSMutableArray * serviceMutableArr = [self.serviceData mutableCopy];
+        
+        NSMutableDictionary * serviceMutableDic = [[NSMutableDictionary alloc]init];
+        
+        if ( ISNULL(serviceMutableArr)) {
+            
+        }else{
+            
+            for (int i = 0 ; i < serviceMutableArr.count; i++) {
+                [serviceMutableDic setObject:serviceMutableArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
+            }
+            
+        }
+        
+        
+        
+        for (int i = 0; i<serviceMutableDic.count; i++) {
+            [serviceMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
             NSLog(@"i - 1%d",(i));
             
             
             //原始数据
-            NSString * service_network =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_network_id"];
-            NSString * service_ts =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_ts_id"];
-            NSString * service_service =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_service_id"];
-            NSString * service_tuner =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_tuner_mode"];
+            NSString * service_network =  [[serviceMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_network_id"];
+            NSString * service_ts =  [[serviceMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_ts_id"];
+            NSString * service_service =  [[serviceMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_service_id"];
+            NSString * service_tuner =  [[serviceMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_tuner_mode"];
             
-//            NSString * newservice_network =  ;
-//            NSString * newservice_ts ;
-//            NSString * newservice_service ;
-//            NSString * newservice_tuner ;
+ 
             //新添加的数据
             if(arrHistoryNow.count >= 1)
             {
-//                newservice_network =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_network_id"];
-//                newservice_ts =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_ts_id"];
-//                newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
-//                newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
-//
-//
-                
+ 
                 
                 
                 NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
@@ -8825,7 +8849,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     NSLog(@"iiiiii %d",i);
                     
-                    channnelNameString = [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_name"];
+                    channnelNameString = [[serviceMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_name"];
 //                    [self firstOpenAppAutoPlay:i diction:self.dicTemp];
 //                    firstOpenAPP = firstOpenAPP+1;
                     
@@ -8839,18 +8863,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         
-        
-        
-        
-        
         NSLog(@"cnmccmcmcncmn");
         
         //弹窗
         [self  createGetAlertView];
         
-        
-        
-       
+ 
         
         
     }
@@ -8867,7 +8885,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"sbiasdbasbdabsdubasdiua");
     NSData * data = text.userInfo[@"playdata"];
-    NSLog(@"sbiasdbasbdabsdubasdiua %@",data);
+    NSLog(@"sbiasdbasbdabsdubasdiua doge bnb ada eos awr show true iost dta ae HT %@",data);
     
     NSData * fileNameLenData = [data subdataWithRange:NSMakeRange(37,1)];
     NSData * fileNameData = [data subdataWithRange:NSMakeRange(38,[SocketUtils uint8FromBytes:fileNameLenData])];
@@ -8879,18 +8897,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     socketView.otherDevicePushLive.file_name_len = [SocketUtils uint8FromBytes:fileNameLenData];
     socketView.otherDevicePushLive.file_name = [[NSString alloc]initWithData:fileNameData encoding:NSUTF8StringEncoding];
-//    socketView.otherDevicePushLive.src_push_client_ip =[SocketUtils uint16FromBytes:tsIdData];
+    NSLog(@"socketView.otherDevicePushLive.file_name %@",socketView.otherDevicePushLive.file_name);
+    
+//    socketView.otherDevicePush Live.src_push_client_ip =[SocketUtils uint16FromBytes:tsIdData];
     socketView.otherDevicePushLive.src_client_name_len = [SocketUtils uint8FromBytes:srcClientNameLenData];
     socketView.otherDevicePushLive.src_client_name = [[NSString alloc]initWithData:srcClientNameData encoding:NSUTF8StringEncoding];
-    
-    
-    NSLog(@"tunerTypeData22 %d",socketView.otherDevicePushLive.file_name_len);
-    NSLog(@"tunerTypeData22 %@",socketView.otherDevicePushLive.file_name);
-    NSLog(@"tunerTypeData22 %d",socketView.otherDevicePushLive.src_client_name_len);
-    NSLog(@"tunerTypeData22 %@",socketView.otherDevicePushLive.src_client_name);
-    
-   
-    
+ 
     
     //1.判断是不是一个节目
     //2.弹窗，展示信息
@@ -8904,10 +8916,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         return;
     }
     NSLog(@"nowPlayChannel_Arr=== %@",nowPlayChannel_Arr);
-    NSInteger row = [nowPlayChannel_Arr[2] intValue];
-    NSDictionary * dic3 = nowPlayChannel_Arr [3];
+ 
     NSDictionary * dic1 = nowPlayChannel_Arr [0];
     
+ 
     NSLog(@"nowPlayChannel_Arr===dic11 %@",dic1);
     
     //用于判断是不是需要弹窗
@@ -8916,32 +8928,37 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
     }else
     {
-        NSLog(@"self.dicTemp=-= %@",self.dicTemp);
-        for (int i = 0; i<self.dicTemp.count; i++) {
-            [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
+        //新建字典
+        NSMutableArray * liveMutableArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+        
+        NSMutableDictionary * liveMutableDic = [[NSMutableDictionary alloc]init];
+        NSLog(@"liveMutableArr %@",liveMutableArr);
+        
+            if ( ISNULL(liveMutableArr)) {
+        
+            }else{
+                
+                for (int i = 0 ; i < liveMutableArr.count; i++) {
+                    [liveMutableDic setObject:liveMutableArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
+                }
+              
+            }
+        
+        
+        
+        NSLog(@"self.dicTemp=-= %@",liveMutableDic);
+        for (int i = 0; i<liveMutableDic.count; i++) {
+            [liveMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
             NSLog(@"i - 1%d",(i));
             
             
             //原始数据
-            NSString * file_name_live =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"file_name"];
-//            NSString * service_ts =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_ts_id"];
-//            NSString * service_service =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_service_id"];
-//            NSString * service_tuner =  [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_tuner_mode"];
-            
-            //            NSString * newservice_network =  ;
-            //            NSString * newservice_ts ;
-            //            NSString * newservice_service ;
-            //            NSString * newservice_tuner ;
+            NSString * file_name_live =  [[liveMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"file_name"];
+ 
             //新添加的数据
             if(arrHistoryNow.count >= 1)
             {
-                //                newservice_network =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_network_id"];
-                //                newservice_ts =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_ts_id"];
-                //                newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
-                //                newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
-                //
-                //
-                
+         
                 
                 
 //                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
@@ -8959,7 +8976,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                    
                     NSLog(@"iiiiii %d",i);
                     
-                    channnelNameString = [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"file_name"];
+                    channnelNameString = socketView.otherDevicePushLive.file_name;
                    
                     
                     pushChannelId = i;
@@ -8978,5 +8995,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
 }
 //[USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+
+//    if ( ISNULL(self.serviceData)) {
+//
+//    }else{
+//        if (indexCat -1 < self.serviceData.count) {
+//            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//
+//        }else
+//        {
+//            return;
+//        }
+//    }
 @end
 
