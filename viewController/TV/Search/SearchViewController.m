@@ -535,7 +535,17 @@
         tempindexOfCategory = [self judgeCategoryType:tempDic]; //先判断是什么类别
         NSArray * tempserviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
         
-        NSArray * temparrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][tempindexOfCategory] objectForKey:@"service_index"];
+//        NSArray * temparrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][tempindexOfCategory] objectForKey:@"service_index"];
+        
+        NSArray  * arrForServiceByCategoryTemp = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+        //            NSArray * liveCategory =
+        NSArray * serviceArr = arrForServiceByCategoryTemp[0];
+        
+        NSDictionary * categoryIndexDic = serviceArr[0];
+        
+        NSArray * temparrForServiceByCategory = [categoryIndexDic objectForKey:@"service_index"];
+        
+        
         BOOL  twoChannelDicIsEqual;
         BOOL   twoChannelDicIsEqualTemp;
         for (int i = 0; i< temparrForServiceByCategory.count; i++) {
@@ -664,7 +674,18 @@
     
     NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
     //    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
-    NSArray * arrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][indexOfCategory] objectForKey:@"service_index"];
+    NSLog(@"indexOfCategory %d",indexOfCategory);
+//    NSArray * arrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][indexOfCategory] objectForKey:@"service_index"];
+    
+    NSArray  * arrForServiceByCategoryTemp = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
+    //            NSArray * liveCategory =
+    NSArray * serviceArr = arrForServiceByCategoryTemp[0];
+    
+    NSDictionary * categoryIndexDic = serviceArr[0];
+    
+    NSArray * arrForServiceByCategory = [categoryIndexDic objectForKey:@"service_index"];
+    
+    
    
     for (int i = 0; i< arrForServiceByCategory.count; i++) {
         NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
@@ -769,8 +790,11 @@
             NSString * service_indexForJudgeType = [NSString  stringWithFormat:@"%d",nowServiceIndex];   //返回当前的i,作为节目的service_index值
             NSArray  * categoryArrForJudgeType = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
 //            NSArray * liveCategory =
-            for (int i = 0; i < categoryArrForJudgeType.count; i++) {
-                NSDictionary * categoryIndexDic = categoryArrForJudgeType[i];
+            NSArray * serviceArr = categoryArrForJudgeType[0];
+            for (int i = 0; i < serviceArr.count; i++) {
+                NSDictionary * categoryIndexDic = serviceArr[i];
+                
+                //此处有问题
                 NSArray * categoryServiceIndexArr = [categoryIndexDic objectForKey:@"service_index"];
                 for (int y = 0; y < categoryServiceIndexArr.count; y++) {
                     NSString * serviceIndexForJundgeStr = categoryServiceIndexArr[y];
