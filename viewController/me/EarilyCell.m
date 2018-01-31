@@ -44,19 +44,11 @@
     self.backImage.image = [UIImage imageNamed:@"background"];
     UIImage * imageWithImage = [[UIImage alloc]init];
     
-//
-//
-//    [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//
-//        //[_dataDic objectForKey:@"epg_info"]
-//        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-//
-//        self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
-//
-//
-//    }];
+ 
     if (_dataDic.count > 14) {
-        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"RECPlaceholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[_dataDic objectForKey:@"service_logo_url"]];
+        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"RECPlaceholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             
             self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -65,7 +57,9 @@
         }];
     }else
     {
-        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[_dataDic objectForKey:@"service_logo_url"]];
+        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             
             self.channelImage.contentMode = UIViewContentModeScaleAspectFit;

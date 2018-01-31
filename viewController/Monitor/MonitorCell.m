@@ -78,7 +78,9 @@
     //
     //
     //    }];
-    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    
+    NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[tunnerCellData objectForKey:@"service_logo_url"]];
+    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         //[_dataDic objectForKey:@"epg_info"]
         //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];

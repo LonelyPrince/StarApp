@@ -46,7 +46,9 @@
    
     
     if (_dataDic.count > 14) {
-        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"RECPlaceholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[_dataDic objectForKey:@"service_logo_url"]];
+        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"RECPlaceholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             
             self.channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -55,7 +57,8 @@
         }];
     }else
     {
-        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:[_dataDic objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[_dataDic objectForKey:@"service_logo_url"]];
+        [self.channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             
             self.channelImage.contentMode = UIViewContentModeScaleAspectFit;

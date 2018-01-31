@@ -596,7 +596,8 @@
             NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -615,7 +616,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -634,7 +637,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -652,7 +657,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTemp4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -670,7 +677,9 @@
                 }
                 
             }];
-            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp5 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:urlTemp5]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -812,7 +821,8 @@
             NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -831,7 +841,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -850,7 +861,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -868,7 +881,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTemp4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -886,7 +901,9 @@
                 }
                 
             }];
-            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp5 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:urlTemp5]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1025,8 +1042,8 @@
             NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
             
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1045,7 +1062,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1064,7 +1083,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1082,7 +1103,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTemp4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1219,7 +1242,9 @@
             
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1238,7 +1263,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1257,7 +1284,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1373,8 +1402,8 @@
             
             
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1393,7 +1422,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1502,8 +1532,8 @@
             
             
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1613,7 +1643,8 @@
             NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1632,7 +1663,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1660,7 +1693,9 @@
             //                channelImage3.clipsToBounds = YES;
             //            }else
             //            {
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 
@@ -1679,7 +1714,9 @@
                 
             }];
             //            }
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTemp4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1697,7 +1734,9 @@
                 }
                 
             }];
-            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp5 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:urlTemp5]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -1834,7 +1873,8 @@
             NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 
@@ -1852,7 +1892,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 channelImage2.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage2.clipsToBounds = YES;
@@ -1868,7 +1909,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage3.clipsToBounds = YES;
@@ -1881,7 +1924,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTemp4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage4.contentMode = UIViewContentModeScaleAspectFit;
@@ -1897,7 +1942,9 @@
                 }
                 
             }];
-            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp5 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:urlTemp5]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -2033,7 +2080,9 @@
             NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
             NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -2049,7 +2098,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage2.contentMode = UIViewContentModeScaleAspectFit;
@@ -2064,7 +2114,8 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
@@ -2080,7 +2131,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+             NSString * urlTemp4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTemp4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 channelImage4.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage4.clipsToBounds = YES;
@@ -2199,8 +2252,8 @@
             NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
             
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -2217,7 +2270,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage2.contentMode = UIViewContentModeScaleAspectFit;
@@ -2234,7 +2288,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
@@ -2338,7 +2394,8 @@
             NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+             NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTem]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -2355,7 +2412,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTem2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage2.contentMode = UIViewContentModeScaleAspectFit;
@@ -2450,7 +2508,8 @@
             }
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTem]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage.clipsToBounds = YES;
@@ -2556,7 +2615,8 @@
             NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTem]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -2573,7 +2633,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTem2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage2.contentMode = UIViewContentModeScaleAspectFit;
@@ -2589,7 +2651,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTem3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
@@ -2605,7 +2669,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTem4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage4.contentMode = UIViewContentModeScaleAspectFit;
@@ -2621,7 +2687,9 @@
                 }
                 
             }];
-            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem5 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:urlTem5]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage5.contentMode = UIViewContentModeScaleAspectFit;
@@ -2761,8 +2829,8 @@
             NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
             NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTem]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -2777,7 +2845,8 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTem2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 channelImage2.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage2.clipsToBounds = YES;
@@ -2793,7 +2862,8 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+             NSString * urlTem3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTem3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 channelImage3.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage3.clipsToBounds = YES;
@@ -2808,15 +2878,17 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTem4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage4.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage4.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTem4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTem4] == NULL) {
                     channelImage4.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -2824,7 +2896,9 @@
                 }
                 
             }];
-            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem5 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:urlTem5]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -2833,8 +2907,8 @@
                 channelImage5.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic5 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTem] == NULL) {
                     channelImage5.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -2964,8 +3038,8 @@
             //        NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4];
             
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTem]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -2974,8 +3048,8 @@
                 channelImage.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTem = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTem] == NULL) {
                     channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -2984,7 +3058,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTem2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -2993,8 +3069,8 @@
                 channelImage2.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTem2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTem2] == NULL) {
                     channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3003,7 +3079,8 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTem3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTem3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3012,8 +3089,8 @@
                 channelImage3.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTem3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTem3] == NULL) {
                     channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3021,7 +3098,9 @@
                 }
                 
             }];
-            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTem4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:urlTem4]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3030,8 +3109,8 @@
                 channelImage4.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTem4 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic4 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTem4] == NULL) {
                     channelImage4.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3168,7 +3247,8 @@
             
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3177,8 +3257,8 @@
                 channelImage.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTemp] == NULL) {
                     channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3187,7 +3267,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3196,8 +3278,8 @@
                 channelImage2.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTemp2] == NULL) {
                     channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3206,7 +3288,9 @@
                 
             }];
             
-            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:urlTemp3]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3215,8 +3299,8 @@
                 channelImage3.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTemp3 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic3 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTemp3] == NULL) {
                     channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3321,7 +3405,8 @@
             
             
             
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3331,7 +3416,8 @@
                 
                 
                 
-                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTemp] == NULL) {
                     channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3340,7 +3426,9 @@
                 
             }];
             
-            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            NSString * urlTemp2 = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:urlTemp2]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 //[_dataDic objectForKey:@"epg_info"]
                 //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
@@ -3349,8 +3437,8 @@
                 channelImage2.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic2 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTemp] == NULL) {
                     channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
@@ -3453,16 +3541,16 @@
             
             
             
-            
-            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:urlTemp]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 
                 channelImage.contentMode = UIViewContentModeScaleAspectFit;
                 channelImage.clipsToBounds = YES;
                 
                 
-                
-                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                NSString * urlTemp = [NSString stringWithFormat:@"http://%@%@",[USER_DEFAULT objectForKey:@"HMC_DMSIP"],[historyDic1 objectForKey:@"service_logo_url"]];
+                if ([NSURL URLWithString:urlTemp] == NULL) {
                     channelImage.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
                 }else
                 {
