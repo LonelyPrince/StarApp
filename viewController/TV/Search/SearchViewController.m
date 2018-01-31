@@ -80,8 +80,9 @@
 //    self.tableView.frame =  CGRectMake(0, 200, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     [self.tableView reloadData];
-
+  
 }
+
 -(void)loadNav
 {
    
@@ -102,6 +103,7 @@
     [searchField becomeFirstResponder];
     searchField.text = nil;
     searchField.backgroundColor =  RGBA(108, 108, 108, 0.3);
+    searchField.returnKeyType = UIReturnKeyDone;
     if (searchField) {
         
 //        [searchField setBackgroundColor:RGBA(108, 108, 108, 0.2)];
@@ -254,13 +256,7 @@
                 historycell = [[UITableViewCell alloc]
                                initWithStyle:UITableViewCellStyleDefault
                                reuseIdentifier:historySearchIden];
-//                historycell.backgroundColor=[UIColor redColor];
-//                historycell.tintColor = [UIColor redColor];
-                //        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(cell.frame.origin.x+20, cell.frame.origin.y+20, cell.frame.size.width, cell.frame.size.height-20)];
-                //        cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-                
-                
-                //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+ 
                 [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
                 
         }
