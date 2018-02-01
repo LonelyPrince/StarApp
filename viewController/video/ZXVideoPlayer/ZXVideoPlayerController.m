@@ -9,6 +9,7 @@
 #import "ZXVideoPlayerController.h"
 #import "ZXVideoPlayerControlView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GGUtil.h"
 
 #import "AudioCell.h"
 #import "subtCell.h"
@@ -50,6 +51,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int64_t byte;
     int64_t byteValue1;   //视频缓存1
     int64_t byteValue2;   //视频缓存2
+    NSString * deviceString;
     
     int currentProgress;
     int subtRow;
@@ -2363,6 +2365,39 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {
                 [self.videoControl.audioBtn setEnabled:YES];
             }
+            
+            deviceString = [GGUtil deviceVersion];
+            if ( [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+                NSLog(@"此刻是5s和4s的大小");
+                
+                //        self.eventTimeLab.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+                self.videoControl.eventTimeLabNow.frame = CGRectMake(128-10+5+5, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
+                self.videoControl.eventTimeLabAll.frame = CGRectMake(128-10+5+66+5, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
+                self.videoControl.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 - 17-13, 33, 44);
+                
+                self.videoControl.nextChannelButton.frame = CGRectMake(80-7+5, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13, 33, 44);
+                self.videoControl.subtBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.bottomBar.bounds) - 221.5-2+10+5, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13, 44, 44);
+                self.videoControl.audioBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.bottomBar.bounds) -329/2-2+10, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+                self.videoControl.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.bottomBar.bounds)-215/2-2+5, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5-17-13, 44, 44);
+                
+                self.videoControl.suspendButton.frame = CGRectMake((self.videoControl.nextChannelButton.frame.origin.x - self.videoControl.lastChannelButton.frame.origin.x -  44 -44)/2 + self.videoControl.lastChannelButton.frame.origin.x + 44,CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13,33, 44);
+                
+            } else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"] ) {
+                //    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
+                self.videoControl.eventTimeLabNow.frame = CGRectMake(174, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
+                self.videoControl.eventTimeLabAll.frame = CGRectMake(174+81, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17, 90, 17);
+                self.videoControl.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+                
+                self.videoControl.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13, 44, 44);
+                self.videoControl.subtBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13, 44, 44);
+                self.videoControl.audioBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17 -13, 44, 44);
+                self.videoControl.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5-17-13, 44, 44);
+                
+                self.videoControl.suspendButton.frame = CGRectMake((self.videoControl.nextChannelButton.frame.origin.x - self.videoControl.lastChannelButton.frame.origin.x -  44 -44)/2 + self.videoControl.lastChannelButton.frame.origin.x + 44,CGRectGetHeight(self.videoControl.bottomBar.bounds) -16.5 -17-13,44, 44);
+            }
+            
+            
+            
             //IJK
             self.player.view.frame = self.view.bounds;
             NSLog(@"self.view.bounds %d");

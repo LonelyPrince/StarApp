@@ -286,11 +286,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"此刻是5s和4s的大小");
             
             //        self.eventTimeLab.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
-            self.eventTimeLabNow.frame = CGRectMake(128-10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-            self.eventTimeLabAll.frame = CGRectMake(128-10+5+66, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
+            self.eventTimeLabNow.frame = CGRectMake(128-10+5+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(128-10+5+66+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 33, 44);
             
-            self.nextChannelButton.frame = CGRectMake(72-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.nextChannelButton.frame = CGRectMake(80-7+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 33, 44);
             self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-2+10+5, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-2+10, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
             self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-2+5, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
@@ -322,11 +322,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             
         }else{
             //    self.eventTimeLab.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 180, 17);
-            self.eventTimeLabNow.frame = CGRectMake(134, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
-            self.eventTimeLabAll.frame = CGRectMake(134+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabNow.frame = CGRectMake(174, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
+            self.eventTimeLabAll.frame = CGRectMake(174+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
             self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
             
-            self.nextChannelButton.frame = CGRectMake(77-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
             self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
