@@ -3714,18 +3714,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             int audio_languageIndex = 0;
             for (int i = 0; i < audioArr.count; i++) {
                 
+                NSLog(@"iiiiii ++ %d",i);
+                NSLog(@"audioArr ++ %d",audioArr.count);
+                NSLog(@"audioArr ++ %@",audioArr);
                 [audioArrTemp addObject: [audioArr[i] objectForKey:@"audio_language"]];
             }
             for (int i = 0; i < audioArr.count; i++) {
                 
-                NSString * audioLanguageTemp = [audioArr[indexPath.row] objectForKey:@"audio_language"];
+                NSLog(@"iiiiii1 ++ %d",indexPath.row);
+                NSLog(@"audioArr1 ++ %d",audioArr.count);
+                NSLog(@"audioArr1 ++ %@",audioArr);
                 
-                
-                if ([audioLanguageTemp isEqualToString:[audioArr[i] objectForKey:@"audio_language"]]) {
-                    audio_languageIndex ++ ;
+                if (indexPath.row < audioArr.count) {
+                    NSString * audioLanguageTemp = [audioArr[indexPath.row] objectForKey:@"audio_language"];
+                    
+                    
+                    if ([audioLanguageTemp isEqualToString:[audioArr[i] objectForKey:@"audio_language"]]) {
+                        audio_languageIndex ++ ;
+                    }
                 }
                 
+                
             }
+            if (indexPath.row < audioArr.count) {
             if (audio_languageIndex > 1) {
                 //需要加号码
                 NSMutableDictionary * mutableAudioDic = [audioArr[indexPath.row] mutableCopy];
@@ -3739,7 +3750,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 cell.dataDic = audioArr[indexPath.row];
             }
             
-            
+            }else
+            {
+                NSLog(@"aksjfbajkbfasjb");
+                
+            }
             if (audio_languageIndex > 1) {
                 //需要加号码
                 //            //焦点
