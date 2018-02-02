@@ -650,6 +650,31 @@
             self.event_nameLab.text = NOEventLabel;
             self.event_nextNameLab.text = NOEventLabel;
         }
+        
+        
+        //new： 频道号
+        
+        NSString * service_videoindexStr = [dataDic objectForKey:@"service_logic_number"];
+        if(service_videoindexStr.length == 1)
+        {
+            self.channel_id.text = [ NSString stringWithFormat:@"00%@",service_videoindexStr];
+        }
+        else if (service_videoindexStr.length == 2)
+        {
+            self.channel_id.text = [NSString stringWithFormat:@"0%@",service_videoindexStr];
+        }
+        else if (service_videoindexStr.length == 3)
+        {
+            self.channel_id.text = [NSString stringWithFormat:@"%@",service_videoindexStr];
+        }
+        else if (service_videoindexStr.length > 3)
+        {
+            self.channel_id.text = [service_videoindexStr substringFromIndex:service_videoindexStr.length - 3];
+        }
+        
+        self.channel_Name.text = [dataDic objectForKey:@"service_name"];
+        
+        
     }else //录播
     {
         NSLog(@"lubo 录播");
@@ -687,10 +712,14 @@
         
         //节目名称
         if (serviceName != NULL && ![serviceName isEqualToString:@""]) {
-            self.event_nameLab.text =serviceName;
+//            self.event_nameLab.text =serviceName;
+            self.channel_Name.text = serviceName;
+            self.channel_Name.frame = CGRectMake(14, 18, 148, 15);
         }else
         {
-            self.event_nameLab.text =NOEventLabel;
+//            self.event_nameLab.text =NOEventLabel;
+//            self.channel_Name.text = NOEventLabel;
+            self.channel_Name.frame = CGRectMake(14, 18, 148, 15);
         }
         
         //总时间
@@ -701,8 +730,12 @@
             NSString * timeTempStr = [NSString stringWithFormat:@"%f",timeTemp];
             self.event_nextTime.text =[GGUtil  timeHMSWithTimeIntervalString:timeTempStr];
             
-            self.event_nextTime.frame = CGRectMake(157, 49, 60, 14);
-            self.event_nextNameLab.frame = CGRectMake(220, 49, 112, 14);
+            
+            
+            self.event_nextTime.frame = CGRectMake(180, 49, 60, 14);
+            self.event_nextNameLab.frame = CGRectMake(237, 49, 112, 14);
+            
+            
             
         }else
         {
@@ -713,10 +746,12 @@
         if (recordTime != NULL  && ![recordTime isEqualToString:@""]) {
             
             //            NSString * timeTempStr = [NSString stringWithFormat:@"%@",recordTime];
-            self.event_nextNameLab.text = [GGUtil  timeYMDHMWithTimeIntervalString:recordTime];
+//            self.event_nextNameLab.text = [GGUtil  timeYMDHMWithTimeIntervalString:recordTime];
+            self.event_nameLab.text = [GGUtil  timeYMDHMWithTimeIntervalString:recordTime];
+            
         }else
         {
-            self.event_nextNameLab.text =NOEventLabel;
+//            self.event_nextNameLab.text =NOEventLabel;
         }
         
         
@@ -806,7 +841,7 @@
                         self.event_nextNameLab.text = [nextEpgDic objectForKey:@"event_name"];
                     }else
                     {
-                        self.event_nextNameLab.text =NOEventLabel;
+//                        self.event_nextNameLab.text =NOEventLabel;
                     }
                     
                 }
@@ -820,7 +855,7 @@
                         self.event_nextTime.text = @"--:--";
                     }
                     
-                    self.event_nextNameLab.text = NOEventLabel;
+//                    self.event_nextNameLab.text = NOEventLabel;
                 }
                 
                 //    self.event_nameLab.text = [epgDic objectForKey:@"event_name"];
@@ -833,6 +868,8 @@
             }
             
         }
+       
+        self.event_nextNameLab.text = @"";
     }
     
     
@@ -842,11 +879,16 @@
     self.event_nameLab.font = FONT(12);
     self.event_nextTime.font = FONT(12);
     self.event_nextNameLab.font = FONT(12);
-    
+
     
     self.event_nameLab.textColor = CellBlackColor;
     self.event_nextTime.textColor = CellGrayColor;
     self.event_nextNameLab.textColor = CellGrayColor;
+    
+    self.channel_id.font =  FONT(12);
+    self.channel_id.textColor = CellGrayColor;
+    self.channel_Name.font =  FONT(12);
+    self.channel_Name.textColor = CellGrayColor;
 }
 //时间戳转换
 - (NSString *)timeWithTimeIntervalString:(NSString *)timeString

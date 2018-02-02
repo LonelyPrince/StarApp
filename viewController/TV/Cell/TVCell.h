@@ -24,6 +24,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *channelImg;
 @property (weak, nonatomic) IBOutlet UIImageView *placeholderImage1;
 
+
+@property (weak, nonatomic) IBOutlet UILabel *channel_id;
+@property (weak, nonatomic) IBOutlet UILabel *channel_Name;
+
+
 ///数据源
 @property (nonatomic, strong) NSString *nowTimeStr;
 @property (nonatomic, strong) NSDictionary *dataDic;

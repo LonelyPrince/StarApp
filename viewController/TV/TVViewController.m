@@ -114,6 +114,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * channnelNameString;
     int pushChannelId;
     NSMutableDictionary * allChannelsDic ;
+//    int pushAlertViewIndex; //推屏倒计时弹窗的位置
 }
 
 
@@ -386,6 +387,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+//    pushAlertViewIndex = 0;
     blueCircleView = [[UIView alloc]init];
     pushSecNumLab = [[UILabel alloc]init];
     pushBtnSelectArr = [[NSMutableArray alloc]init];
@@ -1601,6 +1603,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 NSLog(@"asbfabsfkabfjabfkab11");
                 
             }else
@@ -1609,6 +1613,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
                 [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
                 [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
+                [cell.channel_id setTextColor:CellGrayColor];//[UIColor greenColor]
+                [cell.channel_Name setTextColor:CellGrayColor];//[UIColor greenColor]
                 
             }
  
@@ -2051,7 +2057,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
-            NSLog(@"self.video.playUrl %@",self.video.playUrl);
+            NSLog(@"self.video.playUrl-直播 %@",self.video.playUrl);
             
             self.video.channelId = self.service_videoindex;
             self.video.channelName = self.service_videoname;
@@ -2210,7 +2216,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
             
-            NSLog(@"self.video.playUrl %@",self.video.playUrl);
+            NSLog(@"self.video.playUrl-录制 %@",self.video.playUrl);
             self.video.startTime = self.event_startTime;
             self.video.endTime = self.event_endTime;
             NSLog(@"self.video.startTime %@",self.video.startTime);
@@ -8362,8 +8368,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [pushAlertView close];
     }];
     
-    
     [pushAlertView show];
+//    [pushAlertView show:pushChannelId];
 }
 -(void)popPushAlertView
 {
@@ -8436,8 +8442,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     pushSecNumLab = [[UILabel alloc]init];
     pushSecNumLab.frame = CGRectMake(7, 1, 45, 45);
-//    pushSecNumLab.text = @"4s";
-        pushSecNumLab.text = @"60s";
+    
+    pushSecNumLab.text = @"60s";
+//    pushSecNumLab.text = [NSString stringWithFormat:@"%d=60s",pushAlertViewIndex];
+//    pushAlertViewIndex = pushAlertViewIndex +1;
     
     [self setPushSecNumLabFrame];
 
@@ -8445,25 +8453,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     pushSecNumLab.textColor = [UIColor whiteColor];
     [blueCircleView addSubview:pushSecNumLab];
     
-    
-    
-    
-//    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
+//    //判断当前播放的是不是第一个
+//    if (timeNum > 0 && timeNum < 60) {
+//        //推屏信息正在进行中
+//        pushSecNumLab.text = @"60s";
+//    }else
+//    {
+        timeNum = 60;
+        pushTVTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pushTVTimerReduce) userInfo:nil repeats:YES];
+   
+//    }
 //
-//    //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
-//
-//    pushTableView.layer.cornerRadius = 7;
-//    pushTableView.layer.masksToBounds = YES;
-//    pushTableView.delegate = self;
-//    pushTableView.dataSource = self;
-//    [PushView addSubview:pushTableView];
-//
-    timeNum = 60;
-     pushTVTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pushTVTimerReduce) userInfo:nil repeats:YES];
     
+   
     return PushView;
-    
-    
+ 
 }
 #pragma mark - 接收投屏弹窗录制
 - (UIView *)createLiveGetPushAlertView
@@ -8499,19 +8503,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     pushSecNumLab.textColor = [UIColor whiteColor];
     [blueCircleView addSubview:pushSecNumLab];
     
-    
-    
-    
-    //    pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
-    //
-    //    //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
-    //
-    //    pushTableView.layer.cornerRadius = 7;
-    //    pushTableView.layer.masksToBounds = YES;
-    //    pushTableView.delegate = self;
-    //    pushTableView.dataSource = self;
-    //    [PushView addSubview:pushTableView];
-    //
+ 
+  
     timeNum = 60;
     pushTVTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pushTVTimerReduce) userInfo:nil repeats:YES];
     
@@ -8524,6 +8517,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     timeNum --;
     if (timeNum > 0) {
+//        pushSecNumLab.text = [NSString stringWithFormat:@"%d=60s",pushAlertViewIndex];
+//        pushAlertViewIndex = pushAlertViewIndex +1;
         pushSecNumLab.text = [NSString stringWithFormat:@"%ds",timeNum];
         [self setPushSecNumLabFrame];
     }else
@@ -8601,6 +8596,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     [JXAlertView show];
+//    [JXAlertView show:pushChannelId];
     
    
 }
@@ -8660,56 +8656,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [JXAlertView close];
     }];
     
-    
     [JXAlertView show];
+//    [JXAlertView show:pushChannelId];
     
     
 }
-//-(void)popPushAlertView
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"popPushAlertViewNotific" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popPushAlertViewNotific) name:@"popPushAlertViewNotific" object:nil];
-//
-//}
-//-(void)popPushAlertViewNotific
-//{
-//    ///发送通知获取Push列表
-//    [self.socketView csGetPushInfo];  //密码六位
-//
-//
-//
-//
-//
-//}
-
-/////快速设置频道名称和节目名称等信息
-//-(void)setPushDataNotific
-//{
-//    //此处销毁通知，防止一个通知被多次调用    // 1
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setPushDataNotific" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushData:) name:@"setPushDataNotific" object:nil];
-//}
-//-(void)setPushData:(NSNotification *)text{
-////    NSMutableArray * pushDataAllArr = text.userInfo[@"pushDataAll"];
-////    NSLog(@"pushDataAllArr= %@",pushDataAllArr);
-////    pushDataMutilArr = pushDataAllArr;
-////
-////    NSString * strName = [NSString stringWithFormat:@"%@",[GGUtil deviceVersion]];
-////    [pushBtnSelectArr removeAllObjects];
-////    [phonePushOtherArr removeAllObjects];
-////    for (int i = 0; i< pushDataMutilArr.count;i++) {
-////        if (![pushDataMutilArr[i][2] isEqualToString:strName]) {
-////            [phonePushOtherArr addObject:pushDataMutilArr[i]];
-////            [pushBtnSelectArr addObject:@"NO"];
-////        }
-////    }
-////    NSLog(@"phonePushOtherArr %@",phonePushOtherArr);
-////
-//
-//    [self createAlertView];
-//}
 
 ///其他设备投屏手机
 -(void)OtherDevicePushToPhoneNotific
@@ -8744,34 +8695,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     socketView.otherDevicePushService.src_client_name_len = [SocketUtils uint8FromBytes:srcClientNameLenData] ;
     socketView.otherDevicePushService.src_client_name = [[NSString alloc]initWithData:srcClientNameData encoding:NSUTF8StringEncoding];
     
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_tuner_type);
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_network_id);
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_ts_id);
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_service_id);
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.audio_pid);
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.subt_pid);
-    NSLog(@"tunerTypeData %@",[GGUtil switchDataToIp:srcClientIpData]);
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_tuner_type);
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_network_id);
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_ts_id);
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_service_id);
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.audio_pid);
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.subt_pid);
+//    NSLog(@"tunerTypeData %@",[GGUtil switchDataToIp:srcClientIpData]);
+//
+//    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.src_client_name_len);
+//    NSLog(@"tunerTypeData %@",socketView.otherDevicePushService.src_client_name);
     
-    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.src_client_name_len);
-    NSLog(@"tunerTypeData %@",socketView.otherDevicePushService.src_client_name);
-    
-   
-//    socketView.otherDevicePushService.src_client_name =
-    
-    
-    
-//    int tempCount = 0;
-//    NSMutableArray *pushDataMutableArray = [[NSMutableArray alloc]init];
-//    for (int i = 0; i < pushBtnSelectArr.count ; i++) {
-//        if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
-//            tempCount ++;
-//            NSString * astr = phonePushOtherArr[i][0];
-//            NSLog(@"arrrrri %d",i);
-//            NSLog(@"astr %@",astr);
-//            [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
-//        }
-//    }
-    
+  
     //1.判断是不是一个节目
     //2.弹窗，展示信息
     
@@ -8831,18 +8766,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
  
                 
-                
-                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
-                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
-                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_network_id"] intValue]);
-                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
-                
-                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_ts_id"] intValue]);
-                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_ts_id);
-                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_service_id"] intValue]);
-                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_service_id);
-                
-                
+//
+//                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
+//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_network_id"] intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
+//
+//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_ts_id"] intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_ts_id);
+//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_service_id"] intValue]);
+//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_service_id);
+//
+//
                 if ([service_network intValue] == socketView.otherDevicePushService.service_network_id && [service_ts intValue] == socketView.otherDevicePushService.service_ts_id && [service_tuner intValue] == socketView.otherDevicePushService.service_tuner_type && [service_service intValue] == socketView.otherDevicePushService.service_service_id) {
                     //证明节目存在，不需要刷新
 //                    allisNO = NO;
@@ -8861,10 +8796,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
         }
-        
-        
-        NSLog(@"cnmccmcmcncmn");
-        
+ 
         //弹窗
         [self  createGetAlertView];
         
@@ -8885,7 +8817,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"sbiasdbasbdabsdubasdiua");
     NSData * data = text.userInfo[@"playdata"];
-    NSLog(@"sbiasdbasbdabsdubasdiua doge bnb ada eos awr show true iost dta ae HT %@",data);
+    NSLog(@"sbiasdbasbdabsdubasdiua  bnb ada eos awr show true iost dta ae HT %@",data);
     
     NSData * fileNameLenData = [data subdataWithRange:NSMakeRange(37,1)];
     NSData * fileNameData = [data subdataWithRange:NSMakeRange(38,[SocketUtils uint8FromBytes:fileNameLenData])];
@@ -8916,7 +8848,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         return;
     }
     NSLog(@"nowPlayChannel_Arr=== %@",nowPlayChannel_Arr);
- 
+    
     NSDictionary * dic1 = nowPlayChannel_Arr [0];
     
  
@@ -8977,7 +8909,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"iiiiii %d",i);
                     
                     channnelNameString = socketView.otherDevicePushLive.file_name;
-                   
                     
                     pushChannelId = i;
                     NSLog(@"channnelNameString %@",channnelNameString);
@@ -8994,18 +8925,4 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
 }
-//[USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-
-//    if ( ISNULL(self.serviceData)) {
-//
-//    }else{
-//        if (indexCat -1 < self.serviceData.count) {
-//            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-//
-//        }else
-//        {
-//            return;
-//        }
-//    }
 @end
-
