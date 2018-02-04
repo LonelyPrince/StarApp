@@ -139,3 +139,4 @@ static const CGFloat kVolumeIndicatorAutoFadeOutTimeInterval = 1.0;
 }
 
 @end
+

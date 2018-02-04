@@ -779,8 +779,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     if (self.isVolumeAdjust) {
         // 调节系统音量
-        // [MPMusicPlayerController applicationMusicPlayer].volume 这种简单的方式调节音量也可以，只是CPU高一点点
-        self.volumeViewSlider.value -= value / 10000;
+         [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点
+//        self.volumeViewSlider.value -= value / 10000;
     }else {
         // 亮度
         [UIScreen mainScreen].brightness -= value / 10000;
@@ -5295,4 +5295,5 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 @end
+
 
