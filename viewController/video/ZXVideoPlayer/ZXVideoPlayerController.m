@@ -280,7 +280,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.channelListBtn addTarget:self action:@selector(channelListBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     // slider
-    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
@@ -785,6 +785,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         // 亮度
         [UIScreen mainScreen].brightness -= value / 10000;
     }
+    
 }
 
 /// MARK: 系统音量控件
@@ -3187,6 +3188,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 全屏按钮点击
 - (void)fullScreenButtonClick
 {
+    NSLog(@"099=-0=-0=-0");
     if (self.isFullscreenMode) {
         return;
     }
@@ -3250,36 +3252,36 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self restoreOriginalScreen];
 }
 
-/// slider 按下事件
-- (void)progressSliderTouchBegan:(MySlider *)slider
-{
-    NSLog(@"进度条按下了");
-    [self.player pause];
-    [self stopDurationTimer];
-    [self.videoControl cancelAutoFadeOutControlBar];
-}
-
-/// slider 松开事件
-- (void)progressSliderTouchEnded:(MySlider *)slider
-{
-    NSLog(@"进度条松开了");
-    
-    [self.player seek:floor(slider.value)];
-    [self.player play];
-    [self startDurationTimer];
-    [self.videoControl autoFadeOutControlBar];
-}
-
-/// slider value changed
-- (void)progressSliderValueChanged:(MySlider *)slider
-{
-    NSLog(@"进度条改变了");
-    NSLog(@"slider.value %f",slider.value);
-    double currentTime = floor(slider.value);
-    double totalTime = floor(self.duration);
-    [self setTimeLabelValues:currentTime totalTime:totalTime];
-    
-}
+///// slider 按下事件
+//- (void)progressSliderTouchBegan:(MySlider *)slider
+//{
+//    NSLog(@"进度条按下了");
+//    [self.player pause];
+//    [self stopDurationTimer];
+//    [self.videoControl cancelAutoFadeOutControlBar];
+//}
+//
+///// slider 松开事件
+//- (void)progressSliderTouchEnded:(MySlider *)slider
+//{
+//    NSLog(@"进度条松开了");
+//
+//    [self.player seek:floor(slider.value)];
+//    [self.player play];
+//    [self startDurationTimer];
+//    [self.videoControl autoFadeOutControlBar];
+//}
+//
+///// slider value changed
+//- (void)progressSliderValueChanged:(MySlider *)slider
+//{
+//    NSLog(@"进度条改变了");
+//    NSLog(@"slider.value %f",slider.value);
+//    double currentTime = floor(slider.value);
+//    double totalTime = floor(self.duration);
+//    [self setTimeLabelValues:currentTime totalTime:totalTime];
+//
+//}
 
 #pragma mark -
 #pragma mark - getters and setters

@@ -34,7 +34,10 @@
 @property (nonatomic, strong, readonly) UIButton *fullScreenButton;
 //@property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;
 @property (nonatomic, strong, readonly) UIButton *shrinkScreenButton1;
-@property (nonatomic, strong, readonly) MySlider *progressSlider;
+
+//2018年2月4日注释掉
+//@property (nonatomic, strong, readonly) MySlider *progressSlider;  //拖动进度条有用
+@property (nonatomic, strong, readonly) UISlider *progressSlider;
 @property (nonatomic, strong, readonly) UILabel *timeLabel;
 
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *indicatorView;

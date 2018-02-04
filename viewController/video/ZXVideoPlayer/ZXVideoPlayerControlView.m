@@ -41,7 +41,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 @property (nonatomic, strong) UIButton *fullScreenButton;
 //@property (nonatomic, strong) UIButton *shrinkScreenButton;
 @property (nonatomic, strong) UIButton *shrinkScreenButton1; //new
-@property (nonatomic, strong) MySlider *progressSlider;
+
+//@property (nonatomic, strong) MySlider *progressSlider;
+@property (nonatomic, strong) UISlider *progressSlider;
+
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *eventnameLabel;
 
@@ -1325,10 +1328,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 
 ///进度条
-- (MySlider *)progressSlider
+//- (MySlider *)progressSlider
+- (UISlider *)progressSlider
 {
     if (!_progressSlider) {
-        _progressSlider = [[MySlider alloc] init];
+//        _progressSlider = [[MySlider alloc] init];
+        _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
         [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
         [_progressSlider setMaximumTrackTintColor:[[UIColor grayColor] colorWithAlphaComponent:0.4]];
