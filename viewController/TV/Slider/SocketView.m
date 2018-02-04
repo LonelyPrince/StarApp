@@ -673,6 +673,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_MDPushService.subt_pid = cs_service.subt_index; //[mdPhonePushService.subt_pid intValue];
     cs_MDPushService.client_name_len = mdPhonePushService.client_name_len;;
     cs_MDPushService.client_name = mdPhonePushService.client_name;
+    
+    NSLog(@" cs_MDPushFile.client_name-直播 %@",cs_MDPushService.client_name);
     cs_MDPushService.push_type = mdPhonePushService.push_type;
     cs_MDPushService.client_count = mdPhonePushService.client_count;
     NSLog(@"cs_MDPushService.client_count %d",cs_MDPushService.client_count);
@@ -784,6 +786,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_MDPushFile.file_name = filePushService.file_name;
     cs_MDPushFile.client_name_len = filePushService.client_name_len;;
     cs_MDPushFile.client_name = filePushService.client_name;
+    
+    NSLog(@" cs_MDPushFile.client_name--录制 %@",cs_MDPushFile.client_name);
     
     cs_MDPushFile.push_type = filePushService.push_type;
     NSLog(@"cs_MDPushFile.push_type %hhu",cs_MDPushFile.push_type);
@@ -898,6 +902,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_MDPushService.subt_pid = cs_service.subt_index; //[mdPhonePushService.subt_pid intValue];
     cs_MDPushService.client_name_len = mdPhonePushService.client_name_len;;
     cs_MDPushService.client_name = mdPhonePushService.client_name;
+    
+    NSLog(@" cs_MDPushFile.client_name-直播 %@",cs_MDPushService.client_name);
     cs_MDPushService.push_type = mdPhonePushService.push_type;
     cs_MDPushService.client_count = mdPhonePushService.client_count;
     NSLog(@"cs_MDPushService.client_count %d",cs_MDPushService.client_count);

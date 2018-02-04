@@ -311,7 +311,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.progressSlider.minimumValue = 0;// 设置最小值
     self.videoControl.progressSlider.maximumValue = 100;// 设置最大值
     //    NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
-    self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100 ;// 设置初始值 ===》  此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
+    self.videoControl.progressSlider.value = self.player.currentPlaybackTime/durationTimeTemp * 100 ;// 设置初始值 ===》  此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
     
     NSLog(@"self.player.playableDuration1 %f",self.player.playableDuration);
     

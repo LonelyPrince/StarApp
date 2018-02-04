@@ -2226,6 +2226,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
             
             int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
+            NSLog(@"RECDurationTimeTemp1 %d",[self.video.endTime intValue]);
+            NSLog(@"RECDurationTimeTemp2 %d",[self.video.startTime intValue]);
+            NSLog(@"RECDurationTimeTemp %d",RECDurationTimeTemp);
             NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
             [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
             [USER_DEFAULT setBool:YES forKey:@"IsfirstPlayRECVideo"];
@@ -8114,7 +8117,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
     self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
     
-    BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+    BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
     if (isEventStartTimeBigNowTime == YES) {
         self.event_videoname = @"";
         self.event_startTime = @"";
