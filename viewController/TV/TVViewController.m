@@ -1767,7 +1767,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         socketView.mdPhonePushService.service_service_id = socketView.socket_ServiceModel.service_service_id;
         socketView.mdPhonePushService.audio_pid = socketView.socket_ServiceModel.audio_pid;
         socketView.mdPhonePushService.subt_pid = socketView.socket_ServiceModel.subt_pid;
-        NSString * clientName = [NSString stringWithFormat:@"Phone%@",[GGUtil deviceVersion]];
+        NSString * clientName = [NSString stringWithFormat:@"%@",[GGUtil deviceVersion]];
         socketView.mdPhonePushService.client_name = clientName;
         socketView.mdPhonePushService.client_name_len = clientName.length;
         socketView.mdPhonePushService.push_type = 0;
