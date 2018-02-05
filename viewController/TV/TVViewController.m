@@ -1529,7 +1529,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         cell.pushTypeImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
-        cell.pushTypeImage.image = [UIImage imageNamed:@"pushPhone"];
+        
+        if ([pushDataMutilArr[indexPath.row][3] isEqualToString:@"HMC"]) {
+            cell.pushTypeImage.image = [UIImage imageNamed:@"pushSTB"];
+        }else if ([pushDataMutilArr[indexPath.row][3] isEqualToString:@"mini"])
+        {
+            cell.pushTypeImage.image = [UIImage imageNamed:@"pushMini"];
+        }else
+        {
+            cell.pushTypeImage.image = [UIImage imageNamed:@"pushPhone"];
+        }
         [cell addSubview:cell.pushTypeImage];
         
         cell.pushDeviceLab = [[UILabel alloc]initWithFrame:CGRectMake(55, 21, 200, 10)];
