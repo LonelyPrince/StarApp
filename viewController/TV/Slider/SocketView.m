@@ -210,6 +210,9 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.audio_index = [socket_ServiceModel.audio_pid intValue];
     cs_service.subt_index = [socket_ServiceModel.subt_pid intValue];
     
+    [USER_DEFAULT setObject:socket_ServiceModel.audio_pid forKey:@"nowPlayChannelAudioIndex"];
+    [USER_DEFAULT setObject:socket_ServiceModel.subt_pid forKey:@"nowPlayChannelSubtIndex"];
+    
     //---
     
     //   NSString * phoneModel = @"iPhone6s";

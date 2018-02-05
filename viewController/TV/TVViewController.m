@@ -1863,6 +1863,45 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
         
+        
+        
+        //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
+        
+        NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        NSArray * touchArr ;
+        if (historyArr.count >= 1) {
+            touchArr = historyArr[historyArr.count - 1];
+        }else
+        {
+            NSLog(@"historyArr== %@",historyArr);
+            return;
+        }
+        
+        NSInteger rowIndex;
+        NSMutableDictionary * dic;
+        if (touchArr.count >= 4) {
+            rowIndex = [touchArr[2] intValue];
+            dic = touchArr [3];
+        }
+        
+        NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        
+        //②
+        NSUInteger  indexPathRow = [indexpathRowStr integerValue];
+        NSDictionary * nowPlayingChannelDic =   [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPathRow]];
+        
+        if ([GGUtil judgeTwoEpgDicIsEqual:nowPlayingChannelDic TwoDic:epgDicToSocketTemp]) {
+            NSLog(@"相等");
+        }else
+        {
+            NSLog(@"NONOONONONNONO相等");
+        
+//        }
+        
+        
+        
+        
+        
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
         [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
         
@@ -1879,6 +1918,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //加入历史记录
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
+ 
             [self addHistory:indexPath.row diction:self.dicTemp];
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
@@ -1891,7 +1931,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
             });
             //变蓝
-            
+        
         });
         
         //    //关闭当前正在播放的节目
@@ -1909,7 +1949,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }
         
-        
+    }
     }
     
 }
@@ -1963,6 +2003,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - didselecttableview 方法中播放事件
 -(void)didselectRowToPlayClick
 {
+   
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
         NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);

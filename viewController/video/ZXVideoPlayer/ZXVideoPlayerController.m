@@ -3913,7 +3913,55 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         
+        //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
         
+        NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        NSArray * touchArr ;
+        if (historyArr.count >= 1) {
+            touchArr = historyArr[historyArr.count - 1];
+        }else
+        {
+            NSLog(@"historyArr== %@",historyArr);
+            return;
+        }
+        
+        NSInteger rowIndex;
+        NSMutableDictionary * dic;
+        if (touchArr.count >= 4) {
+            rowIndex = [touchArr[2] intValue];
+            dic = touchArr [3];
+        }
+        
+        NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        
+        //②
+//        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        
+        NSString * audioStr = [USER_DEFAULT objectForKey:@"nowPlayChannelAudioIndex"];
+        NSString * subtStr = [USER_DEFAULT objectForKey:@"nowPlayChannelSubtIndex"];
+        
+        
+        NSLog(@"[audioStr intValue] %d",[audioStr intValue]);
+        NSLog(@"audioRow %d",audioRow);
+        NSLog(@"[subtStr intValue] %d",[subtStr intValue]);
+        NSLog(@"subtRow %d",subtRow);
+        int subtArr_temp_int;
+        if ([epgDicToSocketTemp objectForKey:@"subt_info"] != nil) {
+            NSArray * subtArr_temp = [epgDicToSocketTemp objectForKey:@"subt_info"];
+            for (int i = 0;  i < subtArr_temp.count ; i++) {
+                if ([subtStr isEqualToString:[subtArr_temp[i] objectForKey:@"subt_pid"]]) {
+                    subtArr_temp_int = i;
+                }
+            }
+            
+        }
+        
+        if (subtArr_temp_int == indexPath.row ) {
+            NSLog(@"相等语言");
+        }else
+        {
+            NSLog(@"NONOONONONNONO相等语言");
+            
         if (!ISEMPTY(self.video.dicChannl)) {
             
             NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -3936,14 +3984,68 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             tableView.separatorColor = [UIColor whiteColor];
             
             
-            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
+//            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
         }else{//如果为空，什么都不执行
         }
         //        [self.socketView1  serviceTouch ];
-        
+        }
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
+        
+        //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
+        
+        NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        NSArray * touchArr ;
+        if (historyArr.count >= 1) {
+            touchArr = historyArr[historyArr.count - 1];
+        }else
+        {
+            NSLog(@"historyArr== %@",historyArr);
+            return;
+        }
+        
+        NSInteger rowIndex;
+        NSMutableDictionary * dic;
+        if (touchArr.count >= 4) {
+            rowIndex = [touchArr[2] intValue];
+            dic = touchArr [3];
+        }
+        
+        NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        
+        //②
+//        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        
+        NSString * audioStr = [USER_DEFAULT objectForKey:@"nowPlayChannelAudioIndex"];
+        NSString * subtStr = [USER_DEFAULT objectForKey:@"nowPlayChannelSubtIndex"];
+        
+ 
+        NSLog(@"[audioStr intValue] %d",[audioStr intValue]);
+        NSLog(@"audioRow %d",audioRow);
+        NSLog(@"[subtStr intValue] %d",[subtStr intValue]);
+        NSLog(@"subtRow %d",subtRow);
+        int audioArr_temp_int;
+        if ([epgDicToSocketTemp objectForKey:@"audio_info"] != nil) {
+            NSArray * audioArr_temp = [epgDicToSocketTemp objectForKey:@"audio_info"];
+            
+            for (int i = 0;  i < audioArr_temp.count ; i++) {
+                NSLog(@"audioStr %@",audioStr);
+                NSLog(@"[audioArr_temp[i] objectForKey:  %@",[audioArr_temp[i] objectForKey:@"audio_pid"]);
+                if ([audioStr isEqualToString:[audioArr_temp[i] objectForKey:@"audio_pid"]]) {
+                    
+                    audioArr_temp_int = i;
+                }
+            }
+            
+        }
+        
+        if (audioArr_temp_int == indexPath.row ) {
+            NSLog(@"相等语言");
+        }else
+        {
+            NSLog(@"NONOONONONNONO相等语言");
+            
         
         
         if (!ISEMPTY(self.video.dicChannl)) {
@@ -3971,16 +4073,47 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             
-            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
+//            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             
             
         }else{//如果为空，什么都不执行
         }
         //        [self.socketView1  serviceTouch ];
-        
+        }
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
+        
+        //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
+        
+        NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+        NSArray * touchArr ;
+        if (historyArr.count >= 1) {
+            touchArr = historyArr[historyArr.count - 1];
+        }else
+        {
+            NSLog(@"historyArr== %@",historyArr);
+            return;
+        }
+        
+        NSInteger rowIndex;
+        NSMutableDictionary * dic;
+        if (touchArr.count >= 4) {
+            rowIndex = [touchArr[2] intValue];
+            dic = touchArr [3];
+        }
+        
+        NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        
+        //②
+         dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        
+        if ([GGUtil judgeTwoEpgDicIsEqual:dic TwoDic:epgDicToSocketTemp]) {
+            NSLog(@"相等");
+        }else
+        {
+            NSLog(@"NONOONONONNONO相等");
+            
         
         
         __block NSDictionary * dic ;
@@ -4002,13 +4135,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
             });
             
-            //刷新注意的焦点
+            //刷新主页的焦点
             NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             
         }else{//如果为空，什么都不执行
         }
         //        [self.socketView1  serviceTouch ];
+    }
     }
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
