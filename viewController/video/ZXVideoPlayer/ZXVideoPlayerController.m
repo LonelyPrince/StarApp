@@ -2157,6 +2157,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///// 切换到全屏模式
 - (void)changeToFullScreenForOrientation:(UIDeviceOrientation)orientation
 {
+    
     NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
     NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
     NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);

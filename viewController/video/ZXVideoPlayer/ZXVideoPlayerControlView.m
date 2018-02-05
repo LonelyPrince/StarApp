@@ -31,6 +31,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     float screenWidthTemp1; //用于存储快速切换屏幕是的屏幕宽度值，这个值可以用于判断，如果发现旋转后，这个值和上一个值相等，则证明旋转的时候发生了错误，这个时候不能赋值
     int circleTimes ; //防止除了6s手机外，所有的layout方法被调用4次
     int firstInit ; //第一次初始化时执行某个方法，如果不是第一次则不执行
+    int barIsShowing ;
 }
 @property (nonatomic, strong) ZXVideoPlayerController *videoController;
 @property (nonatomic, strong) UIView *topBar;
@@ -209,6 +210,45 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)layoutSubviews
 {
+    NSLog(@"aaaaaabbbbbbbcccccc ");
+    
+    if ([USER_DEFAULT boolForKey:@"lockedFullScreen"]) {
+    }else
+    {
+        if (self.isBarShowing) {
+            barIsShowing = 1;
+            self.isBarShowing = NO;
+            [self animateShow];
+            
+        }else
+        {
+            barIsShowing =0;
+            int show;
+            [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
+            [self animateShow];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+            show = 2;
+            _topBar.userInteractionEnabled = YES;
+            _bottomBar.userInteractionEnabled = YES;
+            NSLog(@"**%hhd",self.isBarShowing);
+            NSLog(@"点击了第二下");
+            
+            BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+            
+            if (islockShowing == NO&& isFullScreenMode)  {
+                //将其显示
+                
+                [self lockButtonShow];
+                //                    self.lockButton.hidden = NO;
+                //                    islockShowing = YES;
+                
+                
+            }
+            
+        }
+    }
+    
     [super layoutSubviews];
     
     double systemVersion = [GGUtil getSystemVersion];
@@ -674,7 +714,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //        self.animateShowJdugeLastBtnAndNextBtnIsBray();
     //    }
     
-    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
+    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"] || barIsShowing == 1) {
+        barIsShowing = 0;
         if (self.isBarShowing) {
             return;
         }
