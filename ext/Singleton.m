@@ -1833,7 +1833,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    NSLog(@"测试播放33333333333333");
+    NSLog(@"测试播放33333333333333---直播节目");
 }
 ///other设备投屏手机设备
 -(void)readSocketCommandTypeISTwentynine:(NSData *)dataToOperate
@@ -2181,7 +2181,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"noticeREC" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    NSLog(@"测试播放33333333333333");
+    NSLog(@"测试播放33333333333333---录制节目");
 }
 //获取投屏播放信息   case = 31
 -(void)readSocketCommandTypeISThirtyOne :(NSData *)dataToOperate
@@ -2241,9 +2241,42 @@
         NSNumber * nameLengthNum = [NSNumber numberWithInt:nameLengthInt];
         [pushDataOne addObject:nameLengthNum];
         [pushDataOne addObject:nameStr];
+        if ([[nameStr substringToIndex:3] caseInsensitiveCompare:@"HMC"] == NSOrderedSame ) {
+            NSLog(@"HMC 设备");
+            [pushDataOne addObject:@"HMC"];
+        }else if([[nameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )
+        {
+            NSLog(@"mini 设备");
+            [pushDataOne addObject:@"mini"];
+        }else
+        {
+            [pushDataOne addObject:@"phone"];
+        }
         [pushDataAll addObject:[pushDataOne mutableCopy]];
         [pushDataOne removeAllObjects];
     }
+    
+    for (int i = 0; i < pushDataAll.count ; i ++) {
+        if ([pushDataAll[i][3] isEqualToString:@"mini"]) {
+            NSArray * pushDataArr_temp = [pushDataAll[i] mutableCopy];
+            [pushDataAll removeObjectAtIndex:i];
+            [pushDataAll insertObject:pushDataArr_temp atIndex:0];
+            
+        }
+        
+        NSLog(@"oasdasidisad");
+    }
+    for (int i = 0; i < pushDataAll.count ; i ++) {
+        if ([pushDataAll[i][3] isEqualToString:@"HMC"]) {
+            NSArray * pushDataArr_temp = [pushDataAll[i] mutableCopy];
+            [pushDataAll removeObjectAtIndex:i];
+            [pushDataAll insertObject:pushDataArr_temp atIndex:0];
+            
+        }
+        
+        NSLog(@"oasdasidisad");
+    }
+    
     NSLog(@"pushaaaAAA %@",pushDataAll);
     NSLog(@"pushaaaAAA.count %d",pushDataAll.count);
     

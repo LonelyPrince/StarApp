@@ -8803,7 +8803,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"sbiasdbasbdabsdubasdiua");
     NSData * data = text.userInfo[@"playdata"];
-    NSLog(@"sbiasdbasbdabsdubasdiua  bnb ada eos awr show true iost dta ae HT %@",data);
+    NSLog(@"sbiasdbasbdabsdubasdiua  %@",data);
     
     NSData * fileNameLenData = [data subdataWithRange:NSMakeRange(37,1)];
     NSData * fileNameData = [data subdataWithRange:NSMakeRange(38,[SocketUtils uint8FromBytes:fileNameLenData])];
@@ -8877,18 +8877,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if(arrHistoryNow.count >= 1)
             {
          
-                
-                
-//                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
-//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_network_id"] intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
-//
-//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_ts_id"] intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_ts_id);
-//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_service_id"] intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_service_id);
-                
+ 
                 
                 if ([file_name_live isEqualToString:socketView.otherDevicePushLive.file_name]) {
                    
