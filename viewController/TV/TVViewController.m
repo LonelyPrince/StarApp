@@ -1824,25 +1824,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
         }
         
-//        if (tempPushViewCell.selected == NO) {
-//
-//            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"BeSelect"];
-//            tempPushViewCell.selected = YES;
-//            NSLog(@"aksjfbajbfa");
-//        }else  {
-//            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
-//            tempPushViewCell.selected = NO;
-//            NSLog(@"aksjfbajbfa111");
-//        }
-        
-        
-//        TVCell *cell = [tempTableviewForFocus cellForRowAtIndexPath:indexPath];
-//
-//        [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-//        [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-//        [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-        
-        
         
     }else{
         [self updateFullScreenDic];
@@ -8323,11 +8304,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 - (UIView *)createPushView
 {
-    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 100)];
+    UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 50*phonePushOtherArr.count)];
     
     
     pushTableView = [[UITableView alloc]initWithFrame:PushView.bounds style:UITableViewStylePlain];
     
+    pushTableView.scrollEnabled = NO;
+
     //    UITableView *tableView = [[UITableView alloc]initWithFrame:demoView.bounds style:UITableViewStylePlain];
     
     pushTableView.layer.cornerRadius = 7;
