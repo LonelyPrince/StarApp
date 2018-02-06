@@ -8930,9 +8930,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [liveMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
             NSLog(@"i - 1%d",(i));
             
-            
             //原始数据
             NSString * file_name_live =  [[liveMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"file_name"];
+ 
  
             //新添加的数据
             if(arrHistoryNow.count >= 1)
@@ -8944,7 +8944,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                    
                     NSLog(@"iiiiii %d",i);
                     
-                    channnelNameString = socketView.otherDevicePushLive.file_name;
+                    NSString * service_event_name;
+                        NSString * serviceName = [[liveMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"service_name"];
+                        NSString * eventName = [[liveMutableDic objectForKey:[NSString stringWithFormat:@"%d",i]] objectForKey:@"event_name"];
+                        if ([eventName isEqualToString:@""]) {
+                            service_event_name = serviceName;
+                        }else
+                        {
+                            service_event_name = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                        }
+                    
+                    channnelNameString = service_event_name;
                     
                     pushChannelId = i;
                     NSLog(@"channnelNameString %@",channnelNameString);
