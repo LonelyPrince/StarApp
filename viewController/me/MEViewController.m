@@ -4813,23 +4813,73 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -5065,23 +5115,71 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
             }
             
             
@@ -5252,25 +5350,62 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+  //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             
             
-            
-            //        NSString * service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-            //        NSString * service_name5 = [historyDic5 objectForKey:@"service_name"];
             
             
             historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
@@ -5416,15 +5551,42 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             
             
@@ -5543,11 +5705,30 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             
             
@@ -5591,7 +5772,17 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
             }
             
@@ -5876,23 +6067,70 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -6075,23 +6313,69 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+             
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -6244,19 +6528,56 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             
             
@@ -6387,15 +6708,46 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+
+                
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             
             
@@ -6500,8 +6852,16 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
             }
             
@@ -6798,23 +7158,62 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -7002,23 +7401,69 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
-                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -7190,19 +7635,55 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             
             
@@ -7363,15 +7844,43 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             
             
@@ -7493,11 +8002,29 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
-                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+//                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             
             
@@ -7542,7 +8069,18 @@
             
             if (historyDic1.count > 15) {
                 service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
-                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+
+//                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
                 
             }

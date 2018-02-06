@@ -3924,7 +3924,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //*********
             
             //        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
-            self.service_videoname = [epgDicToSocket objectForKey:@"file_name"];
+            
+            NSString * serviceName = [epgDicToSocket objectForKey:@"service_name"];
+            NSString * eventName = [epgDicToSocket objectForKey:@"event_name"];
+            if ([eventName isEqualToString:@""]) {
+                self.service_videoname = serviceName;
+            }else
+            {
+                self.service_videoname = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+            }
+
+            
+//            self.service_videoname = [epgDicToSocket objectForKey:@"file_name"];
             self.service_videoindex= @"";
             //        self.event_videoname = [epgDicToSocket objectForKey:@"event_name"];
             self.event_videoname = @"";

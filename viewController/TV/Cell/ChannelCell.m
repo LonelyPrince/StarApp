@@ -76,7 +76,17 @@
     
     NSLog(@"cell.channelId %@ ",self.channelId.text);
     if (self.channelId.text == NULL || [self.channelId.text isEqualToString:@""] || self.channelId.text == nil) {
-        self.channelName.text = [_dataDic objectForKey:@"file_name"];
+        
+        NSString * serviceName = [dataDic objectForKey:@"service_name"];
+        NSString * eventName = [dataDic objectForKey:@"event_name"];
+        if ([eventName isEqualToString:@""]) {
+            self.channelName.text = serviceName;
+        }else
+        {
+            self.channelName.text = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+        }
+        
+//        self.channelName.text = [_dataDic objectForKey:@"file_name"];
         self.channelName.frame = CGRectMake(25, 16, self.frame.size.width, 15);
     }
     

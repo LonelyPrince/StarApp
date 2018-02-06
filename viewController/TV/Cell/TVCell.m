@@ -702,7 +702,8 @@
         
         
         //        NSString * serviceName = [dataDic objectForKey:@"service_name"];
-        NSString * serviceName = [dataDic objectForKey:@"file_name"];
+        NSString * serviceName = [dataDic objectForKey:@"service_name"];
+        NSString * eventName = [dataDic objectForKey:@"event_name"];
         NSString * recordTime = [dataDic objectForKey:@"record_time"];
         NSString * durationTime = [dataDic objectForKey:@"duration"];
         
@@ -713,12 +714,16 @@
         //节目名称
         if (serviceName != NULL && ![serviceName isEqualToString:@""]) {
 //            self.event_nameLab.text =serviceName;
-            self.channel_Name.text = serviceName;
+            if ([eventName isEqualToString:@""]) {
+                self.channel_Name.text = serviceName;
+            }else
+            {
+                self.channel_Name.text = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+            }
+            
             self.channel_Name.frame = CGRectMake(14, 18, 148, 15);
         }else
         {
-//            self.event_nameLab.text =NOEventLabel;
-//            self.channel_Name.text = NOEventLabel;
             self.channel_Name.frame = CGRectMake(14, 18, 148, 15);
         }
         

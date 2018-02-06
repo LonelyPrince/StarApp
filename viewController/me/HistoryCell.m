@@ -228,7 +228,18 @@
         self.logicLab.text = [ self.logicLab.text substringFromIndex: self.logicLab.text.length - 3];
     }else
     {
-        self.nameLab.text = [_dataDic objectForKey:@"file_name"];
+        
+        NSString * serviceName = [_dataDic objectForKey:@"service_name"];
+        NSString * eventName = [_dataDic objectForKey:@"event_name"];
+        if ([eventName isEqualToString:@""]) {
+            self.nameLab.text = serviceName;
+        }else
+        {
+            self.nameLab.text = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+        }
+
+        
+//        self.nameLab.text = [_dataDic objectForKey:@"file_name"];
         [self.logicLab setAlpha:0];
         self.nameLab.frame = CGRectMake(162, 29, 200, 21);
     }

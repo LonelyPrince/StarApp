@@ -4526,7 +4526,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.progressSlider.hidden = NO;
         self.videoControl.progressSlider.alpha = 1;
         
+        NSString * serviceNameStr = [nowPlayingDic objectForKey:@"service_name"];
+        NSString * eventnameStr = [nowPlayingDic objectForKey:@"event_name"];
+        
         NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"file_name"];
+        if ([eventnameStr isEqualToString:@""]) {
+            channelNameLabStr = serviceNameStr;
+        }else
+        {
+            channelNameLabStr = [NSString stringWithFormat:@"%@_%@",serviceNameStr,eventnameStr];
+        }
+        
+        
         
         //            NSString * eventNameLabStr = [nowPlayingDic objectForKey:@"event_name"];
         NSString * eventNameLabStr = @"";
