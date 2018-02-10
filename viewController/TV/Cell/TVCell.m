@@ -465,7 +465,6 @@
 #import "TVCell.h"
 #import "UIImageView+WebCache.h"
 
-
 @implementation TVCell
 
 //awakeFromNib 从xib或者storyboard加载完毕就会调用
@@ -539,6 +538,14 @@
         epgArr = [[NSArray alloc]init];
         //****
         epgArr = [_dataDic objectForKey:@"epg_info"];
+        
+        if (epgArr.count > 0) {
+            NSLog(@"epgArr cunzai 存在");
+            NSLog(@"epgArr cunzai 存在 %@",epgArr);
+        }else{
+            NSLog(@"epgArr bububu bu存在");
+        }
+        
         if (epgArr.count >0) {
             epgDic = epgArr[0];
             
@@ -726,6 +733,43 @@
         {
             self.channel_Name.frame = CGRectMake(14, 18, 148, 15);
         }
+//        self.channel_Name.text = @"ajsdbjbsjbdjsbdjbsajbd _ ssdsds";
+        
+//        if (self.channel_Name.text.length > 18) {
+//
+//            [self.channel_Name sizeToFit];
+//            CGRect frame = self.channel_Name.frame;
+//            frame.origin.x = 14;
+//            self.channel_Name.frame = frame;
+//
+//            [UIView beginAnimations:@"scrollLabelTest" context:NULL];
+//            [UIView setAnimationDuration:8.0f];
+//            [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+//            [UIView setAnimationDelegate:self];
+//            [UIView setAnimationRepeatAutoreverses:NO];
+//            [UIView setAnimationRepeatCount:9999999];
+//
+//            frame = self.channel_Name.frame;
+//            frame.origin.x = - (frame.size.width - 148-20);
+//            self.channel_Name.frame = frame;
+//            [UIView commitAnimations];
+//
+//        }
+//
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         //总时间
         if (durationTime != NULL && ![durationTime isEqualToString:@""]) {

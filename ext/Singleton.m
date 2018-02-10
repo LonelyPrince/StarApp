@@ -1835,7 +1835,7 @@
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     NSLog(@"测试播放33333333333333---直播节目");
 }
-///other设备投屏手机设备
+///other设备投屏手机设备  29
 -(void)readSocketCommandTypeISTwentynine:(NSData *)dataToOperate
 {
 //    NSLog(@"dataTdataToateoOperate %@",dataToOperate);

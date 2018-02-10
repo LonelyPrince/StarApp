@@ -200,6 +200,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @synthesize nowPlayChannelInfo;
 @synthesize pushTableView;
 @synthesize pushViewCell;
+@synthesize shareViewArr;
 //@synthesize videoPlay;
 - (void)viewDidLoad {
     
@@ -388,6 +389,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void) initData
 {
 //    pushAlertViewIndex = 0;
+    shareViewArr = [[NSMutableArray alloc]init];
     blueCircleView = [[UIView alloc]init];
     pushSecNumLab = [[UILabel alloc]init];
     pushBtnSelectArr = [[NSMutableArray alloc]init];
@@ -1676,6 +1678,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
 }
+-(void)reducePushSharingView
+{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reducePushSharingViewNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reducePushSharingViewNotific) name:@"reducePushSharingViewNotific" object:nil];
+    
+}
+-(void)reducePushSharingViewNotific
+{
+    if (shareViewArr.count > 0) {
+        [shareViewArr removeObjectAtIndex:0];
+        NSLog(@"ajkaakakakakakaka");
+        NSLog(@"shareViewArr.countNONO %d",shareViewArr.count);
+        
+        if (shareViewArr.count > 0) {
+            NSNotification * textOne = shareViewArr[0][0];
+            NSString * typeStr = shareViewArr[0][1];
+            
+            if ([typeStr isEqualToString:@"Service"]) {
+                [self OtherDevicePushToPhone:textOne];
+            }else
+            {
+                [self OtherDevicePushToPhoneLive:textOne];
+            }
+        }
+    }
+}
 -(void)refreshTableFocus
 {
     //这是刷主页面的table焦点的通知
@@ -2854,7 +2884,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //如果不能播放，则显示sorry , radio 不能播放
         
         
-        [USER_DEFAULT setObject:@"video" forKey:@"videoOrRadioPlay"];
+        [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
         [USER_DEFAULT setObject:videoCantPlayTip forKey:@"videoOrRadioTip"];
         //        [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
         //        [USER_DEFAULT setObject:radioCantPlayTip forKey:@"videoOrRadioTip"];
@@ -2981,6 +3011,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self restartLineProgressNotific]; //进度条重新开始的通知
         
         [self refreshTableFocus];  //刷新tableView焦点颜色的通知
+        [self reducePushSharingView];  //刷新tableView焦点颜色的通知
         [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
         
         
@@ -3344,7 +3375,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
-        NSLog(@"删除了原先的sliderview22");
+        NSLog(@"删除了原先的sliderview2244");
         NSLog(@"刷新一次一次一次jsjsjsjssjjs！！！");
         NSLog(@"self.categoryscategorys！！！ %@",self.categorys);
         NSLog(@"self.categorysrecFileData！！！ %@",recFileData);
@@ -3358,9 +3389,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [_slideView removeFromSuperview];
             _slideView = nil;
             
-            NSLog(@"删除了原先的sliderview");
+            NSLog(@"删除了原先的sliderview1111");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
-        }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0  )
+        }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
             
             NSLog(@"刷新一次一次一次lolololo！！！");
@@ -3368,7 +3399,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [_slideView removeFromSuperview];
             _slideView = nil;
             
-            NSLog(@"删除了原先的sliderview");
+            NSLog(@"删除了原先的sliderview2222");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
@@ -3377,7 +3408,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [_slideView removeFromSuperview];
             _slideView = nil;
             
-            NSLog(@"删除了原先的sliderview");
+            NSLog(@"删除了原先的sliderview3333");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -5987,7 +6018,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [_slideView removeFromSuperview];
             _slideView = nil;
             
-            NSLog(@"删除了原先的sliderview");
+            NSLog(@"删除了原先的sliderview000");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -8913,9 +8944,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [JXAlertView setContainerView:[self createGetPushAlertView]];
     
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
-    NSString * MMShare = NSLocalizedString(@"MMShare", nil);
+    NSString * MMWatch = NSLocalizedString(@"MMWatch", nil);
     
-    [JXAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
+    [JXAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMWatch, nil]];
     JXAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
     
     JXAlertView.closeOnTouchUpOutside = YES;
@@ -8943,6 +8974,31 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            
+            
+            
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                
+                [self addHistory:pushChannelId diction:self.dicTemp];
+                [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+                [self.videoController setaudioOrSubtRowIsZero];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
+                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
+                });
+                //变蓝
+                
+            });
+            
+            
+            
             
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
@@ -8973,9 +9029,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [JXAlertView setContainerView:[self createLiveGetPushAlertView]];
     
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
-    NSString * MMShare = NSLocalizedString(@"MMShare", nil);
+    NSString * MMWatch = NSLocalizedString(@"MMWatch", nil);
     
-    [JXAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMShare, nil]];
+    [JXAlertView setButtonTitles:[NSMutableArray arrayWithObjects:CancelLabel, MMWatch, nil]];
     JXAlertView.buttonTitleColors = @[pushViewBtnColor,pushViewBtnColor];
     
     JXAlertView.closeOnTouchUpOutside = YES;
@@ -9006,6 +9062,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [self.navigationController popViewControllerAnimated:YES];
             
+            
+            
+            
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                
+                [self addHistory:pushChannelId diction:self.dicTemp];
+                [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
+                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+                [self.videoController setaudioOrSubtRowIsZero];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
+                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
+                });
+                //变蓝
+                
+            });
+            
+            
+            
+            
+            
+            
+            
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
             
@@ -9031,7 +9115,59 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setOtherDevicePushToPhoneNotific" object:nil];
     //    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OtherDevicePushToPhone:) name:@"setOtherDevicePushToPhoneNotific" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPushMutableArr:) name:@"setOtherDevicePushToPhoneNotific" object:nil];
+    
+    
+    
+}
+#pragma mark - 添加投屏信息到数组
+-(void)addPushMutableArr:(NSNotification *)text{
+    
+    
+    NSMutableArray * textAndIndexMutableArr = [[NSMutableArray alloc]init];
+    [textAndIndexMutableArr addObject:text];
+    [textAndIndexMutableArr addObject:@"Service"];
+    
+    NSLog(@"dengd 等待投屏");
+    
+    
+    [shareViewArr addObject:textAndIndexMutableArr];
+    
+    //①将每一个投屏信息添加到数据
+    //②逐个从数组中取出，然后逐个发送通知进行操作。如果点击了签一个被取消掉了，那么后一个跟进
+    
+//    double delayInSeconds = 5;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"hahahahahahah 5miao");
+    
+            NSLog(@"shareViewArr.count %d",shareViewArr.count);
+    
+        if (shareViewArr.count > 0 && shareViewArr.count == 1) {
+            NSNotification * textOne = shareViewArr[0][0];
+            NSString * typeStr = shareViewArr[0][1];
+            
+            if ([typeStr isEqualToString:@"Service"]) {
+                [self OtherDevicePushToPhone:textOne];
+            }else
+            {
+                [self OtherDevicePushToPhoneLive:textOne];
+            }
+            
+        }
+        
+        
+        
+        
+//    });
+    
+    
+    
+    
+    
+    
+   
 }
 -(void)OtherDevicePushToPhone:(NSNotification *)text{
 
@@ -9048,6 +9184,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * srcClientIpData = [data subdataWithRange:NSMakeRange(51,4)];
     NSData * srcClientNameLenData = [data subdataWithRange:NSMakeRange(55,1)];
     NSData * srcClientNameData = [data subdataWithRange:NSMakeRange(56,data.length - 56)];
+    
+   
+    
+    
+    
     
     socketView.otherDevicePushService.service_tuner_type = [SocketUtils uint32FromBytes:tunerTypeData];
     socketView.otherDevicePushService.service_network_id = [SocketUtils uint16FromBytes:netWorkIdData];
@@ -9093,6 +9234,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if ([[dic1 objectForKey:@"service_tuner_mode"] intValue] == socketView.otherDevicePushService.service_tuner_type && [[dic1 objectForKey:@"service_network_id"] intValue] ==socketView.otherDevicePushService.service_network_id && [[dic1 objectForKey:@"service_ts_id"] intValue] ==socketView.otherDevicePushService.service_ts_id && [[dic1 objectForKey:@"service_service_id"] intValue] ==socketView.otherDevicePushService.service_service_id )
     {
         NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
+        if (shareViewArr.count > 0) {
+            [shareViewArr removeObjectAtIndex:0];
+        }
     }else
     {
         
@@ -9130,18 +9274,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
  
                 
-//
-//                NSLog(@"[dic1 objectForKey: %d",[service_network intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
-//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_network_id"] intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_network_id);
-//
-//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_ts_id"] intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_ts_id);
-//                NSLog(@"[dic1 objectForKey: %d",[[dic1 objectForKey:@"service_service_id"] intValue]);
-//                NSLog(@"[dic1 objectForKey: %d",socketView.otherDevicePushService.service_service_id);
-//
-//
                 if ([service_network intValue] == socketView.otherDevicePushService.service_network_id && [service_ts intValue] == socketView.otherDevicePushService.service_ts_id && [service_tuner intValue] == socketView.otherDevicePushService.service_tuner_type && [service_service intValue] == socketView.otherDevicePushService.service_service_id) {
                     //证明节目存在，不需要刷新
 //                    allisNO = NO;
@@ -9161,8 +9293,49 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }
  
-        //弹窗
-        [self  createGetAlertView];
+        
+        
+        NSMutableArray * tempInfoArr = [[NSMutableArray alloc]init];
+        [tempInfoArr addObject:tunerTypeData];
+        [tempInfoArr addObject:netWorkIdData];
+        [tempInfoArr addObject:tsIdData];
+        [tempInfoArr addObject:serviceIdData];
+        [tempInfoArr addObject:audioPidData];
+        [tempInfoArr addObject:subtPidData];
+        [tempInfoArr addObject:srcClientIpData];
+        [tempInfoArr addObject:srcClientNameLenData];
+        [tempInfoArr addObject:srcClientNameData];
+        
+//        if (shareViewArr.count == 0) {
+//            [shareViewArr addObject:tempInfoArr];
+//
+//            //弹窗
+//            [self  createGetAlertView];
+//        }else
+//        {
+//            bool hasSharingView = YES;
+//            for (int i = 0;  i < shareViewArr.count; i++) {
+//                if ([shareViewArr[i] isEqualToArray:tempInfoArr]) {
+//                    NSLog(@"hahahahahaha");
+//                    hasSharingView = YES;
+//                }else
+//                {
+//                    NSLog(@"hahahahahahajajajajajaja");
+//                    hasSharingView = NO;
+//                }
+//            }
+//            if (hasSharingView == NO) {
+//                [shareViewArr addObject:tempInfoArr];
+//
+                //弹窗
+                [self  createGetAlertView];
+//            }else
+//            {
+//                //不操作，不弹窗
+//            }
+//        }
+        
+       
         
  
         
@@ -9175,7 +9348,51 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setOtherDevicePushToPhoneLiveNotific" object:nil];
     //    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OtherDevicePushToPhoneLive:) name:@"setOtherDevicePushToPhoneLiveNotific" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPushLiveMutableArr:) name:@"setOtherDevicePushToPhoneLiveNotific" object:nil];
+}
+#pragma mark - 添加投屏信息到数组
+-(void)addPushLiveMutableArr:(NSNotification *)text{
+    
+    NSMutableArray * textAndIndexMutableArr = [[NSMutableArray alloc]init];
+    [textAndIndexMutableArr addObject:text];
+    [textAndIndexMutableArr addObject:@"Live"];
+    
+    
+    [shareViewArr addObject:textAndIndexMutableArr];
+    NSLog(@"dengd 等待投屏");
+    
+    //①将每一个投屏信息添加到数据
+    //②逐个从数组中取出，然后逐个发送通知进行操作。如果点击了签一个被取消掉了，那么后一个跟进
+    
+//    double delayInSeconds = 5;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"hahahahahahah 5miao");
+    
+        if (shareViewArr.count > 0 && shareViewArr.count == 1) {
+            NSNotification * textOne = shareViewArr[0][0];
+            NSString * typeStr = shareViewArr[0][1];
+            
+            if ([typeStr isEqualToString:@"Service"]) {
+                [self OtherDevicePushToPhone:textOne];
+            }else
+            {
+                [self OtherDevicePushToPhoneLive:textOne];
+            }
+        }
+        
+        
+        
+        
+//    });
+    
+    
+    
+    
+    
+    
+    
 }
 -(void)OtherDevicePushToPhoneLive:(NSNotification *)text{
     
@@ -9190,6 +9407,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * srcClientNameLenData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData]+4,1)];
     NSData * srcClientNameData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData]+5,[SocketUtils uint8FromBytes:srcClientNameLenData])];
    
+    
+    
+    
+ 
+    
+    
+    
+    
+    
+    
     
     socketView.otherDevicePushLive.file_name_len = [SocketUtils uint8FromBytes:fileNameLenData];
     socketView.otherDevicePushLive.file_name = [[NSString alloc]initWithData:fileNameData encoding:NSUTF8StringEncoding];
@@ -9222,6 +9449,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if ([[dic1 objectForKey:@"file_name"] isEqualToString: socketView.otherDevicePushLive.file_name])
     {
         NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
+        if (shareViewArr.count > 0) {
+            [shareViewArr removeObjectAtIndex:0];
+        }
     }else
     {
         //新建字典
@@ -9282,8 +9512,45 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }
         
-        //弹窗
-        [self  createLiveGetAlertView];
+        
+        NSMutableArray * tempInfoArr = [[NSMutableArray alloc]init];
+        [tempInfoArr addObject:fileNameLenData];
+        [tempInfoArr addObject:fileNameData];
+        [tempInfoArr addObject:srcClientIpData];
+        [tempInfoArr addObject:srcClientNameLenData];
+        [tempInfoArr addObject:srcClientNameData];
+        
+//        if (shareViewArr.count == 0) {
+//            [shareViewArr addObject:tempInfoArr];
+//
+//            //弹窗
+//            [self  createLiveGetAlertView];
+//        }else
+//        {
+//            bool hasSharingView = YES;
+//            for (int i = 0;  i < shareViewArr.count; i++) {
+//                if ([shareViewArr[i] isEqualToArray:tempInfoArr]) {
+//                    NSLog(@"hahahahahaha");
+//                    hasSharingView = YES;
+//                }else
+//                {
+//                    NSLog(@"hahahahahahajajajajajaja");
+//                    hasSharingView = NO;
+//                }
+//            }
+//            if (hasSharingView == NO) {
+//                [shareViewArr addObject:tempInfoArr];
+//
+                //弹窗
+                [self  createLiveGetAlertView];
+//            }
+//        }
+//
+        
+        
+        
+        
+       
  
     }
     

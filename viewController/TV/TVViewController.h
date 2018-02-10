@@ -35,6 +35,7 @@
 #import "KVO_NoDataPic.h"
 #import "NowPlayChannelInfo.h"
 #import "pushViewCell.h"
+#import "YFRollingLabel.h"
 
 @class ZXVideo;
 @interface TVViewController : UIViewController<UITextFieldDelegate>
@@ -66,7 +67,7 @@
 @property (strong,nonatomic)NowPlayChannelInfo *nowPlayChannelInfo;  //KVO
 @property (strong,nonatomic)UITableView * pushTableView;  //KVO
 @property (strong,nonatomic)pushViewCell * pushViewCell;
-
+@property (strong,nonatomic)NSMutableArray * shareViewArr;
 
 /// 跳转到其他的页面都自动停止播放，并且取消掉首页的20秒无法播放显示的字体
 @property (nonatomic, copy) void(^TVViewStopVideoPlayAndCancelDealyFunctionBlock)();

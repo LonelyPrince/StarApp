@@ -59,6 +59,7 @@ const static CGFloat kCustomMotionEffectExtent                = 10.0;
 //
 #pragma mark  - show
 - (void)show
+//- (void)show:(int)viewIndex
 {
     // 1.UI
     _dialogView = [self createContainerView];
@@ -69,6 +70,7 @@ const static CGFloat kCustomMotionEffectExtent                = 10.0;
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 
+    
 
     // 2.animation
 #if (defined(__IPHONE_7_0))
@@ -79,8 +81,18 @@ const static CGFloat kCustomMotionEffectExtent                = 10.0;
 
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
 
+    //层级叠加
     [self addSubview:_dialogView];
+    
+//    int intTemp = 1000;
+//
+//    intTemp = intTemp - viewIndex;
+//
+//
+//    [self insertSubview:_dialogView atIndex:intTemp];
 
+//    [self sendSubviewToBack:_dialogView];
+    
 
     if (_parentView != NULL) {
         [_parentView addSubview:self];
@@ -150,6 +162,19 @@ const static CGFloat kCustomMotionEffectExtent                = 10.0;
 // 关闭
 - (void)close
 {
+    NSLog(@"guanbi lelelelelelelelel");
+   
+    double delayInSeconds = 0.3;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+       
+        NSNotification *notification =[NSNotification notificationWithName:@"reducePushSharingViewNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    });
+   
+    
     CATransform3D currentTransform = _dialogView.layer.transform;
 
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {

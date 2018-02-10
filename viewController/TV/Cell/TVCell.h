@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CategoryModel.h"
 #import "ServiceModel.h"
+#import "YFRollingLabel.h"
+
+
 @interface TVCell : UITableViewCell
 
 
@@ -28,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *channel_id;
 @property (weak, nonatomic) IBOutlet UILabel *channel_Name;
 
-
+@property (nonatomic, strong, readwrite) YFRollingLabel *YFRunLabel;
 ///数据源
 @property (nonatomic, strong) NSString *nowTimeStr;
 @property (nonatomic, strong) NSDictionary *dataDic;

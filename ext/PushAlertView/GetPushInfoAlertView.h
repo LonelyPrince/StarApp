@@ -27,6 +27,7 @@
 - (id)initWithParentView: (UIView *)parentView __attribute__ ((deprecated));
 
 - (void)show;
+//- (void)show:(int)viewIndex;
 - (void)close;
 
 - (void)setOnButtonTouchUpInside:(void (^)(GetPushInfoAlertView *alertView, int buttonIndex))onButtonTouchUpInside;

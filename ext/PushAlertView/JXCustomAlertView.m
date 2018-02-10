@@ -54,6 +54,7 @@ CGFloat buttonSpacerHeight = 0;
 }
 
 #pragma mark  - show
+//- (void)show: (int)viewIndex
 - (void)show
 {
     // 1.UI
@@ -77,6 +78,13 @@ CGFloat buttonSpacerHeight = 0;
     
     [self addSubview:_dialogView];
     
+//    int intTemp = 1000;
+//
+//    intTemp = intTemp - viewIndex;
+//
+//
+//    [self insertSubview:_dialogView atIndex:intTemp];
+//
     
     if (_parentView != NULL) {
         [_parentView addSubview:self];

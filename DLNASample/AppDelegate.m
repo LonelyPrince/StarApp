@@ -62,7 +62,7 @@
     //    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
     //    [self getCGData1];
     //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
-    //    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+//        NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
