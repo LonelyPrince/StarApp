@@ -281,10 +281,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     // slider
 //    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
-    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
-    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
-    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchCancel];
+//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
+//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
+//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchCancel];
     
     [self setProgressSliderMaxMinValues];
     //    [self monitorVideoPlayback];
@@ -634,16 +634,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             CGFloat y = fabs(veloctyPoint.y);
             
             if (x > y) { // 水平移动
-                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-                    //录制
+//                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+//                    //录制
                     self.panDirection = ZXPanDirectionHorizontal;
                     self.sumTime = self.player.playableDuration; //currentPlaybackTime; // sumTime初值
-                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
-                    [self.player pause];
-                    [self stopDurationTimer];
-                }else
-                {
-                }
+//                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
+//                    [self.player pause];
+//                    [self stopDurationTimer];
+//                }else
+//                {
+//                }
                 
             } else if (x < y) { // 垂直移动
                 self.panDirection = ZXPanDirectionVertical;
@@ -658,15 +658,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateChanged: { // 正在移动
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-                    
-                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-                        //录制
-                        [self horizontalMoved:veloctyPoint.x];
-                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
-                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-                    }else
-                    {
-                    }
+//
+//                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+//                        //录制
+//                        [self horizontalMoved:veloctyPoint.x];
+//                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
+//                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+//                    }else
+//                    {
+//                    }
                     
                 }
                     break;
@@ -683,31 +683,31 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateEnded: { // 移动停止
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-                        //录制
-                        //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-                        //Failed to open segment of playlist
-                        
-                        
-                        [self.player seek:floor(self.sumTime)];
-                        while (self.player.playableDuration < (self.sumTime - 2)) {
-                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
-                            NSLog(@" xyz - sumTime %f",self.sumTime);
-                            sleep(2);
-                            NSLog(@" xyz - 0000");
-                            [self.player seek:floor(self.sumTime)];
-                        }
-                        [self.player play];
-                        [self startDurationTimer];
-                        [self.videoControl autoFadeOutControlBar];
-                    }else
-                    {
-                        //                    [self.player seek:floor(self.sumTime)];
-                        [self.player play];
-                        [self startDurationTimer];
-                        [self.videoControl autoFadeOutControlBar];
-                    }
+//                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+//                        //录制
+//                        //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+//                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+//                        //Failed to open segment of playlist
+//
+//
+//                        [self.player seek:floor(self.sumTime)];
+//                        while (self.player.playableDuration < (self.sumTime - 2)) {
+//                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
+//                            NSLog(@" xyz - sumTime %f",self.sumTime);
+//                            sleep(2);
+//                            NSLog(@" xyz - 0000");
+//                            [self.player seek:floor(self.sumTime)];
+//                        }
+//                        [self.player play];
+//                        [self startDurationTimer];
+//                        [self.videoControl autoFadeOutControlBar];
+//                    }else
+//                    {
+//                        //                    [self.player seek:floor(self.sumTime)];
+//                        [self.player play];
+//                        [self startDurationTimer];
+//                        [self.videoControl autoFadeOutControlBar];
+//                    }
                     
                 }
                     break;

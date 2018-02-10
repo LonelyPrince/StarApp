@@ -1382,6 +1382,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _progressSlider.continuous = YES;
         //progressSlider 隐藏
         
+        _progressSlider.enabled = NO;
+        
         _progressSlider.alpha = 0;
         _progressSlider.hidden = YES;
     }
