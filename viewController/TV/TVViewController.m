@@ -2510,6 +2510,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {
                 //            return;
+                
+                self.event_videoname = @"";
+                self.event_startTime = @"";
+                self.event_endTime = @"";
             }
             
             isEventStartTimeBiger_NowTime = NO;
@@ -4133,7 +4137,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
             epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
             if (epg_infoArr.count == 0 || epg_infoArr == nil) {
-                //        return;
+                //            return;
+                
+                self.event_videoname = @"";
+                self.event_startTime = @"";
+                self.event_endTime = @"";
             }else
             {
 #pragma mark - 需要注意名称变化
@@ -4596,7 +4604,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
             }else
             {
-                
+                self.event_videoname = @"";
+                self.event_startTime = @"";
+                self.event_endTime = @"";
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
@@ -5823,6 +5833,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //判断开始时间和当前时间的大小关系，如果开始时间比当前时间还大，那么则isEventStartTimeBiger_NowTime == yes
 -(BOOL )judgeEventStartTime :(NSString *)videoName startTime :(NSString *)startTime endTime :(NSString *)endTime
 {
+    NSLog(@"panduan 时间");
     NSString * nowTimeStr =[GGUtil GetNowTimeString]; //获得当前时间的时间戳
     
     if ([startTime intValue] > [nowTimeStr intValue]) {

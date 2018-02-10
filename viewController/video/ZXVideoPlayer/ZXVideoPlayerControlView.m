@@ -199,6 +199,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fullScreenBtnShow" object:nil];
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnShow) name:@"fullScreenBtnShow" object:nil];
+        
+        //显示全屏按钮
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"viewShowNotific" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewShowNotific) name:@"viewShowNotific" object:nil];
     }
     return self;
 }
@@ -1265,7 +1270,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_eventTimeLabNow) {
         _eventTimeLabNow = [[UILabel alloc] init];
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
-        _eventTimeLabNow.text = @"08:00 " ;
+        _eventTimeLabNow.text = @"00:00 " ;
         _eventTimeLabNow.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
         
         deviceString = [GGUtil deviceVersion];
@@ -1512,6 +1517,47 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+-(void)viewShowNotific
+{
+    if ([USER_DEFAULT boolForKey:@"lockedFullScreen"]) {
+    }else
+    {
+        if (self.isBarShowing) {
+            barIsShowing = 1;
+            self.isBarShowing = NO;
+            [self animateShow];
+            
+        }else
+        {
+            barIsShowing =0;
+            int show;
+            [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
+            [self animateShow];
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+            show = 2;
+            _topBar.userInteractionEnabled = YES;
+            _bottomBar.userInteractionEnabled = YES;
+            NSLog(@"**%hhd",self.isBarShowing);
+            NSLog(@"点击了第二下");
+            
+            BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
+            
+            if (islockShowing == NO&& isFullScreenMode)  {
+                //将其显示
+                
+                [self lockButtonShow];
+                //                    self.lockButton.hidden = NO;
+                //                    islockShowing = YES;
+                
+                
+            }
+            
+        }
+    }
+    
 }
 @end
 

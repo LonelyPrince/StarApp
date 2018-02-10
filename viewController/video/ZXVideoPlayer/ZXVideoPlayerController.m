@@ -3317,6 +3317,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //                UIAlertView *  abcalert  = [[UIAlertView alloc] initWithTitle:@"开始一个新的播放器" message:@"哈哈哈" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
         //                [abcalert show];
         
+
+        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification5];
+        
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         self.player = nil;
@@ -4640,6 +4645,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)setEventTime
 {
     NSLog(@"this is 00000");
+    NSLog(@"self.video.endTime %d",[self.video.endTime intValue]);
+    NSLog(@"self.video.startTime %d",[self.video.startTime intValue]);
     float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
     NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
     
