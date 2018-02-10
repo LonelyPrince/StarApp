@@ -1336,7 +1336,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_pushBtn) {
         _pushBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_pushBtn setImage:[UIImage imageNamed:@"投屏横"] forState:UIControlStateNormal];
-        _pushBtn.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+//        _pushBtn.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
         
     }
     return _pushBtn;
