@@ -63,6 +63,8 @@
     tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
+//    tableView.scrollsToTop = NO;
+    
     //    [self setTableViewHeaderView];
     [self.view addSubview:tableView];
     
@@ -271,8 +273,8 @@
     
     NSMutableArray * onlyHaveSectionOneArr = [[NSMutableArray alloc]init];
     NSMutableArray * HaveSectionOneAndTwoArr = [[NSMutableArray alloc]init];
-    if (selectedArray == 0) {
-        
+    if (selectedArray.count == 0) {
+        NSLog(@"selectedArray  的 数量为空");
     }
     else{
         //此处多选删除选中的

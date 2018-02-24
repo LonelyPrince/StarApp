@@ -211,7 +211,7 @@
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChangedName:)
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:setNameText];
         //        setNameText.secureTextEntry = YES;
@@ -347,7 +347,7 @@
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChangedName:)
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:setNameText];
         //        setNameText.secureTextEntry = YES;
@@ -487,7 +487,7 @@
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChangedName:)
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:setNameText];
         //        setNameText.secureTextEntry = YES;
@@ -622,7 +622,7 @@
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChangedName:)
                                                     name:@"UITextFieldTextDidChangeNotification"
                                                   object:setNameText];
         //        setNameText.secureTextEntry = YES;
@@ -917,6 +917,81 @@
     NSLog(@"点击了眼睛按钮");
     //    [setPswText becomeFirstResponder];
 }
+
+//name
+-(BOOL)textFiledEditChangedName:(NSNotification *)obj{
+    UITextField *textField = (UITextField *)obj.object;
+
+    NSString *toBeString = textField.text;
+
+
+
+    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    //        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+    //            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+    //            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+    //            if (character < 45)
+    //            {
+    //
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; // 48 unichar for 0..
+    //            }
+    //
+    //            if (character > 45 && character < 48)
+    //            {
+    //
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; // 48 unichar for 0..
+    //            }
+    //            if (character > 57 && character < 65)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 90 && character < 95)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 95 && character < 97)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //            if (character > 122)
+    //            {
+    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+    //                return NO; //
+    //            }
+    //
+    //
+    //        }
+    // Check for total length
+    NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
+    if (proposedNewLength > 16) {
+        textField.text = [toBeString substringToIndex:16];
+        return NO;//限制长度
+    }else if(proposedNewLength <= 2)
+    {
+//        textField.text = [toBeString substringToIndex:1];
+
+
+//        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+//            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+//
+//           textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
+//        }
+
+        textField.text = @"MG";
+
+        NSLog(@"textField.textname %@",textField.text);
+        return YES;
+    }
+    return YES;
+
+
+}
+ //psw
 -(BOOL)textFiledEditChanged:(NSNotification *)obj{
     UITextField *textField = (UITextField *)obj.object;
     
