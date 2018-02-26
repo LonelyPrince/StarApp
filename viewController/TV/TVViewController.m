@@ -4052,7 +4052,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //创建通知
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
             //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            //lallalalalal===========================================
+//            [[NSNotificationCenter defaultCenter] postNotification:notification2];
             
             
             NSLog(@"dic: %@",dic);

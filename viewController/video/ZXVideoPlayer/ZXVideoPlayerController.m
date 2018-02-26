@@ -4498,6 +4498,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (arrNowPlayingTemp.count > 0) {
             NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
             self.video.playEventName =eventNameLabStr;
+        }else
+        {
+            self.video.playEventName = @"";
         }
         self.video.channelId =channelIdLabStr;
         self.video.channelName =channelNameLabStr;
