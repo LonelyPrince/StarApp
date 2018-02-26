@@ -28,7 +28,7 @@
     UIButton * redDeleteBtn;
     
     UIView * noDataSourceView;
-    
+    NSString * deviceString;
     //
     //    UIView *customSeparatorView;
     //    CGFloat separatorHight;
@@ -43,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBarController.tabBar.hidden  = YES;
-    
+    deviceString = [GGUtil deviceVersion];
     NSString * HistoryLabel = NSLocalizedString(@"HistoryLabel", nil);
     self.title = HistoryLabel;
     [tableView reloadData];
@@ -886,7 +886,17 @@
 }
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
+        NSLog(@"此刻是6 plus的大小");
+        
+        tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
+    }else
+    {
+        tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
+//    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    
     
     HistoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     EarilyCell *earilyCell = [tableView dequeueReusableCellWithIdentifier:@"earilyCell"];
