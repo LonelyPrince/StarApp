@@ -8814,6 +8814,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [phonePushOtherArr removeAllObjects];
     for (int i = 0; i< pushDataMutilArr.count;i++) {
         if (![pushDataMutilArr[i][2] isEqualToString:strName]) {
+            NSLog(@"pushDataMutilArr[i] %@",pushDataMutilArr[i]);
             [phonePushOtherArr addObject:pushDataMutilArr[i]];
             [pushBtnSelectArr addObject:@"NO"];
         }

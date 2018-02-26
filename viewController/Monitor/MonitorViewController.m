@@ -1044,6 +1044,16 @@
                 }
                 
                 
+                /*******/
+//                //这里获取name_len
+//                NSData * nameLenData = [[NSData alloc]init];
+//                if ([effectiveData length] >= placeFigure + 18 + 1) {
+//                    nameLenData = [effectiveData subdataWithRange:NSMakeRange(placeFigure+18, 1)];
+//                }else
+//                {
+//                    return;
+//                }
+                
                 //先看一下长度是不是0
                 char lenBuffer;
                 [nameLenData getBytes: &lenBuffer length: sizeof(lenBuffer)];
@@ -1545,6 +1555,7 @@
     type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
     
     NSString * clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
+    NSLog(@"手机clientNameStr:%@",clientNameStr);
     NSString * phoneModel =  [GGUtil deviceVersion]; //[self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
     NSString* client_name = [NSString stringWithFormat:@"Phone%@",phoneModel];  //***
