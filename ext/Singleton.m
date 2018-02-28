@@ -90,6 +90,22 @@
     
 }
 
+///获取card的值
+-(void)Play_ServiceGetCardType{
+    
+    
+    // 根据服务器要求发送固定格式的数据
+    //    [self.socketView heartBeat];
+    NSMutableData * cardData = [[NSMutableData alloc]init];
+    
+    cardData = [USER_DEFAULT objectForKey:@"data_CardType"];
+    NSLog(@"发送一次心跳");
+    [self.socket writeData:cardData withTimeout:1 tag:1];
+    
+    
+    
+}
+
 //播放视频
 -(void)Play_ServiceSocket{
     
@@ -412,6 +428,64 @@
                                     [self readSocketCommandTypeISZero:bigDataReduceSmallData];
                                 }
                                     break;
+                                    
+                                case 35:
+                                {
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    [self readSocketCommandTypeISThirtyFive:bigDataReduceSmallData];
+                                }
+                                    break;
+                                case 36:
+                                {
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    [self readSocketCommandTypeISThirtySix:bigDataReduceSmallData];
+                                }
+                                    break;
+
                                 case 31:
                                 {
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
@@ -899,6 +973,18 @@
                         
                     }
                         break;
+                    case 35:
+                    {
+                        [self readSocketCommandTypeISThirtyFive:data];
+                        
+                    }
+                        break;
+                    case 36:
+                    {
+                        [self readSocketCommandTypeISThirtySix:data];
+                        
+                    }
+                        break;
                     case 31:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
@@ -1118,6 +1204,75 @@
 
                                     
                                     [self readSocketCommandTypeISZero:bigDataReduceSmallData];
+                                    
+                                }
+                                    break;
+                                    
+                                case 35:
+                                {
+                                    // 更新了列表
+                                    NSLog(@"列表更新了");
+                                    
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
+                                    
+                                    [self readSocketCommandTypeISThirtyFive:bigDataReduceSmallData];
+                                    
+                                }
+                                    break;
+                                case 36:
+                                {
+                                    // 更新了列表
+                                    NSLog(@"列表更新了");
+                                    
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
+                                    
+                                    [self readSocketCommandTypeISThirtySix:bigDataReduceSmallData];
                                     
                                 }
                                     break;
@@ -1601,6 +1756,18 @@
                         [self readSocketCommandTypeISZero:data];
                     }
                         break;
+                    case 35:
+                    {
+                        [self readSocketCommandTypeISThirtyFive:data];
+                        
+                    }
+                        break;
+                    case 36:
+                    {
+                        [self readSocketCommandTypeISThirtySix:data];
+                        
+                    }
+                        break;
                     case 31:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
@@ -1743,53 +1910,173 @@
     //此处是验证机顶盒密码
     NSData * data_Refresh_Status = [[NSData alloc]init];
     //获得数据区的长度
-
+    
     if ([dataToOperate length] >=  38) {
-
+        
         data_Refresh_Status = [dataToOperate subdataWithRange:NSMakeRange(37,1)];
     }else
     {
         return;
     }
-
+    
     uint32_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
-
+    
     NSLog(@" dataToOperate %@",dataToOperate);
     if(data_Refresh_Status_int == 0) //正确
     {
-//        //发送播放命令
-//        //创建通知
-//        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//
-//        //                        STBDencryptVideoTouchNotific
+        //        //发送播放命令
+        //        //创建通知
+        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        //
+        //        //                        STBDencryptVideoTouchNotific
         NSLog(@"列表为空不做操作");
     }else  //if(data_Refresh_Status_int == 1) //验证错误
     {
-
+        
         NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
-
+        
         NSLog(@"列表不为空 需要做操作");
     }
     
     
-//  =======================================
+    //  =======================================
     
     
-//
-////    // 更新了列表
-//    NSLog(@"列表更新了");
-//    //        mediaDeliveryUpdateNotific
-//
-//    //创建通知
-//    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+    //
+    ////    // 更新了列表
+    //    NSLog(@"列表更新了");
+    //    //        mediaDeliveryUpdateNotific
+    //
+    //    //创建通知
+    //    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
 }
 
+-(void)readSocketCommandTypeISThirtyFive  :(NSData *)dataToOperate
+{
+    
+    //此处是验证机顶盒密码
+    NSData * data_Refresh_Status = [[NSData alloc]init];
+    //获得数据区的长度
+    
+    if ([dataToOperate length] >=  38) {
+        
+        data_Refresh_Status = [dataToOperate subdataWithRange:NSMakeRange(37,1)];
+    }else
+    {
+        return;
+    }
+    
+    uint8_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
+    
+    NSLog(@" dataToOperate %@",dataToOperate);
+    if(data_Refresh_Status_int == 0) //正确
+    {
+        //        //发送播放命令
+        //        //创建通知
+        //        //通过通知中心发送通知
+        
+        NSString * CardTypeStr = [NSString stringWithFormat:@"%hhu",data_Refresh_Status_int];
+        
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:CardTypeStr,@"CardTypeStr",nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"SetCardTypeNotific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        NSLog(@"列表为空不做操作");
+    }else  //if(data_Refresh_Status_int == 1) //验证错误
+    {
+        
+        NSString * CardTypeStr = [NSString stringWithFormat:@"%hhu",data_Refresh_Status_int];
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:CardTypeStr,@"CardTypeStr",nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"SetCardTypeNotific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        NSLog(@"列表不为空 需要做操作");
+    }
+    
+    
+    //  =======================================
+    
+    
+    //
+    ////    // 更新了列表
+    //    NSLog(@"列表更新了");
+    //    //        mediaDeliveryUpdateNotific
+    //
+    //    //创建通知
+    //    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+}
+-(void)readSocketCommandTypeISThirtySix  :(NSData *)dataToOperate
+{
+    NSLog(@"card_retcard_retcard_retcard_retcard SIXSIXSIX");
+    //此处是验证机顶盒密码
+    NSData * data_Refresh_Status = [[NSData alloc]init];
+    //获得数据区的长度
+    
+    if ([dataToOperate length] >=  38) {
+        
+        data_Refresh_Status = [dataToOperate subdataWithRange:NSMakeRange(37,1)];
+    }else
+    {
+        return;
+    }
+    
+    uint8_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
+    
+    NSLog(@" dataToOperate %@",dataToOperate);
+    if(data_Refresh_Status_int == 0) //正确
+    {
+        //        //发送播放命令
+        //        //创建通知
+        //        //通过通知中心发送通知
+        
+        NSString * CardTypeStr = [NSString stringWithFormat:@"%hhu",data_Refresh_Status_int];
+        
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:CardTypeStr,@"CardTypeStr",nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"SetCardTypeNotific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        NSLog(@"列表为空不做操作");
+    }else  //if(data_Refresh_Status_int == 1) //验证错误
+    {
+        
+        NSString * CardTypeStr = [NSString stringWithFormat:@"%hhu",data_Refresh_Status_int];
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:CardTypeStr,@"CardTypeStr",nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"SetCardTypeNotific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        NSLog(@"列表不为空 需要做操作");
+    }
+    
+    
+    //  =======================================
+    
+    
+    //
+    ////    // 更新了列表
+    //    NSLog(@"列表更新了");
+    //    //        mediaDeliveryUpdateNotific
+    //
+    //    //创建通知
+    //    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+}
 //对socket读取文件进行操作   case = 12
 -(void)readSocketCommandTypeISTwelve :(NSData *)dataToOperate
 {

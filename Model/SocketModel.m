@@ -68,3 +68,6 @@
 @implementation Sc_MDOtherPushLive
 @end
 
+//14.卡级别
+@implementation Sc_MDGetCardType
+@end

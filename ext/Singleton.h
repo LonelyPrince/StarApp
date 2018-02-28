@@ -50,4 +50,5 @@ enum{
 -(void)GetPushDeviceInfo_socket; 
 -(void)CSMDPushToSTBService_socket;//手机投机顶盒直播
 -(void)CSMDPushToSTBLive_socket; //手机投机顶盒录制
+-(void)Play_ServiceGetCardType; //获取card
 @end

@@ -60,6 +60,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 @synthesize  filePushService;
 @synthesize  sc_MDOtherPushService;
 @synthesize  sc_MDOtherPushLive;
+@synthesize  sc_MDGetCardType;
 
 - (void)viewDidLoad
 {
@@ -82,6 +83,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     sc_MDOtherPushService = [[Sc_MDOtherPushService alloc]init];
     sc_MDOtherPushLive = [[Sc_MDOtherPushLive alloc]init];
+    sc_MDGetCardType = [[Sc_MDGetCardType alloc]init];
     
     _socket=[[AsyncSocket alloc] initWithDelegate:self];
     otherDevicePushService = [[OtherDevicePushService alloc]init];
@@ -327,6 +329,68 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [[Singleton sharedInstance] Play_ServiceRECSocket];
     
 }
+
+
+//初始状态判断卡级别
+-(void)judgeCardType{
+    
+    
+    sc_MDGetCardType.module_name= @"MDMM";
+    sc_MDGetCardType.Ret=0;
+    sc_MDGetCardType.Reserved=APDE_Identify;  //后期做过修改的东西，让机顶盒做区分用的
+    do {
+        NSLog(@"IP为空，此处获取一个IP地址");
+        sc_MDGetCardType.client_ip= [self getIPArr];
+    } while (ISNULL(cs_serviceREC.client_ip));
+    
+    
+    sc_MDGetCardType.client_port = (uint32_t)[_socket localPort] ;
+    
+    sc_MDGetCardType.unique_id = [SocketUtils uint32FromBytes:[SocketView GetNowTimes]];
+    sc_MDGetCardType.command_type =DTV_SERVICE_MD_GET_CARD_RAT;// 35 ;
+    
+    NSString * phoneModel =  [self deviceVersion];
+    NSLog(@"手机型号:%@",phoneModel);
+    
+    
+    NSString * Card_type = @"0";
+  
+    sc_MDGetCardType.card_type = (uint8_t)Card_type;
+    sc_MDGetCardType. data_len= 10 ;
+    //    cs_serviceREC.data_len_m3u8 = 0;
+    //除了CRC和tag其他数据
+    NSMutableData * data_service ;
+    data_service = [[NSMutableData alloc]init];
+    
+    //计算CRC
+    NSMutableData * serviceCRCData = [[NSMutableData alloc]init];
+    
+    //1.tag转data
+    
+    //2.除了CRC和tag之外的转data
+    data_service = [self RequestSpliceAttribute:sc_MDGetCardType];
+    
+    [serviceCRCData appendData:data_service];   //CRC是除了tag和service
+    
+    NSLog(@"计算CRC：%@",serviceCRCData);
+    
+    //4.重置data_service，将tag,CRC,和其他数据加起来
+    data_service = [[NSMutableData alloc]init];
+    [data_service appendData:[self getPackageTagData]];
+    //3.计算CRC
+    [data_service appendData:[self dataTOCRCdata:serviceCRCData]];
+    [data_service appendData:[self RequestSpliceAttribute:sc_MDGetCardType]];
+    
+    
+    //转换成字节后，存起来
+    [USER_DEFAULT setObject:data_service forKey:@"data_CardType"];
+    [USER_DEFAULT synchronize];//把数据同步到本地
+    
+    
+    [[Singleton sharedInstance] Play_ServiceGetCardType];
+    
+}
+
 
 //退出视频分发
 

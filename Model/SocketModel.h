@@ -344,3 +344,23 @@
 @property (nonatomic, strong) NSString *  src_client_name;  //phone+型号
 
 @end
+
+///14.获取卡级别
+@interface Sc_MDGetCardType: NSObject
+
+@property (nonatomic, strong) NSString *  module_name;
+@property (nonatomic, assign) uint32_t  Ret;
+@property (nonatomic, assign) uint32_t  Reserved;
+@property (nonatomic, strong) NSArray *   client_ip;
+@property (nonatomic, assign) uint32_t  data_len;
+
+//data区域
+@property (nonatomic, assign) uint32_t  client_port;
+@property (nonatomic, assign) uint32_t  unique_id;        //系统时间  唯一标识
+@property (nonatomic, assign) uint8_t  command_type;       //类型枚举
+
+
+@property (nonatomic, assign) uint8_t    card_type;   //卡级别
+
+
+@end

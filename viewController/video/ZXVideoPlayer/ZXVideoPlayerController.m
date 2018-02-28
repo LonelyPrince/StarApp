@@ -3857,6 +3857,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         if (!ISEMPTY(self.video.dicChannl)) {
             
+            NSLog(@"self.video.dicChannl==Cell= %@",self.video.dicChannl);
+            
             cell.dataDic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             
             
@@ -4882,6 +4884,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {
         self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
+        
+        NSLog(@"self.video.dicChannl11 %@",self.video.dicChannl);
         self.video.channelCount =  [[USER_DEFAULT objectForKey:@"VideoTouchOtherViewchannelCount"] intValue];
         NSLog(@"self.video.channelCountself.video.channelCount");
         self.video.dicSubAudio = [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicSubAudio"];

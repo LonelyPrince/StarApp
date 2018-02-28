@@ -44,7 +44,8 @@ extern NSString * const TYPE_ARRAY;
 @property(nonatomic,strong)Cs_MDPushFile * cs_MDPushFile;         //手机投屏播放录制
 
 @property(nonatomic,strong)Sc_MDOtherPushService * sc_MDOtherPushService;
-@property(nonatomic,strong)Sc_MDOtherPushLive * sc_MDOtherPushLive;     
+@property(nonatomic,strong)Sc_MDOtherPushLive * sc_MDOtherPushLive;
+@property(nonatomic,strong)Sc_MDGetCardType * sc_MDGetCardType;
 
 @property(nonatomic,strong)OtherDevicePushService * otherDevicePushService;
 @property(nonatomic,strong)OtherDevicePushLive * otherDevicePushLive;
@@ -57,6 +58,7 @@ extern NSString * const TYPE_ARRAY;
 -(void)socketConnectHost;// socket连接
 -(void)heartBeat;
 -(void)serviceTouch;
+-(void)judgeCardType;
 -(void)deliveryPlayExit;
 //-(void)passwordCheck;
 -(void)passwordCheck :(NSString *)passWordStr  passwordType:(int)passwd_type_int;

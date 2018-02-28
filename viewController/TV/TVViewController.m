@@ -115,6 +115,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int pushChannelId;
     NSMutableDictionary * allChannelsDic ;
 //    int pushAlertViewIndex; //推屏倒计时弹窗的位置
+    int card_ret;
 }
 
 
@@ -1907,7 +1908,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
     }else{
+        NSLog(@"self.video.dicChannl88==11");
         [self updateFullScreenDic];
+        
         TVViewTouchPlay = YES;
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
         [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
@@ -1919,6 +1922,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         tempDicForServiceArr = self.TVChannlDic;
         NSLog(@"self.TVChannlDic %@",self.TVChannlDic);
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+        
+        NSLog(@"self.video.dicChannl22 %@",self.video.dicChannl);
+        
         self.video.channelCount = tempArrForServiceArr.count;
         tempIndexpathForFocus = indexPath;
         nowPlayChannelInfo.numberOfRowInt = indexPath.row;
@@ -2290,8 +2296,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 #pragma mark - 获取录制信息，播放录制内容
 - (void)getRECDataService:(NSNotification *)text{
-    
+//    card_ret = 0;
+    NSLog(@"card_retcard_retcard_retcard_retcard_retcard_ret %d",card_ret);
+    if (card_ret != 0) {
+        
     if (self.showTVView == YES) {
+        
+      
+        
         NSLog(@"%@",text.userInfo[@"playdata"]);
         NSLog(@"－－－－－接收到REC通知------");
         _byteDatas = [[NSMutableData alloc]init];
@@ -2388,6 +2400,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"已经不是TV页面了");
         [self ifNotISTVView];
     }
+        
+        
+    }else
+    {
+        NSLog(@" bu nnge  bof ang ");
+        
+        [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+        //    NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }
+    
 }
 
 -(void)getsubt
@@ -2923,7 +2948,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self addGuideView]; //添加引导图
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:60];
-        
+      
     }else{
         
         self.showTVView = YES;
@@ -2951,10 +2976,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
+       
     }
     
     
     
+    double delayInSeconds = 0.7;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        
+        [self setCardTypeNotific];
+        self.videoController.socketView1 = self.socketView;
+        [self.socketView  judgeCardType];
+    });
+   
     
 }
 //0.3s 后执行
@@ -3038,6 +3074,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self setPushDataNotific];///创建通知，用于列表数据
         [self OtherDevicePushToPhoneNotific];
         [self OtherDevicePushToPhoneLiveNotific];
+        
     });
     
     
@@ -3083,7 +3120,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSLog(@"self.video.dicChannl88==22");
         [self updateFullScreenDic];
+        
     });
     if (self.showTVView == YES) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -3248,6 +3287,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
     
+}
+-(void)setCardTypeNotific
+{
+    //2
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SetCardTypeNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setCardtype:) name:@"SetCardTypeNotific" object:nil];
+}
+-(void)setCardtype: (NSNotification *)text//(NSInteger)row
+{
+    NSLog(@"card_retcard_retcard_retcard_retcard1111 %d",card_ret);
+    card_ret = [text.userInfo[@"CardTypeStr"]integerValue];
+    NSLog(@"card_retcard_retcard_retcard_retcard2222 %d",card_ret);
+    NSLog(@"card_retcard_retcard_retcard_retcard3333 %d",[text.userInfo[@"CardTypeStr"]integerValue]);
 }
 - (void)addGuideView {
     
@@ -4022,6 +4075,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             tempDicForServiceArr = self.TVChannlDic;
             
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+            NSLog(@"self.video.dicChannl33 %@",self.video.dicChannl);
+            
             self.video.channelCount = tempArrForServiceArr.count;
             //*********
             
@@ -4168,6 +4223,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             tempDicForServiceArr = self.TVChannlDic;
             
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+            
+            NSLog(@"self.video.dicChannl44 %@",self.video.dicChannl);
+            
             self.video.channelCount = tempArrForServiceArr.count;
             //*********
             
@@ -4281,12 +4339,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         tempDicForServiceArr = self.TVChannlDic;
         
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+        
+        NSLog(@"self.video.dicChannl55 %@",self.video.dicChannl);
+        
         self.video.channelCount = tempArrForServiceArr.count;
         
         [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
         NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
         [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
         
+        NSLog(@"self.video.dicChannl88==33");
         [self updateFullScreenDic];
         
     }
@@ -4496,7 +4558,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSLog(@"self.video.dicChannl88==44");
         [self updateFullScreenDic];
+        
     });
     if (self.showTVView == YES) {
         NSLog(@"已经跳转到firstopen方法");
@@ -4639,6 +4703,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             });
             
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+            
+            NSLog(@"self.video.dicChannl66 %@",self.video.dicChannl);
+            
             self.video.channelCount = tempArrForServiceArr.count;
             if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
                 socketView.socket_ServiceModel.audio_pid = @"0";
@@ -5795,6 +5862,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
     [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+    
+    NSLog(@"self.video.dicChannl77 %@",self.video.dicChannl);
+    
     self.video.channelCount = tempArrForServiceArr.count;
     
     if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
@@ -8139,9 +8209,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     tempDicForServiceArr = self.TVChannlDic;
     
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-    
+    NSLog(@"self.video.dicChannl88 %@",self.video.dicChannl);
     
     self.video.channelCount = tempArrForServiceArr.count;
+    
+    NSLog(@"updateFullScreenDicself.dicTemp %@",self.dicTemp);
+    NSLog(@"updateFullScreenDicself.dicTemp %@",self.TVChannlDic);
+    NSLog(@"updateFullScreenDicself.dicTemp %@",[tempDicForServiceArr mutableCopy]);
+    NSLog(@"updateFullScreenDicself.dicTemp %d",tempArrForServiceArr.count);
+    
+    
+    
+    
     NSLog(@"tempArrForServiceArr.count %d",tempArrForServiceArr.count);
 }
 #pragma mark - 下拉刷新做12秒超时处理
