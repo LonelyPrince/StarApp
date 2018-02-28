@@ -352,7 +352,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self.durationTimer invalidate];
         self.durationTimer = nil;
         
-        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+//        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
         
         [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
@@ -4624,7 +4625,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     } else
     {
         bb1 = (int)self.player.playableDuration;
-        //        NSLog(@"self.player.playableDuration1bb1 %d",bb1);
+ NSLog(@"self.player.playableDuration1bb1 %d",bb1);
     }
     if (bb1 <0) {
         bb1 = 0;
@@ -4822,7 +4823,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [timerOfEventTime invalidate];
         timerOfEventTime = nil;
         
-        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+        
+        [self.durationTimer invalidate];
+        self.durationTimer = nil;
+        
+        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
     }else
     {
         [timerOfEventTime invalidate];
