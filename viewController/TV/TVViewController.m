@@ -474,8 +474,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
-        //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+       
         
         NSArray *data1 = response[@"service"];
         
@@ -486,223 +485,84 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if ( data1.count == 0 && recFileData.count == 0){
-            //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
-            if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                //机顶盒连接成功了，但是没有数据
-                //显示列表为空的数据
-                
-                if (_slideView) {
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
-                }
-                
-                self.NoDataImageview = [[UIImageView alloc]init];
-                self.NoDataLabel = [[UILabel alloc]init];
-                [self NOChannelDataShow];
-                NSLog(@"NOChannelDataShow--!!8888888");
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-                
-                
-            }else
-            {
-                
-                //机顶盒连接成功了，但是没有数据
-                //显示列表为空的数据
-                if (_slideView) {
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
-                }
-                
-                if (!self.NoDataImageview) {
-                    self.NoDataImageview = [[UIImageView alloc]init];
-                }
-                if (!self.NoDataLabel) {
-                    self.NoDataLabel = [[UILabel alloc]init];
-                }
-                [self NOChannelDataShow];
-                NSLog(@"NOChannelDataShow--!!1111111");
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-            }
-            //            {
-            //                double delayInSeconds = 1;
-            //                dispatch_queue_t mainQueue = dispatch_get_main_queue();
-            //                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-            //                dispatch_after(popTime, mainQueue, ^{
-            //                    NSLog(@"延时执行的2秒");
-            //                    //机顶盒连接出错了，所以要显示没有网络的加载图
-            //                    [self getServiceData]; //如果数据为空，则重新获取数据
-            //                });
-            //
-            //                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-            //                NSLog(@"可能会出现播放器空白的情况");
-            ////                return ;
-            //            }
+            NSDictionary *response =[USER_DEFAULT objectForKey:@"TVHttpAllData"];
+            NSArray *data1 = response[@"service"];
             
-        }
-        self.serviceData = (NSMutableArray *)data1; //data1 代表service
-        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-        
-        
-        BOOL serviceDatabool = [self judgeServiceDataIsnull];
-        if (serviceDatabool && recFileData.count == 0) {
-            //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
-            if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
-                //机顶盒连接成功了，但是没有数据
-                //显示列表为空的数据
-                if (_slideView) {
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
-                }
-                
-                if (!self.NoDataImageview) {
-                    self.NoDataImageview = [[UIImageView alloc]init];
-                }
-                if (!self.NoDataLabel) {
-                    self.NoDataLabel = [[UILabel alloc]init];
-                }
-                [self NOChannelDataShow];
-                NSLog(@"NOChannelDataShow--!!1111111");
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-            }else
-            {
-                
-                //机顶盒连接成功了，但是没有数据
-                //显示列表为空的数据
-                if (_slideView) {
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
-                }
-                
-                if (!self.NoDataImageview) {
-                    self.NoDataImageview = [[UIImageView alloc]init];
-                }
-                if (!self.NoDataLabel) {
-                    self.NoDataLabel = [[UILabel alloc]init];
-                }
-                [self NOChannelDataShow];
-                NSLog(@"NOChannelDataShow--!!1111111");
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-            }
-            //            {
-            //                //机顶盒连接出错了，所以要显示没有网络的加载图
-            //                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-            //
-            //                [self getServiceData]; //如果数据为空，则重新获取数据
-            //                //                return ;
-            //            }
-        }
-        
-        [self.activeView removeFromSuperview];
-        self.activeView = nil;
-        [self lineAndSearchBtnShow];
-        
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
-        [self playVideo];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.socketView viewDidLoad];
-        });
-        //////
-        //获取数据的链接
-        NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
-        
-        
-        LBGetHttpRequest *request = CreateGetHTTP(urlCate);
-        
-        
-        
-        [request startAsynchronous];
-        
-        WEAKGET
-        [request setCompletionBlock:^{
-            NSDictionary *response = httpRequest.responseString.JSONValue;
+            //录制节目,保存数据
+            NSArray *recFileData = response[@"rec_file_info"];
+            [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
             
-            NSArray *data = response[@"category"];
+            self.serviceData = (NSMutableArray *)data1; //data1 代表service
+            [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
             
-            [self setCategoryAndREC:data RECFile:recFileData];
-            //            if (data.count == 0 && recFileData.count == 0){ //没有数据
-            //
-            //                [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
-            //                return ;
-            //            }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
-            //
-            //                [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
-            //
-            //                // 特殊情况，有录制但是没有service数据
-            //                [self.CategoryAndREC removeAllObjects];
-            //                [self.CategoryAndREC addObject: recFileData];
-            //
-            //            }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
-            //            {
-            //                [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
-            //
-            //                [self.CategoryAndREC removeAllObjects];
-            //                [self.CategoryAndREC addObject:data];
-            //            }else //两种都有
-            //            {
-            //                [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
-            //
-            //                [self.CategoryAndREC removeAllObjects];
-            //                [self.CategoryAndREC addObject:data];
-            //                [self.CategoryAndREC addObject: recFileData];
-            //            }
             
-            if (data1.count == 0 && recFileData.count == 0)
-            {
-                //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
-                
+            BOOL serviceDatabool = [self judgeServiceDataIsnull];
+            if (serviceDatabool && recFileData.count == 0) {
+                //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     
+                    //机顶盒连接成功了，但是没有数据
+                    //显示列表为空的数据
                     if (_slideView) {
                         [_slideView removeFromSuperview];
                         _slideView = nil;
                         
                     }
-                    //机顶盒连接成功了，但是没有数据
-                    //显示列表为空的数据
+                    
                     if (!self.NoDataImageview) {
                         self.NoDataImageview = [[UIImageView alloc]init];
-                        
                     }
-                    //显示列表为空的数据
                     if (!self.NoDataLabel) {
                         self.NoDataLabel = [[UILabel alloc]init];
-                        
                     }
+                    [self NOChannelDataShow];
+                    NSLog(@"NOChannelDataShow--!!1111111");
+                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
                 {
-                    //机顶盒连接出错了，所以要显示没有网络的加载图
-                    [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
-                    return ;
+                    
+                    //机顶盒连接成功了，但是没有数据
+                    //显示列表为空的数据
+                    if (_slideView) {
+                        [_slideView removeFromSuperview];
+                        _slideView = nil;
+                        
+                    }
+                    
+                    if (!self.NoDataImageview) {
+                        self.NoDataImageview = [[UIImageView alloc]init];
+                    }
+                    if (!self.NoDataLabel) {
+                        self.NoDataLabel = [[UILabel alloc]init];
+                    }
+                    [self NOChannelDataShow];
+                    NSLog(@"NOChannelDataShow--!!1111111");
+                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }
-                
-                [self NOChannelDataShow];
-                NSLog(@"NOChannelDataShow--!!2222222");
-                [self removeTopProgressView]; //删除进度条
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-            }else
-            {
+           
+            }
+            
+            [self.activeView removeFromSuperview];
+            self.activeView = nil;
+            [self lineAndSearchBtnShow];
+            
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
+            [self playVideo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.socketView viewDidLoad];
+            });
+           
+                NSArray *data = response[@"category"];
                 self.categorys = (NSMutableArray *)data;
+                [self setCategoryAndREC:data RECFile:recFileData];
                 
                 if (!_slideView) {
                     
@@ -795,21 +655,250 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {}
                 
                 [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
+            
+        }else{
+            //将数据本地化
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+            
+            self.serviceData = (NSMutableArray *)data1; //data1 代表service
+            [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+            
+            
+            BOOL serviceDatabool = [self judgeServiceDataIsnull];
+            if (serviceDatabool && recFileData.count == 0) {
+                //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
+                if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                    
+                    //机顶盒连接成功了，但是没有数据
+                    //显示列表为空的数据
+                    if (_slideView) {
+                        [_slideView removeFromSuperview];
+                        _slideView = nil;
+                        
+                    }
+                    
+                    if (!self.NoDataImageview) {
+                        self.NoDataImageview = [[UIImageView alloc]init];
+                    }
+                    if (!self.NoDataLabel) {
+                        self.NoDataLabel = [[UILabel alloc]init];
+                    }
+                    [self NOChannelDataShow];
+                    NSLog(@"NOChannelDataShow--!!1111111");
+                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                }else
+                {
+                    
+                    //机顶盒连接成功了，但是没有数据
+                    //显示列表为空的数据
+                    if (_slideView) {
+                        [_slideView removeFromSuperview];
+                        _slideView = nil;
+                        
+                    }
+                    
+                    if (!self.NoDataImageview) {
+                        self.NoDataImageview = [[UIImageView alloc]init];
+                    }
+                    if (!self.NoDataLabel) {
+                        self.NoDataLabel = [[UILabel alloc]init];
+                    }
+                    [self NOChannelDataShow];
+                    NSLog(@"NOChannelDataShow--!!1111111");
+                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                }
+                //            {
+                //                //机顶盒连接出错了，所以要显示没有网络的加载图
+                //                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                //
+                //                [self getServiceData]; //如果数据为空，则重新获取数据
+                //                //                return ;
+                //            }
             }
             
+            [self.activeView removeFromSuperview];
+            self.activeView = nil;
+            [self lineAndSearchBtnShow];
             
-        }];
-        
-        if (data1.count == 0 && recFileData.count == 0)
-        {
-        }else{
-            [self initProgressLine];
-            //        [self getSearchData];
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
+            [self playVideo];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.socketView viewDidLoad];
+            });
+            //////
+            //获取数据的链接
+            NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
+            
+            
+            LBGetHttpRequest *request = CreateGetHTTP(urlCate);
             
             
             
-            [self.table reloadData];
+            [request startAsynchronous];
+            
+            WEAKGET
+            [request setCompletionBlock:^{
+                NSDictionary *response = httpRequest.responseString.JSONValue;
+                
+                NSArray *data = response[@"category"];
+                
+                [self setCategoryAndREC:data RECFile:recFileData];
+                
+                
+                if (data1.count == 0 && recFileData.count == 0)
+                {
+                    //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
+                    
+                    if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                        
+                        if (_slideView) {
+                            [_slideView removeFromSuperview];
+                            _slideView = nil;
+                            
+                        }
+                        //机顶盒连接成功了，但是没有数据
+                        //显示列表为空的数据
+                        if (!self.NoDataImageview) {
+                            self.NoDataImageview = [[UIImageView alloc]init];
+                            
+                        }
+                        //显示列表为空的数据
+                        if (!self.NoDataLabel) {
+                            self.NoDataLabel = [[UILabel alloc]init];
+                            
+                        }
+                    }else
+                    {
+                        //机顶盒连接出错了，所以要显示没有网络的加载图
+                        [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
+                        return ;
+                    }
+                    
+                    [self NOChannelDataShow];
+                    NSLog(@"NOChannelDataShow--!!2222222");
+                    [self removeTopProgressView]; //删除进度条
+                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                }else
+                {
+                    self.categorys = (NSMutableArray *)data;
+                    
+                    if (!_slideView) {
+                        
+                        //判断是不是全屏
+                        BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+                        if (isFullScreen == NO) {   //竖屏状态
+                            
+                            
+                            //设置滑动条
+                            _slideView = [YLSlideView alloc];
+                            _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+                                                                              SCREEN_WIDTH,
+                                                                              SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
+                            isHasChannleDataList = YES;
+                            [self.tableForDicIndexDic removeAllObjects];
+                            [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                            NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        }else //横屏状态，不刷新
+                        {
+                            
+                            //设置滑动条
+                            _slideView = [YLSlideView alloc];
+                            _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+                                                                              SCREEN_WIDTH,
+                                                                              SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
+                            
+                            [self.tableForDicIndexDic removeAllObjects];
+                            [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                            NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+                            //通过通知中心发送通知
+                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                        }
+                        
+                        
+                        NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
+                        [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+                        
+                        
+                        _slideView.backgroundColor = [UIColor whiteColor];
+                        _slideView.delegate        = self;
+                        
+                        [self.view addSubview:_slideView];
+                        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                        
+                    }
+                    else
+                    {
+                        
+                    }
+                    //            [self.socketView viewDidLoad];
+                    if (firstfirst == YES) {
+                        
+                        //=======机顶盒加密
+                        NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
+                        if (characterStr != NULL && characterStr != nil) {
+                            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                            if (judgeIsSTBDecrypt == YES) {
+                                // 此处代表需要记性机顶盒加密验证
+                                NSNumber  *numIndex = [NSNumber numberWithInteger:0];
+                                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                                //创建通知
+                                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                                //通过通知中心发送通知
+                                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                                
+                                firstOpenAPP = firstOpenAPP+1;
+                                
+                                firstfirst = NO;
+                                
+                            }else //正常播放的步骤
+                            {
+                                //======
+                                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                                firstOpenAPP = firstOpenAPP+1;
+                                
+                                firstfirst = NO;
+                            }
+                        }else //正常播放的步骤
+                        {
+                            //======机顶盒加密
+                            
+                            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }
+                    }else
+                    {}
+                    
+                    [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
+                }
+                
+                
+            }];
+            
+            if (data1.count == 0 && recFileData.count == 0)
+            {
+            }else{
+                [self initProgressLine];
+                //        [self getSearchData];
+                
+                
+                
+                [self.table reloadData];
+            }
         }
+ 
         
         
     }];
