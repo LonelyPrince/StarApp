@@ -3543,7 +3543,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"self.categorytCategoryArr！！！ %@",getLastCategoryArr);
         NSLog(@"self.categoryLastRecFileArr！！！ %@",getLastRecFileArr);
         //判断是不是需要刷新顶部的YLSlider
-        if (![self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+        if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
 
             NSLog(@"刷新一次一次一次lolololo！！！");
 
@@ -8766,17 +8766,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"lastCategory %@",lastCategory);
     NSLog(@"categoryArr %@",categoryArr);
-    NSLog(@"lastFileArr.count %f",lastFileArr.count);
-    NSLog(@"recFileArr.count %f",recFileArr.count);
-    NSLog(@"lastFileArr.count %f",recFileArr.count);
-    NSLog(@"lastFileArr.count %f",recFileArr.count);
+    NSLog(@"lastFileArr.count %lu",(unsigned long)lastFileArr.count);
+    NSLog(@"recFileArr.count %lu",recFileArr.count);
+    NSLog(@"lastFileArr.count %lu",recFileArr.count);
+    NSLog(@"lastFileArr.count %lu",recFileArr.count);
     
-    if ([lastCategory isEqualToArray:categoryArr] && ((lastFileArr.count >0 && recFileArr.count>0) || (lastFileArr.count ==0 && recFileArr.count==0))) {
+//    if ([lastCategory isEqualToArray:categoryArr] && ((lastFileArr.count >0 && recFileArr.count>0) || (lastFileArr.count ==0 && recFileArr.count==0)))
+    if ([lastCategory isEqualToArray:categoryArr] && (lastFileArr.count >0 && recFileArr.count>0))
+    {
         NSLog(@"NONONONONO");
         return NO;
-    }else
+    }else if([lastCategory isEqualToArray:categoryArr] && (lastFileArr.count ==0 && recFileArr.count==0)){
+        return NO;
+    }
+    else
     {
         NSLog(@"YESYESYESYES");
+        NSLog(@"需要删除了sliderview 重新刷新");
         return YES;
     }
 }
