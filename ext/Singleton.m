@@ -2416,7 +2416,7 @@
 -(void)readSocketCommandTypeISNineteen  //视频分发退出
 {
     
-    NSLog(@"*****爱上了大师傅吧是；房价吧；按时态");
+    NSLog(@"*************** 退出分发");
     //发送通知方法，把视频播放停止掉后，禁止加载圈，显示断开分发的提示语
     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
     

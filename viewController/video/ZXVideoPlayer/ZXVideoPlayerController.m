@@ -4533,6 +4533,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
     }else
     {
+        self.videoControl.channelIdLab.text = @"";
         //录制
         self.videoControl.progressSlider.hidden = NO;
         self.videoControl.progressSlider.alpha = 1;
@@ -4579,7 +4580,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else //竖屏
         {
             NSLog(@"REC  竖屏");
+//            self.video.channelId = @"";
+//            NSLog(@"lalalalal 执行过");
+            self.videoControl.channelIdLab.text = @"";
+
             if ([self.video.channelId isEqualToString: @""]) {
+                
                 
                 self.videoControl.channelNameLab.frame = CGRectMake(20, 10, 25+200, 18);
             }

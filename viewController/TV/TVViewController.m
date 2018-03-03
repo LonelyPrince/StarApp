@@ -562,6 +562,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
            
                 NSArray *data = response[@"category"];
                 self.categorys = (NSMutableArray *)data;
+                NSLog(@"categorys==||=getserviceData");
                 [self setCategoryAndREC:data RECFile:recFileData];
                 
                 if (!_slideView) {
@@ -790,6 +791,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else
                 {
                     self.categorys = (NSMutableArray *)data;
+                    NSLog(@"categorys==||=getserviceData");
                     
                     if (!_slideView) {
                         
@@ -2537,12 +2539,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //    NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",row]];
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
         
-        NSLog(@"epgDicToSocket %@",epgDicToSocket);
+        NSLog(@"epgDicToSocketlala %@",epgDicToSocket);
         
         /*
          直播和录制的分水岭
          **/
-        
+        NSLog(@"epgDicToSocketlala.count %d",epgDicToSocket.count);
         if (epgDicToSocket.count > 14) {  //录制
             [self playRECVideo:epgDicToSocket];
         }else //直播
@@ -3517,6 +3519,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     [request startAsynchronous];   //异步
 
+    NSLog(@"self.categorys=a=a=a= %d",self.categorys.count);
+    
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
     getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
     WEAKGET
@@ -3534,6 +3538,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+        NSLog(@"categorys==||=SDT");
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
 
         NSLog(@"删除了原先的sliderview2244");
@@ -3552,6 +3557,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
             NSLog(@"删除了原先的sliderview1111");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
+//            [self tableViewDataRefreshForMjRefresh];
+            
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
 
@@ -3600,10 +3607,41 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self returnDicTemp:index]; //根据是否有录制返回不同的item
             }else if(self.categorys.count == 0 && recFileData.count > 0)
             {
-                //======机顶盒加密
+//                //======机顶盒加密
                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                 NSLog(@"ajsbdakjbfsabfasbflkab %@",self.dicTemp);
 
+                
+                
+//                //如果发现第二列，则展示REC这个数组
+//                NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+//                self.categoryModel = [[CategoryModel alloc]init];
+//                self.categoryModel.service_indexArr = RECTempArr;
+//                NSLog(@" self.categoryModel.service_indexArr==333 %@ ", self.categoryModel.service_indexArr);
+//                tempArrForServiceArr =  RECTempArr;
+//                numberOfRowsForTable = RECTempArr.count;
+//
+//                /*
+//                 用于分别获取REC Json数据中的值
+//                 **/
+//
+//                [self.dicTemp removeAllObjects];
+//
+//                for (int i = 0; i< RECTempArr.count ; i++) {
+//                    [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
+//                }
+//
+//
+//
+//                self.showTVView = YES;
+//                [self touchSelectChannel:0 diction:self.dicTemp];
+//
+                
+                
+                
+                
+                
+                
                 double delayInSeconds = 0.5;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -3647,6 +3685,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
+            NSLog(@"categorys==||=SDT");
 
         }];
 
@@ -5076,6 +5115,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            }
             
             self.categorys = (NSMutableArray *)data;
+            NSLog(@"categorys==||=SDT");
             
             if (!_slideView) {
                 
@@ -6195,6 +6235,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.serviceData = (NSMutableArray *)data1;
         
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+        NSLog(@"categorys==||=MJRefresh");
         NSLog(@"last   self.categorys %@",self.categorys);
         
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
@@ -6266,6 +6307,62 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"NOChannelDataDefault 666");
             }
             
+            if (recFileData.count > 0 ) {
+             
+                
+                    //如果发现第二列，则展示REC这个数组
+                    NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                    self.categoryModel = [[CategoryModel alloc]init];
+                    self.categoryModel.service_indexArr = RECTempArr;
+                    NSLog(@" self.categoryModel.service_indexArr==333 %@ ", self.categoryModel.service_indexArr);
+                    tempArrForServiceArr =  RECTempArr;
+                    numberOfRowsForTable = RECTempArr.count;
+                    
+                    /*
+                     用于分别获取REC Json数据中的值
+                     **/
+                    
+                    [self.dicTemp removeAllObjects];
+                    
+                    for (int i = 0; i< RECTempArr.count ; i++) {
+                        [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
+                    }
+                    
+                
+                
+                
+                NSLog(@"self.dicTemp。count %d",self.dicTemp.count);
+                NSLog(@"kskskskskssksk");
+                NSLog(@"self.dicTemp。count %@",self.dicTemp);
+                
+                self.showTVView = YES;
+                [self touchSelectChannel:0 diction:self.dicTemp];
+                
+                firstOpenAPP = firstOpenAPP+1;
+                
+                firstfirst = NO;
+                
+                [self tableViewCellToBlue:0 indexhah:0 AllNumberOfService:self.dicTemp.count];
+//                [self tableViewCellToBlue:0 indexhah:0 AllNumberOfService:self.dicTemp.count];
+                
+//                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                firstOpenAPP = firstOpenAPP+1;
+//
+//                firstfirst = NO;
+//
+//
+//                self.TVChannlDic = self.dicTemp;
+//
+//                tempDicForServiceArr = self.TVChannlDic;
+//
+//                self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+//                NSLog(@"self.video.dicChannl==== %lu",(unsigned long)self.video.dicChannl.count);
+//                NSLog(@"self.video.dicChannl88 %@",self.video.dicChannl);
+//
+//                self.video.channelCount = tempArrForServiceArr.count;
+//
+            }
+            
         }
         
         
@@ -6320,6 +6417,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
+            NSLog(@"categorys==||=MJRefresh");
             
         }];
         
@@ -6361,6 +6459,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dataForData1 = [data1 copy];
         dataForrecFileData = [recFileData copy];
         
+        
+        [self setCategoryAndREC:data1 RECFile:recFileData];
         if (data1.count == 0 && recFileData.count == 0)
         {
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
@@ -6396,166 +6496,171 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-        }else
+        }else if(data1.count == 0 && recFileData.count > 0)
         {
-            
+            [self newSlideView];
         }
         
-        if ( data1.count == 0 ){
-            
-            //new
-            if (data1.count == 0 && recFileData.count == 0)
-            {
-                self.serviceData = (NSMutableArray *)data1;
-                
-                self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
-                
-                [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-            }else
-            {
-                self.categorys = (NSMutableArray *)response[@"category"];
-                
-                [self.CategoryAndREC removeAllObjects];
-                [self.CategoryAndREC addObject: recFileData];
-                if (!_slideView) {
-                    
-                    //判断是不是全屏
-                    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-                    if (isFullScreen == NO) {   //竖屏状态
-                        
-                        NSDictionary *response = httpRequest.responseString.JSONValue;
-                        
-                        NSArray *data = response[@"category"];
-                        
-                        if (data.count == 0 && recFileData.count == 0){ //没有数据
-                            
-                            [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
-                            return ;
-                        }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
-                            
-                            [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
-                            
-                            // 特殊情况，有录制但是没有service数据
-                            [self.CategoryAndREC removeAllObjects];
-                            NSLog(@"recFileData %@",recFileData);
-                            [self.CategoryAndREC addObject: recFileData];
-                            
-                        }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
-                        {
-                            [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
-                            
-                            [self.CategoryAndREC removeAllObjects];
-                            [self.CategoryAndREC addObject:data];
-                        }else //两种都有
-                        {
-                            [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
-                            
-                            [self.CategoryAndREC removeAllObjects];
-                            NSLog(@"self.categorys %@",self.categorys);
-                            [self.CategoryAndREC addObject:data];
-                            NSLog(@"recFileData %@",recFileData);
-                            [self.CategoryAndREC addObject: recFileData];
-                        }
-                        self.categorys = (NSMutableArray *)data;
-                        
-                        
-                        [self newSlideView];
-                        
-                        //
-                        //                        //设置滑动条
-                        //                        _slideView = [YLSlideView alloc];
-                        //                        _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                        //                                                                          SCREEN_WIDTH,
-                        //                                                                          SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
-                        //
-                        //
-                        
-                        //                        isHasChannleDataList = YES;
-                        //                        [self.tableForDicIndexDic removeAllObjects];
-                        //                        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-                        //                        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
-                        //                        //通过通知中心发送通知
-                        //                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    }else //横屏状态，不刷新
-                    {
-                        
-                        //设置滑动条
-                        _slideView = [YLSlideView alloc];
-                        _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
-                                                                          SCREEN_WIDTH,
-                                                                          SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
-                        
-                        [self.tableForDicIndexDic removeAllObjects];
-                        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-                        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
-                        //通过通知中心发送通知
-                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    }
-                    
-                    
-                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
-                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                    
-                    
-                    _slideView.backgroundColor = [UIColor whiteColor];
-                    _slideView.delegate        = self;
-                    
-                    [self.view addSubview:_slideView];
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                    
-                }
-                else
-                {
-                    
-                }
-                //            [self.socketView viewDidLoad];
-                if (firstfirst == YES) {
-                    
-                    //=======机顶盒加密
-                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
-                    if (characterStr != NULL && characterStr != nil) {
-                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-                        if (judgeIsSTBDecrypt == YES) {
-                            // 此处代表需要记性机顶盒加密验证
-                            NSNumber  *numIndex = [NSNumber numberWithInteger:0];
-                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
-                            //创建通知
-                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                            //通过通知中心发送通知
-                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                            
-                            firstOpenAPP = firstOpenAPP+1;
-                            
-                            firstfirst = NO;
-                            
-                        }else //正常播放的步骤
-                        {
-                            //======
-                            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                            firstOpenAPP = firstOpenAPP+1;
-                            
-                            firstfirst = NO;
-                        }
-                    }else //正常播放的步骤
-                    {
-                        //======机顶盒加密
-                        
-                        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
-                    }
-                }else
-                {}
-                
-                [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
-            }
-            
-            
-            //            [self newSlideView];      //2018.2.7
-            
-            
-        }else
+        if ( data1.count == 0 )
+        {}
+//        {
+//
+//            //new
+//            if (data1.count == 0 && recFileData.count == 0)
+//            {
+//                self.serviceData = (NSMutableArray *)data1;
+//
+//                self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+//                NSLog(@"categorys==||=One");
+//
+//                [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+//            }else
+//            {
+//                self.categorys = (NSMutableArray *)response[@"category"];
+//                NSLog(@"categorys==||=One");
+//
+//                [self.CategoryAndREC removeAllObjects];
+//                [self.CategoryAndREC addObject: recFileData];
+//                if (!_slideView) {
+//
+//                    //判断是不是全屏
+//                    BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
+//                    if (isFullScreen == NO) {   //竖屏状态
+//
+//                        NSDictionary *response = httpRequest.responseString.JSONValue;
+//
+//                        NSArray *data = response[@"category"];
+//
+//                        if (data.count == 0 && recFileData.count == 0){ //没有数据
+//
+//                            [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
+//                            return ;
+//                        }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
+//
+//                            [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
+//
+//                            // 特殊情况，有录制但是没有service数据
+//                            [self.CategoryAndREC removeAllObjects];
+//                            NSLog(@"recFileData %@",recFileData);
+//                            [self.CategoryAndREC addObject: recFileData];
+//
+//                        }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
+//                        {
+//                            [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
+//
+//                            [self.CategoryAndREC removeAllObjects];
+//                            [self.CategoryAndREC addObject:data];
+//                        }else //两种都有
+//                        {
+//                            [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
+//
+//                            [self.CategoryAndREC removeAllObjects];
+//                            NSLog(@"self.categorys %@",self.categorys);
+//                            [self.CategoryAndREC addObject:data];
+//                            NSLog(@"recFileData %@",recFileData);
+//                            [self.CategoryAndREC addObject: recFileData];
+//                        }
+//                        self.categorys = (NSMutableArray *)data;
+//                        NSLog(@"categorys==||=One");
+//
+//                        [self newSlideView];
+//
+//                        //
+//                        //                        //设置滑动条
+//                        //                        _slideView = [YLSlideView alloc];
+//                        //                        _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+//                        //                                                                          SCREEN_WIDTH,
+//                        //                                                                          SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
+//                        //
+//                        //
+//
+//                        //                        isHasChannleDataList = YES;
+//                        //                        [self.tableForDicIndexDic removeAllObjects];
+//                        //                        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+//                        //                        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+//                        //                        //通过通知中心发送通知
+//                        //                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                    }else //横屏状态，不刷新
+//                    {
+//
+//                        //设置滑动条
+//                        _slideView = [YLSlideView alloc];
+//                        _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
+//                                                                          SCREEN_WIDTH,
+//                                                                          SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
+//
+//                        [self.tableForDicIndexDic removeAllObjects];
+//                        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+//                        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+//                        //通过通知中心发送通知
+//                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                    }
+//
+//
+//                    NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
+//                    [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
+//
+//
+//                    _slideView.backgroundColor = [UIColor whiteColor];
+//                    _slideView.delegate        = self;
+//
+//                    [self.view addSubview:_slideView];
+//                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+//
+//                }
+//                else
+//                {
+//
+//                }
+//                //            [self.socketView viewDidLoad];
+//                if (firstfirst == YES) {
+//
+//                    //=======机顶盒加密
+//                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
+//                    if (characterStr != NULL && characterStr != nil) {
+//                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+//                        if (judgeIsSTBDecrypt == YES) {
+//                            // 此处代表需要记性机顶盒加密验证
+//                            NSNumber  *numIndex = [NSNumber numberWithInteger:0];
+//                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+//                            //创建通知
+//                            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+//                            //通过通知中心发送通知
+//                            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//
+//                            firstOpenAPP = firstOpenAPP+1;
+//
+//                            firstfirst = NO;
+//
+//                        }else //正常播放的步骤
+//                        {
+//                            //======
+//                            [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                            firstOpenAPP = firstOpenAPP+1;
+//
+//                            firstfirst = NO;
+//                        }
+//                    }else //正常播放的步骤
+//                    {
+//                        //======机顶盒加密
+//
+//                        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+//                        firstOpenAPP = firstOpenAPP+1;
+//
+//                        firstfirst = NO;
+//                    }
+//                }else
+//                {}
+//
+//                [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
+//            }
+//
+//
+//            //            [self newSlideView];      //2018.2.7
+//
+//
+//        }
+        else
         {
             
             if ( data1.count == 0 && recFileData.count == 0){
@@ -6622,9 +6727,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 
             }
-            self.serviceData = (NSMutableArray *)data1;
+            NSArray * tempCategoryArr = (NSMutableArray *)response[@"category"];
+            if (tempCategoryArr.count == 0 ) {
+                
+            }else{
+                self.serviceData = (NSMutableArray *)data1;
+                
+                self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+                NSLog(@"categorys==||=One");
+            }
             
-            self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
             
             [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
             
@@ -6777,7 +6889,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"recFileData %@",recFileData);
                     [self.CategoryAndREC addObject: recFileData];
                 }
-                self.categorys = (NSMutableArray *)data;
+//                self.categorys = (NSMutableArray *)data;
+//                NSLog(@"categorys==||=One");
                 
                 //2017.11.20 注释，防止刷新时造成整个列表都回到顶部
                 //            [_slideView removeFromSuperview];
@@ -7043,7 +7156,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
             self.categorys = (NSMutableArray *)data;
-            
+            NSLog(@"categorys==||=IPChange");
             
             [_slideView removeFromSuperview];
             _slideView = nil;
