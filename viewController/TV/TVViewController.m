@@ -6161,6 +6161,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             return ;
         }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
             
+            NSLog(@"记录 = Refresh1");
             [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
             
             // 特殊情况，有录制但是没有service数据
@@ -6309,6 +6310,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (recFileData.count > 0 ) {
              
+                NSLog(@"记录 = Refresh2");
                 
                     //如果发现第二列，则展示REC这个数组
                     NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
@@ -6336,7 +6338,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"self.dicTemp。count %@",self.dicTemp);
                 
                 self.showTVView = YES;
-                [self touchSelectChannel:0 diction:self.dicTemp];
+//                [self touchSelectChannel:0 diction:self.dicTemp];
+                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                                firstOpenAPP = firstOpenAPP+1;
+                
+                                firstfirst = NO;
                 
                 firstOpenAPP = firstOpenAPP+1;
                 
@@ -6365,62 +6371,62 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }
         
-        
+//
         [self.activeView removeFromSuperview];
         self.activeView = nil;
         [self lineAndSearchBtnShow];
-        
+
         NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-        
+
         NSString *  indexforTableToNum =YLSlideTitleViewButtonTagIndexStr ;
         self.tableForSliderView = [self.tableForDicIndexDic objectForKey :indexforTableToNum] [1];
-        
+
         NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
-        
+
         NSInteger index = [numTemp integerValue];
-        
+
         [self returnDicTemp:index]; //根据是否有录制返回不同的item
         [self.tableForSliderView reloadData];
         [self refreshTableviewByEPGTime];
         // 模拟延迟2秒
-        
+
         double delayInSeconds = 2;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
-            
+
             [self.tableForSliderView reloadData];
-            
+
             [self refreshTableviewByEPGTime];
         });
         [NSThread sleepForTimeInterval:2];
         //    [self mediaDeliveryUpdate];
         //    [tableForSliderView reloadData];
         // 结束刷新
-        
+
         [self.tableForSliderView.mj_header endRefreshing];
-        
+
         //////
         //获取数据的链接
         NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
-        
+
         LBGetHttpRequest *request = CreateGetHTTP(urlCate);
-        
+
         [request startAsynchronous];
-        
+
         WEAKGET
         [request setCompletionBlock:^{
             NSDictionary *response = httpRequest.responseString.JSONValue;
             NSArray *data = response[@"category"];
-            
+
             if (!isValidArray(data) || data.count == 0){
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
             NSLog(@"categorys==||=MJRefresh");
-            
+
         }];
-        
+
         [self.table reloadData];
         
         
