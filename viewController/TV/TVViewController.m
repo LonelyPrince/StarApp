@@ -6231,6 +6231,7 @@ NSLog(@"getaa66");
             [self.CategoryAndREC addObject:data];
         }else //两种都有
         {
+            NSLog(@"两种都有 1");
             [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
             
             [self.CategoryAndREC removeAllObjects];
@@ -6301,7 +6302,7 @@ NSLog(@"getaa66");
         //判断是不是需要刷新顶部的YLSlider
         NSLog(@"准备做判断是否需要刷新！！！");
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            
+           NSLog(@"两种都有 2");
             NSLog(@"刷新一次一次一次！！！");
             [_slideView removeFromSuperview];
             _slideView = nil;
@@ -6363,8 +6364,8 @@ NSLog(@"getaa66");
                 NSLog(@"NOChannelDataDefault 666");
             }
             
-            if (recFileData.count > 0 ) {
-             
+            if (recFileData.count > 0 && data1.count == 0 ) {
+             NSLog(@"两种都有 3");
                 NSLog(@"记录 = Refresh2");
                 
                     //如果发现第二列，则展示REC这个数组
@@ -6393,7 +6394,6 @@ NSLog(@"getaa66");
                 NSLog(@"self.dicTemp。count %@",self.dicTemp);
                 
                 self.showTVView = YES;
-//                [self touchSelectChannel:0 diction:self.dicTemp];
                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                                 firstOpenAPP = firstOpenAPP+1;
                 
@@ -6404,29 +6404,10 @@ NSLog(@"getaa66");
                 firstfirst = NO;
                 
                 [self tableViewCellToBlue:0 indexhah:0 AllNumberOfService:self.dicTemp.count];
-//                [self tableViewCellToBlue:0 indexhah:0 AllNumberOfService:self.dicTemp.count];
-                
-//                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-//                firstOpenAPP = firstOpenAPP+1;
-//
-//                firstfirst = NO;
-//
-//
-//                self.TVChannlDic = self.dicTemp;
-//
-//                tempDicForServiceArr = self.TVChannlDic;
-//
-//                self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-//                NSLog(@"self.video.dicChannl==== %lu",(unsigned long)self.video.dicChannl.count);
-//                NSLog(@"self.video.dicChannl88 %@",self.video.dicChannl);
-//
-//                self.video.channelCount = tempArrForServiceArr.count;
-//
             }
             
         }
-        
-//
+  
         [self.activeView removeFromSuperview];
         self.activeView = nil;
         [self lineAndSearchBtnShow];
@@ -6494,56 +6475,56 @@ NSLog(@"getaa66");
     NSLog(@"yifenz 刷新");
     __block  NSArray *dataForData1;
     __block  NSArray *dataForrecFileData;
-    
+
     NSLog(@"我要刷新一次呀=^_^");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
-    
+
     LBGetHttpRequest *request = CreateGetHTTP(url);
-    
+
     [request startAsynchronous];   //异步
-    
+
     WEAKGET
     [request setCompletionBlock:^{
-        
+
         NSDictionary *response = httpRequest.responseString.JSONValue;
-        
+
         //将数据本地化
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
-        
+
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
-        
+
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         dataForData1 = [data1 copy];
         dataForrecFileData = [recFileData copy];
-        
-        
+
+
         [self setCategoryAndREC:data1 RECFile:recFileData];
         if (data1.count == 0 && recFileData.count == 0)
         {
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
-            
+
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+
                 if (_slideView) {
                     [_slideView removeFromSuperview];
                     _slideView = nil;
-                    
+
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
                 if (!self.NoDataImageview) {
                     self.NoDataImageview = [[UIImageView alloc]init];
-                    
+
                 }
                 //显示列表为空的数据
                 if (!self.NoDataLabel) {
                     self.NoDataLabel = [[UILabel alloc]init];
-                    
+
                 }
             }else
             {
@@ -6551,45 +6532,45 @@ NSLog(@"getaa66");
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
             }
-            
+
             [self NOChannelDataShow];
             NSLog(@"NOChannelDataShow--!!2222222");
             [self removeTopProgressView]; //删除进度条
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-            
+
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:deliveryStopTip]) {
-                
+
             }else{
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
             }
-            
+
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-            
+
             [self showDelivaryStopped];
         }else if(data1.count == 0 && recFileData.count > 0)
         {
             [self newSlideView];
         }
-        
+
         if ( data1.count == 0 )
         {}
         else
         {
-            
+
             if ( data1.count == 0 && recFileData.count == 0){
                 //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
                 channelListMustRefresh = YES;
-                
+
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
-                    
+
                     if (_slideView) {
                         [_slideView removeFromSuperview];
                         _slideView = nil;
-                        
+
                     }
-                    
+
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (!self.NoDataImageview) {
@@ -6598,7 +6579,7 @@ NSLog(@"getaa66");
                     //显示列表为空的数据
                     if (!self.NoDataLabel) {
                         self.NoDataLabel = [[UILabel alloc]init];
-                        
+
                     }
                 }else
                 {
@@ -6606,20 +6587,20 @@ NSLog(@"getaa66");
                     //                [self tableViewDataRefreshForMjRefresh_ONEMinute]; //如果数据为空，则重新获取数据
                     return ;
                 }
-                
+
                 [self NOChannelDataShow];
                 NSLog(@"NOChannelDataShow--!!44444444");
                 NSLog(@"response== 44 :%@",response);
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-                
+
                 [self removeTopProgressView]; //删除进度条
-                
+
                 if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
-                    
+
                     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
-                    
+
                     NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -6628,49 +6609,49 @@ NSLog(@"getaa66");
             {
                 if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
                     if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) {
-                        
-                        
+
+
                         NSNotification *notification1 =[NSNotification notificationWithName:@"channeListIsShow" object:nil userInfo:nil];
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                        
+
                     }
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                     NSLog(@"NOChannelDataDefault 777");
                 }
-                
+
             }
             NSArray * tempCategoryArr = (NSMutableArray *)response[@"category"];
             if (tempCategoryArr.count == 0 ) {
-                
+
             }else{
                 self.serviceData = (NSMutableArray *)data1;
-                
+
                 self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
                 NSLog(@"categorys==||=One");
             }
-            
-            
+
+
             [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-            
+
             BOOL serviceDatabool = [self judgeServiceDataIsnull];
-            
+
             if (serviceDatabool && recFileData.count == 0) {
                 //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
-                
+
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                    
+
                     if (_slideView) {
                         [_slideView removeFromSuperview];
                         _slideView = nil;
-                        
+
                     }
-                    
+
                     if (!self.NoDataImageview) {
                         self.NoDataImageview = [[UIImageView alloc]init];
-                        
+
                         //1. 全屏按钮隐藏 2.取消加载环 3.取消名称
-                        
+
                     }
                 }else
                 {
@@ -6678,7 +6659,7 @@ NSLog(@"getaa66");
                     [self tableViewDataRefreshForMjRefresh_ONEMinute]; //如果数据为空，则重新获取数据
                     return ;
                 }
-                
+
                 [self NOChannelDataShow];
                 NSLog(@"NOChannelDataShow--!!5555555");
                 NSLog(@"response== 55 :%@",response);
@@ -6687,10 +6668,10 @@ NSLog(@"getaa66");
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 NSLog(@"zidong  刷新了一次");
                 [self removeTopProgressView]; //删除进度条
-                
+
                 if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
                     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
-                    
+
                     NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -6700,115 +6681,113 @@ NSLog(@"getaa66");
                 NSLog(@"做一次显示的操作222");
                 if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
                     if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) {
-                        
-                        
+
+
                         NSNotification *notification1 =[NSNotification notificationWithName:@"channeListIsShow" object:nil userInfo:nil];
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                        
+
                     }
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                     NSLog(@"NOChannelDataDefault 888");
                 }
-                
+
             }
-            
+
             [self.activeView removeFromSuperview];
             self.activeView = nil;
             [self lineAndSearchBtnShow];
-            
+
             NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-            
+
             int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-            
+
             NSString *  indexforTableToNum = YLSlideTitleViewButtonTagIndexStr;
             //        [NSNumber numberWithInteger:YLSlideTitleViewButtonTagIndex];
             self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
-            
+
             if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
-                
+
                 //            id idTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
-                
+
                 NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
-                
+
                 NSInteger index = [numTemp integerValue];
                 NSLog(@"jfabdjasbajsbd index %ld",(long)index);
-                
+
                 //此处可能出现崩溃-----数组为空
                 if (index > 0 ) {
                     [self returnDicTemp:index]; //根据是否有录制返回不同的item
                 }else
                 {
                 }
-                
-                
+
+
             }
-            
+
             //==========
             [self.tableForSliderView reloadData];
-            
+
             // 模拟延迟2秒
-            
+
             double delayInSeconds = 2;
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
                 NSLog(@"延时执行的2秒");
-                
+
                 [self.tableForSliderView reloadData];
-                
+
             });
-            
-            
+
+
             //获取数据的链接
             NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
-            
+
             LBGetHttpRequest *request = CreateGetHTTP(urlCate);
-            
+
             [request startAsynchronous];
-            
+
             WEAKGET
             [request setCompletionBlock:^{
                 NSDictionary *response = httpRequest.responseString.JSONValue;
-                
+
                 NSArray *data = response[@"category"];
-                
+
                 if (data.count == 0 && recFileData.count == 0){ //没有数据
-                    
+
                     [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
                     return ;
                 }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
-                    
+
                     [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
-                    
+
                     // 特殊情况，有录制但是没有service数据
                     [self.CategoryAndREC removeAllObjects];
                     NSLog(@"recFileData %@",recFileData);
                     [self.CategoryAndREC addObject: recFileData];
-                    
+
                 }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
                 {
                     [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
-                    
+
                     [self.CategoryAndREC removeAllObjects];
                     [self.CategoryAndREC addObject:data];
                 }else //两种都有
                 {
                     [USER_DEFAULT setObject:@"RecAndLiveAllHave" forKey:@"RECAndLiveType"];
-                    
+
                     [self.CategoryAndREC removeAllObjects];
                     NSLog(@"self.categorys %@",self.categorys);
                     [self.CategoryAndREC addObject:data];
                     NSLog(@"recFileData %@",recFileData);
                     [self.CategoryAndREC addObject: recFileData];
                 }
-//                self.categorys = (NSMutableArray *)data;
-//                NSLog(@"categorys==||=One");
-                
+
                 //2017.11.20 注释，防止刷新时造成整个列表都回到顶部
                 //            [_slideView removeFromSuperview];
                 //            _slideView = nil;
-                
+
                 //            if (!_slideView) {
                 //
                 //                //判断是不是全屏
@@ -6855,37 +6834,64 @@ NSLog(@"getaa66");
                 //                }
                 //
                 //            }
-                
+
                 if (data1.count == 0 && recFileData.count == 0){
                 }else{
+
+//                    self.serviceData = (NSMutableArray *)data1;
+//                    self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
+//                    NSLog(@"categorys==||=SDT");
+//                    [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+//
+//                    NSLog(@"删除了原先的sliderview2244");
+//                    NSLog(@"刷新一次一次一次jsjsjsjssjjs！！！");
+//                    NSLog(@"self.categoryscategorys！！！ %@",self.categorys);
+//                    NSLog(@"self.categorysrecFileData！！！ %@",recFileData);
+//                    NSLog(@"self.categorytCategoryArr！！！ %@",getLastCategoryArr);
+//                    NSLog(@"self.categoryLastRecFileArr！！！ %@",getLastRecFileArr);
+//                    //判断是不是需要刷新顶部的YLSlider
+//                    if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+//
+//                        NSLog(@"刷新一次一次一次lolololo！！！");
+//
+//                        [_slideView removeFromSuperview];
+//                        _slideView = nil;
+//
+//
+//
+//
+//                    }
+////
+
+
                     [self newSlideView];
                 }
-                
+
             }];
-            
+
             [self refreshTableviewByEPGTime];
             [self.table reloadData];
-            
+
         }
     }];
-    
-    
+
+
     if ( dataForData1.count == 0 ){
-        
+
     }else
     {
         double delayInSeconds = 1;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
-            
+
             [self.tableForSliderView reloadData];
             [self refreshTableviewByEPGTime];
             [self.table reloadData];
         });
     }
-    
-    
+
+
 }
 #pragma mark - IP改变后的刷新方法
 //IP改变后或者是HMC改变后的刷新方法  ,类似于getServiceData
