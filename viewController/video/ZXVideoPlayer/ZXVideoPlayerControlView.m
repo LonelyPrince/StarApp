@@ -200,6 +200,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnShow) name:@"fullScreenBtnShow" object:nil];
         
+        //隐藏全屏按钮
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fullScreenBtnHidden" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenBtnHidden) name:@"fullScreenBtnHidden" object:nil];
+        
         //显示全屏按钮
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"viewShowNotific" object:nil];
         //注册通知
@@ -212,7 +217,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     self.fullScreenButton.hidden = NO;
 }
-
+-(void)fullScreenBtnHidden
+{
+    self.fullScreenButton.hidden = YES;
+}
 - (void)layoutSubviews
 {
     NSLog(@"aaaaaabbbbbbbcccccc ");
