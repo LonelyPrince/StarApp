@@ -2645,7 +2645,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSArray * touchArr = historyArr[historyArr.count - 1];
     NSLog(@"touchArr：%@",touchArr);
-    //    [self touchToSee :touchArr];
     
     
     NSInteger row = [touchArr[2] intValue];
@@ -2829,7 +2828,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (historyArr.count >= 1) {
         NSArray * touchArr = historyArr[historyArr.count - 1];
         NSLog(@"touchArr：%@",touchArr);
-        //    [self touchToSee :touchArr];
         
         
         NSInteger row = [touchArr[2] intValue];

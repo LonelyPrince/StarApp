@@ -155,13 +155,20 @@
     uint32_t val1 = 0;
     uint32_t val2 = 0;
     uint32_t val3 = 0;
-    [data getBytes:&val0 range:NSMakeRange(0, 1)];
-    [data getBytes:&val1 range:NSMakeRange(1, 1)];
-    [data getBytes:&val2 range:NSMakeRange(2, 1)];
-    [data getBytes:&val3 range:NSMakeRange(3, 1)];
     
-    uint32_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00) + ((val2 << 16) & 0xff0000) + ((val3 << 24) & 0xff000000);
-    return dstVal;
+    if (data.length < 4 ) {
+        return 0;
+    }else{
+        [data getBytes:&val0 range:NSMakeRange(0, 1)];
+        [data getBytes:&val1 range:NSMakeRange(1, 1)];
+        [data getBytes:&val2 range:NSMakeRange(2, 1)];
+        [data getBytes:&val3 range:NSMakeRange(3, 1)];
+        
+        uint32_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00) + ((val2 << 16) & 0xff0000) + ((val3 << 24) & 0xff000000);
+        return dstVal;
+    }
+    
+   
 }
 
 + (NSInteger)valueFromBytes:(NSData *)data

@@ -4704,9 +4704,21 @@ NSLog(@"getaa66");
     
     self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    
+    
+    if (epg_infoArr.count > 0) {
+        
+        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    }else
+    {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+    }
+    
+    
     isEventStartTimeBiger_NowTime = NO;
     BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
     if (isEventStartTimeBigNowTime == YES) {
@@ -6837,33 +6849,6 @@ NSLog(@"getaa66");
 
                 if (data1.count == 0 && recFileData.count == 0){
                 }else{
-
-//                    self.serviceData = (NSMutableArray *)data1;
-//                    self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
-//                    NSLog(@"categorys==||=SDT");
-//                    [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-//
-//                    NSLog(@"删除了原先的sliderview2244");
-//                    NSLog(@"刷新一次一次一次jsjsjsjssjjs！！！");
-//                    NSLog(@"self.categoryscategorys！！！ %@",self.categorys);
-//                    NSLog(@"self.categorysrecFileData！！！ %@",recFileData);
-//                    NSLog(@"self.categorytCategoryArr！！！ %@",getLastCategoryArr);
-//                    NSLog(@"self.categoryLastRecFileArr！！！ %@",getLastRecFileArr);
-//                    //判断是不是需要刷新顶部的YLSlider
-//                    if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-//
-//                        NSLog(@"刷新一次一次一次lolololo！！！");
-//
-//                        [_slideView removeFromSuperview];
-//                        _slideView = nil;
-//
-//
-//
-//
-//                    }
-////
-
-
                     [self newSlideView];
                 }
 
