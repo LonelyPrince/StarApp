@@ -15,6 +15,7 @@
     
     NSString * deviceString;     //用于判断手机型号
     NSString * DMSIP;
+    UILabel *  nameTextLab;
 }
 @property(nonatomic,strong)UIAlertView * alertView;  //对于密码的判断框
 @property(nonatomic,strong)MEViewController * meViewController;
@@ -99,6 +100,7 @@
 }
 -(void)initData
 {
+    nameTextLab = [[UILabel alloc]init];
     self.meViewController = [[MEViewController alloc]init];
     PINLab = [[UILabel alloc]init];
     SecurityLab = [[UILabel alloc]init];
@@ -155,7 +157,7 @@
 -(void)addWlanInfo
 {
     NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
-    setNameText.text = [tempDic objectForKey:@"name"];
+    setNameText.text = [[tempDic objectForKey:@"name"] substringFromIndex:2];
     //    setPswText.text = [tempDic objectForKey:@"password"];
     if (![[tempDic objectForKey:@"password"] isEqualToString:@"none"]) {
         setPswText.text = [tempDic objectForKey:@"password"];
@@ -207,7 +209,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        setNameText.frame = CGRectMake(76, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -218,6 +220,16 @@
         
         
         [nameInputTextView addSubview:setNameText];
+        
+        
+        nameTextLab.text = @"MG";
+        nameTextLab.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        //        [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        nameTextLab.font = FONT(17);
+        
+        nameTextLab.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        [nameInputTextView addSubview:nameTextLab];
+        [nameTextLab bringSubviewToFront:setNameText];
         
         //2.密码输入
         pswInputTextView.frame = CGRectMake((SCREEN_WIDTH - 287.5)/2, nameInputTextView.frame.origin.y +43+15 , 287.5, 43);
@@ -343,9 +355,20 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        setNameText.frame = CGRectMake(76, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        
+        
+        nameTextLab.text = @"MG";
+        nameTextLab.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+//        [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        nameTextLab.font = FONT(17);
+
+        nameTextLab.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        [nameInputTextView addSubview:nameTextLab];
+        [nameTextLab bringSubviewToFront:setNameText];
+        
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChangedName:)
                                                     name:@"UITextFieldTextDidChangeNotification"
@@ -481,9 +504,10 @@
         [nameInputTextView addSubview:nameEidtImageView];
         
         
+        
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        setNameText.frame = CGRectMake(76, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -494,6 +518,18 @@
         
         
         [nameInputTextView addSubview:setNameText];
+        
+        
+        
+        nameTextLab.text = @"MG";
+        nameTextLab.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        //        [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        nameTextLab.font = FONT(17);
+        
+        nameTextLab.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        [nameInputTextView addSubview:nameTextLab];
+        [nameTextLab bringSubviewToFront:setNameText];
+        
         
         //2.密码输入
         pswInputTextView.frame = CGRectMake((SCREEN_WIDTH - 287.5)/2, nameInputTextView.frame.origin.y +43+15 , 287.5, 43);
@@ -618,7 +654,7 @@
         
         setNameText.delegate = self;
         setNameText.autocorrectionType = UITextAutocorrectionTypeNo;
-        setNameText.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        setNameText.frame = CGRectMake(76, 2, nameInputTextView.frame.size.width - 50, 43);
         setNameText.placeholder = @"";
         setNameText.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
         
@@ -629,6 +665,17 @@
         
         
         [nameInputTextView addSubview:setNameText];
+        
+        
+        nameTextLab.text = @"MG";
+        nameTextLab.textColor = [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        //        [UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1];
+        nameTextLab.font = FONT(17);
+        
+        nameTextLab.frame = CGRectMake(50, 2, nameInputTextView.frame.size.width - 50, 43);
+        [nameInputTextView addSubview:nameTextLab];
+        [nameTextLab bringSubviewToFront:setNameText];
+        
         
         //2.密码输入
         pswInputTextView.frame = CGRectMake((SCREEN_WIDTH - 287.5*1.1)/2, nameInputTextView.frame.origin.y +43+15 , 287.5*1.1, 43*1.1);
@@ -766,12 +813,12 @@
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }
-    else if (setNameText.text.length<6) {
+    else if (setNameText.text.length<4) {
         NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
         [alertView setMessage:MLSSIDSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
-    }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
+    }else if (setPswText.text.length < 6 && setPswText.text.length > 0){
         
         NSString * MLWLANPINSetting = NSLocalizedString(@"MLWLANPINSetting", nil);
         [alertView setMessage:MLWLANPINSetting];
@@ -802,7 +849,8 @@
         
         NSLog(@"setPswText.text %@",setPswText.text);
         NSLog(@"setNameText %@",setNameText.text);
-        NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:setNameText.text,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
+        NSString * nameStrMG = [NSString stringWithFormat:@"MG%@",setNameText.text];
+        NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameStrMG,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
         NSLog(@"detailDic %@",detailDic);
         
         if(![NSJSONSerialization isValidJSONObject:detailDic]){
@@ -927,66 +975,21 @@
 
 
     NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
-    //        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-    //            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-    //            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
-    //            if (character < 45)
-    //            {
-    //
-    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //                return NO; // 48 unichar for 0..
-    //            }
-    //
-    //            if (character > 45 && character < 48)
-    //            {
-    //
-    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //                return NO; // 48 unichar for 0..
-    //            }
-    //            if (character > 57 && character < 65)
-    //            {
-    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //                return NO; //
-    //            }
-    //            if (character > 90 && character < 95)
-    //            {
-    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //                return NO; //
-    //            }
-    //            if (character > 95 && character < 97)
-    //            {
-    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //                return NO; //
-    //            }
-    //            if (character > 122)
-    //            {
-    //                textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-    //                return NO; //
-    //            }
-    //
-    //
-    //        }
+    
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 16) {
         textField.text = [toBeString substringToIndex:16];
         return NO;//限制长度
-    }else if(proposedNewLength <= 2)
-    {
-//        textField.text = [toBeString substringToIndex:1];
-
-
-//        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
-//            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
-//
-//           textField.text = [NSString  stringWithFormat:@"%@%@",[toBeString substringToIndex:loopIndex],[toBeString substringWithRange:NSMakeRange(loopIndex+1, lengthOfString-loopIndex-1)]];
-//        }
-
-        textField.text = @"MG";
-
-        NSLog(@"textField.textname %@",textField.text);
-        return YES;
     }
+//    else if(proposedNewLength <= 2)
+//    {
+//
+//        textField.text = @"MG";
+//
+//        NSLog(@"textField.textname %@",textField.text);
+//        return YES;
+//    }
     return YES;
 
 
