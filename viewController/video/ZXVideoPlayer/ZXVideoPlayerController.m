@@ -73,7 +73,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     int judgeVideoIsStatic;  //判断视频是否出现了静帧，如果静帧时间超过3秒，则提示不能播放的文字。视频静帧的时候，会触发“媒体网络状态改变的方法”，视频恢复正常播放的时候会触发“播放状态改变”的方法
     
-    NSString *  tempUrl;
+//    NSString *  tempUrl;
     
     float RECTime;
     int durationTimeTemp;
@@ -349,12 +349,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     if ( IsfirstPlayRECVideo == YES) {
         RECTime = 0;
-        [self.durationTimer invalidate];
-        self.durationTimer = nil;
+//        [self.durationTimer invalidate];
+//        self.durationTimer = nil;
         
 //        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
-        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
+//        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
+//        [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
         
         [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
     }else
@@ -3095,7 +3095,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     //    if (self.video.dicChannl.count > ) {
-    //        <#statements#>
+    //        statements
     //    }
     
     //    NSArray *   =[self.chann  objectForKey:@"audio_info"];
@@ -3313,9 +3313,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-        //                UIAlertView *  abcalert  = [[UIAlertView alloc] initWithTitle:@"开始一个新的播放器" message:@"哈哈哈" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-        //                [abcalert show];
-        
+      
 
         NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
@@ -3326,32 +3324,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.player = nil;
         [self.player stop];
         
-        //        self.view  = nil;
-        //        [self.view removeFromSuperview];
-        
-        
-        //        self.view.backgroundColor = [UIColor  redColor];
-        
+       
         NSLog(@"self.View %@",self.view);
-        //    if (self.player) {
-        //        self.player = [self.player initWithContentURL:url withOptions:nil playView:nil];
         
-        //    }
-        NSLog(@"执行执行执行执行3333 %@",url);
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
-        tempUrl = url;
-        //    UIView *playerView = [self.player view];
-        //    playerView.frame = self.PlayerView.frame;
+       
         NSLog(@"self.playerView %@",self.player);
-        self.player.view.frame = self.view.bounds;
-        //    playerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        NSLog(@"self.playerView1url %@",url);
         
-        //    [self.view insertSubview:self.playerView atIndex:1];
+        self.player.view.frame = self.view.bounds;
+        
         [self.view insertSubview:self.player.view atIndex:0];
         
-        //    [self.view addSubview:self.player.view];
-        
-        //        if (self. showTVView == YES) {
+       
         if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
             [self.player prepareToPlay:0];
             [self.player play];
@@ -3363,9 +3348,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.player = nil;
         }
         
-        //        }
-        
-        
+    
         
         NSLog(@"执行中0000000");
         
@@ -4827,7 +4810,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [timerOfEventTime invalidate];
         timerOfEventTime = nil;
         
-        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
+        timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
         
         [self.durationTimer invalidate];
         self.durationTimer = nil;
