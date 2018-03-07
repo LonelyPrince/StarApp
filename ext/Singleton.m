@@ -119,7 +119,7 @@
     
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
-    NSLog(@"playState---== socket 第一次打开发送播放命令");
+    NSLog(@"self.playerView1url---== socket 第一次打开发送播放命令");
 }
 #pragma mark - 播放录制视频
 -(void)Play_ServiceRECSocket{
@@ -134,7 +134,7 @@
     NSLog(@"asdjbajsbdsabdjbasdasbdksjb");
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
-//    NSLog(@"playState---== socket 发送录制消息");
+    //    NSLog(@"playState---== socket 发送录制消息");
 }
 //退出播放
 -(void)Play_ExitSocket{
@@ -248,10 +248,10 @@
         self.connectStatus ++ ; //连接成功，则赋值为0
         // 服务器掉线，重连
         double delayInSeconds = 0.1;   //如果没有延迟，则会一直连接，造成CPU飙升
-            dispatch_queue_t mainQueue = dispatch_get_main_queue();
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, mainQueue, ^{
-                [self socketConnectHost];
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            [self socketConnectHost];
         });
         NSLog(@"sorry the connect is 服务器断开");
         NSLog(@"self.connectStatus %d",self.connectStatus);
@@ -275,10 +275,10 @@
         }
         
         
-//        NSNotification *notification1 =[NSNotification notificationWithName:@"setMonitorNotHaveNetWorkNotific" object:nil userInfo:nil];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-
+        //        NSNotification *notification1 =[NSNotification notificationWithName:@"setMonitorNotHaveNetWorkNotific" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
         
     }
     else if (sock.userData == SocketOfflineByUser) {
@@ -332,7 +332,7 @@
         
         NSData * data_model_name = [[NSData alloc]init];
         if ([data length] >= 8 + 4) {
-             data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
+            data_model_name = [data subdataWithRange:NSMakeRange(8,4)];
         }else
         {
             return;
@@ -350,7 +350,7 @@
             
             if (data_length > 28) { //如果大于28，则证明里面还存在数据，则需要更加深度的解析
                 int nowData_length;
-                 nowData_length = 28;
+                nowData_length = 28;
                 
                 
                 while (nowData_length <= data_length - 28) {
@@ -485,7 +485,7 @@
                                     [self readSocketCommandTypeISThirtySix:bigDataReduceSmallData];
                                 }
                                     break;
-
+                                    
                                 case 31:
                                 {
                                     NSLog(@"playState---== socket 内部内部内部内部正在播放的命令");
@@ -542,11 +542,11 @@
                                         return;
                                     }
                                     
-                                 
+                                    
                                     [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
                                 }
                                     break;
-                                 
+                                    
                                 case 25: //播放录制信息
                                 {
                                     NSLog(@"playState---== socket 播放录制信息");
@@ -577,7 +577,7 @@
                                     [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
                                 }
                                     break;
-                                  
+                                    
                                 case 29: //other投屏直播信息
                                 {
                                     NSLog(@"other投屏直播信息");
@@ -638,7 +638,7 @@
                                     [self readSocketCommandTypeISThirty:bigDataReduceSmallData];
                                 }
                                     break;
-
+                                    
                                 case 24:
                                 {
                                     NSLog(@"playState---== socket 获取IP地址的消息");
@@ -648,7 +648,7 @@
                                     
                                     NSData * now_data_length = [[NSData alloc]init];
                                     if ([data length] >= nowData_length + 24 + 4 ) {
-                                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                                     }else
                                     {
                                         return;
@@ -698,9 +698,9 @@
                                     {
                                         bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
                                         
-                                      
+                                        
                                         [self readSocketCommandTypeISSeventeen:bigDataReduceSmallData];
-
+                                        
                                         
                                     }
                                     
@@ -759,22 +759,22 @@
                                     
                                 }
                                     break;
-
+                                    
                                 case 6:  //CA 卡拔出，显示无法播放
                                 {
                                     NSLog(@"*****此处是CA 卡拔出，显示无法播放");
                                     
-//                                    //======
-//                                    //获得数据区的长度
-//                                    NSData * now_data_length = [[NSData alloc]init];
-//                                    if ([data length] >= nowData_length + 24 + 4 ) {
-//                                        NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
-//                                    }else
-//                                    {
-//                                        return;
-//                                    }
+                                    //                                    //======
+                                    //                                    //获得数据区的长度
+                                    //                                    NSData * now_data_length = [[NSData alloc]init];
+                                    //                                    if ([data length] >= nowData_length + 24 + 4 ) {
+                                    //                                        NSData * now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    //                                    }else
+                                    //                                    {
+                                    //                                        return;
+                                    //                                    }
                                     
-//                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     if ([data length] >= nowData_length + 28 + 10 ) {
@@ -805,7 +805,7 @@
                                     //获得数据区的长度
                                     NSData * now_data_length = [[NSData alloc]init];
                                     if ([data length] >= nowData_length + 24 + 4) {
-                                       now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                                     }else
                                     {
                                         return;
@@ -820,7 +820,7 @@
                                     {
                                         return;
                                     }
-
+                                    
                                     
                                     //--
                                     
@@ -835,7 +835,7 @@
                                     
                                     
                                     [self readSocketCommandTypeISEight:data_CA_Ret];
-
+                                    
                                     
                                 }
                                     break;
@@ -867,7 +867,7 @@
                                     //此处是验证机顶盒密码
                                     //在验证机顶盒的时候报的错 这里报错一次（40，4）超过37
                                     //删除掉了nowData_length ，这样就可以防止越界
-                                  
+                                    
                                     [self readSocketCommandTypeISThirteenth:bigDataReduceSmallData];
                                 }
                                     break;
@@ -888,7 +888,7 @@
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     if ([data length] >= nowData_length + 28 + now_data_lengthToInt) {
-                                       bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
                                     }else
                                     {
                                         return;
@@ -942,7 +942,7 @@
             uint32_t MDMM_Data_Length;
             if(data.length >= 24 + 4)
             {
-             MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];   //第一段数据区总长度
+                MDMM_Data_Length = [SocketUtils uint32FromBytes:[data subdataWithRange:NSMakeRange( 24,4)]];   //第一段数据区总长度
             }else{
                 return;
             }
@@ -955,7 +955,7 @@
                 //--先执行第一个命令
                 NSData * data2_command_type = [[NSData alloc]init];
                 if ([data length] >= 36 + 1) {
-                   data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+                    data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
                 }else
                 {
                     return;
@@ -996,7 +996,7 @@
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
                         [self readSocketCommandTypeISTwelve:data];
-
+                        
                     }
                         break;
                     case 25:
@@ -1006,7 +1006,7 @@
                         
                     }
                         break;
-                    ///接收投屏直播
+                        ///接收投屏直播
                     case 29:
                     {
                         NSLog(@"other投屏直播信息");
@@ -1027,7 +1027,7 @@
                         NSLog(@"playState---== socket 获取IP地址的消息");
                         
                         [self readSocketCommandTypeISTwentyFour:data];
-
+                        
                     }
                         break;
                         
@@ -1056,7 +1056,7 @@
                         break;
                     case 7:  //CA 加扰发送通知，将弹窗取消掉
                     {
-                       
+                        
                         NSLog(@"*****CA 加扰发送通知，将弹窗取消掉");
                         
                         [self readSocketCommandTypeISSeven:data];
@@ -1082,7 +1082,7 @@
                         //此处是验证机顶盒密码，将会这个消息传到TV页面
                         NSData * data_CA_Ret = [[NSData alloc]init];
                         if ([data length] >= 37 + 10) {
-                        data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,10)];
+                            data_CA_Ret = [data subdataWithRange:NSMakeRange(37 ,10)];
                         }else
                         {
                             return;
@@ -1096,7 +1096,7 @@
                     case 13:  //此处是验证机顶盒密码
                     {
                         //此处是验证机顶盒密码
-                       
+                        
                         [self readSocketCommandTypeISThirteenth:data];
                     }
                         break;
@@ -1130,7 +1130,7 @@
                     
                     NSData * next_data_ret = [[NSData alloc]init];
                     if ([data length] >= nowData_length + 12 + 4) {
-                         next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
+                        next_data_ret = [data subdataWithRange:NSMakeRange(nowData_length + 12,4)];  //判断下一个数据段的
                     }else
                     {
                         return;
@@ -1201,7 +1201,7 @@
                                         return;
                                     }
                                     
-
+                                    
                                     
                                     [self readSocketCommandTypeISZero:bigDataReduceSmallData];
                                     
@@ -1315,7 +1315,7 @@
                                     
                                     NSData * now_data_length = [[NSData alloc]init];
                                     if ([data length] >=  nowData_length + 28) {
-                                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                                     }else
                                     {
                                         return;
@@ -1333,7 +1333,7 @@
                                     }
                                     
                                     [self readSocketCommandTypeISTwelve:bigDataReduceSmallData];
-
+                                    
                                 }
                                     break;
                                 case 25:
@@ -1452,7 +1452,7 @@
                                         return;
                                     }
                                     
-                                  
+                                    
                                     [self readSocketCommandTypeISTwentyFour:bigDataReduceSmallData];
                                     
                                 }
@@ -1460,7 +1460,7 @@
                                     
                                 case 17:  //此处是获得资源信息
                                 {
-                                  
+                                    
                                     //--
                                     
                                     //首先获得第二段数据的长度 （52，4）
@@ -1468,7 +1468,7 @@
                                     
                                     NSData * now_data_length = [[NSData alloc]init];
                                     if ([data length] >=  nowData_length + 28 ) {
-                                       now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                                     }else
                                     {
                                         return;
@@ -1498,7 +1498,7 @@
                                         
                                         [self readSocketCommandTypeISSeventeen:bigDataReduceSmallData];
                                         
-
+                                        
                                     }
                                     
                                     
@@ -1530,7 +1530,7 @@
                                     
                                     NSData * now_data_length = [[NSData alloc]init];
                                     if ([data length] >=  nowData_length + 28  ) {
-                                       now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                                         //--
                                     }else
                                     {
@@ -1543,9 +1543,9 @@
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     if ([data length] >=  nowData_length + 28 + now_data_lengthToInt) {
                                         bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )];                                     }else
-                                    {
-                                        return;
-                                    }
+                                        {
+                                            return;
+                                        }
                                     
                                     
                                     [self readSocketCommandTypeISSeven:bigDataReduceSmallData];
@@ -1560,17 +1560,17 @@
                                     
                                     
                                     
-//                                    
-//                                    NSData * now_data_length = [[NSData alloc]init];
-//                                    if ([data length] >=  nowData_length + 28  ) {
-//                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
-//                                        //--
-//                                    }else
-//                                    {
-//                                        return;
-//                                    }
-//                                    
-//                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //
+                                    //                                    NSData * now_data_length = [[NSData alloc]init];
+                                    //                                    if ([data length] >=  nowData_length + 28  ) {
+                                    //                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    //                                        //--
+                                    //                                    }else
+                                    //                                    {
+                                    //                                        return;
+                                    //                                    }
+                                    //
+                                    //                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
                                     //======
                                     
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
@@ -1586,7 +1586,7 @@
                                     
                                 }
                                     break;
-
+                                    
                                 case 8:  //CA 加扰
                                 {
                                     NSLog(@"*****此处是CA加扰验证3");
@@ -1596,11 +1596,11 @@
                                     
                                     NSData * now_data_length = [[NSData alloc]init];
                                     if ([data length] >=  nowData_length + 28 ) {
-                                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
-                                    
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        
                                     }else
                                     {
-                                            return;
+                                        return;
                                     }
                                     
                                     uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
@@ -1609,7 +1609,7 @@
                                     NSData * bigDataReduceSmallData = [[NSData alloc]init];
                                     
                                     if ([data length] >=  nowData_length + 28 + now_data_lengthToInt ) {
-                                      
+                                        
                                         bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
                                     }else
                                     {
@@ -1652,7 +1652,7 @@
                                     
                                     if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
                                         
-                                       bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
                                     }else
                                     {
                                         return;
@@ -1714,7 +1714,7 @@
                     
                     if ([data length] >=  nowData_length + 28 ) {
                         
-                         now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
                     }else
                     {
                         return;
@@ -1739,7 +1739,7 @@
                 
                 if ([data length] >=  37) {
                     
-                     data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
+                    data2_command_type = [data subdataWithRange:NSMakeRange(36,1)];
                 }else
                 {
                     return;
@@ -1778,7 +1778,7 @@
                     case 12:
                     {
                         NSLog(@"playState---== socket 正在播放的命令");
-                      
+                        
                         [self readSocketCommandTypeISTwelve:data];
                     }
                         break;
@@ -1808,7 +1808,7 @@
                     case 24:
                     {
                         NSLog(@"playState---== socket 获取IP地址的消息");
-                     
+                        
                         [self readSocketCommandTypeISTwentyFour:data];
                     }
                         break;
@@ -1816,7 +1816,7 @@
                         
                     case 17:  //此处是获得资源信息
                     {
-                       
+                        
                         [self readSocketCommandTypeISSeventeen:data];
                         
                     }
@@ -1989,7 +1989,7 @@
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
-        NSLog(@"列表为空不做操作");
+        NSLog(@"等于0，不能播放");
     }else  //if(data_Refresh_Status_int == 1) //验证错误
     {
         
@@ -2000,7 +2000,7 @@
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
-        NSLog(@"列表不为空 需要做操作");
+        NSLog(@"不等于0，可以播放");
     }
     
     
@@ -2063,19 +2063,6 @@
         NSLog(@"列表不为空 需要做操作");
     }
     
-    
-    //  =======================================
-    
-    
-    //
-    ////    // 更新了列表
-    //    NSLog(@"列表更新了");
-    //    //        mediaDeliveryUpdateNotific
-    //
-    //    //创建通知
-    //    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-    //    //通过通知中心发送通知
-    //    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
 }
 //对socket读取文件进行操作   case = 12
 -(void)readSocketCommandTypeISTwelve :(NSData *)dataToOperate
@@ -2125,35 +2112,35 @@
 ///other设备投屏手机设备  29
 -(void)readSocketCommandTypeISTwentynine:(NSData *)dataToOperate
 {
-//    NSLog(@"dataTdataToateoOperate %@",dataToOperate);
-//    NSLog(@"dataTdataToateoOperate.c %d",dataToOperate.length);
+    //    NSLog(@"dataTdataToateoOperate %@",dataToOperate);
+    //    NSLog(@"dataTdataToateoOperate.c %d",dataToOperate.length);
     uint32_t dataLengthForUrl;
     NSData * dataForDataLength;
     if ([dataToOperate length] >=  28) {
-
+        
         dataForDataLength = [dataToOperate subdataWithRange:NSMakeRange(24,4)];
         dataLengthForUrl = [SocketUtils uint32FromBytes:dataForDataLength];
-
+        
         NSLog(@" dataLengthForUrl %d",dataLengthForUrl);
-
-
+        
+        
     }else
     {
         return;
     }
-
+    
     if ([dataToOperate length] >=  dataLengthForUrl) {
-
+        
         dataToOperate = [dataToOperate subdataWithRange:NSMakeRange(0,dataLengthForUrl + 28)];
-
+        
         NSLog(@" dataToOperate ==  %@",dataToOperate);
-
+        
     }else
     {
         return;
     }
-
-
+    
+    
     //1.发送通知给TV页面，准备弹窗
     //2.TV页面点击确定按钮，发送通知准备播放
     
@@ -2170,8 +2157,8 @@
     NSNotification *notification =[NSNotification notificationWithName:@"setOtherDevicePushToPhoneNotific" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-   
+    
+    
 }
 
 ///other设备投屏手机设备录制  30
@@ -2258,7 +2245,7 @@
 //对socket读取文件进行操作   case = 6  //拔掉只能卡的消息
 -(void)readSocketCommandTypeISSix :(NSData *)dataToOperate
 {
- 
+    
     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
     
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"NOCACarddata",nil];
@@ -2322,16 +2309,16 @@
         }
     }
     
-//    //这里给device发送数据
-//    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
-//    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
-//        //创建通知
-//        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
-//    }
-//    
+    //    //这里给device发送数据
+    //    NSString * deviceOpenStr = [USER_DEFAULT objectForKey:@"deviceOpenStr"];
+    //    if ([deviceOpenStr isEqualToString:@"deviceOpen"]) {
+    //        //创建通知
+    //        NSNotification *notification =[NSNotification notificationWithName:@"getResourceInfoToDevice" object:nil userInfo:dict];
+    //        //通过通知中心发送通知
+    //        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //        NSLog(@"akjsdbkabdbaskdbakjsbd11--33");
+    //    }
+    //
     
 }
 
@@ -2383,13 +2370,13 @@
 -(void)readSocketCommandTypeISTwentytwo :(NSData *)dataToOperate
 {
     
-//    //此处是验证机顶盒密码
-//    NSData * data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
-//    uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
+    //    //此处是验证机顶盒密码
+    //    NSData * data_STB_Ret = [dataToOperate subdataWithRange:NSMakeRange(12,4)];
+    //    uint32_t data_STB_Ret_int = [SocketUtils uint32FromBytes:data_STB_Ret];
     
     NSLog(@"输出data：%@",dataToOperate);
     NSLog(@"输出data2222");
-
+    
     
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"changeLockData",nil];
     //创建通知
@@ -2410,20 +2397,20 @@
     //case 19 返回OK
     
     
-   
+    
 }
 //对socket读取文件进行操作   case = 19
 -(void)readSocketCommandTypeISNineteen  //视频分发退出
 {
     
-    NSLog(@"*************** 退出分发");
+    NSLog(@"*****爱上了大师傅吧是；房价吧；按时态");
     //发送通知方法，把视频播放停止掉后，禁止加载圈，显示断开分发的提示语
     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
     
     NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+    
 }
 
 //播放录制节目   case = 25
@@ -2473,18 +2460,18 @@
 //获取投屏播放信息   case = 31
 -(void)readSocketCommandTypeISThirtyOne :(NSData *)dataToOperate
 {
- 
+    
     uint32_t dataLengthForUrl;
     NSData * dataForDataLength;
     if ([dataToOperate length] >=  28) {
-    dataForDataLength = [dataToOperate subdataWithRange:NSMakeRange(24,4)];
-    dataLengthForUrl = [SocketUtils uint32FromBytes:dataForDataLength];
-    NSLog(@" dataLengthForUrl %d",dataLengthForUrl);
+        dataForDataLength = [dataToOperate subdataWithRange:NSMakeRange(24,4)];
+        dataLengthForUrl = [SocketUtils uint32FromBytes:dataForDataLength];
+        NSLog(@" dataLengthForUrl %d",dataLengthForUrl);
     }else
     {
         return;
     }
-
+    
     if ([dataToOperate length] >=  dataLengthForUrl) {
         
         dataToOperate = [dataToOperate subdataWithRange:NSMakeRange(0,dataLengthForUrl + 28)];
@@ -2495,7 +2482,7 @@
     {
         return;
     }
- 
+    
     uint8_t deviceNum = 0;
     NSData * deviceDataNum = [dataToOperate subdataWithRange:NSMakeRange(37,1)] ;
     deviceNum = [SocketUtils uint8FromBytes:deviceDataNum];
@@ -2523,7 +2510,7 @@
             nameStr = [[NSString alloc] initWithData:nameData encoding:NSUTF8StringEncoding];
             NSLog(@"nameStr %@",nameStr);
         }
-       
+        
         [pushDataOne addObject:IPStr];
         NSNumber * nameLengthNum = [NSNumber numberWithInt:nameLengthInt];
         [pushDataOne addObject:nameLengthNum];
@@ -2572,31 +2559,33 @@
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-//
-//    uint32_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
-//
-//    NSLog(@" dataToOperate %@",dataToOperate);
-//    if(data_Refresh_Status_int == 0) //正确
-//    {
-//        //        //发送播放命令
-//        //        //创建通知
-//        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-//        //        //通过通知中心发送通知
-//        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//        //
-//        //        //                        STBDencryptVideoTouchNotific
-//        NSLog(@"列表为空不做操作");
-//    }else  //if(data_Refresh_Status_int == 1) //验证错误
-//    {
-//
-//        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
-//
-//        NSLog(@"列表不为空 需要做操作");
-//    }
-//
-//
-   
+    //
+    //    uint32_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
+    //
+    //    NSLog(@" dataToOperate %@",dataToOperate);
+    //    if(data_Refresh_Status_int == 0) //正确
+    //    {
+    //        //        //发送播放命令
+    //        //        //创建通知
+    //        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+    //        //        //通过通知中心发送通知
+    //        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    //        //
+    //        //        //                        STBDencryptVideoTouchNotific
+    //        NSLog(@"列表为空不做操作");
+    //    }else  //if(data_Refresh_Status_int == 1) //验证错误
+    //    {
+    //
+    //        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    //        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+    //
+    //        NSLog(@"列表不为空 需要做操作");
+    //    }
+    //
+    //
+    
 }
 @end
+
+
