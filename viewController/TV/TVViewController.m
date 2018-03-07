@@ -2482,7 +2482,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"RECDurationTimeTemp %d",RECDurationTimeTemp);
                 NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
                 [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
-                [USER_DEFAULT setBool:YES forKey:@"IsfirstPlayRECVideo"];
+                [USER_DEFAULT setObject:@"YES" forKey:@"IsfirstPlayRECVideo"];
                 
                 [self setStateNonatic];
                 

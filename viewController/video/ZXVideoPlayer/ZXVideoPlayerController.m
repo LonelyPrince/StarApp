@@ -303,14 +303,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     RECTime ++;
     
-    //    double currentTime = currentProgress;
-    //    double totalTime = 50;
-    ////    // 更新时间
-    //    [self setTimeLabelValues:currentTime totalTime:totalTime];
+   
     ////     更新播放进度
     self.videoControl.progressSlider.minimumValue = 0;// 设置最小值
     self.videoControl.progressSlider.maximumValue = 100;// 设置最大值
-    //    NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
+    
+    NSLog(@"self.player.playableDurationself.player.playableDuration %f",self.player.playableDuration);
     self.videoControl.progressSlider.value = self.player.currentPlaybackTime/durationTimeTemp * 100 ;// 设置初始值 ===》  此处的val = 当前时间/总时间 * 100  每一秒刷新一次，计算一次时间
     
     NSLog(@"self.player.playableDuration1 %f",self.player.playableDuration);
@@ -339,35 +337,38 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 开启定时器
 - (void)startDurationTimer
 {
-    BOOL IsfirstPlayRECVideo = [USER_DEFAULT objectForKey:@"IsfirstPlayRECVideo"];
+
+    NSString * IsfirstPlayRECVideo = [USER_DEFAULT objectForKey:@"IsfirstPlayRECVideo"];
+    
     durationTimeTemp = [[USER_DEFAULT objectForKey:@"RECVideoDurationTime"] intValue];
-    if ( IsfirstPlayRECVideo == YES) { //第一次操作
+  
+    if ( [IsfirstPlayRECVideo isEqualToString:@"YES"] ) { //第一次操作
         self.videoControl.progressSlider.value = 0;
-    }else
-    {
-        self.videoControl.progressSlider.value = self.player.playableDuration/durationTimeTemp * 100;
-    }
-    if ( IsfirstPlayRECVideo == YES) {
-        RECTime = 0;
-//        [self.durationTimer invalidate];
-//        self.durationTimer = nil;
         
-//        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
-//        self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
-//        [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
+        RECTime = 0;
         
         [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
     }else
     {
+ 
         if (self.durationTimer) {
-            [self.durationTimer setFireDate:[NSDate date]];
+            [self.durationTimer setFireDate:[NSDate distantPast]];
+            
+ 
+            [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
+            
         } else {
+            
+            [self.durationTimer invalidate];
+            self.durationTimer = nil;
+
             self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
-            
+
             [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
         }
     }
+ 
     
 }
 
@@ -375,7 +376,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)stopDurationTimer
 {
     if (_durationTimer) {
-        [self.durationTimer setFireDate:[NSDate distantFuture]];
+        [self.durationTimer setFireDate:[NSDate distantFuture]]; //停止
+        
+//        [self.durationTimer invalidate];
+//        self.durationTimer = nil;
     }
 }
 
