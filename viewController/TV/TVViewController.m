@@ -370,7 +370,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
     
-    NSLog(@"searchViewCon.dataList: %@",searchViewCon.dataList);
 }
 //1.line
 -(UIView *) lineView
@@ -502,10 +501,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             BOOL serviceDatabool = [self judgeServiceDataIsnull];
             if (YES && recFileData.count == 0) {
                 //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
-                
-                NSLog(@"getaa11");
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                    NSLog(@"getaa22");
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
@@ -521,14 +517,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
-                    NSLog(@"NOChannelDataShow--!!1111111");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
                 {
-                    NSLog(@"getaa33");
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
@@ -544,7 +538,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
-                    NSLog(@"NOChannelDataShow--!!1111111");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
@@ -583,15 +576,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSArray *data = response[@"category"];
             self.categorys = (NSMutableArray *)data;
-            NSLog(@"categorys==||=getserviceData");
             [self setCategoryAndREC:data RECFile:recFileData];
             
             if (!_slideView) {
-                NSLog(@"getaa44");
                 //判断是不是全屏
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
-                    NSLog(@"getaa55");
                     
                     //设置滑动条
                     _slideView = [YLSlideView alloc];
@@ -606,7 +596,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
                 }else //横屏状态，不刷新
                 {
-                    NSLog(@"getaa66");
                     //设置滑动条
                     _slideView = [YLSlideView alloc];
                     _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
@@ -674,7 +663,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 [self NOChannelDataShow];
-                NSLog(@"NOChannelDataShow--!!2222222");
                 [self removeTopProgressView]; //删除进度条
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
@@ -685,7 +673,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
                 dispatch_after(popTime, mainQueue, ^{
-                    NSLog(@"延时执行的2秒");
                     [self ifNotISTVView];
                     
                     NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
@@ -740,7 +727,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
-                    NSLog(@"NOChannelDataShow--!!1111111");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
@@ -9273,11 +9259,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
-            
-            
-            
-            
+  
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                 
@@ -9301,14 +9283,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
+ 
             
             double delayInSeconds = 0.5;
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
-                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
-                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+               
+                [self tableViewCellToBlue:0 indexhah:pushChannelId AllNumberOfService:self.dicTemp.count];
             });
+//            double delayInSeconds = 0.5;
+//            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//            dispatch_after(popTime, mainQueue, ^{
+//                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
+//                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+//            });
         }
         [JXAlertView close];
     }];
@@ -9396,9 +9386,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
-                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
-                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+                
+                [self tableViewCellToBlue:1 indexhah:pushChannelId AllNumberOfService:self.dicTemp.count];
             });
+            
+//            double delayInSeconds = 0.5;
+//            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//            dispatch_after(popTime, mainQueue, ^{
+//                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
+//                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
+//            });
         }
         [JXAlertView close];
     }];
@@ -9680,18 +9678,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self OtherDevicePushToPhoneLive:textOne];
         }
     }
-    
-    
-    
-    
-    //    });
-    
-    
-    
-    
-    
-    
-    
+ 
 }
 -(void)OtherDevicePushToPhoneLive:(NSNotification *)text{
     
@@ -9705,23 +9692,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * srcClientIpData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData],4)];
     NSData * srcClientNameLenData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData]+4,1)];
     NSData * srcClientNameData = [data subdataWithRange:NSMakeRange(38+[SocketUtils uint8FromBytes:fileNameLenData]+5,[SocketUtils uint8FromBytes:srcClientNameLenData])];
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     socketView.otherDevicePushLive.file_name_len = [SocketUtils uint8FromBytes:fileNameLenData];
     socketView.otherDevicePushLive.file_name = [[NSString alloc]initWithData:fileNameData encoding:NSUTF8StringEncoding];
-    NSLog(@"socketView.otherDevicePushLive.file_name %@",socketView.otherDevicePushLive.file_name);
-    
-    //    socketView.otherDevicePush Live.src_push_client_ip =[SocketUtils uint16FromBytes:tsIdData];
+   
     socketView.otherDevicePushLive.src_client_name_len = [SocketUtils uint8FromBytes:srcClientNameLenData];
     socketView.otherDevicePushLive.src_client_name = [[NSString alloc]initWithData:srcClientNameData encoding:NSUTF8StringEncoding];
     
@@ -9818,38 +9792,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [tempInfoArr addObject:srcClientIpData];
         [tempInfoArr addObject:srcClientNameLenData];
         [tempInfoArr addObject:srcClientNameData];
-        
-        //        if (shareViewArr.count == 0) {
-        //            [shareViewArr addObject:tempInfoArr];
-        //
-        //            //弹窗
-        //            [self  createLiveGetAlertView];
-        //        }else
-        //        {
-        //            bool hasSharingView = YES;
-        //            for (int i = 0;  i < shareViewArr.count; i++) {
-        //                if ([shareViewArr[i] isEqualToArray:tempInfoArr]) {
-        //                    NSLog(@"hahahahahaha");
-        //                    hasSharingView = YES;
-        //                }else
-        //                {
-        //                    NSLog(@"hahahahahahajajajajajaja");
-        //                    hasSharingView = NO;
-        //                }
-        //            }
-        //            if (hasSharingView == NO) {
-        //                [shareViewArr addObject:tempInfoArr];
-        //
+ 
         //弹窗
         [self  createLiveGetAlertView];
-        //            }
-        //        }
-        //
-        
-        
-        
-        
-        
         
     }
     
@@ -9974,19 +9919,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
             }
-            //            //    self.TVSubAudioDic = [[NSDictionary alloc]init];
-            //            self.TVSubAudioDic = epgDicToSocket;
-            //            //    self.TVChannlDic = [[NSDictionary alloc]init];
-            //            NSLog(@"self.TVChannlDic.count1 :%lu",(unsigned long)self.TVChannlDic.count);
-            //            self.TVChannlDic = self.dicTemp;
-            //            NSLog(@"self.TVChannlDic.count2 :%lu",(unsigned long)self.TVChannlDic.count);
-            //            NSLog(@"eventname :%@",self.event_startTime);
-            
-            //            tempBoolForServiceArr = YES;
-            //            tempArrForServiceArr =  self.categoryModel.service_indexArr;
-            //            tempDicForServiceArr = self.TVChannlDic;
-            NSLog(@"first tempDicForServiceArr %@",tempDicForServiceArr);
-            //            [self getsubt];
             //*********
             
             //再单独开一个线程用于default操作
@@ -9996,11 +9928,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
             });
             
-            //            self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-            
-            NSLog(@"self.video.dicChannl66 %@",self.video.dicChannl);
-            
-            //            self.video.channelCount = tempArrForServiceArr.count;
             if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
                 socketView.socket_ServiceModel.audio_pid = @"0";
             }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
@@ -10068,11 +9995,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         });
         
-        
-        
     }
-    
 }
 @end
-
-
