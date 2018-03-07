@@ -2560,6 +2560,23 @@ NSLog(@"getaa66");
         NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        [self removeTopProgressView];
+        
+        self.video.startTime = @"0";
+        self.video.endTime = @"0";
+        NSLog(@"self.video.startTime %@",self.video.startTime);
+        NSLog(@"self.video.endTime %@",self.video.endTime);
+        
+        [USER_DEFAULT setObject:self.video.startTime forKey:@"RECVideoStartTime"];
+        [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
+        
+        int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
+        NSLog(@"RECDurationTimeTemp1 %d",[self.video.endTime intValue]);
+        NSLog(@"RECDurationTimeTemp2 %d",[self.video.startTime intValue]);
+        NSLog(@"RECDurationTimeTemp %d",RECDurationTimeTemp);
+        NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
+        [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
     }
     
 }
