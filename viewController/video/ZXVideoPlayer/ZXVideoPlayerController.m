@@ -158,7 +158,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         openTime = 0;
         currentProgress = 0;
         self.view.frame = frame;
-        self.view.backgroundColor = [UIColor blackColor]; //blackColor
+        self.view.backgroundColor =  [UIColor blackColor];//lineBlackColor;//[UIColor redColor]; //blackColor
+        
         NSLog(@"页面要显示了，显示了，显示了");
         //        self.view.backgroundColor = [UIColor redColor];
         //        tvViewController = [[TVViewController alloc]init];
@@ -3334,7 +3335,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
        
         NSLog(@"self.playerView %@",self.player);
-        NSLog(@"self.playerView1url %@",url);
+        NSLog(@"Setself.playerView1url %@",url);
         
         self.player.view.frame = self.view.bounds;
         
@@ -3514,6 +3515,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"22self.video =======----===---==---==-= %@ ",self.video);
         
         
+        
         NSLog(@"self.video.channelCountababab :%d",self.video.channelCount);
         if (self.video.channelCount <= 8) {
             self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
@@ -3548,6 +3550,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([_cellStr isEqualToString:@"subt"]) {
+        tableView.tableFooterView = [[UIView alloc] init];
         subtCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subtCell"];
         if (cell == nil){
             cell = [subtCell loadFromNib];
@@ -3669,6 +3672,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         return cell;
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
+        tableView.tableFooterView = [[UIView alloc] init];
         AudioCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AudioCell"];
         if (cell == nil){
             cell = [AudioCell loadFromNib];
@@ -3807,6 +3811,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     else if ([_cellStr isEqualToString:@"channel"]) {
         NSLog(@"右侧列表展示channel");
+        tableView.tableFooterView = [[UIView alloc] init];
         ChannelCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChannelCell"];
         if (cell == nil){
             cell = [ChannelCell loadFromNib];
