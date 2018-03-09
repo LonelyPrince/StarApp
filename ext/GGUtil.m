@@ -885,7 +885,7 @@ static const char *getPropertyType(objc_property_t property) {
     
     return characterStr;
 }
-+ (BOOL)judgeTwoEpgDicIsEqual: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic
++ (BOOL) judgeTwoEpgDicIsEqual: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic
 {
     
     if (firstDic.count > 17 && twoDic.count > 17) { //两个都是录制文件

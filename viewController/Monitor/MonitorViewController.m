@@ -857,7 +857,8 @@
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
         
-        //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UIAccessibilityTraitNone;
+//                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     
     //    if (! ISNULL(monitorTableArr)) {

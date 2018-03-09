@@ -140,6 +140,7 @@
 #pragma mark - 点击“垃圾桶”按钮，进入删除全部的模式
 -(void)deleteAllBtn
 {
+    [tableView reloadData];
 //    [self testaaaa];
     if (self.tableView.editing) {
         NSLog(@"此时编辑状态，不能点击");
@@ -171,6 +172,7 @@
 #pragma  mark -- 右上角 “cancel” 按钮点击事件
 -(void)deleteBtnCancel
 {
+    [tableView reloadData];
        isAllSelected = NO; // “All” 按钮取消选中状态
     
     [self loadAllDeleteBtn];
@@ -910,6 +912,20 @@
         
         
         //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        
+        if (tableView.editing == YES) {
+            
+            CGRect frame = cell.frame;
+            
+            UIView *backView = [[UIView alloc] initWithFrame:frame];
+            backView.backgroundColor = [UIColor whiteColor];
+            cell.selectedBackgroundView = backView;
+        }else
+        {
+            cell.selectionStyle = UIAccessibilityTraitNone;
+        }
+        
         [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
         
     }
@@ -917,12 +933,43 @@
         earilyCell = [EarilyCell loadFromNib];
         earilyCell.backgroundColor=[UIColor clearColor];
         earilyCell.tintColor = [UIColor redColor];
-        //        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-        //        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x, earilyCell.frame.origin.y+20, earilyCell.frame.size.width, earilyCell.frame.size.height-20)];
-        //        earilyCell.selectedBackgroundView.backgroundColor = [UIColor redColor];
+       
         
-        //        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
+        if (tableView.editing == YES) {
+//            earilyCell.selectionStyle = UITableViewCellSelectionStyleGray;
+//            earilyCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+            CGRect frame = earilyCell.frame;
+            
+            UIView *backView = [[UIView alloc] initWithFrame:frame];
+            backView.backgroundColor = [UIColor whiteColor];
+            earilyCell.selectedBackgroundView = backView;
+        }else
+        {
+            earilyCell.selectionStyle = UIAccessibilityTraitNone;
+        }
+        
+        
+////        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+////        earilyCell.selectedBackgroundView.backgroundColor =  [UIColor whiteColor];
+//        earilyCell.selectionStyle = UIAccessibilityTraitNone;
+//        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//
+////                earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x+20, earilyCell.frame.origin.y+2, earilyCell.frame.size.width, earilyCell.frame.size.height-2)];
+//        view.backgroundColor = [UIColor blueColor];
+////                earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x+20, earilyCell.frame.origin.y+2, earilyCell.frame.size.width, earilyCell.frame.size.height-2)];
+//        earilyCell.selectedBackgroundView = view;
+////                earilyCell.selectedBackgroundView.backgroundColor = [UIColor redColor];
+//
+////        tableView.separatorColor = [UIColor redColor];
+////                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//
+//        [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
+        
+        
+        
+ 
+        
         
     }
     
@@ -981,6 +1028,9 @@
     if (tableView.editing) {  //编辑模式下选中
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
         [selectedArray addObject:path];
+        
+        
+        
     }
     else //非编辑模式下使用
     {

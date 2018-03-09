@@ -1747,15 +1747,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         static NSString *TableSampleIdentifier = @"TVCell";
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        NSLog(@"当前tableView 的cell方法");
         tempTableviewForFocus = tableView;
         TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
         if (cell == nil){
             cell = [TVCell loadFromNib];
             //        cell = [[TVCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TableSampleIdentifier];
             
-            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-            cell.selectedBackgroundView.backgroundColor = RGBA(0xf8, 0xf8, 0xf8, 1);
+            //            cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+            //            cell.selectedBackgroundView.backgroundColor =  [UIColor whiteColor]; // RGBA(0xf8, 0xf8, 0xf8, 1);
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+ 
             
         }
         
@@ -1763,8 +1765,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if (!ISEMPTY(self.dicTemp)) {
             cell.nowTimeStr = nwoTimeBreakStr;  //这里的nwoTimeBreakStr 是在numbeOfrows获取的当前时间
-            NSLog(@"self.dicTemp==aaas %@",self.dicTemp);
-            NSLog(@"self.dicTemp==aaas22 %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]);
             cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
             
             int playTypeClass;
@@ -1789,14 +1789,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //焦点
             NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];
             if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) {
-                
+
                 [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 NSLog(@"asbfabsfkabfjabfkab11");
-                
+
             }else
             {
                 NSLog(@"asbfabsfkabfjabfkab");
@@ -1805,7 +1805,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
                 [cell.channel_id setTextColor:CellGrayColor];//[UIColor greenColor]
                 [cell.channel_Name setTextColor:CellGrayColor];//[UIColor greenColor]
-                
+
             }
             
         }else{//如果为空，什么都不执行
@@ -2109,11 +2109,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             NSLog(@"NONOONONONNONO相等");
-            
-            //        }
-            
-            
-            
+   
             
             
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
@@ -2139,12 +2135,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
-                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
-                });
-                //变蓝
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
+//                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
+//                });
+//                变蓝
                 
             });
             
@@ -2158,16 +2154,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if ([tableView numberOfSections] > 0 && [tableView numberOfRowsInSection:0] > 0) {
                         [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                     }
-                    
+
                 }
-                
+
             }
             
         }
+        
+        
+        [tableView reloadData];
+        
+//        TVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//
+//
+//        cell.channel_Name.textColor = [UIColor greenColor];
+        
+
     }
     
 }
-
+//// 点击cell--取消上一次选择的cell
+//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    TVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    cell.channel_Name.textColor = [UIColor redColor];
+//}
 #pragma mark - 点击tableView 变蓝
 -(void)performChangeColor
 {
@@ -9390,13 +9400,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self tableViewCellToBlue:1 indexhah:pushChannelId AllNumberOfService:self.dicTemp.count];
             });
             
-//            double delayInSeconds = 0.5;
-//            dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//            dispatch_after(popTime, mainQueue, ^{
-//                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
-//                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
-//            });
         }
         [JXAlertView close];
     }];

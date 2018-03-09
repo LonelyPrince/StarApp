@@ -260,17 +260,14 @@
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:row2 inSection:0];
     
     
-    
-//    NSLog(@"====================");
-//    NSLog(@"[tableViewForSliderView numberOfSections]11 :%ld",([tableViewForSliderView numberOfRowsInSection:0] ));
-//    NSLog(@"row11 :%ld",(long)row2);
+  
     if ([tableViewForSliderView numberOfSections] > 0) {
-        
+
         if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
 
-                NSLog(@"[tableViewForSliderView numberOfRowsInSection:0].count %ld",(long)[tableViewForSliderView numberOfRowsInSection:0]);
+
                 if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
                     [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
                 }else
@@ -284,11 +281,11 @@
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 [tableViewForSliderView reloadData];
-                
-                
+
+
             });
         }else
-            
+
         {
             NSLog(@"总行数小于要跳转的函数，会报错");
         }
