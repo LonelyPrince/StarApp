@@ -2283,17 +2283,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             self.videoControl.eventnameLabel.hidden = YES;
             
-            self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:27];
-            self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:11];
+            self.videoControl.channelIdLab.font =[UIFont systemFontOfSize:15];
+            self.videoControl.channelNameLab.font =[UIFont systemFontOfSize:15];
             
             
-            sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:27] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-            sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            sizeChannelId = [self sizeWithText:self.videoControl.channelIdLab.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            sizeChannelName = [self sizeWithText:self.videoControl.channelNameLab.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
             //     CGSize sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:18] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-            self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //sizeChannelId.width+6
+            self.videoControl.channelIdLab.frame = CGRectMake(42, 16, 56 , 55); //sizeChannelId.width+6
             self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 75, 26, 56 , 55);
             NSLog(@"self.videoControl.channelNameLab.text== :%@",self.videoControl.channelNameLab.text);
-            self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+            self.videoControl.channelNameLab.frame = CGRectMake(42+40, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
             
             self.videoControl.FulleventNameLab.text = self.videoControl.eventnameLabel.text;
             //    if (! YFLabelArr) {   //初始化arr，方便后面对label赋值
@@ -2303,7 +2303,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //    self.videoControl.FullEventYFlabel.speed = 3;
             self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
             
-            self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, sizeEventName.width, 18);
+            self.videoControl.FulleventNameLab.frame =  CGRectMake(self.videoControl.channelIdLab.frame.origin.x, 30+22, sizeEventName.width, 18);
             
             
             
@@ -2423,7 +2423,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void)abctest
 {
-    sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:11] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    sizeEventName = [self sizeWithText:self.videoControl.FulleventNameLab.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     
     NSLog(@"FullEventYFlabel lalal1 :%@",self.videoControl.FullEventYFlabel);
     //先销毁再创建
@@ -2433,12 +2433,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //
     
     NSLog(@"FullEventYFlabel lalal3 :%@",self.videoControl.FullEventYFlabel);
-    self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelNameLab.frame.origin.x, 30+22, 260, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+    self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake(self.videoControl.channelIdLab.frame.origin.x, 30+22, 260, 18)  textArray:YFLabelArr font:[UIFont systemFontOfSize:15] textColor:[UIColor whiteColor]];
     
     //进行判断,看是不是录制节目
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
         
-        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake( 45, 38, 200, 30)  textArray:YFLabelArr font:[UIFont systemFontOfSize:11] textColor:[UIColor whiteColor]];
+        self.videoControl.FullEventYFlabel = [[YFRollingLabel alloc] initWithFrame:CGRectMake( 45, 38, 200, 30)  textArray:YFLabelArr font:[UIFont systemFontOfSize:15] textColor:[UIColor whiteColor]];
     }
     
     
@@ -4527,8 +4527,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
-            self.videoControl.channelIdLab.frame = CGRectMake(42, 26, 56 , 55); //
-            self.videoControl.channelNameLab.frame = CGRectMake(42+60, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
+            self.videoControl.channelIdLab.frame = CGRectMake(42, 16, 56 , 55); //
+            self.videoControl.channelNameLab.frame = CGRectMake(42+40, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
             self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 75,26, 56 , 55);
         }else
         {

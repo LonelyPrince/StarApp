@@ -310,7 +310,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
         
         // 返回按钮
-        self.backButton.frame = CGRectMake(0, 25, 54, 56);
+        self.backButton.frame = CGRectMake(0, 15, 54, 56);
         // 锁定按钮
         self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
         
@@ -392,10 +392,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         
         //*********
-        self.channelIdLab.frame = CGRectMake(42, 26, 56 , 55);
+        self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
         //        self.channelNameLab.frame = CGRectMake(42+60, 34, 200+180, 18);
-        self.FulleventNameLab.frame = CGRectMake(42+60, 52, 300, 18);
-        self.FullEventYFlabel.frame = CGRectMake(42+60, 52, 300, 18);
+        self.FulleventNameLab.frame = CGRectMake(42, 52, 300, 18);
+        self.FullEventYFlabel.frame = CGRectMake(42, 52, 300, 18);
         
     }
     else
@@ -537,7 +537,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
         
         // 返回按钮
-        self.backButton.frame = CGRectMake(0, 25, 54, 56);
+        self.backButton.frame = CGRectMake(0, 15, 54, 56);
         // 锁定按钮
         self.lockButton.frame = CGRectMake(10, SCREEN_WIDTH/2 - 30, 60, 60);
         
@@ -627,8 +627,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
             self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 55,0, 62 , 40);
             self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
-            self.FulleventNameLab.frame = CGRectMake(293, 10, 200, 18);
-            self.FullEventYFlabel.frame = CGRectMake(293, 40, 200, 18);
+            self.FulleventNameLab.frame = CGRectMake(293 - 40, 10, 200, 18);
+            self.FullEventYFlabel.frame = CGRectMake(293 - 40, 40, 200, 18);
             firstInit ++;
         }
         
@@ -1373,7 +1373,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
         //        _FulleventNameLab.text = @"Despicble Me And TOT LAL MOM " ;
         _FulleventNameLab.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
-        _FulleventNameLab.font = [UIFont systemFontOfSize:11];
+        _FulleventNameLab.font = [UIFont systemFontOfSize:15];
         
     }
     return _FulleventNameLab;

@@ -11,7 +11,7 @@
 #define KSelfWith 260
 #define KSelfHeight self.frame.size.height
 
-#define kFont [UIFont systemFontOfSize:11]
+#define kFont [UIFont systemFontOfSize:15]
 
 @implementation YFRollingLabel
 
@@ -41,7 +41,7 @@
     NSLog(@"textArr:%lu",(unsigned long)textArray.count);
     NSLog(@"textArr:%@",textArray);
     _textArray = textArray;
-    _font = [UIFont systemFontOfSize:11];
+    _font = [UIFont systemFontOfSize:15];
     _textColor = [UIColor whiteColor];
     NSLog(@"_textArray:%lu",(unsigned long)_textArray.count);
     NSLog(@"_textArray:%@",_textArray);
