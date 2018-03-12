@@ -1560,6 +1560,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  停止播放的动作
 -(void)noPlayShowNotic
 {
+   
+    
     NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
     NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
     NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);
@@ -3899,7 +3901,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self rightViewHidden];
     });
     
-    
+  
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     
@@ -3958,7 +3960,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"相等语言");
         }else
         {
+            
+            [self.player stop];
+            [self.player shutdown];
+            [self.player.view removeFromSuperview];
+            
             NSLog(@"NONOONONONNONO相等语言");
+            
+           
             
         if (!ISEMPTY(self.video.dicChannl)) {
             
@@ -4015,6 +4024,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //②
 //        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
+        //上一个节目的pid
         NSString * audioStr = [USER_DEFAULT objectForKey:@"nowPlayChannelAudioIndex"];
         NSString * subtStr = [USER_DEFAULT objectForKey:@"nowPlayChannelSubtIndex"];
         
@@ -4032,19 +4042,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSLog(@"[audioArr_temp[i] objectForKey:  %@",[audioArr_temp[i] objectForKey:@"audio_pid"]);
                 if ([audioStr isEqualToString:[audioArr_temp[i] objectForKey:@"audio_pid"]]) {
                     
-                    audioArr_temp_int = i;
+                    audioArr_temp_int = i;   //上一个节目的的index
                 }
             }
             
         }
         
         if (audioArr_temp_int == indexPath.row ) {
+            NSLog(@"audioArr_temp_int %d",audioArr_temp_int);
             NSLog(@"相等语言");
         }else
         {
             NSLog(@"NONOONONONNONO相等语言");
             
-        
+            [self.player stop];
+            [self.player shutdown];
+            [self.player.view removeFromSuperview];
         
         if (!ISEMPTY(self.video.dicChannl)) {
             
@@ -4112,7 +4125,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
             NSLog(@"NONOONONONNONO相等");
             
-        
+            [self.player stop];
+            [self.player shutdown];
+            [self.player.view removeFromSuperview];
         
         __block NSDictionary * dic ;
         if (!ISEMPTY(self.video.dicChannl)) {

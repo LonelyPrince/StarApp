@@ -212,6 +212,8 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.audio_index = [socket_ServiceModel.audio_pid intValue];
     cs_service.subt_index = [socket_ServiceModel.subt_pid intValue];
     
+    NSLog(@"cs_service.audio_index %d",cs_service.audio_index);
+    NSLog(@"cs_service.subt_index %d",cs_service.subt_index);
     [USER_DEFAULT setObject:socket_ServiceModel.audio_pid forKey:@"nowPlayChannelAudioIndex"];
     [USER_DEFAULT setObject:socket_ServiceModel.subt_pid forKey:@"nowPlayChannelSubtIndex"];
     
