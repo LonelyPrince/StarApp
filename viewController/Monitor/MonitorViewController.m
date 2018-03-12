@@ -894,7 +894,7 @@
     //    value = 0;
     NSLog(@"可能报错1");
     //    [tunerAllData getBytes: &value length: sizeof(value)];   //获取总长度
-    uint32_t value = [SocketUtils uint32FromBytes:tunerAllData];
+    uint8_t value = [SocketUtils uint8FromBytes:tunerAllData];
     NSLog(@"可能报错2");
 #pragma mark  将11 改成了4
     for (int i = 0; i<4; i++) {

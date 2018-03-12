@@ -1709,6 +1709,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if (cell == nil) {
             cell = [[pushViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         }
         
         cell.pushTypeImage = [[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
