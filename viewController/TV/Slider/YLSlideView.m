@@ -51,9 +51,29 @@
                   context:nil];
         
         
+        [self setSliderViewAlphaConfig];
     }
     
     return self;
+}
+-(void)setSliderViewAlphaConfig
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setSliderViewAlphaConfig" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSliderViewAlpha) name:@"setSliderViewAlphaConfig" object:nil];
+}
+-(void)setSliderViewAlpha
+{
+    NSLog(@"执行操作--隐藏");
+    self.alpha = 0;
+    
+    double delayInSeconds = 0.25;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"执行操作--显示4");
+        self.alpha = 1;
+    });
 }
 -(NSMutableArray *)titleArrReplace:(NSMutableArray*)titles
 {
@@ -70,13 +90,13 @@
     NSLog(@"RECAndLiveType %@",RECAndLiveType);
     
     if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
-         _titles = tempTitlesArr;
+        _titles = tempTitlesArr;
     }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
         NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
         [_titles addObject:MLRecording];
     }else if ([RECAndLiveType isEqualToString:@"LiveExit"]){ //录制不存在直播存在
         if(titles.count > 0){
-         tempTitlesArr =titles[0];
+            tempTitlesArr =titles[0];
             for (int i = 0 ; i < tempTitlesArr.count; i++) {
                 NSDictionary *item = tempTitlesArr[i];
                 NSString * tempArray;
@@ -86,7 +106,7 @@
                 
             }
         }
-       
+        
     }else if([RECAndLiveType isEqualToString:@"RecAndLiveAllHave"]){//都存在
         if (titles.count == 2 ) {   //正常情况
             tempTitlesArr =titles[0];
@@ -106,10 +126,10 @@
         {
             tempTitlesArr =titles[0];
             for (int i = 0 ; i < tempTitlesArr.count; i++) {
- 
+                
             }
         }
-       
+        
     }
     
     return _titles;
@@ -139,19 +159,19 @@
     nextPage               = MIN(nextPage, _totaiPageNumber-1);
     
     //回收 unvisible cell
-//        for (TVTable * cell  in _visibleCells) {
-//    
-//            if (cell.index < currentPage || cell.index > nextPage) {
-//    
-//                //保存偏移量
-//                [[YGPCache sharedCache]setDataToMemoryWithData:[NSStringFromCGPoint(cell.contentOffset) dataUsingEncoding:NSUTF8StringEncoding] forKey:[@(cell.index) stringValue]];
-//    
-//    
-//                [_recycledCells addObject:cell];
-//                [cell removeFromSuperview];
-//    
-//            }
-//        }
+    //        for (TVTable * cell  in _visibleCells) {
+    //
+    //            if (cell.index < currentPage || cell.index > nextPage) {
+    //
+    //                //保存偏移量
+    //                [[YGPCache sharedCache]setDataToMemoryWithData:[NSStringFromCGPoint(cell.contentOffset) dataUsingEncoding:NSUTF8StringEncoding] forKey:[@(cell.index) stringValue]];
+    //
+    //
+    //                [_recycledCells addObject:cell];
+    //                [cell removeFromSuperview];
+    //
+    //            }
+    //        }
     
     [_visibleCells minusSet:_recycledCells];
     
@@ -250,51 +270,76 @@
     NSInteger row2 = [text.userInfo[@"textTwo"]integerValue];
     NSInteger row3 = [text.userInfo[@"textThree"]integerValue];
     
-  
-    dispatch_async(dispatch_get_main_queue(), ^{
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
         NSLog(@"此处记录跳转到那个页面 %ld",(long)row);
         tableViewForSliderView =   [self visibleCellForIndex:row];
-
+        
     });
     NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:row2 inSection:0];
     
     
-  
+    
     if ([tableViewForSliderView numberOfSections] > 0) {
-
+        
         if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-
-
+                
+                
                 if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
                     [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
                 }else
                 {
                     return ;
                 }
-
-
+                
+                
             });
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-
+                
+                
+                //                self.tableForSliderView.alpha = 0;
+                
                 [tableViewForSliderView reloadData];
-
-
+                
+                double delayInSeconds = 0.13;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+                    NSLog(@"执行操作--显示1");
+                    self.alpha = 1;
+                });
+                double delayInSeconds1 = 0.18;
+                dispatch_queue_t mainQueue1 = dispatch_get_main_queue();
+                dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds1 * NSEC_PER_SEC);
+                dispatch_after(popTime1, mainQueue1, ^{
+                    NSLog(@"执行操作--显示2");
+                    self.alpha = 1;
+                });
+                
             });
         }else
-
+            
         {
             NSLog(@"总行数小于要跳转的函数，会报错");
         }
     }
     
-    
+    double delayInSeconds = 0.18;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"执行操作--显示3");
+        self.alpha = 1;
+    });
     
     
 }
+
+
 #pragma make reloadData
 
 - (void)reloadData{
@@ -368,7 +413,7 @@
     //    // 根据当前的x坐标和页宽度计算出当前页数
     //    int currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-//    NSLog(@"==- 当scrollView滚动的时候，不停调用 ");
+    //    NSLog(@"==- 当scrollView滚动的时候，不停调用 ");
     
 }
 
@@ -520,3 +565,4 @@
 }
 
 @end
+

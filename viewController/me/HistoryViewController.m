@@ -1037,7 +1037,9 @@
         //无操作
         
         
-        
+        NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
         
         
         //______________

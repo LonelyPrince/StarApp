@@ -8522,6 +8522,10 @@
 //点击观看历史直接播放
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr
 {
+    NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
+    //        //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification2];
+    
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     

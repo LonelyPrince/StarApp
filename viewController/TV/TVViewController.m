@@ -3140,6 +3140,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //            self.TVViewStopVideoPlayAndCancelDealyFunctionBlock();
         //        }
         [USER_DEFAULT setObject:@"1" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放
+        
+        
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
