@@ -5179,14 +5179,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         //        if ( data1.count == 0 && recFileData.count == 0){
         //            [self getServiceDataNotHaveSocket];
         //            return ;
         //        }
         self.serviceData = (NSMutableArray *)data1;
-        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
+//        [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         
         //        BOOL serviceDatabool = [self judgeServiceDataIsnull];
         //        if (serviceDatabool && recFileData.count == 0) {
@@ -5224,11 +5224,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [self setCategoryAndREC:data RECFile:recFileData];
             
-            //            if (data.count == 0 && recFileData.count == 0){ //没有数据
-            //
-            //                [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
-            //                return ;
-            //            }else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
+                if (data.count == 0 && recFileData.count == 0){ //没有数据
+    
+                  
+//                     data1 = [USER_DEFAULT objectForKey:@"serviceData_Default"];
+                    self.serviceData = [USER_DEFAULT objectForKey:@"serviceData_Default"];
+//                    recFileData = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                
+                    [self setCategoryAndREC:[USER_DEFAULT objectForKey:@"serviceData_Default"] RECFile:[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"]];
+                    
+                    return ;
+                }
+//                        else if(data.count == 0 && recFileData.count != 0){ //有录制没直播
             //
             //                [USER_DEFAULT setObject:@"RecExit" forKey:@"RECAndLiveType"];
             //

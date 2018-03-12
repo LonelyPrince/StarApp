@@ -157,7 +157,7 @@
     uint32_t val3 = 0;
     
     if (data.length < 4 ) {
-        NSLog(@"可能要崩溃的地方 uint32");
+        NSLog(@"*******************************可能要崩溃的地方 uint32");
         return 0;
     }else{
         [data getBytes:&val0 range:NSMakeRange(0, 1)];
