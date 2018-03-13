@@ -1048,5 +1048,45 @@ static const char *getPropertyType(objc_property_t property) {
     return 0;
     
 }
+
+
++ (void)getCurrentLanguage
+{
+//    NSArray *languages = [NSLocale preferredLanguages];
+//    NSString *currentLanguage = [languages objectAtIndex:0];
+    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    NSLog( @"当前的语言%@" , localeLanguageCode);
+    
+}
++(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr
+{
+    NSString * localLanguage = [USER_DEFAULT objectForKey:@"systemLocalLanguage"];
+    
+    if ([localLanguage isEqualToString:@"en"]) {
+        localLanguage = @"English";
+    }else if ([localLanguage isEqualToString:@"fr"]) {
+        localLanguage = @"Français";
+    }else if ([localLanguage isEqualToString:@"sw"]) {
+        localLanguage = @"Kiswahili";
+    }else if ([localLanguage isEqualToString:@"pt"]) {
+        localLanguage = @"Português";
+    }else if ([localLanguage isEqualToString:@"zh"]) {
+        localLanguage = @"Chinese";
+    }
+    
+    int audiopidTemp;
+    for ( int i = 0; i < aduioInfoArr.count ; i ++) {
+        NSLog(@"[aduioInfoArr[i] objectForKey: %@",[aduioInfoArr[i] objectForKey:@"audio_language"]);
+        if ([[aduioInfoArr[i] objectForKey:@"audio_language"] isEqualToString:localLanguage]){
+            audiopidTemp = i;
+            [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
+            return audiopidTemp;
+        }else{
+            audiopidTemp = 0;
+        }
+    }
+    [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
+    return audiopidTemp;
+}
 @end
 

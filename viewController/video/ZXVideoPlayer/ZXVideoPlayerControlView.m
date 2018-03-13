@@ -818,6 +818,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         NSNotification *notification1 =[NSNotification notificationWithName:@"tableviewHidden" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        NSLog(@"rightViewHidden==666666");
     }];
     
     

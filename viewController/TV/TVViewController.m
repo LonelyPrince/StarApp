@@ -2645,14 +2645,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
             subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
+                int audiopidTemp;
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
                 
-                
-                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
             }else
             {
                 if (audio_infoArr.count > 0 ) {
-                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                    
+                    int audiopidTemp;
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    
+                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 }else
                 {
                     socketView.socket_ServiceModel.audio_pid = nil;
@@ -2771,7 +2776,36 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
-
+-(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr
+{
+    NSString * localLanguage = [USER_DEFAULT objectForKey:@"systemLocalLanguage"];
+    
+    if ([localLanguage isEqualToString:@"en"]) {
+        localLanguage = @"English";
+    }else if ([localLanguage isEqualToString:@"fr"]) {
+        localLanguage = @"Français";
+    }else if ([localLanguage isEqualToString:@"sw"]) {
+        localLanguage = @"Kiswahili";
+    }else if ([localLanguage isEqualToString:@"pt"]) {
+        localLanguage = @"Português";
+    }else if ([localLanguage isEqualToString:@"zh"]) {
+        localLanguage = @"Chinese";
+    }
+    
+    int audiopidTemp;
+    for ( int i = 0; i < aduioInfoArr.count ; i ++) {
+        NSLog(@"[aduioInfoArr[i] objectForKey: %@",[aduioInfoArr[i] objectForKey:@"audio_language"]);
+        if ([[aduioInfoArr[i] objectForKey:@"audio_language"] isEqualToString:localLanguage]){
+            audiopidTemp = i;
+            [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
+            return audiopidTemp;
+        }else{
+            audiopidTemp = 0;
+        }
+    }
+    [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
+    return audiopidTemp;
+}
 #pragma  mark -视频分发返回来的RET区的结果
 -(BOOL)getLinkData : (int )val tempDataA:(NSMutableData *)aData tempDataB:(NSMutableData *)bData type:(NSString *)typeTemp
 {
@@ -3172,7 +3206,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
     });
     
-    
+    [GGUtil getCurrentLanguage];
 }
 //0.3s 后执行
 -(void)viewWillAppearDealyFunction
@@ -4411,12 +4445,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
             subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
-                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                
+                int audiopidTemp;
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                
+                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
+                
+//                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
                 socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
                 
             }else
             {
                 if (audio_infoArr.count > 0 ) {
+                    int audiopidTemp;
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    
+                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
                 }else
                 {
@@ -4923,12 +4967,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
                 
-                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                int audiopidTemp;
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                
+                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
+//                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
                 socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
             }else
             {
                 if (audio_infoArr.count > 0 ) {
-                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                    
+                    int audiopidTemp;
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    
+                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
+//                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
                 }else
                 {
                     socketView.socket_ServiceModel.audio_pid = nil;

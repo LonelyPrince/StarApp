@@ -204,6 +204,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         subtRow = 0;
         audioRow = 0;
+        [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
         
         //        [self configObserver];
         [self installMovieNotificationObservers];
@@ -2027,6 +2028,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     NSLog(@"右侧列表消失 之 屏幕旋转");
     [self rightViewHidden];  //旋转时，将右侧列表取消掉
+    NSLog(@"rightViewHidden==11111");
     
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     
@@ -2647,6 +2649,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
+    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"shang 上一个节目");
     
@@ -2758,6 +2761,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
+    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -2902,7 +2906,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.rightViewShowing == YES)
     {
         [self rightViewHidden];
-        
+        NSLog(@"rightViewHidden==22222");
         
         
         
@@ -3052,7 +3056,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.rightViewShowing == YES)
     {
         [self rightViewHidden];
-        
+        NSLog(@"rightViewHidden==33333");
         
     }else if(self.rightViewShowing ==NO)
     {
@@ -3096,7 +3100,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.rightViewShowing == YES)
     {
         [self rightViewHidden];
-        
+        NSLog(@"rightViewHidden==44444");
         
     }else if(self.rightViewShowing ==NO)
     {
@@ -3764,7 +3768,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
                 NSLog(@"cell.dataDic 11:%@",cell.dataDic);
                 //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
-                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                
+                NSNumber * audioNumber = [USER_DEFAULT objectForKey:@"audioRow" ];
+                audioRow =  [audioNumber intValue];
+                
+                NSArray * audio_infoArrTemp = [fourceDic objectForKey:@"audio_info"];
+                NSDictionary * audioDicBlue;
+                if (audioRow > audio_infoArrTemp.count && audio_infoArrTemp.count > 0) {
+                    audioDicBlue = [fourceDic objectForKey:@"audio_info"][0];
+                }else
+                {
+                    audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                }
+                
+//                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
                 NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
                 
                 NSMutableDictionary * mutableAudioDic22 = [audioDicBlue mutableCopy];
@@ -3785,12 +3802,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //不需要加号码
                 //            //焦点
                 NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-                NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-                //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
+                
                 NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
-                NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
-                //            if ([cell.dataDic isEqual:audioDicBlue]) {
-                //                if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:audioDicBlue]) {
+                
                 if ([cell.dataDic isEqual:audioDicBlue]) {
                     
                     [cell.languageLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
@@ -3902,6 +3916,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.videoControl.isBarShowing = NO;
         [self rightViewHidden];
+        NSLog(@"rightViewHidden==55555");
     });
     
   
@@ -4080,6 +4095,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             audioRow = indexPath.row;
+            [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
             [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -4138,6 +4154,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 audioRow = 0;
+                [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
                 subtRow = 0;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
@@ -4990,6 +5007,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)setaudioOrSubtRowIsZero
 {
     audioRow = 0;
+    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     
 }

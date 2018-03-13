@@ -87,11 +87,19 @@
     
     [USER_DEFAULT  setObject:@"NO" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面还没有加载完成
     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"]; // 值为YES，代表首页的频道列表还没有展示出来，这个时候不允许旋转
-    
+    [self getCurrentLanguage];
     [self.window makeKeyAndVisible];
     return YES;
 }
-
+- (void)getCurrentLanguage
+{
+    //    NSArray *languages = [NSLocale preferredLanguages];
+    //    NSString *currentLanguage = [languages objectAtIndex:0];
+    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    NSLog( @"当前的语言%@" , localeLanguageCode);
+    [USER_DEFAULT setObject:localeLanguageCode forKey:@"systemLocalLanguage"];
+    
+}
 //收集崩溃信息
 void UncaughtExceptionHandler(NSException *exception) {
         /**
