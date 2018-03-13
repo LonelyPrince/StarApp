@@ -1346,8 +1346,26 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [_pushBtn setImage:[UIImage imageNamed:@"投屏横"] forState:UIControlStateNormal];
 //        _pushBtn.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
         
+//        _pushBtn.alpha = 0.5;
+//        _pushBtn.enabled = NO;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushBtnNotEnabled" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushBtnNotEnabled) name:@"pushBtnNotEnabled" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushBtnEnabled" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushBtnEnabled) name:@"pushBtnEnabled" object:nil];
     }
     return _pushBtn;
+}
+-(void)pushBtnNotEnabled
+{
+    _pushBtn.enabled = NO;
+}
+-(void)pushBtnEnabled
+{
+    _pushBtn.enabled = YES;
 }
 ///频道名称
 - (UILabel *)channelNameLab

@@ -681,6 +681,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     //                    [self stopVideoPlay]; //停止视频播放
                     
+                    NSLog(@"全屏按钮消失---方法:getservicedata");
                     NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnHidden" object:nil userInfo:nil];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -10027,6 +10028,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //                //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
+            NSLog(@"全屏按钮消失---方法:showDeliveryStopped");
             NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnHidden" object:nil userInfo:nil];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification1];

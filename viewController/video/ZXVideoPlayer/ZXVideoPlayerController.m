@@ -570,6 +570,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.fullScreenButton.hidden = NO;
     }else
     {
+        NSLog(@"全屏按钮消失---方法:onMpMovie...");
         self.videoControl.fullScreenButton.hidden = YES;
     }
     //    self.videoControl.shrinkScreenButton.hidden = YES;
@@ -2498,9 +2499,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.isFullscreenMode = NO;
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
+        NSLog(@"全屏按钮出现---方法:restore...");
         self.videoControl.fullScreenButton.hidden = NO;
     }else
     {
+        NSLog(@"全屏按钮消失---方法:restore...");
         self.videoControl.fullScreenButton.hidden = YES;
     }
     

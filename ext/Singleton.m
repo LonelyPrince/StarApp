@@ -55,6 +55,10 @@
         //从断开状态到连接状态，开始重新播放
         NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        
+        NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnEnabled" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification3];
     }
     NSNotification *notification =[NSNotification notificationWithName:@"netWorkIsConnectNotice" object:nil userInfo:nil];
     //        //通过通知中心发送通知
@@ -272,6 +276,12 @@
             NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            
+            
+            NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnNotEnabled" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification3];
+            
         }
         
         
@@ -300,6 +310,10 @@
         NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        
+        NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnNotEnabled" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification3];
         return;
     }
     
