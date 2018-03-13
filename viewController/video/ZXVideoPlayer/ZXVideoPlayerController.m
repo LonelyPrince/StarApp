@@ -2326,7 +2326,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //                self.videoControl.FulleventNameLab.frame = CGRectMake( 20, 20, 200, 30);
                 //
                 //                self.videoControl.FullEventYFlabel.frame = CGRectMake( 45, 38, 200, 30);
-                self.videoControl.channelNameLab.frame = CGRectMake( 45, 38, 300, 30);
+                self.videoControl.channelNameLab.frame = CGRectMake( 45, 28, 300, 30);
                 // 1. 暂停按钮出现 2. Nextbutton和时间右移
                 
                 self.videoControl.suspendButton.hidden = NO;
@@ -4577,7 +4577,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             NSLog(@"REC  横屏");
             
-            self.videoControl.channelNameLab.frame = CGRectMake(42, 26, 56+200 , 55);
+            self.videoControl.channelNameLab.frame = CGRectMake(42, 16, 56+200 , 55);
             
             NSLog(@"SCREEN_WIDTH==SCREEN_WIDTH %f",SCREEN_WIDTH);
             self.videoControl.progressSlider.frame = CGRectMake(0, self.videoControl.bottomBar.frame.size.height - 50 , SCREEN_HEIGHT+1, 2);
