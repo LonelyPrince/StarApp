@@ -442,7 +442,35 @@
                                     [self readSocketCommandTypeISZero:bigDataReduceSmallData];
                                 }
                                     break;
+                                case 23:
+                                {
+                                    NSData * now_data_length = [[NSData alloc]init];
                                     
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    [self readSocketCommandTypeISTwentyThree:bigDataReduceSmallData];
+                                }
+                                    break;
+
                                 case 35:
                                 {
                                     NSData * now_data_length = [[NSData alloc]init];
@@ -987,6 +1015,12 @@
                         
                     }
                         break;
+                    case 23:
+                    {
+                        [self readSocketCommandTypeISTwentyThree:data];
+                        
+                    }
+                        break;
                     case 35:
                     {
                         [self readSocketCommandTypeISThirtyFive:data];
@@ -1221,7 +1255,41 @@
                                     
                                 }
                                     break;
+                                case 23:
+                                {
+                                    // 更新了列表
+                                    NSLog(@"列表更新了");
                                     
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 24 + 4 ) {
+                                        
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt  ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
+                                    
+                                    [self readSocketCommandTypeISTwentyThree:bigDataReduceSmallData];
+                                    
+                                }
+                                    break;
+
                                 case 35:
                                 {
                                     // 更新了列表
@@ -1770,6 +1838,11 @@
                         [self readSocketCommandTypeISZero:data];
                     }
                         break;
+                    case 23:
+                    {
+                        [self readSocketCommandTypeISTwentyThree:data];
+                    }
+                        break;
                     case 35:
                     {
                         [self readSocketCommandTypeISThirtyFive:data];
@@ -1971,6 +2044,59 @@
     //    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
 }
 
+
+-(void)readSocketCommandTypeISTwentyThree  :(NSData *)dataToOperate
+{
+    
+    //此处是验证机顶盒密码
+    NSData * data_Refresh_Status = [[NSData alloc]init];
+    //获得数据区的长度
+    
+    if ([dataToOperate length] >=  38) {
+        
+        data_Refresh_Status = [dataToOperate subdataWithRange:NSMakeRange(37,1)];
+    }else
+    {
+        return;
+    }
+    
+    uint32_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
+    
+    NSLog(@" dataToOperate %@",dataToOperate);
+    if(data_Refresh_Status_int == 0) //正确
+    {
+        //        //发送播放命令
+        //        //创建通知
+        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        //
+        //        //                        STBDencryptVideoTouchNotific
+        NSLog(@"列表为空不做操作");
+    }else  //if(data_Refresh_Status_int == 1) //验证错误
+    {
+        
+        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotificSMT" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+        
+        NSLog(@"列表不为空 需要做操作");
+    }
+    
+    
+    //  =======================================
+    
+    
+    //
+    ////    // 更新了列表
+    //    NSLog(@"列表更新了");
+    //    //        mediaDeliveryUpdateNotific
+    //
+    //    //创建通知
+    //    NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
+}
 -(void)readSocketCommandTypeISThirtyFive  :(NSData *)dataToOperate
 {
     
