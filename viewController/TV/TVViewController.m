@@ -2649,7 +2649,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 audiopidTemp = [self setAudioPidTemp:audio_infoArr];
                 
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
+//                socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
             }else
             {
                 if (audio_infoArr.count > 0 ) {
@@ -2792,6 +2792,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         localLanguage = @"Chinese";
     }
     
+    NSLog(@"socketView.socket_ServiceModel.audio_pid ：%@",socketView.socket_ServiceModel.audio_pid);
+    NSLog(@"localLanguage 本地化语言是什么 ：%@",localLanguage);
     int audiopidTemp;
     for ( int i = 0; i < aduioInfoArr.count ; i ++) {
         NSLog(@"[aduioInfoArr[i] objectForKey: %@",[aduioInfoArr[i] objectForKey:@"audio_language"]);
@@ -4828,7 +4830,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     audiopidTemp = [self setAudioPidTemp:audio_infoArr];
                     
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                    NSLog(@"audio_pidaudio_pid %@",socketView.socket_ServiceModel.audio_pid);
+//                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
                 }else
                 {
                     socketView.socket_ServiceModel.audio_pid = nil;

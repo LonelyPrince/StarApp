@@ -1074,6 +1074,8 @@ static const char *getPropertyType(objc_property_t property) {
         localLanguage = @"Chinese";
     }
     
+    NSLog(@"localLanguage 本地化语言是什么 ：%@",localLanguage);
+    
     int audiopidTemp;
     for ( int i = 0; i < aduioInfoArr.count ; i ++) {
         NSLog(@"[aduioInfoArr[i] objectForKey: %@",[aduioInfoArr[i] objectForKey:@"audio_language"]);

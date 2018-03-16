@@ -2647,6 +2647,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 ///上一个节目
 - (void)lastChannelButtonClick
 {
+    [self.player stop];
+    [self.player shutdown];
+    [self.player.view removeFromSuperview];
+
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
@@ -2759,6 +2763,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)nextChannelButtonClick
 {
+    [self.player stop];
+    [self.player shutdown];
+    [self.player.view removeFromSuperview];
+
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
@@ -3737,7 +3745,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     
                     if ([audioLanguageTemp isEqualToString:[audioArr[i] objectForKey:@"audio_language"]]) {
-                        audio_languageIndex ++ ;
+                        audio_languageIndex = audio_languageIndex + 1 ;// 2;// audio_languageIndex + 1 ;
                     }
                 }
                 
@@ -3802,7 +3810,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //不需要加号码
                 //            //焦点
                 NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-                
+                NSNumber * audioNumber = [USER_DEFAULT objectForKey:@"audioRow" ];
+                audioRow =  [audioNumber intValue];
                 NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
                 
                 if ([cell.dataDic isEqual:audioDicBlue]) {
