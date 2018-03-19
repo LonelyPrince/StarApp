@@ -599,17 +599,71 @@
         [HaveSectionOneAndTwoArr removeAllObjects];
         
         
+      /////////============
+        [tableView reloadData];
+        isAllSelected = NO; // “All” 按钮取消选中状态
+        
+        [self loadAllDeleteBtn];
+        delegateBtn = YES;
+        [self.tableView setEditing:NO animated:YES];
+        //    [self setEditing:!self.editing animated:YES];
+        myButton = nil;
+        myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Del"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
+        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        self.navigationItem.rightBarButtonItem = myButton;
+        NSLog(@"取消删除");
+        [selectedArray removeAllObjects]; //删除完或者取消删除之后
+        
+        
+        
+            UIBarButtonItem *leftBackBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftBackBtnClick)];
+            self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+            
+            self.navigationItem.leftBarButtonItem = leftBackBtn;
+            
+            self.tabBarController.tabBar.hidden = YES;
+            
+            
+            [redDeleteBtn removeFromSuperview];
+        
     }
     
-    //获得删除的数量
     
-    NSString * DeleteLabel = NSLocalizedString(@"DeleteLabel", nil);
-    [redDeleteBtn setTitle:[NSString stringWithFormat:DeleteLabel] forState:UIControlStateNormal];
-    
+//    double delayInSeconds = 0.5;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//
+        //获得删除的数量
     if(historyArr.count == 0 || historyArr == NULL)
     {
-        [self deleteBtnCancelAndNOHistory];
+        delegateBtn = YES;
+        [self.tableView setEditing:NO animated:YES];
+        //    [self setEditing:!self.editing animated:YES];
+        myButton = nil;
+        myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Del"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
+        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+        
+        self.navigationItem.rightBarButtonItem = myButton;
+        self.navigationItem.rightBarButtonItem=nil;  //勇于没有数据之后的隐藏
+        NSLog(@"取消删除");
+        
+        [selectedArray removeAllObjects]; //删除完或者取消删除之后
+    }else
+    {
+        NSString * DeleteLabel = NSLocalizedString(@"DeleteLabel", nil);
+        [redDeleteBtn setTitle:[NSString stringWithFormat:DeleteLabel] forState:UIControlStateNormal];
+        
+        if(historyArr.count == 0 || historyArr == NULL)
+        {
+            [self deleteBtnCancelAndNOHistory];
+        }
     }
+    
+//
+//    });
+   
 }
 
 #pragma mark - “ALL”按钮点击
