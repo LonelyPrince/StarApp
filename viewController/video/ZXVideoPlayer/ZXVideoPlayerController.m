@@ -463,7 +463,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)stopPlayAndShowLabel  //如果静帧超过3秒钟，显示不能播放的文字
 {
     NSLog(@"卡拉  开始配置 进入方法22");
-    [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+    
+    if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+        
+    }else{
+        [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+    }
+    
     [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
     
     //    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
@@ -2905,6 +2911,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
 }
+
 - (void)subtBtnClick
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"timerStateInvalidate" object:nil];

@@ -89,6 +89,7 @@
     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"]; // 值为YES，代表首页的频道列表还没有展示出来，这个时候不允许旋转
     [self getCurrentLanguage];
     [self.window makeKeyAndVisible];
+    [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
     return YES;
 }
 - (void)getCurrentLanguage
