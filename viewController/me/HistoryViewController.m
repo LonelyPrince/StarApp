@@ -1148,6 +1148,10 @@
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
         [selectedArray removeObject:path];
         NSLog(@"selectedArray.count %d",selectedArray.count);
+        
+        //====
+        isAllSelected = NO;
+        
     }
     
 }
