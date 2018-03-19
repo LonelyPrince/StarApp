@@ -127,25 +127,28 @@
 -(void)judgeTunerClass:(NSData * )typeData tunerDic:(NSDictionary *)tunerDic  clientName:(NSData*)clientNameData
 {
     
-//    NSString * service_videoindexStr = [dataDic objectForKey:@"service_logic_number"];
-//    if(service_videoindexStr.length == 1)
-//    {
-//        self.channel_id.text = [ NSString stringWithFormat:@"00%@",service_videoindexStr];
-//    }
-//    else if (service_videoindexStr.length == 2)
-//    {
-//        self.channel_id.text = [NSString stringWithFormat:@"0%@",service_videoindexStr];
-//    }
-//    else if (service_videoindexStr.length == 3)
-//    {
-//        self.channel_id.text = [NSString stringWithFormat:@"%@",service_videoindexStr];
-//    }
-//    else if (service_videoindexStr.length > 3)
-//    {
-//        self.channel_id.text = [service_videoindexStr substringFromIndex:service_videoindexStr.length - 3];
-//    }
-//
-//    self.channel_Name.text = [dataDic objectForKey:@"service_name"];
+    NSString * service_videoindexStr = [tunerDic objectForKey:@"service_logic_number"];
+    UILabel * channel_idStr ;
+    UILabel * channel_nameStr ;
+    if(service_videoindexStr.length == 1)
+    {
+        channel_idStr = [ NSString stringWithFormat:@"00%@",service_videoindexStr];
+    }
+    else if (service_videoindexStr.length == 2)
+    {
+        channel_idStr = [NSString stringWithFormat:@"0%@",service_videoindexStr];
+    }
+    else if (service_videoindexStr.length == 3)
+    {
+        channel_idStr = [NSString stringWithFormat:@"%@",service_videoindexStr];
+    }
+    else if (service_videoindexStr.length > 3)
+    {
+        channel_idStr = [service_videoindexStr substringFromIndex:service_videoindexStr.length - 3];
+    }
+
+    channel_nameStr = [tunerDic objectForKey:@"service_name"];
+    NSLog(@"self.channel_Name.text== %@",channel_nameStr);
 //
     
     
@@ -156,16 +159,19 @@
         NSLog(@"此刻是5s和4s的大小");
         
         self.nameLab.frame = CGRectMake(157, 20, 158, 15);
+        self.timeLab.frame =CGRectMake (131, 49, 190, 15);
         
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6的大小");
         
-        self.nameLab.frame = CGRectMake(157, 20, 166, 15);
+        self.nameLab.frame = CGRectMake(157, 20, 170, 15);
+        self.timeLab.frame =CGRectMake (131, 49, 205, 15);
         
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"]|| [deviceString isEqualToString:@"iPhone8 Plus"] ) {
         NSLog(@"此刻是6 plus的大小");
         
-        self.nameLab.frame = CGRectMake(157, 20, 192, 15);
+        self.nameLab.frame = CGRectMake(157, 20, 240, 15);
+        self.timeLab.frame =CGRectMake (131, 49, 245, 15);
         
     }
     
@@ -193,19 +199,20 @@
     NSString * startTime1 =  [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
     NSString * endTime1 =  [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]];
     
-    if (![startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]) {
-        self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
-    }else if(![startTime1 isEqualToString:@""] && [endTime1 isEqualToString:@""]){
-        
-        self.timeLab.text = [NSString stringWithFormat:@"%@/--:--",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]]];
-    }else if([startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]){
-        
-        self.timeLab.text = [NSString stringWithFormat:@"--:--/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
-    }else {
-        
-        self.timeLab.text = [NSString stringWithFormat:@"--:--/--:--"];
-    }
+//    if (![startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]) {
+//        self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
+//    }else if(![startTime1 isEqualToString:@""] && [endTime1 isEqualToString:@""]){
+//
+//        self.timeLab.text = [NSString stringWithFormat:@"%@/--:--",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]]];
+//    }else if([startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]){
+//
+//        self.timeLab.text = [NSString stringWithFormat:@"--:--/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
+//    }else {
+//
+//        self.timeLab.text = [NSString stringWithFormat:@"--:--/--:--"];
+//    }
     
+    self.timeLab.text = [NSString stringWithFormat:@"%@ %@",channel_idStr,channel_nameStr];
     //    self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
     
     NSString * clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
@@ -295,17 +302,16 @@
             NSLog(@"self.nameLab.text :%@",[epgDic objectForKey:@"event_name"]);
             if([[epgDic objectForKey:@"event_name"] isEqualToString:@""] || [epgDic objectForKey:@"event_name"] == NULL)
             {
-                NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
-                
-                
-                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",NSLocalizedString(@"NOEventLabel", nil)];
-                NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
-                
-            }else
-            {
-                self.nameLab.text = [NSString stringWithFormat:@"%@--%@",clientNameStr,[epgDic objectForKey:@"event_name"]];
-                NSLog(@"self.nameLab.text :%@",self.nameLab.text
-                      );
+//                NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
+//
+//
+//                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",NSLocalizedString(@"NOEventLabel", nil)];
+//                NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
+//
+//            }else
+//            {
+                self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
+//                NSLog(@"self.nameLab.text :%@",self.nameLab.text);
                 
             }
             
