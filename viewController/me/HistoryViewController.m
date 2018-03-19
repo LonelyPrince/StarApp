@@ -686,7 +686,7 @@
                     
                     if ([self.tableView numberOfRowsInSection:0] > i ) {
                        
-                        [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                         
                         //添加到删除数组
                         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
@@ -707,7 +707,7 @@
                     
                     if ([self.tableView numberOfRowsInSection:1] > i - todayNum ) {
                         
-                         [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                         
                         //添加到删除数组
                         NSIndexPath *path = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
@@ -728,7 +728,7 @@
                 
                 if ([self.tableView numberOfRowsInSection:0] > i  ) {
                     
-                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                     
                     //添加到删除数组
                     [selectedArray addObject:indexPath];
@@ -744,7 +744,7 @@
                 
                 if ([self.tableView numberOfRowsInSection:0] > i  ) {
                     
-                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                     
                     //添加到删除数组
                     [selectedArray addObject:indexPath];
