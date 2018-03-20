@@ -9947,6 +9947,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 添加投屏信息到数组
 -(void)addPushMutableArr:(NSNotification *)text{
     
+    NSLog(@"添加投屏信息到数组");
     
     NSMutableArray * textAndIndexMutableArr = [[NSMutableArray alloc]init];
     [textAndIndexMutableArr addObject:text];
@@ -10024,16 +10025,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     socketView.otherDevicePushService.src_client_name_len = [SocketUtils uint8FromBytes:srcClientNameLenData] ;
     socketView.otherDevicePushService.src_client_name = [[NSString alloc]initWithData:srcClientNameData encoding:NSUTF8StringEncoding];
     
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_tuner_type);
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_network_id);
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_ts_id);
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.service_service_id);
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.audio_pid);
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.subt_pid);
-    //    NSLog(@"tunerTypeData %@",[GGUtil switchDataToIp:srcClientIpData]);
-    //
-    //    NSLog(@"tunerTypeData %d",socketView.otherDevicePushService.src_client_name_len);
-    //    NSLog(@"tunerTypeData %@",socketView.otherDevicePushService.src_client_name);
     
     
     //1.判断是不是一个节目
@@ -10047,19 +10038,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         return;
     }
-    NSLog(@"nowPlayChannel_Arr=== %@",nowPlayChannel_Arr);
     NSInteger row = [nowPlayChannel_Arr[2] intValue];
     NSDictionary * dic3 = nowPlayChannel_Arr [3];
     NSDictionary * dic1 = nowPlayChannel_Arr [0];
     
-    NSLog(@"nowPlayChannel_Arr===dic11 %@",dic1);
     
     //用于判断是不是需要弹窗
     if ([[dic1 objectForKey:@"service_tuner_mode"] intValue] == socketView.otherDevicePushService.service_tuner_type && [[dic1 objectForKey:@"service_network_id"] intValue] ==socketView.otherDevicePushService.service_network_id && [[dic1 objectForKey:@"service_ts_id"] intValue] ==socketView.otherDevicePushService.service_ts_id && [[dic1 objectForKey:@"service_service_id"] intValue] ==socketView.otherDevicePushService.service_service_id )
     {
         NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
         if (shareViewArr.count > 0) {
-            [shareViewArr removeObjectAtIndex:0];
+//            [shareViewArr removeObjectAtIndex:0];
+            [self reducePushSharingViewNotific];
         }
     }else
     {
@@ -10250,7 +10240,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"电视播放的节目和手机播放的节目相等，不操作");
         if (shareViewArr.count > 0) {
-            [shareViewArr removeObjectAtIndex:0];
+//            [shareViewArr removeObjectAtIndex:0];
+            [self reducePushSharingViewNotific];
         }
     }else
     {
