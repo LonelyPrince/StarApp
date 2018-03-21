@@ -9040,7 +9040,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - VideoTouchNoificClick 的内部方法
 -(void)setCategoryItem:(int)inputCategoryDic
 {
-    
+    NSLog(@"inputCategoryDic %d",inputCategoryDic);
     NSArray * RECArrForJudgeCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
     if (RECArrForJudgeCategory.count > 0 && RECArrForJudgeCategory != nil) {
         
@@ -9050,6 +9050,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 if (self.CategoryAndREC.count > 1) {
                     NSArray * CategoryAndREC_One = self.CategoryAndREC[1];
+                    NSLog(@"CategoryAndREC_One %@",CategoryAndREC_One);
                     if (CategoryAndREC_One.count > i) {
                         [self.dicTemp setObject:self.CategoryAndREC[1][i] forKey:[NSString stringWithFormat:@"%d",i] ];
                     }
@@ -9060,7 +9061,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else  //点击了非录制节目
         {
-            if (inputCategoryDic <= self.categorys.count -1) {
+            if (inputCategoryDic <= (self.categorys.count -1)) {
                 
                 if (self.CategoryAndREC.count > 0) {
                     NSArray * CategoryAndREC_Zero = self.CategoryAndREC[0];

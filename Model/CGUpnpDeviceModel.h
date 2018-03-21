@@ -10,7 +10,7 @@
 
 @interface CGUpnpDeviceModel : NSObject
 
-@property (nonatomic, assign) NSString * category_id;
+@property (nonatomic, strong) NSString * category_id;
 @property (nonatomic, strong) NSString * UUID;
 @property (nonatomic, strong) NSString * ipaddress;
 

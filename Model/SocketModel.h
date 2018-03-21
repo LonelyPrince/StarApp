@@ -212,7 +212,7 @@
 @property (nonatomic, assign) uint8_t    device_num;        //http请求获得的
 @property (nonatomic, assign) uint32_t   device_ip;             //http请求获得的
 @property (nonatomic, assign) uint8_t    device_client_name_len;        //http请求获得的
-@property (nonatomic, assign) NSString * device_client_name;
+@property (nonatomic, strong) NSString * device_client_name;
 @end
 
 
@@ -221,11 +221,11 @@
 @interface Sc_20001 : NSObject
 
 @property (nonatomic, assign) uint32_t  CRC;
-@property (nonatomic, assign) NSString *  package_tag;
-@property (nonatomic, assign) NSString *  module_name;
+@property (nonatomic, strong) NSString *  package_tag;
+@property (nonatomic, strong) NSString *  module_name;
 @property (nonatomic, assign) uint32_t  Ret;
 @property (nonatomic, assign) uint32_t  Reserved;
-@property (nonatomic, assign) NSString *  client_ip;
+@property (nonatomic, strong) NSString *  client_ip;
 @property (nonatomic, assign) uint32_t  data_len;
 @property (nonatomic, assign) uint32_t  port;
 @property (nonatomic, strong) NSString  *pdata;     //此处放数据，但类型不确定
