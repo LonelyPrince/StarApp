@@ -178,6 +178,8 @@
 "MLNoViewingHistory"        = "No viewing history";
 //80.路由密码应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’
 "MLRouterPINSetting"        = "Router PIN should contain 6-16 characters.Please input letters, number, \"-\" or \"_\".";
+//80_5.测试让加的
+"MLWlanPINSetting_Fuck"        = "WLAN PIN should contain 8-16 characters.Please input letters, number, \"-\" or \"_\".";
 //81.无线网络名称应该包含6~16个字符，请输入字母、数字，‘-’或者‘_’。
 "MLSSIDSetting"             = "SSID should contain 6-16 characters. Please input letters, number, \"-\" or \"_\".";
 //82.WLAN PIN

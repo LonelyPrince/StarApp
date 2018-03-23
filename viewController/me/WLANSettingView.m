@@ -902,6 +902,77 @@
         }
         
         
+        NSString *toBeString1 = setPswText.text;
+        
+        
+        NSUInteger lengthOfString1 = toBeString1.length;  //lengthOfString的值始终为1
+        for (NSInteger loopIndex = 0; loopIndex < lengthOfString1; loopIndex++) {
+            unichar character1 = [toBeString1 characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+            NSLog(@"character %hu",character1 );
+            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+            if (character1 < 45)
+            {
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                
+                return; // 48 unichar for 0..
+            }
+            
+            if (character1 > 45 && character1 < 48)
+            {
+                
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; // 48 unichar for 0..
+            }
+            if (character1 > 57 && character1 < 65)
+            {
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character1 > 90 && character1 < 95)
+            {
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character1 > 95 && character1 < 97)
+            {
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character1 > 122)
+            {
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character1 == 160)
+            {
+                NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+                [alertView setMessage:MLWlanPINSetting_Fuck];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            
+            
+        }
+        
         NSString * DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
         NSString * serviceIp;
         if (DMSIP != NULL ) {
