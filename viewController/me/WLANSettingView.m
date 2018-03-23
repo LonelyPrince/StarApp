@@ -808,8 +808,8 @@
     NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
     if ([setNameText.text isEqualToString:@""]) {
         
-        NSString * SSIDNotEmptyLabel = NSLocalizedString(@"SSIDNotEmptyLabel", nil);
-        [alertView setMessage:SSIDNotEmptyLabel];
+        NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+        [alertView setMessage:MLSSIDSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
     }
