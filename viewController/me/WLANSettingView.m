@@ -827,6 +827,81 @@
         
     }else{
         NSLog(@"点击了保存按钮");
+        
+        
+        
+        NSString *toBeString = setNameText.text;
+        
+        
+        NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+        for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+            unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+            NSLog(@"character %hu",character );
+            // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+            if (character < 45)
+            {
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+               
+                return; // 48 unichar for 0..
+            }
+            
+            if (character > 45 && character < 48)
+            {
+                
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; // 48 unichar for 0..
+            }
+            if (character > 57 && character < 65)
+            {
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character > 90 && character < 95)
+            {
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character > 95 && character < 97)
+            {
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character > 122)
+            {
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            if (character == 160)
+            {
+                NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+                [alertView setMessage:MLSSIDSetting];
+                [alertView addButtonWithTitle:ConfirmLabel];
+                [alertView show];
+                return ; //
+            }
+            
+            
+        }
+        
+        
         NSString * DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
         NSString * serviceIp;
         if (DMSIP != NULL ) {
@@ -976,6 +1051,7 @@
 
     NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
     
+
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
     if (proposedNewLength > 14) {
