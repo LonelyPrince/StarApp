@@ -978,8 +978,8 @@
     
     // Check for total length
     NSUInteger proposedNewLength = textField.text.length ;//- range.length + string.length;
-    if (proposedNewLength > 16) {
-        textField.text = [toBeString substringToIndex:16];
+    if (proposedNewLength > 14) {
+        textField.text = [toBeString substringToIndex:14];
         return NO;//限制长度
     }
 //    else if(proposedNewLength <= 2)
