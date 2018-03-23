@@ -806,6 +806,7 @@
         
         
         [linkAlert show];
+        return NO;
     }else if(setNewRouteText.text.length < 6 || confirmText.text.length < 6)
     {
         NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
@@ -820,14 +821,14 @@
         UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:PINMatchLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
-        
+        return NO;
     }else if ([setNewRouteText.text isEqualToString:@"MGadmin"])
     {
         NSString * SamePINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
         UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:SamePINTryAgainLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
-        
+        return NO;
     }
     else
     {
