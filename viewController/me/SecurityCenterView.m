@@ -762,8 +762,8 @@
                     
                 }else if ([[resDict objectForKey:@"code"] isEqual:@2])
                 {
-                    NSString * TrueSSIDPINLabel = NSLocalizedString(@"TrueSSIDPINLabel", nil);
-                    [registerPwdTip setMessage:TrueSSIDPINLabel];
+                    NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+                    [registerPwdTip setMessage:MLRouterPINSetting];
                     [registerPwdTip show];
                 }else if ([[resDict objectForKey:@"code"] isEqual:@3])
                 {
@@ -808,10 +808,11 @@
         [linkAlert show];
     }else if(setNewRouteText.text.length < 6 || confirmText.text.length < 6)
     {
-        NSString * TrueSSIDPINLabel = NSLocalizedString(@"TrueSSIDPINLabel", nil);
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:TrueSSIDPINLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+        NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRouterPINSetting delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
+        return NO;
         
     }else if (![setNewRouteText.text isEqualToString:confirmText.text])
     {

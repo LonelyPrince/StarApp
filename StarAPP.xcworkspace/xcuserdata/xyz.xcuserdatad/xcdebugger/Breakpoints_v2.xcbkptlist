@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "543481118.992256"
+            timestampString = "543484650.232622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1126"
@@ -218,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "543481118.992624"
+            timestampString = "543484650.232693"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1126"
@@ -234,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "543481118.99288"
+            timestampString = "543484650.232749"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "909"
@@ -250,12 +250,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/me/WLANSettingView.m"
-            timestampString = "543481118.993119"
+            timestampString = "543484650.232795"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "948"
             endingLineNumber = "948"
             landmarkName = "-saveBtnClick"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/me/SecurityCenterView.m"
+            timestampString = "543484650.232844"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
+            landmarkName = "-judgePINIsLegal"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
