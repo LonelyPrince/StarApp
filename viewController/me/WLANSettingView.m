@@ -996,7 +996,16 @@
         NSLog(@"setPswText.text %@",setPswText.text);
         NSLog(@"setNameText %@",setNameText.text);
         NSString * nameStrMG = [NSString stringWithFormat:@"MG%@",setNameText.text];
-        NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameStrMG,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
+//        NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameStrMG,@"name",setPswText.text,@"password",nil];//创建多个键 多个值
+        
+        NSString * pswStrTemp ;
+        if ([setPswText.text isEqualToString:@""]) {
+            pswStrTemp = @"none";
+        }else
+        {
+            pswStrTemp = setPswText.text;
+        }
+        NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:nameStrMG,@"name",pswStrTemp,@"password",nil];//创建多个键 多个值
         NSLog(@"detailDic %@",detailDic);
         
         if(![NSJSONSerialization isValidJSONObject:detailDic]){
