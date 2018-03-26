@@ -9074,22 +9074,41 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.categoryModel.service_indexArr = item[@"service_index"];
                         NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh5555555");
                         [self.dicTemp removeAllObjects];
-                        
+                        NSLog(@"aksfjbajbfasbfalfbaf====1");
                         //获取不同类别下的节目，然后是节目下不同的cell值                10
-                        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                            
-                            int indexCat ;
-                            indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                            
-                            if ( ISNULL(self.serviceData)) {
+                        
+                        NSLog(@"aksfjbajbfasbfalfbaf====22");
+                        NSLog(@"aksfjbajbfasbfalfbaf====22= %d",self.categoryModel.service_indexArr.count);
+                        
+                        if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
+                            NSLog(@"属于NSMutableArray这个类");
+                           
+                            for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+                                NSLog(@"aksfjbajbfasbfalfbaf====33");
+                                NSLog(@"aksfjbajbfasbfalfbaf====33= %d",i);
+                                int indexCat ;
                                 
-                            }else{
+                                NSLog(@"aksfjbajbfasbfalfbaf====44");
+                                NSLog(@"aksfjbajbfasbfalfbaf====44= %@",self.categoryModel.service_indexArr[i]);
+                                indexCat =[self.categoryModel.service_indexArr[i] intValue];
                                 
-                                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                                if ( ISNULL(self.serviceData)) {
+                                    
+                                }else{
+                                    NSLog(@"aksfjbajbfasbfalfbaf====55");
+                                    NSLog(@"aksfjbajbfasbfalfbaf====55= %@",self.serviceData[indexCat -1]);
+                                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                                    NSLog(@"aksfjbajbfasbfalfbaf====66");
+                                    NSLog(@"aksfjbajbfasbfalfbaf====66= %@",self.dicTemp);
+                                }
                                 
                             }
-                            
                         }
+                        else
+                        {
+                            NSLog(@"不属于NSMutableArray这个类");
+                        }
+                        
                         
                     }
                     
