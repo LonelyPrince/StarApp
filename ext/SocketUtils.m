@@ -128,27 +128,39 @@
     NSAssert(fData.length == 1, @"uint8FromBytes: (data length != 1)");
     NSData *data = fData;
     uint8_t val = 0;
-    [data getBytes:&val length:1];
-    return val;
+    
+    if (data.length < 1 ) {
+        NSLog(@"*******************************可能要崩溃的地方 uint8");
+        return 0;
+    }else{
+        [data getBytes:&val length:1];
+        return val;
+    }
 }
 
 + (uint16_t)uint16FromBytes:(NSData *)fData
 {
-//    NSAssert(fData.length == 2, @"uint16FromBytes: (data length != 2)");
+    //    NSAssert(fData.length == 2, @"uint16FromBytes: (data length != 2)");
     NSData *data = [self dataWithReverse:fData];;
     uint16_t val0 = 0;
     uint16_t val1 = 0;
-    [data getBytes:&val0 range:NSMakeRange(0, 1)];
-    [data getBytes:&val1 range:NSMakeRange(1, 1)];
     
-    uint16_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00);
-    return dstVal;
+    if (data.length < 2 ) {
+        NSLog(@"*******************************可能要崩溃的地方 uint16");
+        return 0;
+    }else{
+        [data getBytes:&val0 range:NSMakeRange(0, 1)];
+        [data getBytes:&val1 range:NSMakeRange(1, 1)];
+        
+        uint16_t dstVal = (val0 & 0xff) + ((val1 << 8) & 0xff00);
+        return dstVal;
+    }
 }
 
 + (uint32_t)uint32FromBytes:(NSData *)fData
 {
-//    NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
-//     NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
+    //    NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
+    //     NSAssert(fData.length == 4, @"uint32FromBytes: (data length != 4)");
     NSData *data = [self dataWithReverse:fData];
     
     uint32_t val0 = 0;
@@ -169,7 +181,7 @@
         return dstVal;
     }
     
-   
+    
 }
 
 + (NSInteger)valueFromBytes:(NSData *)data
@@ -201,7 +213,7 @@
 
 + (NSData *)dataFromHexString:(NSString *)hexString
 {
-//    NSAssert((hexString.length > 0) && (hexString.length % 2 == 0), @"hexString.length mod 2 != 0");
+    //    NSAssert((hexString.length > 0) && (hexString.length % 2 == 0), @"hexString.length mod 2 != 0");
     if(!(hexString.length > 0) && (hexString.length % 2 == 0))
     {
         return  0 ;
@@ -216,33 +228,33 @@
         [data appendBytes:&tempIntValue length:1];
     }
     return data;
-
-//    if (!hexString || [hexString length] == 0) {
-//        return nil;
-//    }
-//    
-//    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:8];
-//    NSRange range;
-//    if ([hexString length] % 2 == 0) {
-//        range = NSMakeRange(0, 2);
-//    } else {
-//        range = NSMakeRange(0, 1);
-//    }
-//    for (NSInteger i = range.location; i < [hexString length]; i += 2) {
-//        unsigned int anInt;
-//        NSString *hexCharStr = [hexString substringWithRange:range];
-//        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
-//        
-//        [scanner scanHexInt:&anInt];
-//        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
-//        [hexData appendData:entity];
-//        
-//        range.location += range.length;
-//        range.length = 2;
-//    }
-//    
-////    LEDEBUG(@"hexdata: %@", hexData);
-//    return hexData;
+    
+    //    if (!hexString || [hexString length] == 0) {
+    //        return nil;
+    //    }
+    //
+    //    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:8];
+    //    NSRange range;
+    //    if ([hexString length] % 2 == 0) {
+    //        range = NSMakeRange(0, 2);
+    //    } else {
+    //        range = NSMakeRange(0, 1);
+    //    }
+    //    for (NSInteger i = range.location; i < [hexString length]; i += 2) {
+    //        unsigned int anInt;
+    //        NSString *hexCharStr = [hexString substringWithRange:range];
+    //        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
+    //
+    //        [scanner scanHexInt:&anInt];
+    //        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
+    //        [hexData appendData:entity];
+    //
+    //        range.location += range.length;
+    //        range.length = 2;
+    //    }
+    //
+    ////    LEDEBUG(@"hexdata: %@", hexData);
+    //    return hexData;
 }
 
 + (NSString *)hexStringFromData:(NSData *)data
@@ -336,3 +348,4 @@
 }
 
 @end
+
