@@ -9078,7 +9078,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //获取不同类别下的节目，然后是节目下不同的cell值                10
                         
                         NSLog(@"aksfjbajbfasbfalfbaf====22");
-                        NSLog(@"aksfjbajbfasbfalfbaf====22= %d",self.categoryModel.service_indexArr.count);
+                        NSLog(@"major service_indexArr %@",self.categoryModel.service_indexArr);
+                        
+//                        if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
+//
+//                            NSLog(@"属于NSMutableArray这个类   lalalalalalal");
+//                        }else{
+//                            NSLog(@"不属于NSMutableArray这个类   hahahahahah");
+//                        }
+                        
+//                        self.categoryModel.service_indexArr.superclass
+                        
+//                        NSLog(@"aksfjbajbfasbfalfbaf=superClass= %@",self.categoryModel.service_indexArr.superclass);
+//                        NSLog(@"aksfjbajbfasbfalfbaf====22= %d",self.categoryModel.service_indexArr.count);
                         
                         if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
                             NSLog(@"属于NSMutableArray这个类");
