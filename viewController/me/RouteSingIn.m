@@ -1268,9 +1268,9 @@
                 confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@4])
             {
-                [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
-                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
-                [registerPwdTip show];
+//                [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
+//                //            registerPwdTip = [[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:code4] delegate:self cancelButtonTitle:nil otherButtonTitles:@"Confirm", nil];
+//                [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@0])
@@ -1296,6 +1296,8 @@
 {
     NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
     
+    NSLog(@"setNewRouteText.text11 %@",setNewRouteText.text);
+    NSLog(@"setNewRouteText.text22 %@",confirmText.text);
     if (setNewRouteText.text.length == 0 || confirmText.text.length == 0) {
         //用户没有输入任何东西，弹窗提醒
         NSLog(@"输入的东西不能为空");
@@ -1304,12 +1306,14 @@
         
         
         [linkAlert show];
+        return NO;
     }else if(setNewRouteText.text.length < 6 || confirmText.text.length < 6)
     {
         NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
         UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRouterPINSetting delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
+        return NO;
         
     }else if (![setNewRouteText.text isEqualToString:confirmText.text])
     {
@@ -1318,6 +1322,7 @@
         UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:PINMatchLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
+        return NO;
         
     }
     else
