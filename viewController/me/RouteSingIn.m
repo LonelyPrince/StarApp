@@ -958,8 +958,8 @@
         
         if (temp == NO) {
             
-            NSString * TrueSSIDPINLabel = NSLocalizedString(@"TrueSSIDPINLabel", nil);
-            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:TrueSSIDPINLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+            NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+            UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRouterPINSetting delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
             
             [linkAlert show];
             inputText.text = @"";
@@ -1255,8 +1255,8 @@
             }else if ([[resDict objectForKey:@"code"] isEqual:@2])
             {
                 
-                NSString * TrueSSIDPINLabel = NSLocalizedString(@"TrueSSIDPINLabel", nil);
-                [registerPwdTip setMessage:TrueSSIDPINLabel];
+                NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+                [registerPwdTip setMessage:MLRouterPINSetting];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
@@ -1295,9 +1295,187 @@
 -(BOOL)judgePINIsLegal
 {
     NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
-    
+    NSString * tipCharacter = @"0";
     NSLog(@"setNewRouteText.text11 %@",setNewRouteText.text);
     NSLog(@"setNewRouteText.text22 %@",confirmText.text);
+    
+    /*****/
+    NSString *toBeString = setNewRouteText.text;
+    
+    
+    NSUInteger lengthOfString = toBeString.length;  //lengthOfString的值始终为1
+    for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+        unichar character = [toBeString characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+        NSLog(@"character %hu",character );
+        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+        if (character < 45)
+        {
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+            
+//            return; // 48 unichar for 0..
+            tipCharacter  = @"1";
+            break;
+        }
+        
+        if (character > 45 && character < 48)
+        {
+            
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+//            return ; // 48 unichar for 0..
+            tipCharacter  = @"2";
+            break;
+        }
+        if (character > 57 && character < 65)
+        {
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+//            return ; //
+            tipCharacter  = @"3";
+            break;
+        }
+        if (character > 90 && character < 95)
+        {
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+//            return ; //
+            tipCharacter  = @"4";
+            break;
+        }
+        if (character > 95 && character < 97)
+        {
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+//            return ; //
+            tipCharacter  = @"5";
+            break;
+        }
+        if (character > 122)
+        {
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+//            return ; //
+            tipCharacter  = @"6";;
+            break;
+        }
+        if (character == 160)
+        {
+//            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+//            [alertView setMessage:MLSSIDSetting];
+//            [alertView addButtonWithTitle:ConfirmLabel];
+//            [alertView show];
+//            return ; //
+            tipCharacter  = @"7";
+            break;
+        }
+        
+        
+    }
+    
+    
+    NSString *toBeStringConfirm = confirmText.text;
+    NSUInteger lengthOfStringConfirm = toBeStringConfirm.length;  //lengthOfString的值始终为1
+    for (NSInteger loopIndex = 0; loopIndex < lengthOfStringConfirm; loopIndex++) {
+        unichar character = [toBeStringConfirm characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+        NSLog(@"character %hu",character );
+        // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}  ;  -  45  _95
+        if (character < 45)
+        {
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            
+            //            return; // 48 unichar for 0..
+            tipCharacter  = @"1";
+            break;
+        }
+        
+        if (character > 45 && character < 48)
+        {
+            
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            //            return ; // 48 unichar for 0..
+            tipCharacter  = @"2";
+            break;
+        }
+        if (character > 57 && character < 65)
+        {
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            //            return ; //
+            tipCharacter  = @"3";
+            break;
+        }
+        if (character > 90 && character < 95)
+        {
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            //            return ; //
+            tipCharacter  = @"4";
+            break;
+        }
+        if (character > 95 && character < 97)
+        {
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            //            return ; //
+            tipCharacter  = @"5";
+            break;
+        }
+        if (character > 122)
+        {
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            //            return ; //
+            tipCharacter  = @"6";;
+            break;
+        }
+        if (character == 160)
+        {
+            //            NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
+            //            [alertView setMessage:MLSSIDSetting];
+            //            [alertView addButtonWithTitle:ConfirmLabel];
+            //            [alertView show];
+            //            return ; //
+            tipCharacter  = @"7";
+            break;
+        }
+        
+        
+    }
+    /*******/
+    
+    
+    
+    
+    
+    
+    
     if (setNewRouteText.text.length == 0 || confirmText.text.length == 0) {
         //用户没有输入任何东西，弹窗提醒
         NSLog(@"输入的东西不能为空");
@@ -1315,7 +1493,16 @@
         [linkAlert show];
         return NO;
         
-    }else if (![setNewRouteText.text isEqualToString:confirmText.text])
+    }else if([tipCharacter intValue] > 0)
+    {
+        NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRouterPINSetting delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+        
+        [linkAlert show];
+        return NO;
+        
+    }
+    else if (![setNewRouteText.text isEqualToString:confirmText.text])
     {
         
         NSString * PINMatchLabel = NSLocalizedString(@"PINMatchLabel", nil);
