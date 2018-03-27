@@ -495,6 +495,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                         self.progressSlider.frame = CGRectMake(0, self.bottomBar.frame.size.height -50 , CGRectGetWidth(self.bounds), 2);
                         
                         self.suspendButton.frame = CGRectMake((self.nextChannelButton.frame.origin.x - self.lastChannelButton.frame.origin.x -  44 -44)/2 + self.lastChannelButton.frame.origin.x + 44,CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13,44, 44);
+                        self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 75,26, 62 , 40);
                     }
                     
                 }else
@@ -511,7 +512,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                     {
                         NSLog(@"==-=-===-==000==-DDDD");
                         //竖屏
-                        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
+                        self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  kZXVideoPlayerOriginalWidth, 43);//71  //43);
                         self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), kZXVideoPlayerOriginalHeight - 50, kZXVideoPlayerOriginalWidth, 50);
                         NSLog(@"验证 bottomBar aaaaaa");
                         self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
