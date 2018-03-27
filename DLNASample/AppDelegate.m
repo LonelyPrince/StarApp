@@ -96,10 +96,21 @@
 {
     //    NSArray *languages = [NSLocale preferredLanguages];
     //    NSString *currentLanguage = [languages objectAtIndex:0];
-    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-    NSLog( @"当前的语言%@" , localeLanguageCode);
-    [USER_DEFAULT setObject:localeLanguageCode forKey:@"systemLocalLanguage"];
+//    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+//    NSLog( @"当前的语言%@" , localeLanguageCode);
+//    [USER_DEFAULT setObject:localeLanguageCode forKey:@"systemLocalLanguage"];
     
+    NSString* strLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0];
+    if (strLanguage.length >=2) {
+        NSString *str1 = [strLanguage substringToIndex:2];
+        [USER_DEFAULT setObject:str1 forKey:@"systemLocalLanguage"];
+        NSLog( @"当前的语言00%@" , str1);
+    }
+    
+    NSLog( @"当前的语言11%@" , strLanguage);
+//
+//    NSString* strLanguage2 = [[NSLocale currentLocale] localeIdentifier];
+//    NSLog( @"当前的语言22%@" , strLanguage2);
 }
 //收集崩溃信息
 void UncaughtExceptionHandler(NSException *exception) {

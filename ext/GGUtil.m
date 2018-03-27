@@ -1054,8 +1054,13 @@ static const char *getPropertyType(objc_property_t property) {
 {
 //    NSArray *languages = [NSLocale preferredLanguages];
 //    NSString *currentLanguage = [languages objectAtIndex:0];
-    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-    NSLog( @"当前的语言%@" , localeLanguageCode);
+//    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    NSString* strLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0];
+    if (strLanguage.length >=2) {
+        NSString *str1 = [strLanguage substringToIndex:2];
+        [USER_DEFAULT setObject:str1 forKey:@"systemLocalLanguage"];
+    }
+//    NSLog( @"当前的语言%@" , localeLanguageCode);
     
 }
 +(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr
