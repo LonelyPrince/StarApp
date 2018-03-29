@@ -4950,7 +4950,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
             NSLog(@"self.video.dicChannl44 %@",self.video.dicChannl);
 
-            self.video.channelCount = tempArrForServiceArr.count;
+            if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
+                self.video.channelCount = tempArrForServiceArr.count;
+            }
+            
             //*********
 
 
@@ -5020,21 +5023,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray * serviceArrForJudge =  self.serviceData;
         //这里获得当前焦点
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
-        if (epgDicToSocket.count > 14) { //录制
-            
-            arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-            
-        }else
-        {
-            if (self.categorys.count >indexOfCategory ) {
-                arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+        if ([self.categorys isKindOfClass:[NSMutableArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
+            if (epgDicToSocket.count > 14) { //录制
+                
+                arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                
+            }else
+            {
+                
+                    if (self.categorys.count >indexOfCategory ) {
+                        arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+                    }
+                
+                
             }
-            
         }
-        
+        if ([arrForServiceByCategory isKindOfClass:[NSArray class]]){
         
         for (int i = 0; i< arrForServiceByCategory.count; i++) {
             NSLog(@"arrForServiceByCategory %lu",(unsigned long)arrForServiceByCategory.count);
+            
+            if ([epgDicToSocket isKindOfClass:[NSDictionary class]]){
             if (epgDicToSocket.count > 14) { //录制
                 
                 NSDictionary * serviceForJudgeDic = arrForServiceByCategory[i];
@@ -5068,9 +5077,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }
             }
-            
+         }
         }
         
+        }
         
         [tableForSliderView reloadData];
         
