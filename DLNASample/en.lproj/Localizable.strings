@@ -128,6 +128,8 @@
 "ConfirmPINLabel"          = "Confirm PIN";
 //56.新密码不应该与当前密码相同
 "SamePINTryAgainLabel"     = "The new PIN should not be the same as the current PIN, please try again";
+//56_5.新密码不应该与yuanshi前密码相同
+"SameOriginalPINTryAgainLabel"     = "The new PIN should not be the same as the original PIN, please try again";
 //57.Hardware version
 "MLHardwareversion"        = "Hardware version";
 //58.确认新密码

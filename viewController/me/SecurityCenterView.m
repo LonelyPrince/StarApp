@@ -756,8 +756,8 @@
                 NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
                 if ([[resDict objectForKey:@"code"] isEqual:@1]) {
                     
-                    NSString * SamePINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
-                    [registerPwdTip setMessage:SamePINTryAgainLabel];
+                    NSString * SameOriginalPINTryAgainLabel = NSLocalizedString(@"SameOriginalPINTryAgainLabel", nil);
+                    [registerPwdTip setMessage:SameOriginalPINTryAgainLabel];
                     [registerPwdTip show];
                     
                 }else if ([[resDict objectForKey:@"code"] isEqual:@2])
@@ -824,8 +824,8 @@
         return NO;
     }else if ([setNewRouteText.text isEqualToString:@"MGadmin"])
     {
-        NSString * SamePINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
-        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:SamePINTryAgainLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
+        NSString * SameOriginalPINTryAgainLabel = NSLocalizedString(@"SameOriginalPINTryAgainLabel", nil);
+        UIAlertView * linkAlert = [[UIAlertView alloc]initWithTitle:nil message:SameOriginalPINTryAgainLabel delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
         
         [linkAlert show];
         return NO;

@@ -2055,15 +2055,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
         [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
         
-        [self getCategoryAndIndex];
-        
+ 
         tempBoolForServiceArr = YES;
         tempArrForServiceArr =  self.categoryModel.service_indexArr;
         tempDicForServiceArr = self.TVChannlDic;
         NSLog(@"self.TVChannlDic %@",self.TVChannlDic);
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-        
-        NSLog(@"self.video.dicChannl22 %@",self.video.dicChannl);
         
         self.video.channelCount = tempArrForServiceArr.count;
         tempIndexpathForFocus = indexPath;
@@ -2231,6 +2228,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - didselecttableview 方法中播放事件
 -(void)didselectRowToPlayClick
 {
+    NSLog(@"时间==111");
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
@@ -2602,6 +2600,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic
 {
+    NSLog(@"时间==222");
     if (self.showTVView) {
         //=====则去掉不能播放的字样，加上加载环
         [self removeLabAndAddIndecatorView];
@@ -2633,7 +2632,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
             /*此处添加一个加入历史版本的函数*/
-            [self addHistory:row diction:dic];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
             //__
@@ -2768,6 +2769,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                   
                     if (self.showTVView == YES) {
                         self.videoController.socketView1 = self.socketView;
+                        NSLog(@"时间==333");
                         [self.socketView  serviceTouch ];
                     }else
                     {
@@ -4766,7 +4768,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"row: %ld",(long)row);
             /*此处添加一个加入历史版本的函数*/
-            [self addHistory:row diction:dic];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
             
             
             [self playRECVideo:epgDicToSocket];
@@ -4821,7 +4826,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"epgDicToSocket: %@",epgDicToSocket);
             NSLog(@"row: %ld",(long)row);
             /*此处添加一个加入历史版本的函数*/
-            [self addHistory:row diction:self.dicTemp];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:self.dicTemp];
+            });
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
             //__
@@ -5183,7 +5191,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
-    [self addHistory:row diction:dic];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self addHistory:row diction:dic];
+    });
     
     //__
     
@@ -5341,7 +5352,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"epgDicToSocket.count %d",epgDicToSocket.count);
         
         if (epgDicToSocket.count > 14) {  //录制
-            [self addHistory:row diction:dic];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
             [self playRECVideo:epgDicToSocket];
         }else
         {
@@ -5357,7 +5371,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"row: %ld",(long)row);
             /*此处添加一个加入历史版本的函数*/
-            [self addHistory:row diction:dic];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
             //    [self getsubt];
@@ -6592,7 +6609,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
     
     /*此处添加一个加入历史版本的函数*/
-    [self addHistory:row diction:dic];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self addHistory:row diction:dic];
+    });
     [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
     [self.videoController setaudioOrSubtRowIsZero];
     
@@ -8929,20 +8949,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     tempDicForServiceArr = self.TVChannlDic;
     
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-    NSLog(@"self.video.dicChannl==== %lu",(unsigned long)self.video.dicChannl.count);
-    NSLog(@"self.video.dicChannl88 %@",self.video.dicChannl);
-    
+  
     self.video.channelCount = tempArrForServiceArr.count;
     
-    NSLog(@"updateFullScreenDicself.dicTemp %@",self.dicTemp);
-    NSLog(@"updateFullScreenDicself.dicTemp %@",self.TVChannlDic);
-    NSLog(@"updateFullScreenDicself.dicTemp %@",[tempDicForServiceArr mutableCopy]);
-    NSLog(@"updateFullScreenDicself.dicTemp %d",tempArrForServiceArr.count);
-    
-    
-    
-    
-    NSLog(@"tempArrForServiceArr.count %d",tempArrForServiceArr.count);
+ 
 }
 #pragma mark - 下拉刷新做12秒超时处理
 -(void)endMJRefresh
@@ -9543,24 +9553,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.CategoryAndREC addObject: recFileData];
     }
 }
-#pragma  mark - 获得当前播放节目的分类和index索引
--(void) getCategoryAndIndex
-{
-    
-    NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-    NSArray * touchArr ;
-    if (historyArr.count >= 1) {
-        touchArr = historyArr[historyArr.count - 1];
-    }else
-    {
-        return;
-    }
-    
-    //1. 通过历史判断
-    //2. 通过属性判断
-    
-    
-}
+//#pragma  mark - 获得当前播放节目的分类和index索引
+//-(void) getCategoryAndIndex
+//{
+//
+//    NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+//    NSArray * touchArr ;
+//    if (historyArr.count >= 1) {
+//        touchArr = historyArr[historyArr.count - 1];
+//    }else
+//    {
+//        return;
+//    }
+//
+//    //1. 通过历史判断
+//    //2. 通过属性判断
+//
+//
+//}
 - (UIView *)createPushView
 {
     UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 50*phonePushOtherArr.count)];
@@ -10539,7 +10549,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"epgDicToSocket.count %d",epgDicToSocket.count);
         
         if (epgDicToSocket.count > 14) {  //录制
-            [self addHistory:row diction:dic];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
             [self playRECVideo:epgDicToSocket];
         }else
         {
@@ -10555,7 +10568,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"row: %ld",(long)row);
             /*此处添加一个加入历史版本的函数*/
-            [self addHistory:row diction:dic];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
+            
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
             //    [self getsubt];

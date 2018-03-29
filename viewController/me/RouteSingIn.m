@@ -1246,8 +1246,8 @@
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {
                 
-                NSString * SamePINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
-                [registerPwdTip setMessage:SamePINTryAgainLabel];
+                NSString * SameOriginalPINTryAgainLabel = NSLocalizedString(@"SameOriginalPINTryAgainLabel", nil);
+                [registerPwdTip setMessage:SameOriginalPINTryAgainLabel];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
