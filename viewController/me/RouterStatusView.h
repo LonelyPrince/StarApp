@@ -16,6 +16,7 @@
 @property(nonatomic,strong) IBOutlet UILabel * MacAddressLab;
 @property(nonatomic,strong) IBOutlet UILabel * SubnetMaskLab;
 @property(nonatomic,strong) IBOutlet UILabel * IPAddressLab;
+@property(nonatomic,strong) IBOutlet UILabel * ManufacturerId;
 
 @property(nonatomic,strong)NSDictionary * wifiDic;  //wifi 字典
 @property(nonatomic,strong)NSDictionary * wifiName;  //wifi 名字
@@ -33,5 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *MMACAddress;
 @property (weak, nonatomic) IBOutlet UILabel *MSubnetMask;
 @property (weak, nonatomic) IBOutlet UILabel *MIPAddress;
+@property (weak, nonatomic) IBOutlet UILabel *ManufacturerIdLab;
+
 
 @end

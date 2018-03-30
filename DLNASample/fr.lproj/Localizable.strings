@@ -143,6 +143,8 @@
 "MLSubnetmask"              = "Subnet mask";
 //63.确认新密码
 "MLIPaddress"               = "Adresse IP";
+//63.55
+"MLManufacturerIdLab"              = "fabricant id";
 //64.备份还原
 "MLbackupRestore"           = "Vous pouvez récupérer vos paramètres ou restaurer les paramètres de la dernière fois";
 //65.还原

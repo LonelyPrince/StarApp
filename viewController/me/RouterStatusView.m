@@ -7,6 +7,7 @@
 
 #import "RouterStatusView.h"
 #import "MEViewController.h"
+#import "GGUtil.h"
 @interface RouterStatusView ()
 {
     NSDictionary * deviceDic;
@@ -30,6 +31,7 @@
 @synthesize MacAddressLab;
 @synthesize SubnetMaskLab;
 @synthesize IPAddressLab;
+@synthesize ManufacturerId;
 //@synthesize connectDevice;
 //@synthesize tableView;
 //@synthesize onlineDeviceDic;
@@ -48,28 +50,60 @@
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showNetWorkErrorView) name:@"routeNetWorkError" object:nil];
     
+//    //57.Hardware version
+//    NSString * MLHardwareversion = NSLocalizedString(@"MLHardwareversion", nil);
+//    self.MHardVersion.text = MLHardwareversion;
+//    //58.确认新密码
+//    NSString * MLSoftwareversion = NSLocalizedString(@"MLSoftwareversion", nil);
+//    self.MSoftwareVersion.text = MLSoftwareversion;
+//    //59.确认新密码
+//    NSString * MLBuilddate = NSLocalizedString(@"MLBuilddate", nil);
+//    self.MBuildData.text = MLBuilddate;
+//    //60.确认新密码
+//    NSString * MLSerialnumber = NSLocalizedString(@"MLSerialnumber", nil);
+//    self.MSerialNum.text = MLSerialnumber;
+//    //61.确认新密码
+//    NSString * MLMACaddress = NSLocalizedString(@"MLMACaddress", nil);
+//    self.MMACAddress.text = MLMACaddress;
+//    //62.确认新密码
+//    NSString * MLSubnetmask = NSLocalizedString(@"MLSubnetmask", nil);
+//    self.MSubnetMask.text = MLSubnetmask;
+//    //63.确认新密码
+//    NSString * MLIPaddress = NSLocalizedString(@"MLIPaddress", nil);
+//    self.MIPAddress.text = MLIPaddress;
+//
+//    //new
+//    NSString * MLManufacturerIdLab = NSLocalizedString(@"MLManufacturerIdLab", nil);
+//    self.ManufacturerIdLab.text = MLManufacturerIdLab;
+    
+    
+    
+    //new
+    NSString * MLManufacturerIdLab = NSLocalizedString(@"MLManufacturerIdLab", nil);
+    
+    
     //57.Hardware version
     NSString * MLHardwareversion = NSLocalizedString(@"MLHardwareversion", nil);
-    self.MHardVersion.text = MLHardwareversion;
+    self.MHardVersion.text =   MLManufacturerIdLab;//MLHardwareversion;
     //58.确认新密码
     NSString * MLSoftwareversion = NSLocalizedString(@"MLSoftwareversion", nil);
-    self.MSoftwareVersion.text = MLSoftwareversion;
+    self.MSoftwareVersion.text =  MLHardwareversion;//MLSoftwareversion;
     //59.确认新密码
     NSString * MLBuilddate = NSLocalizedString(@"MLBuilddate", nil);
-    self.MBuildData.text = MLBuilddate;
+    self.MBuildData.text = MLSoftwareversion;//MLBuilddate;
     //60.确认新密码
     NSString * MLSerialnumber = NSLocalizedString(@"MLSerialnumber", nil);
-    self.MSerialNum.text = MLSerialnumber;
+    self.MSerialNum.text = MLBuilddate;//MLSerialnumber;
     //61.确认新密码
     NSString * MLMACaddress = NSLocalizedString(@"MLMACaddress", nil);
-    self.MMACAddress.text = MLMACaddress;
+    self.MMACAddress.text = MLSerialnumber;//MLMACaddress;
     //62.确认新密码
     NSString * MLSubnetmask = NSLocalizedString(@"MLSubnetmask", nil);
-    self.MSubnetMask.text = MLSubnetmask;
+    self.MSubnetMask.text = MLMACaddress;//MLSubnetmask;
     //63.确认新密码
     NSString * MLIPaddress = NSLocalizedString(@"MLIPaddress", nil);
-    self.MIPAddress.text = MLIPaddress;
-    
+    self.MIPAddress.text = MLSubnetmask;//MLIPaddress;
+    self.ManufacturerIdLab.text = MLIPaddress;//MLManufacturerIdLab;
     
     
     
@@ -87,10 +121,102 @@
      DMSIP = [USER_DEFAULT objectForKey:@"RouterPsw"];
     if (DMSIP != nil && DMSIP != NULL && DMSIP.length > 0) {
 //        [self getOnlineDevice];
+        [self getID];  //new
         [self getVersionInfo];
         [self getNetworkInfo];
         [self getWifi];
+        
     }
+    
+}
+-(void)getID
+{
+    
+    //获取数据的链接
+    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/settings/systemRouterInfo",DMSIP];
+  
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    [request setNumberOfTimesToRetryOnTimeout:5];
+    [request startAsynchronous ];
+    
+    
+    [request setStartedBlock:^{
+        //请求开始的时候调用
+        //用转圈代替
+        
+        
+        HUD.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        //如果设置此属性则当前的view置于后台
+        
+        [HUD showAnimated:YES];
+        
+        
+        //设置对话框文字
+        
+        HUD.labelText = @"loading";
+     
+        [self.view addSubview:HUD];
+     
+        NSLog(@"请求开始的时候调用");
+    }];
+    
+    
+    
+    [request setCompletionBlock:^{
+        
+        NSArray *onlineDeviceDic = [request responseData].JSONValue;
+        deviceDic = onlineDeviceDic;
+        NSLog(@"deviceDic :%@",deviceDic);
+        if (deviceDic.count == 0|| deviceDic ==NULL ) {
+            
+            NSLog(@"请求失败的时候调用");
+            
+            [HUD removeFromSuperview];
+            HUD = nil;
+            
+            netWorkErrorView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            UIImageView * hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
+            hudImage.image = [UIImage imageNamed:@"网络无连接"];
+            
+            
+            NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+            CGSize size = [GGUtil sizeWithText:MLNetworkError font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+            UILabel * hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+            hudLab.text = MLNetworkError;
+            hudLab.font = FONT(15);
+            hudLab.textColor = [UIColor grayColor];
+            
+            //        [scrollView addSubview:netWorkErrorView];
+            //            [scrollView addSubview:netWorkErrorView];
+            [self.view addSubview:netWorkErrorView];
+            [netWorkErrorView addSubview:hudImage];
+            [netWorkErrorView addSubview:hudLab];
+            
+        }else
+        {
+            [HUD removeFromSuperview];
+            HUD = nil;
+            [netWorkErrorView removeFromSuperview];
+            netWorkErrorView = nil;
+            
+            NSError *error = [request error ];
+            assert (!error);
+            // 如果请求成功，返回 Response
+            NSLog ( @"request:%@" ,request);
+           
+            //88888
+//            self.ManufacturerId.text = [deviceDic objectForKey:@"oui_group"];
+            self.HardwareVersionLab.text = [deviceDic objectForKey:@"oui_group"];
+            
+        }
+    }];
+    
+    
+    
+    
+    
+    
     
 }
 -(void)getVersionInfo
@@ -197,11 +323,17 @@
             //            [self getWifi];
             //            [self loadTableView];
           
-            HardwareVersionLab.text = [deviceDic objectForKey:@"hardVersion"];
-            SortwareVersionLab.text = [deviceDic objectForKey:@"softVersion"];
-            SerialNumberLab.text = [deviceDic objectForKey:@"SNnum"];
-            BuildDataLab.text = [deviceDic objectForKey:@"releaseVersion"];
+            ///0000----4
+//            HardwareVersionLab.text = [deviceDic objectForKey:@"hardVersion"];
+//            SortwareVersionLab.text = [deviceDic objectForKey:@"softVersion"];
+//            SerialNumberLab.text = [deviceDic objectForKey:@"SNnum"];
+//            BuildDataLab.text = [deviceDic objectForKey:@"releaseVersion"];
           
+            
+            SortwareVersionLab.text = [deviceDic objectForKey:@"hardVersion"];
+            SerialNumberLab.text = [deviceDic objectForKey:@"releaseVersion"];
+            BuildDataLab.text = [deviceDic objectForKey:@"softVersion"];
+            MacAddressLab.text = [deviceDic objectForKey:@"SNnum"];
         }
     }];
     
@@ -309,10 +441,14 @@
             //            [self getWifi];
             //            [self loadTableView];
             
-            MacAddressLab.text = [deviceDic2 objectForKey:@"mac"] ;
-            SubnetMaskLab.text = [deviceDic2 objectForKey:@"netmask"];
-            IPAddressLab.text = [deviceDic2 objectForKey:@"gateway"] ;
+//            MacAddressLab.text = [deviceDic2 objectForKey:@"mac"] ;
+//            SubnetMaskLab.text = [deviceDic2 objectForKey:@"netmask"];
+//            IPAddressLab.text = [deviceDic2 objectForKey:@"gateway"] ;
             
+            ////5555---8
+            SubnetMaskLab.text = [deviceDic2 objectForKey:@"mac"] ;
+            IPAddressLab.text = [deviceDic2 objectForKey:@"netmask"];
+            self.ManufacturerId.text = [deviceDic2 objectForKey:@"gateway"] ;
         }
     }];
     

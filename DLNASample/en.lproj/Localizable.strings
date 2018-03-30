@@ -144,6 +144,8 @@
 "MLSubnetmask"             = "Subnet mask";
 //63.确认新密码
 "MLIPaddress"              = "IP address";
+//63.55
+"MLManufacturerIdLab"              = "Manufacturer ID";
 //64.备份还原
 "MLbackupRestore"          = "You can backup your current setting data or restore the last backup info";
 //65.还原
