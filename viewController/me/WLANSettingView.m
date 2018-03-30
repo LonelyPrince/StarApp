@@ -812,18 +812,21 @@
         [alertView setMessage:MLSSIDSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
+        return;
     }
     else if (setNameText.text.length<4) {
         NSString * MLSSIDSetting = NSLocalizedString(@"MLSSIDSetting", nil);
         [alertView setMessage:MLSSIDSetting];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
-    }else if (setPswText.text.length < 6 && setPswText.text.length > 0){
+        return;
+    }else if (setPswText.text.length < 8 && setPswText.text.length > 0){
         
-        NSString * MLWLANPINSetting = NSLocalizedString(@"MLWLANPINSetting", nil);
-        [alertView setMessage:MLWLANPINSetting];
+        NSString * MLWlanPINSetting_Fuck = NSLocalizedString(@"MLWlanPINSetting_Fuck", nil);
+        [alertView setMessage:MLWlanPINSetting_Fuck];
         [alertView addButtonWithTitle:ConfirmLabel];
         [alertView show];
+        return;
         
     }else{
         NSLog(@"点击了保存按钮");
