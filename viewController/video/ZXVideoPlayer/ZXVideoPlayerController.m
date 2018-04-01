@@ -2425,6 +2425,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
         }
         //new====
+    }else
+    {
+        self.videoControl.fullScreenButton.hidden = NO;
     }
     
     

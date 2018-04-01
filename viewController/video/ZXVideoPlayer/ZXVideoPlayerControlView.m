@@ -88,6 +88,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [self.bottomBar addSubview:self.fullScreenButton];
         if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
             
+            self.fullScreenButton.hidden = NO;
         }else
         {
             self.fullScreenButton.hidden = YES;

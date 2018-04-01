@@ -693,14 +693,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }
         }
-        
-        
-        
-        
-        
-        
-        
         else{
+            
+            NSNotification *notification5 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification5];
+            
             //将数据本地化
             [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
             
@@ -10857,6 +10855,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         });
         
+    }else
+    {
+        NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
     }
 }
 @end
