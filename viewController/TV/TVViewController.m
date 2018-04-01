@@ -2235,41 +2235,54 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);
         //=======机顶盒加密
         NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:indexPathRow serviceListDic:self.dicTemp];
-        if (characterStr != NULL && characterStr != nil) {
-            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-            if (judgeIsSTBDecrypt == YES) {
+        
+        if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            return ;
+            
+        }else{
+            [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+            
+            if (characterStr != NULL && characterStr != nil) {
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                    
+                    //将上一个节目关闭
+                    [self stopVideoPlay];
+                    
+                    // 此处代表需要记性机顶盒加密验证
+                    NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
+                    //创建通知
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                    
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                    firstOpenAPP = firstOpenAPP+1;
+                    firstfirst = NO;
+                }else //正常播放的步骤
+                {
+                    [self touchSelectChannel:indexPathRow diction:self.dicTemp];
+                    
+                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    firstfirst = NO;
+                    
+                }
                 
-                //将上一个节目关闭
-                [self stopVideoPlay];
-                
-                // 此处代表需要记性机顶盒加密验证
-                NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
-                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
-                //创建通知
-                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                
-                firstOpenAPP = firstOpenAPP+1;
-                firstfirst = NO;
             }else //正常播放的步骤
             {
+                //======机顶盒加密
                 [self touchSelectChannel:indexPathRow diction:self.dicTemp];
-                
                 firstOpenAPP = firstOpenAPP+1;
-                
                 firstfirst = NO;
-                
             }
-            
-        }else //正常播放的步骤
-        {
-            //======机顶盒加密
-            [self touchSelectChannel:indexPathRow diction:self.dicTemp];
-            firstOpenAPP = firstOpenAPP+1;
-            firstfirst = NO;
         }
+
         
     });
     
@@ -2292,6 +2305,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"%@",text.userInfo[@"playdata"]);
         NSLog(@"－－－－－接收到LIVe通知------");
         //NSData --->byte[]-------NSData----->NSString
+        
+        
+        if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            return ;
+        }else{
+            [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+        }
         
         _byteDatas = [[NSMutableData alloc]init];
         
@@ -2456,6 +2480,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"－－－－－接收到REC通知------");
             _byteDatas = [[NSMutableData alloc]init];
             
+            if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+                //        //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                return ;
+                
+            }else{
+                [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+            }
             //此处加入判断语句，判断返回的结果RET是否满足几个报错信息
             NSData * retData = [[NSData alloc]init];
             //获得数据区的长度
@@ -2556,6 +2590,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@" bu nnge  bof ang ");
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            return ;
             
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
@@ -2908,15 +2947,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:[NSNumber numberWithInt:row] forKey: @"Touch_Channel_index"];
         NSLog(@"history线程%@",[NSThread currentThread]);
         
-        //加载圈动画
-        //创建通知  如果视频要播放呀，则去掉不能播放的字样
-        NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification1];
         
-        NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            
+        }else{
+            [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+            
+            //加载圈动画
+            //创建通知  如果视频要播放呀，则去掉不能播放的字样
+            NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
+       
         //
         
         //    //如果视频25秒内不播放，则显示sorry的提示文字
@@ -3357,6 +3405,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSLog(@"self.video.dicChannl88==22");
         [self updateFullScreenDic];
+        
+        if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            return ;
+            
+        }else{
+            [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+        }
         
     });
     if (self.showTVView == YES) {
@@ -4773,7 +4832,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self addHistory:row diction:dic];
             });
             
-            
+            if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+                //        //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                return ;
+                
+            }else{
+                [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+            }
             [self playRECVideo:epgDicToSocket];
             
             self.TVSubAudioDic = epgDicToSocket;
@@ -4830,6 +4898,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self addHistory:row diction:self.dicTemp];
             });
+            
+            if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+                //        //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                return ;
+                
+            }else{
+                [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+            }
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
             //__
@@ -5020,6 +5099,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.tableForSliderView reloadData];
         [self.table reloadData];
         
+//        __NSConstantString * abc =
+        
         NSArray * serviceArrForJudge =  self.serviceData;
         //这里获得当前焦点
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
@@ -5207,6 +5288,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     
     //__
+    if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        return ;
+        
+    }else{
+        [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+    }
     
     NSArray * audio_infoArr = [[NSArray alloc]init];
     NSArray * subt_infoArr = [[NSArray alloc]init];
@@ -5350,6 +5441,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"self.video.dicChannl88==44");
         [self updateFullScreenDic];
         
+        if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+            //        //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            return ;
+            
+        }else{
+            [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+        }
     });
     if (self.showTVView == YES) {
         NSLog(@"已经跳转到firstopen方法");
@@ -6129,6 +6230,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //通知主线程刷新
         dispatch_async(dispatch_get_main_queue(), ^{
             //回调或者说是通知主线程刷新，
+            
+            if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+                //        //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                return ;
+                
+            }else{
+                [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
+            }
             
             if (self.showTVView == YES) {
                 /**

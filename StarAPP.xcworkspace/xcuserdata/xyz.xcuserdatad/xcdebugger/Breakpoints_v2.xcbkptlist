@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "544100307.597615"
+            timestampString = "544274919.479077"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10054"
-            endingLineNumber = "10054"
+            startingLineNumber = "10164"
+            endingLineNumber = "10164"
             landmarkName = "-OtherDevicePushToPhone:"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "544100307.597894"
+            timestampString = "544274919.479722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10029"
-            endingLineNumber = "10029"
+            startingLineNumber = "10139"
+            endingLineNumber = "10139"
             landmarkName = "-addPushMutableArr:"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,28 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "544100307.598006"
+            timestampString = "544274919.480293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10052"
-            endingLineNumber = "10052"
+            startingLineNumber = "10162"
+            endingLineNumber = "10162"
             landmarkName = "-OtherDevicePushToPhone:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "544100307.598052"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9097"
-            endingLineNumber = "9097"
-            landmarkName = "-setCategoryItem:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

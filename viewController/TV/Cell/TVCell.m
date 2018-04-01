@@ -672,7 +672,7 @@
         }
         else if (service_videoindexStr.length == 3)
         {
-            self.channel_id.text = [NSString stringWithFormat:@"%@",service_videoindexStr];
+        self.channel_id.text = [NSString stringWithFormat:@"%@",service_videoindexStr];
         }
         else if (service_videoindexStr.length > 3)
         {

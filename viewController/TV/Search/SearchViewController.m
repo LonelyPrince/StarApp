@@ -727,8 +727,8 @@
     
      
     // *******/
-    
-    
+   
+
     if (characterStr != NULL && characterStr != nil) {
         
         BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
