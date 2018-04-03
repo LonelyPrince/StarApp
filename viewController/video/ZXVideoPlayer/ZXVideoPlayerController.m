@@ -73,7 +73,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     int judgeVideoIsStatic;  //判断视频是否出现了静帧，如果静帧时间超过3秒，则提示不能播放的文字。视频静帧的时候，会触发“媒体网络状态改变的方法”，视频恢复正常播放的时候会触发“播放状态改变”的方法
     
-//    NSString *  tempUrl;
+    //    NSString *  tempUrl;
     
     float RECTime;
     int durationTimeTemp;
@@ -205,7 +205,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         subtRow = 0;
         audioRow = 0;
         NSLog(@"audioRow==1 %d",audioRow);
-        [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+        //        [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
         
         //        [self configObserver];
         [self installMovieNotificationObservers];
@@ -283,11 +283,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.channelListBtn addTarget:self action:@selector(channelListBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     // slider
-//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
-//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
-//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
-//    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchCancel];
+    //    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    //    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
+    //    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
+    //    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
+    //    [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchCancel];
     
     [self setProgressSliderMaxMinValues];
     //    [self monitorVideoPlayback];
@@ -306,7 +306,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     RECTime ++;
     
-   
+    
     ////     更新播放进度
     self.videoControl.progressSlider.minimumValue = 0;// 设置最小值
     self.videoControl.progressSlider.maximumValue = 100;// 设置最大值
@@ -340,11 +340,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 开启定时器
 - (void)startDurationTimer
 {
-
+    
     NSString * IsfirstPlayRECVideo = [USER_DEFAULT objectForKey:@"IsfirstPlayRECVideo"];
     
     durationTimeTemp = [[USER_DEFAULT objectForKey:@"RECVideoDurationTime"] intValue];
-  
+    
     if ( [IsfirstPlayRECVideo isEqualToString:@"YES"] ) { //第一次操作
         self.videoControl.progressSlider.value = 0;
         
@@ -353,25 +353,25 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
     }else
     {
- 
+        
         if (self.durationTimer) {
             [self.durationTimer setFireDate:[NSDate distantPast]];
             
- 
+            
             [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
             
         } else {
             
             [self.durationTimer invalidate];
             self.durationTimer = nil;
-
+            
             self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
-
+            
             [USER_DEFAULT setObject:@"NO" forKey:@"IsfirstPlayRECVideo"];
         }
     }
- 
+    
     
 }
 
@@ -381,8 +381,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (_durationTimer) {
         [self.durationTimer setFireDate:[NSDate distantFuture]]; //停止
         
-//        [self.durationTimer invalidate];
-//        self.durationTimer = nil;
+        //        [self.durationTimer invalidate];
+        //        self.durationTimer = nil;
     }
 }
 
@@ -649,16 +649,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             CGFloat y = fabs(veloctyPoint.y);
             
             if (x > y) { // 水平移动
-//                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-//                    //录制
-                    self.panDirection = ZXPanDirectionHorizontal;
-                    self.sumTime = self.player.playableDuration; //currentPlaybackTime; // sumTime初值
-//                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
-//                    [self.player pause];
-//                    [self stopDurationTimer];
-//                }else
-//                {
-//                }
+                //                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                //                    //录制
+                self.panDirection = ZXPanDirectionHorizontal;
+                self.sumTime = self.player.playableDuration; //currentPlaybackTime; // sumTime初值
+                //                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
+                //                    [self.player pause];
+                //                    [self stopDurationTimer];
+                //                }else
+                //                {
+                //                }
                 
             } else if (x < y) { // 垂直移动
                 self.panDirection = ZXPanDirectionVertical;
@@ -673,15 +673,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateChanged: { // 正在移动
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-//
-//                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-//                        //录制
-//                        [self horizontalMoved:veloctyPoint.x];
-//                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
-//                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-//                    }else
-//                    {
-//                    }
+                    //
+                    //                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                    //                        //录制
+                    //                        [self horizontalMoved:veloctyPoint.x];
+                    //                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
+                    //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                    //                    }else
+                    //                    {
+                    //                    }
                     
                 }
                     break;
@@ -698,31 +698,31 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         case UIGestureRecognizerStateEnded: { // 移动停止
             switch (self.panDirection) {
                 case ZXPanDirectionHorizontal: {
-//                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-//                        //录制
-//                        //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-//                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-//                        //Failed to open segment of playlist
-//
-//
-//                        [self.player seek:floor(self.sumTime)];
-//                        while (self.player.playableDuration < (self.sumTime - 2)) {
-//                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
-//                            NSLog(@" xyz - sumTime %f",self.sumTime);
-//                            sleep(2);
-//                            NSLog(@" xyz - 0000");
-//                            [self.player seek:floor(self.sumTime)];
-//                        }
-//                        [self.player play];
-//                        [self startDurationTimer];
-//                        [self.videoControl autoFadeOutControlBar];
-//                    }else
-//                    {
-//                        //                    [self.player seek:floor(self.sumTime)];
-//                        [self.player play];
-//                        [self startDurationTimer];
-//                        [self.videoControl autoFadeOutControlBar];
-//                    }
+                    //                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                    //                        //录制
+                    //                        //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                    //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                    //                        //Failed to open segment of playlist
+                    //
+                    //
+                    //                        [self.player seek:floor(self.sumTime)];
+                    //                        while (self.player.playableDuration < (self.sumTime - 2)) {
+                    //                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
+                    //                            NSLog(@" xyz - sumTime %f",self.sumTime);
+                    //                            sleep(2);
+                    //                            NSLog(@" xyz - 0000");
+                    //                            [self.player seek:floor(self.sumTime)];
+                    //                        }
+                    //                        [self.player play];
+                    //                        [self startDurationTimer];
+                    //                        [self.videoControl autoFadeOutControlBar];
+                    //                    }else
+                    //                    {
+                    //                        //                    [self.player seek:floor(self.sumTime)];
+                    //                        [self.player play];
+                    //                        [self startDurationTimer];
+                    //                        [self.videoControl autoFadeOutControlBar];
+                    //                    }
                     
                 }
                     break;
@@ -794,8 +794,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     if (self.isVolumeAdjust) {
         // 调节系统音量
-         [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点
-//        self.volumeViewSlider.value -= value / 10000;
+        [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点
+        //        self.volumeViewSlider.value -= value / 10000;
     }else {
         // 亮度
         [UIScreen mainScreen].brightness -= value / 10000;
@@ -1569,7 +1569,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  停止播放的动作
 -(void)noPlayShowNotic
 {
-   
+    
     
     NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
     NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
@@ -2660,11 +2660,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
-
+    
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     NSLog(@"audioRow==2 %d",audioRow);
-    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"shang 上一个节目");
     
@@ -2777,11 +2777,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
-
+    
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     NSLog(@"audioRow==3 %d",audioRow);
-    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -3248,7 +3248,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         pushBtnHasClick = YES;
     }
-  
+    
     
 }
 -(void)setPushBtnHasClickNO
@@ -3348,8 +3348,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }else
     {
-      
-
+        
+        
         NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification5];
@@ -3359,11 +3359,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.player = nil;
         [self.player stop];
         
-       
+        
         NSLog(@"self.View %@",self.view);
         
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
-       
+        
         NSLog(@"self.playerView %@",self.player);
         NSLog(@"Setself.playerView1url %@",url);
         
@@ -3371,7 +3371,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self.view insertSubview:self.player.view atIndex:0];
         
-       
+        
         if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
             [self.player prepareToPlay:0];
             [self.player play];
@@ -3383,7 +3383,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.player = nil;
         }
         
-    
+        
         
         NSLog(@"执行中0000000");
         
@@ -3735,23 +3735,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             audioArr  =[self.subAudioDic  objectForKey:@"audio_info"];
             
-            NSLog(@"audioArr :%@",audioArr);
-            NSLog(@"audioArr.count :%lu",(unsigned long)audioArr.count);
-            
             NSMutableArray * audioArrTemp = [[NSMutableArray alloc]init];
             int audio_languageIndex = 0;
             for (int i = 0; i < audioArr.count; i++) {
-                
-                NSLog(@"iiiiii ++ %d",i);
-                NSLog(@"audioArr ++ %d",audioArr.count);
-                NSLog(@"audioArr ++ %@",audioArr);
                 [audioArrTemp addObject: [audioArr[i] objectForKey:@"audio_language"]];
             }
             for (int i = 0; i < audioArr.count; i++) {
                 
-                NSLog(@"iiiiii1 ++ %d",indexPath.row);
-                NSLog(@"audioArr1 ++ %d",audioArr.count);
-                NSLog(@"audioArr1 ++ %@",audioArr);
                 
                 if (indexPath.row < audioArr.count) {
                     NSString * audioLanguageTemp = [audioArr[indexPath.row] objectForKey:@"audio_language"];
@@ -3765,19 +3755,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
             }
             if (indexPath.row < audioArr.count) {
-            if (audio_languageIndex > 1) {
-                //需要加号码
-                NSMutableDictionary * mutableAudioDic = [audioArr[indexPath.row] mutableCopy];
-                [mutableAudioDic setObject:@"yes" forKey:@"yes"];
+                if (audio_languageIndex > 1) {
+                    //需要加号码
+                    NSMutableDictionary * mutableAudioDic = [audioArr[indexPath.row] mutableCopy];
+                    [mutableAudioDic setObject:@"yes" forKey:@"yes"];
+                    
+                    NSDictionary * AudioDicTemp = [mutableAudioDic copy];
+                    cell.dataDic = AudioDicTemp;
+                }else
+                {
+                    //不需要加号码
+                    cell.dataDic = audioArr[indexPath.row];
+                }
                 
-                NSDictionary * AudioDicTemp = [mutableAudioDic copy];
-                cell.dataDic = AudioDicTemp;
-            }else
-            {
-                //不需要加号码
-                cell.dataDic = audioArr[indexPath.row];
-            }
-            
             }else
             {
                 NSLog(@"aksjfbajkbfasjb");
@@ -3788,9 +3778,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //            //焦点
                 NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
                 NSLog(@"cell.dataDic 11:%@",cell.dataDic);
-                //            NSLog(@"cell.dataDic fourceDic: %@",fourceDic);
                 
-                NSNumber * audioNumber = [USER_DEFAULT objectForKey:@"audioRow" ];
+                NSNumber * audioNumber; // = [USER_DEFAULT objectForKey:@"audioRow" ];
+                
+                NSMutableArray * mutableAudioInfo = [USER_DEFAULT objectForKey:@"MutableAudioInfo"];
+                for (int i = 0; i < mutableAudioInfo.count; i++) {
+                    
+                    if ([GGUtil judgeTwoEpgDicIsEqual:fourceDic TwoDic:mutableAudioInfo[i][0]]) {
+                        //相等
+                        NSLog(@"audioRow==9 %@",mutableAudioInfo[i][1]);
+                        
+                        audioNumber = mutableAudioInfo[i][1];
+                        break;
+                    }
+                    
+                }
+                
+                
                 audioRow =  [audioNumber intValue];
                 
                 NSArray * audio_infoArrTemp = [fourceDic objectForKey:@"audio_info"];
@@ -3799,10 +3803,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     audioDicBlue = [fourceDic objectForKey:@"audio_info"][0];
                 }else
                 {
+                    NSLog(@"audioRowaudioRow-=- %d",audioRow);
+                    
                     audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
                 }
                 
-//                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                //                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
                 NSLog(@"cell.dataDic fourceDic: %@",audioDicBlue);
                 
                 NSMutableDictionary * mutableAudioDic22 = [audioDicBlue mutableCopy];
@@ -3823,7 +3829,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //不需要加号码
                 //            //焦点
                 NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里还用作判断播放的焦点展示
-                NSNumber * audioNumber = [USER_DEFAULT objectForKey:@"audioRow" ];
+                NSNumber * audioNumber ; //= [USER_DEFAULT objectForKey:@"audioRow" ];
+                
+                NSMutableArray * mutableAudioInfo = [USER_DEFAULT objectForKey:@"MutableAudioInfo"];
+                for (int i = 0; i < mutableAudioInfo.count; i++) {
+                    
+                    if ([GGUtil judgeTwoEpgDicIsEqual:fourceDic TwoDic:mutableAudioInfo[i][0]]) {
+                        //相等
+                        NSLog(@"audioRow==9 %@",mutableAudioInfo[i][1]);
+                        //                        [USER_DEFAULT setObject:mutableAudioInfo[i][1] forKey:@"audioRow" ];
+                        //                        NSLog(@"[mutableAudioInfo[i][1]intValue] %d",[mutableAudioInfo[i][1]intValue]);
+                        //                        return [mutableAudioInfo[i][1]intValue];
+                        
+                        audioNumber = mutableAudioInfo[i][1];
+                        break;
+                    }
+                    
+                }
+                
                 audioRow =  [audioNumber intValue];
                 NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
                 
@@ -3941,7 +3964,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"rightViewHidden==55555");
     });
     
-  
+    
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     
@@ -3975,7 +3998,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
         
         //②
-//        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        //        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         NSString * audioStr = [USER_DEFAULT objectForKey:@"nowPlayChannelAudioIndex"];
         NSString * subtStr = [USER_DEFAULT objectForKey:@"nowPlayChannelSubtIndex"];
@@ -4007,35 +4030,35 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             NSLog(@"NONOONONONNONO相等语言");
             
-           
-            
-        if (!ISEMPTY(self.video.dicChannl)) {
-            
-            NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
-            historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-            
-            NSArray * touchArr = historyArr[historyArr.count - 1];
-            NSLog(@"touchArr：%@",touchArr);
-            //    [self touchToSee :touchArr];
             
             
-            rowIndex = [touchArr[2] intValue];
-            NSDictionary * dic = touchArr [3];
-            
-            
-            subtRow = indexPath.row;
-            //            audioRow = 0;
-            [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
-            
-            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            tableView.separatorColor = [UIColor whiteColor];
-            
-            
-//            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
-        }else{//如果为空，什么都不执行
-        }
-        //        [self.socketView1  serviceTouch ];
+            if (!ISEMPTY(self.video.dicChannl)) {
+                
+                NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+                historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+                
+                NSArray * touchArr = historyArr[historyArr.count - 1];
+                NSLog(@"touchArr：%@",touchArr);
+                //    [self touchToSee :touchArr];
+                
+                
+                rowIndex = [touchArr[2] intValue];
+                NSDictionary * dic = touchArr [3];
+                
+                
+                subtRow = indexPath.row;
+                //            audioRow = 0;
+                [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
+                
+                tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                tableView.separatorColor = [UIColor whiteColor];
+                
+                
+                //            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+                //            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
+            }else{//如果为空，什么都不执行
+            }
+            //        [self.socketView1  serviceTouch ];
         }
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
@@ -4045,7 +4068,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
         NSArray * touchArr ;
         if (historyArr.count >= 1) {
-            touchArr = historyArr[historyArr.count - 1];
+            touchArr = [historyArr[historyArr.count - 1] copy];
         }else
         {
             NSLog(@"historyArr== %@",historyArr);
@@ -4059,23 +4082,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             dic = touchArr [3];
         }
         
-        NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        NSDictionary * epgDicToSocketTemp = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]] copy]; //找到了正在播放的节目的信息
         
         //②
-//        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        //        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         //上一个节目的pid
         NSString * audioStr = [USER_DEFAULT objectForKey:@"nowPlayChannelAudioIndex"];
         NSString * subtStr = [USER_DEFAULT objectForKey:@"nowPlayChannelSubtIndex"];
         
- 
+        
         NSLog(@"[audioStr intValue] %d",[audioStr intValue]);
         NSLog(@"audioRow %d",audioRow);
         NSLog(@"[subtStr intValue] %d",[subtStr intValue]);
         NSLog(@"subtRow %d",subtRow);
         int audioArr_temp_int;
         if ([epgDicToSocketTemp objectForKey:@"audio_info"] != nil) {
-            NSArray * audioArr_temp = [epgDicToSocketTemp objectForKey:@"audio_info"];
+            NSArray * audioArr_temp = [[epgDicToSocketTemp objectForKey:@"audio_info"] copy];
             
             for (int i = 0;  i < audioArr_temp.count ; i++) {
                 NSLog(@"audioStr %@",audioStr);
@@ -4091,44 +4114,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if (audioArr_temp_int == indexPath.row ) {
             NSLog(@"audioArr_temp_int %d",audioArr_temp_int);
             NSLog(@"相等语言");
-        }else
-        {
-            NSLog(@"NONOONONONNONO相等语言");
-            
-            [self.player stop];
-            [self.player shutdown];
-            [self.player.view removeFromSuperview];
-        
-        if (!ISEMPTY(self.video.dicChannl)) {
             
             
-            NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
-            historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-            
-            NSArray * touchArr = historyArr[historyArr.count - 1];
-            NSLog(@"touchArr：%@",touchArr);
-            //    [self touchToSee :touchArr];
-            
-            
-            rowIndex = [touchArr[2] intValue];
-            NSDictionary * dic = touchArr [3];
-            audioRow = indexPath.row;
             //==
             //存储记录音频信息
             //1.记录播放信息存到本地  2.每次播放时，先判断音频信息是否被设置过，如果已经设置，则获取播放的节目信息。否则播放默认音轨   3.APP重新打开时，将列表情况
-            NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
+            NSDictionary * epgDicToSocket = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]] copy];
             NSMutableArray * mutableArrTemp= [[NSMutableArray alloc]init];
             
-            mutableArrTemp = [USER_DEFAULT objectForKey:@"MutableAudioInfo"];
+            mutableArrTemp = [[USER_DEFAULT objectForKey:@"MutableAudioInfo"] mutableCopy];
             
             if (mutableArrTemp.count == 0) {
                 
                 NSMutableArray * firstTempArr = [[NSMutableArray alloc]init];
                 [firstTempArr addObject:epgDicToSocket];
-                [firstTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                [firstTempArr addObject:[NSNumber numberWithInt:audioArr_temp_int]];
                 
                 mutableArrTemp= [[NSMutableArray alloc]init];
-                [mutableArrTemp addObject:firstTempArr];
+                [mutableArrTemp addObject:[firstTempArr copy]];
                 
             }else  //不为空
             {
@@ -4136,45 +4139,125 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     if ([GGUtil judgeTwoEpgDicIsEqual:mutableArrTemp[i][0] TwoDic:epgDicToSocket]) {
                         //如果相等    //存储节目的EPG和PID信息
                         
+                        [mutableArrTemp removeObjectAtIndex:i];
+                        NSLog(@"mutableArrTemp11 %@",mutableArrTemp);
                         
                         NSMutableArray * otherTempArr = [[NSMutableArray alloc]init];
                         [otherTempArr addObject:epgDicToSocket];
-                        [otherTempArr addObject:[NSNumber numberWithInt:audioRow]];
-                        
-                        [otherTempArr addObject:epgDicToSocket];
-                        [otherTempArr addObject:[NSNumber numberWithInt:audioRow]];
-                        
+                        [otherTempArr addObject:[NSNumber numberWithInt:audioArr_temp_int]];
                         [mutableArrTemp addObject: [otherTempArr copy]];
-                        //[NSNumber numberWithInt:audioRow] ;
                         break;
                     }
                 }
             }
-           
             
-            [USER_DEFAULT setObject:mutableArrTemp forKey:@"MutableAudioInfo"];
+            
+            [USER_DEFAULT setObject:[mutableArrTemp copy] forKey:@"MutableAudioInfo"];
             //==
- 
+        }else
+        {
+            NSLog(@"NONOONONONNONO相等语言");
             
-            NSLog(@"audioRow==4 %d",audioRow);
-            [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
-            [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
+            [self.player stop];
+            [self.player shutdown];
+            [self.player.view removeFromSuperview];
             
-           
-            
-            
-            tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-            tableView.separatorColor = [UIColor whiteColor];
-            
-            
-            
-        //            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
-        //            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
-            
-            
-        }else{//如果为空，什么都不执行
-        }
-        //        [self.socketView1  serviceTouch ];
+            if (!ISEMPTY(self.video.dicChannl)) {
+                
+                
+                NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+                historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+                
+                NSArray * touchArr = [historyArr[historyArr.count - 1] copy];
+                NSLog(@"touchArr：%@",touchArr);
+                //    [self touchToSee :touchArr];
+                
+                
+                rowIndex = [touchArr[2] intValue];
+                NSDictionary * dic = [touchArr [3] copy];
+                audioRow = indexPath.row;
+                //==
+                //存储记录音频信息
+                //1.记录播放信息存到本地  2.每次播放时，先判断音频信息是否被设置过，如果已经设置，则获取播放的节目信息。否则播放默认音轨   3.APP重新打开时，将列表情况
+                NSDictionary * epgDicToSocket = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]] copy];
+                NSMutableArray * mutableArrTemp= [[NSMutableArray alloc]init];
+                
+                mutableArrTemp = [[USER_DEFAULT objectForKey:@"MutableAudioInfo"] mutableCopy];
+                BOOL judgeIsHasAudio = NO;
+                if (mutableArrTemp.count == 0) {
+                    
+                    NSMutableArray * firstTempArr = [[NSMutableArray alloc]init];
+                    [firstTempArr addObject:epgDicToSocket];
+                    [firstTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                    
+                    mutableArrTemp= [[NSMutableArray alloc]init];
+                    [mutableArrTemp addObject:[firstTempArr copy]];
+                    judgeIsHasAudio = YES;
+                }else  //不为空
+                {
+                    for (int i = 0; i < mutableArrTemp.count; i++) {
+                        if ([GGUtil judgeTwoEpgDicIsEqual:mutableArrTemp[i][0] TwoDic:epgDicToSocket]) {
+                            //如果相等    //存储节目的EPG和PID信息
+                            
+                            [mutableArrTemp removeObjectAtIndex:i];
+                            
+                            
+                            NSLog(@"mutableArrTemp11 %@",mutableArrTemp);
+                            
+                            NSMutableArray * otherTempArr = [[NSMutableArray alloc]init];
+                            [otherTempArr addObject:epgDicToSocket];
+                            [otherTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                            
+                            
+                            
+                            //                        [mutableArrTemp replaceObjectAtIndex:i withObject:[otherTempArr copy]];
+                            //                        NSArray * otherArrTemp = [otherTempArr copy];
+                            [mutableArrTemp addObject: [otherTempArr copy]];
+                            //[NSNumber numberWithInt:audioRow] ;
+                            NSLog(@"mutableArrTemp %@",mutableArrTemp);
+                            judgeIsHasAudio = YES;
+                            break;
+                        }else
+                        {
+                            judgeIsHasAudio = NO;
+                        }
+                    }
+                }
+                
+                if (judgeIsHasAudio == YES) {
+                    [USER_DEFAULT setObject:[mutableArrTemp copy] forKey:@"MutableAudioInfo"];
+                }else
+                {
+                    NSMutableArray * otherTempArr = [[NSMutableArray alloc]init];
+                    [otherTempArr addObject:epgDicToSocket];
+                    [otherTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                    [mutableArrTemp addObject: [otherTempArr copy]];
+                    [USER_DEFAULT setObject:[mutableArrTemp copy] forKey:@"MutableAudioInfo"];
+                }
+                
+                //            [USER_DEFAULT setObject:[mutableArrTemp copy] forKey:@"MutableAudioInfo"];
+                //==
+                
+                
+                NSLog(@"audioRow==4 %d",audioRow);
+                //            [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+                [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
+                
+                
+                
+                
+                tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                tableView.separatorColor = [UIColor whiteColor];
+                
+                
+                
+                //            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+                //            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
+                
+                
+            }else{//如果为空，什么都不执行
+            }
+            //        [self.socketView1  serviceTouch ];
         }
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
@@ -4184,7 +4267,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
         NSArray * touchArr ;
         if (historyArr.count >= 1) {
-            touchArr = historyArr[historyArr.count - 1];
+            touchArr = [historyArr[historyArr.count - 1] copy];
         }else
         {
             NSLog(@"historyArr== %@",historyArr);
@@ -4195,13 +4278,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSMutableDictionary * dic;
         if (touchArr.count >= 4) {
             rowIndex = [touchArr[2] intValue];
-            dic = touchArr [3];
+            dic = [touchArr [3] mutableCopy];
         }
         
-        NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
+        NSDictionary * epgDicToSocketTemp = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]] copy]; //找到了正在播放的节目的信息
         
         //②
-         dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         if ([GGUtil judgeTwoEpgDicIsEqual:dic TwoDic:epgDicToSocketTemp]) {
             NSLog(@"相等");
@@ -4212,36 +4295,36 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [self.player stop];
             [self.player shutdown];
             [self.player.view removeFromSuperview];
-        
-        __block NSDictionary * dic ;
-        if (!ISEMPTY(self.video.dicChannl)) {
             
-            
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                audioRow = 0;
-                NSLog(@"audioRow==5 %d",audioRow);
-                [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
-                subtRow = 0;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-                    //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
-                    NSLog(@"dic-- %@",dic);
-                    [self touchToSee :dic DicWithRow:indexPath.row];
+            __block NSDictionary * dic ;
+            if (!ISEMPTY(self.video.dicChannl)) {
+                
+                
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    audioRow = 0;
+                    NSLog(@"audioRow==5 %d",audioRow);
+                    //                [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+                    subtRow = 0;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+                        //            [self.tvViewControlller  touchSelectChannel:indexPath.row diction:self.video.dicChannl];
+                        NSLog(@"dic-- %@",dic);
+                        [self touchToSee :dic DicWithRow:indexPath.row];
+                    });
+                    
+                    tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+                    tableView.separatorColor = [UIColor whiteColor];
+                    
                 });
                 
-                tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-                tableView.separatorColor = [UIColor whiteColor];
+                //刷新主页的焦点
+                NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
                 
-            });
-            
-            //刷新主页的焦点
-            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
-            
-        }else{//如果为空，什么都不执行
+            }else{//如果为空，什么都不执行
+            }
+            //        [self.socketView1  serviceTouch ];
         }
-        //        [self.socketView1  serviceTouch ];
-    }
     }
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -4671,10 +4754,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else //竖屏
         {
             NSLog(@"REC  竖屏");
-//            self.video.channelId = @"";
-//            NSLog(@"lalalalal 执行过");
+            //            self.video.channelId = @"";
+            //            NSLog(@"lalalalal 执行过");
             self.videoControl.channelIdLab.text = @"";
-
+            
             if ([self.video.channelId isEqualToString: @""]) {
                 
                 
@@ -4722,7 +4805,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     } else
     {
         bb1 = (int)self.player.playableDuration;
- NSLog(@"self.player.playableDuration1bb1 %d",bb1);
+        NSLog(@"self.player.playableDuration1bb1 %d",bb1);
     }
     if (bb1 <0) {
         bb1 = 0;
@@ -5074,7 +5157,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     audioRow = 0;
     NSLog(@"audioRow==6 %d",audioRow);
-    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     
 }

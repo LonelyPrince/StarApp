@@ -109,7 +109,6 @@
 +(double)getSystemVersion;
 +(NSString *)switchDataToIp:(NSData *)data;
 + (void)getCurrentLanguage;
-+(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr;
 @end
 
 

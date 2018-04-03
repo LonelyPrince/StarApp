@@ -62,7 +62,7 @@
     //    cgUpnpModel = [[CGUpnpDeviceModel alloc]init];
     //    [self getCGData1];
     //    [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(judgeDmsDevice) userInfo:nil repeats:YES];
-        NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
@@ -78,7 +78,7 @@
     //    UIDevice *device = [UIDevice currentDevice];
     //    if (![[device model]isEqualToString:@"iPad Simulator"]) {
     // 开始保存日志文件
-    //            [self redirectNSlogToDocumentFolder];
+    [self redirectNSlogToDocumentFolder];
     //    }
     /*********************************************************************/
     
@@ -97,9 +97,9 @@
 {
     //    NSArray *languages = [NSLocale preferredLanguages];
     //    NSString *currentLanguage = [languages objectAtIndex:0];
-//    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
-//    NSLog( @"当前的语言%@" , localeLanguageCode);
-//    [USER_DEFAULT setObject:localeLanguageCode forKey:@"systemLocalLanguage"];
+    //    NSString *localeLanguageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    //    NSLog( @"当前的语言%@" , localeLanguageCode);
+    //    [USER_DEFAULT setObject:localeLanguageCode forKey:@"systemLocalLanguage"];
     
     NSString* strLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0];
     if (strLanguage.length >=2) {
@@ -109,9 +109,9 @@
     }
     
     NSLog( @"当前的语言11%@" , strLanguage);
-//
-//    NSString* strLanguage2 = [[NSLocale currentLocale] localeIdentifier];
-//    NSLog( @"当前的语言22%@" , strLanguage2);
+    //
+    //    NSString* strLanguage2 = [[NSLocale currentLocale] localeIdentifier];
+    //    NSLog( @"当前的语言22%@" , strLanguage2);
 }
 //收集崩溃信息
 void UncaughtExceptionHandler(NSException *exception) {
