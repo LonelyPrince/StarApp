@@ -2688,7 +2688,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
                 int audiopidTemp;
-                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                 
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
 //                socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
@@ -2697,7 +2697,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (audio_infoArr.count > 0 ) {
                     
                     int audiopidTemp;
-                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                     
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 }else
@@ -2830,7 +2830,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
--(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr
+//-(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr
+-(int)setAudioPidTemp:(NSMutableArray *)aduioInfoArr   EPGDic:(NSDictionary *)allEPGDic
 {
     NSString * localLanguage = [USER_DEFAULT objectForKey:@"systemLocalLanguage"];
     
@@ -2849,16 +2850,35 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"socketView.socket_ServiceModel.audio_pid ：%@",socketView.socket_ServiceModel.audio_pid);
     NSLog(@"localLanguage 本地化语言是什么 ：%@",localLanguage);
     int audiopidTemp;
+    
+    NSMutableArray * mutableAudioInfo = [USER_DEFAULT objectForKey:@"MutableAudioInfo"];
+    for (int i = 0; i < mutableAudioInfo.count; i++) {
+        
+        if ([GGUtil judgeTwoEpgDicIsEqual:allEPGDic TwoDic:mutableAudioInfo[i][0]]) {
+            //相等
+            
+//            NSLog(@"cacaca %@",mutableAudioInfo[i]);
+//
+            NSLog(@"audioRow==9 %@",mutableAudioInfo[i][1]);
+            [USER_DEFAULT setObject:mutableAudioInfo[i][1] forKey:@"audioRow" ];
+            NSLog(@"[mutableAudioInfo[i][1]intValue] %d",[mutableAudioInfo[i][1]intValue]);
+            return [mutableAudioInfo[i][1]intValue];
+        }
+        
+    }
+    
     for ( int i = 0; i < aduioInfoArr.count ; i ++) {
         NSLog(@"[aduioInfoArr[i] objectForKey: %@",[aduioInfoArr[i] objectForKey:@"audio_language"]);
         if ([[aduioInfoArr[i] objectForKey:@"audio_language"] isEqualToString:localLanguage]){
             audiopidTemp = i;
+            NSLog(@"audioRow==10 %d",audiopidTemp);
             [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
             return audiopidTemp;
         }else{
             audiopidTemp = 0;
         }
     }
+    NSLog(@"audioRow==11 %d",audiopidTemp);
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
     return audiopidTemp;
 }
@@ -4924,7 +4944,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
 
                 int audiopidTemp;
-                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
 
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
 
@@ -4935,7 +4955,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
                 if (audio_infoArr.count > 0 ) {
                     int audiopidTemp;
-                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
 
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                     NSLog(@"audio_pidaudio_pid %@",socketView.socket_ServiceModel.audio_pid);
@@ -5503,7 +5523,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
                 
                 int audiopidTemp;
-                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                 
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 //                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
@@ -5513,7 +5533,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (audio_infoArr.count > 0 ) {
                     
                     int audiopidTemp;
-                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                     
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                     //                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
@@ -10532,7 +10552,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
                 
                 int audiopidTemp;
-                audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                 
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 //                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
@@ -10542,7 +10562,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (audio_infoArr.count > 0 ) {
                     
                     int audiopidTemp;
-                    audiopidTemp = [self setAudioPidTemp:audio_infoArr];
+                    audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                     
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                     //                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];

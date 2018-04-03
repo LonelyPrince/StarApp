@@ -204,6 +204,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         subtRow = 0;
         audioRow = 0;
+        NSLog(@"audioRow==1 %d",audioRow);
         [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
         
         //        [self configObserver];
@@ -2662,6 +2663,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
+    NSLog(@"audioRow==2 %d",audioRow);
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"shang 上一个节目");
@@ -2778,6 +2780,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
+    NSLog(@"audioRow==3 %d",audioRow);
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"下一个节目");
@@ -4109,21 +4112,64 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             rowIndex = [touchArr[2] intValue];
             NSDictionary * dic = touchArr [3];
-            
-            
-            
-            
             audioRow = indexPath.row;
+            //==
+            //存储记录音频信息
+            //1.记录播放信息存到本地  2.每次播放时，先判断音频信息是否被设置过，如果已经设置，则获取播放的节目信息。否则播放默认音轨   3.APP重新打开时，将列表情况
+            NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
+            NSMutableArray * mutableArrTemp= [[NSMutableArray alloc]init];
+            
+            mutableArrTemp = [USER_DEFAULT objectForKey:@"MutableAudioInfo"];
+            
+            if (mutableArrTemp.count == 0) {
+                
+                NSMutableArray * firstTempArr = [[NSMutableArray alloc]init];
+                [firstTempArr addObject:epgDicToSocket];
+                [firstTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                
+                mutableArrTemp= [[NSMutableArray alloc]init];
+                [mutableArrTemp addObject:firstTempArr];
+                
+            }else  //不为空
+            {
+                for (int i = 0; i < mutableArrTemp.count; i++) {
+                    if ([GGUtil judgeTwoEpgDicIsEqual:mutableArrTemp[i][0] TwoDic:epgDicToSocket]) {
+                        //如果相等    //存储节目的EPG和PID信息
+                        
+                        
+                        NSMutableArray * otherTempArr = [[NSMutableArray alloc]init];
+                        [otherTempArr addObject:epgDicToSocket];
+                        [otherTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                        
+                        [otherTempArr addObject:epgDicToSocket];
+                        [otherTempArr addObject:[NSNumber numberWithInt:audioRow]];
+                        
+                        [mutableArrTemp addObject: [otherTempArr copy]];
+                        //[NSNumber numberWithInt:audioRow] ;
+                        break;
+                    }
+                }
+            }
+           
+            
+            [USER_DEFAULT setObject:mutableArrTemp forKey:@"MutableAudioInfo"];
+            //==
+ 
+            
+            NSLog(@"audioRow==4 %d",audioRow);
             [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
             [self touchToSeeAudioSubt :dic DicWithRow:rowIndex  audio:audioRow subt:subtRow];
+            
+           
+            
             
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             tableView.separatorColor = [UIColor whiteColor];
             
             
             
-//            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
+        //            NSDictionary *indexPathdict =[[NSDictionary alloc] initWithObjectsAndKeys:indexPath,@"indexPathDic", nil];
+        //            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             
             
         }else{//如果为空，什么都不执行
@@ -4173,6 +4219,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 audioRow = 0;
+                NSLog(@"audioRow==5 %d",audioRow);
                 [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
                 subtRow = 0;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -5026,6 +5073,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)setaudioOrSubtRowIsZero
 {
     audioRow = 0;
+    NSLog(@"audioRow==6 %d",audioRow);
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     

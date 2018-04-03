@@ -1086,12 +1086,14 @@ static const char *getPropertyType(objc_property_t property) {
         NSLog(@"[aduioInfoArr[i] objectForKey: %@",[aduioInfoArr[i] objectForKey:@"audio_language"]);
         if ([[aduioInfoArr[i] objectForKey:@"audio_language"] isEqualToString:localLanguage]){
             audiopidTemp = i;
+            NSLog(@"audioRow==12 %d",audiopidTemp);
             [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
             return audiopidTemp;
         }else{
             audiopidTemp = 0;
         }
     }
+    NSLog(@"audioRow==13 %d",audiopidTemp);
     [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
     return audiopidTemp;
 }

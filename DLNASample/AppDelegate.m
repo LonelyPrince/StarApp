@@ -90,6 +90,7 @@
     [self getCurrentLanguage];
     [self.window makeKeyAndVisible];
     [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
+    [USER_DEFAULT setObject:nil forKey:@"MutableAudioInfo"];
     return YES;
 }
 - (void)getCurrentLanguage
