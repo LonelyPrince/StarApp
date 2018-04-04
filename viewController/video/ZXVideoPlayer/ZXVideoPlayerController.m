@@ -3432,7 +3432,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)replaceEventNameNotific
 {
-    self.videoControl.eventnameLabel.text = self.video.playEventName;
+    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+    NSLog(@"111 replace");
 }
 
 //时间戳转换
@@ -4673,8 +4674,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
         NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
         if (arrNowPlayingTemp.count > 0) {
-            NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
-            self.video.playEventName =eventNameLabStr;
+            
+            NSString * startTimeTempStr = [arrNowPlayingTemp[0] objectForKey:@"event_starttime"];
+            if ([startTimeTempStr intValue] <= [[GGUtil GetNowTimeString]intValue]) {
+                NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
+                self.video.playEventName =eventNameLabStr;
+            }else
+            {
+                self.video.playEventName = @"";
+            }
+            
+           
         }else
         {
             self.video.playEventName = @"";
@@ -4687,8 +4697,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         self.videoControl.channelNameLab.text = self.video.channelName;
         
-        self.videoControl.eventnameLabel.text = self.video.playEventName;
-        
+        self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+        NSLog(@"222 replace222 %@",self.videoControl.eventnameLabel.text);
         //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
         
         self.videoControl.progressSlider.hidden = YES;
@@ -4773,7 +4783,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         
         
-        self.videoControl.eventnameLabel.text = self.video.playEventName;
+        self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+        NSLog(@"333 replace333");
     }
     
     
@@ -4982,13 +4993,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.url = [NSURL URLWithString:self.video.playUrl];
     NSLog(@"contentURL 33ZXVideo");
     //当前节目名称
-    self.videoControl.eventnameLabel.text = self.video.playEventName;
+    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+    NSLog(@"444 replace444 %@",self.videoControl.eventnameLabel.text);
     //        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是";
-    //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播";
-    //         self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890";
+    
     [self newReplaceEventNameNotific];
     self.videoControl.channelIdLab.text = self.video.channelId;
     

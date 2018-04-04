@@ -2441,8 +2441,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSString *nowDate = [GGUtil GetNowTimeString];
                         NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                         
-                        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-                        [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                        if (endTimeCutStartTime > 0) {
+                            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                            [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                        }
+                       
                         
                         NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
                         
@@ -2668,6 +2671,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            NSLog(@"9999 replace7777");
             /*此处添加一个加入历史版本的函数*/
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self addHistory:row diction:dic];
@@ -5025,6 +5029,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //创建通知
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+            NSLog(@"9999 replace8888");
             //通过通知中心发送通知
             //lallalalalal===========================================
             //            [[NSNotificationCenter defaultCenter] postNotification:notification2];
@@ -5618,6 +5623,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            NSLog(@"9999 replace9999");
             
             NSLog(@"dic: %@",dic);
             
@@ -9002,6 +9008,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSInteger abcd = progressEPGArr.count -1;
         if(progressEPGArrIndex <= abcd && progressEPGArrIndex > 0){    //如果索引正常
             
+            NSLog(@"[progressEPGArr  %@",[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"]);
             if(![[progressEPGArr[progressEPGArrIndex]objectForKey:@"event_starttime"] isEqualToString:@""])
                 
             {
@@ -9020,10 +9027,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_name"];
                 //=======
                 //刷新节目名称
-                //        self.video.playEventName = self.event_videoname;
                 self.video.playEventName = self.event_videoname;
                 NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
                 [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                NSLog(@"5555555 replace progresFresh");
+                
                 
                 self.event_startTime = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_starttime"];
                 self.event_endTime = [progressEPGArr[progressEPGArrIndex] objectForKey:@"event_endtime"];
@@ -9058,9 +9066,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //判断当前是不是一个节目
                         eventName1 = self.event_videoname;
                         eventName2 = self.event_videoname;
-                        //        eventNameTemp ;
+                        
                         eventNameTemp = eventName1;
-                        if (!eventName2 == eventNameTemp) {
+                        if (![eventName2 isEqualToString: eventNameTemp]) {
                             // 不同的节目   @"同一个节目";
                         }else
                         {
@@ -9079,8 +9087,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
                             
                             NSLog(@"pregressfresh进度条的地方replaceEventNameNotific");
-                            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-                            [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                            
+                            if (endTimeCutStartTime > 0) {
+                                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                                [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+                            }
+                            
                         }
                     }
                     
@@ -9602,7 +9614,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification2];
-    
+    NSLog(@"9999 replace0000");
     //    NSLog(@"row: %ld",(long)row);
     /*此处添加一个加入历史版本的函数*/
     //            [self addHistory:row diction:dic];
@@ -10815,13 +10827,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         else
         {
-            //            //快速切换频道名称和节目名称
-            //            NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
-            //
-            //            //创建通知
-            //            NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
-            //            //通过通知中心发送通知
-            //            [[NSNotificationCenter defaultCenter] postNotification:notification2];
             
             NSLog(@"dic: %@",dic);
             
@@ -10998,7 +11003,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
-            
+            NSLog(@"9999 replacelalal");
             NSLog(@"dic: %@",dic);
             
             NSLog(@"row: %ld",(long)row);
