@@ -3243,6 +3243,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //            [tempArr insertObject:dic atIndex:3];
                         NSString * seedNowTime = [GGUtil GetNowTimeString];
                         NSNumber *aNumber = [NSNumber numberWithInteger:row];
+                        [tempArr replaceObjectAtIndex:0 withObject:epgDicToSocket];
                         [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
                         [tempArr replaceObjectAtIndex:2 withObject:aNumber];
                         [tempArr replaceObjectAtIndex:3 withObject:dic];
@@ -4145,8 +4146,49 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSMutableDictionary * mutableDicTemp = [dic mutableCopy];
                     [mutableDicTemp setObject:[serviceArrForJudge_dic copy] forKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
                     dic = [mutableDicTemp mutableCopy];
+                    //==========fix
+                    
+                    // 1. 修改id
+                    NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:serviceArrForJudge_dic,@"nowPlayingDic", nil];
+                    
+                    NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification2];
+                    
+                    //2. 修改历史和store
+                    
+                    NSMutableArray * touchArrTemp ;
+                    if (historyArr.count >= 1) {
+                        touchArrTemp = [historyArr[historyArr.count - 1] mutableCopy];
+                    }else
+                    {
+                        NSLog(@"historyArr== %@",historyArr);
+                        return;
+                    }
+                    
+//                    NSInteger rowIndex; =
+                    touchArrTemp [3] = [dic copy];
+                    [historyArr replaceObjectAtIndex:historyArr.count - 1 withObject:[touchArrTemp copy]];
+                    
+                    // 3.store
+                    
+                    storeLastChannelArr = [touchArrTemp copy];
+                    
+                    // history 修改
+                    
+                    [self addHistory:rowIndex diction:dic];
                     
                     
+//                    NSMutableDictionary * dic;
+//                    if (touchArr.count >= 4) {
+//                        rowIndex = [touchArrTemp[2] intValue];
+//                        dic = touchArrTemp [3];
+//                    }
+
+                    
+                    
+
+                    //==========fix
                     //重新执行播放,并且要注意判断是不是加锁类型
                     
                     NSString * characterStr = [serviceArrForJudge_dic  objectForKey:@"service_character"];
