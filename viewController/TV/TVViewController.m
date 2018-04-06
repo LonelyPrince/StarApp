@@ -298,37 +298,38 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (![keyPath isEqualToString:@"numberOfTable_NoData"]) {
         return;
     }
-    if ([self.categoryModel.service_indexArr count]==0) {//无数据
-        //        [[BJNoDataView shareNoDataView] showCenterWithSuperView:self.tableView icon:nil iconClicked:^{
-        //            //图片点击回调
-        //            [self loadData];//刷新数据
-        //        }];
-        
-        //        self.NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
-        //        self.NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;
-        //        self.NoDataImageview.alpha = 1;
-        //
-        //        //CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
-        //        [self.tableForSliderView addSubview:self.NoDataImageview];
-        //        //        [_table bringSubviewToFront:self.kvo_NoDataImageview];
-        NSLog(@"此时数据无，添加占位图");
-        return;
-    }else
-    {
-        self.NoDataImageview.alpha = 0;
-        self.NoDataImageview = nil;
-        [self.NoDataImageview removeFromSuperview];
-        self.NoDataImageview.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
-        
-        
-        self.NoDataLabel.alpha = 0;
-        self.NoDataLabel = nil;
-        [self.NoDataLabel removeFromSuperview];
-        self.NoDataLabel.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
-        
-        return;
+    if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
+        if ([self.categoryModel.service_indexArr count]==0) {//无数据
+            //        [[BJNoDataView shareNoDataView] showCenterWithSuperView:self.tableView icon:nil iconClicked:^{
+            //            //图片点击回调
+            //            [self loadData];//刷新数据
+            //        }];
+            
+            //        self.NoDataImageview.image = [UIImage imageNamed:@"圆环-9"];
+            //        self.NoDataImageview.frame = CGRectMake(100, tableForSliderView.frame.origin.y+50, SCREEN_WIDTH - 200, SCREEN_WIDTH - 200) ;
+            //        self.NoDataImageview.alpha = 1;
+            //
+            //        //CGRectMake(tableForSliderView.frame.origin.x, tableForSliderView.frame.origin.y, tableForSliderView.frame.size.width, tableForSliderView.frame.size.height);
+            //        [self.tableForSliderView addSubview:self.NoDataImageview];
+            //        //        [_table bringSubviewToFront:self.kvo_NoDataImageview];
+            NSLog(@"此时数据无，添加占位图");
+            return;
+        }else
+        {
+            self.NoDataImageview.alpha = 0;
+            self.NoDataImageview = nil;
+            [self.NoDataImageview removeFromSuperview];
+            self.NoDataImageview.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
+            
+            
+            self.NoDataLabel.alpha = 0;
+            self.NoDataLabel = nil;
+            [self.NoDataLabel removeFromSuperview];
+            self.NoDataLabel.frame = CGRectMake(100000, tableForSliderView.frame.origin.y+500000, 1, 1) ;
+            
+            return;
+        }
     }
-    
     
     //有数据
     //    [[BJNoDataView shareNoDataView] clear];
@@ -2445,7 +2446,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
                             [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
                         }
-                       
+                        
                         
                         NSLog(@"计算差值：endTimeCutStartTime:%d",endTimeCutStartTime);
                         
@@ -4166,7 +4167,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         return;
                     }
                     
-//                    NSInteger rowIndex; =
+                    //                    NSInteger rowIndex; =
                     touchArrTemp [3] = [dic copy];
                     [historyArr replaceObjectAtIndex:historyArr.count - 1 withObject:[touchArrTemp copy]];
                     
@@ -4179,15 +4180,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self addHistory:rowIndex diction:dic];
                     
                     
-//                    NSMutableDictionary * dic;
-//                    if (touchArr.count >= 4) {
-//                        rowIndex = [touchArrTemp[2] intValue];
-//                        dic = touchArrTemp [3];
-//                    }
-
+                    //                    NSMutableDictionary * dic;
+                    //                    if (touchArr.count >= 4) {
+                    //                        rowIndex = [touchArrTemp[2] intValue];
+                    //                        dic = touchArrTemp [3];
+                    //                    }
                     
                     
-
+                    
+                    
                     //==========fix
                     //重新执行播放,并且要注意判断是不是加锁类型
                     
@@ -7779,8 +7780,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }];
             
-                        [self refreshTableviewByEPGTime];
-                        [self.table reloadData];
+            [self refreshTableviewByEPGTime];
+            [self.table reloadData];
             
         }
     }];
@@ -7796,8 +7797,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_after(popTime, mainQueue, ^{
             
             [self.tableForSliderView reloadData];
-                        [self refreshTableviewByEPGTime];
-                        [self.table reloadData];
+            [self refreshTableviewByEPGTime];
+            [self.table reloadData];
         });
     }
     

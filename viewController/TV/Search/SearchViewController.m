@@ -250,7 +250,6 @@
         
         
         if ([tableView isEqual:self.historySearchTableview]) {
-//        if (!ISEMPTY(historySearchArr)) {
             
             if (historycell == nil){
                 historycell = [[UITableViewCell alloc]
@@ -273,15 +272,7 @@
                 dataDic = historySearchArr[XXX][0];
                     NSString * historyTextString =   [dataDic objectForKey:@"service_name"];
                     NSString * historyLogicString = [dataDic objectForKey:@"service_logic_number"];
-                    //historySearchArr.count  -
-                    
-                    
-//                    for (int i = 0; i<data1.count; i++) {
-                    
-//                        NSString * serviceLogic = [data1[i] objectForKey:@"service_logic_number"]
-//                        ;
-//                        NSString * serviceName = [data1[i] objectForKey:@"service_name"]
-//                        ;
+ 
                         if(historyLogicString.length == 1)
                         {
                             historyLogicString = [NSString stringWithFormat:@"00%@",historyLogicString];
@@ -494,14 +485,8 @@
     }
     else if([tableView isEqual:self.historySearchTableview])
     {
-        
-//        int index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];
-        
-//        NSInteger indexTeg = index1;
-//        NSInteger indexTeg2 =  historySearchArr.count - index1 - 1;
-                NSInteger indexTeg2 =  historySearchArr.count - indexPath.row - 1;
-        
-//        NSLog(@"indexTeg: %ld",(long)indexTeg);
+ 
+        NSInteger indexTeg2 =  historySearchArr.count - indexPath.row - 1;
         NSLog(@"indexTeg2: %ld",(long)indexTeg2);
         NSArray * touchArr ;
         if (historySearchArr.count > indexTeg2) {
@@ -547,7 +532,7 @@
         for (int i = 0; i< temparrForServiceByCategory.count; i++) {
             NSDictionary * tempserviceForJudgeDic = tempserviceArrForJudge[[temparrForServiceByCategory[i] intValue]-1];
             
-             twoChannelDicIsEqual = [GGUtil judgeTwoEpgDicIsEqual:tempserviceForJudgeDic TwoDic:tempDic];
+             twoChannelDicIsEqual = [self judgeTwoEpgDicIsEqualforLogicNumber:tempserviceForJudgeDic TwoDic:tempDic];
             
             NSLog(@"tempserviceForJudgeDiciiiiii %d",i);
             NSLog(@"tempserviceForJudgeDic %@",tempserviceForJudgeDic);
@@ -609,10 +594,6 @@
             
             
         }
-//        NSString * tempService_network_id  = [tempDic objectForKey:@"service_network_id"];
-//        NSString * tempService_ts_id  = [tempDic objectForKey:@"service_ts_id"];
-//        NSString * tempService_service_id  = [tempDic objectForKey:@"service_service_id"];
-//        
         
         else
         {
@@ -622,7 +603,7 @@
             
             [alertView show];
             
-    
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
             return; //返回
         }
         
@@ -771,6 +752,55 @@
     [self.navigationController popViewControllerAnimated:YES];
     }
 
+}
+- (BOOL) judgeTwoEpgDicIsEqualforLogicNumber: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic
+{
+    
+    if (firstDic.count > 17 && twoDic.count > 17) { //两个都是录制文件
+        NSString * service_tuner_mode1 = [firstDic objectForKey:@"tuner_mode"];
+        NSString * service_network_id1 = [firstDic objectForKey:@"network_id"];
+        NSString * service_ts_id1 =      [firstDic objectForKey:@"ts_id"];
+        NSString * service_service_id1 = [firstDic objectForKey:@"service_id"];
+        NSString * service_file_name1 =  [firstDic objectForKey:@"file_name"];
+        
+        
+        
+        NSString * service_tuner_mode2 = [twoDic objectForKey:@"tuner_mode"];
+        NSString * service_network_id2 = [twoDic objectForKey:@"network_id"];
+        NSString * service_ts_id2 =      [twoDic objectForKey:@"ts_id"];
+        NSString * service_service_id2 = [twoDic objectForKey:@"service_id"];
+        NSString * service_file_name2 =  [twoDic objectForKey:@"file_name"];
+        
+        
+        if ([service_tuner_mode1 isEqualToString:service_tuner_mode2] && [service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2] && [service_file_name1 isEqualToString:service_file_name2] ) {
+            return YES;
+        }else
+        {
+            return NO;
+        }
+    }else
+    {
+        NSString * service_network_id1 = [firstDic objectForKey:@"service_network_id"];
+        NSString * service_ts_id1 = [firstDic objectForKey:@"service_ts_id"];
+        NSString * service_service_id1 = [firstDic objectForKey:@"service_service_id"];
+        NSString * service_logic_number1 =  [firstDic objectForKey:@"service_logic_number"];
+        
+        
+        NSString * service_network_id2 = [twoDic objectForKey:@"service_network_id"];
+        NSString * service_ts_id2 = [twoDic objectForKey:@"service_ts_id"];
+        NSString * service_service_id2 = [twoDic objectForKey:@"service_service_id"];
+        NSString * service_logic_number2 =  [twoDic objectForKey:@"service_logic_number"];
+        
+        if ([service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2]&& [service_logic_number1 isEqualToString:service_logic_number2]) {
+            return YES;
+        }else
+        {
+            return NO;
+        }
+    }
+    
+    
+    
 }
 -(int)judgeCategoryType:(NSDictionary *)NowServiceDic
 {
@@ -1010,16 +1040,16 @@
         NSString * service_ts =  [mutaArray[i][0] objectForKey:@"service_ts_id"];
         NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
 //        NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
-//        NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
+        NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
         
         //新添加的数据
         NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
         NSString * newservice_ts =  [epgDicToSocket objectForKey:@"service_ts_id"];
         NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
 //        NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
-//        NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
+        NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
         
-        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] ) { //&& [service_logicName isEqualToString:newservice_logicName]
+        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName]) { //
             addNewData = NO;
             
             NSArray * equalArr = mutaArray[i];
