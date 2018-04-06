@@ -210,6 +210,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"viewShowNotific" object:nil];
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewShowNotific) name:@"viewShowNotific" object:nil];
+        
+        //主页面跳转时，隐藏阴影部分
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"animateHideNotific" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(animateHideNotific) name:@"animateHideNotific" object:nil];
+        
+        
     }
     return self;
 }
@@ -852,6 +859,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     [self animateHide];
     [self rightView];
+    
+}
+
+#pragma 主页面跳转时，隐藏阴影部分
+-(void)animateHideNotific
+{
+    [self animateHide];
     
 }
 

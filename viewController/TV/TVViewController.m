@@ -8879,6 +8879,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
     [self removeTipLabAndPerformSelector];
     
+    
+    NSNotification *notification3 =[NSNotification notificationWithName:@"animateHideNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification3];
+    
+    
 }
 -(void)removeONEMinuteTimer
 {
