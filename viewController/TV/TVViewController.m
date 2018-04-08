@@ -2061,7 +2061,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"self.TVChannlDic %@",self.TVChannlDic);
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
         
+        if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
         self.video.channelCount = tempArrForServiceArr.count;
+        }
         tempIndexpathForFocus = indexPath;
         nowPlayChannelInfo.numberOfRowInt = indexPath.row;
         
@@ -4979,16 +4981,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
-    NSLog(@"self.categoryModel.service_indexArr== %@",self.categoryModel.service_indexArr);
     
     [USER_DEFAULT setObject:@"YES" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受
-    
     TVViewTouchPlay = NO;
     //=====则去掉不能播放的字样，加上加载环
     [self removeLabAndAddIndecatorView];
-    
     [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
-    
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
     NSDictionary * dic = [[NSDictionary alloc]init];
     dic = text.userInfo[@"textTwo"];
@@ -5007,9 +5005,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else
     {
         [self setCategoryItem:indexOfCategory];
-        
-        //        epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-        
+       
+        if ([epgDicToSocket isKindOfClass:[NSDictionary class]]){
         if (epgDicToSocket.count > 14) { //录制
             
             
@@ -5025,6 +5022,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
                 //        //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                //快速切换频道名称和节目名称
+                NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
                 return ;
                 
             }else{
@@ -5043,7 +5047,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
             NSLog(@"self.video.dicChannl33 %@",self.video.dicChannl);
             
+            if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
             self.video.channelCount = tempArrForServiceArr.count;
+            }
             //*********
             
             //        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
@@ -5070,8 +5076,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //快速切换频道名称和节目名称
             NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
             
-            //创建通知
-            NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+//            //创建通知
+//            NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
             NSLog(@"9999 replace8888");
             //通过通知中心发送通知
             //lallalalalal===========================================
@@ -5093,6 +5099,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
                 //        //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
+                
+                
                 return ;
                 
             }else{
@@ -5118,8 +5131,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                 
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                
-                //                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+              
                 socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
                 
             }else
@@ -5129,8 +5141,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
                     
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                    NSLog(@"audio_pidaudio_pid %@",socketView.socket_ServiceModel.audio_pid);
-                    //                    socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
+                  
                 }else
                 {
                     socketView.socket_ServiceModel.audio_pid = nil;
@@ -5275,7 +5286,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             });
             
         }
-        
+        }
         
         
         
@@ -5362,7 +5373,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSLog(@"self.video.dicChannl55 %@",self.video.dicChannl);
         
+        if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
         self.video.channelCount = tempArrForServiceArr.count;
+        }
         
         [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
         NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
@@ -5801,7 +5814,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"self.video.dicChannl66 %@",self.video.dicChannl);
             
+            if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
             self.video.channelCount = tempArrForServiceArr.count;
+            }
             if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
                 socketView.socket_ServiceModel.audio_pid = @"0";
             }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
@@ -7002,7 +7017,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"self.video.dicChannl77 %@",self.video.dicChannl);
     
+    if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
     self.video.channelCount = tempArrForServiceArr.count;
+    }
     
     if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
         socketView.socket_ServiceModel.audio_pid = @"0";
@@ -9274,7 +9291,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
     
+    if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
     self.video.channelCount = tempArrForServiceArr.count;
+    }
     
     
 }

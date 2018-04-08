@@ -4709,6 +4709,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.frame = CGRectMake(42, 16, 56 , 55); //
             self.videoControl.channelNameLab.frame = CGRectMake(42+40, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
             self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 75,26, 56 , 55);
+            [self abctest];
         }else
         {
             self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
