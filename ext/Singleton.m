@@ -50,22 +50,21 @@
     
     NSLog(@"socket连接成功");
     NSLog(@"接下来开始发送心跳");
-    
+    [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
+    NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa11111");
     if (self.connectStatus >3) {
         //从断开状态到连接状态，开始重新播放
+        NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa222222");
         NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
         
         NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnEnabled" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification3];
-        
         [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
     }
     NSNotification *notification =[NSNotification notificationWithName:@"netWorkIsConnectNotice" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
+//
     self.connectStatus = 0; //连接成功，则赋值为0
     
     // 每隔30s像服务器发送心跳包
