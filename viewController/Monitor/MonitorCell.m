@@ -56,21 +56,7 @@
     NSLog(@"clientNameData:%@",clientNameData);
     
     self.backImage.image = [UIImage imageNamed:@"background"];
-    
-    
-//    [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"bluePhoneIcon"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//
-//
-//
-////        [self.channelImg sd_setImageWithURL:[NSURL URLWithString:[tunnerCellData objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder1"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//
-//        //[_dataDic objectForKey:@"epg_info"]
-//        //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
-//
-//        self.channelImg.contentMode = UIViewContentModeScaleAspectFit;
-//
-//
-//    }];
+ 
     
     self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
     
@@ -195,25 +181,9 @@
         epgDic = epgArr[0];
     }
     
-    
-    NSString * startTime1 =  [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]];
-    NSString * endTime1 =  [self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]];
-    
-//    if (![startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]) {
-//        self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
-//    }else if(![startTime1 isEqualToString:@""] && [endTime1 isEqualToString:@""]){
-//
-//        self.timeLab.text = [NSString stringWithFormat:@"%@/--:--",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]]];
-//    }else if([startTime1 isEqualToString:@""] && ![endTime1 isEqualToString:@""]){
-//
-//        self.timeLab.text = [NSString stringWithFormat:@"--:--/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
-//    }else {
-//
-//        self.timeLab.text = [NSString stringWithFormat:@"--:--/--:--"];
-//    }
+ 
     
     self.timeLab.text = [NSString stringWithFormat:@"%@ %@",channel_idStr,channel_nameStr];
-    //    self.timeLab.text = [NSString stringWithFormat:@"%@/%@",[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_starttime"]],[self timeWithTimeIntervalString:[epgDic  objectForKey:@"event_endtime"]]];
     
     NSString * clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
     
@@ -233,7 +203,7 @@
 //            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MMLLive,[epgDic objectForKey:@"event_name"]];
             self.nameLab.text = [NSString stringWithFormat:@"%@",MMLLive];
         }else{
-            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+//            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
 //            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MMLLive,NOEventLabel];
             NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@",MMLLive];
             self.nameLab.text = NOEventLabelTemp;
@@ -253,7 +223,7 @@
             
             self.nameLab.text = [NSString stringWithFormat:@"%@",MLRecordingNOS];
         }else{
-            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+//            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
 //            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,NOEventLabel];
             
             NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@",MLRecordingNOS];
@@ -264,20 +234,7 @@
         
         
     }
-    //        else if (type == LIVE_TIME_SHIFT) //        return 3;//@"时移";
-    //    {
-    //        self.programeClass.image = [UIImage imageNamed:@"时移"];
-    //
-    //
-    //        if([[epgDic objectForKey:@"event_name"] isEqualToString:@""])
-    //        {
-    //            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--%@",[epgDic objectForKey:@"event_name"]];
-    //        }else{
-    //            self.nameLab.text = [NSString stringWithFormat:@"Time Shift--No Event"];
-    //        }
-    //
-    //
-    //    }
+    
     else if (type == DELIVERY)
     {
         if (!ISNULL(clientNameStr)) {
@@ -292,6 +249,7 @@
             {
                 self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
             }
+            
         }
         
         
@@ -302,16 +260,14 @@
             NSLog(@"self.nameLab.text :%@",[epgDic objectForKey:@"event_name"]);
             if([[epgDic objectForKey:@"event_name"] isEqualToString:@""] || [epgDic objectForKey:@"event_name"] == NULL)
             {
-//                NSLog(@"epgdic %@",[epgDic objectForKey:@"event_name"]);
-//
-//
-//                self.nameLab.text = [NSString stringWithFormat:@"%@--No Event",NSLocalizedString(@"NOEventLabel", nil)];
-//                NSLog(@"self.nameLab.text 22 :%@",self.nameLab.text);
-//
-//            }else
-//            {
+ 
                 self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
-//                NSLog(@"self.nameLab.text :%@",self.nameLab.text);
+ 
+                if ([clientNameStr isEqualToString:deviceString]) {
+                    self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                    self.timeLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                    self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
+                }
                 
             }
             
@@ -326,16 +282,26 @@
                 
                 self.nameLab.text = [NSString stringWithFormat:@"No Device Name--%@",[epgDic objectForKey:@"event_name"]];
                 
+                if ([clientNameStr isEqualToString:deviceString]) {
+                    self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                    self.timeLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                    self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
+                }
+                
             }else
             {
                 NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
                 NSString * NOEventLabelTemp = [NSString stringWithFormat:@"No Device Name--%@",NOEventLabel];
                 self.nameLab.text = NOEventLabelTemp;
                 
+                
+                if ([clientNameStr isEqualToString:deviceString]) {
+                    self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                    self.timeLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                    self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
+                }
             }
-            //
-            //           self.nameLab.text = [NSString stringWithFormat:@"No Device Name"];
-            //            NSLog(@"epgDic :%@",epgDic);
+            
         }
         
         

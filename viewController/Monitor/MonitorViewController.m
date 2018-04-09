@@ -337,8 +337,6 @@
     //    dataTemp = [USER_DEFAULT objectForKey:@"retDataForMonitor"];
     NSLog(@"retDataByMySelf: %@",retDataByMySelf);
     
-    //    [monitorTableArr removeAllObjects];
-    
     [self getEffectiveData:retDataByMySelf];
     
 }
@@ -431,24 +429,17 @@
 {
     //断网通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsColseNotice" object:nil];
-    //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netWorkIsColse) name:@"netWorkIsColseNotice" object:nil];
     
     //网络回复连接通知
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsConnectNotice" object:nil];
-    //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netWorkIsConnect) name:@"netWorkIsConnectNotice" object:nil];
 }
 -(void)initRefresh
 {
-    NSLog(@"=======================notific");
-    
-    
-    //
-    //////////////////////////// 向TV页面发送通知
+   
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
-    //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];  //防止device页面接收
     
@@ -861,9 +852,11 @@
 //                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     
-    //    if (! ISNULL(monitorTableArr)) {
+   
     if (monitorTableArr != NULL && monitorTableArr != nil && monitorTableArr.count > 0) {
         cell.dataArr = monitorTableArr[indexPath.row];
+        NSLog(@"cell.dataArr == %@",cell.dataArr);
+        NSLog(@"cell.dataArr11 == %@",monitorTableArr);
     }else
     {
     }
@@ -1118,7 +1111,17 @@
                         //这种情况下是找到了节目
                         NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:service1[a],serviceTypeData,clientNameData, nil];
                         
-                        [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                        int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
+                        NSString * clientNameDataToStr =[[NSString alloc] initWithData:clientNameData encoding:NSUTF8StringEncoding];
+
+                        
+                        if (serviceTypeDataToStr == 8 && [clientNameDataToStr isEqualToString:deviceString]) {
+                            [monitorTableArr insertObject:arr_threeData atIndex:0];
+                        }else
+                        {
+                            [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                        }
+                        
                         
                         NSLog(@"[self.tableView reloadData]  11111");
                         [self.tableView reloadData];
@@ -1191,7 +1194,6 @@
 -(void)changeView
 {
     if (networIsConnect == YES) {
-        //    NSLog(@"monitorTableArr :%@,",monitorTableArr);
         
         int monitorApperCount ;
         NSString * monitorApperCountStr =  [USER_DEFAULT objectForKey:@"monitorApperCountStr"];
