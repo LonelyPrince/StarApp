@@ -839,6 +839,12 @@ static const char *getPropertyType(objc_property_t property) {
     uint32_t character2_And =  character10 &  0x02;
     NSLog(@"character2 与运算 %d",character2_And);
     
+    if (character10 == 1) {
+        return YES;
+    }else if(character10 == 0)
+    {
+        return NO;
+    }
     
     if (character2_And > 0) {
         // 此处代表需要记性机顶盒加密验证
@@ -880,8 +886,15 @@ static const char *getPropertyType(objc_property_t property) {
 +(NSString *)judgeIsNeedSTBDecrypt :(NSInteger)row  serviceListDic :(NSDictionary *)dic
 {
     NSDictionary * videDicNow = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-    
-    NSString * characterStr  = [videDicNow objectForKey:@"service_character"];
+    NSString * characterStr ;
+    if ([videDicNow isKindOfClass:[NSDictionary class]]){
+        if (videDicNow.count > 14) { // 录制
+            characterStr  = [videDicNow objectForKey:@"parent_lock"];
+        }else
+        {
+            characterStr  = [videDicNow objectForKey:@"service_character"];
+        }
+    }
     
     return characterStr;
 }
