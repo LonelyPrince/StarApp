@@ -176,8 +176,15 @@ void UncaughtExceptionHandler(NSException *exception) {
         NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
         NSLog(@"取消25秒的等待1");
+        
+        
     });
     
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"homeBtnClickNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+
     printf("按理说是触发home按下\n");
     
 }

@@ -1010,7 +1010,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixTopBottomImage:) name:@"fixTopBottomImage" object:nil];
         
         
-        //        _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"竖屏底背景"]]; //@"Group 16"
+        _bottomControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"竖屏底背景"]]; //@"Group 16"
         
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
@@ -1072,7 +1072,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
                 
                 _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
-                //            _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
+                _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
                 _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
                 _bottomBar.frame =  CGRectMake(0, kZXVideoPlayerOriginalWidth - 50,Imagewidth, 50);
                 NSLog(@"验证 bottomBar ccccccc");
@@ -1135,14 +1135,14 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _rightView = [UIView new];
         _rightView.accessibilityIdentifier = @"RightView";
         
-        //        _rightControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
-        //        _rightControllerImage.frame =  CGRectMake([UIScreen mainScreen].bounds.size.width - 145, 0, 145, [UIScreen mainScreen].bounds.size.height);
-        //
-        //
-        //        [_rightView addSubview:_rightControllerImage];
+//                _rightControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+//                _rightControllerImage.frame =  CGRectMake([UIScreen mainScreen].bounds.size.width - 145, 0, 145, [UIScreen mainScreen].bounds.size.height);
+        
+//        [_rightView setImage:[UIImage imageNamed:@"渐变"]];
+//                [_rightView addSubview:_rightControllerImage];
         
         
-        _rightView.backgroundColor = [UIColor whiteColor];
+//        _rightView.backgroundColor = [UIColor blackColor];
         
     }
     return _rightView;
@@ -1570,7 +1570,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _eventnameLabel = [[UILabel alloc] init];
         _eventnameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         _eventnameLabel.textColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
-        _eventnameLabel.font = [UIFont systemFontOfSize:17];
+        _eventnameLabel.font = [UIFont systemFontOfSize:15];
     }
     return _eventnameLabel;
 }

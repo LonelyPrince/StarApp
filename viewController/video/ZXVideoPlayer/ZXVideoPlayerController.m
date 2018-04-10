@@ -125,8 +125,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 @property (nonatomic, strong) UIButton * CAPINBtn ; //展示CA PIN 的按钮
 @property (nonatomic, strong) NSTimer * timerOfEventTime;
 
-@property (nonatomic, weak) UIImageView *imageView1;  //侧边渐变的效果图
-@property (nonatomic, weak) UIView *nullView;  //侧边渐变的效果图
+@property (nonatomic, strong) UIView *imageView1;  //侧边渐变的效果图
+@property (nonatomic, strong) UIView *nullView;  //侧边渐变的效果图
 
 @end
 
@@ -194,6 +194,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
         [self reConnectSocketFromDisConnectNotic]; //socket断开后，重新连接socket
+        [self homeBtnClickNotific]; //按下home键按钮后
+        
         
         self.rightViewShowing = NO;
         //                self.tvViewControlller = [[TVViewController alloc]init];
@@ -2976,8 +2978,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     self.subAudioDic = [[NSMutableDictionary alloc]init];
     self.channelDic= [[NSMutableDictionary alloc]init];
-    self.imageView1=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
-    self.nullView =  [[UIView alloc] initWithFrame:CGRectZero];
+    self.imageView1=[[UIView alloc]init ];
+//    self.imageView1.i = [UIImage imageNamed:@"渐变"];
+    
+    
+    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"渐变"]];
+    [self.imageView1 setBackgroundColor:bgColor];
+    
+    self.nullView = [[UIView alloc] initWithFrame:CGRectZero];
     
 }
 -(void)rightViewshow
@@ -3013,8 +3021,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.subAudioTableView.delegate = self;
     self.subAudioTableView.dataSource = self;
     
-    self.subAudioTableView.backgroundColor = [UIColor clearColor]; //clearColor
-    [self.subAudioTableView setBackgroundView:self.imageView1];
+    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"渐变"]];
+    self.subAudioTableView.backgroundColor = bgColor; //[UIColor clearColor]; //clearColor
+//    [self.subAudioTableView setBackgroundView:self.imageView1];
     self.subAudioTableView.tableFooterView = self.nullView;
     
     //    self.subAudioTableView.backgroundColor=[UIColor clearColor];
@@ -5571,6 +5580,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reConnectSocketFromDisConnect" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reConnectSocketFromDisConnect) name:@"reConnectSocketFromDisConnect" object:nil];
+}
+-(void)homeBtnClickNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"homeBtnClickNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(homeBtnClick) name:@"homeBtnClickNotific" object:nil];
+}
+-(void)homeBtnClick
+{
+    [self.player stop];
+    [self.player shutdown];
+    [self.player.view removeFromSuperview];
 }
 -(void)reConnectSocketFromDisConnect // 断开连接后重新连接
 {
