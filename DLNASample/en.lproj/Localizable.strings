@@ -131,19 +131,19 @@
 //56_5.新密码不应该与yuanshi前密码相同
 "SameOriginalPINTryAgainLabel"     = "The new PIN should not be the same as the original PIN, please try again";
 //57.Hardware version
-"MLHardwareversion"        = "Hardware version";
+"MLHardwareversion"        = "Hardware Version";
 //58.确认新密码
-"MLSoftwareversion"        = "Software version";
+"MLSoftwareversion"        = "Software Version";
 //59.确认新密码
-"MLBuilddate"              = "Build date";
+"MLBuilddate"              = "Build Date";
 //60.确认新密码
-"MLSerialnumber"           = "Serial number";
+"MLSerialnumber"           = "Serial Number";
 //61.确认新密码
-"MLMACaddress"             = "MAC address";
+"MLMACaddress"             = "MAC Address";
 //62.确认新密码
-"MLSubnetmask"             = "Subnet mask";
+"MLSubnetmask"             = "Subnet Mask";
 //63.确认新密码
-"MLIPaddress"              = "IP address";
+"MLIPaddress"              = "IP Address";
 //63.55
 "MLManufacturerIdLab"              = "Manufacturer ID";
 //64.备份还原

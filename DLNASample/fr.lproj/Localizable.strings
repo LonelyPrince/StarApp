@@ -134,17 +134,17 @@
 //58.确认新密码
 "MLSoftwareversion"         = "Version du logiciel";
 //59.确认新密码
-"MLBuilddate"               = "Build date";
+"MLBuilddate"               = "Build Date";
 //60.确认新密码
 "MLSerialnumber"            = "Numéro de série";
 //61.确认新密码
 "MLMACaddress"              = "Adresse MAC";
 //62.确认新密码
-"MLSubnetmask"              = "Subnet mask";
+"MLSubnetmask"              = "Subnet Mask";
 //63.确认新密码
 "MLIPaddress"               = "Adresse IP";
 //63.55
-"MLManufacturerIdLab"              = "fabricant id";
+"MLManufacturerIdLab"              = "Fabricant Id";
 //64.备份还原
 "MLbackupRestore"           = "Vous pouvez récupérer vos paramètres ou restaurer les paramètres de la dernière fois";
 //65.还原

@@ -102,10 +102,10 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAC Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qna-j0-tO8">
-                    <rect key="frame" x="31" y="260" width="97" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="MAC Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qna-j0-tO8">
+                    <rect key="frame" x="31" y="260" width="140" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="97" id="Oyp-R8-x4Z"/>
+                        <constraint firstAttribute="width" constant="137" id="Oyp-R8-x4Z"/>
                         <constraint firstAttribute="height" constant="21" id="i6I-w6-fxi"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -139,7 +139,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IP Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdI-xG-bAj">
-                    <rect key="frame" x="31" y="350" width="97" height="21"/>
+                    <rect key="frame" x="31" y="350" width="137" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="I2J-cf-jTY"/>
                     </constraints>
@@ -166,7 +166,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNZ-NI-MXb">
-                    <rect key="frame" x="162" y="260" width="142" height="21"/>
+                    <rect key="frame" x="178" y="260" width="126" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -284,7 +284,7 @@
                 <constraint firstItem="fS6-Cs-KRw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="154" id="vGT-Ra-0Mk"/>
                 <constraint firstItem="xYA-ky-gvx" firstAttribute="trailing" secondItem="xSb-c0-sfc" secondAttribute="trailing" id="wg6-JQ-JZX"/>
                 <constraint firstItem="xYA-ky-gvx" firstAttribute="leading" secondItem="NdI-xG-bAj" secondAttribute="trailing" constant="4" id="yAJ-Dl-lk4"/>
-                <constraint firstItem="qNZ-NI-MXb" firstAttribute="leading" secondItem="Qna-j0-tO8" secondAttribute="trailing" constant="34" id="yn1-D9-V6a"/>
+                <constraint firstItem="qNZ-NI-MXb" firstAttribute="leading" secondItem="Qna-j0-tO8" secondAttribute="trailing" constant="10" id="yn1-D9-V6a"/>
             </constraints>
             <point key="canvasLocation" x="34" y="62"/>
         </view>
