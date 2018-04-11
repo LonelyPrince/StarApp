@@ -404,9 +404,17 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         
         
+        NSString * NeedShowChannelNameLabV = [USER_DEFAULT objectForKey: @"NeedShowChannelNameLabV"];
         
+        if ([NeedShowChannelNameLabV isEqualToString:@"Yes"]) {
+            self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
+        }else
+        {
+            self.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+        }
         //*********
-        self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
+//        self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
+        NSLog(@"self.videoControl.channelIdLab 777");
         //        self.channelNameLab.frame = CGRectMake(42+60, 34, 200+180, 18);
         self.FulleventNameLab.frame = CGRectMake(42, 52, 300, 18);
         self.FullEventYFlabel.frame = CGRectMake(42, 52, 300, 18);
@@ -656,6 +664,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //*********
         if (firstInit == 0) {
             self.channelIdLab.frame = CGRectMake(20, 10, 28, 18);
+            NSLog(@"self.videoControl.channelIdLab 888");
             self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 55,0, 62 , 40);
             self.channelNameLab.frame = CGRectMake(56, 10, 120, 18);
             self.FulleventNameLab.frame = CGRectMake(293 - 40, 10, 200, 18);
