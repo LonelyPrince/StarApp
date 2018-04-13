@@ -2200,12 +2200,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             } else {
                 [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
             }
-            
-            
+
+
             if (self.videoPlayerWillChangeToFullScreenModeBlock) {
                 self.videoPlayerWillChangeToFullScreenModeBlock();
             }
-            
+
             //            self.frame = [UIScreen mainScreen].bounds;
             self.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
             //    self.videoControl.bottomBar.userInteractionEnabled = YES;
@@ -2222,10 +2222,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.eventTimeLabNow.hidden = NO;
             self.videoControl.eventTimeLabAll.hidden = NO;
             self.videoControl.backButton.hidden = NO;
-            
+
             self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
             [USER_DEFAULT setBool:YES forKey:@"isFullScreenMode"];
-            
+
             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
             NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];
             if (videoOrRadiostr != NULL) {
@@ -3005,6 +3005,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.rightViewShowing = YES;
     
     self.videoControl.topBar.alpha = 0;
+    NSLog(@"alpha 0");
     self.videoControl.bottomBar.alpha = 0;
     
     

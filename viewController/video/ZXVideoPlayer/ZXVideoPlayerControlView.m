@@ -283,6 +283,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"验证 bottomBar 11111");
             //        self.eventnameLabel.frame =  CGRectMake(20, 40, 200, 20);
             //        self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,24, 50,50);
+            
+            _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
+            
         }else
         {
             self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
@@ -708,6 +711,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         }
         
         self.topBar.alpha = 0.0;
+        NSLog(@"alpha 0");
         self.bottomBar.alpha = 0.0;
         self.rightView.alpha = 0.0;
         
@@ -788,6 +792,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             [self performSelector:@selector(lockButtonHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
             //--
             self.topBar.alpha = 1.0;
+            NSLog(@"alpha 1");
             self.bottomBar.alpha = 1.0;
             //        self.bottomBar.userInteractionEnabled = YES;
             
@@ -1044,11 +1049,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) {  //全屏
             _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
             //        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
-            
-            _topControllerImage.image = [UIImage imageNamed:@"顶背景"];
-            _bottomControllerImage.image = [UIImage imageNamed:@"底背景"];
-            
-            
+
+            _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
+            _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
+
+
             _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
             //        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
             NSLog(@"jsjsjsjssjsjsj44444");
@@ -1057,8 +1062,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
             _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
             
-            _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
-            _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
+//            _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
+//            _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
+            _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"];
+            _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"];
+            
             _topBar.frame =CGRectMake(0, 0,Imagewidth, 43);
             _bottomBar.frame =  CGRectMake(0, CGRectGetHeight(self.bounds) - 50 ,Imagewidth, 50);
             NSLog(@"jsjsjsjssjsjsj55555");
