@@ -195,6 +195,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self reConnectSocketFromDisConnectNotic]; //socket断开后，重新连接socket
         [self homeBtnClickNotific]; //按下home键按钮后
+        [self judgeLastNextBtnIsEnableNotific]; //每次判断上一个下一个节目是不是需要enable = no
         
         
         self.rightViewShowing = NO;
@@ -2865,13 +2866,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
     if (historyArr.count >= 1) {
         NSArray * touchArr = historyArr[historyArr.count - 1];
         NSLog(@"touchArr：%@",touchArr);
         
         
         NSInteger row = [touchArr[2] intValue];
-        NSDictionary * dic = touchArr [3];
+//        NSDictionary * dic = touchArr [3];
+        NSLog(@"row == row %ld",(long)row);
+        
+        
         if (row >= 1) {
             self.videoControl.lastChannelButton.enabled = YES;
             
@@ -2885,6 +2891,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         //历史为空，不操作
     }
+    });
     
 }
 //static int abb = 2;
@@ -2893,6 +2900,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];   //总的数据
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
     if (historyArr.count > 1) {
         
         int historyArrCount = historyArr.count - 1;
@@ -2921,7 +2930,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         //历史数据为空，不操作
     }
-    
+    });
 }
 
 - (void)subtBtnClick
@@ -4430,6 +4439,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //弹窗
             //发送通知
             
+            [self judgeLastBtnIsGray];
+            [self judgeNextBtnIsGray];
+            
             //        [self popSTBAlertView];
             //        [self popCAAlertView];
             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dicAll,@"textTwo", @"otherTouch",@"textThree",nil];
@@ -4442,6 +4454,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
         }else //正常播放的步骤
         {
+            [self judgeLastBtnIsGray];
+            [self judgeNextBtnIsGray];
+            
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知
@@ -4455,7 +4470,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         
         
-        
+        [self judgeLastBtnIsGray];
+        [self judgeNextBtnIsGray];
         
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
@@ -5684,6 +5700,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
 
+}
+
+-(void)judgeLastNextBtnIsEnableNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"judgeLastNextBtnIsEnableNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(judgeLastNextBtnIsEnable) name:@"judgeLastNextBtnIsEnableNotific" object:nil];
+}
+-(void)judgeLastNextBtnIsEnable
+{
+    [self judgeLastBtnIsGray];
+    [self judgeNextBtnIsGray];
 }
 @end
 
