@@ -1143,80 +1143,80 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
             
             if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
-                
+
             }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
             {
-                //new====
+//                //new====
                 NSLog(@"切换为全屏模式");
                 NSLog(@"sel.view.frame21 %f",self.view.frame.size.height);
                 NSLog(@"sel.view.frame22 %f",self.view.frame.size.width);
-                
+
                 NSLog(@"sel.view.frame21 %f",SCREEN_HEIGHT);
                 NSLog(@"sel.view.frame22 %f",SCREEN_WIDTH);
-                
+
                 //                firstShow = NO;
                 statusNum = 3;
                 [self prefersStatusBarHidden];
                 [self setNeedsStatusBarAppearanceUpdate];
                 self.view.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-                
+
                 self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY+1000, searchBtnWidth, searchBtnHeight);
-                
+
                 self.navigationController.navigationBar.translucent = NO;
                 self.extendedLayoutIncludesOpaqueBars
                 = NO;
-                
+
                 self.edgesForExtendedLayout =UIRectEdgeNone;
                 float noewWidth = SCREEN_HEIGHT;
                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
-                
-                
-                
+
+
+
                 //创建通知
                 NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
-                
+//
                 UIViewController * viewNow = [self currentViewController];
                 if ([viewNow isKindOfClass:[TVViewController class]]) {
                     self.tabBarController.tabBar.hidden = YES;
                     //                    [self hideTabBar];
                 }
-                
+
                 //                self.view.frame = CGRectMake(0, 0, 800, 800);
                 _slideView.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
                                               SCREEN_WIDTH,
                                               SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
-                
+
                 NSLog(@"目前是全屏");
                 NSLog(@"目前是全屏sliderview:%f",_slideView.frame.origin.y);
-                
+
                 ////////****************** 进度条
                 //此处销毁通知，防止一个通知被多次调用   //5
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixprogressView" object:nil ];
                 //注册通知
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView:) name:@"fixprogressView" object:nil];
-                
+
                 self.topProgressView.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
-                
-                
+
+
                 //            //此处销毁通知，*防止一个通知被多次调用
                 //    NSNotificationCenter a = [[NSNotificationCenter defaultCenter] removeObserver:self];
                 //            //注册通知
                 //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(test) name:@"test" object:nil];
-                
-                
-                
+
+
+
                 [self.view bringSubviewToFront:self.topProgressView];
                 [self.videoController.view bringSubviewToFront:self.topProgressView];
                 [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-                
+
                 [self judgeProgressIsNeedHide:YES]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
                 //            [self setFullScreenView];
-                
+
                 NSLog(@"全屏宽 ： %f",SCREEN_HEIGHT);
-                
-                
+
+
                 /////***** 用于设置sub字幕和audio音轨
                 //            [self getsubt];
                 /////*****
@@ -2046,7 +2046,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         
-    }else{
+    }
+    else{
         NSLog(@"self.video.dicChannl88==11");
         [self updateFullScreenDic];
         
@@ -2108,7 +2109,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if ([GGUtil judgeTwoEpgDicIsEqual:nowPlayingChannelDic TwoDic:epgDicToSocketTemp]) {
             NSLog(@"相等");
-        }else
+        }
+        else
         {
             NSLog(@"NONOONONONNONO相等");
             
@@ -5100,6 +5102,102 @@ NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa333333");
                 [[NSNotificationCenter defaultCenter] postNotification:notification2];
 
 
+                // ==== 在断网情况下，进行焦点的判断
+                NSNumber * currentIndexForCategory = [NSNumber numberWithInt:indexOfCategory];
+                NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
+                //创建通知
+                NSNotification *notification11 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification11];
+                [self.tableForSliderView reloadData];
+                [self.table reloadData];
+                
+                //        __NSConstantString * abc =
+                
+                NSArray * serviceArrForJudge =  self.serviceData;
+                //这里获得当前焦点
+                NSArray * arrForServiceByCategory = [[NSArray alloc]init];
+                if ([self.categorys isKindOfClass:[NSMutableArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
+                    if (epgDicToSocket.count > 14) { //录制
+                        
+                        arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                        
+                    }else
+                    {
+                        
+                        if (self.categorys.count >indexOfCategory ) {
+                            arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
+                        }
+                        
+                        
+                    }
+                }
+                if ([arrForServiceByCategory isKindOfClass:[NSArray class]]){
+                    
+                    for (int i = 0; i< arrForServiceByCategory.count; i++) {
+                        NSLog(@"arrForServiceByCategory %lu",(unsigned long)arrForServiceByCategory.count);
+                        
+                        if ([epgDicToSocket isKindOfClass:[NSDictionary class]]){
+                            if (epgDicToSocket.count > 14) { //录制
+                                
+                                NSDictionary * serviceForJudgeDic = arrForServiceByCategory[i];
+                                
+                                //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
+                                BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
+                                NSLog(@"isEqualForTwoDic %d",isEqualForTwoDic);
+                                if (isEqualForTwoDic) {
+                                    
+                                    int indexForJudgeService = i;
+                                    indexOfServiceToRefreshTable =indexForJudgeService;
+                                    
+                                    //选中数据变蓝
+                                    [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
+                                    
+                                }
+                            }else
+                            {
+                                NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
+                                
+                                //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
+                                BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
+                                
+                                if (isEqualForTwoDic) {
+                                    
+                                    int indexForJudgeService = i;
+                                    indexOfServiceToRefreshTable =indexForJudgeService;
+                                    
+                                    //选中数据变蓝
+                                    [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
+                                    
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
+                [tableForSliderView reloadData];
+                
+                tempBoolForServiceArr = YES;
+                tempArrForServiceArr =  self.categoryModel.service_indexArr;
+                tempDicForServiceArr = self.TVChannlDic;
+                
+                self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+                
+                NSLog(@"self.video.dicChannl55 %@",self.video.dicChannl);
+                
+                if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
+                    self.video.channelCount = tempArrForServiceArr.count;
+                }
+                
+                [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
+                NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
+                [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
+                
+                NSLog(@"self.video.dicChannl88==33");
+                [self updateFullScreenDic];
+
+                
                 return ;
 
             }
@@ -8888,6 +8986,8 @@ NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa333333");
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification2];
     
+    
+    
     NSLog(@"asflna;nfanf;aonf;lkasfnas");
     //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
     [self removeTipLabAndPerformSelector];
@@ -8897,7 +8997,10 @@ NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa333333");
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification3];
     
-    
+////    ⑤取消掉加载环
+//    NSNotification *notification4 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification4];
+//
 }
 -(void)removeONEMinuteTimer
 {
