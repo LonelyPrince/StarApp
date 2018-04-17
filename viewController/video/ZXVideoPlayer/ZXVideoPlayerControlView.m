@@ -410,10 +410,22 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         NSString * NeedShowChannelNameLabV = [USER_DEFAULT objectForKey: @"NeedShowChannelNameLabV"];
         
         if ([NeedShowChannelNameLabV isEqualToString:@"Yes"]) {
-            self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
+            
+            // 66  77
+            
+            if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420)  //全屏
+            {
+                self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
+            }else{
+                self.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+            }
+            NSLog(@"NeedShowChannelNameLabV11 %@",NeedShowChannelNameLabV);
+            NSLog(@"self.videoControl.channelIdLab 777001");
         }else
         {
             self.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
+            NSLog(@"NeedShowChannelNameLabV22 %@",NeedShowChannelNameLabV);
+            NSLog(@"self.videoControl.channelIdLab 777002");
         }
         //*********
 //        self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
