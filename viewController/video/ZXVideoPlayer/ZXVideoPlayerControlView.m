@@ -404,7 +404,17 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.eventTimeLabAll.frame = CGRectMake(174+81, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17, 90, 17);
             self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
             
-            self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            //修改这里，但是需要判断是不是直播
+//            self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            //进行判断,看是不是录制节目
+            if ([self.channelIdLab.text  isEqual: @""] || [self.channelIdLab.text isEqualToString:@""]) {
+                 self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            }else
+            {
+                 self.nextChannelButton.frame = CGRectMake(90, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            }
+            
+            
             self.subtBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 221.5-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             self.audioBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) -329/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17 -13, 44, 44);
             self.channelListBtn.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds)-215/2-7, CGRectGetHeight(self.bottomBar.bounds) -16.5-17-13, 44, 44);
