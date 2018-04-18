@@ -1537,7 +1537,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 
                                 if (indexCat -1 < self.serviceData.count) {
                                     [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                                    
+                                    NSLog(@"self.dicTemp==- %@",self.dicTemp);
                                 }else
                                 {
                                     return;
@@ -5488,9 +5488,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 
             [self getsubt];
-            //             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
-            //             }else{
-            //
+            
             //此处销毁通知，防止一个通知被多次调用    // 1   有可能不用，可以删除
             [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
             //注册通知
@@ -5534,7 +5532,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray * serviceArrForJudge =  self.serviceData;
         //这里获得当前焦点
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
-        if ([self.categorys isKindOfClass:[NSMutableArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
+        NSLog(@" self.categorys11 %@",[self.categorys class]);
+        NSLog(@" self.categorys22 %@",[self.categorys superclass]);
+        NSLog(@" epgDicToSocket %@",[epgDicToSocket class]);
+        NSLog(@" epgDicToSocket %@",[epgDicToSocket superclass]);
+        if ([self.categorys isKindOfClass:[NSArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
             if (epgDicToSocket.count > 14) { //录制
 
                 arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
@@ -9520,6 +9522,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)updateFullScreenDic
 {
     //对于其他页面的dic重新赋值
+    NSLog(@"self.dicTemp =aa %@",self.dicTemp);
     self.TVChannlDic = self.dicTemp;
     
     tempDicForServiceArr = self.TVChannlDic;
@@ -9668,19 +9671,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSLog(@"aksfjbajbfasbfalfbaf====22");
                         NSLog(@"major service_indexArr %@",self.categoryModel.service_indexArr);
                         
-                        //                        if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
-                        //
-                        //                            NSLog(@"属于NSMutableArray这个类   lalalalalalal");
-                        //                        }else{
-                        //                            NSLog(@"不属于NSMutableArray这个类   hahahahahah");
-                        //                        }
                         
-                        //                        self.categoryModel.service_indexArr.superclass
-                        
-                        //                        NSLog(@"aksfjbajbfasbfalfbaf=superClass= %@",self.categoryModel.service_indexArr.superclass);
-                        //                        NSLog(@"aksfjbajbfasbfalfbaf====22= %d",self.categoryModel.service_indexArr.count);
-                        
-                        if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
+                        NSLog(@"self.categoryModel.service_indexArr== %@",[self.categoryModel.service_indexArr class]);
+                        NSLog(@"self.categoryModel.service_indexArr== %@",[self.categoryModel.service_indexArr superclass]);
+                        if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]] || [self.categoryModel.service_indexArr isKindOfClass:[NSArray class]]){
                             NSLog(@"属于NSMutableArray这个类");
                             
                             for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
