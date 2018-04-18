@@ -1136,6 +1136,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             _lineView.frame = CGRectMake(0, 64, SCREEN_WIDTH, 0.5);
             
+           
         };
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             NSLog(@"self.tabbar11 %@",self.tabBarController.tabBar);
@@ -2244,6 +2245,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            [self.tableForSliderView reloadData];
+            [self refreshTableviewByEPGTime];
             return ;
             
         }else{
@@ -5035,7 +5039,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
                 [[NSNotificationCenter defaultCenter] postNotification:notification2];
                 
+
+//增加断网的执行流程，修改焦点所在位置
+                self.TVSubAudioDic = epgDicToSocket;
+                self.TVChannlDic = self.dicTemp;
+                tempBoolForServiceArr = YES;
+                tempArrForServiceArr =  self.categoryModel.service_indexArr;
+                tempDicForServiceArr = self.TVChannlDic;
+                self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+                if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
+                    self.video.channelCount = tempArrForServiceArr.count;
+                }
+                NSString * serviceName = [epgDicToSocket objectForKey:@"service_name"];
+                NSString * eventName = [epgDicToSocket objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    self.service_videoname = serviceName;
+                }else
+                {
+                    self.service_videoname = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                self.service_videoindex= @"";
+                self.event_videoname = @"";
                 
+                [self.tableForSliderView reloadData];
+                [self refreshTableviewByEPGTime];
                 return ;
 
             }else{
@@ -5341,6 +5368,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 NSLog(@"self.video.dicChannl88==33");
                 [self updateFullScreenDic];
+                
+                [self.tableForSliderView reloadData];
+                [self refreshTableviewByEPGTime];
                 return ;
 
             }
@@ -9664,6 +9694,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         self.categoryModel.service_indexArr = item[@"service_index"];
                         NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh5555555");
+                        
+                        NSMutableDictionary * dicTemp_Temp = [self.dicTemp copy];
                         [self.dicTemp removeAllObjects];
                         NSLog(@"aksfjbajbfasbfalfbaf====1");
                         //获取不同类别下的节目，然后是节目下不同的cell值                10
@@ -9701,6 +9733,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         else
                         {
                             NSLog(@"不属于NSMutableArray这个类");
+                            self.dicTemp =  [dicTemp_Temp copy];
+                            
+                            NSLog(@"self.dicTemp=-=-= %@",self.dicTemp);
                         }
                         
                         

@@ -577,13 +577,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     NSLog(@"MPMovie  DurationAvailable  Notification");
     
-    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
+//    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
         self.videoControl.fullScreenButton.hidden = NO;
-    }else
-    {
-        NSLog(@"全屏按钮消失---方法:onMpMovie...");
-        self.videoControl.fullScreenButton.hidden = YES;
-    }
+//    }else
+//    {
+//        NSLog(@"全屏按钮消失---方法:onMpMovie...");
+//        self.videoControl.fullScreenButton.hidden = YES;
+//    }
     //    self.videoControl.shrinkScreenButton.hidden = YES;
     self.videoControl.shrinkScreenButton1.hidden = YES;
     self.videoControl.lastChannelButton.hidden = YES;
@@ -2211,6 +2211,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
             //    self.videoControl.bottomBar.userInteractionEnabled = YES;
             self.isFullscreenMode = YES;
+            NSLog(@"全屏按钮消失---方法:这里是changeTofull  ");
             self.videoControl.fullScreenButton.hidden = YES;
             //    self.videoControl.shrinkScreenButton.hidden = NO;
             self.videoControl.shrinkScreenButton1.hidden = NO;
@@ -2433,6 +2434,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //new====
     }else
     {
+        NSLog(@"全屏按钮显示--changeTofullScreen");
         self.videoControl.fullScreenButton.hidden = NO;
     }
     
