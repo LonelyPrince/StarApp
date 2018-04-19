@@ -442,9 +442,6 @@
 		706D1C9320301E6E002496B4 /* 联系我们@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706D1C9020301E6D002496B4 /* 联系我们@1x.png */; };
 		706D1C9420301E6E002496B4 /* 联系我们@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 706D1C9120301E6E002496B4 /* 联系我们@2x.png */; };
 		7074248A1FBC23AB00EBEC7F /* Cs_serviceREC.m in Sources */ = {isa = PBXBuildFile; fileRef = 707424891FBC23AB00EBEC7F /* Cs_serviceREC.m */; };
-		7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074D7D11DB8BA30008F8EAE /* 渐变@1x.png */; };
-		7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074D7D21DB8BA30008F8EAE /* 渐变@2x.png */; };
-		7074D7D61DB8BA30008F8EAE /* 渐变@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7074D7D31DB8BA30008F8EAE /* 渐变@3x.png */; };
 		707881691FF2158500A5ABA1 /* 法语引导页4.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881631FF2158500A5ABA1 /* 法语引导页4.png */; };
 		7078816A1FF2158500A5ABA1 /* 法语引导页2.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881661FF2158500A5ABA1 /* 法语引导页2.png */; };
 		7078816B1FF2158500A5ABA1 /* 法语引导页1.png in Resources */ = {isa = PBXBuildFile; fileRef = 707881671FF2158500A5ABA1 /* 法语引导页1.png */; };
@@ -566,6 +563,9 @@
 		70D6B9191E2DAF3D00957A81 /* Startimes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */; };
 		70D6B91A1E2DAF3D00957A81 /* Startimes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */; };
 		70D6B97B1E2DEA5A00957A81 /* libMJRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */; };
+		70DD5672208821530070C521 /* 渐变@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70DD566F208821520070C521 /* 渐变@3x.png */; };
+		70DD5673208821530070C521 /* 渐变@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70DD5670208821520070C521 /* 渐变@1x.png */; };
+		70DD5674208821530070C521 /* 渐变@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70DD5671208821530070C521 /* 渐变@2x.png */; };
 		70E7125A1DB5EE1300BD98EE /* Group 7@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712571DB5EE1300BD98EE /* Group 7@1x.png */; };
 		70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712581DB5EE1300BD98EE /* Group 7@2x.png */; };
 		70E7125C1DB5EE1300BD98EE /* Group 7@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E712591DB5EE1300BD98EE /* Group 7@3x.png */; };
@@ -1252,9 +1252,6 @@
 		706D1C9120301E6E002496B4 /* 联系我们@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联系我们@2x.png"; sourceTree = "<group>"; };
 		707424881FBC23AB00EBEC7F /* Cs_serviceREC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cs_serviceREC.h; sourceTree = "<group>"; };
 		707424891FBC23AB00EBEC7F /* Cs_serviceREC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cs_serviceREC.m; sourceTree = "<group>"; };
-		7074D7D11DB8BA30008F8EAE /* 渐变@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@1x.png"; sourceTree = "<group>"; };
-		7074D7D21DB8BA30008F8EAE /* 渐变@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@2x.png"; sourceTree = "<group>"; };
-		7074D7D31DB8BA30008F8EAE /* 渐变@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@3x.png"; sourceTree = "<group>"; };
 		707881631FF2158500A5ABA1 /* 法语引导页4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "法语引导页4.png"; sourceTree = "<group>"; };
 		707881661FF2158500A5ABA1 /* 法语引导页2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "法语引导页2.png"; sourceTree = "<group>"; };
 		707881671FF2158500A5ABA1 /* 法语引导页1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "法语引导页1.png"; sourceTree = "<group>"; };
@@ -1389,6 +1386,9 @@
 		70D6B8EC1E2DAF3D00957A81 /* Startimes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@2x.png"; sourceTree = "<group>"; };
 		70D6B8ED1E2DAF3D00957A81 /* Startimes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Startimes@3x.png"; sourceTree = "<group>"; };
 		70D6B97A1E2DEA5A00957A81 /* libMJRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMJRefresh.a; path = "../../Library/Developer/Xcode/DerivedData/StarAPP-ejkwxdgcsxhkqoerxzpfnwxbqjup/Build/Products/Debug-iphonesimulator/MJRefresh/libMJRefresh.a"; sourceTree = "<group>"; };
+		70DD566F208821520070C521 /* 渐变@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@3x.png"; sourceTree = "<group>"; };
+		70DD5670208821520070C521 /* 渐变@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@1x.png"; sourceTree = "<group>"; };
+		70DD5671208821530070C521 /* 渐变@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "渐变@2x.png"; sourceTree = "<group>"; };
 		70E712571DB5EE1300BD98EE /* Group 7@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@1x.png"; sourceTree = "<group>"; };
 		70E712581DB5EE1300BD98EE /* Group 7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@2x.png"; sourceTree = "<group>"; };
 		70E712591DB5EE1300BD98EE /* Group 7@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Group 7@3x.png"; sourceTree = "<group>"; };
@@ -1984,6 +1984,9 @@
 		701A98801DB47A3100460220 /* FullScreen */ = {
 			isa = PBXGroup;
 			children = (
+				70DD5670208821520070C521 /* 渐变@1x.png */,
+				70DD5671208821530070C521 /* 渐变@2x.png */,
+				70DD566F208821520070C521 /* 渐变@3x.png */,
 				70526A542022E169004A040F /* 加锁 @1x.png */,
 				70526A522022E169004A040F /* 加锁 @2x.png */,
 				70526A532022E169004A040F /* 加锁 @3x.png */,
@@ -1999,9 +2002,6 @@
 				702218B31E5AD304005D96A0 /* 未加锁 @1x.png */,
 				702218B41E5AD304005D96A0 /* 未加锁 @2x.png */,
 				702218B51E5AD304005D96A0 /* 未加锁 @3x.png */,
-				7074D7D11DB8BA30008F8EAE /* 渐变@1x.png */,
-				7074D7D21DB8BA30008F8EAE /* 渐变@2x.png */,
-				7074D7D31DB8BA30008F8EAE /* 渐变@3x.png */,
 				701A98841DB47A3100460220 /* 音轨@1x.png */,
 				701A98851DB47A3100460220 /* 音轨@2x.png */,
 				701A98861DB47A3100460220 /* 音轨@3x.png */,
@@ -3098,6 +3098,7 @@
 				707FE75F1DACC3C30087C361 /* time@2x.png in Resources */,
 				707FE7471DACC3C30087C361 /* live icon@2x.png in Resources */,
 				70362D3A1F00A0180012A309 /* Education@1x.png in Resources */,
+				70DD5672208821530070C521 /* 渐变@3x.png in Resources */,
 				70FFE3D51DE2D07600223E43 /* 圆环-9.png in Resources */,
 				707FE7541DACC3C30087C361 /* Path 2@3x.png in Resources */,
 				70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */,
@@ -3212,7 +3213,6 @@
 				701078C71F98418D00593014 /* 顶部icon@3x.png in Resources */,
 				70D6B90D1E2DAF3D00957A81 /* Religion@2x.png in Resources */,
 				7040E24A1DAE12B80063DB66 /* ZEE-CINEMA-REVISED-WHITE@3x.png in Resources */,
-				7074D7D51DB8BA30008F8EAE /* 渐变@2x.png in Resources */,
 				701A98B21DB47A3100460220 /* 下一频道@2x.png in Resources */,
 				70D6B9041E2DAF3D00957A81 /* Movies@2x.png in Resources */,
 				70231D011DC1F4BB00F73202 /* loading.gif in Resources */,
@@ -3244,7 +3244,6 @@
 				7010786B1F96DAF800593014 /* Router-Status@2x.png in Resources */,
 				702CE4471DDA9881000A0513 /* 8@3x.png in Resources */,
 				70FC30E11D75714E00BD06FE /* kr-video-player-play@2x.png in Resources */,
-				7074D7D41DB8BA30008F8EAE /* 渐变@1x.png in Resources */,
 				70362D191F009E4B0012A309 /* New圆环-4@2x.png in Resources */,
 				7010175E1DCADA2500F9D5FF /* duihao@3x.png in Resources */,
 				70231CCA1DC0FE8C00F73202 /* password@2x.png in Resources */,
@@ -3278,6 +3277,7 @@
 				706A1C921DAF5DA400DADE86 /* play@3x.png in Resources */,
 				70231CC81DC0FE8C00F73202 /* on@3x.png in Resources */,
 				70231CEA1DC1A00100F73202 /* save@2x.png in Resources */,
+				70DD5673208821530070C521 /* 渐变@1x.png in Resources */,
 				7024C5C11DD00CAC0053F313 /* Del@1x.png in Resources */,
 				706376161E0B5EB8004238B1 /* 网络无连接@3x.png in Resources */,
 				707FE7441DACC3C30087C361 /* live icon copy@2x.png in Resources */,
@@ -3385,7 +3385,6 @@
 				706C26371E03AF9A003AA695 /* 全屏底背景@2x.png in Resources */,
 				70F0C4F91FAAC7D50054669B /* 明文显示@1x.png in Resources */,
 				704583101D9D0C0B0061C154 /* DeviceManageCell.xib in Resources */,
-				7074D7D61DB8BA30008F8EAE /* 渐变@3x.png in Resources */,
 				701078551F96DAF800593014 /* WLAN-Settings@3x.png in Resources */,
 				706C26391E03AF9A003AA695 /* 全屏顶背景@1x.png in Resources */,
 				70526A572022E169004A040F /* 加锁 @1x.png in Resources */,
@@ -3563,6 +3562,7 @@
 				707FE7501DACC3C30087C361 /* 竖屏顶背景@2x.png in Resources */,
 				702CE44A1DDA9881000A0513 /* 9@3x.png in Resources */,
 				70261E211FA1F62B00D7F4F0 /* 路由无网络@2x.png in Resources */,
+				70DD5674208821530070C521 /* 渐变@2x.png in Resources */,
 				701078CB1F98418D00593014 /* 密码@1x.png in Resources */,
 				7022F5521FCEDC5900A1537A /* 录制带色@1x.png in Resources */,
 				7024C5ED1DD3F8D60053F313 /* RouteManageViewController.xib in Resources */,
