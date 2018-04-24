@@ -29,6 +29,7 @@
     MBProgressHUD *HUD; //网络加载HUD
     UILabel * hudLab ;//无网络文字
     NSString * deviceString;     //用于判断手机型号
+    NSTimer * durationTimer;
 }
 @end
 
@@ -1194,11 +1195,16 @@
     inputText.delegate = self;
     
 }
+- (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
 -(void)saveBtnClick
 {
     NSLog(@"点击了save按钮11");
     BOOL judgePINIsLegal =  [self judgePINIsLegal]; //判断输入框的PIN码是否和规定
-    
+
     if (judgePINIsLegal == YES) {
         //
         //    NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
@@ -1210,10 +1216,11 @@
         {
             //        serviceIp =@"http://192.168.1.55/cgi-bin/cgi_channel_list.cgi?";   //服务器地址
         }
+
         //获取数据的链接
         NSString *linkUrl = [NSString stringWithFormat:@"%@",serviceIp];
         //    SString *linkUrl = [NSString stringWithFormat:@"%@",P_devicepwd];
-        
+
         NSURL *url = [NSURL URLWithString:linkUrl];
         ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         [request addRequestHeader:@"Content-Type" value:@"application/json; encoding=utf-8"];
@@ -1221,13 +1228,13 @@
         [request setRequestMethod:@"POST"];
         //     NSString *parameterString = [NSString stringWithFormat:@"name=%@&password=%@",name,psw];
         //    NSData *data = [parameterString dataUsingEncoding:NSUTF8StringEncoding];
-        
+
         NSDictionary *  detailDic =[NSDictionary dictionaryWithObjectsAndKeys:@"MGadmin",@"old_pwd",confirmText.text,@"new_pwd",nil];//创建多个键 多个值
         NSData * jsonData = [NSJSONSerialization dataWithJSONObject:detailDic options:0 error:nil];
         //    NSString * myString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
+
         NSMutableData *tempJsonData = [NSMutableData dataWithData:jsonData];
-        
+
         [request setPostBody:tempJsonData];
         [request startSynchronous];
         NSError *error1 = [request error];
@@ -1236,7 +1243,7 @@
             //        NSLog(@"Test：%@",response);
             //        [USER_DEFAULT setObject:nameText.text forKey:@"routeNameUSER"];
             //            NSString *response = [request responseString];
-            
+
             NSData *data = [request responseData];
             if ([data isEqual:NULL] || data == nil ) {
                 return;
@@ -1245,27 +1252,29 @@
             NSLog(@"resDict %@",resDict);
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {
-                
+
                 NSString * SameOriginalPINTryAgainLabel = NSLocalizedString(@"SameOriginalPINTryAgainLabel", nil);
                 [registerPwdTip setMessage:SameOriginalPINTryAgainLabel];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
-                
+                return;
             }else if ([[resDict objectForKey:@"code"] isEqual:@2])
             {
-                
+
                 NSString * MLRouterPINSetting = NSLocalizedString(@"MLRouterPINSetting", nil);
                 [registerPwdTip setMessage:MLRouterPINSetting];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
+                return;
             }else if ([[resDict objectForKey:@"code"] isEqual:@3])
             {
                 [registerPwdTip setMessage:[NSString stringWithFormat:code3]];
                 [registerPwdTip show];
                 setNewRouteText.text = @"";
                 confirmText.text = @"";
+                return;
             }else if ([[resDict objectForKey:@"code"] isEqual:@4])
             {
 //                [registerPwdTip setMessage:[NSString stringWithFormat:code4]];
@@ -1275,19 +1284,137 @@
                 confirmText.text = @"";
             }else if ([[resDict objectForKey:@"code"] isEqual:@0])
             {
-                
-                [self judgeNextView];
+                //wait,加上加载圈
+                //进行一次请求
+
+
+
+
+//                [self judgeNextView];
             }
+
+
+            [self showWaitView];    //展示加载环
             
             
+            [durationTimer invalidate];
+            durationTimer = nil;
+
+            durationTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(getPassWordStatus) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:durationTimer forMode:NSRunLoopCommonModes];
             
-            
+//            //增加 计时器
+//            [self getPassWordStatus];   //如果密码不存在、展示等待加载环
+
         }
     }else{
         setNewRouteText.text = @"";
         confirmText.text = @"";
     }
+
+
+
+}
+-(void)getPassWordStatus
+{
     
+    
+    //获取数据的链接
+    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/guide/guideInfo",DMSIP];
+    //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+    
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    
+    [request startAsynchronous ];
+    
+//    CancelOrder(700599633): Empty currencyPair, please set Content-Type to application/x-www-form-urlencoded
+    
+    
+    [request setCompletionBlock:^{
+        NSLog ( @"request:%@" ,request);
+        NSDictionary *onlineWifi = [request responseData].JSONValue;
+        NSLog ( @"onlineDeviceArr:%@" ,onlineWifi);
+        wifiDic = [[NSDictionary alloc]init];
+        wifiDic = onlineWifi;
+        
+        
+        NSString * str = [wifiDic objectForKey:@"state"];
+        
+        if ([str isEqualToString:@"1"]) {
+            // 展示数据
+            //1.成功后去掉加载环
+            //2.去掉计时器
+            NSLog(@"成功了  消除加载环");
+            [durationTimer invalidate];
+            durationTimer = nil;
+            
+            [self hudHidden];
+            
+            //跳转下一页
+            
+            [self judgeNextView];
+            
+            
+            
+        }else
+        {
+            //加载环继续加载，不修改
+            
+        }
+        
+        //        routeIPLab.text =  @"IP:192.168.1.1" ;//[wifiDic objectForKey:@"ip"];
+        routeIPLab.text = [NSString stringWithFormat:@"IP:%@",DMSIP];
+    }];
+    
+    
+}
+-(void)showWaitView
+{
+    
+        //    self.view.alpha = 0.5;
+        
+        activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
+                                                             SCREEN_WIDTH,
+                                                             SCREEN_HEIGHT)];
+        
+        
+        //    activeView.backgroundColor = [UIColor redColor];
+        [self.view addSubview:activeView];    //等待loading的view
+        HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
+        
+        //    UIView * hudView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2)];
+        hudImage = [[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - 616/2)/2, 120, 616/2, 348/2)];
+        hudImage.image = [UIImage imageNamed:@"网络无连接"];
+        //调用上面的方法，获取 字体的 Size
+        
+        //    NSString * MLNetworkError = NSLocalizedString(@"MLNetworkError", nil);
+        CGSize size = [self sizeWithText:@"Loading" font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+        hudLab = [[UILabel alloc]initWithFrame:CGRectMake((SCREEN_WIDTH - size.width)/2, 120+149+50, size.width, size.height)];
+        hudLab.text = @"Loading";
+        
+        hudLab.font = FONT(15);
+        hudLab.textColor = [UIColor grayColor];
+        
+        
+        //    [hudView addSubview:hudImage];
+        
+        // btm  lrc  eos AE   EOS   BTC
+        //如果设置此属性则当前的view置于后台
+        
+        [HUD showAnimated:YES];
+        
+        
+        //设置对话框文字
+        
+        HUD.labelText = @"loading";
+        self.activeView.backgroundColor = [UIColor whiteColor];
+        [self.activeView addSubview:HUD];
+    
+    // 键盘下移
+    
+    [self.inputText resignFirstResponder];
+    [self.confirmText resignFirstResponder];
+    [self.setNewRouteText resignFirstResponder];
     
     
 }
