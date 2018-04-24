@@ -85,12 +85,21 @@ typedef enum{
     DTV_SERVICE_MD_DEAL_EXP_CTR,
     DTV_SERVICE_MD_GET_CARD_RAT,     //35
     DTV_SERVICE_MD_UPDATE_CARD_RAT,
-    DTV_SERVICE_MD_INVALID
+    DTV_SERVICE_MD_INVALID,    //  37
+    DTV_SERVICE_MD_STOP_PROGRAM_INFO_T //39 == 新加的暂停节目播放的消息
+    
 
 }service;
 
 
-
+//typedef  struct
+//{
+//    star_u32  tuner_mode;
+//    star_u16  network_id;
+//    star_u16  ts_id;
+//    star_u16  service_id;
+//    star_u16  audio_pid;
+//} dtv_service_md_stop_program_info_t;
 
 typedef enum{
     TYPE_CAB = 0,
@@ -132,7 +141,6 @@ typedef enum{
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 
 /**
- 
  
  
  */

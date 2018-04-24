@@ -51,8 +51,8 @@
 #define k_category_data @"a=getitems&p=%i&pg=33&sid=0&tid=%@&o=0&keyword=&uid=0"
 
 //new
-#define S_category @"flag=0"      //参数
-
+//#define S_category @"flag=0"      //参数
+#define S_category @"flag=0&service_type=1"      //参数
 
 //get  online device
 

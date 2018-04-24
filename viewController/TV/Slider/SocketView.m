@@ -172,7 +172,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     
 }
-
 -(void)serviceTouch{
     
     

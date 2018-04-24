@@ -770,6 +770,41 @@
                                     
                                 }
                                     break;
+                                case 39:  //视频分发退出，例如：机顶盒恢复出厂设置
+                                {
+                                    NSLog(@"*****视频分发退出");
+                                    NSLog(@"*****此处是CA加扰验证1");
+                                    //这里可以获得CA信息
+                                    //第一步：获得必要的CA消息
+                                    
+                                    
+                                    
+                                    
+                                    //======
+                                    //获得数据区的长度
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 24 + 4) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    if ([data length] >= nowData_length + 28 + now_data_lengthToInt) {
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                   
+                                    [self readSocketCommandTypeISThirtynine:bigDataReduceSmallData];
+                                    
+                                    
+                                }
+                                    break;
                                 case 7:  //CA 加扰发送通知，将弹窗取消掉
                                 {
                                     NSLog(@"*****此处是CA加扰取消弹窗");
@@ -1099,6 +1134,18 @@
                         NSLog(@"*****视频分发退出");
                         
                         [self readSocketCommandTypeISNineteen];
+                        
+                        
+                    }
+                        break;
+                    case 39:  //视频分发退出，例如：机顶盒恢复出厂设置
+                    {
+                        NSLog(@"*****视频分发退出");
+                        //这里可以获得CA信息
+                        //第一步：获得必要的CA消息
+                        //此处是验证机顶盒密码，将会这个消息传到TV页面
+                       
+                        [self readSocketCommandTypeISThirtynine:data];
                         
                         
                     }
@@ -1603,6 +1650,37 @@
                                     
                                 }
                                     break;
+                                case 39:  //视频分发退出，例如：机顶盒恢复出厂设置
+                                {
+                                    NSLog(@"*****视频分发退出");
+                                    NSData * now_data_length = [[NSData alloc]init];
+                                    if ([data length] >=  nowData_length + 28 ) {
+                                        now_data_length = [data subdataWithRange:NSMakeRange(nowData_length + 24,4)];
+                                        
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    uint32_t now_data_lengthToInt = [SocketUtils uint32FromBytes:now_data_length];
+                                    //======
+                                    
+                                    NSData * bigDataReduceSmallData = [[NSData alloc]init];
+                                    
+                                    if ([data length] >=  nowData_length + 28 + now_data_lengthToInt ) {
+                                        
+                                        bigDataReduceSmallData =[data subdataWithRange:NSMakeRange(nowData_length , 28 + now_data_lengthToInt )]; //data.length - nowData_length  bigDataReduceSmallData代表第二段CA数据长度
+                                    }else
+                                    {
+                                        return;
+                                    }
+                                    
+                                    
+                                    [self readSocketCommandTypeISThirtynine:bigDataReduceSmallData];
+                                    
+                                    
+                                }
+                                    break;
                                 case 7:  //CA 加扰发送通知，将弹窗取消掉
                                 {
                                     
@@ -1921,6 +1999,15 @@
                         NSLog(@"*****视频分发退出");
                         
                         [self readSocketCommandTypeISNineteen];
+                        
+                        
+                    }
+                        break;
+                    case 39:  //视频分发退出，例如：机顶盒恢复出厂设置
+                    {
+                        NSLog(@"*****视频分发退出");
+                       
+                        [self readSocketCommandTypeISThirtynine:data];
                         
                         
                     }
@@ -2547,12 +2634,30 @@
 //对socket读取文件进行操作   case = 19
 -(void)readSocketCommandTypeISNineteen  //视频分发退出
 {
-    
-    NSLog(@"*****爱上了大师傅吧是；房价吧；按时态");
     //发送通知方法，把视频播放停止掉后，禁止加载圈，显示断开分发的提示语
     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
     
     NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+}
+
+//对socket读取文件进行操作   case = 39
+-(void)readSocketCommandTypeISThirtynine:(NSData *)dataToOperate  //视频分发退出，需要判断是不是正在播放的节目
+{
+    NSLog(@"dataToOperate=a=a= %@",dataToOperate);
+    
+    NSData * dataTemp = [[NSData alloc]init];
+    if ([dataToOperate length] >=  49) {
+        dataTemp =[dataToOperate subdataWithRange:NSMakeRange(37 , 12 )]; //
+    }else
+    {
+        return;
+    }
+    
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataTemp,@"changeLockData",nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"cantDeliverySpecialChannelNotific" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     

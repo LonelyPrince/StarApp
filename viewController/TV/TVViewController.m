@@ -117,6 +117,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    int pushAlertViewIndex; //推屏倒计时弹窗的位置
     int card_ret;
     int playVideoType;   //值 = 1，则代表直播；值 = 2，则代表录制   等于0则不处理
+    BOOL judgeRecIsCA;
 }
 
 
@@ -453,6 +454,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.RECAndLiveCellForRowsDic = [[NSMutableArray alloc]init];
     pushDataMutilArr = [[NSMutableArray alloc]init];
     phonePushOtherArr = [[NSMutableArray alloc]init];
+    judgeRecIsCA = NO;
 }
 
 #pragma mark - 获取Json数据的方法
@@ -500,6 +502,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             
             BOOL serviceDatabool = [self judgeServiceDataIsnull];
+            
             if (YES && recFileData.count == 0) {
                 //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
@@ -8527,7 +8530,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * changeCALockData = [[NSData alloc]init];
     changeCALockData = text.userInfo[@"CARemovePopThreedata"];
     
-    NSLog(@"changeCALockData %@",changeCALockData);
+//    NSLog(@"changeCALockData %@",changeCALockData);
     
     
     [self updateChannelCALockService:changeCALockData];
@@ -8594,6 +8597,111 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"cantDeliveryNotific" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cantDelivery) name:@"cantDeliveryNotific" object:nil];
+    
+    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"cantDeliverySpecialChannelNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cantDeliverySpecialChannel:) name:@"cantDeliverySpecialChannelNotific" object:nil];
+}
+-(void)judgeChannelIsSame:(NSData *)data
+{
+    NSLog(@"data %@",data);
+    
+//    //协议改版后，这里的CAThreeData其实应该修改为CAFourData
+    NSData * willStopThreeData = data;
+    
+    NSData * willStopTuner_modeData = [[NSData alloc]init];
+    //获得数据区的长度
+    if ([willStopThreeData length] >=  4) {
+        
+        willStopTuner_modeData = [willStopThreeData subdataWithRange:NSMakeRange(0,4)];
+    }else
+    {
+        return;
+    }
+    
+    NSData * willStopNetwork_idData = [[NSData alloc]init];
+    //获得数据区的长度
+    if ([willStopThreeData length] >=  6) {
+        
+        willStopNetwork_idData = [willStopThreeData subdataWithRange:NSMakeRange(4,2)];
+    }else
+    {
+        return;
+    }
+    
+    NSData * willStopTs_idData = [[NSData alloc]init];
+    if ([willStopThreeData length] >=  8) {
+        
+        willStopTs_idData = [willStopThreeData subdataWithRange:NSMakeRange(6,2)];
+    }else
+    {
+        return;
+    }
+    
+    NSData * willStopService_idData = [[NSData alloc]init];
+    if ([willStopThreeData length] >=  10) {
+        
+        willStopService_idData = [willStopThreeData subdataWithRange:NSMakeRange(8,2)];
+    }else
+    {
+        return;
+    }
+    
+    NSData * willStopAudio_PidData = [[NSData alloc]init];
+    if ([willStopThreeData length] >=  12) {
+        
+        willStopAudio_PidData = [willStopThreeData subdataWithRange:NSMakeRange(10,2)];
+    }else
+    {
+        return;
+    }
+    
+    uint32_t  willStopTuner_modeStr = [SocketUtils uint16FromBytes:willStopTuner_modeData]; //
+    
+    uint16_t  willStopNetwork_idStr = [SocketUtils uint16FromBytes:willStopNetwork_idData]; // [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
+    uint16_t  willStopTs_idStr =  [SocketUtils uint16FromBytes:willStopTs_idData]; //[[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
+    uint16_t  willStopService_idStr =  [SocketUtils uint16FromBytes:willStopService_idData];//[[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
+    //判断当前节目是不是CA弹窗节目
+    uint16_t  willStopAudio_PidStr =  [SocketUtils uint16FromBytes:willStopAudio_PidData];
+    
+    
+    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_tuner_mode) ;
+    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_ts_id) ;
+    NSLog(@"socketView.socket_ServiceModel.service_net_id :%@",socketView.socket_ServiceModel.service_network_id) ;
+    NSLog(@"socketView.socket_ServiceModel.service_service_id :%@",socketView.socket_ServiceModel.service_service_id) ;
+    NSLog(@"socketView.socket_ServiceModel.audio_pid :%@",socketView.socket_ServiceModel.audio_pid) ;
+    
+    
+    if (willStopTuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&willStopNetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && willStopTs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && willStopService_idStr == [socketView.socket_ServiceModel.service_service_id intValue] && willStopAudio_PidStr == [socketView.socket_ServiceModel.audio_pid intValue]) {
+        //证明一致，是这个willStop节目
+        
+        
+        //发送通知方法，把视频播放停止掉后，禁止加载圈，显示断开分发的提示语
+        [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+ 
+    }else
+    {
+        //不执行操作
+    }
+    
+    
+}
+-(void)cantDeliverySpecialChannel:(NSNotification *)text{
+
+    
+    NSData * changeCALockData = [[NSData alloc]init];
+    changeCALockData = text.userInfo[@"changeLockData"];
+    
+    NSLog(@"changeCALockData %@",changeCALockData);
+    
+    [self judgeChannelIsSame:changeCALockData];
+ 
 }
 -(void)cantDelivery
 {
@@ -8631,7 +8739,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * changeCALockData = [[NSData alloc]init];
     changeCALockData = text.userInfo[@"NOCACarddata"];
     
-    NSLog(@"changeCALockData %@",changeCALockData);
+//    NSLog(@"changeCALockData %@",changeCALockData);
     
     
     [self judgeNOCACard:changeCALockData];
@@ -9935,6 +10043,58 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)playRECVideo :(NSDictionary *)epgDicToSocket
 {  //录制
     NSLog(@"asbda;sbdasfsjbdajbd %@",[epgDicToSocket objectForKey:@"file_name"]);
+    
+    //增加CA加扰判断
+    
+    NSString * service_rat_Str = [epgDicToSocket objectForKey:@"service_rat"];
+    if ([service_rat_Str intValue] > card_ret) {
+        NSLog(@"11111111111card_ratservice_rat=== %@",[epgDicToSocket objectForKey:@"service_rat"]);
+        NSLog(@"11111111111card_rat %d",card_ret);
+        
+        //节目级别: 1,2,4,8,9,0
+        //卡级别: 1,2,4,8
+        
+        // 如果节目级别 大于 卡级别，则输入弹窗CA
+  
+        
+        judgeRecIsCA = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self stopVideoPlay];
+            
+            [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+            CAAlert.delegate =  self;
+            NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
+            CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
+            if (self.showTVView == YES) {
+                [CAAlert show];
+            }else
+            {
+                NSLog(@"已经不是TV页面了");
+                [self ifNotISTVView];
+            }
+            
+            CATextField_Encrypt.text = @"";
+            CAAlert.dontDisppear = YES;
+            
+            
+            CATextField_Encrypt.delegate = self;
+            CATextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
+            CATextField_Encrypt = [CAAlert textFieldAtIndex:0];
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
+                                                        name:@"UITextFieldTextDidChangeNotification"
+                                                      object:CATextField_Encrypt];
+            
+            //修改decoderPIN 和CA PIN 的 占位文字
+            if (CAAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
+                NSString * CAPINLabel = NSLocalizedString(@"CAPINLabel", nil);
+                CATextField_Encrypt.placeholder = CAPINLabel;
+            }
+        });
+        
+//        }
+    }
+    
     socketView.cs_serviceREC.file_name = [epgDicToSocket objectForKey:@"file_name"];
     
     socketView.cs_serviceREC.file_name_len = socketView.cs_serviceREC.file_name.length;
@@ -9976,22 +10136,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [self getsubt];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noticeREC" object:nil];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRECDataService:) name:@"noticeREC" object:nil];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if (judgeRecIsCA == NO) {
         
-        if (self.showTVView == YES) {
-            self.videoController.socketView1 = self.socketView;
-            [self.socketView  serviceRECTouch ];
-        }else
-        {
-            NSLog(@"已经不是TV页面了");
-            [self ifNotISTVView];
-        }
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noticeREC" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRECDataService:) name:@"noticeREC" object:nil];
         
-    });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (self.showTVView == YES) {
+                self.videoController.socketView1 = self.socketView;
+                [self.socketView  serviceRECTouch ];
+            }else
+            {
+                NSLog(@"已经不是TV页面了");
+                [self ifNotISTVView];
+            }
+            
+        });
+    }else
+    {
+        
+    }
+ 
+}
+-(void)playCARecVideo
+{
+    NSLog(@"RECRECRECRECRECRECRECRECRECRECRECREC");
+   
 }
 
 /**
