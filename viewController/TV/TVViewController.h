@@ -73,7 +73,7 @@
 @property (nonatomic, copy) void(^TVViewStopVideoPlayAndCancelDealyFunctionBlock)();
 
 -(void)touchSelectChannel :(NSInteger)row diction :(NSDictionary *)dic;
-
+-(void)SetService_videoindex:(NSDictionary *)epgDicToSocket;
 
 -(UIViewController*) currentViewController;
 //-(void)timerStateInvalidate;
