@@ -2257,8 +2257,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPathRow]];
             
             if (epgDicToSocket.count > 14) {  //录制
-                [self playRECVideo:epgDicToSocket];
-            }else //直播Z
+//                [self playRECVideo:epgDicToSocket];
+//
+//                //录制节目的时间
+//                self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
+//                NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
+//                NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
+//                self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
+//
+//                BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+//                if (isEventStartTimeBigNowTime == YES) {
+//                    self.event_videoname = @"";
+//                    self.event_startTime = @"";
+//                    self.event_endTime = @"";
+//                }
+//
+//                self.video.startTime = self.event_startTime;
+//                self.video.endTime = self.event_endTime;
+//
+//                NSString * acc = self.video.startTime;
+//                NSString * cca = self.video.endTime;
+//                NSLog(@"acc == %@",acc);
+//                NSLog(@"cca == %@",cca);
+                
+                
+//                return ;
+            }else //直播
             {
                 NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                 
@@ -2521,6 +2545,36 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             self.video.startTime = self.event_startTime;
             self.video.endTime = self.event_endTime;
+            
+            //== 录制时间赋值
+            if (epgDicToSocket.count > 14) {  //录制
+                
+                //录制节目的时间
+                self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
+                NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
+                NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
+                self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
+                
+                BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+                if (isEventStartTimeBigNowTime == YES) {
+                    self.event_videoname = @"";
+                    self.event_startTime = @"";
+                    self.event_endTime = @"";
+                }
+                
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
+                
+                NSString * acc = self.video.startTime;
+                NSString * cca = self.video.endTime;
+                NSLog(@"acc == %@",acc);
+                NSLog(@"cca == %@",cca);
+             
+            }
+            
+            
+            
+            
             
             NSLog(@"self.video.dicChannl88==33");
             [self updateFullScreenDic];
@@ -5308,6 +5362,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self addHistory:row diction:dic];
             });
 
+            //断网情况
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
 
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
@@ -5343,13 +5398,62 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.service_videoindex= @"";
                 self.event_videoname = @"";
                 
+                
+                //== 录制时间赋值
+                if (epgDicToSocket.count > 14) {  //录制
+                    
+                    //录制节目的时间
+                    self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
+                    NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
+                    NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
+                    self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
+                    
+                    BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+                    if (isEventStartTimeBigNowTime == YES) {
+                        self.event_videoname = @"";
+                        self.event_startTime = @"";
+                        self.event_endTime = @"";
+                    }
+                    
+                    self.video.startTime = self.event_startTime;
+                    self.video.endTime = self.event_endTime;
+                    
+                    NSString * acc = self.video.startTime;
+                    NSString * cca = self.video.endTime;
+                    NSLog(@"acc == %@",acc);
+                    NSLog(@"cca == %@",cca);
+                    
+                }
+                
                 [self.tableForSliderView reloadData];
                 [self refreshTableviewByEPGTime];
                 
-                NSNotification *notification11 =[NSNotification notificationWithName:@"TimerOfEventTimeNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification11];
-                [self caculatorProgress];
+               
+                
+                 if (epgDicToSocket.count > 14) {  //录制
+                     
+                     NSNotification *notificationREC =[NSNotification notificationWithName:@"setRECTimeNotific" object:nil userInfo:nil];
+                     //通过通知中心发送通知
+                     [[NSNotificationCenter defaultCenter] postNotification:notificationREC];
+                     
+                     //开始进行数据赋值
+                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+                     
+                     //创建通知
+                     NSNotification *notification22 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
+                     //通过通知中心发送通知
+                     [[NSNotificationCenter defaultCenter] postNotification:notification22];
+                     
+                     //①创建通知,删除进度条
+                     [self removeTopProgressView];
+                
+                }else
+                {
+                    NSNotification *notification11 =[NSNotification notificationWithName:@"TimerOfEventTimeNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification11];
+                    [self caculatorProgress];
+                }
                 return ;
 
             }else{
@@ -5390,6 +5494,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //        self.event_videoname = [epgDicToSocket objectForKey:@"event_name"];
             self.event_videoname = @"";
 
+            
+            
 
 
         }else//直播
@@ -5628,6 +5734,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                     self.video.channelCount = tempArrForServiceArr.count;
                 }
+                
+                //== 录制时间赋值
+                if (epgDicToSocket.count > 14) {  //录制
+                    
+                    //录制节目的时间
+                    self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
+                    NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
+                    NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
+                    self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
+                    
+                    BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
+                    if (isEventStartTimeBigNowTime == YES) {
+                        self.event_videoname = @"";
+                        self.event_startTime = @"";
+                        self.event_endTime = @"";
+                    }
+                    
+                    self.video.startTime = self.event_startTime;
+                    self.video.endTime = self.event_endTime;
+                    
+                    NSString * acc = self.video.startTime;
+                    NSString * cca = self.video.endTime;
+                    NSLog(@"acc == %@",acc);
+                    NSLog(@"cca == %@",cca);
+                    
+                }
+                
+                
                 
                 [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
                 NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];

@@ -191,6 +191,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
         [self setChannelNameAndEventName];   //快速设置频道名称和节目名称等信息
+        [self setRECTimeNotific];   //设置录制时间
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
         [self reConnectSocketFromDisConnectNotic]; //socket断开后，重新连接socket
@@ -2289,8 +2290,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //     self.videoControl.channelIdLab.hidden = NO;
             //     self.videoControl.channelNameLab.hidden = NO;
             self.videoControl.FulleventNameLab.hidden = NO;
+            NSLog(@"消失FULL== 该出现了");
             if (self.videoControl.FullEventYFlabel) {
                 self.videoControl.FullEventYFlabel.hidden = NO; //全屏页面跑马灯
+                NSLog(@"消失FULL== 正在出现");
             }
             
             
@@ -2315,6 +2318,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             YFLabelArr = [[NSMutableArray alloc]initWithObjects:self.videoControl.FulleventNameLab.text, nil];
             
             self.videoControl.FullEventYFlabel.hidden = NO;
+            NSLog(@"消失FULL== 正在出现22");
             //    self.videoControl.FullEventYFlabel.speed = 3;
             self.videoControl.FulleventNameLab.hidden = YES; //本应该是no，此处为了测试
             
@@ -2481,6 +2485,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.FullEventYFlabel initArr:arr];
     //[self.videoControl.FullEventYFlabel initArr:@[@"111asdasdasdasdasdASDMAMSDASDAOISDMASDMAOSIMDasdasdasdasdasdasdasdasd"]];
     self.videoControl.FullEventYFlabel.hidden = NO;
+    NSLog(@"消失FULL== 正在出现33");
     [self.videoControl.topBar addSubview: self.videoControl.FullEventYFlabel];
     double aa =1.8*sizeEventName.width/260;
     NSLog(@"aa：%f",aa);
@@ -2536,6 +2541,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     if (self.videoControl.FullEventYFlabel) {
         self.videoControl.FullEventYFlabel.hidden = YES; //全屏页面跑马灯
+        NSLog(@"消失FULL== AABB");
     }
     
     self.videoControl.lastChannelButton.hidden = YES;
@@ -4670,6 +4676,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setChannelNameAndEventNameNotic:) name:@"setChannelNameAndEventNameNotic" object:nil];
 }
+-(void)setRECTimeNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setRECTimeNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RECsetEventTime) name:@"setRECTimeNotific" object:nil];
+}
 -(void)setChannelNameAndEventNameNotic :(NSNotification *)text{
     
     //先获取当前正在播放的节目字典
@@ -4872,11 +4885,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
         self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+        
+        NSLog(@"tinetime 11");
     }else
     {
         NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
         self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",aa];
         self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+        NSLog(@"tinetime 22");
     }
     
     
@@ -4889,6 +4905,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"self.video.endTime %d",[self.video.endTime intValue]);
     NSLog(@"self.video.startTime %d",[self.video.startTime intValue]);
     float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
+    NSLog(@"aa1 =差值 %f",aa1);
     NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
     
     
@@ -4908,18 +4925,34 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSLog(@" bb1 %d",bb1);
     }
-    if (bb1 <0) {
-        bb1 = 0;
-        aa1 = 0;
-        aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+    }else
+    {
+        if (bb1 <0) {
+            bb1 = 0;
+            aa1 = 0;
+            aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+        }
     }
     
     
+    
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
-    
-    
+  
     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+    
+    //进行判断,看是不是录制节目.并且录制节目没有断开网络
+    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+        
+        if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            
+            self.videoControl.eventTimeLabNow.text = @"00:00:00";
+            self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+        }
+    }
+    NSLog(@"tinetimetime: %@",nowTime);
+    NSLog(@"tinetime 33");
     
     
 }
@@ -4964,6 +4997,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
             self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
+            
+            NSString * str11 = self.video.startTime;
+            NSString * str22 = self.video.endTime;
+            NSLog(@"str11str11 %@",str11);
+            NSLog(@"str22str22 %@",str22);
             
             if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue]) {
                 
@@ -5016,6 +5054,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     
                     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
                     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+                    NSLog(@"tinetime 44");
                 }
                 
             }

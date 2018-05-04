@@ -121,6 +121,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        self.channelNameLab.hidden = YES;
         self.FulleventNameLab.hidden = YES;
         self.FullEventYFlabel.hidden = YES;
+        NSLog(@"消失FULL== ccdd");
         
         //        self.shrinkScreenButton.hidden = YES;
         self.shrinkScreenButton1.hidden = YES;
@@ -280,7 +281,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     double systemVersion = [GGUtil getSystemVersion];
     
-    if (systemVersion > 10.2) {
+    if (systemVersion > 10.199) {
         NSLog(@"self.view.frame.bounds.height1 %f",[UIScreen mainScreen].bounds.size.height);
         NSLog(@"self.view.frame.bounds.width1 %f",[UIScreen mainScreen].bounds.size.width);
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) { //全屏
@@ -292,6 +293,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             
             _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
             
+            NSLog(@"_bottomControllerImageFF1");
+            
         }else
         {
             self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds),  CGRectGetWidth(self.bounds), 43);//71  //43);
@@ -299,7 +302,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"验证 bottomBar 22222");
             self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
             self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
-            
+            _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
+            NSLog(@"_bottomControllerImageFF!!");
         }
         
         NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
@@ -1056,9 +1060,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 75);
+            NSLog(@"_bottomControllerImageFF2");
         }else
         {
             _bottomControllerImage.frame =  CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 50);
+            NSLog(@"_bottomControllerImageFF3");
             NSLog(@"可能会出错的地方self.view.frame.bounds.width4");
         }
         
@@ -1070,7 +1076,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (void)fixTopBottomImage:(NSNotification *)text{
     
     double systemVersion = [GGUtil getSystemVersion];
-    if (systemVersion >= 10.2) {
+    if (systemVersion >= 10.199) {
         float Imagewidth = [text.userInfo[@"noewWidth"]floatValue];
         NSLog(@"Imagewidth :%f",[UIScreen mainScreen].bounds.size.width);
         NSLog(@"SCREEN_HEIGHT :%f",[UIScreen mainScreen].bounds.size.height);
@@ -1083,13 +1089,16 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 
             _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
-            //        _bottomBar.frame =  CGRectMake(0, 0,Imagewidth, 100);
+            
+            _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
+            
+            NSLog(@"_bottomControllerImageFF==");
             NSLog(@"jsjsjsjssjsjsj44444");
         }else  //竖屏
         {
             _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
             _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
-            
+            NSLog(@"_bottomControllerImageFF4");
 //            _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
 //            _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
             _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"];
@@ -1115,6 +1124,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 NSLog(@"==-=-===-==000==-3333");
                 _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
                 _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
+                NSLog(@"_bottomControllerImageFF5");
                 
                 _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
                 _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"]; //@"Group 16"
@@ -1127,7 +1137,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 NSLog(@"==-=-===-==000==-3333==");
                 _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
                 _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
-                
+                NSLog(@"_bottomControllerImageFF6");
                 _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
                 _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
                 
@@ -1148,6 +1158,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 NSLog(@"==-=-===-==000==-4444");
                 _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
                 _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
+                NSLog(@"_bottomControllerImageFF7");
                 
                 _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
                 _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
@@ -1158,7 +1169,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 NSLog(@"==-=-===-==000==-4444==");
                 _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
                 _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
-                
+                NSLog(@"_bottomControllerImageFF8");
                 _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"]; //@"Overlay"
                 NSLog(@"可能会出错的地方self.view.frame.bounds.width5");
                 screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
