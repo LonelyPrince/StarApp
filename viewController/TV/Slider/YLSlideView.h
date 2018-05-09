@@ -1,10 +1,10 @@
 
 /*
  
-   YLSlideView 是 UIScrollView 的一个重用视图，新闻类型客户端比较常见这种做法
-   YLSlideCell
-   YLSlideTitleView
-   YLCache
+ YLSlideView 是 UIScrollView 的一个重用视图，新闻类型客户端比较常见这种做法
+ YLSlideCell
+ YLSlideTitleView
+ YLCache
  */
 
 
@@ -18,7 +18,7 @@
 
 #pragma mark YLSlideViewDelegate
 
-/*YLSlideView delegate 方法，设置重用 Cell 和需要创建的页面数 ，在此没有区分 
+/*YLSlideView delegate 方法，设置重用 Cell 和需要创建的页面数 ，在此没有区分
  dataSource 和 view delegate 。统一实现 YLSlideViewDelegate
  */
 @protocol YLSlideViewDelegate <NSObject>

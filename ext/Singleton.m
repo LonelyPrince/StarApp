@@ -61,6 +61,10 @@
         NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnEnabled" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification3];
         [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
+        
+        NSNotification *notification4 =[NSNotification notificationWithName:@"reConnectSocketToRefreshTable" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification4];
+        
     }
     NSNotification *notification =[NSNotification notificationWithName:@"netWorkIsConnectNotice" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];

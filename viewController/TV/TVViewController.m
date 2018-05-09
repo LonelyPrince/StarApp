@@ -2300,7 +2300,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 NSArray * audio_infoArr = [[NSArray alloc]init];
                 NSArray * subt_infoArr = [[NSArray alloc]init];
-                
                 NSArray * epg_infoArr = [[NSArray alloc]init];
                 //****
                 
@@ -3781,6 +3780,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self setPushDataNotific];///创建通知，用于列表数据
         [self OtherDevicePushToPhoneNotific];
         [self OtherDevicePushToPhoneLiveNotific];
+        [self reConnectSocketToRefreshTableNotific];
+        
+       
         
     });
     
@@ -3822,6 +3824,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         NSLog(@"目前是sliderview:%f",_slideView.frame.origin.y);
     });
+}
+
+-(void)reConnectSocketToRefreshTableNotific
+{
+    //网络回复连接通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reConnectSocketToRefreshTable" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFirstViewTbaleview) name:@"reConnectSocketToRefreshTable" object:nil];
+}
+-(void)refreshFirstViewTbaleview
+{
+    [_slideView removeFromSuperview];
+    _slideView = nil;
+    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+    
+    NSLog(@"重新连接了一次，所以刷新页面");
 }
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
@@ -4458,16 +4476,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     [self addHistory:rowIndex diction:dic];
                     
-                    
-                    //                    NSMutableDictionary * dic;
-                    //                    if (touchArr.count >= 4) {
-                    //                        rowIndex = [touchArrTemp[2] intValue];
-                    //                        dic = touchArrTemp [3];
-                    //                    }
-                    
-                    
-                    
-                    
+                  
                     //==========fix
                     //重新执行播放,并且要注意判断是不是加锁类型
                     

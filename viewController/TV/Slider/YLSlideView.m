@@ -365,7 +365,7 @@
     }
     
     [self slideViewRecycle];
-
+    
     [self visibleViewDelegateForIndex:0];
     
     
@@ -565,4 +565,3 @@
 }
 
 @end
-

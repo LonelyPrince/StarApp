@@ -13,9 +13,9 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
 }
 
 @interface YLSlideTitleView()<UIScrollViewDelegate>{
-
-//    NSArray    *_titles;
-NSMutableArray    *_titles;
+    
+    //    NSArray    *_titles;
+    NSMutableArray    *_titles;
     NSUInteger  _previousPage;
     
 }
@@ -29,14 +29,14 @@ NSMutableArray    *_titles;
 @implementation YLSlideTitleView
 
 - (instancetype)initWithFrame:(CGRect)frame forTitles:(NSMutableArray*)titles{
-
+    
     self = [super initWithFrame:frame];
     
     if (self) {
         
         self.backgroundColor = SET_COLOS_YLSLIDE(250, 250, 250);
         self.backgroundColor = [UIColor whiteColor];
-//        _titles              = [self titleArrReplace:titles];
+        //        _titles              = [self titleArrReplace:titles];
         _titles              = [titles copy];
         
         _previousPage        = 0;
@@ -50,10 +50,10 @@ NSMutableArray    *_titles;
     return self;
 }
 - (void)configView{
-
+    
     //设置 content size
     float buttonWidth = 0.f;
-
+    
     for (NSUInteger i = 0; i<_titles.count; i++) {
         
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,13 +61,13 @@ NSMutableArray    *_titles;
         [button setTitle:_titles[i] forState:UIControlStateNormal];
         
         [button setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];   //大约等于黑色
-     
+        
         [button.titleLabel setFont:buttonFont(button,YLSlideTitleViewTitleMin)];
         
         
         
         CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
-                                                        label:button.titleLabel];
+                                                           label:button.titleLabel];
         
         CGRect frame;
         frame.origin = CGPointMake(buttonWidth, 0);
@@ -76,7 +76,7 @@ NSMutableArray    *_titles;
         [button setFrame:frame];
         
         buttonWidth += CGRectGetWidth(button.frame);
-
+        
         button.tag             = YLSlideTitleViewButtonTag + i;
         button.backgroundColor = [UIColor whiteColor];
         
@@ -88,7 +88,7 @@ NSMutableArray    *_titles;
         
         [self addSubview:button];
         
-
+        
     }
     
     
@@ -102,60 +102,60 @@ NSMutableArray    *_titles;
         __STRONG_SELF_YLSLIDE
         [strongSelf configButtonWithOffsetx:offsetx];
         NSLog(@"offsetx %f",offsetx);
-
+        
     };
     
     self.slideViewWillScrollEndBlock =^(CGFloat offsetx){
         
         NSLog(@"offsetx1 %f",offsetx);
         __STRONG_SELF_YLSLIDE
-       //设置 Button 可见
+        //设置 Button 可见
         CGFloat x = offsetx * (60 / self.frame.size.width) - 60;
-      
-//        NSLog(@"self.frame.size.width %f",self.frame.size.width);
-//        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
-//
-//
-//        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
+        
+        //        NSLog(@"self.frame.size.width %f",self.frame.size.width);
+        //        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
+        //
+        //
+        //        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
         
         [strongSelf scrollRectToVisible:CGRectMake(x, 0,
                                                    strongSelf.frame.size.width,
                                                    strongSelf.frame.size.height)
                                animated:YES];
-    
+        
     };
-
+    
     
     //此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"categorysTouchToViews" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
-
+    
     
 }
 -(void)categorysTouchToViews:(NSNotification *)text
 {
     NSInteger currentIndex = [text.userInfo[@"currentIndex"]integerValue];
-//    [self slideViewRecycle];
-//    [self visibleViewDelegateForIndex:currentIndex];
+    //    [self slideViewRecycle];
+    //    [self visibleViewDelegateForIndex:currentIndex];
     
     UIButton * btn = [[UIButton alloc]init];
     btn.tag = currentIndex+YLSlideTitleViewButtonTag;
     [self buttonEvents:btn];
-
     
-//    //实际是底部的ScrollerView的侧滑的距离大小
-//    int currentBtnShowX = [[UIScreen mainScreen] bounds].size.width * currentIndex;
-//    
-//    if (self.slideViewWillScrollEndBlock) {
-//        self.slideViewWillScrollEndBlock(currentBtnShowX);
-//    }
+    
+    //    //实际是底部的ScrollerView的侧滑的距离大小
+    //    int currentBtnShowX = [[UIScreen mainScreen] bounds].size.width * currentIndex;
+    //
+    //    if (self.slideViewWillScrollEndBlock) {
+    //        self.slideViewWillScrollEndBlock(currentBtnShowX);
+    //    }
     
 }
 - (void)configButtonWithOffsetx:(CGFloat)offsetx{
     
 #warning 在重复使用 [UIFont fontWithName:button.titleLabel.font.fontName size:titleSize]方法会占用极大的内存(已反复试验)，每次都需要对Label进行处理。在此处请谨慎使用此方法，此变换效果也是其中一种可根据自行需求进行修改。有更好的方法可告知。
-
+    
     NSUInteger currentPage   = offsetx/SCREEN_WIDTH_YLSLIDE;
     
     NSLog(@"currentPage === %d",currentPage);
@@ -168,65 +168,65 @@ NSMutableArray    *_titles;
     
     
     
-//    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH];
+    //    CGFloat titleSizeSpacing = [self titleSizeSpacingWithOffsetx:offsetx/SCREEN_WIDTH];
     
     if (_previousPage != currentPage) {
         
         UIButton * previousButton = (UIButton*)[self viewWithTag:_previousPage +YLSlideTitleViewButtonTag];
         
         [previousButton setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1]
-                        forState:UIControlStateNormal];
+                             forState:UIControlStateNormal];
         
     }
     
     UIButton * currentButton = (UIButton*)[self viewWithTag:currentPage+YLSlideTitleViewButtonTag];
-//    [currentButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMax-titleSizeSpacing)]];
-   // [currentButton.titleLabel setFont:buttonFont(currentButton,
-                                                 //YLSlideTitleViewTitleMax-titleSizeSpacing)];
+    //    [currentButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMax-titleSizeSpacing)]];
+    // [currentButton.titleLabel setFont:buttonFont(currentButton,
+    //YLSlideTitleViewTitleMax-titleSizeSpacing)];
     
     [currentButton setTitleColor:[UIColor colorWithRed:0x60/255.0 green:0xa3/255.0 blue:0xec/255.0 alpha:1]  forState:UIControlStateNormal];
     
     UIButton * nextButton = [self viewWithTag:currentPage+1+YLSlideTitleViewButtonTag];
     
-//    [nextButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMin+titleSizeSpacing)]];
+    //    [nextButton.titleLabel setFont:[UIFont systemFontOfSize:(YLSlideTitleViewTitleMin+titleSizeSpacing)]];
     //[nextButton.titleLabel setFont:buttonFont(currentButton,
-                                             // YLSlideTitleViewTitleMin+titleSizeSpacing)];
+    // YLSlideTitleViewTitleMin+titleSizeSpacing)];
     
     [nextButton setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];
-
+    
     _previousPage = currentPage;
     
-
-//**************8
- 
+    
+    //**************8
+    
     _currentBtnX = 0;
     for (int i = 28271; i<  currentButton.tag; i++) {
         UIButton * btn = (UIButton*)[self viewWithTag:i];
         _currentBtnX += btn.frame.size.width;
     }
-//    NSLog(@"currentButton1:%f",currentButton.bounds.origin.x +20 +currentButton.bounds.size.width/2- self.preScrollViewCut);
-
-        _currentBtnX = _currentBtnX  +currentButton.frame.size.width/2 - self.preScrollViewCut;
+    //    NSLog(@"currentButton1:%f",currentButton.bounds.origin.x +20 +currentButton.bounds.size.width/2- self.preScrollViewCut);
+    
+    _currentBtnX = _currentBtnX  +currentButton.frame.size.width/2 - self.preScrollViewCut;
     
     self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
     //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
 
 //- (CGFloat)titleSizeSpacingWithOffsetx:(CGFloat)sx{
-//  
+//
 ////    NSInteger scale         = sx*100;
 ////    CGFloat   currentScale  = (scale % 100) * 0.01 * 3;
-//    
+//
 //    return currentScale;
 //}
 
 //按钮点击
 - (void)buttonEvents:(UIButton*)button{
-
+    
     NSLog(@" currentPage === %d",(button.tag - YLSlideTitleViewButtonTag) );
     
     int YLSlideTitleViewButtonTagIndex = button.tag - YLSlideTitleViewButtonTag;
@@ -242,7 +242,7 @@ NSMutableArray    *_titles;
     NSString *  YLSlideTitleViewButtonTagIndexStr = [NSString stringWithFormat:@"%d",YLSlideTitleViewButtonTagIndex];
     
     [USER_DEFAULT setObject:YLSlideTitleViewButtonTagIndexStr forKey:@"YLSlideTitleViewButtonTagIndexStr"];
-   
+    
     
     self.isClickTitleButton = YES;
     
@@ -262,7 +262,7 @@ NSMutableArray    *_titles;
     
     NSLog(@"_previousPage %d",_previousPage);
     
-//    NSLog(@"currentButton2:%f",currentButton.frame.origin.x);
+    //    NSLog(@"currentButton2:%f",currentButton.frame.origin.x);
     _currentBtnX = currentButton.frame.origin.x  +currentButton.bounds.size.width/2 - self.preScrollViewCut;
     
     NSLog(@"currentButton.frame.origin.x %f",currentButton.frame.origin.x);
@@ -271,13 +271,13 @@ NSMutableArray    *_titles;
     NSLog(@"_currentBtnX %f",_currentBtnX);
     NSLog(@"self.preScrollViewCut %f",self.preScrollViewCut);
     
-
+    
     self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+    
 }
 
 #pragma mark
@@ -302,11 +302,11 @@ NSMutableArray    *_titles;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-//    NSLog(@"currentButton3: + %f",scrollView.contentOffset.x);
+    //    NSLog(@"currentButton3: + %f",scrollView.contentOffset.x);
     _currentBtnX = _currentBtnX - scrollView.contentOffset.x + self.preScrollViewCut ;
-
     
-   
+    
+    
     self.preScrollViewCut = scrollView.contentOffset.x ;
     
     self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];
@@ -314,9 +314,10 @@ NSMutableArray    *_titles;
     NSNotification *notification =[NSNotification notificationWithName:@"portTriangleFrame" object:nil userInfo:self.dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+    
     
 }
 
 
 @end
+

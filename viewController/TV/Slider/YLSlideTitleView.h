@@ -1,6 +1,6 @@
 
 /*
-  YLSlideTitleView 栏目标题
+ YLSlideTitleView 栏目标题
  */
 
 #import <UIKit/UIKit.h>

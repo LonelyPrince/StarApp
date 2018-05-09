@@ -134,6 +134,7 @@
 }
 
 -(void)dealloc{
+    NSLog(@"消失FULL==stopTimer ");
     [self stopTimer];
 }
 
