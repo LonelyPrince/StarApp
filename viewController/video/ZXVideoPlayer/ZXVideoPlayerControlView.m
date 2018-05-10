@@ -302,7 +302,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"验证 bottomBar 22222");
             self.eventnameLabel.frame =  CGRectMake(20, 15, 200, 20);
             self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
-            _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
+            _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 50);
             NSLog(@"_bottomControllerImageFF!!");
         }
         

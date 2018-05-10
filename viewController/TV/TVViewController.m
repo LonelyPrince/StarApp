@@ -225,16 +225,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    [self.socketView viewDidLoad];
     //    firstShow =NO;
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstStartTransform"];
-    
-    //    activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-    //                                                         SCREEN_WIDTH,
-    //                                                         SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5)];
+  
     activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
                                                          SCREEN_WIDTH,
                                                          SCREEN_HEIGHT)];
-    
-    
-    //    activeView.backgroundColor = [UIColor redColor];
     [self.view addSubview:activeView];    //等待loading的view
     HUD = [[MBProgressHUD alloc] initWithView:self.activeView];
     
@@ -484,7 +478,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
-        NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         
@@ -557,24 +550,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
             [self playVideo];
-            //            if (!self.videoController) {
-            //                self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];}
-            //
-            //            [self.videoController showInView:self.view];
-            //            self.navigationController.navigationBar.translucent = NO;
-            //            self.extendedLayoutIncludesOpaqueBars
-            //            = NO;
-            //
-            //            self.edgesForExtendedLayout =UIRectEdgeNone;
-            //
-            //        if (self.showTVView == YES) {
-            //            self.videoController.video = self.video;
-            //        }else
-            //        {
-            //
-            //        }
-            //
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.socketView viewDidLoad];
             });
@@ -626,10 +601,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 
             }
-            //                else
-            //                {
-            //
-            //                }
             
             [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
             
@@ -684,9 +655,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                     
-                    //                    [self stopVideoPlay]; //停止视频播放
-                    
-                    NSLog(@"全屏按钮消失---方法:getservicedata");
                     NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnHidden" object:nil userInfo:nil];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -753,19 +721,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
-                    NSLog(@"NOChannelDataShow--!!1111111");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }
-                //            {
-                //                //机顶盒连接出错了，所以要显示没有网络的加载图
-                //                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-                //
-                //                [self getServiceData]; //如果数据为空，则重新获取数据
-                //                //                return ;
-                //            }
+             
             }
             
             [self.activeView removeFromSuperview];
@@ -828,7 +789,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     
                     [self NOChannelDataShow];
-                    NSLog(@"NOChannelDataShow--!!2222222");
                     [self removeTopProgressView]; //删除进度条
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
@@ -836,7 +796,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else
                 {
                     self.categorys = (NSMutableArray *)data;
-                    NSLog(@"categorys==||=getserviceData");
                     
                     if (!_slideView) {
                         
@@ -930,8 +889,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
                 }
-                
-                
             }];
             
             if (data1.count == 0 && recFileData.count == 0)
@@ -980,7 +937,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]  ) {
         NSLog(@"此刻是5s和4s 的大小");
-        
         self.searchBtn.frame = CGRectMake(searchBtnX-2, searchBtnY, searchBtnWidth *0.8533, searchBtnHeight *0.8533 );
         
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"] ) {
@@ -1008,10 +964,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.video.channelId = self.service_videoindex;
     self.video.channelName = self.service_videoname;
     self.video.playEventName = self.event_videoname;
-    NSLog(@"self.video.channelName : %@",self.video.channelName);
-    
-    
-    
+   
 }
 -(void)refreshTableviewByEPGTime //由于EPG时间要发生变化，所以此处要刷新他
 {
@@ -1063,9 +1016,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //**用于刷新列表的timer 设置，防止在没网的情况下，过长时间停留在无网络图下，又可能出现异常
         NSString * nowTimeStr = [GGUtil GetNowTimeString];
-        //    NSInteger nowTimeInteger = [nowTimeStr integerValue];
-        //    NSInteger nowTimeMinuteInteger = nowTimeInteger / 60;
-        //    NSInteger firstRefreshTime = (nowTimeMinuteInteger + 1) * 60 - nowTimeInteger;
         NSInteger firstRefreshTime = ([nowTimeStr integerValue] / 60 + 1) * 60 - [nowTimeStr integerValue] + 2;
         //刚进来，先整点刷新一次   repeats:NO
         viewFirstShowTimer = [NSTimer scheduledTimerWithTimeInterval:firstRefreshTime target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:NO];
@@ -1090,17 +1040,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             
             NSLog(@"切换为竖屏模式");
-            NSLog(@"sel.view.frame11 %f",self.view.frame.size.height);
-            NSLog(@"sel.view.frame12 %f",self.view.frame.size.width);
-            //            //
-            //            firstShow = YES;
+       
             statusNum = 2;
             [self prefersStatusBarHidden];
             [self setNeedsStatusBarAppearanceUpdate];
             self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-            //                [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
-            //
-            //            self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY, searchBtnWidth, searchBtnHeight);
             if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]  ) {
                 NSLog(@"此刻是5s和4s 的大小");
                 
@@ -1153,13 +1097,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
 //                //new====
                 NSLog(@"切换为全屏模式");
-                NSLog(@"sel.view.frame21 %f",self.view.frame.size.height);
-                NSLog(@"sel.view.frame22 %f",self.view.frame.size.width);
-
-                NSLog(@"sel.view.frame21 %f",SCREEN_HEIGHT);
-                NSLog(@"sel.view.frame22 %f",SCREEN_WIDTH);
-
-                //                firstShow = NO;
                 statusNum = 3;
                 [self prefersStatusBarHidden];
                 [self setNeedsStatusBarAppearanceUpdate];
@@ -1179,65 +1116,29 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                 //创建通知
                 NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
-                //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
                 UIViewController * viewNow = [self currentViewController];
                 if ([viewNow isKindOfClass:[TVViewController class]]) {
                     self.tabBarController.tabBar.hidden = YES;
-                    //                    [self hideTabBar];
                 }
-
-                //                self.view.frame = CGRectMake(0, 0, 800, 800);
                 _slideView.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
                                               SCREEN_WIDTH,
                                               SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
 
                 NSLog(@"目前是全屏");
-                NSLog(@"目前是全屏sliderview:%f",_slideView.frame.origin.y);
-
-                ////////****************** 进度条
-                //此处销毁通知，防止一个通知被多次调用   //5
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixprogressView" object:nil ];
-                //注册通知
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView:) name:@"fixprogressView" object:nil];
 
                 self.topProgressView.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
-
-
-                //            //此处销毁通知，*防止一个通知被多次调用
-                //    NSNotificationCenter a = [[NSNotificationCenter defaultCenter] removeObserver:self];
-                //            //注册通知
-                //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(test) name:@"test" object:nil];
-
-
-
                 [self.view bringSubviewToFront:self.topProgressView];
                 [self.videoController.view bringSubviewToFront:self.topProgressView];
                 [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
 
                 [self judgeProgressIsNeedHide:YES]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
-                //            [self setFullScreenView];
-
-                NSLog(@"全屏宽 ： %f",SCREEN_HEIGHT);
-
-
-                /////***** 用于设置sub字幕和audio音轨
-                //            [self getsubt];
-                /////*****
-                //            /////***** 注册通知，勇于设置sub字幕和audio音轨
-                //            //此处销毁通知，防止一个通知被多次调用
-                //            [[NSNotificationCenter defaultCenter] removeObserver:self];
-                //            //注册通知
-                //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getAndSetSubLanguage ) name:@"getAndSetSubLanguage" object:nil];
-                //
-                //            ////******
                 _lineView.frame = CGRectMake(0, -64, 0, 0);
-                //new=====
             }else
             {
             }
-            //new=====
         };
         
         
@@ -1271,19 +1172,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 //搜索按钮
 -(void)searchBtnClick
-//{
-//    [self  createGetAlertView];
-//}
 {
-    //    searchViewCon = [[SearchViewController alloc]init];
-    //    searchViewCon.tableView = [[UITableView alloc]init];
-    //    searchViewCon.dataList = [[NSMutableArray alloc]init];
-    //    searchViewCon.dataList =  [searchViewCon getServiceArray ];
-    //    searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
-    //     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
-    
-    //    [self.navigationController pushViewController:searchViewCon animated:YES];
-    
     //    /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
         [self.navigationController pushViewController:searchViewCon animated:YES];
@@ -1292,10 +1181,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
-    NSLog(@"searchViewCon: %@,",searchViewCon);
-    //    /**/
-    //    NSLog(@" self.categoryModel.service_indexArr.count : %lu", (unsigned long)self.categoryModel.service_indexArr.count);
-    //
     //    //停止播放
     //    [self.socketView  deliveryPlayExit];
     
@@ -1313,9 +1198,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //************************************************
 //table可以滑动的次数
 - (NSInteger)columnNumber{
-    //   return colors.count;
-    NSLog(@"CategoryAndREC.count %lu",(unsigned long)_CategoryAndREC.count);
-    NSLog(@"CategoryAndREC.cou %@",_CategoryAndREC);
     int  columntemp = [self CategoryAndRECArrReplace:self.CategoryAndREC];
     return columntemp;
 }
@@ -1331,8 +1213,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //#define   LiveExit           @"2"      //录制不存在直播存在
     //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
     NSString * RECAndLiveType = [USER_DEFAULT objectForKey:@"RECAndLiveType"];
-    NSLog(@"RECAndLiveType %@",RECAndLiveType);
-    
     if ([RECAndLiveType isEqualToString:@"RecAndLiveNotHave"]) {  //都不存在
         
     }else if ([RECAndLiveType isEqualToString:@"RecExit"]){ //录制存在直播不存在
@@ -1383,14 +1263,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    [NSNumber numberWithInteger:index];
     [arrTemp addObject:indexforTableToNum];
     [arrTemp addObject:tableForSliderView];
-    
-    //    NSString * indexforTableToStr = [NSString stringWithFormat:@"%@",dicTableAndIndex];
-    //
-    //    [dicTableAndIndex setValue:tableForSliderView forKey:indexforTableToStr]; //将table保存为字典的序号
-    //
-    
     int categorysNum =  self.categorys.count;
-    NSLog(@"categorysNum %d",categorysNum);
     
     if (self.tableForDicIndexDic.count < categorysNum) {
         [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
@@ -1465,7 +1338,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
                 self.categoryModel = [[CategoryModel alloc]init];
                 self.categoryModel.service_indexArr = RECTempArr;
-                NSLog(@" self.categoryModel.service_indexArr==333 %@ ", self.categoryModel.service_indexArr);
                 tempArrForServiceArr =  RECTempArr;
                 numberOfRowsForTable = RECTempArr.count;
                 
@@ -1542,7 +1414,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 
                                 if (indexCat -1 < self.serviceData.count) {
                                     [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                                    NSLog(@"self.dicTemp==- %@",self.dicTemp);
                                 }else
                                 {
                                     return;
@@ -1634,10 +1505,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.category_index = 0;
         NSLog(@"index 的长度出错了，不应该这么长");
     }
-    
-    
-    NSLog(@"self.self.dicTemp.coun %d",self.dicTemp.count);
-    
+ 
 }
 
 - (void)slideViewInitiatedComplete:(TVTable *)cell forIndex:(NSUInteger)index{
@@ -1673,17 +1541,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //jiagou /
             return numberOfRowsForTable;
         }else if (playTypeClass == 2){
-            NSLog(@"%lu",(unsigned long)self.serviceData.count);
-            NSLog(@"llself.serviceData %@",self.serviceData);
-            NSLog(@"当前tableView个数 :%lu",self.categoryModel.service_indexArr.count);
             nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
             self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)self.categoryModel.service_indexArr.count];
             
             return self.categoryModel.service_indexArr.count;
         }else if (playTypeClass == 3){
-            
-            NSLog(@"%lu",(unsigned long)self.serviceData.count);
-            NSLog(@"当前tableView个数 :%lu",numberOfRowsForTable);
+        
             nwoTimeBreakStr = [GGUtil GetNowTimeString];  //获得时间戳，用于对tableView表的数据进行定位
             self.kvo_NoDataPic.numberOfTable_NoData = [NSString stringWithFormat:@"%lu",(unsigned long)numberOfRowsForTable];
             
@@ -1783,9 +1646,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else if (playTypeClass == 2){
                 
             }else if (playTypeClass == 3){
-                
-                NSLog(@"self.dicTempself.dicTemp%@",self.dicTemp);
-                
+              
                 if (numberOfRowsForTable == 1) {
                 }else
                 {
@@ -1803,11 +1664,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                NSLog(@"asbfabsfkabfjabfkab11");
-                
             }else
             {
-                NSLog(@"asbfabsfkabfjabfkab");
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
                 [cell.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
                 [cell.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
@@ -1835,9 +1693,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     if (shareViewArr.count > 0) {
         [shareViewArr removeObjectAtIndex:0];
-        NSLog(@"ajkaakakakakakaka");
-        NSLog(@"shareViewArr.countNONO %d",shareViewArr.count);
-        
         if (shareViewArr.count > 0) {
             NSNotification * textOne = shareViewArr[0][0];
             NSString * typeStr = shareViewArr[0][1];
@@ -1912,48 +1767,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         firstfirst = NO;
                     }else //正常播放的步骤
                     {
-                        //======
-                        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
+                        [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                     }
                 }else //正常播放的步骤
                 {
-                    //======机顶盒加密
-                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                    firstOpenAPP = firstOpenAPP+1;
+                    [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                 }
             }
             
         });
     }
 }
-///点击了投屏弹窗的选择按钮点击事件
--(void)PushSelectBtnClick:(int)index
+-(void)firstOpenAppAutoPlayZero:(NSInteger)row diction :(NSDictionary *)dic
 {
-    //        int pushDataArrCount = pushDataMutilArr.count;
-    //
-    //        NSString * str = pushBtnSelectArr[index];
-    //        if ([str isEqualToString:@"NO"]) {
-    //            [pushBtnSelectArr setObject:@"YES" atIndexedSubscript:index];
-    //            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"BeSelect"];
-    //        }else
-    //        {
-    //            [pushBtnSelectArr setObject:@"NO" atIndexedSubscript:index];
-    //            tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
-    //        }
-    //        NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
-    
-    
-    
+    [self firstOpenAppAutoPlay:row diction:dic];
+    firstOpenAPP = firstOpenAPP+1;
+    firstfirst = NO;
 }
 ///点击了投屏弹窗的选择确定按钮
 -(void)PushSelectBtnClick
 {
-    NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
-    
-    
     if([self.video.channelId  isEqual: @""] || [self.video.channelId isEqualToString:@""]){
         
         socketView.filePushService = [[FilePushService alloc]init];
@@ -1970,15 +1803,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if ([pushBtnSelectArr[i] isEqualToString:@"YES"]) {
                 tempCount ++;
                 NSString * astr = phonePushOtherArr[i][0];
-                NSLog(@"arrrrri %d",i);
-                NSLog(@"astr %@",astr);
                 [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
             }
         }
-        NSLog(@"tempCount %d",tempCount);
         socketView.filePushService.client_count = tempCount;
-        
-        NSLog(@"pushDataMutableArray %@",pushDataMutableArray);
         socketView.filePushService.push_client_ip = pushDataMutableArray;
         
         
@@ -2009,10 +1837,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [pushDataMutableArray addObject: [astr componentsSeparatedByString:@"."]]; //从字符.中分隔成2个元素的数组
             }
         }
-        NSLog(@"tempCount %d",tempCount);
         socketView.mdPhonePushService.client_count = tempCount;
-        
-        NSLog(@"pushDataMutableArray %@",pushDataMutableArray);
         socketView.mdPhonePushService.push_client_ip = pushDataMutableArray;
         
         
@@ -2030,14 +1855,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         int pushIndex = indexPath.row;
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        NSLog(@"pushIndex %d",pushIndex);
-        
-        NSLog(@"pushBtnSelectArr %@",pushBtnSelectArr);
-        //        [self PushSelectBtnClick:indexPath.row];
-        
         tempPushViewCell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        
         int pushDataArrCount = pushDataMutilArr.count;
         
         NSString * str = pushBtnSelectArr[indexPath.row];
@@ -2095,7 +1913,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             touchArr = historyArr[historyArr.count - 1];
         }else
         {
-            NSLog(@"historyArr== %@",historyArr);
             return;
         }
         
@@ -2117,19 +1934,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         else
         {
-            NSLog(@"NONOONONONNONO相等");
-            
-            
-            
+            NSLog(@"不相等");
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
             [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
-            
-            //=====则去掉不能播放的字样，加上加载环
-            //    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
-            //    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-            //
-            //    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-            //    [[NSNotificationCenter defaultCenter] postNotification:notification];
             [self removeLabAndAddIndecatorView];
             //=====则去掉不能播放的字样，加上加载环
             
@@ -2143,50 +1950,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
                 [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
-                
-                //                dispatch_async(dispatch_get_main_queue(), ^{
-                //
-                //                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
-                //                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
-                //                });
-                //                变蓝
-                
             });
             
             //    //关闭当前正在播放的节目
             [self.videoController.player stop];
             [self.videoController.player shutdown];
             [self.videoController.player.view removeFromSuperview];
-            
-            //            if ([tableView numberOfSections] > 0) {
-            //                if (indexPath.row > 0) {
-            //                    if ([tableView numberOfSections] > 0 && [tableView numberOfRowsInSection:0] > 0) {
-            //                        [tableView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-            //                    }
-            //
-            //                }
-            //
-            //            }
-            
         }
         
         
         [tableView reloadData];
-        
-        //        TVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        //
-        //
-        //        cell.channel_Name.textColor = [UIColor greenColor];
-        
-        
+
     }
     
 }
-//// 点击cell--取消上一次选择的cell
-//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    TVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    cell.channel_Name.textColor = [UIColor redColor];
-//}
 #pragma mark - 点击tableView 变蓝
 -(void)performChangeColor
 {
@@ -2257,30 +2034,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPathRow]];
             
             if (epgDicToSocket.count > 14) {  //录制
-//                [self playRECVideo:epgDicToSocket];
-//
-//                //录制节目的时间
-//                self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
-//                NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
-//                NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
-//                self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
-//
-//                BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
-//                if (isEventStartTimeBigNowTime == YES) {
-//                    self.event_videoname = @"";
-//                    self.event_startTime = @"";
-//                    self.event_endTime = @"";
-//                }
-//
-//                self.video.startTime = self.event_startTime;
-//                self.video.endTime = self.event_endTime;
-//
-//                NSString * acc = self.video.startTime;
-//                NSString * cca = self.video.endTime;
-//                NSLog(@"acc == %@",acc);
-//                NSLog(@"cca == %@",cca);
-                
-                
 //                return ;
             }else //直播
             {
@@ -2288,7 +2041,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 //创建通知
                 NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
-                //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification2];
 //                /*此处添加一个加入历史版本的函数*/
 //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -2566,25 +2318,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 NSString * acc = self.video.startTime;
                 NSString * cca = self.video.endTime;
-                NSLog(@"acc == %@",acc);
-                NSLog(@"cca == %@",cca);
-             
+            
             }
-            
-            
-            
-            
-            
-            NSLog(@"self.video.dicChannl88==33");
             [self updateFullScreenDic];
-            
             [self.tableForSliderView reloadData];
             [self refreshTableviewByEPGTime];
-            
-            
-            
             [self caculatorProgress];
-            
             // 只显示时间，不显示进度条
             
             
@@ -2593,12 +2332,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self.view bringSubviewToFront:self.topProgressView];
                 [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
             });
-            
-            
-           
-            
-            
-            NSLog(@"self.topProgressView121= %@",self.topProgressView);
             return ;
             
         }else
@@ -2625,20 +2358,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     firstfirst = NO;
                 }else //正常播放的步骤
                 {
-                    [self touchSelectChannel:indexPathRow diction:self.dicTemp];
-                    
-                    firstOpenAPP = firstOpenAPP+1;
-                    
-                    firstfirst = NO;
-                    
+                    [self firstOpenAppAutoPlayZero:indexPathRow diction:self.dicTemp];
                 }
                 
             }else //正常播放的步骤
             {
-                //======机顶盒加密
-                [self touchSelectChannel:indexPathRow diction:self.dicTemp];
-                firstOpenAPP = firstOpenAPP+1;
-                firstfirst = NO;
+                [self firstOpenAppAutoPlayZero:indexPathRow diction:self.dicTemp];
             }
         }
         
@@ -2697,20 +2422,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
-            NSLog(@"self.video.playUrl-直播 %@",self.video.playUrl);
-            
             self.video.channelId = self.service_videoindex;
             self.video.channelName = self.service_videoname;
-            NSLog(@"self.video.channelName %@",self.video.channelName);
-            
             self.video.playEventName = self.event_videoname;
-            NSLog(@"self.event_videoname 获取列表中 replaceEventNameNotific %@",self.event_videoname);
-            NSLog(@"replaceEventNameNotific self.video.playeventName :%@",self.video.playEventName);
             self.video.startTime = self.event_startTime;
             self.video.endTime = self.event_endTime;
-            NSLog(@"timeIsChange2 %@",self.video.startTime);
-            //    self.video.dicSubAudio = self.TVSubAudioDic;
-            
             [self setStateNonatic];
             
             [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
@@ -2779,7 +2495,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                 
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-                //        //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 return ;
                 
@@ -2808,21 +2523,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 self.video.playUrl = @"";
                 self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
-                
-                NSLog(@"self.video.playUrl-录制 %@",self.video.playUrl);
                 self.video.startTime = self.event_startTime;
                 self.video.endTime = self.event_endTime;
-                NSLog(@"timeIsChange3 %@",self.video.startTime);
-                NSLog(@"self.video.startTime %@",self.video.startTime);
-                NSLog(@"self.video.endTime %@",self.video.endTime);
-                
                 [USER_DEFAULT setObject:self.video.startTime forKey:@"RECVideoStartTime"];
                 [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
                 
                 int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
-                NSLog(@"RECDurationTimeTemp1 %d",[self.video.endTime intValue]);
-                NSLog(@"RECDurationTimeTemp2 %d",[self.video.startTime intValue]);
-                NSLog(@"RECDurationTimeTemp %d",RECDurationTimeTemp);
                 NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
                 [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"IsfirstPlayRECVideo"];
@@ -2913,9 +2619,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
         
         int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
-        NSLog(@"RECDurationTimeTemp1 %d",[self.video.endTime intValue]);
-        NSLog(@"RECDurationTimeTemp2 %d",[self.video.startTime intValue]);
-        NSLog(@"RECDurationTimeTemp %d",RECDurationTimeTemp);
         NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
         [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
     }
@@ -2957,7 +2660,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         /*
          直播和录制的分水岭
          **/
-        NSLog(@"epgDicToSocketlala.count %d",epgDicToSocket.count);
         if (epgDicToSocket.count > 14) {  //录制
             [self playRECVideo:epgDicToSocket];
         }else //直播
@@ -3093,14 +2795,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self ifNotISTVView];
                     }
                 }
-                
-                
-                
             });
         }
-        
-        
-        
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -3217,71 +2913,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             audiopidTemp = 0;
         }
     }
-    NSLog(@"audioRow==11 %d",audiopidTemp);
-    
-    //    //==
-    //    //存储记录音频信息
-    //    //1.记录播放信息存到本地  2.每次播放时，先判断音频信息是否被设置过，如果已经设置，则获取播放的节目信息。否则播放默认音轨   3.APP重新打开时，将列表情况
-    //
-    //    NSMutableArray * mutableArrTemp= [[NSMutableArray alloc]init];
-    //
-    //    mutableArrTemp = [[USER_DEFAULT objectForKey:@"MutableAudioInfo"] mutableCopy];
-    //    BOOL judgeIsHasAudio = NO;
-    //    if (mutableArrTemp.count == 0) {
-    //
-    //        NSMutableArray * firstTempArr = [[NSMutableArray alloc]init];
-    //        [firstTempArr addObject:[allEPGDic copy]];
-    //        [firstTempArr addObject:[NSNumber numberWithInt:audiopidTemp]];
-    //
-    //        mutableArrTemp= [[NSMutableArray alloc]init];
-    //        [mutableArrTemp addObject:[firstTempArr copy]];
-    //
-    //    }else  //不为空
-    //    {
-    //        for (int i = 0; i < mutableArrTemp.count; i++) {
-    //            if ([GGUtil judgeTwoEpgDicIsEqual:mutableArrTemp[i][0] TwoDic:allEPGDic]) {
-    //                //如果相等    //存储节目的EPG和PID信息
-    //
-    //                [mutableArrTemp removeObjectAtIndex:i];
-    //
-    //
-    //                NSMutableArray * otherTempArr = [[NSMutableArray alloc]init];
-    //                [otherTempArr addObject:allEPGDic];
-    //                [otherTempArr addObject:[NSNumber numberWithInt:audiopidTemp]];
-    //
-    ////                [otherTempArr addObject:allEPGDic];
-    ////                [otherTempArr addObject:[NSNumber numberWithInt:audiopidTemp]];
-    //
-    //                //                        NSArray * otherArrTemp = [otherTempArr copy];
-    //                [mutableArrTemp addObject: [otherTempArr copy]];
-    //                judgeIsHasAudio = YES;
-    //                //[NSNumber numberWithInt:audioRow] ;
-    //                break;
-    //            }else
-    //            {
-    //                judgeIsHasAudio = NO;
-    //            }
-    //        }
-    //    }
-    //
-    //    if (judgeIsHasAudio == YES) {
-    //        [USER_DEFAULT setObject:[mutableArrTemp copy] forKey:@"MutableAudioInfo"];
-    //    }else
-    //    {
-    //        NSMutableArray * otherTempArr = [[NSMutableArray alloc]init];
-    //        [otherTempArr addObject:allEPGDic];
-    //        [otherTempArr addObject:[NSNumber numberWithInt:audiopidTemp]];
-    //        [mutableArrTemp addObject: [otherTempArr copy]];
-    //        [USER_DEFAULT setObject:[mutableArrTemp copy] forKey:@"MutableAudioInfo"];
-    //    }
-    //
-    //
-    //
-    //
-    //    //==
-    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audiopidTemp] forKey:@"audioRow" ];
-    
-    
     return audiopidTemp;
 }
 #pragma  mark -视频分发返回来的RET区的结果
@@ -3455,24 +3086,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         NSArray * equalArr = duplicateArray[i];
                         NSMutableArray * tempArr = [equalArr mutableCopy];
-                        //            [tempArr[3] removeLastObject];
-                        //            [tempArr[3] addObject:dic];
-                        //            [tempArr insertObject:dic atIndex:3];
                         NSString * seedNowTime = [GGUtil GetNowTimeString];
                         NSNumber *aNumber = [NSNumber numberWithInteger:row];
                         [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
                         [tempArr replaceObjectAtIndex:2 withObject:aNumber];
                         [tempArr replaceObjectAtIndex:3 withObject:dic];
-                        //                NSLog(@"tempArr :%@",tempArr);
-                        //            equalArr = [tempArr copy];
-                        
-                        
-                        
                         [mutaArray removeObjectAtIndex:i];
                         [mutaArray  addObject:[tempArr copy]];
-                        
-                        //                NSLog(@"mutaArray: %@",mutaArray);
-                        //            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
                         break;
                     }
                 }
@@ -3513,25 +3133,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         NSArray * equalArr = duplicateArray[i];
                         NSMutableArray * tempArr = [equalArr mutableCopy];
-                        //            [tempArr[3] removeLastObject];
-                        //            [tempArr[3] addObject:dic];
-                        //            [tempArr insertObject:dic atIndex:3];
                         NSString * seedNowTime = [GGUtil GetNowTimeString];
                         NSNumber *aNumber = [NSNumber numberWithInteger:row];
                         [tempArr replaceObjectAtIndex:0 withObject:epgDicToSocket];
                         [tempArr replaceObjectAtIndex:1 withObject:seedNowTime];
                         [tempArr replaceObjectAtIndex:2 withObject:aNumber];
                         [tempArr replaceObjectAtIndex:3 withObject:dic];
-                        //                NSLog(@"tempArr :%@",tempArr);
-                        //            equalArr = [tempArr copy];
-                        
-                        
-                        
                         [mutaArray removeObjectAtIndex:i];
                         [mutaArray  addObject:[tempArr copy]];
-                        
-                        //                NSLog(@"mutaArray: %@",mutaArray);
-                        //            [mutaArray replaceObjectAtIndex:i withObject:[tempArr copy]]
                         break;
                     }
                 }
@@ -3548,25 +3157,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString * seedNowTime = [GGUtil GetNowTimeString];
             NSNumber *aNumber = [NSNumber numberWithInteger:row];
             NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime,aNumber,dic,nil];
-            //            NSLog(@"seedNowArr : %@",seedNowArr);
-            //            NSLog(@"dic : %@",dic);
-            
             if (seedNowArr.count > 0) {
                 [mutaArray addObject:seedNowArr];
-                
             }else
             {
                 NSAssert(seedNowArr != NULL, @"提示: 此时seedNowArr.count < 0,证明其为空");
             }
-            
-            
-            //     [mutaArray addObject:epgDicToSocket];
         }
-        
-        
-        
-        //5。两个数组相加
-        //    [ mutaArray addObject:historyArr];
+   
         NSArray *myArray = [NSArray arrayWithArray:mutaArray];
         //获取播放的第一个节目信息
         if (myArray.count <1) {   //第一次打开APP的时候，历史为空
@@ -3577,15 +3175,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            NSLog(@"storeLastChannelArr %@",storeLastChannelArr);
             NSLog(@"self.dicTemp ,:aa==ss :%p",dic);
         }
-        
-        NSLog(@"获取播放的第一个节目信息 成功");
         [USER_DEFAULT setObject:myArray forKey:@"historySeed"];
-        
-        
-        //    NSLog(@"myarray:%@",myArray[3]);
-        //    NSLog(@"myarray:%@",myArray[2]);
-        //    NSLog(@"myarray:%@",myArray[2][0]);
-        
         MEViewController * meview = [[MEViewController alloc]init];
         [meview viewDidAppear:YES];
         [meview viewDidLoad];
@@ -3682,16 +3272,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_after(popTime, mainQueue, ^{
         
         [self setCardTypeNotific];
-        //        self.videoController.socketView1 = self.socketView;
-        //        [self.socketView  judgeCardType];
-        
-        
         double delayInSeconds = 0.2;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
-            
-            //            [self setCardTypeNotific];
             self.videoController.socketView1 = self.socketView;
             [self.socketView  judgeCardType];
         });
@@ -3716,9 +3300,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     
     [self lineView];  //一条0.5pt的线
-    //    [self loadUI];              //加载table 和scroll
-    //    [self getTopCategory];
-    
     viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
     if (viewDidloadHasRunBool == 0) {
         
@@ -3785,10 +3366,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
        
         
     });
-    
-    
     //        [self CADencryptVideoTouchNotific];   //CA加密后的播放通知
-    
     //        [self timerStateInvalidateNotific];   //播放时的循环播放计时器关闭的通知
     //修改tabbar选中的图片颜色和字体颜色
     UIImage *image = [self.tabBarItem.selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -3863,7 +3441,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     if (self.showTVView == YES) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"judgeJumpFromOtherViewjudgeJumpFromOtherView");
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
             NSLog(@"取消25秒的等待4");
         });
@@ -3876,7 +3453,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else
         {
-            
             if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
                 //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
                 [self stopVideoPlay]; //停止视频播放
@@ -3884,7 +3460,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
                 //        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-                //        //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 
                 
@@ -4059,17 +3634,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             self.video.startTime = @"0";
             self.video.endTime = @"0";
-            NSLog(@"timeIsChange5 %@",self.video.startTime);
-            NSLog(@"self.video.startTime %@",self.video.startTime);
-            NSLog(@"self.video.endTime %@",self.video.endTime);
-            
             [USER_DEFAULT setObject:self.video.startTime forKey:@"RECVideoStartTime"];
             [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
             
             int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
-            NSLog(@"RECDurationTimeTemp1 %d",[self.video.endTime intValue]);
-            NSLog(@"RECDurationTimeTemp2 %d",[self.video.startTime intValue]);
-            NSLog(@"RECDurationTimeTemp %d",RECDurationTimeTemp);
             NSString * RECDurationTimeTempStr = [NSString stringWithFormat:@"%d",RECDurationTimeTemp];
             [USER_DEFAULT setObject:RECDurationTimeTempStr forKey:@"RECVideoDurationTime"];
         }else
@@ -4125,16 +3693,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"enterTVView" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterTVView) name:@"enterTVView" object:nil];
-    
-    
 }
 
 
 //从第一次启动的引导页进入首页
 -(void)enterTVView
 {
-    
-    
     [self viewWillAppear:YES];
 }
 
@@ -4145,9 +3709,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"socketGetIPAddressNotific" object:nil] ;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socketGetIPAddress) name:@"socketGetIPAddressNotific" object:nil];
-    
-    
-    
 }
 -(void)newTunerNotific
 {
@@ -4217,9 +3778,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //希望从路由器回复出厂后，刷新页面可以出发这个方法
         
         [USER_DEFAULT setObject:@"" forKey:@"playStateType"]; //设置为空，防止“delivery has  been....”产生
-        
-        
-        NSLog(@"mediaDeliveryUpdate 方法中触发refresh方法");
         [self tableViewDataRefreshForMjRefresh_ONEMinute];
     }
     //**
@@ -4231,7 +3789,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)tableViewDataRefreshForSDTMonitor
 {
     NSLog(@"SDTSDTSDTSDTSTD！！！");
-    NSLog(@" 机顶盒发送通知，需要刷新节目了 ==");
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
@@ -4281,9 +3838,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
-            
-            NSLog(@"刷新一次一次一次lolololo！！！");
-            
             [_slideView removeFromSuperview];
             _slideView = nil;
             
@@ -4291,12 +3845,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
-            NSLog(@"刷新一次一次一次lolololo！！！");
-            
             [_slideView removeFromSuperview];
             _slideView = nil;
-            
-            NSLog(@"删除了原先的sliderview3333");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -4409,50 +3959,28 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [mutableArrTemp addObject:recFileData[i]];
             }
         }
-        
-        ////下面代码会刷新节目
         for (int i = 0; i < mutableArrTemp.count; i++) {
             
             NSDictionary * serviceArrForJudge_dic = mutableArrTemp[i];
             BOOL isTwoDicEqual =  [GGUtil judgeTwoEpgDicIsEqual:epgDicToSocket TwoDic:serviceArrForJudge_dic];
             
             if (isTwoDicEqual == YES) {
-                NSLog(@"sdt==111111");
-                //找到了相匹配的节目，可以断定是正在播放的节目
-                //看两个的信息是否完全相等，如果不相等，则替换dic
                 isHavePlayingChannel = YES;
                 if ([serviceArrForJudge_dic isEqual: epgDicToSocket] ) {
-                    //如果完全相等，则不作处理
-                    NSLog(@"如果完全相等，则不作处理");
-                    
-                    //                    [self firstOpenAppAutoPlay:rowIndex diction:dic];
                     [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
                     firstOpenAPP = firstOpenAPP+1;
-                    
                     firstfirst = NO;
                 }
                 else
                 {
-                    //                    //关闭当前正在播放的节目
-                    //                    [self.videoController.player stop];
-                    //                    [self.videoController.player shutdown];
-                    //                    [self.videoController.player.view removeFromSuperview];
-                    
-                    //修改字典信息
-                    //历史记录信息和全部的信息
-                    
                     NSMutableDictionary * mutableDicTemp = [dic mutableCopy];
                     [mutableDicTemp setObject:[serviceArrForJudge_dic copy] forKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
                     dic = [mutableDicTemp mutableCopy];
-                    //==========fix
-                    
                     // 1. 修改id
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:serviceArrForJudge_dic,@"nowPlayingDic", nil];
-                    
                     NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:nowPlayingDic];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification2];
-                    
                     //2. 修改历史和store
                     
                     NSMutableArray * touchArrTemp ;
@@ -4493,9 +4021,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                        
                         firstOpenAPP = firstOpenAPP+1;
-                        
                         firstfirst = NO;
                         
                     }else //从加锁到不加锁正常播放的步骤，但是要注意得如果用户此时还处于弹窗或者未输入密码界面，得去掉弹窗和输入密码
@@ -4504,28 +4030,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notification1];
                         [STBAlert dismissWithClickedButtonIndex:1 animated:YES];
-                        //======
-                        //                        [self firstOpenAppAutoPlay:rowIndex diction:dic];
-                        
                         [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
                         firstOpenAPP = firstOpenAPP+1;
-                        
                         firstfirst = NO;
-                        
                     }
                     
                     return ;
                 }
-                
             }
-            
         }
-        
         //③如果有正在播放的节目，并且判断和正在播放的节目的dic信息是否相等，如果不相等则重新播放
         if (isHavePlayingChannel == NO) {
-            //没有找到这个节目，则播放第一个视频
-            NSLog(@"sdt==222222");
-            //=======机顶盒加密
             NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
             if (characterStr != NULL && characterStr != nil) {
                 BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
@@ -4537,19 +4052,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    
                     firstOpenAPP = firstOpenAPP+1;
-                    
                     firstfirst = NO;
                 }else //正常播放的步骤
                 {
-                    //======
-                    //                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                     [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
                     firstOpenAPP = firstOpenAPP+1;
-                    
                     firstfirst = NO;
-                    
                     double delayInSeconds = 0.5;
                     dispatch_queue_t mainQueue = dispatch_get_main_queue();
                     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -4575,10 +4084,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
                     [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
                 });
-                
-                
             }
-            
         }{
             NSLog(@"我们有正在播放的节目");
         }
@@ -4624,49 +4130,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-        
-        
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
-        NSLog(@"categorys==||=SDT");
+
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-        
-        NSLog(@"删除了原先的sliderview2244");
-        NSLog(@"刷新一次一次一次jsjsjsjssjjs！！！");
-        NSLog(@"self.categoryscategorys！！！ %@",self.categorys);
-        NSLog(@"self.categorysrecFileData！！！ %@",recFileData);
-        NSLog(@"self.categorytCategoryArr！！！ %@",getLastCategoryArr);
-        NSLog(@"self.categoryLastRecFileArr！！！ %@",getLastRecFileArr);
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            
-            NSLog(@"刷新一次一次一次lolololo！！！");
-            
             [_slideView removeFromSuperview];
             _slideView = nil;
-            
-            NSLog(@"删除了原先的sliderview1111");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
             //            [self tableViewDataRefreshForMjRefresh];
             
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
-            
-            NSLog(@"刷新一次一次一次lolololo！！！");
-            
+
             [_slideView removeFromSuperview];
             _slideView = nil;
-            
-            NSLog(@"删除了原先的sliderview2222");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
-            NSLog(@"刷新一次一次一次lolololo！！！");
-            
             [_slideView removeFromSuperview];
             _slideView = nil;
-            
-            NSLog(@"删除了原先的sliderview3333");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -4689,7 +4173,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
         
         if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
-            NSLog(@"YLSlideTitleViewButtonTagIndex small");
             NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
             
             NSInteger index = [numTemp integerValue];
@@ -4697,41 +4180,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self returnDicTemp:index]; //根据是否有录制返回不同的item
             }else if(self.categorys.count == 0 && recFileData.count > 0)
             {
-                //                //======机顶盒加密
                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                NSLog(@"ajsbdakjbfsabfasbflkab %@",self.dicTemp);
-                
-                
-                
-                //                //如果发现第二列，则展示REC这个数组
-                //                NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-                //                self.categoryModel = [[CategoryModel alloc]init];
-                //                self.categoryModel.service_indexArr = RECTempArr;
-                //                NSLog(@" self.categoryModel.service_indexArr==333 %@ ", self.categoryModel.service_indexArr);
-                //                tempArrForServiceArr =  RECTempArr;
-                //                numberOfRowsForTable = RECTempArr.count;
-                //
-                //                /*
-                //                 用于分别获取REC Json数据中的值
-                //                 **/
-                //
-                //                [self.dicTemp removeAllObjects];
-                //
-                //                for (int i = 0; i< RECTempArr.count ; i++) {
-                //                    [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
-                //                }
-                //
-                //
-                //
-                //                self.showTVView = YES;
-                //                [self touchSelectChannel:0 diction:self.dicTemp];
-                //
-                
-                
-                
-                
-                
-                
                 double delayInSeconds = 0.5;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -4742,7 +4191,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
             }else
             {
-                NSLog(@"tuichu");
                 return;
             }
         }
@@ -4775,8 +4223,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
-            NSLog(@"categorys==||=SDT");
-            
         }];
         
         [self.table reloadData];
@@ -4788,7 +4234,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             touchArr = historyArr[historyArr.count - 1];
         }else
         {
-            NSLog(@"historyArr== %@",historyArr);
             return;
         }
         
@@ -4822,10 +4267,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //看两个的信息是否完全相等，如果不相等，则替换dic
                 isHavePlayingChannel = YES;
                 if ([serviceArrForJudge_dic isEqual: epgDicToSocket] ) {
-                    //如果完全相等，则不作处理
-                    NSLog(@"如果完全相等，则不作处理");
-                    
-                    //                    [self firstOpenAppAutoPlay:rowIndex diction:dic];
                     [self SDTfirstOpenAppAutoPlaySMT:rowIndex diction:dic];
                     firstOpenAPP = firstOpenAPP+1;
                     
@@ -4927,11 +4368,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }else //正常播放的步骤
             {
-                //======机顶盒加密
-                //                [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                 [self SDTfirstOpenAppAutoPlaySMT:rowIndex diction:dic];
-                NSLog(@"ajsbdakjbfsabfasbflkab %@",self.dicTemp);
-                
                 [self performChangeColor];
                 
                 double delayInSeconds = 0.5;
@@ -4942,10 +4379,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
                     [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
                 });
-                
-                
             }
-            
         }{
             NSLog(@"我们有正在播放的节目");
         }
@@ -4968,11 +4402,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //判断列表变化后，是否把正在播放的那个节目给删除了，如果是的，则刷新列表，并且重新播放第一个视频
 -(void)judgeVideoByDelete
 {
-    
-    NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"];   //播放的历史老师
-    
-    //    NSLog(@"history Arr6: %@",arrHistoryNow[arrHistoryNow.count -1][0]);  //历史中正在播放的第一个节目
-    //    NSLog(@"history Arr22: %@",[self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",0]]);  //wor
+    NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"];   //播放的历史
     BOOL allisNO = YES ; //表示当前播放的节目不存在新的列表中，证明节目被刷新没了，所以需要重新播放第一个节目
     for (int i = 0; i<self.dicTemp.count; i++) {
         [self.dicTemp objectForKey:[NSString stringWithFormat:@"%d",i]];   //循环查找self.dicTemp 看有没有历史中的这个节目
@@ -4997,8 +4427,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             newservice_service =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_service_id"];
             newservice_tuner =  [arrHistoryNow[arrHistoryNow.count -1][0] objectForKey:@"service_tuner_mode"];
             
-            
-            
             if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_tuner isEqualToString:newservice_tuner] && [service_service isEqualToString:newservice_service]) {
                 //证明节目存在，不需要刷新
                 allisNO = NO;
@@ -5008,7 +4436,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }
     if (allisNO == NO) {
-        NSLog(@"不刷新");
     }else
     {
         //刷新
@@ -5022,7 +4449,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
                 //创建通知
                 NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification1];
                 
                 firstOpenAPP = firstOpenAPP+1;
@@ -5146,56 +4572,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)setStateNonatic
 {
-    //新建一个发送播放通知
-    //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
-    //    //注册通知
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:@"MPMediaPlaybackIsPreparedToPlayDidChangeNotification" object:nil];
-    //两者都响应一个方法
-    //    [NSThread sleepForTimeInterval:4];
-    //    if (playState == 0) {
-    //        [NSThread sleepForTimeInterval:1];
-    //    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:nil];
     
     // 播放状态改变，可配合playbakcState属性获取具体状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willplay) name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:nil];
-    
-    
-    // 媒体网络加载状态改变
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:IJKMPMoviePlayerLoadStateDidChangeNotification object:nil];
 }
-//-(void)timerStateInvalidateNotific
-//{
-//    //
-//    //此处销毁通知，防止一个通知被多次调用    // 1
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"timerStateInvalidate" object:nil];
-//    //注册通知,用来取消循环播放
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(timerStateInvalidate) name:@"timerStateInvalidate" object:nil];
-//}
-
 #pragma mark - 如果视频20秒内不播放，则显示这个文字提示
 //如果视频20秒内不播放，则显示这个文字提示
 -(void)playClick  //:(NSTimer *)timer
 {
-    NSLog(@"结束==计时===不能播放");
-    //①取消掉加载环  ②显示不能播放的文字
-    //    NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
-    //    //        //通过通知中心发送通知
-    //    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    
-    
     if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
         
     }else{
         [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
     }
-    //    NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
     NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
-    
-    
+ 
 }
 #pragma mark - 将要播放的通知
 -(void)willplay
@@ -5375,7 +4769,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
 
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-                //        //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
 
                 //快速切换频道名称和节目名称
@@ -5526,7 +4919,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
 
                 NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-                //        //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
 
                 //创建通知
@@ -5661,7 +5053,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
                 //创建通知
                 NSNotification *notification12 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
-                //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification12];
                 [self.tableForSliderView reloadData];
                 [self.table reloadData];
@@ -6773,11 +6164,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         firstfirst = NO;
                     }else //正常播放的步骤
                     {
-                        //======
-                        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
+                        [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                     }
                 }else //正常播放的步骤
                 {
@@ -7037,16 +6424,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
-    NSLog(@"changeLockData changeLockData");
     [self stopVideoPlay];
-    
-    
-    //    if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
-    //        NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-    //        //        //通过通知中心发送通知
-    //        [[NSNotificationCenter defaultCenter] postNotification:notification];
-    //    }else{
-    //通知主线程刷新
     dispatch_async(dispatch_get_main_queue(), ^{
         //回调或者说是通知主线程刷新，
         
@@ -7193,13 +6571,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     //选中数据变蓝
                     [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
-                    
-                    //                    NSNumber * currentIndex = [NSNumber numberWithInteger:indexOfCategory];
-                    //                    NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex ,@"currentIndex", nil];
-                    //                    //创建通知，防止刷新后跳转错页面
-                    //                    NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
-                    //                    //通过通知中心发送通知
-                    //                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }
             }
             
@@ -7284,13 +6655,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     uint16_t  CANetwork_idStr = [SocketUtils uint16FromBytes:CANetwork_idData]; // [[NSString alloc] initWithData:CANetwork_idData  encoding:NSUTF8StringEncoding];
     uint16_t  CATs_idStr =  [SocketUtils uint16FromBytes:CATs_idData]; //[[NSString alloc] initWithData:CATs_idData  encoding:NSUTF8StringEncoding];
     uint16_t  CAService_idStr =  [SocketUtils uint16FromBytes:CAService_idData];//[[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
-    //判断当前节目是不是CA弹窗节目
-    
-    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_tuner_mode) ;
-    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_ts_id) ;
-    NSLog(@"socketView.socket_ServiceModel.service_net_id :%@",socketView.socket_ServiceModel.service_network_id) ;
-    NSLog(@"socketView.socket_ServiceModel.service_service_id :%@",socketView.socket_ServiceModel.service_service_id) ;
-    
+   
     if (CATuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
         //证明一致，是这个CA节目
         
@@ -7333,11 +6698,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
         }
     }
-    
-    
-    
-    //    CAAlert = [[UIAlertView alloc] initWithTitle:@"请输入CA密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
-    
+   
     NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
     //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -7345,15 +6706,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 弹窗点击事件
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    //    textField_Encrypt.delegate = self;
-    //    textField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
-    //    textField_Encrypt = [alertView textFieldAtIndex:0];
-    //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-    //                                                name:@"UITextFieldTextDidChangeNotification"
-    //                                              object:textField_Encrypt];
-    
-    
-    
+   
     if ([alertView  isEqual: STBAlert]) {
         
         if(buttonIndex == 1)
@@ -7397,14 +6750,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         if(buttonIndex == 1)
         {
-            //            //取消了
-            //            NSLog(@"charact  CA 验证");
-            //            NSLog(@"没有进行CA密码验证，所以不能播放");
-            NSLog(@"charact  CA 验证");
-            NSLog(@"没有进行CA密码验证，所以不能播放");
-            //取消了
-            //1.先取消进度圈  2.弹出页面   3.将decoder PIN 的文字改成@"Please input your Decoder PIN";
-            
             NSNotification *notification =[NSNotification notificationWithName:@"configCAPINShowNotific" object:nil userInfo:nil];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -7458,7 +6803,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (textField.text.length == 0) {
         STBAlert.dontDisppear = YES;
         CAAlert.dontDisppear = YES;
-        NSLog(@"=0=0=0=0=0=0=0=00=0=0=0=0=0=0=0=0=0");
     }
     
     if ([textField  isEqual: STBTextField_Encrypt]) {
@@ -8333,58 +7677,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"recFileData %@",recFileData);
                     [self.CategoryAndREC addObject: recFileData];
                 }
-                
-                //2017.11.20 注释，防止刷新时造成整个列表都回到顶部
-                //            [_slideView removeFromSuperview];
-                //            _slideView = nil;
-                
-                //            if (!_slideView) {
-                //
-                //                //判断是不是全屏
-                //                BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-                //                if (isFullScreen == NO) {   //竖屏状态
-                //
-                //                    //设置滑动条
-                //                    _slideView = [YLSlideView alloc];
-                //                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
-                //                                                                      SCREEN_WIDTH,
-                //                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
-                //
-                //                    isHasChannleDataList = YES;
-                //                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                //                }else //横屏状态，不刷新
-                //                {
-                //
-                //                    //设置滑动条
-                //                    _slideView = [YLSlideView alloc];
-                //                    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
-                //                                                                      SCREEN_WIDTH,
-                //                                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
-                //                    [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                //                }
-                //
-                //                NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
-                //                [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
-                //
-                //                _slideView.backgroundColor = [UIColor whiteColor];
-                //                _slideView.delegate        = self;
-                //
-                //                [self.view addSubview:_slideView];
-                //                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                //
-                //                BOOL isFullScreen1 =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
-                //                if (isFullScreen1 == YES) {
-                //                    //此刻是全屏，隐藏进度条
-                //
-                //                }else
-                //                {//此刻是竖屏，不隐藏进度条
-                //
-                //                    NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
-                //                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                //                }
-                //
-                //            }
-                
                 if (data1.count == 0 && recFileData.count == 0){
                 }else{
                     [self newSlideView];
@@ -8427,22 +7719,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
     LBGetHttpRequest *request = CreateGetHTTP(url);
-    
-    
-    
     [request startAsynchronous];
     
     WEAKGET
     [request setCompletionBlock:^{
-        
-        
-        
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
         //将数据本地化
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
-        
-        //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
         
         
@@ -8559,14 +7843,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         WEAKGET
         [request setCompletionBlock:^{
             NSDictionary *response = httpRequest.responseString.JSONValue;
-            
-            
-            //        NSLog(@"response = %@",response);
+           
             NSArray *data = response[@"category"];
-            
-            //            if (!isValidArray(data) || data.count == 0){
-            //                return ;
-            //            }
             if (data.count == 0 && recFileData.count == 0){ //没有数据
                 
                 [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
@@ -8620,7 +7898,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                    NSLog(@"removeAllObjects 第 6 次");
                 }else //横屏状态，不刷新
                 {
                     
@@ -8630,7 +7907,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_WIDTH,
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
                     [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
-                    NSLog(@"removeAllObjects 第 7 次");
                 }
                 
                 
@@ -8648,11 +7924,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             else
             {
-                
             }
-            NSLog(@"DMSIP:6666");
             [self.socketView viewDidLoad];
-            NSLog(@"执行执行执行执行4444");
             if (firstfirst == YES) {
                 
                 
@@ -8675,26 +7948,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }else //正常播放的步骤
                     {
-                        NSLog(@"执行执行执行执行6666");
-                        //======
-                        [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                        firstOpenAPP = firstOpenAPP+1;
-                        
-                        firstfirst = NO;
+                      [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                     }
                 }else //正常播放的步骤
                 {
-                    //======机顶盒加密
-                    NSLog(@"执行执行执行执行7777");
-                    [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
-                    firstOpenAPP = firstOpenAPP+1;
-                    
-                    firstfirst = NO;
+                    [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                 }
             }else
             {}
-            
-            
             [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
             
         }];
@@ -8785,14 +8046,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //======机顶盒加密
                 [self firstOpenAppAutoPlay:row diction:dic];
             }
-            
-            
-            
-            
             [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
         }
-        
-        
     }else
     {
         if (storeLastChannelArr.count < 2) {
@@ -8834,15 +8089,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //======机顶盒加密
                 [self firstOpenAppAutoPlay:row diction:dic];
             }
-            
-            
             [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
         }
         
     }
-    //    }
-    
-    
 }
 #pragma mark - 当节目CA加密弹窗过程中，收到了取消弹窗的通知
 -(void)ChangeCALockNotific //机顶盒加锁改变的消息
@@ -8854,18 +8104,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)getChangeCALockNotice:(NSNotification *)text//当节目正在播放时，收到加锁通知
 {
-    //1.处理信息，如果发现是当前正在播放的节目，则执行第二步，否则只要修改self.dictemp这个字典就可以，还有dictemp可能被序列化了，所以需要修改 2.取消掉当前播放  3.重新执行播放
-    
-    //处理信息
     NSData * changeCALockData = [[NSData alloc]init];
     changeCALockData = text.userInfo[@"CARemovePopThreedata"];
-    
-//    NSLog(@"changeCALockData %@",changeCALockData);
-    
-    
     [self updateChannelCALockService:changeCALockData];
-    
-    
 }
 
 #pragma mark - CA 加锁时，收到消息然后弹窗小时的通知
@@ -8994,15 +8235,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     uint16_t  willStopService_idStr =  [SocketUtils uint16FromBytes:willStopService_idData];//[[NSString alloc] initWithData:CAService_idData  encoding:NSUTF8StringEncoding];
     //判断当前节目是不是CA弹窗节目
     uint16_t  willStopAudio_PidStr =  [SocketUtils uint16FromBytes:willStopAudio_PidData];
-    
-    
-    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_tuner_mode) ;
-    NSLog(@"socketView.socket_ServiceModel.service_ts_id :%@",socketView.socket_ServiceModel.service_ts_id) ;
-    NSLog(@"socketView.socket_ServiceModel.service_net_id :%@",socketView.socket_ServiceModel.service_network_id) ;
-    NSLog(@"socketView.socket_ServiceModel.service_service_id :%@",socketView.socket_ServiceModel.service_service_id) ;
-    NSLog(@"socketView.socket_ServiceModel.audio_pid :%@",socketView.socket_ServiceModel.audio_pid) ;
-    
-    
+   
     if (willStopTuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&willStopNetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && willStopTs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && willStopService_idStr == [socketView.socket_ServiceModel.service_service_id intValue] && willStopAudio_PidStr == [socketView.socket_ServiceModel.audio_pid intValue]) {
         //证明一致，是这个willStop节目
         
@@ -9037,13 +8270,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字
     [self stopVideoPlay]; //停止视频播放
-    
-    //        //取消掉加载环
-    //        NSNotification *notification1 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
-    //        //        //通过通知中心发送通知
-    //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    
-    //        NSString * playStateType = deliveryStopTip;
     [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
     //        NSDictionary *playStateTypeDic =[[NSDictionary alloc] initWithObjectsAndKeys:playStateType,@"playStateType",nil];
     NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
@@ -9121,19 +8347,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)getChangeLockNotice:(NSNotification *)text//当节目正在播放时，收到加锁通知
 {
-    NSLog(@"*****机顶盒改变节目的加锁状态 准备进入下一阶段");
-    //1.处理信息，如果发现是当前正在播放的节目，则执行第二步，否则只要修改self.dictemp这个字典就可以，还有dictemp可能被序列化了，所以需要修改 2.取消掉当前播放  3.重新执行播放
-    
-    //处理信息
     NSData * changeLockData = [[NSData alloc]init];
     changeLockData = text.userInfo[@"changeLockData"];
-    
-    NSLog(@"changeLockData %@",changeLockData);
-    
-    
     [self updateChannelService:changeLockData];
-    
-    
 }
 
 //通过network_id ,service_id,ts_id   如果需要增加正确性的话还可以判断Tuner type这个属性===》对应的Json中的tuner mode
@@ -9491,22 +8707,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
 }
-//#pragma mark - 凡是播放事件，都会响应这个方法 , 每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
-//-(void)beforeVideoPlayEvent
-//{
-////每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
-//    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-//}
 #pragma mark - 播放过程中，或者点击了加锁的按钮。此时停止掉显示不能播放文字,并且取消掉延迟方法
 -(void)removeTipLabAndPerformSelector
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         //弹窗之后，取消显示sorry不能播放的字样，并且取消不能播放的提示文字
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-        NSLog(@"取消25秒的等待6");
-        NSLog(@"取消播放第一次");
-        
-        //创建通知  如果视频要播放呀，则去掉不能播放的字样
         NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
@@ -9515,21 +8721,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark -- 判断是否需要延迟20秒执行播放状态判断，如果有CA或者加锁弹窗，则不进行判断
 -(void)ifNeedPlayClick
 {
-    //    NSString * str = [USER_DEFAULT objectForKey:@"alertViewHasPop"];
-    //    if ([str isEqualToString:@"no"]) {
-    //        //如果视频20秒内不播放，则显示sorry的提示文字
-    //        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-    //        [self performSelector:@selector(playClick) withObject:nil afterDelay:20];
-    //    }else
-    //    {
-    //    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-    //    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-        NSLog(@"取消25秒的等待7");
-        NSLog(@"取消播放第二次");
-        NSLog(@"取消播放第二次 %@",[NSThread currentThread]);
         if (self.showTVView == YES) {
             [self performSelector:@selector(playClick) withObject:nil afterDelay:25];
             NSLog(@"开始25秒的等待");
@@ -9593,9 +8786,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification2];
     
-    
-    
-    NSLog(@"asflna;nfanf;aonf;lkasfnas");
     //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
     [self removeTipLabAndPerformSelector];
     
@@ -9603,11 +8793,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification3 =[NSNotification notificationWithName:@"animateHideNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification3];
-    
-////    ⑤取消掉加载环
-//    NSNotification *notification4 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
-//    [[NSNotificationCenter defaultCenter] postNotification:notification4];
-//
+
 }
 -(void)removeONEMinuteTimer
 {
@@ -9627,12 +8813,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //初始化进度条
 -(void)initProgressLine
 {
-    //    self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
-    //        NSLog(@"切换为竖屏模式");
-    //    };
-    //    self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
-    //        NSLog(@"切换为全屏模式");
-    //    };
     BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
     if (isFullScreen == NO) {
         self.topProgressView.frame = CGRectMake(-2 ,
@@ -9764,10 +8944,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
         //如果节目的开始时间比当前时间还大，那么则把索引减一
         progressEPGArrIndex = progressEPGArrIndex - 1;
-    }else{
-        
     }
-    
     if (progressEPGArr.count - 1<progressEPGArrIndex) //如果索引过大，则停止
     {
         NSLog(@"abcd");
@@ -9790,7 +8967,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"progressEPGArrIndex22 lal :%d", [tempIndexStr intValue]);
                 // 如果索引大于epg数组的长度或者没有开始时间
                 NSNotification *notification =[NSNotification notificationWithName:@"TimerOfEventTimeNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 
                 
@@ -9819,21 +8995,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     
                     NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
-                    NSLog(@"progressRefreshself.event_startTime--==%@",self.event_startTime);
-                    NSLog(@"progressRefreshself.event_startTime--==%@",self.event_endTime);
                     if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
                         
                         [self removeProgressNotific];
                     }else
                     {
-                        NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
-                        NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
-                        
                         [dict setObject:self.event_startTime forKey:@"StarTime"];
                         [dict setObject:self.event_endTime forKey:@"EndTime"];
-                        
-                        
-                        
                         //判断当前是不是一个节目
                         eventName1 = self.event_videoname;
                         eventName2 = self.event_videoname;
@@ -9845,20 +9013,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         {
                             //@"同一个节目";
                             eventName2 = eventNameTemp;
-                            
-                            //        NSLog(@"dict.start :%@",[dict objectForKey:@"StarTime"]);
                             self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
-                            
-                            //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
                             NSInteger endTime =[self.event_endTime intValue ];
                             NSDate *senddate = [NSDate date];
-                            
-                            //                    NSLog(@"date1时间戳 = %ld",time(NULL));
                             NSString *nowDate = [NSString stringWithFormat:@"%ld", (long)[senddate timeIntervalSince1970]];
                             NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
-                            
-                            NSLog(@"pregressfresh进度条的地方replaceEventNameNotific");
-                            
                             if (endTimeCutStartTime > 0) {
                                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
                                 [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
@@ -9951,16 +9110,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark -////重新开始进度条和计时器的通知
 -(void)restartLineProgressNotific
 {
-    //    此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"restartTopProgressView" object:nil];
-    //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartTopProgressView :) name:@"restartTopProgressView" object:nil];
     
 }
 //重新开始进度条和计时器
 -(void)restartTopProgressView :(NSNotification *)text
 {
-    
     [self.view bringSubviewToFront:self.topProgressView];
     [self.videoController.view bringSubviewToFront:self.topProgressView];
     [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
@@ -9969,23 +9125,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSDictionary * dict = text.userInfo[@"restartTopProgressViewDic"];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
 }
-#pragma  mark - 在列表刷新后，同一一个时间点做一次刷新，将有关节目的数据做一次统一刷新
-//-(void)refreshAllAboutChannelData
-//{
-//
-////    //当前正在播放的节目的EPG信息
-////    [USER_DEFAULT setObject:epgDicToSocket forKey:@"NowChannelDic"];
-//
-//    //在此处刷新历史记录的信息
-//    //①主页的记录   ②搜索界面的记录  ③ 全屏页面的记录   ④ 历史界面的记录
-//    //⑤搜索页面的历史记录
-//
-//
-//    [USER_DEFAULT setObject:epgDicToSocket forKey:@"NowChannelDic"];
-//
-//
-//
-//}
 
 -(void)updateFullScreenDic
 {
@@ -10109,15 +9248,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 if (self.CategoryAndREC.count > 1) {
                     NSArray * CategoryAndREC_One = self.CategoryAndREC[1];
-                    NSLog(@"CategoryAndREC_One %@",CategoryAndREC_One);
                     if (CategoryAndREC_One.count > i) {
                         [self.dicTemp setObject:self.CategoryAndREC[1][i] forKey:[NSString stringWithFormat:@"%d",i] ];
                     }
-                    
                 }
-                
             }
-            
         }else  //点击了非录制节目
         {
             if (inputCategoryDic <= (self.categorys.count -1)) {
@@ -10131,57 +9266,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.categoryModel = [[CategoryModel alloc]init];
                         
                         self.categoryModel.service_indexArr = item[@"service_index"];
-                        NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh5555555");
-                        
                         NSMutableDictionary * dicTemp_Temp = [self.dicTemp mutableCopy];
                         [self.dicTemp removeAllObjects];
-                        NSLog(@"aksfjbajbfasbfalfbaf====1");
                         //获取不同类别下的节目，然后是节目下不同的cell值                10
-                        
-                        NSLog(@"aksfjbajbfasbfalfbaf====22");
-                        NSLog(@"major service_indexArr %@",self.categoryModel.service_indexArr);
-                        
-                        
-                        NSLog(@"self.categoryModel.service_indexArr== %@",[self.categoryModel.service_indexArr class]);
-                        NSLog(@"self.categoryModel.service_indexArr== %@",[self.categoryModel.service_indexArr superclass]);
                         if ([self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]] || [self.categoryModel.service_indexArr isKindOfClass:[NSArray class]]){
                             NSLog(@"属于NSMutableArray这个类");
                             
                             for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                                NSLog(@"aksfjbajbfasbfalfbaf====33");
-                                NSLog(@"aksfjbajbfasbfalfbaf====33= %d",i);
                                 int indexCat ;
-                                
-                                NSLog(@"aksfjbajbfasbfalfbaf====44");
-                                NSLog(@"aksfjbajbfasbfalfbaf====44= %@",self.categoryModel.service_indexArr[i]);
                                 indexCat =[self.categoryModel.service_indexArr[i] intValue];
                                 
                                 if ( ISNULL(self.serviceData)) {
                                     
                                 }else{
-                                    NSLog(@"aksfjbajbfasbfalfbaf====55");
-                                    NSLog(@"aksfjbajbfasbfalfbaf====55= %@",self.serviceData[indexCat -1]);
-                                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                                    NSLog(@"aksfjbajbfasbfalfbaf====66");
-                                    NSLog(@"aksfjbajbfasbfalfbaf====66= %@",self.dicTemp);
+                                 [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
                                 }
                                 
                             }
                         }
                         else
                         {
-                            NSLog(@"不属于NSMutableArray这个类");
                             self.dicTemp =  [dicTemp_Temp copy];
-                            
-                            NSLog(@"self.dicTemp=-=-= %@",self.dicTemp);
                         }
-                        
-                        
                     }
-                    
                 }
-                
-                
             }
         }
     }
@@ -10195,8 +9303,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.categoryModel = [[CategoryModel alloc]init];
                 
                 self.categoryModel.service_indexArr = item[@"service_index"];
-                NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh6666666");
-                NSLog(@"点击了setcategoryItem11");
                 [self.dicTemp removeAllObjects];
                 
                 //获取不同类别下的节目，然后是节目下不同的cell值                10
@@ -10210,18 +9316,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }else{
                         
                         [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                        
                     }
-                    
                 }
             }
-            
-            
         }
-        
     }
-    
-    
 }
 -(void)returnDicTemp :(NSInteger)index
 {
@@ -10249,7 +9348,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         self.categoryModel = [[CategoryModel alloc]init];
         self.categoryModel.service_indexArr = item[@"service_index"];
-        NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh7777777");
         [self.dicTemp removeAllObjects];
         
         //获取不同类别下的节目，然后是节目下不同的cell值
@@ -10261,7 +9359,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
                 return;
             }
-            
             //此处判断是否为空，防止出错
             if ( ISNULL(self.serviceData)) {
                 
@@ -10283,7 +9380,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.categoryModel = [[CategoryModel alloc]init];
             
             self.categoryModel.service_indexArr = item[@"service_index"];
-            NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh8888888");
             [self.dicTemp removeAllObjects];
             
             //获取不同类别下的节目，然后是节目下不同的cell值                10
@@ -10302,16 +9398,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else{
                     
                     if (indexCat -1 < self.serviceData.count) {
-                        NSLog(@"self.serviceData[indexCat -1] forKey:[NSString stringWithFormat: %@",self.serviceData[indexCat -1]);
                         [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
                         
                     }else
                     {
                         return;
                     }
-                    
                 }
-                
             }
             
         }else if (index == 1)
@@ -10333,8 +9426,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.categoryModel = [[CategoryModel alloc]init];
             
             self.categoryModel.service_indexArr = item[@"service_index"];
-            NSLog(@"aksfjbajbfasbfalfbaf asbfhfhffh9999999");
-            
             //获取EPG信息 展示
             //时间戳转换
             
@@ -10361,32 +9452,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     {
                         return;
                     }
-                    
                 }
-                
             }
-            
         }
-        
     }
 }
 -(void)playRECVideo :(NSDictionary *)epgDicToSocket
-{  //录制
-    NSLog(@"asbda;sbdasfsjbdajbd %@",[epgDicToSocket objectForKey:@"file_name"]);
-    
-    //增加CA加扰判断
-    
+{
     NSString * service_rat_Str = [epgDicToSocket objectForKey:@"service_rat"];
     if ([service_rat_Str intValue] > card_ret) {
-        NSLog(@"11111111111card_ratservice_rat=== %@",[epgDicToSocket objectForKey:@"service_rat"]);
-        NSLog(@"11111111111card_rat %d",card_ret);
-        
-        //节目级别: 1,2,4,8,9,0
-        //卡级别: 1,2,4,8
-        
         // 如果节目级别 大于 卡级别，则输入弹窗CA
-  
-        
         judgeRecIsCA = YES;
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -10421,8 +9496,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 CATextField_Encrypt.placeholder = CAPINLabel;
             }
         });
-        
-//        }
     }
     
     socketView.cs_serviceREC.file_name = [epgDicToSocket objectForKey:@"file_name"];
@@ -10490,12 +9563,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
  
 }
--(void)playCARecVideo
-{
-    NSLog(@"RECRECRECRECRECRECRECRECRECRECRECREC");
-   
-}
-
 /**
  无频道列表显示
  */
@@ -10519,32 +9586,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(BOOL)judgeIfNeedRefreshSliderView :(NSArray *)categoryArr recFileArr:(NSArray *)recFileArr lastCategoryArr:(NSArray *)lastCategory lastRECFileArr:(NSArray *)lastFileArr
 {
-    //    NSArray * oldCategoryArr = lastCategory;
-    //    NSArray * oldRecFileArr = lastFileArr;
-    //
-    //    NSArray * nowCategoryArr = categoryArr;
-    //    NSArray * nowRECFileArr =  recFileArr;
-    //
-    
-    NSLog(@"lastCategory %@",lastCategory);
-    NSLog(@"categoryArr %@",categoryArr);
-    NSLog(@"lastFileArr.count %lu",(unsigned long)lastFileArr.count);
-    NSLog(@"recFileArr.count %lu",recFileArr.count);
-    NSLog(@"lastFileArr.count %lu",recFileArr.count);
-    NSLog(@"lastFileArr.count %lu",recFileArr.count);
-    
-    //    if ([lastCategory isEqualToArray:categoryArr] && ((lastFileArr.count >0 && recFileArr.count>0) || (lastFileArr.count ==0 && recFileArr.count==0)))
+   
     if ([lastCategory isEqualToArray:categoryArr] && (lastFileArr.count >0 && recFileArr.count>0))
     {
-        NSLog(@"NONONONONO");
         return NO;
     }else if([lastCategory isEqualToArray:categoryArr] && (lastFileArr.count ==0 && recFileArr.count==0)){
         return NO;
     }
     else
     {
-        NSLog(@"YESYESYESYES");
-        NSLog(@"需要删除了sliderview 重新刷新");
         return YES;
     }
 }
@@ -10636,12 +9686,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"准备做判断是否需要刷新！！！");
         NSArray *recFileData = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"] lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            NSLog(@"两种都有 2");
-            NSLog(@"刷新一次一次一次！！！");
             [_slideView removeFromSuperview];
             _slideView = nil;
-            
-            NSLog(@"删除了原先的sliderview000");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -10679,7 +9725,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
             [self NOChannelDataShow];
-            NSLog(@"NOChannelDataShow--!!3333333");
             [self removeTopProgressView]; //删除进度条
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
@@ -10687,7 +9732,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else
         {
-            NSLog(@"做一次显示的操作222");
             if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
                 if ([UIScreen mainScreen].bounds.size.width < [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 400) {
                     
@@ -10722,14 +9766,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 for (int i = 0; i< RECTempArr.count ; i++) {
                     [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
                 }
-                
-                
-                
-                
-                NSLog(@"self.dicTemp。count %d",self.dicTemp.count);
-                NSLog(@"kskskskskssksk");
-                NSLog(@"self.dicTemp。count %@",self.dicTemp);
-                
                 self.showTVView = YES;
                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
                 firstOpenAPP = firstOpenAPP+1;
@@ -10773,14 +9809,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self refreshTableviewByEPGTime];
         });
         [NSThread sleepForTimeInterval:2];
-        //    [self mediaDeliveryUpdate];
-        //    [tableForSliderView reloadData];
-        // 结束刷新
-        
         [self.tableForSliderView.mj_header endRefreshing];
-        
-        //////
-        //获取数据的链接
         NSString *urlCate = [NSString stringWithFormat:@"%@",S_category];
         
         LBGetHttpRequest *request = CreateGetHTTP(urlCate);
@@ -10796,8 +9825,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
-            NSLog(@"categorys==||=MJRefresh");
-            
         }];
         
         [self.table reloadData];
@@ -10834,24 +9861,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.CategoryAndREC addObject: recFileData];
     }
 }
-//#pragma  mark - 获得当前播放节目的分类和index索引
-//-(void) getCategoryAndIndex
-//{
-//
-//    NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-//    NSArray * touchArr ;
-//    if (historyArr.count >= 1) {
-//        touchArr = historyArr[historyArr.count - 1];
-//    }else
-//    {
-//        return;
-//    }
-//
-//    //1. 通过历史判断
-//    //2. 通过属性判断
-//
-//
-//}
 - (UIView *)createPushView
 {
     UIView *PushView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 50*phonePushOtherArr.count)];
@@ -10919,10 +9928,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     ///发送通知获取Push列表
     [self.socketView csGetPushInfo];  //密码六位
     
-    
-    
-    
-    
 }
 
 ///快速设置频道名称和节目名称等信息
@@ -10981,28 +9986,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     pushSecNumLab.frame = CGRectMake(7, 1, 45, 45);
     
     pushSecNumLab.text = @"60s";
-    //    pushSecNumLab.text = [NSString stringWithFormat:@"%d=60s",pushAlertViewIndex];
-    //    pushAlertViewIndex = pushAlertViewIndex +1;
-    
     [self setPushSecNumLabFrame];
     
     pushSecNumLab.font = FONT(18);
     pushSecNumLab.textColor = [UIColor whiteColor];
     [blueCircleView addSubview:pushSecNumLab];
-    
-    //    //判断当前播放的是不是第一个
-    //    if (timeNum > 0 && timeNum < 60) {
-    //        //推屏信息正在进行中
-    //        pushSecNumLab.text = @"60s";
-    //    }else
-    //    {
     timeNum = 60;
     pushTVTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(pushTVTimerReduce) userInfo:nil repeats:YES];
-    
-    //    }
-    //
-    
-    
+
     return PushView;
     
 }
@@ -11097,10 +10088,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    JXAlertView
     
     [JXAlertView setOnButtonTouchUpInside:^(GetPushInfoAlertView *JXAlertView, int buttonIndex) {
-        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[JXAlertView tag]);
-        
         if (buttonIndex == 0) { //点击了取消
-            NSLog(@"点击了取消按钮");
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
         }else
@@ -11134,14 +10122,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //变蓝
                 
             });
-            
-            
-            
-            
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
-            
-            
             double delayInSeconds = 0.5;
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -11149,22 +10131,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 [self tableViewCellToBlue:0 indexhah:pushChannelId AllNumberOfService:self.dicTemp.count];
             });
-            //            double delayInSeconds = 0.5;
-            //            dispatch_queue_t mainQueue = dispatch_get_main_queue();
-            //            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-            //            dispatch_after(popTime, mainQueue, ^{
-            //                NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:pushChannelId inSection:0];
-            //                [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
-            //            });
         }
         [JXAlertView close];
     }];
     
     
     [JXAlertView show];
-    //    [JXAlertView show:pushChannelId];
-    
-    
+  
 }
 
 ///创建机顶盒分享视频到手机录制
@@ -11186,8 +10159,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //    JXAlertView
     
     [JXAlertView setOnButtonTouchUpInside:^(GetPushInfoAlertView *JXAlertView, int buttonIndex) {
-        NSLog(@"点击button == %d  alertView == %d", buttonIndex, (int)[JXAlertView tag]);
-        
         if (buttonIndex == 0) { //点击了取消
             NSLog(@"点击了取消按钮");
             [self.videoController setPushBtnHasClickNO];
@@ -11207,11 +10178,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             [self.navigationController popViewControllerAnimated:YES];
-            
-            
-            
-            
-            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                 
@@ -11229,13 +10195,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //变蓝
                 
             });
-            
-            
-            
-            
-            
-            
-            
             [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
             firstOpenAPP = firstOpenAPP+1;
             
@@ -11252,20 +10211,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }];
     
     [JXAlertView show];
-    //    [JXAlertView show:pushChannelId];
-    
-    
 }
-
 ///其他设备投屏手机
 -(void)OtherDevicePushToPhoneNotific
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setOtherDevicePushToPhoneNotific" object:nil];
-    //    //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addPushMutableArr:) name:@"setOtherDevicePushToPhoneNotific" object:nil];
-    
-    
-    
 }
 #pragma mark - 添加投屏信息到数组
 -(void)addPushMutableArr:(NSNotification *)text{
@@ -11283,15 +10234,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //①将每一个投屏信息添加到数据
     //②逐个从数组中取出，然后逐个发送通知进行操作。如果点击了签一个被取消掉了，那么后一个跟进
-    
-    //    double delayInSeconds = 5;
-    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    //    dispatch_after(popTime, mainQueue, ^{
-    //        NSLog(@"hahahahahahah 5miao");
-    
-    NSLog(@"shareViewArr.count %d",shareViewArr.count);
-    
     if (shareViewArr.count > 0 && shareViewArr.count == 1) {
         NSNotification * textOne = shareViewArr[0][0];
         NSString * typeStr = shareViewArr[0][1];
@@ -11304,25 +10246,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
     }
-    
-    
-    
-    
-    //    });
-    
-    
-    
-    
-    
-    
+   
     
 }
 -(void)OtherDevicePushToPhone:(NSNotification *)text{
-    
-    NSLog(@"sbiasdbasbdabsdubasdiua");
     NSData * data = text.userInfo[@"playdata"];
-    NSLog(@"sbiasdbasbdabsdubasdiua %@",data);
-    
     NSData * tunerTypeData = [data subdataWithRange:NSMakeRange(37,4)];
     NSData * netWorkIdData = [data subdataWithRange:NSMakeRange(41,2)];
     NSData * tsIdData = [data subdataWithRange:NSMakeRange(43,2)];
@@ -11332,12 +10260,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSData * srcClientIpData = [data subdataWithRange:NSMakeRange(51,4)];
     NSData * srcClientNameLenData = [data subdataWithRange:NSMakeRange(55,1)];
     NSData * srcClientNameData = [data subdataWithRange:NSMakeRange(56,data.length - 56)];
-    
-    
-    
-    
-    
-    
+ 
     socketView.otherDevicePushService.service_tuner_type = [SocketUtils uint32FromBytes:tunerTypeData];
     socketView.otherDevicePushService.service_network_id = [SocketUtils uint16FromBytes:netWorkIdData];
     socketView.otherDevicePushService.service_ts_id =[SocketUtils uint16FromBytes:tsIdData];
@@ -11429,9 +10352,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
         }
-        
-        
-        
         NSMutableArray * tempInfoArr = [[NSMutableArray alloc]init];
         [tempInfoArr addObject:tunerTypeData];
         [tempInfoArr addObject:netWorkIdData];
@@ -11442,41 +10362,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [tempInfoArr addObject:srcClientIpData];
         [tempInfoArr addObject:srcClientNameLenData];
         [tempInfoArr addObject:srcClientNameData];
-        
-        //        if (shareViewArr.count == 0) {
-        //            [shareViewArr addObject:tempInfoArr];
-        //
-        //            //弹窗
-        //            [self  createGetAlertView];
-        //        }else
-        //        {
-        //            bool hasSharingView = YES;
-        //            for (int i = 0;  i < shareViewArr.count; i++) {
-        //                if ([shareViewArr[i] isEqualToArray:tempInfoArr]) {
-        //                    NSLog(@"hahahahahaha");
-        //                    hasSharingView = YES;
-        //                }else
-        //                {
-        //                    NSLog(@"hahahahahahajajajajajaja");
-        //                    hasSharingView = NO;
-        //                }
-        //            }
-        //            if (hasSharingView == NO) {
-        //                [shareViewArr addObject:tempInfoArr];
-        //
-        //弹窗
         [self  createGetAlertView];
-        //            }else
-        //            {
-        //                //不操作，不弹窗
-        //            }
-        //        }
-        
-        
-        
-        
-        
-        
+    
     }
     
 }
@@ -11500,13 +10387,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //①将每一个投屏信息添加到数据
     //②逐个从数组中取出，然后逐个发送通知进行操作。如果点击了签一个被取消掉了，那么后一个跟进
-    
-    //    double delayInSeconds = 5;
-    //    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    //    dispatch_after(popTime, mainQueue, ^{
-    //        NSLog(@"hahahahahahah 5miao");
-    
     if (shareViewArr.count > 0 && shareViewArr.count == 1) {
         NSNotification * textOne = shareViewArr[0][0];
         NSString * typeStr = shareViewArr[0][1];
@@ -11551,13 +10431,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         return;
     }
-    NSLog(@"nowPlayChannel_Arr=== %@",nowPlayChannel_Arr);
-    
     NSDictionary * dic1 = nowPlayChannel_Arr [0];
-    
-    
-    NSLog(@"nowPlayChannel_Arr===dic11 %@",dic1);
-    
     //用于判断是不是需要弹窗
     if ([[dic1 objectForKey:@"file_name"] isEqualToString: socketView.otherDevicePushLive.file_name])
     {
@@ -11646,32 +10520,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     if (self.showTVView == YES) {
-        NSLog(@"已经跳转到firstopen方法");
-        //=====则去掉不能播放的字样，加上加载环
-        //        [self removeLabAndAddIndecatorView];
-        
         [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
-        
         NSMutableDictionary * epgDicToSocket = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
-        NSLog(@"epgDicToSocket.count %d",epgDicToSocket.count);
-        
         if (epgDicToSocket.count > 14) {  //录制
-            //            [self addHistory:row diction:dic];
-            //            [self playRECVideo:epgDicToSocket];
+          
         }
         else
         {
-            
-            NSLog(@"dic: %@",dic);
-            
-            NSLog(@"row: %ld",(long)row);
-            //            /*此处添加一个加入历史版本的函数*/
-            //            [self addHistory:row diction:dic];
-            //            [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
-            //            [self.videoController setaudioOrSubtRowIsZero];
-            //    [self getsubt];
-            //__
-            
             NSArray * audio_infoArr = [[NSArray alloc]init];
             NSArray * subt_infoArr = [[NSArray alloc]init];
             
@@ -11764,24 +10619,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else if (ISEMPTY(socketView.socket_ServiceModel.service_service_id)){
                 socketView.socket_ServiceModel.service_service_id = @"0";
             }
-            
-            //            //此处销毁通知，防止一个通知被多次调用    // 1
-            //            [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
-            //            //注册通知
-            //            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
-            
-            //            dispatch_async(dispatch_get_main_queue(), ^{
-            //
-            //                if (self.showTVView == YES) {
-            //                    self.videoController.socketView1 = self.socketView;
-            //                    [self.socketView  serviceTouch ];
-            //                }else
-            //                {
-            //                    NSLog(@"已经不是TV页面了");
-            //                    [self ifNotISTVView];
-            //                }
-            //
-            //            });
         }
         
     }
