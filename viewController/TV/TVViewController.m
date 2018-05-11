@@ -2700,18 +2700,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
 {
     dic = [dic mutableCopy];
-    NSLog(@"ajsbd;absd;asbdkasbd");
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
-        
         [USER_DEFAULT setObject:[NSNumber numberWithInt:row] forKey: @"Touch_Channel_index"];
-      
         if (![[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             [GGUtil postnoPlayShowShutNotic];
             [GGUtil postIndicatorViewShowNotic];
-            
         }
         if (self.showTVView == YES) {
             [self ifNeedPlayClick];
@@ -2728,7 +2723,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSMutableArray *mutaArray = [[NSMutableArray alloc] init];
         //3.获得以前的点击数据
         mutaArray = [[USER_DEFAULT objectForKey:@"historySeed"]mutableCopy];
-        
         if (mutaArray == nil) {
             mutaArray = [[NSMutableArray alloc] init];
         }
@@ -2810,12 +2804,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
         }
+        NSLog(@"触发历史记录==判断");
+        NSLog(@"触发历史记录mutaArraycount 111数量 %lu",(unsigned long)mutaArray.count);
         if (addNewData == YES) {
             NSString * seedNowTime = [GGUtil GetNowTimeString];
             NSNumber *aNumber = [NSNumber numberWithInteger:row];
             NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime,aNumber,dic,nil];
             if (seedNowArr.count > 0) {
+                //根据数组大小，删除数据。只保留20个以内的历史记录
+                NSLog(@"触发历史记录mutaArraycount 数量 %lu",(unsigned long)mutaArray.count);
+                if (mutaArray.count > 19) {
+                    for (int i = 0; i < mutaArray.count - 19; i ++) {
+                        NSLog(@"触发历史记录删除");
+                        [mutaArray removeObjectAtIndex:0];
+                    }
+                }
                 [mutaArray addObject:seedNowArr];
+                
+                
             }else
             {
                 NSAssert(seedNowArr != NULL, @"提示: 此时seedNowArr.count < 0,证明其为空");
@@ -2845,7 +2851,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if ([radioServiceType isEqualToString:@"4"]) { //视频是1  音频是4
         [USER_DEFAULT setObject:@"radio" forKey:@"videoOrRadioPlay"];
         [USER_DEFAULT setObject:videoCantPlayTip forKey:@"videoOrRadioTip"];
-        
     }else { //视频是1  音频是4
         NSNotification *notification =[NSNotification notificationWithName:@"removeConfigRadioShowNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
@@ -2856,9 +2861,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 //引导页
 - (void)viewWillAppear:(BOOL)animated{
-    
-    NSString* phoneVersion = [[UIDevice currentDevice] systemVersion];
-    double abcd =  [phoneVersion doubleValue];
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         NSLog(@"第一次启动");
@@ -3007,7 +3009,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         // 处理耗时操作的代码块...
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
-        NSLog(@"目前是sliderview:%f",_slideView.frame.origin.y);
     });
 }
 
@@ -3356,10 +3357,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             _slideView = nil;
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
-        
-        
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
-            NSLog(@"mediaDeliveryUpdate SDTSDT 方法中触发refresh方法");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         [self activeViewRemove];
