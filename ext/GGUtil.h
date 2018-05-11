@@ -108,7 +108,21 @@
 + (NSString *)timeYMDHMWithTimeIntervalString:(NSString *)timeString;
 +(double)getSystemVersion;
 +(NSString *)switchDataToIp:(NSData *)data;
-+ (void)getCurrentLanguage;
++(void)getCurrentLanguage;
++(void)addTVViewGuideView:(NSMutableArray*)paths;
+
+// TVViewNotific
++ (void)showDeliveryStopIsNull;
++ (void)postfullScreenBtnShow;
++ (void)postSTBDencryptNotific:(NSDictionary*)dic;
++ (void)postnoPlayShowNotic;
++ (void)postcantDeliveryNotific;
++ (void)postremoveConfigCAPINShowNotific;
++ (void)postnoPlayShowShutNotic;
++ (void)postIndicatorViewShowNotic;
++ (void)postTimerOfEventTimeNotific;
++ (void)postsetChannelNameAndEventNameNotic:(NSDictionary*)dic;
+
 @end
 
 

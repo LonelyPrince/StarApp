@@ -4847,100 +4847,69 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
 }
 
-
-
--(void)judgeAudioOrSubtAndChannelIndex :(NSInteger) channelIndex
-{
-    
-}
 -(void)RECsetEventTime
 {
-    NSLog(@"this is 33333");
-    float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
-    NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
-    
-    
-    int bb1 ;
-    
-    
+    float allTime = [self.video.endTime intValue]  - [self.video.startTime intValue];
+    NSString * TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
+    int dValueTime ;
+
     //如果时间为0 ,或者没有获取到时间，则显示为0
     if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
-        bb1 = 0;
+        dValueTime = 0;
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } else
     {
-        bb1 = (int)self.player.playableDuration;
-        NSLog(@"self.player.playableDuration1bb1 %d",bb1);
+        dValueTime = (int)self.player.playableDuration;
     }
-    if (bb1 <0) {
-        bb1 = 0;
-        aa1 = 0;
-        aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+    if (dValueTime <0) {
+        dValueTime = 0;
+        allTime = 0;
+        TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
     }
-    if (bb1 < aa1) {
-        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
-        
+    if (dValueTime < allTime) {
+        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
         self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
-        self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
-        
-        NSLog(@"tinetime 11");
+        self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     }else
     {
-        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
-        self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",aa];
-        self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
-        NSLog(@"tinetime 22");
+        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
+        self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",TimeIntervalString];
+        self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     }
-    
-    
-    
-    
 }
 -(void)setEventTime
 {
-    NSLog(@"this is 00000");
-    NSLog(@"self.video.endTime %d",[self.video.endTime intValue]);
-    NSLog(@"self.video.startTime %d",[self.video.startTime intValue]);
-    float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];
-    NSLog(@"aa1 =差值 %f",aa1);
-    NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
-    
-    
-    int bb1 ;
+    float allTime = [self.video.endTime intValue]  - [self.video.startTime intValue];//总时长
+    NSString * TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
+    int dValueTime ; //已经过了多长时间
     
     //如果时间为0 ,或者没有获取到时间，则显示为0
     if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
-        bb1 = 0;
+        dValueTime = 0;
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } else
     {
-        
-        bb1 = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
-        
-        NSLog(@" bb1 %d",bb1);
+        dValueTime = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
     }
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
     }else
     {
-        if (bb1 <0) {
-            bb1 = 0;
-            aa1 = 0;
-            aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
+        if (dValueTime <0) {
+            dValueTime = 0;
+            allTime = 0;
+            TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
         }
     }
-    
-    
-    
-    NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
+    NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
   
     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
-    self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+    self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     
     //进行判断,看是不是录制节目.并且录制节目没有断开网络
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
@@ -4948,13 +4917,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             
             self.videoControl.eventTimeLabNow.text = @"00:00:00";
-            self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
+            self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
         }
     }
-    NSLog(@"tinetimetime: %@",nowTime);
-    NSLog(@"tinetime 33");
-    
-    
 }
 #pragma mark - 判断进度条是不是需要显示
 -(void)configTimerOfEventTimeNotific
@@ -5198,32 +5163,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self judgeLastBtnIsGray];
     [self judgeNextBtnIsGray];
     
-    //分线程对传过来的数据进行判断，判断节目分别index是多少，然后进行展示
-    
-    //    [self judgeAudioOrSubtAndChannelIndex : channelIndex];
-    
-    
     if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
         
         NSArray * audioarr =[self.subAudioDic  objectForKey:@"audio_info"];
         if (audioarr.count > [[USER_DEFAULT objectForKey:@"Touch_Audio_index"] intValue] ) {
             audioPositionIndex =  [[USER_DEFAULT objectForKey:@"Touch_Audio_index"] intValue];
-            NSLog(@"audioPositionIndex %d",audioPositionIndex);
-            //            audioRow = audioPositionIndex;
         }else
         {
             audioPositionIndex = 0;
-            //            audioRow = 0;
         }
         NSArray * subtarr =[self.subAudioDic  objectForKey:@"subt_info"];
         if (subtarr.count > [[USER_DEFAULT objectForKey:@"Touch_Subt_index"] intValue] ) {
             subtPositionIndex =  [[USER_DEFAULT objectForKey:@"Touch_Subt_index"] intValue];
-            NSLog(@"audioPositionIndex22 %d",subtPositionIndex);
-            //            subtRow = subtPositionIndex;
         }else
         {
             subtPositionIndex = 0;
-            //            subtRow = 0;
         }
         
         
@@ -5231,8 +5185,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         audioPositionIndex = 0;
         subtPositionIndex = 0;
-        //        audioRow = 0;
-        //        subtRow = 0;
     }
     
     
@@ -5248,10 +5200,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)setaudioOrSubtRowIsZero
 {
     audioRow = 0;
-    NSLog(@"audioRow==6 %d",audioRow);
-    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
-    
 }
 #define mark - 数据停止分发3秒后显示不能播放的文字，等到数据缓冲完成，自动重新播放
 -(void)stopPlayAndWaitBuffering
@@ -5264,25 +5213,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         NSString * isShowLabStr = [USER_DEFAULT objectForKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         
-        if ([isShowLabStr isEqualToString:@"POP"]) {
-            //什么都不执行,因为此时有弹窗的文字在展示
-            NSLog(@"卡拉  开始配置 进入方法33");
-        }else
+        if (![isShowLabStr isEqualToString:@"POP"])
         {
-            NSLog(@"卡拉  开始配置 进入方法333");
-            //保存三个有用的信息
-            
             NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];//text.userInfo[@"playStateType"];
-            
-            
-            
             //①创建通知,删除进度条
             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
             
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
             //②右侧列表消失
-            NSLog(@"右侧列表消失 noPlayShowNotic222");
             self.subAudioTableView.hidden = YES;
             self.subAudioTableView = nil;
             [self.subAudioTableView removeFromSuperview];
@@ -5302,13 +5240,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             UIDeviceOrientation orientation = self.getDeviceOrientation;
             if (!self.isLocked)
             {
-                NSLog(@"width== %f",self.view.frame.size.width);
-                NSLog(@"height== %f",self.view.frame.size.height);
-                NSLog(@"screenWidth== %f",[UIScreen mainScreen].bounds.size.width);
-                NSLog(@"screenHeight== %f",[UIScreen mainScreen].bounds.size.height);
-                
-                //转盘方向  研究
-                
                 switch (orientation) {
                     case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
                         NSLog(@"home键在 下");

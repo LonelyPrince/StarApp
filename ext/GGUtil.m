@@ -1076,6 +1076,86 @@ static const char *getPropertyType(objc_property_t property) {
     //    NSLog( @"当前的语言%@" , localeLanguageCode);
     
 }
++(void)addTVViewGuideView:(NSMutableArray*)paths
+{
+    NSString * MLRecording = NSLocalizedString(@"MLRecording", nil);
+    
+    if (MLRecording.length > 10) {
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"法语引导页1" ofType:@"png"]];
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"法语引导页2" ofType:@"png"]];
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"法语引导页3" ofType:@"png"]];
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"法语引导页4" ofType:@"png"]];
+    }else
+    {
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页1" ofType:@"png"]];
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页2" ofType:@"png"]];
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页3" ofType:@"png"]];
+        [paths addObject:[[NSBundle mainBundle] pathForResource:@"引导页4" ofType:@"png"]];
+    }
+    
+    
+}
 
+// TVViewNotific
++(void)showDeliveryStopIsNull
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnHidden" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
++(void)postfullScreenBtnShow
+{
+    NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnShow" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
++ (void)postSTBDencryptNotific:(NSDictionary*)dic
+{
+    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dic];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
++ (void)postnoPlayShowNotic
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
++ (void)postcantDeliveryNotific
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+}
++ (void)postremoveConfigCAPINShowNotific
+{
+    NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigCAPINShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
++ (void)postnoPlayShowShutNotic
+{
+    NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+}
++ (void)postIndicatorViewShowNotic
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
++ (void)postTimerOfEventTimeNotific
+{
+    NSNotification *notification =[NSNotification notificationWithName:@"TimerOfEventTimeNotific" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
++ (void)postsetChannelNameAndEventNameNotic:(NSDictionary*)dic
+{
+    NSNotification *notification22 =[NSNotification notificationWithName:@"setChannelNameAndEventNameNotic" object:nil userInfo:dic];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification22];
+}
 @end
 
