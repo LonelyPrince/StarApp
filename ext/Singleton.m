@@ -51,10 +51,12 @@
     NSLog(@"socket连接成功");
     NSLog(@"接下来开始发送心跳");
     [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
-    NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa11111");
+    
     if (self.connectStatus >3) {
+        //连接状态存储
+        [USER_DEFAULT setObject:@"ConnectIsSuccess" forKey:@"ConnectStatus_userDefault"];
+        
         //从断开状态到连接状态，开始重新播放
-        NSLog(@"ajksdbkjabsdjbadjkabsdjbdsa222222");
         NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
         
@@ -68,7 +70,7 @@
     }
     NSNotification *notification =[NSNotification notificationWithName:@"netWorkIsConnectNotice" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
+    //
     self.connectStatus = 0; //连接成功，则赋值为0
     
     // 每隔30s像服务器发送心跳包
@@ -267,6 +269,7 @@
         if (self.connectStatus == 3) {
             [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
             [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
+            [USER_DEFAULT setObject:@"ConnectIsFaild" forKey:@"ConnectStatus_userDefault"];
             
             NSLog(@"sorry the connect is 服务器断开,并且要显示无网络连接的图");
             NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
@@ -475,7 +478,7 @@
                                     [self readSocketCommandTypeISTwentyThree:bigDataReduceSmallData];
                                 }
                                     break;
-
+                                    
                                 case 35:
                                 {
                                     NSData * now_data_length = [[NSData alloc]init];
@@ -803,7 +806,7 @@
                                     {
                                         return;
                                     }
-                                   
+                                    
                                     [self readSocketCommandTypeISThirtynine:bigDataReduceSmallData];
                                     
                                     
@@ -1148,7 +1151,7 @@
                         //这里可以获得CA信息
                         //第一步：获得必要的CA消息
                         //此处是验证机顶盒密码，将会这个消息传到TV页面
-                       
+                        
                         [self readSocketCommandTypeISThirtynine:data];
                         
                         
@@ -1341,7 +1344,7 @@
                                     
                                 }
                                     break;
-
+                                    
                                 case 35:
                                 {
                                     // 更新了列表
@@ -2010,7 +2013,7 @@
                     case 39:  //视频分发退出，例如：机顶盒恢复出厂设置
                     {
                         NSLog(@"*****视频分发退出");
-                       
+                        
                         [self readSocketCommandTypeISThirtynine:data];
                         
                         
