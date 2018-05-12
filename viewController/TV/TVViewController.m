@@ -9018,7 +9018,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             //发送通知
-            [self PushSelectBtnClick];
+            [self PushSelectBtnClick];  //此处可能报错=====Major
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
             
@@ -9046,7 +9046,29 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //变蓝
                 
             });
-            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
+            //            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
+            
+            //=======机顶盒加密
+            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:pushChannelId serviceListDic:self.dicTemp];
+            if (characterStr != NULL && characterStr != nil) {
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                    // 此处代表需要记性机顶盒加密验证
+                    NSNumber  *numIndex = [NSNumber numberWithInteger:pushChannelId];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                    [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
+                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    firstfirst = NO;
+                }else //正常播放的步骤
+                {
+                    [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                }
+            }else //正常播放的步骤
+            {
+                [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+            }
+            
             firstOpenAPP = firstOpenAPP+1;
             double delayInSeconds = 0.5;
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -9116,7 +9138,28 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //变蓝
                 
             });
-            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
+            //            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
+            //=======机顶盒加密
+            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:pushChannelId serviceListDic:self.dicTemp];
+            if (characterStr != NULL && characterStr != nil) {
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                    // 此处代表需要记性机顶盒加密验证
+                    NSNumber  *numIndex = [NSNumber numberWithInteger:pushChannelId];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                    [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
+                    firstOpenAPP = firstOpenAPP+1;
+                    
+                    firstfirst = NO;
+                }else //正常播放的步骤
+                {
+                    [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                }
+            }else //正常播放的步骤
+            {
+                [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+            }
+            
             firstOpenAPP = firstOpenAPP+1;
             
             double delayInSeconds = 0.5;
