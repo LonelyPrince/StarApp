@@ -4056,8 +4056,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self removeTipLabAndPerformSelector];
     NSLog(@"从willplay跳转过去 取消25秒的等待6");
     playState = YES;
-    //    [timerState invalidate];
-    //    timerState = nil;
     NSString * videoOrRadioPlaystr = [USER_DEFAULT objectForKey:@"videoOrRadioPlay"];
     if ([videoOrRadioPlaystr isEqualToString:@"radio"]) {
         //发送通知，添加radio图片
@@ -4418,8 +4416,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     
                     //*********
-                    
-                    
                     if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
                         socketView.socket_ServiceModel.audio_pid = @"0";
                     }else if (ISEMPTY(socketView.socket_ServiceModel.subt_pid)){
@@ -4678,8 +4674,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
             }
         }
-        
-        
         
         NSNumber * currentIndexForCategory = [NSNumber numberWithInt:indexOfCategory];
         NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
@@ -7489,8 +7483,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString * service_service_id1 = [serviceArrForJudge_dic objectForKey:@"service_service_id"];
             NSInteger service_service_id1_int = [service_service_id1 integerValue];
             
-            NSString * service_character_id1 = [serviceArrForJudge_dic objectForKey:@"service_character"];
-            NSInteger service_character_id1_int = [service_character_id1 integerValue];
             
             //如果这几项相等，则找到了是哪一个节目
             if (service_network_id1_int == network_id_int && service_ts_id1_int == ts_id_int && service_service_id1_int == service_id_int) {
@@ -7509,23 +7501,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSInteger row = [nowPlayChannel_Arr[2] intValue];
                 NSDictionary * dic = nowPlayChannel_Arr [3];
                 
-                //                NSLog(@"dic == %@",dic);
-                NSString * service_character_id2 = [[dic objectForKey:[NSString stringWithFormat:@"%d",row]] objectForKey:@"service_character"];
-                NSInteger service_character_id2_int = [service_character_id2 integerValue];
-                
-                
                 NSDictionary * judgeIsEqualDic_One = serviceArrForJudge_dic;
-                NSDictionary * judgeIsEqualDic_Two = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
+                NSDictionary * judgeIsEqualDic_Two = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
                 BOOL * judgeIsEqual = [GGUtil judgeTwoEpgDicIsEqual:judgeIsEqualDic_One TwoDic:judgeIsEqualDic_Two];
-                
-                NSString * service_service_name1 = [judgeIsEqualDic_One objectForKey:@"service_name"];
-                NSString * service_service_name2 = [judgeIsEqualDic_Two objectForKey:@"service_name"];
                 
                 //是当前正在播放的节目，所以说当前节目一定改变了，修改
                 if (judgeIsEqual) {
-                    
-                    
-                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         //关闭当前正在播放的节目
                         [self.videoController.player stop];
@@ -7534,8 +7515,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     });
                     //修改字典信息
                     //历史记录信息和全部的信息
-                    
-                    NSLog(@"asfjalsbfabfba 1 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
                     
                     //赋予新值
                     NSMutableDictionary * tempDic_updateCharacter =[[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
@@ -7682,7 +7661,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSInteger service_service_id1_int = [service_service_id1 integerValue];
         
         NSString * service_character_id1 = [epgDicToSocket_temp objectForKey:@"service_character"];
-        NSInteger service_character_id1_int = [service_character_id1 integerValue];
         
         
         if (service_network_id1_int == network_int && service_ts_id1_int == ts_int && service_service_id1_int == service_int) {
@@ -7857,8 +7835,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //每隔一秒刷新一次进度条
 - (void)updateProgress :(NSTimer *)Time
 {
-    NSInteger endTime =[[[Time userInfo] objectForKey:@"EndTime" ] intValue ];
-    NSInteger startTime =[[[Time userInfo] objectForKey:@"StartTime" ] intValue ];
     int timeCut;
     NSString *  starttime;
     if(ISNULL([[Time userInfo] objectForKey:@"EndTime"]) || ISNULL([[Time userInfo]objectForKey:@"StarTime"]))
@@ -8279,7 +8255,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         }
                         else
                         {
-                            self.dicTemp =  [dicTemp_Temp copy];
+                            self.dicTemp =  [dicTemp_Temp mutableCopy];
                         }
                     }
                 }
@@ -8996,7 +8972,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [blueCircleView addSubview:pushSecNumLab];
     }
 }
-///创建机顶盒分享视频到手机
+///创建机顶盒/手机 分享视频到手机 弹窗
 -(void)createGetAlertView{
     JXAlertView = [[GetPushInfoAlertView alloc] init];
     [JXAlertView setContainerView:[self createGetPushAlertView]];
@@ -9018,7 +8994,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             //发送通知
-            [self PushSelectBtnClick];  //此处可能报错=====Major
+//            [self PushSelectBtnClick];  //此处可能报错=====Major
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
             
@@ -9046,8 +9022,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //变蓝
                 
             });
-            //            [self firstOpenAppAutoPlay:pushChannelId diction:self.dicTemp];
-            
             //=======机顶盒加密
             NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:pushChannelId serviceListDic:self.dicTemp];
             if (characterStr != NULL && characterStr != nil) {
@@ -9110,7 +9084,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             //发送通知
-            [self PushSelectBtnClick];
+//            [self PushSelectBtnClick];
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
             
@@ -9243,8 +9217,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         return;
     }
-    NSInteger row = [nowPlayChannel_Arr[2] intValue];
-    NSDictionary * dic3 = nowPlayChannel_Arr [3];
     NSDictionary * dic1 = nowPlayChannel_Arr [0];
     
     
