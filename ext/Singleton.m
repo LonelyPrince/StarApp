@@ -2653,6 +2653,7 @@
 //对socket读取文件进行操作   case = 39
 -(void)readSocketCommandTypeISThirtynine:(NSData *)dataToOperate  //视频分发退出，需要判断是不是正在播放的节目
 {
+    NSLog(@"this is Major 000000");
     NSLog(@"dataToOperate=a=a= %@",dataToOperate);
     
     NSData * dataTemp = [[NSData alloc]init];

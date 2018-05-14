@@ -371,6 +371,34 @@
     
 }
 
+- (void)reloadDataNoVisibleZero{
+    
+    [_visibleCells  removeAllObjects];
+    [_recycledCells removeAllObjects];
+    
+    [[YGPCache sharedCache]removeMemoryAllData];
+    
+    __WEAK_SELF_YLSLIDE
+    
+    if ([_delegate respondsToSelector:@selector(columnNumber)]) {
+        
+        if (weakSelf) {
+            
+            __STRONG_SELF_YLSLIDE
+            
+            _totaiPageNumber = [strongSelf->_delegate columnNumber];
+            
+            [strongSelf.mainScrollview setContentSize:CGSizeMake(CGRectGetWidth(strongSelf.frame)*_totaiPageNumber, CGRectGetHeight(strongSelf.frame)-YLSildeTitleViewHeight)];
+            
+        }
+    }
+    
+    [self slideViewRecycle];
+    
+//    [self visibleViewDelegateForIndex:0];
+    
+    
+}
 - (void)visibleViewDelegateForIndex:(NSUInteger)index{
     
     if (_prePageIndex != index) {

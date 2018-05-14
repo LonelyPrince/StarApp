@@ -97,6 +97,7 @@
  *  重置数据
  */
 - (void)reloadData;
+-(void)reloadDataNoVisibleZero;
 
 /**
  *  重用

@@ -118,6 +118,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int card_ret;
     int playVideoType;   //值 = 1，则代表直播；值 = 2，则代表录制   等于0则不处理
     BOOL judgeRecIsCA;
+    int judgeIsNeedShowDeliveryStop;
 }
 
 
@@ -373,7 +374,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
-    
+    judgeIsNeedShowDeliveryStop = 0;
     //    pushAlertViewIndex = 0;
     shareViewArr = [[NSMutableArray alloc]init];
     blueCircleView = [[UIView alloc]init];
@@ -847,10 +848,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
             }else{
                 [self initProgressLine];
-                //        [self getSearchData];
-                
-                
-                
                 [self.table reloadData];
             }
         }
@@ -914,9 +911,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_async(dispatch_get_main_queue(), ^{
         
         NSInteger beforeRefreshIndex = self.category_index; //由于刷新后，列表的index会迅速变换为0，所以这里要做一个等级
-        [_slideView reloadData];
-        [self.tableForTemp reloadData];
-        [tableForSliderView reloadData];
+        [self refreshSliderAndTableview];
         NSNumber * currentIndex = [NSNumber numberWithInteger:beforeRefreshIndex];
         NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex,@"currentIndex", nil];
         //创建通知，防止刷新后跳转错页面
@@ -1111,7 +1106,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //搜索按钮
 -(void)searchBtnClick
 {
-    //    /**/
+        /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
         [self.navigationController pushViewController:searchViewCon animated:YES];
     }else
@@ -1119,9 +1114,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
+}
+//用于刷新页面和slderView
+-(void)refreshSliderAndTableview
+{
+    [self.tableForSliderView reloadData];
+    [self.table reloadData];
+    [_slideView reloadData];
+    
     
 }
-
+-(void)refreshSliderAndTableViewNoVisible
+{
+    [self.tableForSliderView reloadData];
+    [self.table reloadData];
+    [_slideView   reloadDataNoVisibleZero];
+}
 //************************************************
 //table可以滑动的次数
 - (NSInteger)columnNumber{
@@ -1784,6 +1792,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         else
         {
+            judgeIsNeedShowDeliveryStop = 1;
             NSLog(@"不相等");
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
             [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
@@ -2163,6 +2172,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 获取信息，准备播放
 - (void)getDataService:(NSNotification *)text{
     
+    NSLog(@"this is Major 22222");
+    judgeIsNeedShowDeliveryStop = 2;
     if (self.showTVView == YES) {
         playVideoType = 1;
         NSLog(@"%@",text.userInfo[@"playdata"]);
@@ -2182,9 +2193,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];  //正常情况，可以播放
         }
-        
-        
-        
         
         _byteDatas = [[NSMutableData alloc]init];
         
@@ -2227,14 +2235,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
                 [self playVideo];
             });
-            
-            
-            
-            
+   
             playState = NO;
-            
-            
-            
+  
             if (self.showTVView == YES) {
                 [self ifNeedPlayClick];
             }else
@@ -3582,13 +3585,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self refreshTableviewByEPGTime];
         [self.table reloadData];
         
-        
     }];
     double delayInSeconds = 1;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
-        
         [self.tableForSliderView reloadData];
         [self refreshTableviewByEPGTime];
         [self.table reloadData];
@@ -3865,7 +3866,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
-        
         [self.tableForSliderView reloadData];
         [self refreshTableviewByEPGTime];
         [self.table reloadData];
@@ -5421,12 +5421,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         [self initProgressLine];
-        //        [self getSearchData];
-        
-        
-        
         [self.table reloadData];
-        
     }];
     
 }
@@ -7072,10 +7067,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         [self initProgressLine];
-        //        [self getSearchData];
-        
-        
-        
         [self.table reloadData];
         
     }];
@@ -7309,8 +7300,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     uint16_t  willStopAudio_PidStr =  [SocketUtils uint16FromBytes:willStopAudio_PidData];
     
     if (willStopTuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&willStopNetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && willStopTs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && willStopService_idStr == [socketView.socket_ServiceModel.service_service_id intValue] && willStopAudio_PidStr == [socketView.socket_ServiceModel.audio_pid intValue]) {
-        [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
-        [GGUtil postcantDeliveryNotific];
+        NSLog(@"this is Major 1111111");
+        
+  
+        if (judgeIsNeedShowDeliveryStop != 1) {
+            
+            NSLog(@"this is Major  擦擦擦擦");
+            [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
+            [GGUtil postcantDeliveryNotific];
+        }else
+        {
+//            judgeIsNeedShowDeliveryStop 等于1 证明还没有点击或者刚刚点击
+        }
+            
+        
+            
+ 
+        
     }else
     {
         //不执行操作
