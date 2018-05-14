@@ -1532,7 +1532,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //焦点
             NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];
             if ([GGUtil judgeTwoEpgDicIsEqual:cell.dataDic TwoDic:fourceDic]) {
-                
+                NSLog(@"setTextColorsetTextColor");
                 [cell.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
@@ -1716,6 +1716,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tempTableviewForFocus deselectRowAtIndexPath:tempIndexpathForFocus animated:YES];
     if ([tableView isEqual:pushTableView]) {
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -1873,7 +1874,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)didselectRowToPlayClick
 {
     NSLog(@"时间==111");
-    
+    [_slideView reloadDataNoVisibleZero];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
         NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);
