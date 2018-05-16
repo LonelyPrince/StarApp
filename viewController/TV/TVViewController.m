@@ -142,7 +142,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @property (strong,nonatomic) NSMutableArray *serviceTableData;
 
 @property (nonatomic, assign) NSInteger category_index;  //能够获得当前页面的category的index索引
-@property (strong,nonatomic)NSMutableDictionary * dicTemp;
+//@property (strong,nonatomic)NSMutableDictionary * dicTemp;
 
 @property (strong,nonatomic)NSString * service_videoindex;     //video的频道索引
 @property (strong,nonatomic)NSString * service_videoname;    //video的频道名称
@@ -1114,6 +1114,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
+
+//    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
 //用于刷新页面和slderView
 -(void)refreshSliderAndTableview
@@ -1285,7 +1287,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 for (int i = 0; i< RECTempArr.count ; i++) {
                     [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
                 }
-                
             }else if (playTypeClass == 2){
                 
                 NSDictionary *item = self.categorys[index];   //当前页面类别下的信息
@@ -1319,7 +1320,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     
                 }
-                
+                [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
             }else if (playTypeClass == 3){
                 
                 if (index == 0) {
@@ -1355,6 +1356,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 }
                             }
                         }
+                        [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
                         numberOfRowsForTable = self.categoryModel.service_indexArr.count;
                     }
                     
@@ -1374,7 +1376,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     for (int i = 0; i< RECTempArr.count ; i++) {
                         [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
                     }
-                    
                 }else  //录制分类之后的节目分类
                 {
                     NSDictionary *item = self.categorys[index - 1];   //当前页面类别下的信息
@@ -2816,6 +2817,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [tempArr replaceObjectAtIndex:3 withObject:dic];
                         [mutaArray removeObjectAtIndex:i];
                         [mutaArray  addObject:[tempArr copy]];
+                        NSLog(@"相同的历史 ：%@",[tempArr copy]);
                         break;
                     }
                 }
@@ -7555,6 +7557,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     dic = [mutableDicTemp copy];
                     
                     self.dicTemp = [dic mutableCopy];   //修改self.dicTemp
+                    [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
                     
                     NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
                     
@@ -7643,6 +7646,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"asfjalsbfabfba 2 %@",[dic objectForKey:[NSString stringWithFormat:@"%d",row]]);
                     
                     self.dicTemp = [dic mutableCopy];
+                    [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
                     
                     [self notIsPlayingUpdateHistoryArr:network_id_int ts_int:ts_id_int service_int:service_id_int character_int:program_character_int dic_history3Dic:dic];  //修改一下，把历史的第一条数据删除
                     
@@ -8134,7 +8138,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 -(void)updateFullScreenDic{
     //对于其他页面的dic重新赋值
-    NSLog(@"self.dicTemp =aa %@",self.dicTemp);
     self.TVChannlDic = self.dicTemp;
     
     tempDicForServiceArr = self.TVChannlDic;
@@ -8281,7 +8284,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         else
                         {
                             self.dicTemp =  [dicTemp_Temp mutableCopy];
+                            [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
                         }
+                        [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
                     }
                 }
             }
@@ -8312,6 +8317,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
                     }
                 }
+                [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
             }
         }
     }
@@ -8332,7 +8338,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         for (int i = 0; i< RECTempArr.count ; i++) {
             [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
         }
-        
     }else if (playTypeClass == 2){
         
         NSDictionary *item = [[NSDictionary alloc]init];
@@ -8366,6 +8371,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
         }
+        [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
     }else if (playTypeClass == 3){
         
         if (index == 0) {
@@ -8399,7 +8405,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }
             }
-            
+            [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
         }else if (index == 1)
         {
             
@@ -8412,7 +8418,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             for (int i = 0; i< RECTempArr.count ; i++) {
                 [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
             }
-            
         }else  //录制分类之后的节目分类
         {
             NSDictionary *item = self.categorys[index - 1];   //当前页面类别下的信息
@@ -8447,6 +8452,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }
             }
+            [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
         }
     }
 }

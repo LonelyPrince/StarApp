@@ -1305,6 +1305,15 @@
     //将整形转换为number
     NSNumber * numIndex = [NSNumber numberWithInt:row];
     
+    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+    NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    if (epgDicToSocket_temp.count <= 14 ) { //直播
+        dic = dicTemp;
+    }
+    
+//    NSLog(@"askjbjabfbasfba11 %@",dic11);
+//    NSLog(@"askjbjabfbasfba22 %@",dic);
+    
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
     
