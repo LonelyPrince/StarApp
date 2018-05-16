@@ -2372,6 +2372,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(abctest) name:@"abctest" object:nil];
             
             [self judgeLastBtnIsGray];
+            NSLog(@"judgeLastBtnIsGray 1111");
             [self judgeNextBtnIsGray];
             NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
             NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
@@ -2724,6 +2725,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification1];
                 [self judgeLastBtnIsGray];
+                NSLog(@"judgeLastBtnIsGray 2222");
                 //                [self.tabBarController setSelectedIndex:1];
                 
             }else //正常播放的步骤
@@ -2733,6 +2735,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 [self judgeLastBtnIsGray];
+                NSLog(@"judgeLastBtnIsGray 3333");
                 //                [self.tabBarController setSelectedIndex:1];
             }
             
@@ -2746,6 +2749,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             [self judgeLastBtnIsGray];
+            NSLog(@"judgeLastBtnIsGray 4444");
         }
         
     }else
@@ -2870,12 +2874,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)judgeLastBtnIsGray
 {
+    NSLog(@"judgeLastBtnIsGrayjudgeLastBtnIsGrayjudgeLastBtnIsGray 11111");
     //上一个节目
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        NSLog(@"judgeLastBtnIsGrayjudgeLastBtnIsGrayjudgeLastBtnIsGray 222222");
         if (historyArr.count >= 1) {
             NSArray * touchArr = historyArr[historyArr.count - 1];
             NSLog(@"touchArr：%@",touchArr);
@@ -3430,6 +3435,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //                timerForGetBytes = nil; //此处把计时器销毁
         //                timerForGetBytes = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(moviePlay) userInfo:nil repeats:YES];
     }
+    
+    NSLog(@"dispatch_get_global_queue 播放器创建成功并且播放");
 }
 
 - (ZXVideoPlayerControlView *)videoControl
@@ -4361,6 +4368,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self judgeLastBtnIsGray];
+        NSLog(@"judgeLastBtnIsGray 5555");
         [self judgeNextBtnIsGray];
         NSArray * subtarr =[self.video.dicSubAudio  objectForKey:@"subt_info"];
         NSArray * audioStr =[self.video.dicSubAudio  objectForKey:@"audio_info"];
@@ -4448,6 +4456,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //发送通知
             
             [self judgeLastBtnIsGray];
+            NSLog(@"judgeLastBtnIsGray 6666");
             [self judgeNextBtnIsGray];
             
             //        [self popSTBAlertView];
@@ -4463,6 +4472,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else //正常播放的步骤
         {
             [self judgeLastBtnIsGray];
+            NSLog(@"judgeLastBtnIsGray 7777");
             [self judgeNextBtnIsGray];
             
             //创建通知
@@ -4479,6 +4489,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         
         [self judgeLastBtnIsGray];
+        NSLog(@"judgeLastBtnIsGray 8888");
         [self judgeNextBtnIsGray];
         
         //创建通知
@@ -4852,7 +4863,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     float allTime = [self.video.endTime intValue]  - [self.video.startTime intValue];
     NSString * TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
     int dValueTime ;
-
+    
     //如果时间为0 ,或者没有获取到时间，则显示为0
     if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
         dValueTime = 0;
@@ -4907,7 +4918,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
     }
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
-  
+    
     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     
@@ -5161,6 +5172,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
     [self judgeLastBtnIsGray];
+    NSLog(@"judgeLastBtnIsGray 9999");
     [self judgeNextBtnIsGray];
     
     if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
@@ -5692,6 +5704,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)judgeLastNextBtnIsEnable
 {
     [self judgeLastBtnIsGray];
+    NSLog(@"judgeLastBtnIsGray ====");
     [self judgeNextBtnIsGray];
 }
 @end

@@ -1106,7 +1106,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //搜索按钮
 -(void)searchBtnClick
 {
-        /**/
+    /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
         [self.navigationController pushViewController:searchViewCon animated:YES];
     }else
@@ -1803,13 +1803,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //加入历史记录
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
+                NSLog(@"dispatch_get_global_queue 加入历史记录");
                 
                 [self addHistory:indexPath.row diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
                 [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
                 [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
+                
+                //                sleep(10);
+                NSLog(@"dispatch_get_global_queue 加入历史记录==结束");
             });
             
             //    //关闭当前正在播放的节目
@@ -1874,8 +1877,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)didselectRowToPlayClick
 {
     NSLog(@"时间==111");
-    [_slideView reloadDataNoVisibleZero];
+    //    [_slideView reloadDataNoVisibleZero];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"dispatch_get_global_queue 播放的第一个方法");
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
         NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);
         //=======机顶盒加密
@@ -2159,6 +2163,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self firstOpenAppAutoPlayZero:indexPathRow diction:self.dicTemp];
             }
         }
+        NSLog(@"dispatch_get_global_queue 播放的第一个方法==结束");
     });
 }
 
@@ -2231,14 +2236,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
-                NSLog(@"延时执行的2秒");
-                //        [self runThread1];
+                NSLog(@"dispatch_get_global_queue 播放方法");
                 [USER_DEFAULT setObject:@"YES" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
                 [self playVideo];
             });
-   
+            
             playState = NO;
-  
+            
             if (self.showTVView == YES) {
                 [self ifNeedPlayClick];
             }else
@@ -2710,8 +2714,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 -(void)addHistory:(NSInteger)row diction :(NSDictionary *)dic
 {
+    
     dic = [dic mutableCopy];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"dispatch_get_global_queue 历史记录的主方法开始");
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         [USER_DEFAULT setObject:[NSNumber numberWithInt:row] forKey: @"Touch_Channel_index"];
         if (![[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
@@ -2824,12 +2830,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (seedNowArr.count > 0) {
                 //根据数组大小，删除数据。只保留20个以内的历史记录
                 NSLog(@"触发历史记录mutaArraycount 数量 %lu",(unsigned long)mutaArray.count);
-                if (mutaArray.count > 19) {
-                    for (int i = 0; i < mutaArray.count - 19; i ++) {
-                        NSLog(@"触发历史记录删除");
-                        [mutaArray removeObjectAtIndex:0];
-                    }
-                }
+                //                if (mutaArray.count > 19) {
+                //                    for (int i = 0; i < mutaArray.count - 19; i ++) {
+                //                        NSLog(@"触发历史记录删除");
+                //                        [mutaArray removeObjectAtIndex:0];
+                //                    }
+                //                }
                 [mutaArray addObject:seedNowArr];
                 
                 
@@ -2853,7 +2859,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSNotification *notification3 =[NSNotification notificationWithName:@"judgeLastNextBtnIsEnableNotific" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification3];
+        
+        NSLog(@"dispatch_get_global_queue 历史记录的主方法==结束");
     });
+    
+    
 }
 
 -(void)judgeNowISRadio :(NSDictionary *)nowVideoDic  //判断当前播放时视频还是音频
@@ -5006,7 +5016,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSLog(@"self.video.dicChannl88==44");
+        
+        NSLog(@"dispatch_get_global_queue 播放的第二个方法");
         [self updateFullScreenDic];
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
@@ -5016,6 +5027,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
         }
+        NSLog(@"dispatch_get_global_queue 播放的第二个方法==结束");
     });
     if (self.showTVView == YES) {
         NSLog(@"已经跳转到firstopen方法");
@@ -5035,7 +5047,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"dispatch_get_global_queue 播放的第三个方法");
                 [self addHistory:row diction:dic];
+                NSLog(@"dispatch_get_global_queue 播放的第三个方法 == 结束");
             });
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
@@ -5121,8 +5135,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //再单独开一个线程用于default操作
             dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queueA, ^{
+                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
                 [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
                 [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+                
+                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
             });
             
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
@@ -5135,8 +5152,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //注册通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
             
+            NSLog(@"    ");
             dispatch_async(dispatch_get_main_queue(), ^{
-                
+                NSLog(@"dispatch_get_global_queue 主线程Socket");
                 
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                     [GGUtil postnoPlayShowNotic];
@@ -5152,7 +5170,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self ifNotISTVView];
                     }
                 }
-                
+                NSLog(@"dispatch_get_global_queue 主线程Socket == 结束");
             });
         }
         
@@ -7303,7 +7321,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (willStopTuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&willStopNetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && willStopTs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && willStopService_idStr == [socketView.socket_ServiceModel.service_service_id intValue] && willStopAudio_PidStr == [socketView.socket_ServiceModel.audio_pid intValue]) {
         NSLog(@"this is Major 1111111");
         
-  
+        
         if (judgeIsNeedShowDeliveryStop != 1) {
             
             NSLog(@"this is Major  擦擦擦擦");
@@ -7311,12 +7329,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postcantDeliveryNotific];
         }else
         {
-//            judgeIsNeedShowDeliveryStop 等于1 证明还没有点击或者刚刚点击
+            //            judgeIsNeedShowDeliveryStop 等于1 证明还没有点击或者刚刚点击
         }
-            
         
-            
- 
+        
+        
+        
         
     }else
     {
@@ -9001,7 +9019,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             //发送通知
-//            [self PushSelectBtnClick];  //此处可能报错=====Major
+            //            [self PushSelectBtnClick];  //此处可能报错=====Major
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
             
@@ -9091,7 +9109,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             //发送通知
-//            [self PushSelectBtnClick];
+            //            [self PushSelectBtnClick];
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
             

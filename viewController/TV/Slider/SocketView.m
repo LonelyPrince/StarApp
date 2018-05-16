@@ -165,7 +165,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:self.beatAllData forKey:@"beatAllData"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     NSLog(@"self.beatAllData  %@",self.beatAllData);
     
@@ -174,16 +174,19 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
 }
 -(void)serviceTouch{
     
-    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接");
     cs_service.module_name= @"MDMM";
     cs_service.Ret=0;
     cs_service.Reserved=APDE_Identify;
     //    cs_service.client_ip= [self getIPArr];
+    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接000");
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_service.client_ip= [self getIPArr];
+        
     } while (ISNULL(cs_service.client_ip));
-    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接111");
     
     cs_service.client_port = (uint32_t)[_socket localPort] ;
     
@@ -210,7 +213,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_service.service_id = [socket_ServiceModel.service_service_id intValue];
     cs_service.audio_index = [socket_ServiceModel.audio_pid intValue];
     cs_service.subt_index = [socket_ServiceModel.subt_pid intValue];
-    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接222");
     NSLog(@"cs_service.audio_index %d",cs_service.audio_index);
     NSLog(@"cs_service.subt_index %d",cs_service.subt_index);
     [USER_DEFAULT setObject:socket_ServiceModel.audio_pid forKey:@"nowPlayChannelAudioIndex"];
@@ -235,7 +238,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //除了CRC和tag其他数据
     NSMutableData * data_service ;
     data_service = [[NSMutableData alloc]init];
-    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接333");
     //计算CRC
     NSMutableData * serviceCRCData;
     serviceCRCData = [[NSMutableData alloc]init];
@@ -244,7 +247,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     //2.除了CRC和tag之外的转data
     data_service = [self RequestSpliceAttribute:cs_service];
-    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接444");
     [serviceCRCData appendData:data_service];   //CRC是除了tag和service
     
     NSLog(@"计算CRC：%@",serviceCRCData);
@@ -257,14 +260,16 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [data_service appendData:[self RequestSpliceAttribute:cs_service]];
     NSLog(@"finaldata: %@",data_service);
     NSLog(@"finaldata.length: %d",data_service.length);
-    
+    NSLog(@"dispatch_get_global_queue socket==开始拼接555");
     //转换成字节后，存起来
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_service"];
-    [userDef synchronize];//把数据同步到本地
+    NSLog(@"dispatch_get_global_queue socket==开始拼接66666666");
+    //    [userDef synchronize];//把数据同步到本地
     
-    
+    NSLog(@"dispatch_get_global_queue socket==拼接完全0000");
     [[Singleton sharedInstance] Play_ServiceSocket];
+    NSLog(@"dispatch_get_global_queue socket==拼接完全");
     
 }
 
@@ -324,7 +329,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     //转换成字节后，存起来
     [USER_DEFAULT setObject:data_service forKey:@"data_serviceREC"];
     NSLog(@"data_service=-= %@",data_service);
-    [USER_DEFAULT synchronize];//把数据同步到本地
+    //    [USER_DEFAULT synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] Play_ServiceRECSocket];
@@ -355,7 +360,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     
     NSString * Card_type = @"0";
-  
+    
     sc_MDGetCardType.card_type = (uint8_t)Card_type;
     sc_MDGetCardType. data_len= 10 ;
     //    cs_serviceREC.data_len_m3u8 = 0;
@@ -385,7 +390,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     
     //转换成字节后，存起来
     [USER_DEFAULT setObject:data_service forKey:@"data_CardType"];
-    [USER_DEFAULT synchronize];//把数据同步到本地
+    //    [USER_DEFAULT synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] Play_ServiceGetCardType];
@@ -442,7 +447,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_playExit"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] Play_ExitSocket];
@@ -509,7 +514,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_passwordCheck"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] passwordCheck];
@@ -572,7 +577,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_getResource"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] GetResource_socket];
@@ -636,7 +641,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_getIPAddress"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] GetIPAddress_socket];
@@ -700,7 +705,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] GetPushDeviceInfo_socket];
@@ -715,7 +720,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     cs_MDPushService.Ret=0;
     cs_MDPushService.Reserved=APDE_Identify;
     
- 
+    
     do {
         NSLog(@"IP为空，此处获取一个IP地址");
         cs_MDPushService.client_ip= [self getIPArr];
@@ -754,7 +759,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSLog(@"cs_MDPushService.client_count %d",cs_MDPushService.client_count);
     NSLog(@"cs_MDPushService.data_len %d",cs_MDPushService.data_len);
     
- 
+    
     
     
     //除了CRC和tag其他数据
@@ -770,7 +775,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     data_service = [self RequestSpliceAttribute:cs_MDPushService];
     NSLog(@"cs_MDPushServiceaa== %@",cs_MDPushService);
     NSLog(@"data_serviceaa== %@",data_service);
-//    NSLog(@"mdPhonePushService== %@",mdPhonePushService.push_client_ip);
+    //    NSLog(@"mdPhonePushService== %@",mdPhonePushService.push_client_ip);
     NSLog(@"mdPhonePushService.push_client_ip %@",mdPhonePushService.push_client_ip);
     for (int y = 0; y < cs_MDPushService.client_count; y++) {
         NSArray * arr = mdPhonePushService.push_client_ip[y];
@@ -781,14 +786,14 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
             uint8_t arrint = [arrtemp[3-i] intValue];// 8位
             NSLog(@"arrint22: %d",arrint);
             [data_service appendData:[SocketUtils byteFromUInt8:arrint]];
-             NSLog(@"[SocketUtils byteFromUInt8:arrint] %@",[SocketUtils byteFromUInt8:arrint]);
+            NSLog(@"[SocketUtils byteFromUInt8:arrint] %@",[SocketUtils byteFromUInt8:arrint]);
         }
     }
-
     
     
-//        [data_service appendData:[self RequestSpliceAttribute:mdPhonePushService.push_client_ip[i]]];
-//    }
+    
+    //        [data_service appendData:[self RequestSpliceAttribute:mdPhonePushService.push_client_ip[i]]];
+    //    }
     NSLog(@"data_service1122== %@",data_service);
     [serviceCRCData appendData:data_service];   //CRC是除了tag和service
     
@@ -821,7 +826,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] GetPushDeviceInfo_socket];
@@ -928,7 +933,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"CSMDPushToSTBLive_socketInfo"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] CSMDPushToSTBLive_socket];
@@ -957,13 +962,13 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     sc_MDOtherPushService.command_type = DTV_SERVICE_MD_PLAY_PUSH_SERVICE ;
     
     
-//    sc_MDOtherPushService.tuner_type = [otherDevicePushService.service_tuner_type intValue];
-//
-//    cs_MDPushService.network_id = [otherDevicePushService.service_network_id intValue];
-//
-//    cs_MDPushService.ts_id = [otherDevicePushService.service_ts_id intValue];
-//
-//    cs_MDPushService.service_id = [otherDevicePushService.service_service_id intValue];
+    //    sc_MDOtherPushService.tuner_type = [otherDevicePushService.service_tuner_type intValue];
+    //
+    //    cs_MDPushService.network_id = [otherDevicePushService.service_network_id intValue];
+    //
+    //    cs_MDPushService.ts_id = [otherDevicePushService.service_ts_id intValue];
+    //
+    //    cs_MDPushService.service_id = [otherDevicePushService.service_service_id intValue];
     
     cs_MDPushService.audio_pid =  cs_service.audio_index;
     
@@ -1050,7 +1055,7 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，着也是一个单例的例子
     [userDef setObject:data_service forKey:@"data_cs_GetPushDeviceInfo"];
     
-    [userDef synchronize];//把数据同步到本地
+    //    [userDef synchronize];//把数据同步到本地
     
     
     [[Singleton sharedInstance] GetPushDeviceInfo_socket];
