@@ -477,10 +477,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
     
-    //    NSNotification *notification =[NSNotification notificationWithName:@"noPlayShowNotic" object:nil userInfo:nil];
-    //    //        //通过通知中心发送通知
-    //    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    
     [self stopPlayAndWaitBuffering];
     
 }
@@ -1656,7 +1652,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             {
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
-                                //                                lab.text = videoCantPlayTip;
                             }
                             
                             
@@ -1703,7 +1698,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 }
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -1750,7 +1744,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 }
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -1798,7 +1791,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 }
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -1849,7 +1841,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     }
                                 }else
                                 {
-                                    //                                    lab.text = videoCantPlayTip;
                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                     lab.text = labText;
                                 }
@@ -1896,7 +1887,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     }
                                 }else
                                 {
-                                    //                                    lab.text = videoCantPlayTip;
                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                     lab.text = labText;
                                 }
@@ -2249,7 +2239,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 }
             }else
             {
-                //                lab.text = videoCantPlayTip;
                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                 lab.text = labText;
             }
@@ -2581,7 +2570,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
     }else
     {
-        //        lab.text = videoCantPlayTip;
         NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
         lab.text = labText;
     }
@@ -2879,7 +2867,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"judgeLastBtnIsGrayjudgeLastBtnIsGrayjudgeLastBtnIsGray 222222");
         if (historyArr.count >= 1) {
             NSArray * touchArr = historyArr[historyArr.count - 1];
@@ -2904,7 +2892,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
             //历史为空，不操作
         }
-    });
+//    });
     
 }
 //static int abb = 2;
@@ -2914,7 +2902,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];   //总的数据
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
         if (historyArr.count > 1) {
             
             int historyArrCount = historyArr.count - 1;
@@ -2943,7 +2931,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
             //历史数据为空，不操作
         }
-    });
+//    });
 }
 
 - (void)subtBtnClick
@@ -5280,7 +5268,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -5329,7 +5316,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 }
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -5376,7 +5362,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 }
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -5424,7 +5409,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 }
                             }else
                             {
-                                //                                lab.text = videoCantPlayTip;
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
@@ -5475,7 +5459,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     }
                                 }else
                                 {
-                                    //                                    lab.text = videoCantPlayTip;
                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                     lab.text = labText;
                                 }
@@ -5522,7 +5505,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     }
                                 }else
                                 {
-                                    //                                    lab.text = videoCantPlayTip;
                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                     lab.text = labText;
                                 }
