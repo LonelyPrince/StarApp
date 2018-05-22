@@ -63,7 +63,7 @@
     tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     tableView.delegate = self;
     tableView.dataSource = self;
-//    tableView.scrollsToTop = NO;
+    //    tableView.scrollsToTop = NO;
     
     //    [self setTableViewHeaderView];
     [self.view addSubview:tableView];
@@ -141,7 +141,7 @@
 -(void)deleteAllBtn
 {
     [tableView reloadData];
-//    [self testaaaa];
+    //    [self testaaaa];
     if (self.tableView.editing) {
         NSLog(@"此时编辑状态，不能点击");
     }else
@@ -165,15 +165,15 @@
         }
         
         NSLog(@"删除所有");
-    
+        
     }
-   
+    
 }
 #pragma  mark -- 右上角 “cancel” 按钮点击事件
 -(void)deleteBtnCancel
 {
     [tableView reloadData];
-       isAllSelected = NO; // “All” 按钮取消选中状态
+    isAllSelected = NO; // “All” 按钮取消选中状态
     
     [self loadAllDeleteBtn];
     delegateBtn = YES;
@@ -262,19 +262,14 @@
 {//selectedArray 被选中的数组
     
     isAllSelected = NO; // “All” 按钮取消选中状态
-    
-    int eairlyNameByReduce = 0;            //早期历史
-    int todayNameByReduce = 0;          //今天的历史
     int eairlyNameByReduceForOnly = 0;   //只有早期历史
-    
     int lastTodayReduceIndex = 0;    //保存上一个删除的today节目row值
-    int lastEairlyReduceIndex = 0;    //保存上一个删除的eairly节目row值
-    
     int lastByReduceNum = 0;        //截止到上一次一共删除了多少数据，因为如果上一次删除的数据在这次要删除的数据前面，那么每删除一次，indexpath.row 便会往前缩进一个
     int lastEairlyByReduceNum = 0;
     
     NSMutableArray * onlyHaveSectionOneArr = [[NSMutableArray alloc]init];
     NSMutableArray * HaveSectionOneAndTwoArr = [[NSMutableArray alloc]init];
+    
     if (selectedArray.count == 0) {
         NSLog(@"selectedArray  的 数量为空");
     }
@@ -289,24 +284,24 @@
         [tableView deleteRowsAtIndexPaths:selectedArray withRowAnimation:UITableViewRowAnimationFade];
         NSLog(@"tableView11 %@",tableView);
         NSLog(@"selectedArray22 %@",selectedArray);
+        NSLog(@"kaikaikaiakai kai 开始时间");
+        
+        
         for (int i = 0; i< selectedArray.count; i++) {
             
+            NSLog(@"kaikaikaiakai kai 开始时间 11:%d",i);
             NSIndexPath * indexpath1 = selectedArray[i];
             
             NSIndexPath * lastIndexpath;
-         
+            
             //存储上一个信息
             if(indexpath1.section == 0)
             {
                 NSNumber * tempNumber = [NSNumber numberWithInteger:indexpath1.row];
                 [onlyHaveSectionOneArr addObject:tempNumber];
-                if (i == 0) {
-                    //证明是第一个要删除的，保存下信息
-                    //                lastReduceIndex = indexpath1.row;
-                }
                 if (i  < selectedArray.count && i > 0) {
                     lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
-                    lastTodayReduceIndex = lastIndexpath.row;
+                    //                    lastTodayReduceIndex = lastIndexpath.row;
                     
                 }else
                 {
@@ -317,32 +312,11 @@
             {
                 NSNumber * tempNumber = [NSNumber numberWithInteger:indexpath1.row];
                 [HaveSectionOneAndTwoArr addObject:tempNumber];
-//                if (indexpath1.row == 0) {
-//                    //证明是第一个要删除的，保存下信息
-//                    //                lastReduceIndex = indexpath1.row;
-//                }
-//                if (indexpath1.row  < selectedArray.count && indexpath1.row > 0) {
-////                    lastIndexpath = selectedArray[i - 1];    //趁上一个信息还没删除前保存上一个信息
-////                    lastEairlyReduceIndex = lastIndexpath.row;
-//                    
-//                }else
-//                {
-//                    // 没有下一个,再就越界了
-//                }
             }
-   
             
-            
-            
+            NSLog(@"kaikaikaiakai kai 开始时间 22:%d",i);
             if(indexpath1.section == 0)
             {
-                
-               
-                
-                
-                
-                
-                
                 if (todayNum > 0) {   //如果今天的数量大于0
                     todayNum = todayNum-1;
                     NSLog(@"historyArr.count3 %lu",(unsigned long)historyArr.count);
@@ -350,8 +324,6 @@
                     
                     //做倒序删除==
                     NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
-                   
-                    
                     if (i == 0) {
                         [reversedArrayToday removeObjectAtIndex:indexpath1.row];
                     }else
@@ -359,111 +331,56 @@
                         
                         int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:onlyHaveSectionOneArr NowIndexPath:indexpath1];
                         if (numsBiggerThanNowIndex) {
-                            
-                            NSLog(@"吱吱吱3 ： %ld",(long)indexpath1.row - lastByReduceNum - 1);
-                            NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
                             [reversedArrayToday removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex];
-                            
                             lastByReduceNum = lastByReduceNum + 1 ;
                         }else
                         {
-                        
-//                            if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
-//                                [tableView endUpdates];
-//                                return;  //防止删除时数组数量不对称的bug
-//                            }else
-//                            {
-                                [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
-//                            }
+                            [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
                         }
-                        
-                        
-                        
-                    
-                      
                     }
                     
-                        
-                    
-                    
-                    
-                    
-                    
-                  
-                    
-                    //                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
+                    NSLog(@"kaikaikaiakai kai 开始时间 22=5:%d",i);
                     [historyArr removeAllObjects];
+                    NSLog(@"kaikaikaiakai kai 开始时间 22=56:%d",i);
                     historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
-                    //做倒序删除==
-                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
-                    
-                    //                    NSArray * abcd =[USER_DEFAULT objectForKey:@"historySeed"];
-                    //                    NSLog(@"historyArr33 %@",historyArr);
+                    NSLog(@"kaikaikaiakai kai 开始时间 22=57:%d",i);
+                    //                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                    NSLog(@"kaikaikaiakai kai 开始时间 22=58:%d",i);
                     if(todayNum == 0)
                     {
                         [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
+                        NSLog(@"kaikaikaiakai kai 开始时间 22=59:%d",i);
                     }
-                    
-//                    todayNameByReduce = todayNameByReduce +1;
                 }
                 else   //只有早期的历史，没有今天的历史
                 {
-                    NSLog(@"historyArr.count1 %d",historyArr.count);
-                    //                    [historyArr removeObjectAtIndex:(earilyNum -  indexpath1.row -1+i)];
                     //做倒序删除==
                     NSMutableArray* reversedArrayToday = [[historyArr reverseObjectEnumerator] allObjects];
                     
-                    
-
                     if (i == 0) {
                         [reversedArrayToday removeObjectAtIndex:indexpath1.row];
                     }else
                     {
                         int numsBiggerThanNowIndex = [self calculateNumsBiggerThanNowRow:onlyHaveSectionOneArr NowIndexPath:indexpath1];
                         if (numsBiggerThanNowIndex) {
-                            
-                            NSLog(@"吱吱吱2 ： %ld",(long)indexpath1.row - lastByReduceNum - 1);
                             NSLog(@" numsBiggerThanNowIndex %d",numsBiggerThanNowIndex);
                             [reversedArrayToday removeObjectAtIndex:indexpath1.row - numsBiggerThanNowIndex ];
-                            
                             lastByReduceNum = lastByReduceNum + 1 ;
                         }else
                         {
-                            
-                            //                            if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
-                            //                                [tableView endUpdates];
-                            //                                return;  //防止删除时数组数量不对称的bug
-                            //                            }else
-                            //                            {
                             [reversedArrayToday removeObjectAtIndex:indexpath1.row ];
-                            //                            }
                         }
-                        
-                        
-                        
-                        
-                        
                     }
-//                    if (reversedArrayToday.count < indexpath1.row - eairlyNameByReduceForOnly ) {
-//                        [tableView endUpdates];
-//                        return;  //防止删除时数组数量不对称的bug
-//                    }else
-//                    {
-//                        [reversedArrayToday removeObjectAtIndex:indexpath1.row - eairlyNameByReduceForOnly];
-//                    }
-                    
-                    
-                    
-                    
+                    NSLog(@"kaikaikaiakai kai 开始时间 22=8:%d",i);
                     [historyArr removeAllObjects];
                     historyArr = [[reversedArrayToday reverseObjectEnumerator] allObjects]; //先删除，再赋值
                     //做倒序删除==
                     earilyNum = earilyNum-1;
-                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
-                    
+                    //                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
                     
                     if(earilyNum == 0)
                     {
+                        
                         [tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationLeft];
                     }
                     eairlyNameByReduceForOnly = eairlyNameByReduceForOnly +1;
@@ -471,16 +388,12 @@
                 }
                 
                 
-                
+                NSLog(@"kaikaikaiakai kai 开始时间 33:%d",i);
             }
             else //section =1
             {
                 //与上面方法类似，首先单独提取出来一个eaily
                 NSMutableArray * eairlyHistoryArr = [[historyArr subarrayWithRange:NSMakeRange(0, earilyNum)] mutableCopy];
-                
-                
-                
-                
                 
                 
                 if (earilyNum > 0) {   //如果今天的数量大于0
@@ -490,7 +403,6 @@
                     
                     //做倒序删除==
                     NSMutableArray* reversedArrayEairly = [[eairlyHistoryArr reverseObjectEnumerator] allObjects];
-                    
                     
                     if (indexpath1.row == 0) {
                         [reversedArrayEairly removeObjectAtIndex:indexpath1.row];
@@ -507,31 +419,12 @@
                             lastEairlyByReduceNum = lastEairlyByReduceNum + 1 ;
                         }else
                         {
-                            
-                            //                            if (reversedArrayToday.count < indexpath1.row - todayNameByReduce ) {
-                            //                                [tableView endUpdates];
-                            //                                return;  //防止删除时数组数量不对称的bug
-                            //                            }else
-                            //                            {
                             [reversedArrayEairly removeObjectAtIndex:indexpath1.row ];
-                            //                            }
+                            
                         }
-                        
-                        
-                        
-                        
                         
                     }
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    //                    [historyArr removeObjectAtIndex:(historyArr.count -  indexpath1.row - 1 +i)];
                     [eairlyHistoryArr removeAllObjects];
                     eairlyHistoryArr = [[reversedArrayEairly reverseObjectEnumerator] allObjects]; //先删除，再赋值
                     
@@ -540,7 +433,7 @@
                     
                     
                     //做倒序删除==
-                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
+                    //                    [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
                     
                     
                     if(earilyNum == 0)
@@ -551,46 +444,13 @@
                     //                    todayNameByReduce = todayNameByReduce +1;
                 }
                 
-                
-                
-                
-                
-//                NSLog(@"earilyNum %d",earilyNum);
-//                NSLog(@"indexpath1.row %d",indexpath1.row);
-//                NSInteger removeNum = earilyNum  - indexpath1.row -1 + eairlyNameByReduce;
-//                NSLog(@"removeNum %d",removeNum);
-//                NSLog(@"historyArr.count2 %d",historyArr.count);
-//                if (historyArr.count < removeNum ) {
-//                    [tableView endUpdates];
-//                    return;  //防止删除时数组数量不对称的bug
-//                }else
-//                {
-//                    [historyArr removeObjectAtIndex:removeNum];
-//                }
-//                earilyNum = earilyNum -1;
-//                [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
-//                
-//                if(earilyNum == 0)
-//                {
-//                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationLeft];
-//                }
-//                eairlyNameByReduce = eairlyNameByReduce +1;
+                NSLog(@"kaikaikaiakai kai 开始时间 44:%d",i);
             }
-            
-            //        if (historyArr.count == 0)
-            //
-            //        {
-            //
-            //            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexpath1.section] withRowAnimation:UITableViewRowAnimationLeft];
-            ////                       deleteSections:[NSIndexSet
-            ////                                       indexSetWithIndex:indexPath.section]
-            ////                     withRowAnimation:UITableViewRowAnimationLeft];
-            //
-            //        }
             
         }
         
-        
+        NSLog(@"kaikaikaiakai kai 结束时间");
+        [USER_DEFAULT setObject:[historyArr copy] forKey:@"historySeed"];
         [tableView endUpdates];
         [tableView reloadData];
         
@@ -599,14 +459,13 @@
         [HaveSectionOneAndTwoArr removeAllObjects];
         
         
-      /////////============
+        /////////============
         [tableView reloadData];
         isAllSelected = NO; // “All” 按钮取消选中状态
         
         [self loadAllDeleteBtn];
         delegateBtn = YES;
         [self.tableView setEditing:NO animated:YES];
-        //    [self setEditing:!self.editing animated:YES];
         myButton = nil;
         myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Del"] style:UIBarButtonItemStyleBordered target:self action:@selector(deleteAllBtn)];
         self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
@@ -616,26 +475,19 @@
         [selectedArray removeAllObjects]; //删除完或者取消删除之后
         
         
+        UIBarButtonItem *leftBackBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftBackBtnClick)];
+        self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
         
-            UIBarButtonItem *leftBackBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(leftBackBtnClick)];
-            self.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-            
-            self.navigationItem.leftBarButtonItem = leftBackBtn;
-            
-            self.tabBarController.tabBar.hidden = YES;
-            
-            
-            [redDeleteBtn removeFromSuperview];
+        self.navigationItem.leftBarButtonItem = leftBackBtn;
+        
+        self.tabBarController.tabBar.hidden = YES;
+        
+        
+        [redDeleteBtn removeFromSuperview];
         
     }
     
-    
-//    double delayInSeconds = 0.5;
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, mainQueue, ^{
-//
-        //获得删除的数量
+    //获得删除的数量
     if(historyArr.count == 0 || historyArr == NULL)
     {
         delegateBtn = YES;
@@ -660,10 +512,6 @@
             [self deleteBtnCancelAndNOHistory];
         }
     }
-    
-//
-//    });
-   
 }
 
 #pragma mark - “ALL”按钮点击
@@ -685,13 +533,13 @@
                     
                     
                     if ([self.tableView numberOfRowsInSection:0] > i ) {
-                       
+                        
                         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                         
                         //添加到删除数组
                         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
                         [selectedArray addObject:path];
-
+                        
                     }else
                     {
                         NSLog(@" 1 越界了，会报错 %ld %d",(long)[self.tableView numberOfRowsInSection:0],i);
@@ -703,11 +551,11 @@
                 else
                 {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
-//                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                    //                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                     
                     if ([self.tableView numberOfRowsInSection:1] > i - todayNum ) {
                         
-                         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+                        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
                         
                         //添加到删除数组
                         NSIndexPath *path = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
@@ -717,14 +565,14 @@
                         NSLog(@" 2 越界了，会报错 %ld %d todayNUm :%d",(long)[self.tableView numberOfRowsInSection:1], i , todayNum);
                     }
                     
-                   
+                    
                 }
                 
                 
                 
             }else if (todayNum==0&&earilyNum>0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                //                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
                 if ([self.tableView numberOfRowsInSection:0] > i  ) {
                     
@@ -740,7 +588,7 @@
                 
             }else if (todayNum>0&&earilyNum==0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+                //                [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
                 
                 if ([self.tableView numberOfRowsInSection:0] > i  ) {
                     
@@ -753,7 +601,7 @@
                     NSLog(@" 4 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
                 }
                 
-               
+                
             }
             else if (todayNum==0&&earilyNum==0) {
                 [self.view addSubview:noDataSourceView];
@@ -773,7 +621,7 @@
                 if (i< todayNum) {
                     
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    //                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     
                     if ([self.tableView numberOfRowsInSection:0] > i  ) {
                         
@@ -791,7 +639,7 @@
                 else
                 {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i -todayNum inSection:1];
-//                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    //                    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     if ([self.tableView numberOfRowsInSection:1] > i - todayNum  ) {
                         
                         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -803,14 +651,14 @@
                         NSLog(@" 6 越界了，会报错 %ld %d today %d",(long)[self.tableView numberOfRowsInSection:1], i ,todayNum);
                     }
                     
-                  
+                    
                 }
                 
                 
                 
             }else if (todayNum==0&&earilyNum>0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                //                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                 if ([self.tableView numberOfRowsInSection:0] > i  ) {
                     
                     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -822,10 +670,10 @@
                     NSLog(@" 7 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
                 }
                 
-               
+                
             }else if (todayNum>0&&earilyNum==0) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                //                [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                 
                 if ([self.tableView numberOfRowsInSection:0] > i  ) {
                     
@@ -838,7 +686,7 @@
                     NSLog(@" 8 越界了，会报错 %ld %d ",(long)[self.tableView numberOfRowsInSection:0], i );
                 }
                 
-              
+                
             }
             else if (todayNum==0&&earilyNum==0) {
                 [self.view addSubview:noDataSourceView];
@@ -950,7 +798,7 @@
     {
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     }
-//    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    //    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
     
@@ -987,11 +835,11 @@
         earilyCell = [EarilyCell loadFromNib];
         earilyCell.backgroundColor=[UIColor clearColor];
         earilyCell.tintColor = [UIColor redColor];
-       
+        
         
         if (tableView.editing == YES) {
-//            earilyCell.selectionStyle = UITableViewCellSelectionStyleGray;
-//            earilyCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+            //            earilyCell.selectionStyle = UITableViewCellSelectionStyleGray;
+            //            earilyCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
             CGRect frame = earilyCell.frame;
             
             UIView *backView = [[UIView alloc] initWithFrame:frame];
@@ -1003,26 +851,26 @@
         }
         
         
-////        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-////        earilyCell.selectedBackgroundView.backgroundColor =  [UIColor whiteColor];
-//        earilyCell.selectionStyle = UIAccessibilityTraitNone;
-//        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//
-////                earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x+20, earilyCell.frame.origin.y+2, earilyCell.frame.size.width, earilyCell.frame.size.height-2)];
-//        view.backgroundColor = [UIColor blueColor];
-////                earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x+20, earilyCell.frame.origin.y+2, earilyCell.frame.size.width, earilyCell.frame.size.height-2)];
-//        earilyCell.selectedBackgroundView = view;
-////                earilyCell.selectedBackgroundView.backgroundColor = [UIColor redColor];
-//
-////        tableView.separatorColor = [UIColor redColor];
-////                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//
-//        [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
+        ////        earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        ////        earilyCell.selectedBackgroundView.backgroundColor =  [UIColor whiteColor];
+        //        earilyCell.selectionStyle = UIAccessibilityTraitNone;
+        //        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        //
+        ////                earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        //        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x+20, earilyCell.frame.origin.y+2, earilyCell.frame.size.width, earilyCell.frame.size.height-2)];
+        //        view.backgroundColor = [UIColor blueColor];
+        ////                earilyCell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(earilyCell.frame.origin.x+20, earilyCell.frame.origin.y+2, earilyCell.frame.size.width, earilyCell.frame.size.height-2)];
+        //        earilyCell.selectedBackgroundView = view;
+        ////                earilyCell.selectedBackgroundView.backgroundColor = [UIColor redColor];
+        //
+        ////        tableView.separatorColor = [UIColor redColor];
+        ////                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        //
+        //        [tableView setSeparatorColor:RGBA(193, 193, 193, 1)];
         
         
         
- 
+        
         
         
     }
@@ -1066,7 +914,7 @@
     
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-
+    
     
     //      [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -1311,8 +1159,8 @@
         dic = dicTemp;
     }
     
-//    NSLog(@"askjbjabfbasfba11 %@",dic11);
-//    NSLog(@"askjbjabfbasfba22 %@",dic);
+    //    NSLog(@"askjbjabfbasfba11 %@",dic11);
+    //    NSLog(@"askjbjabfbasfba22 %@",dic);
     
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
@@ -1343,7 +1191,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }else //正常播放的步骤
         {
-
+            
             
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
@@ -1352,7 +1200,7 @@
             
             [self.tabBarController setSelectedIndex:1];
             [self.navigationController popViewControllerAnimated:YES];
-
+            
         }
         
         
@@ -1375,15 +1223,15 @@
 -(int)calculateNumsBiggerThanNowRow :(NSMutableArray *)selectArr NowIndexPath :(NSIndexPath *) nowIndexPath
 {
     NSNumber * tempNumber = [NSNumber numberWithInteger:nowIndexPath.row];
-//    [selectArr addObject:tempNumber];
+    //    [selectArr addObject:tempNumber];
     
-   NSArray *sortedNumbers = [selectArr sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *sortedNumbers = [selectArr sortedArrayUsingSelector:@selector(compare:)];
     
     NSLog(@"sortedNumbers %@",sortedNumbers);
     
     int tempIndex =   [sortedNumbers indexOfObject:tempNumber];
     
-//    [selectArr removeObject:tempNumber];
+    //    [selectArr removeObject:tempNumber];
     
     
     return  tempIndex;
