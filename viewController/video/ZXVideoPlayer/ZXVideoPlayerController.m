@@ -4886,16 +4886,28 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int dValueTime ; //已经过了多长时间
     
     //如果时间为0 ,或者没有获取到时间，则显示为0
-    if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
+    if ([[GGUtil GetNowTimeString] intValue] < [self.video.endTime intValue]) {
+        if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0)  {
+            dValueTime = 0;
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        } else
+        {
+            dValueTime = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
+        }
+    }else
+    {
         dValueTime = 0;
+        allTime = 0;
+        TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-    } else
-    {
-        dValueTime = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
     }
+    
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
     }else
     {
@@ -4967,7 +4979,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"str11str11 %@",str11);
             NSLog(@"str22str22 %@",str22);
             
-            if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue]) {
+            if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue] && [[GGUtil GetNowTimeString] intValue] < [self.video.endTime intValue]) {
                 
                 self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
                 self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
@@ -5020,6 +5032,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
                     NSLog(@"tinetime 44");
                 }
+                
+            }else
+            {
+                NSLog(@"出错了，节目的当前时间不能大于结束时间");
+                NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
                 
             }
             

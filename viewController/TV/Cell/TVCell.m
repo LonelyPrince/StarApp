@@ -228,6 +228,11 @@
         self.channel_Name.text = [dataDic objectForKey:@"service_name"];
         
         
+        if ([[GGUtil GetNowTimeString] intValue] > [[nextEpgDic  objectForKey:@"event_starttime"] intValue]) {
+            self.event_nextTime.text = @"--:--";
+            self.event_nextNameLab.text =NOEventLabel;
+            self.event_nameLab.text =NOEventLabel;
+        }
     }else //录播
     {
         NSLog(@"lubo 录播");

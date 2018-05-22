@@ -154,7 +154,7 @@ static const CGFloat kBorderWidth = 0.0f;
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated
 {
     
-    
+
     [self.progressLayer removeAnimationForKey:@"progress"];
     NSString * startTime;
     if (animated) {
