@@ -416,14 +416,12 @@
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
 
-    
     NSInteger indexForTouch;//这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
     NSMutableDictionary * dicCategory = [[NSMutableDictionary alloc]init];
     NSArray *data2  = [[NSArray alloc]init];
     NSDictionary * serviceTouch = [[NSDictionary alloc]init];
  
     if ([tableView isEqual:self.tableView]) {
-        //    NSLog(@"---->%@",[[self.LetterResultArr objectAtIndex: indexPath.section]objectAtIndex:indexPath.row]);
         NSLog(@"showData == %@",self.showData);
         NSLog(@"self.dataList == %@",self.dataList);
         int index1 ;
@@ -543,25 +541,9 @@
                 break;
             }
             
-            
-            
-//                //indexCat 代表总的service下第几个
-//                int indexCat ;
-//                
-//                indexCat =[service_index[i] intValue] ;
-//                data2 = [self.response objectForKey: @"service" ];
-//            
-//                serviceTouch  = data2[indexCat-1];
-//
-//                [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",i]];
-//            
-//            
-//            
-            
-            
+ 
             
         }
-//        int indexOfCategoryTemp = 0;
         if (twoChannelDicIsEqualTemp) {  //如果相等，则删除原来的值，替换成新的值。这样做可以防止节目更新，但是搜索历史没有更新
             twoChannelDicIsEqualTemp = NO;
 //              indexOfCategoryTemp =  [self judgeCategoryType:tempDic];
@@ -585,9 +567,6 @@
                 {
                     return;
                 }
-                
-                //                    //cell.tabledataDic = self.serviceData[indexCat -1];
-                //
                 [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
              
             }
@@ -652,10 +631,9 @@
     NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
     //    NSDictionary * fourceDic = [USER_DEFAULT objectForKey:@"NowChannelDic"];  //这里获得当前焦点
     NSLog(@"indexOfCategory %d",indexOfCategory);
-//    NSArray * arrForServiceByCategory = [[USER_DEFAULT objectForKey:@"categorysToCategoryView"][indexOfCategory] objectForKey:@"service_index"];
-    
+ 
     NSArray  * arrForServiceByCategoryTemp = [USER_DEFAULT objectForKey:@"categorysToCategoryView"];
-    //            NSArray * liveCategory =
+    
     NSArray * serviceArr = arrForServiceByCategoryTemp[0];
     
     NSDictionary * categoryIndexDic = serviceArr[0];

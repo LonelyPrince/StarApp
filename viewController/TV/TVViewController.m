@@ -1888,6 +1888,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [GGUtil postnoPlayShowNotic];
+            NSLog(@"postnoPlayShowNotic 11111");
             [self.tableForSliderView reloadData];
             [self refreshTableviewByEPGTime];
             
@@ -2210,6 +2211,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {   //出现异常
                 [GGUtil postnoPlayShowNotic];
+                NSLog(@"postnoPlayShowNotic 22222");
                 return ;
             }
         }else{
@@ -2268,6 +2270,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (self.showTVView == YES) {
                 [self ifNeedPlayClick];
+                NSLog(@"play-Click 1111");
             }else
             {
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
@@ -2315,6 +2318,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else
                 {   //出现异常
                     [GGUtil postnoPlayShowNotic];
+                    NSLog(@"postnoPlayShowNotic 33333");
                     return ;
                 }
             }else{
@@ -2377,6 +2381,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 if (self.showTVView == YES) {
                     [self ifNeedPlayClick];
+                    NSLog(@"play-Click 2222");
                 }else
                 {
                     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
@@ -2414,12 +2419,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [GGUtil postnoPlayShowNotic];
+            NSLog(@"postnoPlayShowNotic 44444");
             return ;
             
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
         }
         [GGUtil postnoPlayShowNotic];
+        NSLog(@"postnoPlayShowNotic 55555");
         [self removeTopProgressView];
         self.video.startTime = @"0";
         self.video.endTime = @"0";
@@ -2557,6 +2564,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                     [GGUtil postnoPlayShowNotic];
+                    NSLog(@"postnoPlayShowNotic 66666");
                 }else{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
                     
@@ -2691,6 +2699,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:ResourcesFull forKey:@"playStateType"];
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         [GGUtil postnoPlayShowNotic];
+        NSLog(@"postnoPlayShowNotic 77777");
         dispatch_async(dispatch_get_main_queue(), ^{
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
             
@@ -2747,12 +2756,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postnoPlayShowShutNotic];
             [GGUtil postIndicatorViewShowNotic];
         }
-        if (self.showTVView == YES) {
-            [self ifNeedPlayClick];
-        }else
-        {
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-        }
+//        if (self.showTVView == YES) {
+//            [self ifNeedPlayClick];
+//            NSLog(@"play-Click 3333");
+//        }else
+//        {
+//            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
+//        }
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
         [self judgeNowISRadio:epgDicToSocket]; //此处加个方法，判断是不是音频
         progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
@@ -3083,6 +3093,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [GGUtil postnoPlayShowNotic];
+            NSLog(@"postnoPlayShowNotic 88888");
             return ;
             
         }else{
@@ -3105,6 +3116,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self stopVideoPlay]; //停止视频播放
                 [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
                 [GGUtil postnoPlayShowNotic];
+                NSLog(@"postnoPlayShowNotic 99999");
             }else //视频没有停止分发，跳转界面可以播放
             {
                 [self removeLabAndAddIndecatorView];
@@ -3233,6 +3245,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             }
             [GGUtil postnoPlayShowNotic];
+            NSLog(@"postnoPlayShowNotic aaaaa");
             [self removeTopProgressView];
             
             self.video.startTime = @"0";
@@ -4087,6 +4100,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
     }
     [GGUtil postnoPlayShowNotic];
+    NSLog(@"play-Click 4444");
+    NSLog(@"postnoPlayShowNotic bbbbb");
 }
 #pragma mark - 将要播放的通知
 -(void)willplay
@@ -4231,6 +4246,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                     [GGUtil postnoPlayShowNotic];
+                    NSLog(@"postnoPlayShowNotic ccccc");
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
                     
@@ -4369,6 +4385,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                     [GGUtil postnoPlayShowNotic];
+                    NSLog(@"postnoPlayShowNotic dddddd");
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
                     
                     [self.videoController setaudioOrSubtRowIsZero];
@@ -4936,6 +4953,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //__
     if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
         [GGUtil postnoPlayShowNotic];
+        NSLog(@"postnoPlayShowNotic eeeee");
         return ;
         
     }else{
@@ -5066,6 +5084,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [GGUtil postnoPlayShowNotic];
+            NSLog(@"postnoPlayShowNotic ffffff");
             return ;
             
         }else{
@@ -5202,6 +5221,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                     [GGUtil postnoPlayShowNotic];
+                    NSLog(@"postnoPlayShowNotic gggggg");
                 }else{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
                     
@@ -5721,6 +5741,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [GGUtil postnoPlayShowNotic];
+            NSLog(@"postnoPlayShowNotic hhhhhh");
             return ;
             
         }else{
@@ -7409,6 +7430,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self stopVideoPlay]; //停止视频播放
     [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
     [GGUtil postnoPlayShowNotic];
+    NSLog(@"postnoPlayShowNotic iiiii");
     
 }
 #pragma mark - 当CA卡拔出后，显示加扰节目不能播放
@@ -7454,6 +7476,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         [GGUtil postnoPlayShowNotic];
+        NSLog(@"postnoPlayShowNotic jjjjjjj");
         [GGUtil postremoveConfigCAPINShowNotific];
         CAAlert.dontDisppear = YES;
         //取消弹窗
@@ -7819,7 +7842,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"进入了这个方法");
         }
-        
+        NSLog(@"play-Click 5555");
     });
     
 }
@@ -8632,6 +8655,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     //显示 sorry，this Video cant play
     [self playClick];
+    NSLog(@"play-Click 6666");
     //⑤停止播放的动作,并且取消掉图画
     [self.videoController.player stop];
     [self.videoController.player shutdown];
