@@ -762,14 +762,15 @@
         NSString * service_ts_id1 = [firstDic objectForKey:@"service_ts_id"];
         NSString * service_service_id1 = [firstDic objectForKey:@"service_service_id"];
         NSString * service_logic_number1 =  [firstDic objectForKey:@"service_logic_number"];
-        
+        NSString * service_service_name1 = [firstDic objectForKey:@"service_name"];
         
         NSString * service_network_id2 = [twoDic objectForKey:@"service_network_id"];
         NSString * service_ts_id2 = [twoDic objectForKey:@"service_ts_id"];
         NSString * service_service_id2 = [twoDic objectForKey:@"service_service_id"];
         NSString * service_logic_number2 =  [twoDic objectForKey:@"service_logic_number"];
+        NSString * service_service_name2 = [twoDic objectForKey:@"service_name"];
         
-        if ([service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2]&& [service_logic_number1 isEqualToString:service_logic_number2]) {
+        if ([service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2]&& [service_logic_number1 isEqualToString:service_logic_number2] && [service_service_name1 isEqualToString:service_service_name2]) {
             return YES;
         }else
         {
@@ -1019,6 +1020,7 @@
         NSString * service_service =  [mutaArray[i][0] objectForKey:@"service_service_id"];
 //        NSString * service_tuner =  [mutaArray[i][0] objectForKey:@"service_tuner_mode"];
         NSString * service_logicName =  [mutaArray[i][0] objectForKey:@"service_logic_number"];
+        NSString * service_service_name = [mutaArray[i][0] objectForKey:@"service_name"];
         
         //新添加的数据
         NSString * newservice_network =  [epgDicToSocket objectForKey:@"service_network_id"];
@@ -1026,17 +1028,16 @@
         NSString * newservice_service =  [epgDicToSocket objectForKey:@"service_service_id"];
 //        NSString * newservice_tuner =  [epgDicToSocket objectForKey:@"service_tuner_mode"];
         NSString * newservice_logicName =  [epgDicToSocket objectForKey:@"service_logic_number"];
+        NSString * newservice_service_name = [epgDicToSocket objectForKey:@"service_name"];
         
-        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName]) { //
+        if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts] && [service_service isEqualToString:newservice_service] && [service_logicName isEqualToString:newservice_logicName] && [service_service_name isEqualToString:newservice_service_name]) { //
             addNewData = NO;
             
             NSArray * equalArr = mutaArray[i];
             
             [mutaArray removeObjectAtIndex:i];
             [mutaArray  addObject:equalArr];
-            
-            
-            
+ 
             break;
         }
         
