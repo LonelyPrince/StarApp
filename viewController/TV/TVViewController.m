@@ -3097,8 +3097,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)refreshFirstViewTbaleview
 {
-    [_slideView removeFromSuperview];
-    _slideView = nil;
+//    [_slideView removeFromSuperview];
+//    _slideView = nil;
     [self tableViewDataRefreshForMjRefresh_ONEMinute];
 }
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
