@@ -14,7 +14,7 @@
 #import "AudioCell.h"
 #import "subtCell.h"
 #import "ChannelCell.h"
-#define KZXVideoStaticTime 6    //静帧时间超过找个时间，则停止播放，显示文字
+//#define KZXVideoStaticTime 6    //静帧时间超过找个时间，则停止播放，显示文字
 typedef NS_ENUM(NSInteger, ZXPanDirection){
     ZXPanDirectionHorizontal, // 横向移动
     ZXPanDirectionVertical,   // 纵向移动
@@ -413,29 +413,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:IJKMPMoviePlayerPlaybackDidFinishNotification object:nil];
     
 }
-//{
-//    // 播放状态改变，可配合playbakcState属性获取具体状态
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackStateDidChangeNotification) name:MPMoviePlayerPlaybackStateDidChangeNotification object:nil];
-//
-//    // 媒体网络加载状态改变
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
-//
-//    // 视频显示状态改变
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];
-//
-//    // 确定了媒体播放时长后
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];
-//
-//    // 视频播放结束时
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerPlaybackDidFinishNotification:) name:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-//
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPayerControlViewHideNotification) name:kZXPlayerControlViewHideNotification object:nil];
-//}
+
 
 /// 播放状态改变, 可配合playbakcState属性获取具体状态
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
-    NSLog(@"卡拉  开始配置  开始播放了，取消静帧");
+    NSLog(@"判断是否静帧 11111");
+    NSLog(@"开始卡顿  开始播放了，取消静帧");
     NSLog(@"judgeVideoIsStatic 为 %d",judgeVideoIsStatic);
     /*
      if (judgeVideoIsStatic == 1) {
@@ -467,7 +451,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(void)stopPlayAndShowLabel  //如果静帧超过3秒钟，显示不能播放的文字
 {
-    NSLog(@"卡拉  开始配置 进入方法22");
+    NSLog(@"开始卡顿 进入方法22");
     
     if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
         
@@ -483,11 +467,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 媒体网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
-    NSLog(@"卡拉  开始配置 进入方法1");
+    NSLog(@"判断是否静帧 222222");
+    NSLog(@"开始卡顿 进入方法1");
     NSLog(@"judgeVideoIsStatic 为 %d",judgeVideoIsStatic);
     if (judgeVideoIsStatic == 0) {
         //        /    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(runThread1) object:nil];
-        NSLog(@"卡拉  开始配置 进入方法11");
+        NSLog(@"开始卡顿 进入方法11");
         /*
          [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopPlayAndShowLabel) object:nil];
          [self performSelector:@selector(stopPlayAndShowLabel) withObject:nil afterDelay:KZXVideoStaticTime];
@@ -557,6 +542,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 视频显示状态改变
 - (void)onMPMoviePlayerReadyForDisplayDidChangeNotification
 {
+    NSLog(@"判断是否静帧 3333333");
     NSLog(@"开始播放");
     
     NSString * channelType = [USER_DEFAULT objectForKey:@"ChannelType"];
@@ -572,6 +558,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// 确定了媒体播放时长
 - (void)onMPMovieDurationAvailableNotification
 {
+    NSLog(@"判断是否静帧 4444444");
     NSLog(@"MPMovie  DurationAvailable  Notification");
     
     //    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
@@ -599,6 +586,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //视频播放结束时
 -(void)onMPMoviePlayerPlaybackDidFinishNotification:(NSNotification*)notification
 {
+    NSLog(@"判断是否静帧 66666666");
     //判断是不是播放的录制节目
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
         
@@ -2909,9 +2897,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSArray * touchArr = historyArr[historyArrCount];
             
             
-            NSLog(@"historyArr：%@",historyArr);
-            NSLog(@"touchArr：%@",touchArr);
-            NSLog(@"touchArr3：%@",touchArr[3]);
+//            NSLog(@"historyArr：%@",historyArr);
+//            NSLog(@"touchArr：%@",touchArr);
+//            NSLog(@"touchArr3：%@",touchArr[3]);
             
             NSInteger row = [touchArr[2] intValue];
             NSDictionary * dic = touchArr [3];

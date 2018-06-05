@@ -87,7 +87,6 @@
         
         if (epgArr.count > 0) {
             NSLog(@"epgArr cunzai 存在");
-            NSLog(@"epgArr cunzai 存在 %@",epgArr);
         }else{
             NSLog(@"epgArr bububu bu存在");
         }
