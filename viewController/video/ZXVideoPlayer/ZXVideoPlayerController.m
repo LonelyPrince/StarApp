@@ -2200,8 +2200,34 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.subtBtn.hidden = NO;
             self.videoControl.audioBtn.hidden = NO;
             self.videoControl.channelListBtn.hidden = NO;
-            self.videoControl.eventTimeLabNow.hidden = NO;
-            self.videoControl.eventTimeLabAll.hidden = NO;
+//            self.videoControl.eventTimeLabNow.hidden = NO;
+//            self.videoControl.eventTimeLabAll.hidden = NO;
+            NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+            NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
+            NSLog(@"self.video.startTime %@",self.video.startTime);
+            NSLog(@"self.video.endTime %@",self.video.endTime);
+            if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0 ) {
+               
+                self.videoControl.eventTimeLabNow.hidden = YES;
+                self.videoControl.eventTimeLabAll.hidden = YES;
+                
+            }else
+            {
+                if ([self.video.startTime isEqualToString:@"0"] || [self.video.endTime isEqualToString:@"0"]) {
+                    self.videoControl.eventTimeLabNow.hidden = YES;
+                    self.videoControl.eventTimeLabAll.hidden = YES;
+                }else{
+                    
+                    self.videoControl.eventTimeLabNow.hidden = NO;
+                    self.videoControl.eventTimeLabAll.hidden = NO;
+                    NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO");
+                    
+                }
+              
+                
+                
+                   //
+            }
             self.videoControl.backButton.hidden = NO;
             
             self.videoControl.lockButton.hidden = NO; //切换到竖屏模式，锁屏按钮出现
@@ -2679,7 +2705,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         
         //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)(row -1)]];
         
         NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
         
@@ -2791,6 +2817,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.lastChannelButton.enabled = YES;
         self.videoControl.nextChannelButton.enabled = YES;
         NSLog(@"row2 :%ld",(long)row);
+//        NSInteger tempInt = row+1;
         NSInteger tempInt = row+1;
         NSLog(@"row3 :%ld",(long)row);
         NSNumber * numIndex = [NSNumber numberWithInteger:tempInt];
@@ -2798,10 +2825,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
         
         //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)tempInt]];
         
         NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-        
+        NSLog(@"characterStrcharacterStrNext： %@",characterStr);
         
         if (characterStr != NULL && characterStr != nil) {
             
@@ -2837,7 +2864,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-            //通过通知中心发送通知
+            //通过通知中心发送通知 现在我刷的BTC  BCH 交易对，总是出现挂单未成交的情况
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             [self judgeNextBtnIsGray];
@@ -2855,7 +2882,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
     
-//    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         NSLog(@"judgeLastBtnIsGrayjudgeLastBtnIsGrayjudgeLastBtnIsGray 222222");
         if (historyArr.count >= 1) {
             NSArray * touchArr = historyArr[historyArr.count - 1];
@@ -2880,7 +2907,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
             //历史为空，不操作
         }
-//    });
+    });
     
 }
 //static int abb = 2;
@@ -2890,7 +2917,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];   //总的数据
     
-//    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (historyArr.count > 1) {
             
             int historyArrCount = historyArr.count - 1;
@@ -2919,7 +2946,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         {
             //历史数据为空，不操作
         }
-//    });
+    });
 }
 
 - (void)subtBtnClick
@@ -2962,11 +2989,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:subtPositionIndex inSection:0];
-            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }else
         {
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
     }
     
@@ -3107,11 +3134,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         if ([[USER_DEFAULT objectForKey:@"audioOrSubtTouch"] isEqualToString:@"YES"] ) {
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:audioPositionIndex inSection:0];
-            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }else
         {
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:NO];
         }
         
     }
@@ -3158,7 +3185,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"channelPositionIndex %d",channelPositionIndex);
         NSLog(@"self.subAudioTableView %@",self.subAudioTableView);
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:channelPositionIndex inSection:0];
-        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        [self.subAudioTableView scrollToRowAtIndexPath:scrollIndexPath  atScrollPosition:UITableViewScrollPositionTop animated:NO];
         
     }
     
@@ -4859,11 +4886,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (dValueTime < allTime) {
         NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
         self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+        NSLog(@"self.videoControl.eventTimeLabNow.text 11%@",self.videoControl.eventTimeLabNow.text);
         self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     }else
     {
-        NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
         self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",TimeIntervalString];
+        NSLog(@"self.videoControl.eventTimeLabNow.text 22 %@",self.videoControl.eventTimeLabNow.text);
         self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     }
 }
@@ -4907,7 +4935,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",dValueTime]];
     
+    
+
     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+    NSLog(@"self.videoControl.eventTimeLabNow.text 33 %@",self.videoControl.eventTimeLabNow.text);
     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
     
     //进行判断,看是不是录制节目.并且录制节目没有断开网络
@@ -4916,9 +4947,35 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             
             self.videoControl.eventTimeLabNow.text = @"00:00:00";
+            NSLog(@"self.videoControl.eventTimeLabNow.text 44 %@",self.videoControl.eventTimeLabNow.text);
             self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
         }
     }
+}
+-(void)setTimeAndProgressIsNull
+{
+    
+    if (self.isFullscreenMode) {
+        
+        self.videoControl.eventTimeLabNow.hidden = YES;
+        self.videoControl.eventTimeLabAll.hidden = YES;
+    }
+    
+}
+-(void)setTimeAndProgressIsShow
+{
+    
+    if (self.isFullscreenMode) {
+        
+        self.videoControl.eventTimeLabNow.hidden = NO;
+        self.videoControl.eventTimeLabAll.hidden = NO;
+        NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO 2222");
+    }else
+    {
+        self.videoControl.eventTimeLabNow.hidden = YES;
+        self.videoControl.eventTimeLabAll.hidden = YES;
+    }
+    
 }
 #pragma mark - 判断进度条是不是需要显示
 -(void)configTimerOfEventTimeNotific
@@ -4927,6 +4984,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"TimerOfEventTimeNotific" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(TimerOfEventTimeNotific) name:@"TimerOfEventTimeNotific" object:nil];
+    
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setTimeAndProgressIsNullNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTimeAndProgressIsNull) name:@"setTimeAndProgressIsNullNotific" object:nil];
+    
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setTimeAndProgressIsShowNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTimeAndProgressIsShow) name:@"setTimeAndProgressIsShowNotific" object:nil];
 }
 //判断进度条是不是需要显示
 -(void)TimerOfEventTimeNotific
@@ -5017,6 +5084,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     NSLog(@"nowTime nowTime :%@",aa);
                     
                     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
+                    NSLog(@"self.videoControl.eventTimeLabNow.text 55 %@",self.videoControl.eventTimeLabNow.text);
                     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
                     NSLog(@"tinetime 44");
                 }

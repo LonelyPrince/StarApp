@@ -122,7 +122,8 @@
 + (void)postIndicatorViewShowNotic;
 + (void)postTimerOfEventTimeNotific;
 + (void)postsetChannelNameAndEventNameNotic:(NSDictionary*)dic;
-
++ (void)postsetTimeAndProgressIsNullNotific;
++ (void)postsetTimeAndProgressIsShowNotific;
 @end
 
 

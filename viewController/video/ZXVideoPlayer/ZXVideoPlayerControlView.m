@@ -1380,6 +1380,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _eventTimeLabNow = [[UILabel alloc] init];
         //        _eventTimeLab.lineBreakMode = NSLineBreakByTruncatingTail;
         _eventTimeLabNow.text = @"00:00 " ;
+        NSLog(@"self.videoControl.eventTimeLabNow.text 66%@",_eventTimeLabNow.text);
         _eventTimeLabNow.textColor =[UIColor colorWithRed:255 green:255 blue:255 alpha:0.8];
         
         deviceString = [GGUtil deviceVersion];
@@ -1417,7 +1418,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         }else{
             _eventTimeLabAll.font = [UIFont systemFontOfSize:18];
         }
-        
+        _eventTimeLabAll.hidden = YES;
         
         
     }

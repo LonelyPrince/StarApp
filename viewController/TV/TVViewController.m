@@ -1808,7 +1808,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
             [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
             [self removeLabAndAddIndecatorView];
-            //=====则去掉不能播放的字样，加上加载环
+            //=====则去掉不能播放的字样，加上加载环   ft/usdt   eth/usdt   ft/eth
             
             
             //加入历史记录
@@ -1973,6 +1973,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     self.event_startTime = @"";
                     self.event_endTime = @"";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
+                    [self removeTopProgressView];
                 }
                 
                 isEventStartTimeBiger_NowTime = NO;
@@ -1981,6 +1983,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     self.event_startTime = @"";
                     self.event_endTime = @"";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
+                    [self removeTopProgressView];
                 }
                 
                 self.TVSubAudioDic = epgDicToSocket;
@@ -2079,6 +2083,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }else
             {
 #pragma mark - 需要注意名称变化
@@ -2093,6 +2099,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             self.TVSubAudioDic = epgDicToSocket;
             self.TVChannlDic = self.dicTemp;
@@ -2144,11 +2152,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     self.event_startTime = @"";
                     self.event_endTime = @"";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
+                    [self removeTopProgressView];
                 }
                 
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue]) {
                     self.video.startTime = @"0";
                     self.video.endTime = @"0";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
+                    [self removeTopProgressView];
                 }else{
                     self.video.startTime = self.event_startTime;
                     self.video.endTime = self.event_endTime;
@@ -2555,6 +2567,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             
             isEventStartTimeBiger_NowTime = NO;
@@ -2563,6 +2577,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             
             self.TVSubAudioDic = epgDicToSocket;
@@ -4308,11 +4324,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_videoname = @"";
                             self.event_startTime = @"";
                             self.event_endTime = @"";
+                            [GGUtil postsetTimeAndProgressIsNullNotific];
+                            [self removeTopProgressView];
                         }
                         
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue]) {
                             self.video.startTime = @"0";
                             self.video.endTime = @"0";
+                            [GGUtil postsetTimeAndProgressIsNullNotific];
+                            [self removeTopProgressView];
                         }else{
                             self.video.startTime = self.event_startTime;
                             self.video.endTime = self.event_endTime;
@@ -4469,12 +4489,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_videoname = @"";
                         self.event_startTime = @"";
                         self.event_endTime = @"";
+                        [GGUtil postsetTimeAndProgressIsNullNotific];
+                        [self removeTopProgressView];
+                        
                     }else
                     {
 #pragma mark - 需要注意名称变化
                         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                         self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                        [GGUtil postsetTimeAndProgressIsShowNotific];
                     }
                     
                     isEventStartTimeBiger_NowTime = NO;
@@ -4483,6 +4507,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_videoname = @"";
                         self.event_startTime = @"";
                         self.event_endTime = @"";
+                        [GGUtil postsetTimeAndProgressIsNullNotific];
+                        [self removeTopProgressView];
                     }
                     
                     self.TVSubAudioDic = epgDicToSocket;
@@ -4616,6 +4642,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_videoname = @"";
                             self.event_startTime = @"";
                             self.event_endTime = @"";
+                            [GGUtil postsetTimeAndProgressIsNullNotific];
+                            [self removeTopProgressView];
                         }
                         
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue]) {
@@ -4727,12 +4755,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     self.event_startTime = @"";
                     self.event_endTime = @"";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
+                    [self removeTopProgressView];
                 }else
                 {
 #pragma mark - 需要注意名称变化
                     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    [GGUtil postsetTimeAndProgressIsShowNotific];
                 }
                 
                 isEventStartTimeBiger_NowTime = NO;
@@ -4741,6 +4772,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     self.event_startTime = @"";
                     self.event_endTime = @"";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
                 }
                 
                 self.TVSubAudioDic = epgDicToSocket;
@@ -5043,11 +5075,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
         self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+        [GGUtil postsetTimeAndProgressIsShowNotific];
     }else
     {
         self.event_videoname = @"";
         self.event_startTime = @"";
         self.event_endTime = @"";
+        [GGUtil postsetTimeAndProgressIsNullNotific];
+        [self removeTopProgressView];
     }
     
     
@@ -5057,6 +5092,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_videoname = @"";
         self.event_startTime = @"";
         self.event_endTime = @"";
+        [GGUtil postsetTimeAndProgressIsNullNotific];
+        [self removeTopProgressView];
     }
     
     self.TVSubAudioDic = epgDicToSocket;
@@ -5206,6 +5243,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
@@ -5213,6 +5252,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             self.TVSubAudioDic = epgDicToSocket;
             self.TVChannlDic = self.dicTemp;
@@ -6249,6 +6290,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
         self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+        [GGUtil postsetTimeAndProgressIsShowNotific];
     }
     
     isEventStartTimeBiger_NowTime = NO;
@@ -6257,6 +6299,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_videoname = @"";
         self.event_startTime = @"";
         self.event_endTime = @"";
+        [GGUtil postsetTimeAndProgressIsNullNotific];
+        [self removeTopProgressView];
     }
     self.TVSubAudioDic = epgDicToSocket;
     
@@ -7943,7 +7987,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     ONEMinuteTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:YES];
 }
 
-
 #pragma mark - 进度条
 //初始化进度条
 -(void)initProgressLine
@@ -8623,6 +8666,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_videoname = @"";
         self.event_startTime = @"";
         self.event_endTime = @"";
+        [GGUtil postsetTimeAndProgressIsNullNotific];
+        [self removeTopProgressView];
     }
     self.TVSubAudioDic = epgDicToSocket;
     self.TVChannlDic = self.dicTemp;
@@ -9582,6 +9627,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
@@ -9589,6 +9636,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             //*********
             
@@ -9684,6 +9733,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
@@ -9691,6 +9742,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
             }
             dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queueA, ^{

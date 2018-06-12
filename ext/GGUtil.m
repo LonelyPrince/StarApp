@@ -1157,5 +1157,17 @@ static const char *getPropertyType(objc_property_t property) {
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification22];
 }
++ (void)postsetTimeAndProgressIsNullNotific
+{
+    NSNotification *notification22 =[NSNotification notificationWithName:@"setTimeAndProgressIsNullNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification22];
+}
++ (void)postsetTimeAndProgressIsShowNotific
+{
+    NSNotification *notification22 =[NSNotification notificationWithName:@"setTimeAndProgressIsShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification22];
+}
 @end
 
