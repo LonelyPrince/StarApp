@@ -40,6 +40,8 @@
     
     BOOL viewFirstOpen;   //页面第一次加载，快速完成，不做0.2秒等待
     BOOL networIsConnect; //networIsClose   //1.系统断网了，所以monitor页面的一切信息都不显示,所以用networIsConnect作为判断 2.同时也用于左滑删除时，禁止刷新列表的操作
+    NSData * miniNameTemp;
+    int refreshTimes;
 }
 @end
 
@@ -1084,9 +1086,9 @@
                 
                 //此处做判断，看一下属于哪个tuner
                 TVhttpDic =  [USER_DEFAULT objectForKey:@"TVHttpAllData"];
-                NSArray * category1 = [TVhttpDic objectForKey:@"category"];
                 NSArray * service1 = [TVhttpDic objectForKey:@"service"];
-                
+                refreshTimes = 0;
+                int isHaveMini = 0;
                 
                 for (int a = 0; a <service1.count ; a++) {
                     //原始数据
@@ -1113,27 +1115,101 @@
                         
                         int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
                         NSString * clientNameDataToStr =[[NSString alloc] initWithData:clientNameData encoding:NSUTF8StringEncoding];
-
+                        NSLog(@"clientNameDataclientNameData==clientNameData %@",clientNameDataToStr);
                         
                         if (serviceTypeDataToStr == 8 && [clientNameDataToStr isEqualToString:deviceString]) {
                             [monitorTableArr insertObject:arr_threeData atIndex:0];
                         }else
                         {
+                            if (isHaveMini == 1) {
+                                
+                                for (int j = 0; j < monitorTableArr.count; j++) {
+                                    NSString * clientNameDataToStrTemp =[[NSString alloc] initWithData:monitorTableArr[j][2] encoding:NSUTF8StringEncoding];
+                                    if ([[clientNameDataToStrTemp substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame) {
+                                        [monitorTableArr removeObjectAtIndex:j];
+                                    }
+                                }
+                            }
+                            
                             [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                        }
+                      
+                        if ([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame  ) {
+                            isHaveMini = 1;
+                            NSLog(@"arr_threeDataarr_threeData=arr_threeData %@",arr_threeData);
+                            NSLog(@"clientNameDataToStrclientNameDataToStr %@",clientNameDataToStr);
+                            NSLog(@"ksksksksksksksk111111");
                         }
                         
                         
-                        NSLog(@"[self.tableView reloadData]  11111");
+                        
+                        NSLog(@"[self.tableView reloadData]  11111 %@",monitorTableArr);
                         [self.tableView reloadData];
                     }
                     else //此处是一种特殊情况，没有找到这个节目
                     {
-                        [self.tableView reloadData];
+                        if (refreshTimes == 0) {
+                            miniNameTemp = clientNameData;
+                            NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,clientNameData, nil];
+                            //                        int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
+                            NSString * clientNameDataToStr =[[NSString alloc] initWithData:clientNameData encoding:NSUTF8StringEncoding];
+                            
+                            if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) && isHaveMini == 0) {
+                                isHaveMini = 1;
+                                [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                                NSLog(@"ksksksksksksksk2222222");
+                            }
+                            refreshTimes = 1;
+                        }
+                       
+                        
+                        
+//                        [self.tableView reloadData];
                     }
                     
                 }
                 
+                BOOL isHaveSTB = NO;
+                int gaoqingChannel = 0;
+                for (int i = 0; i < monitorTableArr.count; i++) {
+                    
+                    if ([SocketUtils uint16FromBytes: monitorTableArr[i][1]] == 1 ) {
+                        isHaveSTB = YES;
+                        gaoqingChannel = 0;
+                    }
+                }
+                if (isHaveSTB == NO ) {
+                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,@"", nil];
+                    [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                    gaoqingChannel = 1;
+                }
                 
+                NSLog(@"monitorTableArrmonitorTableArr %@",monitorTableArr);
+                
+//                if ( gaoqingChannel == 1) {
+//                    if (deliveryCount > monitorTableArr.count + 1) {
+//
+//                        NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,miniNameTemp, nil];
+//                        int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
+//                        NSString * clientNameDataToStr =[[NSString alloc] initWithData:miniNameTemp encoding:NSUTF8StringEncoding];
+//
+//                        if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )) {
+//                            [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+//                        }
+//
+//                    }
+//
+//                }else if (deliveryCount > monitorTableArr.count ) {
+//
+//                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,miniNameTemp, nil];
+//                    int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
+//                    NSString * clientNameDataToStr =[[NSString alloc] initWithData:miniNameTemp encoding:NSUTF8StringEncoding];
+//
+//                    if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )) {
+//                        [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+//                    }
+//
+//                }
                 
                 
                 

@@ -56,7 +56,7 @@
     NSLog(@"clientNameData:%@",clientNameData);
     
     self.backImage.image = [UIImage imageNamed:@"background"];
- 
+    
     
     self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
     
@@ -112,8 +112,13 @@
 
 -(void)judgeTunerClass:(NSData * )typeData tunerDic:(NSDictionary *)tunerDic  clientName:(NSData*)clientNameData
 {
+    NSString * service_videoindexStr;
+    if ([tunerDic isEqual:@""]) {
+        service_videoindexStr = @"";
+    }else{
+        service_videoindexStr = [tunerDic objectForKey:@"service_logic_number"];
+    }
     
-    NSString * service_videoindexStr = [tunerDic objectForKey:@"service_logic_number"];
     UILabel * channel_idStr ;
     UILabel * channel_nameStr ;
     if(service_videoindexStr.length == 1)
@@ -131,11 +136,18 @@
     else if (service_videoindexStr.length > 3)
     {
         channel_idStr = [service_videoindexStr substringFromIndex:service_videoindexStr.length - 3];
+    }else
+    {
+        channel_idStr = @"";
     }
-
-    channel_nameStr = [tunerDic objectForKey:@"service_name"];
+    
+    if ([tunerDic isEqual:@""]) {
+        channel_nameStr = @"";
+    }else{
+        channel_nameStr = [tunerDic objectForKey:@"service_name"];
+    }
     NSLog(@"self.channel_Name.text== %@",channel_nameStr);
-//
+    //
     
     
     
@@ -173,7 +185,13 @@
     nextEpgDic = [[NSDictionary alloc]init];
     epgArr = [[NSArray alloc]init];
     
-    epgArr = [tunerDic objectForKey:@"epg_info"];
+    
+    if ([tunerDic isEqual:@""]) {
+        epgArr = NULL;
+    }else{
+        epgArr = [tunerDic objectForKey:@"epg_info"];
+    }
+    
     if (epgDic.count < 1) {
         //没有数据不执行
     }else
@@ -181,33 +199,47 @@
         epgDic = epgArr[0];
     }
     
- 
+    
     
     self.timeLab.text = [NSString stringWithFormat:@"%@ %@",channel_idStr,channel_nameStr];
     
-    NSString * clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
+    NSString * clientNameStr;
+    if ([clientNameData isEqual:@""]) {
+        clientNameStr = @"";
+    }else{
+        clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
+    }
     
     NSLog(@"clientNameStr:%@",clientNameStr);
     
     
     
     
+    NSLog(@"typetypetypetypetype %d",type);
     if (type == LIVE_PLAY) { //        return 1;// @"直播";
+        
+        
         self.channelImg.image = [UIImage imageNamed:@"blueSTBIcon"];
         
         self.programeClass.image = [UIImage imageNamed:@"play"];
         NSString * MMLLive = NSLocalizedString(@"MMLLive", nil);
         NSLog(@"[epgDic objectForKey: %@",[epgDic objectForKey:@"event_name"]);
-        if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
+        
+        if ([epgDic isEqual:@""]) {
+            self.nameLab.text = @"111";
+        }else
         {
-//            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MMLLive,[epgDic objectForKey:@"event_name"]];
-            self.nameLab.text = [NSString stringWithFormat:@"%@",MMLLive];
-        }else{
-//            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
-//            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MMLLive,NOEventLabel];
-            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@",MMLLive];
-            self.nameLab.text = NOEventLabelTemp;
+            if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
+            {
+                
+                self.nameLab.text = [NSString stringWithFormat:@"%@",MMLLive];
+            }else{
+                
+                NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@",MMLLive];
+                self.nameLab.text = NOEventLabelTemp;
+            }
         }
+        
         
         
     }else if (type == LIVE_RECORD) //        return 2;//@"录制";
@@ -219,12 +251,12 @@
         
         if(![[epgDic objectForKey:@"event_name"] isEqualToString:@""] && [epgDic objectForKey:@"event_name"] != NULL)
         {
-//            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,[epgDic objectForKey:@"event_name"]];
+            //            self.nameLab.text = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,[epgDic objectForKey:@"event_name"]];
             
             self.nameLab.text = [NSString stringWithFormat:@"%@",MLRecordingNOS];
         }else{
-//            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
-//            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,NOEventLabel];
+            //            NSString * NOEventLabel = NSLocalizedString(@"NOEventLabel", nil);
+            //            NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@--%@",MLRecordingNOS,NOEventLabel];
             
             NSString * NOEventLabelTemp = [NSString stringWithFormat:@"%@",MLRecordingNOS];
             
@@ -237,7 +269,9 @@
     
     else if (type == DELIVERY)
     {
-        if (!ISNULL(clientNameStr)) {
+        if (![clientNameStr isEqualToString:@""]) {
+            NSLog(@"clientNameStrclientNameStr=clientNameStr %@",clientNameStr);
+            
             if ([[clientNameStr substringToIndex:3] caseInsensitiveCompare:@"HMC"] == NSOrderedSame ) {
                 NSLog(@"HMC 设备");
                 
@@ -250,6 +284,8 @@
                 self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
             }
             
+        }else{
+//            self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
         }
         
         
@@ -260,13 +296,16 @@
             NSLog(@"self.nameLab.text :%@",[epgDic objectForKey:@"event_name"]);
             if([[epgDic objectForKey:@"event_name"] isEqualToString:@""] || [epgDic objectForKey:@"event_name"] == NULL)
             {
- 
-                self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
- 
-                if ([clientNameStr isEqualToString:deviceString]) {
-                    self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
-                    self.timeLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
-                    self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
+                if ([[clientNameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) {
+                    self.nameLab.text = [NSString stringWithFormat:@"%@",clientNameStr];
+                }else{
+                    self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
+                    
+                    if ([clientNameStr isEqualToString:deviceString]) {
+                        self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                        self.timeLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                        self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
+                    }
                 }
                 
             }
