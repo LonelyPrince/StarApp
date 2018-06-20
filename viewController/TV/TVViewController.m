@@ -3350,6 +3350,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]];
             
+            [self setSearchViewData];
+            NSLog(@"setSearchViewDatasetSearchViewData===111");
             [self removeLabAndAddIndecatorView];
             [self playRECVideo:epgDicToSocket];
         }
@@ -3586,6 +3588,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
         
         [self setSearchViewData ];
+        NSLog(@"setSearchViewDatasetSearchViewData===2222");
         
         BOOL isHavePlayingChannel = NO;
         
@@ -3873,6 +3876,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
         
         [self setSearchViewData ];
+        NSLog(@"setSearchViewDatasetSearchViewData===3333");
         
         BOOL isHavePlayingChannel = NO;
         
@@ -6759,8 +6763,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }];
         
         [self.table reloadData];
-        
-        
+        [self setSearchViewData];
+        NSLog(@"setSearchViewDatasetSearchViewData===4444");
     }];
 }
 
@@ -7069,7 +7073,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                 [self refreshTableviewByEPGTime];
                 [self.table reloadData];
-
+                [self setSearchViewData];
+                NSLog(@"setSearchViewDatasetSearchViewData===4444");
             }
         }];
 
@@ -7987,11 +7992,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //新增的修改search界面数据的方法，与上面一个方法重载，建议使用方法
 -(void)setSearchViewData
 {
+    NSLog(@"setSearchViewDatasetSearchViewData");
     [searchViewCon.dataList removeAllObjects];
     [searchViewCon.showData removeAllObjects];
     searchViewCon.dataList =  [searchViewCon getServiceArray ];  //dataList 是所有的名字和符号的组合
+    NSLog(@"setSearchViewDatasetSearchViewDatasssssssssssearchViewCon.dataList.count %d",(unsigned long)searchViewCon.dataList.count);
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
+    NSLog(@"setSearchViewDatasetSearchViewDatasssssssssssssearchViewCon.showData %d",(unsigned long)searchViewCon.showData.count);
     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
+    
+    NSLog(@"searchViewCon.showData %@",searchViewCon.showData);
 }
 #pragma mark - 播放过程中，或者点击了加锁的按钮。此时停止掉显示不能播放文字,并且取消掉延迟方法
 -(void)removeTipLabAndPerformSelector

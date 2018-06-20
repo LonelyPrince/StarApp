@@ -170,6 +170,7 @@
             return ;
         }
        
+        [self.dataList removeAllObjects];
         
         for (int i = 0; i<data1.count; i++) {
 
