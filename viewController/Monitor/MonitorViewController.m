@@ -9,6 +9,7 @@
 
 #import "MonitorViewController.h"
 #import "sys/utsname.h"
+#import "GGUtil.h"
 #define kShadowRadius 20
 #define TopViewHeight 400
 #define TopBottomNameWidth 142/2
@@ -1192,10 +1193,14 @@
                         gaoqingChannel = 0;
                     }
                 }
-                if (isHaveSTB == NO ) {
-                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,@"", nil];
+                if (isHaveSTB == NO && livePlayCount >0) {
+                    
+                    
+                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",[SocketUtils bytesFromUInt32:1],@"", nil];
+//                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,@"", nil];
                     [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                     gaoqingChannel = 1;
+                    isHaveSTB = YES;
                 }
                 
                 NSLog(@"monitorTableArrmonitorTableArr %@",monitorTableArr);
