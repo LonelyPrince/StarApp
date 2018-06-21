@@ -1633,7 +1633,14 @@
     int type;
     type =  [SocketUtils uint16FromBytes: tableTypedata];  //tuner的类别
     
-    NSString * clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
+    NSString * clientNameStr ;
+    if ([phoneClientName isEqual:@""]) {
+        clientNameStr = @"";
+    }else{
+        clientNameStr = [[NSString alloc]initWithData:phoneClientName encoding:NSUTF8StringEncoding];  //获取的设备名称
+    }
+    
+    
     NSLog(@"手机clientNameStr:%@",clientNameStr);
     NSString * phoneModel =  [GGUtil deviceVersion]; //[self deviceVersion];
     NSLog(@"手机型号:%@",phoneModel);
