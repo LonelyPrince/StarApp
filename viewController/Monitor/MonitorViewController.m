@@ -1124,22 +1124,33 @@
                             if (isHaveMini == 1) {
                                 
                                 for (int j = 0; j < monitorTableArr.count; j++) {
-                                    NSString * clientNameDataToStrTemp =[[NSString alloc] initWithData:monitorTableArr[j][2] encoding:NSUTF8StringEncoding];
-                                    if ([[clientNameDataToStrTemp substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame) {
-                                        [monitorTableArr removeObjectAtIndex:j];
+                                    NSString * clientNameDataToStrTemp;
+                                    if ([monitorTableArr[j][2] isEqual:@""]) {
+                                        clientNameDataToStrTemp = @"";
+                                    }else{
+                                        clientNameDataToStrTemp =[[NSString alloc] initWithData:monitorTableArr[j][2] encoding:NSUTF8StringEncoding];
                                     }
+                                    if (clientNameDataToStrTemp.length >3) {
+                                        if ([[clientNameDataToStrTemp substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame) {
+                                            [monitorTableArr removeObjectAtIndex:j];
+                                        }
+                                    }
+                                    
                                 }
                             }
                             
                             [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                         }
                       
-                        if ([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame  ) {
-                            isHaveMini = 1;
-                            NSLog(@"arr_threeDataarr_threeData=arr_threeData %@",arr_threeData);
-                            NSLog(@"clientNameDataToStrclientNameDataToStr %@",clientNameDataToStr);
-                            NSLog(@"ksksksksksksksk111111");
+                        if (clientNameDataToStr.length > 3) {
+                            if ([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame  ) {
+                                isHaveMini = 1;
+                                NSLog(@"arr_threeDataarr_threeData=arr_threeData %@",arr_threeData);
+                                NSLog(@"clientNameDataToStrclientNameDataToStr %@",clientNameDataToStr);
+                                NSLog(@"ksksksksksksksk111111");
+                            }
                         }
+                        
                         
                         
                         
@@ -1154,11 +1165,14 @@
                             //                        int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
                             NSString * clientNameDataToStr =[[NSString alloc] initWithData:clientNameData encoding:NSUTF8StringEncoding];
                             
-                            if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) && isHaveMini == 0) {
-                                isHaveMini = 1;
-                                [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
-                                NSLog(@"ksksksksksksksk2222222");
+                            if (clientNameDataToStr.length > 3) {
+                                if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) && isHaveMini == 0) {
+                                    isHaveMini = 1;
+                                    [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
+                                    NSLog(@"ksksksksksksksk2222222");
+                                }
                             }
+                            
                             refreshTimes = 1;
                         }
                        
@@ -1185,32 +1199,6 @@
                 }
                 
                 NSLog(@"monitorTableArrmonitorTableArr %@",monitorTableArr);
-                
-//                if ( gaoqingChannel == 1) {
-//                    if (deliveryCount > monitorTableArr.count + 1) {
-//
-//                        NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,miniNameTemp, nil];
-//                        int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
-//                        NSString * clientNameDataToStr =[[NSString alloc] initWithData:miniNameTemp encoding:NSUTF8StringEncoding];
-//
-//                        if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )) {
-//                            [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
-//                        }
-//
-//                    }
-//
-//                }else if (deliveryCount > monitorTableArr.count ) {
-//
-//                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,miniNameTemp, nil];
-//                    int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
-//                    NSString * clientNameDataToStr =[[NSString alloc] initWithData:miniNameTemp encoding:NSUTF8StringEncoding];
-//
-//                    if (([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )) {
-//                        [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
-//                    }
-//
-//                }
-                
                 
                 
                 //***********

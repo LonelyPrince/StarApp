@@ -272,17 +272,22 @@
         if (![clientNameStr isEqualToString:@""]) {
             NSLog(@"clientNameStrclientNameStr=clientNameStr %@",clientNameStr);
             
-            if ([[clientNameStr substringToIndex:3] caseInsensitiveCompare:@"HMC"] == NSOrderedSame ) {
-                NSLog(@"HMC 设备");
-                
-            }else if([[clientNameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )
-            {
-                NSLog(@"mini 设备");
-                self.channelImg.image = [UIImage imageNamed:@"blueMiniIcon"];
-            }else
-            {
+            if (clientNameStr.length > 3) {
+                if ([[clientNameStr substringToIndex:3] caseInsensitiveCompare:@"HMC"] == NSOrderedSame ) {
+                    NSLog(@"HMC 设备");
+                    
+                }else if([[clientNameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame )
+                {
+                    NSLog(@"mini 设备");
+                    self.channelImg.image = [UIImage imageNamed:@"blueMiniIcon"];
+                }else
+                {
+                    self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
+                }
+            }else{
                 self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
             }
+            
             
         }else{
 //            self.channelImg.image = [UIImage imageNamed:@"bluePhoneIcon"];
@@ -296,8 +301,18 @@
             NSLog(@"self.nameLab.text :%@",[epgDic objectForKey:@"event_name"]);
             if([[epgDic objectForKey:@"event_name"] isEqualToString:@""] || [epgDic objectForKey:@"event_name"] == NULL)
             {
-                if ([[clientNameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) {
-                    self.nameLab.text = [NSString stringWithFormat:@"%@",clientNameStr];
+                if (clientNameStr.length > 3) {
+                    if ([[clientNameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) {
+                        self.nameLab.text = [NSString stringWithFormat:@"%@",clientNameStr];
+                    }else{
+                        self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
+                        
+                        if ([clientNameStr isEqualToString:deviceString]) {
+                            self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                            self.timeLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
+                            self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
+                        }
+                    }
                 }else{
                     self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
                     
@@ -307,6 +322,7 @@
                         self.programeClass.image = [UIImage imageNamed:@"Monitor_delivery"];
                     }
                 }
+                
                 
             }
             

@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "551234740.089865"
+            timestampString = "551239391.700652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1096"
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "551234740.090328"
+            timestampString = "551239391.701135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1159"
-            endingLineNumber = "1159"
+            startingLineNumber = "1167"
+            endingLineNumber = "1167"
             landmarkName = "-getEffectiveData:"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,43 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "551234740.090693"
+            timestampString = "551239391.701485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1139"
-            endingLineNumber = "1139"
-            landmarkName = "-getEffectiveData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "551234740.091046"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1156"
-            endingLineNumber = "1156"
-            landmarkName = "-getEffectiveData:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "viewController/Monitor/MonitorViewController.m"
-            timestampString = "551234740.091427"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1134"
-            endingLineNumber = "1134"
+            startingLineNumber = "1142"
+            endingLineNumber = "1142"
             landmarkName = "-getEffectiveData:"
             landmarkType = "7">
          </BreakpointContent>
