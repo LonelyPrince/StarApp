@@ -1960,7 +1960,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
                 
                 NSLog(@"self.service_videoname %@",self.service_videoname);
-                
+                self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
                 epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
                 if (epg_infoArr.count > 0) {
                     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
@@ -1970,11 +1973,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
                         
+                        NSLog(@"hidenhidenhidenhiden 11111");
                     }else
                     {
                         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                         self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                        
+                        NSLog(@"hidenhidenhidenhiden 11111 aaaaaaa");
                     }
                    
                 }else
@@ -2023,15 +2029,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@" sel.StartTime = %@",self.event_startTime);
             NSLog(@" sel.StartTimeEnd = %@",self.event_endTime);
             
+            self.video.startTime = self.event_startTime;
+            self.video.endTime = self.event_endTime;
             if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
                 self.video.startTime = @"0";
                 self.video.endTime = @"0";
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"hidenhidenhidenhiden 2222222");
             }else{
                 self.video.startTime = self.event_startTime;
                 self.video.endTime = self.event_endTime;
+                NSLog(@"hidenhidenhidenhiden 2222222 aaaaaaa");
             }
             NSLog(@"timeIsChange1 %@",self.video.startTime);
             
@@ -2102,17 +2112,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {
 #pragma mark - 需要注意名称变化
+                self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
                     self.video.startTime = @"0";
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"hidenhidenhidenhiden 333333");
                     
                 }else{
                     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    NSLog(@"hidenhidenhidenhiden 333333 aaaaaa");
                 }
                 
             }
@@ -2154,15 +2170,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
             [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
             
+            self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+            self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+            self.video.startTime = self.event_startTime;
+            self.video.endTime = self.event_endTime;
             if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                self.video.startTime = @"0";
-                self.video.endTime = @"0";
+//                self.video.startTime = @"0";
+//                self.video.endTime = @"0";
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"hidenhidenhidenhiden 444444");
             }else{
                 self.video.startTime = self.event_startTime;
                 self.video.endTime = self.event_endTime;
+                NSLog(@"hidenhidenhidenhiden 444444 aaaaaaaa");
             }
             
             //== 录制时间赋值
@@ -2183,15 +2205,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self removeTopProgressView];
                 }
                 
+                self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
                     self.video.startTime = @"0";
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"hidenhidenhidenhiden 55555");
                 }else{
                     self.video.startTime = self.event_startTime;
                     self.video.endTime = self.event_endTime;
+                    NSLog(@"hidenhidenhidenhiden 555555 aaaaaaa");
                 }
             }
             [self updateFullScreenDic];
@@ -2299,17 +2327,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.channelName = self.service_videoname;
             self.video.playEventName = self.event_videoname;
             
-            if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                self.video.startTime = @"0";
-                self.video.endTime = @"0";
-                self.event_videoname = @"";
-                [GGUtil postsetTimeAndProgressIsNullNotific];
-                [self removeTopProgressView];
-            }else{
-                self.video.startTime = self.event_startTime;
-                self.video.endTime = self.event_endTime;
-            }
-            
+//            NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+//            NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
+//            NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
+//            if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
+//
+//                self.video.startTime = @"0";
+//                self.video.endTime = @"0";
+//                self.event_videoname = @"";
+//                [GGUtil postsetTimeAndProgressIsNullNotific];
+//                [self removeTopProgressView];
+//                NSLog(@"hidenhidenhidenhiden 6666666");
+//            }else{
+//                self.video.startTime = self.event_startTime;
+//                self.video.endTime = self.event_endTime;
+//                NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
+            //
+//            }
+ 
             [self setStateNonatic];
             
             [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
@@ -2587,19 +2622,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self SetService_videoindex:epgDicToSocket];
             self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
             epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+            self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+            self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
             if (epg_infoArr.count > 0) {
-                
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                    self.video.startTime = @"0";
-                    self.video.endTime = @"0";
+//                    self.video.startTime = @"0";
+//                    self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
-                    
+                    NSLog(@"hidenhidenhidenhiden 77777777");
                 }else{
                     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    NSLog(@"hidenhidenhidenhiden 77777777 aaaaaaaaa");
                 }
                 
             }else
@@ -3322,8 +3361,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"postnoPlayShowNotic aaaaa");
             [self removeTopProgressView];
             
-            self.video.startTime = @"0";
-            self.video.endTime = @"0";
+//            self.video.startTime = @"0";
+//            self.video.endTime = @"0";
             [USER_DEFAULT setObject:self.video.startTime forKey:@"RECVideoStartTime"];
             [USER_DEFAULT setObject:self.video.endTime forKey:@"RECVideoEndTime"];
             int RECDurationTimeTemp = [self.video.endTime intValue] - [self.video.startTime intValue];
@@ -4379,16 +4418,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
                         }
-                        
+                        self.video.startTime = self.event_startTime;
+                        self.video.endTime = self.event_endTime;
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                            self.video.startTime = @"0";
-                            self.video.endTime = @"0";
+//                            self.video.startTime = @"0";
+//                            self.video.endTime = @"0";
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"hidenhidenhidenhiden 88888888");
                         }else{
                             self.video.startTime = self.event_startTime;
                             self.video.endTime = self.event_endTime;
+                            NSLog(@"hidenhidenhidenhiden 88888888 aaaaaaaaa");
                         }
                         
                         NSString * acc = self.video.startTime;
@@ -4547,19 +4589,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }else
                     {
-                        
+                        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                        self.video.startTime = self.event_startTime;
+                        self.video.endTime = self.event_endTime;
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                            self.video.startTime = @"0";
-                            self.video.endTime = @"0";
+//                            self.video.startTime = @"0";
+//                            self.video.endTime = @"0";
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"hidenhidenhidenhiden 999999999 aaaaaaaaa");
                             
                         }else{
                             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                             self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                             self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
                             [GGUtil postsetTimeAndProgressIsShowNotific];
+                            NSLog(@"hidenhidenhidenhiden 999999999 aaaaaaaaa");
                         }
                         
                     }
@@ -4708,14 +4755,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
                         }
-                        
+                        self.video.startTime = self.event_startTime;
+                        self.video.endTime = self.event_endTime;
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                            self.video.startTime = @"0";
-                            self.video.endTime = @"0";
+//                            self.video.startTime = @"0";
+//                            self.video.endTime = @"0";
                             self.event_videoname = @"";
+                            NSLog(@"hidenhidenhidenhiden 101010101010101");
                         }else{
                             self.video.startTime = self.event_startTime;
                             self.video.endTime = self.event_endTime;
+                            NSLog(@"hidenhidenhidenhiden 101010101010101 aaaaaaaaa");
                         }
                         
                         NSString * acc = self.video.startTime;
@@ -4734,8 +4784,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"self.video.dicChannl88==33");
                     
                     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                        self.video.startTime = @"0";
-                        self.video.endTime = @"0";
+//                        self.video.startTime = @"0";
+//                        self.video.endTime = @"0";
                     }else{
                         self.video.startTime = self.event_startTime;
                         self.video.endTime = self.event_endTime;
@@ -4824,12 +4874,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else
                 {
 #pragma mark - 需要注意名称变化
+                    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    self.video.startTime = self.event_startTime;
+                    self.video.endTime = self.event_endTime;
                     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                        self.video.startTime = @"0";
-                        self.video.endTime = @"0";
+//                        self.video.startTime = @"0";
+//                        self.video.endTime = @"0";
                         self.event_videoname = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
+                        NSLog(@"hidenhidenhidenhiden bbbbbbb");
                     
                     }
                     else{
@@ -4837,6 +4892,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                         self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
                         [GGUtil postsetTimeAndProgressIsShowNotific];
+                        NSLog(@"hidenhidenhidenhiden bbbbbbb aaaaaaaaa");
                     }
                    
                 }
@@ -5146,19 +5202,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     if (epg_infoArr.count > 0) {
-        
+        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+        self.video.startTime = self.event_startTime;
+        self.video.endTime = self.event_endTime;
         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-            self.video.startTime = @"0";
-            self.video.endTime = @"0";
+//            self.video.startTime = @"0";
+//            self.video.endTime = @"0";
             self.event_videoname = @"";
             [GGUtil postsetTimeAndProgressIsNullNotific];
             [self removeTopProgressView];
+            NSLog(@"hidenhidenhidenhiden cccccccc ");
             
         }else{
             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
             self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
             self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
             [GGUtil postsetTimeAndProgressIsShowNotific];
+            NSLog(@"hidenhidenhidenhiden cccccccc aaaaaaaaa");
         }
     }else
     {
@@ -5317,13 +5378,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
             
             if (epg_infoArr.count > 0) {
-                
+                self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
+                NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+                NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
+                NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                    self.video.startTime = @"0";
-                    self.video.endTime = @"0";
+//                    self.video.startTime = @"0";
+//                    self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"hidenhidenhidenhiden dddddddd");
                     
                 }else
                 {
@@ -5331,6 +5399,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
                     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    NSLog(@"hidenhidenhidenhiden dddddddd aaaaaaaaa");
                     
                 }
             }else
@@ -6434,15 +6503,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.video.channelId = self.service_videoindex;
     self.video.channelName = self.service_videoname;
+    self.video.startTime = self.event_startTime;
+    self.video.endTime = self.event_endTime;
+    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-        self.video.startTime = @"0";
-        self.video.endTime = @"0";
+//        self.video.startTime = @"0";
+//        self.video.endTime = @"0";
         self.event_videoname = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"hidenhidenhidenhiden eeeeeeeeee aaaaaaaaa");
     }else{
         self.video.startTime = self.event_startTime;
         self.video.endTime = self.event_endTime;
+        NSLog(@"hidenhidenhidenhiden eeeeeeeeee aaaaaaaaa");
     }
     NSLog(@"timeIsChange6 %@",self.video.startTime);
     
@@ -7996,9 +8071,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [searchViewCon.dataList removeAllObjects];
     [searchViewCon.showData removeAllObjects];
     searchViewCon.dataList =  [searchViewCon getServiceArray ];  //dataList 是所有的名字和符号的组合
-    NSLog(@"setSearchViewDatasetSearchViewDatasssssssssssearchViewCon.dataList.count %d",(unsigned long)searchViewCon.dataList.count);
+    
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
-    NSLog(@"setSearchViewDatasetSearchViewDatasssssssssssssearchViewCon.showData %d",(unsigned long)searchViewCon.showData.count);
+    
     [USER_DEFAULT setObject: searchViewCon.showData forKey:@"showData"];
     
     NSLog(@"searchViewCon.showData %@",searchViewCon.showData);
