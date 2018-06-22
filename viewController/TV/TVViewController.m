@@ -2175,8 +2175,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.startTime = self.event_startTime;
             self.video.endTime = self.event_endTime;
             if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//                self.video.startTime = @"0";
-//                self.video.endTime = @"0";
+                self.video.startTime = @"0";
+                self.video.endTime = @"0";
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
@@ -2326,24 +2326,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.channelId = self.service_videoindex;
             self.video.channelName = self.service_videoname;
             self.video.playEventName = self.event_videoname;
+            self.video.startTime = self.event_startTime;
+            self.video.endTime = self.event_endTime;
             
-//            NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
-//            NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
-//            NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
-//            if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//
-//                self.video.startTime = @"0";
-//                self.video.endTime = @"0";
-//                self.event_videoname = @"";
-//                [GGUtil postsetTimeAndProgressIsNullNotific];
-//                [self removeTopProgressView];
-//                NSLog(@"hidenhidenhidenhiden 6666666");
-//            }else{
-//                self.video.startTime = self.event_startTime;
-//                self.video.endTime = self.event_endTime;
-//                NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
-            //
-//            }
+            NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+            NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
+            NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
+            if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
+
+                self.video.startTime = @"0";
+                self.video.endTime = @"0";
+                self.event_videoname = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
+                NSLog(@"hidenhidenhidenhiden 6666666");
+            }else{
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
+                NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
+            
+            }
  
             [self setStateNonatic];
             
@@ -2628,8 +2630,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.video.startTime = self.event_startTime;
                 self.video.endTime = self.event_endTime;
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//                    self.video.startTime = @"0";
-//                    self.video.endTime = @"0";
+                    self.video.startTime = @"0";
+                    self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
@@ -4594,8 +4596,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.video.startTime = self.event_startTime;
                         self.video.endTime = self.event_endTime;
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//                            self.video.startTime = @"0";
-//                            self.video.endTime = @"0";
+                            self.video.startTime = @"0";
+                            self.video.endTime = @"0";
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
@@ -4879,8 +4881,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.startTime = self.event_startTime;
                     self.video.endTime = self.event_endTime;
                     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//                        self.video.startTime = @"0";
-//                        self.video.endTime = @"0";
+                        self.video.startTime = @"0";
+                        self.video.endTime = @"0";
                         self.event_videoname = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
@@ -5207,8 +5209,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.video.startTime = self.event_startTime;
         self.video.endTime = self.event_endTime;
         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//            self.video.startTime = @"0";
-//            self.video.endTime = @"0";
+            self.video.startTime = @"0";
+            self.video.endTime = @"0";
             self.event_videoname = @"";
             [GGUtil postsetTimeAndProgressIsNullNotific];
             [self removeTopProgressView];
@@ -5386,8 +5388,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
                 NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
                 if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//                    self.video.startTime = @"0";
-//                    self.video.endTime = @"0";
+                    self.video.startTime = @"0";
+                    self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
@@ -6508,8 +6510,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-//        self.video.startTime = @"0";
-//        self.video.endTime = @"0";
+        self.video.startTime = @"0";
+        self.video.endTime = @"0";
         self.event_videoname = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
