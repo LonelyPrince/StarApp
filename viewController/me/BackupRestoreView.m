@@ -463,12 +463,45 @@
             else if ([[resDict objectForKey:@"code"] isEqual:@0]) //成功
             {
                 
-                NSLog(@"备份成功");
-                NSLog(@"code code 0");
-                hudType = @"backup";
-                [self showSuccessHUD];
                 
-                 [self updateBackupInfo];
+                
+                
+                UIView *  activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
+                                                                     SCREEN_WIDTH,
+                                                                     SCREEN_HEIGHT)];
+                [self.view addSubview:activeView];    //等待loading的view
+                MBProgressHUD * HUD = [[MBProgressHUD alloc] initWithView:activeView];
+                
+                //如果设置此属性则当前的view置于后台
+                
+                [HUD showAnimated:YES];
+                //设置对话框文字
+                
+                HUD.labelText = @"loading";
+                activeView.backgroundColor = [UIColor clearColor];
+                [activeView addSubview:HUD];
+                
+                
+                
+                
+                
+                
+                
+                
+                double delayInSeconds = 6;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+                    NSLog(@"备份成功");
+                    NSLog(@"code code 0");
+                    hudType = @"backup";
+                    
+                    [activeView removeFromSuperview];
+                    
+                    [self showSuccessHUD];
+                   [self updateBackupInfo];
+                });
+                
             }
             
             
@@ -788,7 +821,7 @@
                     backUPLab.text = MLNOBackupRestored;
                 }
                 BackupStatusString = backUPLab.text;
-                
+                NSLog(@"ksksksksksk === %@",BackupStatusString);
             }
             
             
