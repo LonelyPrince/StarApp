@@ -446,7 +446,7 @@
 //            IPAddressLab.text = [deviceDic2 objectForKey:@"gateway"] ;
             
             ////5555---8
-            SubnetMaskLab.text = [deviceDic2 objectForKey:@"mac"] ;
+            SubnetMaskLab.text = [deviceDic2 objectForKey:@"wan_mac"] ;   //[deviceDic2 objectForKey:@"mac"] ;
             IPAddressLab.text = [deviceDic2 objectForKey:@"netmask"];
             self.ManufacturerId.text = [deviceDic2 objectForKey:@"gateway"] ;
         }
