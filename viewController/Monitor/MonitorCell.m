@@ -303,9 +303,9 @@
             {
                 if (clientNameStr.length > 3) {
                     if ([[clientNameStr substringToIndex:4] caseInsensitiveCompare:@"mini"] == NSOrderedSame ) {
-                        self.nameLab.text = [NSString stringWithFormat:@"%@",clientNameStr];
+                        self.nameLab.text = [NSString stringWithFormat:@"%@_Delivery",clientNameStr];
                     }else{
-                        self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
+                        self.nameLab.text = [NSString stringWithFormat:@"%@_Delivery",clientNameStr];
                         
                         if ([clientNameStr isEqualToString:deviceString]) {
                             self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
@@ -314,7 +314,7 @@
                         }
                     }
                 }else{
-                    self.nameLab.text = [NSString stringWithFormat:@"%@--Delivery",clientNameStr];
+                    self.nameLab.text = [NSString stringWithFormat:@"%@_Delivery",clientNameStr];
                     
                     if ([clientNameStr isEqualToString:deviceString]) {
                         self.nameLab.textColor = RGBA(0x60, 0xa3, 0xec, 1);
