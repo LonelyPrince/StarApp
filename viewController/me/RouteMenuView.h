@@ -19,6 +19,11 @@
 @property(nonatomic,strong)UIImageView * colorView;  //顶部蓝色背景
 @property(nonatomic,strong)UIImageView *routeImage; //盒子图标
 
+
+@property(nonatomic,strong)UILabel * routeModeInfo;   //路由模式
+@property(nonatomic,strong)UILabel * routeIP;   //路由模式
+
+
 @property(nonatomic,strong)UILabel * routeNameLab;
 @property(nonatomic,strong)UILabel * secrityTypeLab;
 @property(nonatomic,strong)UILabel * PINProtectionLab;
@@ -59,4 +64,11 @@
 @property(nonatomic,strong)UIView * NetWorkErrorView;
 @property(nonatomic,strong)UIImageView * NetWorkErrorImageView;
 @property(nonatomic,strong)UILabel * NetWorkErrorLab;
+
+@property(nonatomic,strong)UIView *      repeaterModeLineView;
+@property(nonatomic,strong)UIImageView * MainRouterImageView;
+@property(nonatomic,strong)UILabel *     MainRouterLabel;
+@property(nonatomic,strong)UILabel *     MainRouterNameLab;
+@property(nonatomic,strong)UILabel *     MainRouterIPLab;
+@property(nonatomic,strong)UILabel *     SubRouterLab;
 @end

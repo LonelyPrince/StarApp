@@ -76,6 +76,8 @@
     [self getCurrentWifi];
     [self getWifiInfo];  //用于获得WiFi信息，在Menu页面进行展示
     
+    [self getRouteModeInfo];
+    
     //    [self performSelector:@selector(showNetWorkErrorView) withObject:self afterDelay:5];
     //    [self performSelector:@selector(disNetWorkErrorView) withObject:self afterDelay:10];
 }
@@ -137,6 +139,37 @@
     
 }
 
+//获取路由模式信息
+-(void)getRouteModeInfo
+{
+    
+    //获取数据的链接
+    NSString * url =     [NSString stringWithFormat:@"http://%@/lua/guide/getRouterMode",DMSIP];
+    [USER_DEFAULT setObject:DMSIP forKey:@"RouterPsw"];
+    //    NSString *url = [NSString stringWithFormat:@"%@",G_devicepwd];
+    
+    ASIHTTPRequest *request = [ ASIHTTPRequest requestWithURL :[NSURL URLWithString:url]];
+    request.timeOutSeconds = 10;
+    request.delegate = self;
+    
+    [request startAsynchronous ];
+    
+    //    NSError *error = [request error ];
+    //    assert (!error);
+    // 如果请求成功，返回 Response
+    
+    
+    [request setCompletionBlock:^{
+        NSLog ( @"RouteModerequest:%@" ,request);
+        NSDictionary *onlineWifi = [request responseData].JSONValue;
+        NSLog ( @"RouteModeonlineDeviceArrLLLLL:%@" ,onlineWifi);
+        
+        [USER_DEFAULT setObject:onlineWifi forKey:@"RouteModeInfo"];
+    }];
+    
+    
+    
+}
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [inputText resignFirstResponder];
     [confirmText resignFirstResponder];

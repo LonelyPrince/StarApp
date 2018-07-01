@@ -20,6 +20,8 @@
     NSDictionary * deviceDic;
     MBProgressHUD * HUD;
     UIAlertView *restartingAlert;
+    
+    NSString * judgeRouteModeInfo;
 }
 @end
 
@@ -30,6 +32,9 @@
 @synthesize PINProtectionLab;
 @synthesize routeImage;
 @synthesize colorView;
+
+@synthesize routeModeInfo;
+@synthesize routeIP;
 
 @synthesize btn1;
 @synthesize btn2;
@@ -52,6 +57,13 @@
 @synthesize btnLab5;
 @synthesize btnLab6;
 @synthesize generalSettingLab;
+
+@synthesize repeaterModeLineView;
+@synthesize MainRouterImageView;
+@synthesize MainRouterLabel;
+@synthesize MainRouterNameLab;
+@synthesize MainRouterIPLab;
+@synthesize SubRouterLab;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,37 +88,104 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self loadScroll];
-    [self loadUI];
     
-    NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
-    routeNameLab.text = [tempDic objectForKey:@"name"];
-    NSString * pswStr = [tempDic objectForKey:@"password"];
-    if (![pswStr isEqualToString:@"none"]) {
+    
+    NSDictionary * routeModeDic =  [USER_DEFAULT objectForKey:@"RouteModeInfo"];
+    
+    if ([[routeModeDic objectForKey:@"mode"] isEqualToString:@"1"]) {
+        routeModeInfo.text = @"Route";
+        judgeRouteModeInfo = @"Route";
+        //路由模式，展示路由模式图片
         
-        NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
-        PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
         
-        NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-        if (SecurityTypeLabel.length > 4) {
-            secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
-            secrityTypeLab.font = FONT(12);
-            PINProtectionLab.font = FONT(12);
+        
+        NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
+        routeNameLab.text = [tempDic objectForKey:@"name"];
+        NSString * pswStr = [tempDic objectForKey:@"password"];
+        if (![pswStr isEqualToString:@"none"]) {
+            
+            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+            PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
+            
+            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+            if (SecurityTypeLabel.length > 4) {
+                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+                secrityTypeLab.font = FONT(12);
+                PINProtectionLab.font = FONT(12);
+            }else
+            {
+                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+            }
+            
+            
         }else
         {
-            secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+            NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+            
+            secrityTypeLab.text =[NSString stringWithFormat:@"%@: %@",SecurityTypeLabel,MLOpen];
+            
+            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+            PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
+        }
+    }else if ([[routeModeDic objectForKey:@"mode"] isEqualToString:@"2"])
+    {
+        routeModeInfo.text = @"Repeater";
+        MainRouterNameLab.text = [routeModeDic objectForKey:@"relay_ssid"];
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        if ([MLOpen isEqualToString:@"Open"]) { //英语
+            MainRouterIPLab.text = [NSString stringWithFormat:@"IP Address :%@",[routeModeDic objectForKey:@"relay_ip"]];
+        }else{
+            MainRouterIPLab.text = [NSString stringWithFormat:@"Adresse IP :%@",[routeModeDic objectForKey:@"relay_ip"]];
+        }
+//        MainRouterIPLab.text = [NSString stringWithFormat:@"IP Address :%@",[routeModeDic objectForKey:@"relay_ip"]];
+        
+        judgeRouteModeInfo = @"Repeater";
+        //中继模式
+       
+        NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
+        routeNameLab.text = [tempDic objectForKey:@"name"];
+        NSString * pswStr = [tempDic objectForKey:@"password"];
+        if (![pswStr isEqualToString:@"none"]) {
+            
+            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+            PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
+            
+            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+            if (SecurityTypeLabel.length > 4) {
+                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+                secrityTypeLab.font = FONT(12);
+                PINProtectionLab.font = FONT(12);
+            }else
+            {
+                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+            }
+            
+            
+        }else
+        {
+            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+            NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+            
+            
+            
+            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+            
+            if ([MLOpen isEqualToString:@"Open"]) {
+                PINProtectionLab.text = [NSString stringWithFormat:@"IP Address: 192.168.88.1"];
+                secrityTypeLab.text =[NSString stringWithFormat:@"Router Mode: Repeater"];
+            }else{
+                PINProtectionLab.text = [NSString stringWithFormat:@"Adresse IP: 192.168.88.1"];
+                secrityTypeLab.text =[NSString stringWithFormat:@"Mode du Routeur: Répétition"];
+            }
+            
         }
         
-        
-    }else
-    {
-        NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
-        
-        secrityTypeLab.text =[NSString stringWithFormat:@"%@: %@",SecurityTypeLabel,MLOpen];
-        
-        NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
-        PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
     }
+    
+   [self loadUI];
+    
+    
     //    [self getWifi];
     
 }
@@ -114,6 +193,13 @@
 {
     
     //  [self loadNav];
+    SubRouterLab = [[UILabel alloc]init];
+    repeaterModeLineView = [[UIView alloc]init];
+    MainRouterImageView = [[UIImageView alloc]init];
+    MainRouterLabel = [[UILabel alloc]init];
+    MainRouterNameLab = [[UILabel alloc]init];
+    MainRouterIPLab = [[UILabel alloc]init];
+    
     self.wLANSettingView = [[WLANSettingView alloc]init];
     self.securityCenterView = [[SecurityCenterView alloc]init];
     self.deviceListView = [[DeviceListView alloc]init];
@@ -231,7 +317,9 @@
         [colorView bringSubviewToFront:routeNameLab];
         
         secrityTypeLab.frame = CGRectMake(135, 100, 200, 17);
-        secrityTypeLab.font = FONT(14);
+        
+            secrityTypeLab.font = FONT(14);
+       
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
         //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
@@ -260,46 +348,108 @@
         [self addFiveBtn];
         [self addSixBtn];
         /**/
-        //    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
-        //    editImage.image = [UIImage imageNamed:@"bianji"];
-        //    [scrollView addSubview:editImage];
+     
         
         
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            
+            routeImage.frame = CGRectMake(45, 20, 52, 52);
+            routeImage.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:routeImage];
+            [colorView bringSubviewToFront:routeImage];
+            
+            routeNameLab.frame = CGRectMake(145, 25, 200, 20);
+            routeNameLab.font = FONT(16);
+            routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:routeNameLab];
+            [colorView bringSubviewToFront:routeNameLab];
+            
+            secrityTypeLab.frame = CGRectMake(145, 55, 200, 17);
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                secrityTypeLab.font = FONT(13);
+            }else{
+                secrityTypeLab.font = FONT(12);
+            }
+            secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:secrityTypeLab];
+            [colorView bringSubviewToFront:secrityTypeLab];
+            
+            PINProtectionLab.frame = CGRectMake(145, 75, 200, 17);
+            PINProtectionLab.font = FONT(13);
+            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:PINProtectionLab];
+            [colorView bringSubviewToFront:PINProtectionLab];
+            
+            repeaterModeLineView.frame = CGRectMake(20, 105, SCREEN_WIDTH-40, 1);
+            //            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            //            [scrollView addSubview:PINProtectionLab];
+            //            [colorView bringSubviewToFront:PINProtectionLab];
+            repeaterModeLineView.backgroundColor = [UIColor whiteColor];
+            repeaterModeLineView.alpha = 0.3;
+            [scrollView addSubview:repeaterModeLineView];
+            [colorView bringSubviewToFront:repeaterModeLineView];
+            
+            
+            SubRouterLab.frame = CGRectMake(25, 75, 200, 20);
+            SubRouterLab.font = FONT(15);
+            SubRouterLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:SubRouterLab];
+            [colorView bringSubviewToFront:SubRouterLab];
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                SubRouterLab.text = @"Sub-Router";
+                SubRouterLab.font = FONT(15);
+                SubRouterLab.frame = CGRectMake(35, 75, 200, 20);
+            }else{
+                SubRouterLab.text = @"Routeur secondaire";
+                SubRouterLab.font = FONT(13);
+                SubRouterLab.frame = CGRectMake(18, 75, 200, 20);
+            }
+            
+            
+            
+            MainRouterImageView.frame = CGRectMake(45, 115, 52, 52);
+            MainRouterImageView.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:MainRouterImageView];
+            [colorView bringSubviewToFront:MainRouterImageView];
+            
+            
+            MainRouterLabel.frame = CGRectMake(25, 175, 200, 20);
+            MainRouterLabel.font = FONT(15);
+            MainRouterLabel.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterLabel];
+            [colorView bringSubviewToFront:MainRouterLabel];
+            
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                MainRouterLabel.text = @"Main Router";
+                MainRouterLabel.frame = CGRectMake(32, 175, 200, 20);
+            }else{
+                MainRouterLabel.font = FONT(13);
+                MainRouterLabel.text = @"Routeur principal";
+            }
+            
+            MainRouterNameLab.frame = CGRectMake(145, 135, 200, 20);
+            MainRouterNameLab.font = FONT(15);
+            MainRouterNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterNameLab];
+            [colorView bringSubviewToFront:MainRouterNameLab];
+            
+            MainRouterIPLab.frame = CGRectMake(145, 160, 200, 20);
+            MainRouterIPLab.font = FONT(13);
+            MainRouterIPLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterIPLab];
+            [colorView bringSubviewToFront:MainRouterIPLab];
+            
+            
+        }
         
-        //    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
-        //    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
-        //    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-        //
-        //    [scrollView addSubview:editBtn];
-        
-        
-        
-        
-        
-        
-        //
-        //
-        //        routeIPLab.font = FONT(13);
-        //        routeIPLab.textColor = RGBA(193, 193, 193, 1);
-        //
-        //        routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
-        //        [scrollView addSubview:routeNameLab];
-        //        [scrollView addSubview:routeIPLab];
-        
-        
-        //        centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
-        //        centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
-        //        [scrollView addSubview:centerGrayView];
-        //
-        //
-        //
-        //        connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
-        //        connectDevice.text = @"Connected devices";
-        //        connectDevice.font = FONT(15);
-        //        connectDevice.textColor = RGBA(148, 148, 148, 1);
-        //        [scrollView addSubview:connectDevice];
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5 的大小");
         
@@ -315,7 +465,7 @@
         routeNameLab.frame = CGRectMake(145, 70, 200, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
-        //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+//                routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
         
@@ -349,46 +499,106 @@
         [self addFiveBtn];
         [self addSixBtn];
         /**/
-        //    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
-        //    editImage.image = [UIImage imageNamed:@"bianji"];
-        //    [scrollView addSubview:editImage];
+        
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+          
+            routeImage.frame = CGRectMake(45, 20, 52, 52);
+            routeImage.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:routeImage];
+            [colorView bringSubviewToFront:routeImage];
+            
+            routeNameLab.frame = CGRectMake(145, 25, 200, 20);
+            routeNameLab.font = FONT(16);
+            routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:routeNameLab];
+            [colorView bringSubviewToFront:routeNameLab];
+            
+            secrityTypeLab.frame = CGRectMake(145, 55, 200, 17);
+            secrityTypeLab.font = FONT(13);
+            secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:secrityTypeLab];
+            [colorView bringSubviewToFront:secrityTypeLab];
+            
+            PINProtectionLab.frame = CGRectMake(145, 75, 200, 17);
+            PINProtectionLab.font = FONT(13);
+            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:PINProtectionLab];
+            [colorView bringSubviewToFront:PINProtectionLab];
+            
+            repeaterModeLineView.frame = CGRectMake(20, 105, SCREEN_WIDTH-40, 1);
+//            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+//            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+//            [scrollView addSubview:PINProtectionLab];
+//            [colorView bringSubviewToFront:PINProtectionLab];
+            repeaterModeLineView.backgroundColor = [UIColor whiteColor];
+            repeaterModeLineView.alpha = 0.3;
+            [scrollView addSubview:repeaterModeLineView];
+            [colorView bringSubviewToFront:repeaterModeLineView];
+            
+            
+            SubRouterLab.frame = CGRectMake(25, 75, 200, 20);
+            SubRouterLab.font = FONT(15);
+            SubRouterLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:SubRouterLab];
+            [colorView bringSubviewToFront:SubRouterLab];
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                SubRouterLab.text = @"Sub-Router";
+                SubRouterLab.font = FONT(15);
+                SubRouterLab.frame = CGRectMake(35, 75, 200, 20);
+            }else{
+                SubRouterLab.text = @"Routeur secondaire";
+                SubRouterLab.font = FONT(13);
+                SubRouterLab.frame = CGRectMake(18, 75, 200, 20);
+            }
+            
+            
+            MainRouterImageView.frame = CGRectMake(45, 115, 52, 52);
+            MainRouterImageView.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:MainRouterImageView];
+            [colorView bringSubviewToFront:MainRouterImageView];
+            
+            
+            MainRouterLabel.frame = CGRectMake(25, 175, 200, 20);
+            
+            MainRouterLabel.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterLabel];
+            [colorView bringSubviewToFront:MainRouterLabel];
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                MainRouterLabel.text = @"Main Router";
+            }else{
+                MainRouterLabel.text = @"Routeur principal";
+                MainRouterLabel.font = FONT(13);
+            }
+            
+            MainRouterNameLab.frame = CGRectMake(145, 135, 200, 20);
+            MainRouterNameLab.font = FONT(15);
+            MainRouterNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterNameLab];
+            [colorView bringSubviewToFront:MainRouterNameLab];
+            
+            MainRouterIPLab.frame = CGRectMake(145, 160, 200, 20);
+            MainRouterIPLab.font = FONT(13);
+            MainRouterIPLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterIPLab];
+            [colorView bringSubviewToFront:MainRouterIPLab];
+            
+            
+        }
         
         
         
-        //    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
-        //    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
-        //    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-        //
-        //    [scrollView addSubview:editBtn];
         
         
         
         
-        
-        
-        //
-        //
-        //        routeIPLab.font = FONT(13);
-        //        routeIPLab.textColor = RGBA(193, 193, 193, 1);
-        //
-        //        routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
-        //        [scrollView addSubview:routeNameLab];
-        //        [scrollView addSubview:routeIPLab];
-        
-        
-        //        centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
-        //        centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
-        //        [scrollView addSubview:centerGrayView];
-        //
-        //
-        //
-        //        connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
-        //        connectDevice.text = @"Connected devices";
-        //        connectDevice.font = FONT(15);
-        //        connectDevice.textColor = RGBA(148, 148, 148, 1);
-        //        [scrollView addSubview:connectDevice];
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"]  || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
@@ -438,80 +648,136 @@
         [self addFiveBtn];
         [self addSixBtn];
         /**/
-        //    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
-        //    editImage.image = [UIImage imageNamed:@"bianji"];
-        //    [scrollView addSubview:editImage];
-        
-        
-        
-        //    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
-        //    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
-        //    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-        //
-        //    [scrollView addSubview:editBtn];
-        
-        
-        
-        
-        
-        
-        //
-        //
-        //        routeIPLab.font = FONT(13);
-        //        routeIPLab.textColor = RGBA(193, 193, 193, 1);
-        //
-        //        routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
-        //        [scrollView addSubview:routeNameLab];
-        //        [scrollView addSubview:routeIPLab];
-        
-        
-        //        centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
-        //        centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
-        //        [scrollView addSubview:centerGrayView];
-        //
-        //
-        //
-        //        connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
-        //        connectDevice.text = @"Connected devices";
-        //        connectDevice.font = FONT(15);
-        //        connectDevice.textColor = RGBA(148, 148, 148, 1);
-        //        [scrollView addSubview:connectDevice];
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            
+            routeImage.frame = CGRectMake(37+8+10, 20, 52, 52);
+            routeImage.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:routeImage];
+            [colorView bringSubviewToFront:routeImage];
+            
+            routeNameLab.frame = CGRectMake(145+8+10, 25, 200, 20);
+            routeNameLab.font = FONT(16);
+            routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:routeNameLab];
+            [colorView bringSubviewToFront:routeNameLab];
+            
+            secrityTypeLab.frame = CGRectMake(145+8+10, 55, 200, 17);
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                secrityTypeLab.font = FONT(13);
+            }else{
+                secrityTypeLab.font = FONT(12);
+            }
+            secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:secrityTypeLab];
+            [colorView bringSubviewToFront:secrityTypeLab];
+            
+            PINProtectionLab.frame = CGRectMake(145+8+10, 75, 200, 17);
+            PINProtectionLab.font = FONT(13);
+            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:PINProtectionLab];
+            [colorView bringSubviewToFront:PINProtectionLab];
+            
+            repeaterModeLineView.frame = CGRectMake(20, 105+5, SCREEN_WIDTH-40, 1);
+            //            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            //            [scrollView addSubview:PINProtectionLab];
+            //            [colorView bringSubviewToFront:PINProtectionLab];
+            repeaterModeLineView.backgroundColor = [UIColor whiteColor];
+            repeaterModeLineView.alpha = 0.3;
+            [scrollView addSubview:repeaterModeLineView];
+            [colorView bringSubviewToFront:repeaterModeLineView];
+            
+            
+            SubRouterLab.frame = CGRectMake(25+8+10, 75, 200, 20);
+            
+            SubRouterLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:SubRouterLab];
+            [colorView bringSubviewToFront:SubRouterLab];
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                
+                SubRouterLab.text = @"Sub-Router";
+                SubRouterLab.font = FONT(15);
+            }else{
+                SubRouterLab.frame = CGRectMake(25+3, 75, 200, 20);
+                SubRouterLab.text = @"Routeur secondaire";
+                SubRouterLab.font = FONT(13);
+            }
+            
+            
+            MainRouterImageView.frame = CGRectMake(37+8+10, 115+10, 52, 52);
+            MainRouterImageView.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:MainRouterImageView];
+            [colorView bringSubviewToFront:MainRouterImageView];
+            
+            
+            MainRouterLabel.frame = CGRectMake(25+8+10, 175+10, 200, 20);
+            MainRouterLabel.font = FONT(15);
+            MainRouterLabel.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterLabel];
+            [colorView bringSubviewToFront:MainRouterLabel];
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                MainRouterLabel.text = @"Main Router";
+            }else{
+                MainRouterLabel.frame = CGRectMake(25+8, 175+10, 200, 20);
+                MainRouterLabel.font = FONT(13);
+                MainRouterLabel.text = @"Routeur principal";
+            }
+            
+            MainRouterNameLab.frame = CGRectMake(145+8+10, 135+10, 200, 20);
+            MainRouterNameLab.font = FONT(15);
+            MainRouterNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterNameLab];
+            [colorView bringSubviewToFront:MainRouterNameLab];
+            
+            MainRouterIPLab.frame = CGRectMake(145+8+10, 160+10, 200, 20);
+            MainRouterIPLab.font = FONT(13);
+            MainRouterIPLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterIPLab];
+            [colorView bringSubviewToFront:MainRouterIPLab];
+            
+            
+        }
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
-        
+
         colorView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 240);
         colorView.image = [UIImage imageNamed:@"背景"];
         [scrollView addSubview:colorView];
-        
+
         routeImage.frame = CGRectMake(55, 74, 100, 100);
         routeImage.image = [UIImage imageNamed:@"顶部@3x.png"];
         [scrollView addSubview:routeImage];
         [colorView bringSubviewToFront:routeImage];
-        
+
         routeNameLab.frame = CGRectMake(192, 85, 205, 20);
         routeNameLab.font = FONT(18);
         routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
         //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:routeNameLab];
         [colorView bringSubviewToFront:routeNameLab];
-        
+
         secrityTypeLab.frame = CGRectMake(192, 117, 200, 17);
         secrityTypeLab.font = FONT(14);
         secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
         //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:secrityTypeLab];
         [colorView bringSubviewToFront:secrityTypeLab];
-        
+
         PINProtectionLab.frame = CGRectMake(192, 143, 200, 17);
         PINProtectionLab.font = FONT(14);
         PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
         //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
         [scrollView addSubview:PINProtectionLab];
         [colorView bringSubviewToFront:PINProtectionLab];
-        
-        
+
+
         generalSettingLab.frame = CGRectMake(20, 570 - 64, 200, 20);
         generalSettingLab.font = FONT(18);
         generalSettingLab.textColor = [UIColor colorWithRed:0x94/255.0 green:0x94/255.0 blue:0x94/255.0 alpha:1];
@@ -519,54 +785,118 @@
         //        [scrollView addSubview:generalSettingLab];
         [scrollView addSubview:generalSettingLab];
         [scrollView bringSubviewToFront:generalSettingLab];
-        
+
         [self addFirstBtn];
         [self addSecondBtn];
         [self addThirdBtn];
         [self addFourBtn];
         [self addFiveBtn];
         [self addSixBtn];
-        /**/
-        //    editImage = [[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH)];
-        //    editImage.image = [UIImage imageNamed:@"bianji"];
-        //    [scrollView addSubview:editImage];
+
         
         
         
-        //    editBtn.frame = CGRectMake(SCREEN_WIDTH - (40+34)/2, 20, EDITWIDTH, EDITWIDTH);
-        //    [editBtn setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
-        //    [editBtn addTarget:self action:@selector(eidtBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        //
-        //    [editBtn setEnlargeEdgeWithTop:20 right:20 bottom:20 left:20];
-        //
-        //    [scrollView addSubview:editBtn];
+            
+            
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            
+            routeImage.frame = CGRectMake(37+20, 20+6, 52, 52);
+            routeImage.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:routeImage];
+            [colorView bringSubviewToFront:routeImage];
+            
+            routeNameLab.frame = CGRectMake(192, 25+6, 200, 20);
+            routeNameLab.font = FONT(16);
+            routeNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:routeNameLab];
+            [colorView bringSubviewToFront:routeNameLab];
+            
+            secrityTypeLab.frame = CGRectMake(192, 55+6, 200, 17);
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                secrityTypeLab.font = FONT(14);
+            }else{
+                secrityTypeLab.font = FONT(13);
+            }
+            secrityTypeLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        secrityTypeLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:secrityTypeLab];
+            [colorView bringSubviewToFront:secrityTypeLab];
+            
+            PINProtectionLab.frame = CGRectMake(192, 75+6, 200, 17);
+            PINProtectionLab.font = FONT(13);
+            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:PINProtectionLab];
+            [colorView bringSubviewToFront:PINProtectionLab];
+            
+            repeaterModeLineView.frame = CGRectMake(20, 105+20, SCREEN_WIDTH-40, 1);
+            //            PINProtectionLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //            //        PINProtectionLab.text = @"ajsdbajbdbasdbasbsss";
+            //            [scrollView addSubview:PINProtectionLab];
+            //            [colorView bringSubviewToFront:PINProtectionLab];
+            repeaterModeLineView.backgroundColor = [UIColor whiteColor];
+            repeaterModeLineView.alpha = 0.3;
+            [scrollView addSubview:repeaterModeLineView];
+            [colorView bringSubviewToFront:repeaterModeLineView];
+            
+            
+            SubRouterLab.frame = CGRectMake(25+20, 75+6, 200, 20);
+            SubRouterLab.font = FONT(15);
+            SubRouterLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:SubRouterLab];
+            [colorView bringSubviewToFront:SubRouterLab];
+//            SubRouterLab.text = @"Sub-Router";
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                
+                SubRouterLab.text = @"Sub-Router";
+                SubRouterLab.font = FONT(15);
+            }else{
+                SubRouterLab.frame = CGRectMake(25+3, 75+8, 200, 20);
+                SubRouterLab.text = @"Routeur secondaire";
+                SubRouterLab.font = FONT(13);
+            }
+            
+            MainRouterImageView.frame = CGRectMake(37+20, 115+26, 52, 52);
+            MainRouterImageView.image = [UIImage imageNamed:@"顶部"];
+            [scrollView addSubview:MainRouterImageView];
+            [colorView bringSubviewToFront:MainRouterImageView];
+            
+            
+            MainRouterLabel.frame = CGRectMake(25+20, 175+26, 200, 20);
+            
+            MainRouterLabel.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterLabel];
+            [colorView bringSubviewToFront:MainRouterLabel];
+            if ([GeneralSettingsLabel isEqualToString:@"General Settings"]) {
+                MainRouterLabel.text = @"Main Router";
+                MainRouterLabel.font = FONT(15);
+            }else{
+                MainRouterLabel.text = @"Routeur principal";
+                MainRouterLabel.frame = CGRectMake(25+10, 175+26, 200, 20);
+                MainRouterLabel.font = FONT(13);
+            }
+            
+            MainRouterNameLab.frame = CGRectMake(192, 135+26, 200, 20);
+            MainRouterNameLab.font = FONT(15);
+            MainRouterNameLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:1];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterNameLab];
+            [colorView bringSubviewToFront:MainRouterNameLab];
+            
+            MainRouterIPLab.frame = CGRectMake(192, 160+26, 200, 20);
+            MainRouterIPLab.font = FONT(13);
+            MainRouterIPLab.textColor = [UIColor colorWithRed:0xf5/255.0 green:0xf5/255.0 blue:0xf5/255.0 alpha:0.7];
+            //        routeNameLab.text = @"ajsdbajbdbasdbasbsss";
+            [scrollView addSubview:MainRouterIPLab];
+            [colorView bringSubviewToFront:MainRouterIPLab];
         
         
         
         
-        
-        
-        //
-        //
-        //        routeIPLab.font = FONT(13);
-        //        routeIPLab.textColor = RGBA(193, 193, 193, 1);
-        //
-        //        routeIPLab.frame = CGRectMake(40+ROUTEWIDTH, ROUTENAME_Y+10+15, 200, 13);
-        //        [scrollView addSubview:routeNameLab];
-        //        [scrollView addSubview:routeIPLab];
-        
-        
-        //        centerGrayView.frame = CGRectMake(0, 298/2, SCREEN_WIDTH, 6);
-        //        centerGrayView.backgroundColor  = RGBA(239, 239, 239, 1);
-        //        [scrollView addSubview:centerGrayView];
-        //
-        //
-        //
-        //        connectDevice.frame = CGRectMake(20, 298/2+6+15, 200, 15);
-        //        connectDevice.text = @"Connected devices";
-        //        connectDevice.font = FONT(15);
-        //        connectDevice.textColor = RGBA(148, 148, 148, 1);
-        //        [scrollView addSubview:connectDevice];
+    }
     }
     
     
@@ -612,6 +942,15 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn1.userInteractionEnabled = NO;
+            btnImageView1.image = [UIImage imageNamed:@"组71"];
+        }else{
+            btn1.userInteractionEnabled = YES;
+            btnImageView1.image = [UIImage imageNamed:@"WLAN-Settings"];
+        }
+        
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5 的大小");
         
@@ -644,6 +983,13 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn1.userInteractionEnabled = NO;
+            btnImageView1.image = [UIImage imageNamed:@"组71"];
+        }else{
+            btn1.userInteractionEnabled = YES;
+            btnImageView1.image = [UIImage imageNamed:@"WLAN-Settings"];
+        }
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"]  || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"] || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
@@ -677,6 +1023,15 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn1.userInteractionEnabled = NO;
+            btnImageView1.image = [UIImage imageNamed:@"组71"];
+        }else{
+            btn1.userInteractionEnabled = YES;
+            btnImageView1.image = [UIImage imageNamed:@"WLAN-Settings"];
+        }
+        
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
@@ -709,6 +1064,14 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn1.userInteractionEnabled = NO;
+            btnImageView1.image = [UIImage imageNamed:@"组71"];
+        }else{
+            btn1.userInteractionEnabled = YES;
+            btnImageView1.image = [UIImage imageNamed:@"WLAN-Settings"];
+        }
     }
     
     
@@ -920,13 +1283,22 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn3.userInteractionEnabled = NO;
+            btnImageView3.image = [UIImage imageNamed:@"组73"];
+        }else{
+            btn3.userInteractionEnabled = YES;
+            btnImageView3.image = [UIImage imageNamed:@"Devices-List"];
+        }
+        
     }else if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"]) {
         NSLog(@"此刻是5 的大小");
         
         btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn3 setFrame:CGRectMake(0, colorView.frame.origin.y+colorView.frame.size.height+30 + 44 + btn1.frame.size.height+3 - 64, (SCREEN_WIDTH - 3)/2, (SCREEN_WIDTH - 3)/2 * 0.55)];
         [btn3 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
-        //    [btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
+        //    [ btn1 setBackgroundImage:[UIImage imageNamed:@"矩形1"] forState:UIControlStateNormal];
         btn3.tag = 3;
         [btn3 setBackgroundColor:[UIColor whiteColor]];
         [scrollView addSubview:btn3];
@@ -952,6 +1324,14 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn3.userInteractionEnabled = NO;
+            btnImageView3.image = [UIImage imageNamed:@"组73"];
+        }else{
+            btn3.userInteractionEnabled = YES;
+            btnImageView3.image = [UIImage imageNamed:@"Devices-List"];
+        }
     }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
         NSLog(@"此刻是6 的大小");
         
@@ -985,6 +1365,14 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn3.userInteractionEnabled = NO;
+            btnImageView3.image = [UIImage imageNamed:@"组73"];
+        }else{
+            btn3.userInteractionEnabled = YES;
+            btnImageView3.image = [UIImage imageNamed:@"Devices-List"];
+        }
     }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
         NSLog(@"此刻是6 plus的大小");
         
@@ -1018,6 +1406,14 @@
         //        hudLab.text = @"Network Error";
         //
         //        hudLab.textColor = [UIColor grayColor];
+        
+        if ([judgeRouteModeInfo isEqualToString:@"Repeater"]) {
+            btn3.userInteractionEnabled = NO;
+            btnImageView3.image = [UIImage imageNamed:@"组73"];
+        }else{
+            btn3.userInteractionEnabled = YES;
+            btnImageView3.image = [UIImage imageNamed:@"Devices-List"];
+        }
     }
     
 }
