@@ -102,32 +102,46 @@
         NSDictionary * tempDic =  [USER_DEFAULT objectForKey:@"WiFiInfo"];
         routeNameLab.text = [tempDic objectForKey:@"name"];
         NSString * pswStr = [tempDic objectForKey:@"password"];
-        if (![pswStr isEqualToString:@"none"]) {
-            
-            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
-            PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
-            
-            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-            if (SecurityTypeLabel.length > 4) {
-                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
-                secrityTypeLab.font = FONT(12);
-                PINProtectionLab.font = FONT(12);
-            }else
-            {
-                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
-            }
-            
-            
-        }else
-        {
-            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-            NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
-            
-            secrityTypeLab.text =[NSString stringWithFormat:@"%@: %@",SecurityTypeLabel,MLOpen];
-            
-            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
-            PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
+        
+        
+//        if (![pswStr isEqualToString:@"none"]) {
+//
+//            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+//            PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
+//
+//            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+//            if (SecurityTypeLabel.length > 4) {
+//                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+//                secrityTypeLab.font = FONT(12);
+//                PINProtectionLab.font = FONT(12);
+//            }else
+//            {
+//                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+//            }
+//
+//
+//        }else
+//        {
+//            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+//            NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+//
+//            secrityTypeLab.text =[NSString stringWithFormat:@"%@: %@",SecurityTypeLabel,MLOpen];
+//
+//            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+//            PINProtectionLab.text = [NSString stringWithFormat:@"%@: OFF",PINProtectionLabel];
+//        }
+      
+        NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
+        if ([MLOpen isEqualToString:@"Open"]) { //英语
+            secrityTypeLab.text =[NSString stringWithFormat:@"Router Mode: Router"];
+            secrityTypeLab.font = FONT(12);
+            PINProtectionLab.text = [NSString stringWithFormat:@"IP Address: 192.168.88.1"];
+        }else{
+            secrityTypeLab.text =[NSString stringWithFormat:@"Mode du Routeur: Routeur"];
+            secrityTypeLab.font = FONT(12);
+            PINProtectionLab.text = [NSString stringWithFormat:@"Adresse IP: 192.168.88.1"];
         }
+        
     }else if ([[routeModeDic objectForKey:@"mode"] isEqualToString:@"2"])
     {
         routeModeInfo.text = @"Repeater";
