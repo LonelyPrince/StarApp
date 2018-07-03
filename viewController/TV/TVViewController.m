@@ -452,7 +452,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
     
     LBGetHttpRequest *request = CreateGetHTTP(url);
-    
+
     [request startAsynchronous];
     
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
@@ -826,6 +826,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 // 此处代表需要记性机顶盒加密验证
                                 NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                                 NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                                NSLog(@"firstOpenTouch =====1111");
                                 [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                                 firstOpenAPP = firstOpenAPP+1;
                                 
@@ -834,10 +835,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             }else //正常播放的步骤
                             {
                                 [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                                NSLog(@"正常播放播放 111");
                             }
                         }else //正常播放的步骤
                         {
                             [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                            NSLog(@"正常播放播放 2222");
                         }
                     }else
                     {}
@@ -1638,6 +1641,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         // 此处代表需要记性机顶盒加密验证
                         NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                         NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                        NSLog(@"firstOpenTouch =====22222");
                         [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                         firstOpenAPP = firstOpenAPP+1;
                         
@@ -1645,10 +1649,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }else //正常播放的步骤
                     {
                         [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                        NSLog(@"正常播放播放 3333");
                     }
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                    NSLog(@"正常播放播放 4444");
                 }
             }
             
@@ -2257,11 +2263,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:indexPathRow diction:self.dicTemp];
+                    NSLog(@"正常播放播放 5555");
                 }
                 
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:indexPathRow diction:self.dicTemp];
+                NSLog(@"正常播放播放 6666");
             }
         }
         NSLog(@"dispatch_get_global_queue 播放的第一个方法==结束");
@@ -3271,10 +3279,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 }else //正常播放的步骤
                                 {
                                     [self firstOpenAppAutoPlayZero:row diction:dic];
+                                    NSLog(@"正常播放播放 7777");
                                 }
                             }else //正常播放的步骤
                             {
                                 [self firstOpenAppAutoPlay:row diction:dic];
+                                NSLog(@"正常播放播放 8888");
                             }
                             [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
                         }else
@@ -3307,11 +3317,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                         }else //正常播放的步骤
                                         {
                                             [self firstOpenAppAutoPlayZero:row diction:dic];
+                                            NSLog(@"正常播放播放 9999");
                                         }
                                     }else //正常播放的步骤
                                     {
                                         //======机顶盒加密
                                         [self firstOpenAppAutoPlay:row diction:dic];
+                                        NSLog(@"正常播放播放 aaaa");
                                     }
                                     
                                     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
@@ -3560,6 +3572,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else if(self.categorys.count == 0 && recFileData.count > 0)
             {
                 [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+                
+                NSLog(@"正常播放播放 zzzzzzzzzzz");
                 double delayInSeconds = 0.5;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -3647,7 +3661,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (isTwoDicEqual == YES) {
                 isHavePlayingChannel = YES;
                 if ([serviceArrForJudge_dic isEqual: epgDicToSocket] ) {
-                    [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
+                    
+                    NSLog(@"正常播放播放 zzzzzzzzzzz   1111");
+                    NSLog(@"rowIndex %d",rowIndex) ;
+//                    [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
                     firstOpenAPP = firstOpenAPP+1;
                     firstfirst = NO;
                     
@@ -3662,7 +3679,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:serviceArrForJudge_dic,@"nowPlayingDic", nil];
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
                     //2. 修改历史和store
-                    
+
                     NSMutableArray * touchArrTemp ;
                     if (historyArr.count >= 1) {
                         touchArrTemp = [historyArr[historyArr.count - 1] mutableCopy];
@@ -3671,27 +3688,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSLog(@"historyArr== %@",historyArr);
                         return;
                     }
-                    
+
                     //                    NSInteger rowIndex; =
                     touchArrTemp [3] = [dic copy];
                     [historyArr replaceObjectAtIndex:historyArr.count - 1 withObject:[touchArrTemp copy]];
-                    
+
                     // 3.store
-                    
+
                     storeLastChannelArr = [touchArrTemp copy];
-                    
+
                     // history 修改
-                    
+
                     [self addHistory:rowIndex diction:dic];
-                    
-                    
+
+
                     //==========fix
                     //重新执行播放,并且要注意判断是不是加锁类型
-                    
+
                     NSString * characterStr = [serviceArrForJudge_dic  objectForKey:@"service_character"];
-                    
+
                     int program_character_int = [characterStr intValue];
-                    
+
                     uint32_t character_And =  program_character_int &  0x02;
                     if (character_And > 0) {
                         // 此处代表需要记性机顶盒加密验证
@@ -3700,9 +3717,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                         firstOpenAPP = firstOpenAPP+1;
                         firstfirst = NO;
-                        
-                        
-                        
+
+                        NSLog(@"正常播放播放 zzzzzzzzzzz   2222222");
+
                     }else //从加锁到不加锁正常播放的步骤，但是要注意得如果用户此时还处于弹窗或者未输入密码界面，得去掉弹窗和输入密码
                     {
                         NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
@@ -3712,9 +3729,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
                         firstOpenAPP = firstOpenAPP+1;
                         firstfirst = NO;
-                        
+                        NSLog(@"rowIndex %d",rowIndex);
+                        NSLog(@"正常播放播放 zzzzzzzzzzz   3333333");
                     }
-                    
+
                     return ;
                 }
             }
@@ -3728,10 +3746,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // 此处代表需要记性机顶盒加密验证
                     NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                    NSLog(@"firstOpenTouch =====3333333");
                     [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                     firstOpenAPP = firstOpenAPP+1;
                     firstfirst = NO;
-                    
+
                 }else //正常播放的步骤
                 {
                     [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
@@ -3744,6 +3763,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
                         [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
                     });
+                    NSLog(@"正常播放播放 bbbb");
                 }
             }else //正常播放的步骤
             {
@@ -3756,15 +3776,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
                     [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
                 });
+                NSLog(@"正常播放播放 cccc");
             }
         }{
             NSLog(@"我们有正在播放的节目");
         }
-//        [self.tableForSliderView reloadData];
+        [self.tableForSliderView reloadData];
         [tempTableviewForFocus reloadData];
         [self refreshTableviewByEPGTime];
-//        [self.table reloadData];
-        
+        [self.table reloadData];
+
     }];
     double delayInSeconds = 1;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -4008,6 +4029,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // 此处代表需要记性机顶盒加密验证
                     NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                    NSLog(@"firstOpenTouch =====444444");
                     [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                     firstOpenAPP = firstOpenAPP+1;
                     
@@ -4026,6 +4048,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
                         [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
                     });
+                    NSLog(@"正常播放播放 dddd");
                 }
             }else //正常播放的步骤
             {
@@ -4039,6 +4062,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
                     [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
                 });
+                NSLog(@"正常播放播放 eeee");
             }
         }
 //        [self.tableForSliderView reloadData];
@@ -4102,6 +4126,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 // 此处代表需要记性机顶盒加密验证
                 NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                 NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                NSLog(@"firstOpenTouch =====555555");
                 [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                 firstOpenAPP = firstOpenAPP+1;
                 
@@ -4109,10 +4134,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                NSLog(@"正常播放播放 ffff");
             }
         }else //正常播放的步骤
         {
             [self firstOpenAppAutoPlay:0 diction:self.dicTemp];
+            NSLog(@"正常播放播放 gggg");
         }
     }
 }
@@ -5718,6 +5745,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         // 此处代表需要记性机顶盒加密验证
                         NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                         NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                        NSLog(@"firstOpenTouch =====666666");
                         [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                         firstOpenAPP = firstOpenAPP+1;
                         
@@ -5725,10 +5753,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }else //正常播放的步骤
                     {
                         [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                        NSLog(@"正常播放播放 hhhh");
                     }
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                    NSLog(@"正常播放播放 iiii");
                 }
             }else
             {}
@@ -6507,8 +6537,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.video.channelName = self.service_videoname;
     self.video.startTime = self.event_startTime;
     self.video.endTime = self.event_endTime;
-    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    
+    if (epg_infoArr.count > 0) {
+        
+        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+        NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
+        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+    }else
+    {
+        self.event_videoname = @"";
+        self.event_startTime = @"";
+        self.event_endTime = @"";
+        [GGUtil postsetTimeAndProgressIsNullNotific];
+        [self removeTopProgressView];
+    }
+//    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
         self.video.startTime = @"0";
         self.video.endTime = @"0";
@@ -7390,6 +7435,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         // 此处代表需要记性机顶盒加密验证
                         NSNumber  *numIndex = [NSNumber numberWithInteger:0];
                         NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                        NSLog(@"firstOpenTouch =====777777");
                         [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                         firstOpenAPP = firstOpenAPP+1;
                         
@@ -7398,10 +7444,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }else //正常播放的步骤
                     {
                         [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                        NSLog(@"正常播放播放 jjjj");
                     }
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+                    NSLog(@"正常播放播放 kkkk");
                 }
             }else
             {}
@@ -7481,11 +7529,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:row diction:dic];
+                    NSLog(@"正常播放播放 LLLLL");
                 }
             }else //正常播放的步骤
             {
                 //======机顶盒加密
                 [self firstOpenAppAutoPlay:row diction:dic];
+                NSLog(@"正常播放播放 MMMMMM");
             }
             [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
         }
@@ -7516,11 +7566,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:row diction:dic];
+                    NSLog(@"正常播放播放 NNNN");
                 }
             }else //正常播放的步骤
             {
                 //======机顶盒加密
                 [self firstOpenAppAutoPlay:row diction:dic];
+                NSLog(@"正常播放播放 oooooo");
             }
             [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
         }
@@ -9402,10 +9454,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                    NSLog(@"正常播放播放 ppppp");
                 }
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                NSLog(@"正常播放播放 qqqqqqs");
             }
             
             firstOpenAPP = firstOpenAPP+1;
@@ -9486,6 +9540,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // 此处代表需要记性机顶盒加密验证
                     NSNumber  *numIndex = [NSNumber numberWithInteger:pushChannelId];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"firstOpenTouch",@"textThree",nil];
+                    NSLog(@"firstOpenTouch =====8888");
                     [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                     firstOpenAPP = firstOpenAPP+1;
                     
@@ -9493,10 +9548,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                    NSLog(@"正常播放播放 rrrrrr");
                 }
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                NSLog(@"正常播放播放 sssssss");
             }
             
             firstOpenAPP = firstOpenAPP+1;
@@ -9747,7 +9804,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self  createLiveGetAlertView];
         
     }
-    
+
 }
 
 -(void)SDTfirstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
@@ -9762,22 +9819,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             socketView.socket_ServiceModel = [[ServiceModel alloc]init];
             audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
             subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-            
+
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
-                
+
                 int audiopidTemp;
                 audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
-                
+
                 socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 //                socketView.socket_ServiceModel.audio_pid = [audio_infoArr[0] objectForKey:@"audio_pid"];
                 socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
             }else
             {
                 if (audio_infoArr.count > 0 ) {
-                    
+
                     int audiopidTemp;
                     audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
-                    
+
                     socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
                 }else
                 {
@@ -9791,15 +9848,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
             [self SetService_videoindex:epgDicToSocket];
-            
+
             self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
-            
+
             NSLog(@" self.service_videoname %@",self.service_videoname);
-            
+
             epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-            
+
             if (epg_infoArr.count > 0) {
-                
+
                 self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                 NSLog(@"replaceEventNameNotific firstOpen :%@",self.event_videoname);
                 self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
@@ -9822,7 +9879,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self removeTopProgressView];
             }
             //*********
-            
+
             //再单独开一个线程用于default操作
             dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queueA, ^{
@@ -9830,8 +9887,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
             });
             [self judgeAllArgueIsZero];
-            
-            
+
+
         }
     }
 }
