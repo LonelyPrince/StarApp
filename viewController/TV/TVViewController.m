@@ -2636,8 +2636,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self SetService_videoindex:epgDicToSocket];
             self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
             epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
-            self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-            self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+            if (epg_infoArr.count > 0) {
+                self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+            }else
+            {
+                NSLog(@"数据为空lslslslsls");
+                self.event_startTime = @"";
+                self.event_endTime = @"";
+            }
+            
             if (epg_infoArr.count > 0) {
                 self.video.startTime = self.event_startTime;
                 self.video.endTime = self.event_endTime;
