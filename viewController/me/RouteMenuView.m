@@ -162,19 +162,33 @@
         NSString * pswStr = [tempDic objectForKey:@"password"];
         if (![pswStr isEqualToString:@"none"]) {
             
-            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
-            PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
-            
+//            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+//            PINProtectionLab.text = [NSString stringWithFormat:@"%@: ON",PINProtectionLabel];
+//
+//            NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
+//            if (SecurityTypeLabel.length > 4) {
+//                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+//                secrityTypeLab.font = FONT(12);
+//                PINProtectionLab.font = FONT(12);
+//            }else
+//            {
+//                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
+//            }
+
             NSString * SecurityTypeLabel = NSLocalizedString(@"SecurityTypeLabel", nil);
-            if (SecurityTypeLabel.length > 4) {
-                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
-                secrityTypeLab.font = FONT(12);
-                PINProtectionLab.font = FONT(12);
-            }else
-            {
-                secrityTypeLab.text =[NSString stringWithFormat:@"%@: WPA2-PSK",SecurityTypeLabel];
-            }
+            NSString * MLOpen = NSLocalizedString(@"MLOpen", nil);
             
+            
+            
+            NSString * PINProtectionLabel = NSLocalizedString(@"PINProtectionLabel", nil);
+            
+            if ([MLOpen isEqualToString:@"Open"]) {
+                PINProtectionLab.text = [NSString stringWithFormat:@"IP Address: 192.168.88.1"];
+                secrityTypeLab.text =[NSString stringWithFormat:@"Router Mode: Repeater"];
+            }else{
+                PINProtectionLab.text = [NSString stringWithFormat:@"Adresse IP: 192.168.88.1"];
+                secrityTypeLab.text =[NSString stringWithFormat:@"Mode du Routeur: Répétition"];
+            }
             
         }else
         {
