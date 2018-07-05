@@ -88,9 +88,17 @@
     self.MSerialNum1.text = MLSerialnumber;//MLSerialnumber;
     //61.确认新密码
 //    NSString * MLMACaddress = NSLocalizedString(@"MLMACaddress", nil);
-    self.MWANMACAddress1.text = @"WAN MAC Address";//MLMACaddress;
-    self.MLANMACAddress1.text = @"LAN MAC Address";//MLMACaddress;
-    self.MWIFIMACAddress1.text = @"Wi-Fi MAC Address";//MLMACaddress;
+    
+    if ([MLSerialnumber isEqualToString:@"Serial Number"]) {
+        self.MWANMACAddress1.text = @"WAN MAC Address";//MLMACaddress;
+        self.MLANMACAddress1.text = @"LAN MAC Address";//MLMACaddress;
+        self.MWIFIMACAddress1.text = @"Wi-Fi MAC Address";//MLMACaddress;
+    }else{
+        self.MWANMACAddress1.text = @"Adresse MAC WAN";//MLMACaddress;
+        self.MLANMACAddress1.text = @"Adresse MAC LAN";//MLMACaddress;
+        self.MWIFIMACAddress1.text = @"Adresse MAC Wi-Fi";//MLMACaddress;
+    }
+    
     //62.确认新密码
     NSString * MLSubnetmask = NSLocalizedString(@"MLSubnetmask", nil);
     self.MSubnetMask1.text = MLSubnetmask;//MLSubnetmask;
@@ -765,6 +773,17 @@
         
     }
     
+    
+    NSString * MLSerialnumber = NSLocalizedString(@"MLSerialnumber", nil);
+    if ([MLSerialnumber isEqualToString:@"Serial Number"]) {
+        self.MWANMACAddress1.text = @"WAN MAC Address";//MLMACaddress;
+        self.MLANMACAddress1.text = @"LAN MAC Address";//MLMACaddress;
+        self.MWIFIMACAddress1.text = @"Wi-Fi MAC Address";//MLMACaddress;
+    }else{
+        self.MWANMACAddress1.text = @"Adresse MAC WAN";//MLMACaddress;
+        self.MLANMACAddress1.text = @"Adresse MAC LAN";//MLMACaddress;
+        self.MWIFIMACAddress1.text = @"Adresse MAC Wi-Fi";//MLMACaddress;
+    }
 }
 -(void)getID
 {
