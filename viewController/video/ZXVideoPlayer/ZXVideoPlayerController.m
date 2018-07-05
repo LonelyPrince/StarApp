@@ -1608,6 +1608,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSNotification *notification3 =[NSNotification notificationWithName:@"RemoveAlertViewnotific" object:nil userInfo:nil];
             [[NSNotificationCenter defaultCenter] postNotification:notification3];
             
+            //取消掉pin的文字和按钮
+            [self removeConfigCAPINShowNotific];
+            [self removeConfigDecoderPINShowNotific];
             NSLog(@"此处取消弹窗=====");
             
             
