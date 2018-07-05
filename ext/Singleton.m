@@ -38,7 +38,7 @@
     self.socket    = [[AsyncSocket alloc] initWithDelegate:self];
     
     NSError *error = nil;
-    
+//
     [self.socket connectToHost:self.socketHost onPort:self.socketPort withTimeout:3 error:&error];
     
 }
@@ -281,15 +281,15 @@
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
             //route页面，网络通知，如果没网，显示没有网络图片
-            NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
+            NSNotification *notification2 = [NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
             
-            
+//
             NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnNotEnabled" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification3];
-            
+//
         }
         
         
@@ -302,7 +302,7 @@
     else if (sock.userData == SocketOfflineByUser) {
         // 如果由用户断开，不进行重连
         NSLog(@"sorry the connect is 用户断开");
-        
+//
         [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         
@@ -313,12 +313,12 @@
         NSNotification *notification1 =[NSNotification notificationWithName:@"netWorkIsColseNotice" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
-        
+
         //route页面，网络通知，如果没网，显示没有网络图片
         NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification2];
-        
+
         NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnNotEnabled" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification3];

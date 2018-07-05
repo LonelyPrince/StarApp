@@ -2271,6 +2271,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self.view bringSubviewToFront:self.topProgressView];
                 [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
             });
+            
+            //取消加载环
+            NSNotification *notification3 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:notification3];
+            
             return ;
             
         }else
@@ -3097,7 +3102,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:60];
         
     }else{
-        
+
         self.showTVView = YES;
         [USER_DEFAULT setObject:@"YES" forKey:@"showTVView"];
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
@@ -3116,7 +3121,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
-        
+        //
     }
     double delayInSeconds = 0.7;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -3202,6 +3207,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self OtherDevicePushToPhoneNotific];
         [self OtherDevicePushToPhoneLiveNotific];
         [self reConnectSocketToRefreshTableNotific];
+        [self removeAlertViewNotfic];
         
         
         
@@ -3243,6 +3249,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"reConnectSocketToRefreshTable" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFirstViewTbaleview) name:@"reConnectSocketToRefreshTable" object:nil];
+    
+    
+}
+-(void)removeAlertViewNotfic
+{
+    //网络回复连接通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RemoveAlertViewnotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(RemoveAlertViewnotific) name:@"RemoveAlertViewnotific" object:nil];
 }
 -(void)refreshFirstViewTbaleview
 {
@@ -3270,7 +3285,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
         });
         NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
-        
+//
         if (isHasChannleDataList == NO) {
             [self ifNotISTVView];
             
@@ -6031,7 +6046,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
         }
-        
+//
         if (self.showTVView == YES) {
             /**
              1.弹窗
@@ -6044,7 +6059,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
              2.点击后socket请求进行判断
              3.所有带有播放请求的页面都进行一次判断
              */
-            
+
             [STBAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
             STBAlert.delegate =  self;
             NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
@@ -6058,8 +6073,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             STBTextField_Encrypt.text = @"";
             STBAlert.dontDisppear = YES;
             STBAlert.transform = CGAffineTransformRotate(STBAlert.transform, M_PI/2);
-            
-            
+
+
             STBTextField_Encrypt.delegate = self;
             STBTextField_Encrypt.autocorrectionType = UITextAutocorrectionTypeNo;
             STBTextField_Encrypt = [STBAlert textFieldAtIndex:0];
@@ -6071,22 +6086,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSString * DecoderPINLabel = NSLocalizedString(@"DecoderPINLabel", nil);
                 STBTextField_Encrypt.placeholder = DecoderPINLabel;
             }
-            
-            
+
+
             NSNotification *notification1 =[NSNotification notificationWithName:@"removeConfigDecoderPINShowNotific" object:nil userInfo:nil];
-            //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉
+            //通过通知中心发送通知,将decoderPIN 的文字和按钮删除掉。
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
-            
+
             [self serviceEPGSetData:STBTouch_Row diction:STBTouch_Dic];
-            
-            
+
+
         }else
         {
-            
+
             NSLog(@"已经不是TV页面了");
             [self ifNotISTVView];
         }
-        
+
         
     });
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -6096,15 +6111,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         STBTouch_Dic = text.userInfo[@"textTwo"];
         STBTouchType_Str = text.userInfo[@"textThree"];
         NSDictionary * epgDicFromPopSTB = [STBTouch_Dic objectForKey:[NSString stringWithFormat:@"%d",STBTouch_Row]];
-        
+
         [USER_DEFAULT setObject:@"yes" forKey:@"alertViewHasPop"];
-        
+
         [USER_DEFAULT setObject:epgDicFromPopSTB forKey:@"NowChannelDic"];
-        
+
         if (text.userInfo.count >3) {
             STBTouch_Audio = [text.userInfo[@"textFour"]integerValue];
             STBTouch_Subt = [text.userInfo[@"textFive"]integerValue];
-            
+
             [USER_DEFAULT setObject:text.userInfo[@"textFour"] forKey: @"Touch_Audio_index"];
             [USER_DEFAULT setObject:text.userInfo[@"textFive"]  forKey:@"Touch_Subt_index"];
             [USER_DEFAULT setObject:@"YES" forKey:@"audioOrSubtTouch"];
@@ -6113,70 +6128,78 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
         }
-        
+
         ///////+++++++++++++++++++++++
         int indexOfCategory = [self judgeCategoryType:epgDicFromPopSTB]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
-        
+
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
         if (epgDicFromPopSTB.count > 14) { //录制
-            
+
             arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-            
+
         }else
         {
             if (self.categorys.count >indexOfCategory ) {
                 arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
             }
-            
+
         }
-        
-        
+
+
         for (int i = 0; i< arrForServiceByCategory.count; i++) {
             NSLog(@"arrForServiceByCategory %lu",(unsigned long)arrForServiceByCategory.count);
             if (epgDicFromPopSTB.count > 14) { //录制
-                
+
                 NSDictionary * serviceForJudgeDic = arrForServiceByCategory[i];
-                
+
                 //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                 BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicFromPopSTB];
                 NSLog(@"isEqualForTwoDic %d",isEqualForTwoDic);
                 if (isEqualForTwoDic) {
-                    
+
                     int indexForJudgeService = i;
                     indexOfServiceToRefreshTable =indexForJudgeService;
-                    
+
                     //选中数据变蓝
                     [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
-                    
+
                 }
             }
             else
             {
                 NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
                 NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
-                
+
                 //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                 BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicFromPopSTB];
-                
+
                 if (isEqualForTwoDic) {
-                    
+
                     int indexForJudgeService = i;
                     indexOfServiceToRefreshTable =indexForJudgeService;
-                    
+
                     //选中数据变蓝
                     [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
                 }
             }
-            
+
         }
-        
+
     });
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //取消掉提示文字和延迟方法
-        [self removeTipLabAndPerformSelector];
-        [GGUtil postIndicatorViewShowNotic];
-    });
+    if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+        
+        NSNotification *notification3 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notification3];
+        
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //取消掉提示文字和延迟方法
+            [self removeTipLabAndPerformSelector];
+            [GGUtil postIndicatorViewShowNotic];
+        });
+    }
+    
 }
 #pragma mark - CA弹窗
 -(void)popCAAlertView: (NSNotification *)text
@@ -9579,6 +9602,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }];
     
     [JXAlertView show];
+}
+-(void)RemoveAlertViewnotific
+{
+//    [JXAlertView close];
+//    [pushAlertView close];
+    
+    [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
+    [STBAlert dismissWithClickedButtonIndex:1 animated:YES];
+    
 }
 ///其他设备投屏手机
 -(void)OtherDevicePushToPhoneNotific
