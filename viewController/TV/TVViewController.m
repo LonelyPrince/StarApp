@@ -3588,25 +3588,40 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+            NSLog(@"删除了某个节目");
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+//
+            [self.tableForSliderView reloadData];
+            [self refreshTableviewByEPGTime];
+            [self.table reloadData];
+            
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+            [self.tableForSliderView reloadData];
+            [self refreshTableviewByEPGTime];
+            [self.table reloadData];
+            
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+//
+            [self.tableForSliderView reloadData];
+            [self refreshTableviewByEPGTime];
+            [self.table reloadData];
+
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         if (ISNULL(self.serviceData) || self.serviceData == nil|| self.serviceData == nil) {
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         [self activeViewRemove];
-        
+
         NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
         
         int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
@@ -6947,7 +6962,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     LBGetHttpRequest *request = CreateGetHTTP(url);
     
     [request startAsynchronous];   //异步
-    
+    //
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
     getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
     WEAKGET
