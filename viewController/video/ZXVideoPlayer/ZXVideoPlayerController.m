@@ -197,7 +197,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
         [self reConnectSocketFromDisConnectNotic]; //socket断开后，重新连接socket
         [self homeBtnClickNotific]; //按下home键按钮后
         [self judgeLastNextBtnIsEnableNotific]; //每次判断上一个下一个节目是不是需要enable = no
-        
+        [self refreshChannelTableNotific];
         
         self.rightViewShowing = NO;
         //                self.tvViewControlller = [[TVViewController alloc]init];
@@ -4032,6 +4032,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     
 }
 
+-(void)refreshChannelTableNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"refreshChannelTableNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshChannelTable) name:@"refreshChannelTableNotific" object:nil];
+}
+-(void)refreshChannelTable
+{
+//    self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
+    [self.subAudioTableView reloadData];
+}
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     dispatch_async(dispatch_get_main_queue(), ^{

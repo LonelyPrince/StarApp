@@ -3934,6 +3934,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self refreshTableviewByEPGTime];
         //        [self.table reloadData];
     });
+    
+    NSLog(@"zhengzihaisdhiashdaisdisisiso");
+//    [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
+    [self updateFullScreenDic];
+    
+    NSNotification *notificationX =[NSNotification notificationWithName:@"refreshChannelTableNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notificationX];
 }
 -(void)tableViewDataRefreshForSDTMonitorSMT
 {
