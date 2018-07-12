@@ -1131,13 +1131,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
-    
+
     //     [tempTableviewForFocus reloadData];
     //    [self refreshTableviewByEPGTime];
     //    [self.table reloadData];
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
     //    NSLog(@"search  sousuosoususousouosuosususuos");
-    
+
     //    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
 ////用于刷新页面和slderView
@@ -3357,12 +3357,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self updateFullScreenDic];
-        
+
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic 88888");
             return ;
-            
+
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
         }
@@ -3375,7 +3375,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //
         if (isHasChannleDataList == NO) {
             [self ifNotISTVView];
-            
+
         }else
         {
             if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
@@ -3392,7 +3392,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {
                     NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
                     if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
-                        
+
                         if (storeLastChannelArr.count >= 4) {
                             NSInteger row ;
                             NSDictionary * dic = [[NSDictionary alloc]init];
@@ -3418,7 +3418,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
                                     [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                                     firstOpenAPP = firstOpenAPP+1;
-                                    
+
                                     firstfirst = NO;
                                 }else //正常播放的步骤
                                 {
@@ -3433,12 +3433,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         {
                             return ;
                         }
-                        
+
                     }else
                     {
                         if (historyArr.count > 0) {
                             NSArray * touchArr = historyArr[historyArr.count - 1];
-                            
+
                             if (storeLastChannelArr.count < 2) {
                                 return;
                             }else
@@ -3465,7 +3465,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                         //======机顶盒加密
                                         [self firstOpenAppAutoPlay:row diction:dic];
                                     }
-                                    
+
                                     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
                                 }else
                                 {
@@ -3476,7 +3476,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         {
                             return;
                         }
-                        
+
                     }
                 }
             }
@@ -3485,7 +3485,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         [self ifNotISTVView];
     }
-    
+
     [self showDelivaryStopped];
 }
 -(void)setCardTypeNotific
@@ -4528,7 +4528,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick : (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
-    
+
     [USER_DEFAULT setObject:@"YES" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受
     TVViewTouchPlay = NO;
     //=====则去掉不能播放的字样，加上加载环
@@ -4537,22 +4537,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSInteger row = [text.userInfo[@"textOne"]integerValue];
     NSDictionary * dic = [[NSDictionary alloc]init];
     dic = text.userInfo[@"textTwo"];
-    
-    
+
+
     //先传输数据到socket，然后再播放视频
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-    
-    
+
+
     int indexOfCategory = [self judgeCategoryType:epgDicToSocket]; //从别的页面跳转过来，要先判断节目的类别，然后让底部的category转到相应的类别下
-    
+
     if(indexOfCategory == -1)
     {
         [self performSelector:@selector(NOChannelToPlay) withObject:nil afterDelay:0.5];//将CA PIN 的文
-        
+
     }else
     {
         [self setCategoryItem:indexOfCategory];
-        
+
+
+
         if ([epgDicToSocket isKindOfClass:[NSDictionary class]]){
             if (epgDicToSocket.count > 14) { //录制
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -4563,7 +4565,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"postnoPlayShowNotic ccccc");
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
-                    
+
                     self.TVSubAudioDic = epgDicToSocket;
                     self.TVChannlDic = self.dicTemp;
                     tempBoolForServiceArr = YES;
@@ -4583,17 +4585,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     self.service_videoindex= @"";
                     self.event_videoname = @"";
-                    
-                    
+
+
                     //== 录制时间赋值
                     if (epgDicToSocket.count > 14) {  //录制
-                        
+
                         //录制节目的时间
                         self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
                         NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
                         NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
                         self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
-                        
+
                         BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
                         if (isEventStartTimeBigNowTime == YES) {
                             self.event_videoname = @"";
@@ -4616,61 +4618,61 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.video.endTime = self.event_endTime;
                             NSLog(@"hidenhidenhidenhiden 88888888 aaaaaaaaa");
                         }
-                        
+
                         NSString * acc = self.video.startTime;
                         NSString * cca = self.video.endTime;
                         NSLog(@"acc == %@",acc);
                         NSLog(@"cca == %@",cca);
-                        
+
                     }
-                    
+
                     //                    [self.tableForSliderView reloadData];
                     [tempTableviewForFocus reloadData];
                     [self refreshTableviewByEPGTime];
-                    
-                    
-                    
+
+
+
                     if (epgDicToSocket.count > 14) {  //录制
-                        
+
                         NSNotification *notificationREC =[NSNotification notificationWithName:@"setRECTimeNotific" object:nil userInfo:nil];
                         //通过通知中心发送通知
                         [[NSNotificationCenter defaultCenter] postNotification:notificationREC];
-                        
+
                         //开始进行数据赋值
                         NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                         [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
                         [self removeTopProgressView];
-                        
+
                     }else
                     {
                         [GGUtil postTimerOfEventTimeNotific];
                         [self caculatorProgress];
                     }
                     return ;
-                    
+
                 }else{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
                 }
                 [self playRECVideo:epgDicToSocket];
-                
+
                 self.TVSubAudioDic = epgDicToSocket;
-                
+
                 self.TVChannlDic = self.dicTemp;
-                
+
                 tempBoolForServiceArr = YES;
                 tempArrForServiceArr =  self.categoryModel.service_indexArr;
                 tempDicForServiceArr = self.TVChannlDic;
-                
+
                 self.video.dicChannl = [tempDicForServiceArr mutableCopy];
                 NSLog(@"self.video.dicChannl33 %@",self.video.dicChannl);
-                
+
                 if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                     self.video.channelCount = tempArrForServiceArr.count;
                 }
                 //*********
-                
+
                 //        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
-                
+
                 NSString * serviceName = [epgDicToSocket objectForKey:@"service_name"];
                 NSString * eventName = [epgDicToSocket objectForKey:@"event_name"];
                 if ([eventName isEqualToString:@""]) {
@@ -4679,30 +4681,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {
                     self.service_videoname = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-                
-                
+
+
                 //            self.service_videoname = [epgDicToSocket objectForKey:@"file_name"];
                 self.service_videoindex= @"";
                 //        self.event_videoname = [epgDicToSocket objectForKey:@"event_name"];
                 self.event_videoname = @"";
-                
-                
-                
-                
-                
+
+
             }else//直播
             {
                 //快速切换频道名称和节目名称
                 NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
-                
-                
-                
+
+
+
                 NSLog(@"dic: %@",dic);
                 NSLog(@"self.dicTemp: %@",self.dicTemp);
                 NSLog(@"epgDicToSocket: %@",epgDicToSocket);
                 NSLog(@"row: %ld",(long)row);
                 /*此处添加一个加入历史版本的函数*/
-                
+
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self addHistory:row diction:self.dicTemp];
                 });
@@ -4710,34 +4709,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [GGUtil postnoPlayShowNotic];
                     NSLog(@"postnoPlayShowNotic dddddd");
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
-                    
+
                     [self.videoController setaudioOrSubtRowIsZero];
                     NSArray * audio_infoArr = [[NSArray alloc]init];
                     NSArray * subt_infoArr = [[NSArray alloc]init];
                     NSArray * epg_infoArr = [[NSArray alloc]init];
                     //****
-                    
-                    
+
+
                     socketView.socket_ServiceModel = [[ServiceModel alloc]init];
                     audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
                     subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
                     if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
-                        
+
                         int audiopidTemp;
                         audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
-                        
+
                         socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                        
+
                         socketView.socket_ServiceModel.subt_pid = [subt_infoArr[0] objectForKey:@"subt_pid"];
-                        
+
                     }else
                     {
                         if (audio_infoArr.count > 0 ) {
                             int audiopidTemp;
                             audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
-                            
+
                             socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                            
+
                         }else
                         {
                             socketView.socket_ServiceModel.audio_pid = nil;
@@ -4753,7 +4752,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self SetService_videoindex:epgDicToSocket];
                     //此处获得该EPG的当前信息，否则我们播放的信息还是它之前的信息
                     for (int i = 0; i<self.serviceData.count; i++) {
-                        
+
                         BOOL isYes =  [GGUtil judgeTwoEpgDicIsEqual:self.serviceData[i] TwoDic:epgDicToSocket]; //此处通过判断两个EPG信息是否相等来找到两个一样的EPG信息
                         if(isYes == YES)
                         {
@@ -4764,13 +4763,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
                     if (epg_infoArr.count == 0 || epg_infoArr == nil) {
                         //            return;
-                        
+
                         self.event_videoname = @"";
                         self.event_startTime = @"";
                         self.event_endTime = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
-                        
+
                     }else
                     {
                         self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
@@ -4784,7 +4783,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
                             NSLog(@"hidenhidenhidenhiden 999999999 aaaaaaaaa");
-                            
+
                         }else{
                             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                             self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
@@ -4792,9 +4791,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [GGUtil postsetTimeAndProgressIsShowNotific];
                             NSLog(@"hidenhidenhidenhiden 999999999 aaaaaaaaa");
                         }
-                        
+
                     }
-                    
+
                     isEventStartTimeBiger_NowTime = NO;
                     BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
                     if (isEventStartTimeBigNowTime == YES) {
@@ -4804,23 +4803,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
                     }
-                    
+
                     self.TVSubAudioDic = epgDicToSocket;
-                    
+
                     self.TVChannlDic = self.dicTemp;
-                    
+
                     tempBoolForServiceArr = YES;
                     tempArrForServiceArr =  self.categoryModel.service_indexArr;
                     tempDicForServiceArr = self.TVChannlDic;
-                    
+
                     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-                    
+
                     NSLog(@"self.video.dicChannl44 %@",self.video.dicChannl);
-                    
+
                     if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                         self.video.channelCount = tempArrForServiceArr.count;
                     }
-                    
+
                     //*********
                     if (ISEMPTY(socketView.socket_ServiceModel.audio_pid)) {
                         socketView.socket_ServiceModel.audio_pid = @"0";
@@ -4836,7 +4835,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         socketView.socket_ServiceModel.service_service_id = @"0";
                     }
                     [self getsubt];
-                    
+
                     NSNumber * currentIndexForCategory = [NSNumber numberWithInt:indexOfCategory];
                     NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
                     //创建通知
@@ -4845,92 +4844,92 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [self.tableForSliderView reloadData];
                     [tempTableviewForFocus reloadData];
                     //                    [self.table reloadData];
-                    
+
                     NSArray * serviceArrForJudge =  self.serviceData;
                     //这里获得当前焦点
                     NSArray * arrForServiceByCategory = [[NSArray alloc]init];
                     if ([self.categorys isKindOfClass:[NSMutableArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
                         if (epgDicToSocket.count > 14) { //录制
-                            
+
                             arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-                            
+
                         }else
                         {
-                            
+
                             if (self.categorys.count >indexOfCategory ) {
                                 arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
                             }
-                            
-                            
+
+
                         }
                     }
                     if ([arrForServiceByCategory isKindOfClass:[NSArray class]]){
-                        
+
                         for (int i = 0; i< arrForServiceByCategory.count; i++) {
                             NSLog(@"arrForServiceByCategory %lu",(unsigned long)arrForServiceByCategory.count);
-                            
+
                             if ([epgDicToSocket isKindOfClass:[NSDictionary class]]){
                                 if (epgDicToSocket.count > 14) { //录制
-                                    
+
                                     NSDictionary * serviceForJudgeDic = arrForServiceByCategory[i];
-                                    
+
                                     //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                                     BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
                                     NSLog(@"isEqualForTwoDic %d",isEqualForTwoDic);
                                     if (isEqualForTwoDic) {
-                                        
+
                                         int indexForJudgeService = i;
                                         indexOfServiceToRefreshTable =indexForJudgeService;
-                                        
+
                                         //选中数据变蓝
                                         [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
-                                        
+
                                     }
                                 }else
                                 {
                                     NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
-                                    
+
                                     //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                                     BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
-                                    
+
                                     if (isEqualForTwoDic) {
-                                        
+
                                         int indexForJudgeService = i;
                                         indexOfServiceToRefreshTable =indexForJudgeService;
-                                        
+
                                         //选中数据变蓝
                                         [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
-                                        
+
                                     }
                                 }
                             }
                         }
-                        
+
                     }
-                    
+
                     [tableForSliderView reloadData];
-                    
+
                     tempBoolForServiceArr = YES;
                     tempArrForServiceArr =  self.categoryModel.service_indexArr;
                     tempDicForServiceArr = self.TVChannlDic;
-                    
+
                     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-                    
+
                     NSLog(@"self.video.dicChannl55 %@",self.video.dicChannl);
-                    
+
                     if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                         self.video.channelCount = tempArrForServiceArr.count;
                     }
-                    
+
                     //== 录制时间赋值
                     if (epgDicToSocket.count > 14) {  //录制
-                        
+
                         //录制节目的时间
                         self.event_startTime = [epgDicToSocket objectForKey:@"record_time"];
                         NSString * RECStartTime = [epgDicToSocket objectForKey:@"record_time"];
                         NSString * RECDurationTime = [epgDicToSocket objectForKey:@"duration"];
                         self.event_endTime = [NSString stringWithFormat:@"%ld",[RECStartTime integerValue] + [RECDurationTime integerValue]];
-                        
+
                         BOOL isEventStartTimeBigNowTime = NO;//= [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
                         if (isEventStartTimeBigNowTime == YES) {
                             self.event_videoname = @"";
@@ -4951,22 +4950,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.video.endTime = self.event_endTime;
                             NSLog(@"hidenhidenhidenhiden 101010101010101 aaaaaaaaa");
                         }
-                        
+
                         NSString * acc = self.video.startTime;
                         NSString * cca = self.video.endTime;
                         NSLog(@"acc == %@",acc);
                         NSLog(@"cca == %@",cca);
-                        
+
                     }
-                    
-                    
-                    
+
+
+
                     [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
                     NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
                     [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
-                    
+
                     NSLog(@"self.video.dicChannl88==33");
-                    
+
                     if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
                         //                        self.video.startTime = @"0";
                         //                        self.video.endTime = @"0";
@@ -4974,15 +4973,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.video.startTime = self.event_startTime;
                         self.video.endTime = self.event_endTime;
                     }
-                    
+
                     [self updateFullScreenDic];
-                    
+
                     //                    [self.tableForSliderView reloadData];
                     [tempTableviewForFocus reloadData];
                     [self refreshTableviewByEPGTime];
                     [self caculatorProgress];
                     return ;
-                    
+
                 }
                 else{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
@@ -4990,14 +4989,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
                 [self.videoController setaudioOrSubtRowIsZero];
                 //__
-                
+
                 NSArray * audio_infoArr = [[NSArray alloc]init];
                 NSArray * subt_infoArr = [[NSArray alloc]init];
-                
+
                 NSArray * epg_infoArr = [[NSArray alloc]init];
                 //****
-                
-                
+
+
                 socketView.socket_ServiceModel = [[ServiceModel alloc]init];
                 audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
                 subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
@@ -5011,9 +5010,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (audio_infoArr.count > 0 ) {
                         int audiopidTemp;
                         audiopidTemp = [self setAudioPidTemp:audio_infoArr EPGDic:epgDicToSocket];
-                        
+
                         socketView.socket_ServiceModel.audio_pid = [audio_infoArr[audiopidTemp] objectForKey:@"audio_pid"];
-                        
+
                     }else
                     {
                         socketView.socket_ServiceModel.audio_pid = nil;
@@ -5025,13 +5024,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         socketView.socket_ServiceModel.subt_pid = nil;
                     }
                 }
-                
-                
+
+
                 //********
                 [self SetService_videoindex:epgDicToSocket];
                 //此处获得该EPG的当前信息，否则我们播放的信息还是它之前的信息
                 for (int i = 0; i<self.serviceData.count; i++) {
-                    
+
                     BOOL isYes =  [GGUtil judgeTwoEpgDicIsEqual:self.serviceData[i] TwoDic:epgDicToSocket]; //此处通过判断两个EPG信息是否相等来找到两个一样的EPG信息
                     if(isYes == YES)
                     {
@@ -5039,17 +5038,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     else //没有找到
                     {
-                        
+
                     }
                 }
-                
-                
-                
+
+
+
                 self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
                 epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
                 if (epg_infoArr.count == 0 || epg_infoArr == nil) {
                     //            return;
-                    
+
                     self.event_videoname = @"";
                     self.event_startTime = @"";
                     self.event_endTime = @"";
@@ -5069,7 +5068,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
                         NSLog(@"hidenhidenhidenhiden bbbbbbb");
-                        
+
                     }
                     else{
                         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
@@ -5078,9 +5077,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [GGUtil postsetTimeAndProgressIsShowNotific];
                         NSLog(@"hidenhidenhidenhiden bbbbbbb aaaaaaaaa");
                     }
-                    
+
                 }
-                
+
                 isEventStartTimeBiger_NowTime = NO;
                 BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
                 if (isEventStartTimeBigNowTime == YES) {
@@ -5089,15 +5088,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                 }
-                
+
                 self.TVSubAudioDic = epgDicToSocket;
-                
+
                 self.TVChannlDic = self.dicTemp;
-                
+
                 tempBoolForServiceArr = YES;
                 tempArrForServiceArr =  self.categoryModel.service_indexArr;
                 tempDicForServiceArr = self.TVChannlDic;
-                
+
                 self.video.dicChannl = [tempDicForServiceArr mutableCopy];
                 if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                     self.video.channelCount = tempArrForServiceArr.count;
@@ -5108,7 +5107,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
-                    
+
                     if (self.showTVView == YES) {
                         self.videoController.socketView1 = self.socketView;
                         [self.socketView  serviceTouch ];
@@ -5119,7 +5118,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
             }
         }
-        
+
         NSNumber * currentIndexForCategory = [NSNumber numberWithInt:indexOfCategory];
         NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategory,@"currentIndex", nil];
         //创建通知
@@ -5129,9 +5128,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        [self.tableForSliderView reloadData];
         //        [self.table reloadData];
         [tempTableviewForFocus reloadData];
-        
+
         //        __NSConstantString * abc =
-        
+
         NSArray * serviceArrForJudge =  self.serviceData;
         //这里获得当前焦点
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
@@ -5141,88 +5140,98 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@" epgDicToSocket %@",[epgDicToSocket superclass]);
         if ([self.categorys isKindOfClass:[NSArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
             if (epgDicToSocket.count > 14) { //录制
-                
+
                 arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-                
+
             }else
             {
-                
+
                 if (self.categorys.count >indexOfCategory ) {
                     arrForServiceByCategory = [self.categorys[indexOfCategory] objectForKey:@"service_index"];
                 }
-                
-                
+
+
             }
         }
         if ([arrForServiceByCategory isKindOfClass:[NSArray class]]){
-            
+
             for (int i = 0; i< arrForServiceByCategory.count; i++) {
                 NSLog(@"arrForServiceByCategory %lu",(unsigned long)arrForServiceByCategory.count);
-                
+
                 if ([epgDicToSocket isKindOfClass:[NSDictionary class]]){
                     if (epgDicToSocket.count > 14) { //录制
-                        
+
                         NSDictionary * serviceForJudgeDic = arrForServiceByCategory[i];
-                        
+
                         //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                         BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
                         NSLog(@"isEqualForTwoDic %d",isEqualForTwoDic);
                         if (isEqualForTwoDic) {
-                            
+
                             int indexForJudgeService = i;
                             indexOfServiceToRefreshTable =indexForJudgeService;
-                            
+
                             //选中数据变蓝
                             [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
-                            
+
                         }
                     }else
                     {
                         NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
-                        
+
                         //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                         BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicToSocket];
-                        
+
                         if (isEqualForTwoDic) {
-                            
+
                             int indexForJudgeService = i;
                             indexOfServiceToRefreshTable =indexForJudgeService;
-                            
+
                             //选中数据变蓝
-                            [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
-                            
+//                            [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
+
                         }
                     }
                 }
             }
-            
+
         }
-        
+
         [tableForSliderView reloadData];
-        
+
         tempBoolForServiceArr = YES;
         tempArrForServiceArr =  self.categoryModel.service_indexArr;
         tempDicForServiceArr = self.TVChannlDic;
-        
+
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-        
+
         NSLog(@"self.video.dicChannl55 %@",self.video.dicChannl);
-        
+
         if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
             self.video.channelCount = tempArrForServiceArr.count;
         }
-        
+
         [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
         NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
         [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
-        
+
         NSLog(@"self.video.dicChannl88==33");
         [self updateFullScreenDic];
-        
+
+
+        if (row != 0) {
+            NSIndexPath * hahah = [NSIndexPath indexPathForRow:row inSection:0];
+            [tempTableviewForFocus scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [self.table scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [self.tableForTemp scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+            [tableForSliderView scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }
+
     }
-    
-    
+
+
 }
+
 -(int)judgeCategoryType:(NSDictionary *)NowServiceDic
 {
     //获取全部的channel数据，判断当前点击的channel是哪一个dic
@@ -6298,6 +6307,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //选中数据变蓝
                     [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
                 }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                if (i != 0) {
+                    NSIndexPath * hahah = [NSIndexPath indexPathForRow:i inSection:0];
+                    [tempTableviewForFocus scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                    [self.table scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                    [self.tableForTemp scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                    [tableForSliderView scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                }
+                });
             }
             
         }
@@ -6317,6 +6336,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
     }
     
+   
 }
 #pragma mark - CA弹窗
 -(void)popCAAlertView: (NSNotification *)text

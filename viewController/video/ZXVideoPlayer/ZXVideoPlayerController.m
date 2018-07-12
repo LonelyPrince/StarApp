@@ -4444,7 +4444,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
             
         }else
         {
+            dispatch_async(dispatch_get_main_queue(), ^{
             [self.videoControl.audioBtn setEnabled:YES];
+            });
         }
         NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     });
