@@ -16,7 +16,7 @@
 //#import "UIButton+EnlargeTouchArea.h"
 
 static const CGFloat kVideoControlBarHeight = 50;  // 20.0 + 30.0;
-static const CGFloat kVideoControlAnimationTimeInterval = 0.3;
+static const CGFloat kVideoControlAnimationTimeInterval = 0.1;
 static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
