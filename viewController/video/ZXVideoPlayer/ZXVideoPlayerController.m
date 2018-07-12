@@ -510,6 +510,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
         }else
         {
             [self.videoControl.indicatorView startAnimating];
+            NSLog(@"记载换产生11111");
         }
         
         //        //创建通知
@@ -874,8 +875,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     
     [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
     
-    [self.videoControl.indicatorView startAnimating];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.videoControl.indicatorView startAnimating];
+    });
+    NSLog(@"记载换产生222222");
     //    }
     
     //创建通知

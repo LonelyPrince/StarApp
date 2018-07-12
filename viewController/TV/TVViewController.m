@@ -120,6 +120,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL judgeRecIsCA;
     int judgeIsNeedShowDeliveryStop;
     int zhuyeClick;
+    int SDTMonitor_addHistory ;
 }
 
 
@@ -375,6 +376,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    SDTMonitor_addHistory = 0;
     zhuyeClick = 0;
     judgeIsNeedShowDeliveryStop = 0;
     //    pushAlertViewIndex = 0;
@@ -3003,7 +3005,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (![[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             [GGUtil postnoPlayShowShutNotic];
-            [GGUtil postIndicatorViewShowNotic];
+            if (SDTMonitor_addHistory == 0) {
+                [GGUtil postIndicatorViewShowNotic];
+            }else{ // SDTMonitor_addHistory == 1 代表是触发监控导致的addhistory
+                SDTMonitor_addHistory = 0;
+            }
+        
+            
         }
         //        if (self.showTVView == YES) {
         //            [self ifNeedPlayClick];
@@ -3842,7 +3850,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // history 修改
                     
                     [self addHistory:rowIndex diction:dic];
-                    
+                    SDTMonitor_addHistory = 1;
                     
                     //==========fix
                     //重新执行播放,并且要注意判断是不是加锁类型
