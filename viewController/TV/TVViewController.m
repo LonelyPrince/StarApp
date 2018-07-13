@@ -6299,24 +6299,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                 BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicFromPopSTB];
                 
+                int indexForJudgeService = i;
                 if (isEqualForTwoDic) {
                     
-                    int indexForJudgeService = i;
+//                    int indexForJudgeService = i;
                     indexOfServiceToRefreshTable =indexForJudgeService;
                     
                     //选中数据变蓝
                     [self tableViewCellToBlue:indexOfCategory indexhah:indexForJudgeService AllNumberOfService:arrForServiceByCategory.count];
+                    
+                    
+                    double delayInSeconds = 0.4;
+                    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                    dispatch_after(popTime, mainQueue, ^{
+                        NSLog(@"延时执行的2秒");
+                        
+                        if (indexForJudgeService != 0) {
+                            NSIndexPath * hahah = [NSIndexPath indexPathForRow:indexForJudgeService inSection:0];
+                            //                        [tempTableviewForFocus scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                            //                        [self.table scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                            //                        [self.tableForTemp scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                            [tableForSliderView scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                        }
+                    });
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                if (i != 0) {
-                    NSIndexPath * hahah = [NSIndexPath indexPathForRow:i inSection:0];
-                    [tempTableviewForFocus scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-                    [self.table scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-                    [self.tableForTemp scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-                    [tableForSliderView scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-                }
-                });
+                
+                
             }
             
         }
@@ -8206,7 +8216,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
                     
-                    [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)i]]];
+                    if (i < serviceData_DefaultTemp.count) {
+                        [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)i]]];
+                    }
+                    
                     [USER_DEFAULT setObject:[serviceData_DefaultTemp copy]  forKey :@"serviceData_Default"]; // 存到serviceData_Default 中
                     
                 }
