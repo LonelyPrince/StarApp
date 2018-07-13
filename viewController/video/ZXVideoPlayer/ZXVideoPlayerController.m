@@ -833,8 +833,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
 }
 -(void)IndicatorViewHiddenNotic
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
     [self.videoControl.indicatorView stopAnimating];
     NSLog(@"圆圈停止的通知，圆圈暂停");
+    });
 }
 //设置节目名称和其他信息的通知
 -(void)setChannelNameOrOtherInfo
@@ -914,8 +916,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
@@ -1152,8 +1154,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
@@ -1429,6 +1431,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
+    NSNotification *notification3 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification3];
     NSLog(@"decoder 点击了");
 }
 
