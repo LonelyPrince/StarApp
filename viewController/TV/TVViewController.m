@@ -5227,8 +5227,65 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [tableForSliderView scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
         }
 
-    }
+        
+        
 
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            self.video.channelId = self.service_videoindex;
+            self.video.channelName = self.service_videoname;
+            
+            
+            
+            
+            zhuyeClick = 1;
+            NSDictionary *channlIdNameDic =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.channelId,@"channelIdStr",self.video.channelName,@"channelNameStr", nil];
+            
+            NSLog(@"self.video.channelId %@",self.video.channelId);
+            NSLog(@"self.video.channelName %@",self.video.channelName);
+            
+            //创建通知
+            NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameOrOtherInfoNotic" object:nil userInfo:channlIdNameDic];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
+
+
+//            NSNotification *replaceEventNameNotific2 =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+//            [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific2];
+            //
+//            NSNotification *notification11 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+//            //通过通知中心发送通知
+//            [[NSNotificationCenter defaultCenter] postNotification:notification11];
+
+
+            self.video.startTime = self.event_startTime;
+            self.video.endTime = self.event_endTime;
+            if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
+
+
+                self.video.startTime = @"0";
+                self.video.endTime = @"0";
+                self.event_videoname = @"";
+                [GGUtil postsetTimeAndProgressIsNullNotific];
+                [self removeTopProgressView];
+
+                NSLog(@"hidenhidenhidenhiden 55555");
+            }else{
+
+                [self removeTopProgressView];
+                [self.timer invalidate];
+                self.timer = nil;
+
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
+                self.topProgressView.alpha = 1;
+                NSLog(@"hidenhidenhidenhiden 555555 aaaaaaa");
+
+            }
+        });
+    }
+  
+ 
 
 }
 
