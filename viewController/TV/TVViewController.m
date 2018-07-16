@@ -1079,8 +1079,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.topProgressView.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
-                    [self.view addSubview:self.topProgressView];
-                    [self.view bringSubviewToFront:self.topProgressView];
+//                    [self.view addSubview:self.topProgressView];
+//                    [self.view bringSubviewToFront:self.topProgressView];
                     [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
                 });
                 
@@ -4461,18 +4461,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
     {
         NSLog(@"self.topProgressView121 %@",self.topProgressView);
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.view addSubview:self.topProgressView];
             [self.view bringSubviewToFront:self.topProgressView];
             [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
         });
-        
+
         NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
         NSLog(@"self.event_startTime--==%@",self.event_startTime);
         NSLog(@"self.event_startTime--==%@",self.event_endTime);
         if (ISNULL(self.event_startTime) || self.event_startTime == NULL || self.event_startTime == nil || ISNULL(self.event_endTime) || self.event_endTime == NULL || self.event_endTime == nil || self.event_startTime.length == 0 || self.event_endTime.length == 0) {
-            
+
             NSLog(@"此处可能报错，因为StarTime不为空 ");
             NSLog(@"在getDataService里面调用 replaceEventNameNotific");
             [self removeProgressNotific];
@@ -4480,44 +4480,44 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             NSLog(@"self.event_startTime 开始结束2--==%@",self.event_startTime);
             NSLog(@"self.event_startTime 结束开始2--==%@",self.event_endTime);
-            
+
             [dict setObject:self.event_startTime forKey:@"StarTime"];
             [dict setObject:self.event_endTime forKey:@"EndTime"];
-            
-            
-            
+
+
+
             //判断当前是不是一个节目（此处应该没有实质价值）
             eventName1 = self.event_videoname;
             eventName2 = self.event_videoname;
             eventNameTemp = eventName1;
             eventName2 = eventNameTemp;
-            
+
             progressEPGArrIndex = 0;
-            
+
             if (self.timer != nil) {
                 [self.timer invalidate];
                 self.timer = nil;
             }
-            
-            
+
+
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
-            
+
             int tempIndex =progressEPGArrIndex;
             NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
             [USER_DEFAULT setObject:tempIndexStr  forKey:@"nowChannelEPGArrIndex"];
             //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
             NSInteger endTime =[self.event_endTime intValue ];
-            
+
             NSString *nowDate = [GGUtil GetNowTimeString];
             NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
-            
+
             if (endTimeCutStartTime > 0) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
                 [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
             }
         }
-        
-        
+
+
     }else{
         [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
     }
@@ -8482,12 +8482,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.topProgressView.borderTintColor = [UIColor whiteColor];
         self.topProgressView.progressTintColor = ProgressLineColor;
         self.topProgressView.progressBackgroundColor = [UIColor colorWithRed:0x80 green:0x80 blue:0x80 alpha:0.3];
-        
+
             [self.view addSubview:self.topProgressView];
             [self.view bringSubviewToFront:self.topProgressView];
             [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-        
-        
+
+
         self.progressViews = @[ self.topProgressView ];
     }
  });
