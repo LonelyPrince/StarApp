@@ -473,6 +473,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
+        NSLog(@"recFileData==A 1111 %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         
@@ -484,6 +485,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //录制节目,保存数据
             NSArray *recFileData = response[@"rec_file_info"];
+            NSLog(@"recFileData==A 2222 %@",recFileData);
             [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
             
             self.serviceData = (NSMutableArray *)data1; //data1 代表service
@@ -616,8 +618,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }else
                 {
+                    NSLog(@"记号==刷新 1111");
                     //机顶盒连接出错了，所以要显示没有网络的加载图
                     [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
+                    
                     return ;
                 }
                 
@@ -759,6 +763,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         }
                     }else
                     {
+                        NSLog(@"记号==刷新 2222");
                         //机顶盒连接出错了，所以要显示没有网络的加载图
                         [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                         return ;
@@ -1243,6 +1248,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     // 可在此处实现下拉刷新时要执行的代码
     // ......
     
+    NSLog(@"记号==刷新 3333");
     [self tableViewDataRefreshForMjRefresh];  //重新获取json数据
     
     NSLog(@"tableForDicIndexDic:%@",self.tableForDicIndexDic);
@@ -3645,6 +3651,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self tableViewDataRefreshForSDTMonitor];
     
 }
+
 #pragma mark - 机顶盒发送通知，需要刷新节目了   socket case = 0
 -(void)tableViewDataRefreshForSDTMonitor
 {
@@ -3950,6 +3957,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notificationX =[NSNotification notificationWithName:@"refreshChannelTableNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notificationX];
+    
+    //    // 1 .刷新上一个下一个  2. 刷新全屏右侧列表
+    //
+    //    NSNotification *notification3 =[NSNotification notificationWithName:@"judgeLastNextBtnIsEnableNotific" object:nil userInfo:nil];
+    //    [[NSNotificationCenter defaultCenter] postNotification:notification3];
+    //
+    //    NSLog(@"dispatch_get_global_queue 历史记录的主方法==结束");
+    
 }
 -(void)tableViewDataRefreshForSDTMonitorSMT
 {
@@ -3973,6 +3988,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data1 = response[@"service"];
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
+        NSLog(@"recFileData==A 3333 %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
@@ -6372,7 +6388,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     dispatch_after(popTime, mainQueue, ^{
                         NSLog(@"延时执行的2秒");
                         
-                        if (indexForJudgeService != 0) {
+                        if (indexForJudgeService != 0 && indexForJudgeService < [tableForSliderView numberOfRowsInSection:0]) {
                             NSIndexPath * hahah = [NSIndexPath indexPathForRow:indexForJudgeService inSection:0];
                             //                        [tempTableviewForFocus scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
                             //                        [self.table scrollToRowAtIndexPath:hahah  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
@@ -6880,7 +6896,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data = response[@"category"];
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        if (recFileData.count == 0) {
+            NSLog(@"response44: %@",response);
+            if ([response[@"data_valid_flag"] isEqualToString:@"0"]) {
+                
+            }else
+            {
+                [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+            }
+        }else
+        {
+            [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        }
+        NSLog(@"recFileData==A 4444 %@",recFileData);
+        
         if (data.count == 0 && recFileData.count == 0){ //没有数据
             [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
             if (data1.count == 0 && recFileData.count == 0)
@@ -6903,9 +6932,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (!self.NoDataLabel) {
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
-                }else
+                }
+                else
                 {
                     //机顶盒连接出错了，所以要显示没有网络的加载图
+                    NSLog(@"记号==刷新 4444");
                     [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                     return ;
                 }
@@ -6974,6 +7005,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {
                 //机顶盒连接出错了，所以要显示没有网络的加载图
+                NSLog(@"记号==刷新 5555");
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
             }
@@ -7030,6 +7062,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {
                 //机顶盒连接出错了，所以要显示没有网络的加载图
+                NSLog(@"记号==刷新 6666");
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
             }
@@ -7171,8 +7204,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
+        
+        if (recFileData.count == 0) {
+            NSLog(@"response44: %@",response);
+            if ([response[@"data_valid_flag"] isEqualToString:@"0"]) {
+                
+            }else
+            {
+                [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+            }
+        }else
+        {
+            [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        }
         NSLog(@"recFileData %@",recFileData);
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        NSLog(@"recFileData==A 5555 %@",recFileData);
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         dataForData1 = [data1 copy];
         dataForrecFileData = [recFileData copy];
         
@@ -7203,6 +7250,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else
             {
                 //机顶盒连接出错了，所以要显示没有网络的加载图
+                NSLog(@"记号==刷新 7777");
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
             }
@@ -7493,6 +7541,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
+        NSLog(@"recFileData==A 6666 %@",recFileData);
         [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         
         if ( data1.count == 0 && recFileData.count == 0){
@@ -9433,7 +9482,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }
 }
-
 -(void)setCategoryAndREC :(NSArray *) data RECFile :(NSArray *)recFileData
 {
     if (data.count == 0 && recFileData.count == 0){ //没有数据

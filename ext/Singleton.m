@@ -33,14 +33,9 @@
 // socket连接
 -(void)socketConnectHost{
     
-    //    self.socketView = [[SocketView alloc]init];
-    
     self.socket    = [[AsyncSocket alloc] initWithDelegate:self];
-    
     NSError *error = nil;
-//
     [self.socket connectToHost:self.socketHost onPort:self.socketPort withTimeout:3 error:&error];
-    
 }
 
 //心跳
@@ -73,10 +68,9 @@
     //
     self.connectStatus = 0; //连接成功，则赋值为0
     
-    // 每隔30s像服务器发送心跳包
+    // 每隔15s像服务器发送心跳包
     [sock readDataWithTimeout:-1 tag:0];
     self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
-    
     [self.connectTimer fire];
     
 }
@@ -119,18 +113,13 @@
 
 //播放视频
 -(void)Play_ServiceSocket{
-    
     // 根据服务器要求发送固定格式的数据
-    NSUserDefaults *userDef=USER_DEFAULT;//这个对象其实类似字典，这也是一个单例的例子
+    NSUserDefaults *userDef=USER_DEFAULT;
     NSMutableData * data_service = [[NSMutableData alloc]init];
-    
     data_service = [userDef objectForKey:@"data_service"];
-    NSLog(@"singleton data_service :%@",data_service);
-    
-    
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
-    NSLog(@"self.playerView1url---== socket 第一次打开发送播放命令");
+    
 }
 #pragma mark - 播放录制视频
 -(void)Play_ServiceRECSocket{
@@ -281,15 +270,15 @@
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
             //route页面，网络通知，如果没网，显示没有网络图片
-            NSNotification *notification2 = [NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
+            NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
             
-//
+            
             NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnNotEnabled" object:nil userInfo:nil];
             //        //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification3];
-//
+            
         }
         
         
@@ -302,7 +291,7 @@
     else if (sock.userData == SocketOfflineByUser) {
         // 如果由用户断开，不进行重连
         NSLog(@"sorry the connect is 用户断开");
-//
+        
         [USER_DEFAULT setObject:mediaDisConnect forKey:@"playStateType"];
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         
@@ -313,12 +302,12 @@
         NSNotification *notification1 =[NSNotification notificationWithName:@"netWorkIsColseNotice" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
-
+        
         //route页面，网络通知，如果没网，显示没有网络图片
         NSNotification *notification2 =[NSNotification notificationWithName:@"routeNetWorkError" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification2];
-
+        
         NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnNotEnabled" object:nil userInfo:nil];
         //        //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification3];
@@ -2342,6 +2331,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"notice" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"dispatch_get_global_queue jieshoudao播放命令");
     NSLog(@"测试播放33333333333333---直播节目");
 }
 ///other设备投屏手机设备  29
@@ -2653,7 +2643,6 @@
 //对socket读取文件进行操作   case = 39
 -(void)readSocketCommandTypeISThirtynine:(NSData *)dataToOperate  //视频分发退出，需要判断是不是正在播放的节目
 {
-    NSLog(@"this is Major 000000");
     NSLog(@"dataToOperate=a=a= %@",dataToOperate);
     
     NSData * dataTemp = [[NSData alloc]init];
