@@ -756,7 +756,7 @@
                 NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
                 if ([[resDict objectForKey:@"code"] isEqual:@1]) {
                     
-                    NSString * SameOriginalPINTryAgainLabel = NSLocalizedString(@"SameOriginalPINTryAgainLabel", nil);
+                    NSString * SameOriginalPINTryAgainLabel = NSLocalizedString(@"SamePINTryAgainLabel", nil);
                     [registerPwdTip setMessage:SameOriginalPINTryAgainLabel];
                     [registerPwdTip show];
                     
