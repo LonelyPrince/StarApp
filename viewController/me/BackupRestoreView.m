@@ -21,6 +21,7 @@
     NSDictionary * deviceDic;
     MBProgressHUD * HUD;
     MBProgressHUD * successHUD;
+    MBProgressHUD * NoBackupHUD;
     UIView *  netWorkErrorView;
     
     NSString * DMSIP;
@@ -550,6 +551,45 @@
     }];
     
 }
+-(void)showNoBackupHUD
+{
+    
+    NoBackupHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    
+    [self.view addSubview:NoBackupHUD];
+    
+//    if ([hudType isEqualToString: @"backup"]) {
+//        NSString * MLBackupFailure = NSLocalizedString(@"MLBackupFailure", nil);
+//        successHUD.labelText = MLBackupFailure;
+//    }else if ([hudType isEqualToString: @"restore"])
+//    {
+//        NSString * MLRestoreFailure = NSLocalizedString(@"MLRestoreFailure", nil);
+//        successHUD.labelText = MLRestoreFailure;
+//    }else
+//    {
+//        successHUD.labelText = @"Failed";
+//    }
+    
+    NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+    NoBackupHUD.labelText = MLNOBackupRestored;
+    
+    NoBackupHUD.mode = MBProgressHUDModeCustomView;
+    
+    //    successHUD.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Checkmark"]] autorelease];
+    
+    [NoBackupHUD showAnimated:YES whileExecutingBlock:^{
+        
+        NSLog(@"waitwaitwaitwaitwaitwait");
+        sleep(2);
+        
+    } completionBlock:^{
+        
+        [NoBackupHUD removeFromSuperview];
+        NoBackupHUD = nil;
+        
+    }];
+    
+}
 -(void)showFailHUD
 {
     
@@ -629,22 +669,56 @@
             NSLog(@"[resDict objectForKey:] %@",[resDict objectForKey:@"code"]);
             if ([[resDict objectForKey:@"code"] isEqual:@1]) {//失败
                 
-                NSLog(@"备份失败");
-                NSLog(@"code code 1");
-                hudType = @"restore";
-                [self showFailHUD];
-                
+                NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+                if ([backUPLab.text isEqualToString:MLNOBackupRestored]) {
+                    NSLog(@"没有备份信息，无法还原");
+                    NSLog(@"code code 0");
+                    [self showNoBackupHUD];
+                }else
+                {
+                    NSLog(@"备份失败");
+                    NSLog(@"code code 1");
+                    hudType = @"restore";
+                    [self showFailHUD];
+                }
                 
             }
             else if ([[resDict objectForKey:@"code"] isEqual:@0]) //成功
             {
+                NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+                if ([backUPLab.text isEqualToString:MLNOBackupRestored]) {
+                    NSLog(@"没有备份信息，无法还原");
+                    NSLog(@"code code 0");
+                    [self showNoBackupHUD];
+                }else
+                {
+                    
+                    NSLog(@"备份成功");
+                    NSLog(@"code code 0");
+                    hudType = @"restore";
+                    [self showSuccessHUD];
+                    
+                    //                [self updateBackupInfo];
+                }
                 
-                NSLog(@"备份成功");
-                NSLog(@"code code 0");
-                hudType = @"restore";
-                [self showSuccessHUD];
                 
-//                [self updateBackupInfo];
+            }
+            else if ([[resDict objectForKey:@"code"] isEqual:@10]) //成功
+            {
+                
+                NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+                if ([backUPLab.text isEqualToString:MLNOBackupRestored]) {
+                    NSLog(@"没有备份信息，无法还原");
+                    NSLog(@"code code 0");
+                    [self showNoBackupHUD];
+                }else
+                {
+                    
+                    NSLog(@"备份busy  ,请等一会");
+                    NSLog(@"code code 1");
+                    hudType = @"restore";
+                    [self showFailHUD];
+                }
             }
             
             
