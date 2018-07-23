@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, ZXPanDirection){
 
 
 /// 播放器显示和消失的动画时长
-static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
+static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 @interface ZXVideoPlayerController () <UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -220,8 +220,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
         judgeVideoIsStatic = 0;
         [self initData];
         pushBtnHasClick = NO;
-        [self newReplaceEventNameNotific];
-
     }
     return self;
 }
@@ -510,7 +508,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
         }else
         {
             [self.videoControl.indicatorView startAnimating];
-            NSLog(@"记载换产生11111");
         }
         
         //        //创建通知
@@ -833,10 +830,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
 }
 -(void)IndicatorViewHiddenNotic
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
     [self.videoControl.indicatorView stopAnimating];
     NSLog(@"圆圈停止的通知，圆圈暂停");
-    });
 }
 //设置节目名称和其他信息的通知
 -(void)setChannelNameOrOtherInfo
@@ -877,10 +872,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     
     [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.videoControl.indicatorView startAnimating];
-    });
-    NSLog(@"记载换产生222222");
+    [self.videoControl.indicatorView startAnimating];
+    
     //    }
     
     //创建通知
@@ -916,8 +909,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-//    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
@@ -1154,8 +1147,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-//    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
@@ -1431,8 +1424,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-    NSNotification *notification3 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification3];
     NSLog(@"decoder 点击了");
 }
 
@@ -3414,9 +3405,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     {
         
         
-//        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification5];
+        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification5];
         
         [self.player shutdown];
         [self.player.view removeFromSuperview];
@@ -3498,23 +3489,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
 }
 -(void)replaceEventNameNotific
 {
-//    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-    self.videoControl.channelIdLab.text = self.video.channelId;
-    
-    self.videoControl.channelNameLab.text = self.video.channelName;
-    
-    self.videoControl.eventnameLabel.hidden = NO;
-    if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
-        self.videoControl.eventnameLabel.text = @"";
-    }else{
-        self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-    }
-    
-    
-    
-    //    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-    NSLog(@" %@",self.videoControl.eventnameLabel);
-
+    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
     NSLog(@"111 replace");
 }
 
@@ -4038,7 +4013,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     
     
 }
-
 -(void)refreshChannelTableNotific
 {
     //此处销毁通知，防止一个通知被多次调用    // 1
@@ -4048,9 +4022,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
 }
 -(void)refreshChannelTable
 {
-//    self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
+    //    self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
     [self.subAudioTableView reloadData];
 }
+
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -4431,9 +4406,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
         BOOL judgeIsNull = [self judgeSubtIsNull:subtarr];
         if (judgeIsNull == YES) {
             NSLog(@"数值为空，所以此时应该直接返回");
-            dispatch_async(dispatch_get_main_queue(), ^{
             [self.videoControl.subtBtn setEnabled:NO];
-            });
             
         }else
         {
@@ -4448,9 +4421,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
             
         }else
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
             [self.videoControl.audioBtn setEnabled:YES];
-            });
         }
         NSLog(@"我被选中了，哈哈哈哈哈哈哈");
     });
@@ -5186,9 +5157,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
     
     [self newReplaceEventNameNotific];
-//    self.videoControl.channelIdLab.text = self.video.channelId;
-//
-//    self.videoControl.channelNameLab.text =  self.video.channelName;
+    self.videoControl.channelIdLab.text = self.video.channelId;
+    
+    self.videoControl.channelNameLab.text =  self.video.channelName;
     
     
     [self setEventTime1];
@@ -5830,5 +5801,4 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.1f;
     [self judgeNextBtnIsGray];
 }
 @end
-
 
