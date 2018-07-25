@@ -5040,6 +5040,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
 }
+
 -(void)setEventTime1 //判断进度条是不是需要显示
 {
     NSLog(@"this is 11111");
@@ -5048,7 +5049,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSString * tempIndexStr;
     NSArray * arr = [USER_DEFAULT objectForKey:@"NowChannelEPG"];
     if (arr.count > 0) {
-        
+
         tempIndexStr =[USER_DEFAULT objectForKey:@"nowChannelEPGArrIndex"];   //一直没变，应该让他先变
         EPGArrindex = [tempIndexStr intValue];
         NSLog(@"EPGArrindexEPGArrindexEPGArrindex %d",EPGArrindex);
@@ -5059,29 +5060,29 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [GGUtil postsetTimeAndProgressIsNullNotific];
         }else
         {
-            
+
             self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
             self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
-            
+
             NSString * str11 = self.video.startTime;
             NSString * str22 = self.video.endTime;
             NSLog(@"str11str11 %@",str11);
             NSLog(@"str22str22 %@",str22);
-            
+
             if (self.video.startTime != NULL && self.video.startTime != nil && [self.video.startTime intValue] >0 && self.video.endTime != NULL && self.video.endTime != nil && [self.video.endTime intValue] >0 && [self.video.endTime intValue]> [self.video.startTime intValue] && [[GGUtil GetNowTimeString] intValue] < [self.video.endTime intValue] && [[GGUtil GetNowTimeString] intValue] > [self.video.startTime intValue]) {
-                
+
                 self.video.startTime = [arr[EPGArrindex]objectForKey:@"event_starttime"];
                 self.video.endTime = [arr[EPGArrindex]objectForKey:@"event_endtime"];
-                
+
                 NSLog(@"self.video.startTime lalala22 :%@",self.video.startTime);
                 NSLog(@"endTime lalala22 :%@",self.video.endTime);
-                
+
                 float aa1 = [self.video.endTime intValue]  - [self.video.startTime intValue];  //时间差
                 NSString * aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
                 NSLog(@"nowTime %@",aa);
-                
+
                 int bb1 ;
-                
+
                 //如果时间为0 ,或者没有获取到时间，则显示为0
                 if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0) {
                     bb1 = 0;
@@ -5101,10 +5102,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                 }
                 NSLog(@"bb1 bb1 :%d",bb1);
-                
+
                 NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
                 NSLog(@"nowTime %@",nowTime);
-                
+
                 //            if([nowTime intValue] >= [aa intValue] )
                 if(bb1 >= aa1  )
                 {
@@ -5117,13 +5118,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 else{
                     NSLog(@"nowTime nowTime :%@",nowTime);
                     NSLog(@"nowTime nowTime :%@",aa);
-                    
+
                     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
                     NSLog(@"self.videoControl.eventTimeLabNow.text 55 %@",self.videoControl.eventTimeLabNow.text);
                     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",aa];
                     NSLog(@"tinetime 44");
                 }
-                
+
             }else
             {
                 NSLog(@"出错了，节目的当前时间不能大于结束时间");
@@ -5131,20 +5132,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 [GGUtil postsetTimeAndProgressIsNullNotific];
-                
+
             }
-            
+
         }
-        
+
     }
-    
-    
+
+
 }
 - (void)setVideo:(ZXVideo *)video
 {
     NSLog(@"contentURL 22ZXVideo");
     _video = video;
-    
+
     // 标题
     self.videoControl.titleLabel.text = self.video.title;
     // play url
@@ -5155,26 +5156,26 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"444 replace444 %@",self.videoControl.eventnameLabel.text);
     //        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
-    
+
     [self newReplaceEventNameNotific];
     self.videoControl.channelIdLab.text = self.video.channelId;
-    
+
     self.videoControl.channelNameLab.text =  self.video.channelName;
-    
-    
+
+
     [self setEventTime1];
-    
+
     NSString * channelType = [USER_DEFAULT objectForKey:@"ChannelType"];
     if ([channelType isEqualToString:@"RECChannel"]) {
         [self startDurationTimer];
         [timerOfEventTime invalidate];
         timerOfEventTime = nil;
-        
+
         timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(RECsetEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
-        
+
         [self.durationTimer invalidate];
         self.durationTimer = nil;
-        
+
         self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(monitorVideoPlayback) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:self.durationTimer forMode:NSRunLoopCommonModes];
     }else
@@ -5183,8 +5184,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         timerOfEventTime = nil;
         timerOfEventTime =  [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(setEventTime) userInfo:nil repeats:YES];  //时间变化的计时器
     }
-    
-    
+
+
     
     [self.videoControl.FullEventYFlabel removeFromSuperview];
     self.videoControl.FullEventYFlabel = nil;
