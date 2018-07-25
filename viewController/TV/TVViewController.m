@@ -119,6 +119,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int playVideoType;   //值 = 1，则代表直播；值 = 2，则代表录制   等于0则不处理
     BOOL judgeRecIsCA;
     int judgeIsNeedShowDeliveryStop;
+    int SDTMonitor_addHistory ;
+
 }
 
 
@@ -374,6 +376,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    SDTMonitor_addHistory = 0;
     judgeIsNeedShowDeliveryStop = 0;
     //    pushAlertViewIndex = 0;
     shareViewArr = [[NSMutableArray alloc]init];
@@ -2927,7 +2930,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (![[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             [GGUtil postnoPlayShowShutNotic];
-            [GGUtil postIndicatorViewShowNotic];
+//            [GGUtil postIndicatorViewShowNotic];
+            if (SDTMonitor_addHistory == 0) {
+                [GGUtil postIndicatorViewShowNotic];
+            }else{ // SDTMonitor_addHistory == 1 代表是触发监控导致的addhistory
+                SDTMonitor_addHistory = 0;
+            }
+
         }
         //        if (self.showTVView == YES) {
         //            [self ifNeedPlayClick];
@@ -3592,8 +3601,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
             NSLog(@"删除了某个节目");
-            //            [_slideView removeFromSuperview];
-            //            _slideView = nil;
+                        [_slideView removeFromSuperview];
+                        _slideView = nil;
             //
             [self.tableForSliderView reloadData];
             [self refreshTableviewByEPGTime];
@@ -3766,6 +3775,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // history 修改
                     
                     [self addHistory:rowIndex diction:dic];
+                    SDTMonitor_addHistory = 1;
                     
                     
                     //==========fix

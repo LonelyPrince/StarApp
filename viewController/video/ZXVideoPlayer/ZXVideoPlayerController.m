@@ -868,6 +868,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //        [self.videoControl.indicatorView stopAnimating];
     //    }else
     //    {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
     [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
     
     [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
@@ -875,7 +877,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.indicatorView startAnimating];
     
     //    }
-    
+    });
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
