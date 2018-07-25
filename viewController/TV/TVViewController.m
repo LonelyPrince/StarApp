@@ -1990,7 +1990,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.video.endTime = @"0";
                         self.event_videoname = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
-                        [self removeTopProgressView];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self removeTopProgressView];
+                        });
                         
                         NSLog(@"hidenhidenhidenhiden 11111");
                     }else
@@ -2010,7 +2012,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = @"";
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
-                    [self removeTopProgressView];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self removeTopProgressView];
+                    });
                 }
                 
                 isEventStartTimeBiger_NowTime = NO;
@@ -5480,7 +5484,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
-                    [self removeTopProgressView];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self removeTopProgressView];
+                    });
                     NSLog(@"hidenhidenhidenhiden dddddddd");
 
                 }else
@@ -5498,7 +5504,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
-                [self removeTopProgressView];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self removeTopProgressView];
+                });
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
