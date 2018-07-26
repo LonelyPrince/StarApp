@@ -105,6 +105,7 @@
     //    NSLog( @"当前的语言%@" , localeLanguageCode);
     //    [USER_DEFAULT setObject:localeLanguageCode forKey:@"systemLocalLanguage"];
     
+    NSLog(@"yuyan : %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"]);
     NSString* strLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"] objectAtIndex:0];
     if (strLanguage.length >=2) {
         NSString *str1 = [strLanguage substringToIndex:2];
