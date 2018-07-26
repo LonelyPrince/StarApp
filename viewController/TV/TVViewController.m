@@ -1127,13 +1127,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
-    
+
     //     [tempTableviewForFocus reloadData];
     //    [self refreshTableviewByEPGTime];
     //    [self.table reloadData];
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
     //    NSLog(@"search  sousuosoususousouosuosususuos");
-    
+
     //    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
 ////用于刷新页面和slderView
@@ -4384,6 +4384,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 计算进度条
 -(void)caculatorProgress
 {
+    
     //** 计算进度条
     if(self.event_startTime.length != 0 || self.event_endTime.length != 0)
     {
@@ -4441,6 +4442,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else{
         [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
     }
+//    self.topProgressView.alpha = 1;
 }
 
 
@@ -8602,6 +8604,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.topProgressView removeFromSuperview];
     [self.timer invalidate];
     self.timer = nil;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.topProgressView.alpha = 0;
+////        [self.topProgressView removeFromSuperview];
+////        [self.timer invalidate];
+////            self.timer = nil;
+//    });
+    
 }
 
 #pragma mark -////重新开始进度条和计时器的通知
@@ -9560,10 +9569,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //关闭当前正在播放的节目
+                        [self.videoController.player stop];
+                        [self.videoController.player shutdown];
+                        [self.videoController.player.view removeFromSuperview];
+                    });
                 }
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //关闭当前正在播放的节目
+                    [self.videoController.player stop];
+                    [self.videoController.player shutdown];
+                    [self.videoController.player.view removeFromSuperview];
+                });
             }
             
             firstOpenAPP = firstOpenAPP+1;
