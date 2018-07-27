@@ -120,7 +120,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL judgeRecIsCA;
     int judgeIsNeedShowDeliveryStop;
     int SDTMonitor_addHistory ;
-
+    
+    NSMutableArray * categorysToCategoryViewContainREC;
 }
 
 
@@ -459,7 +460,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [request startAsynchronous];
 
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
-    getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    getLastRecFileArr  = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC 111  %d",categorysToCategoryViewContainREC);
     WEAKGET
     [request setCompletionBlock:^{
 
@@ -472,8 +474,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        categorysToCategoryViewContainREC = recFileData;
+        NSLog(@"categorysToCategoryViewContainREC 222  %d",categorysToCategoryViewContainREC);
 
         if ( data1.count == 0 && recFileData.count == 0){
 
@@ -483,8 +486,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
             //录制节目,保存数据
             NSArray *recFileData = response[@"rec_file_info"];
-            [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+//            [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+            categorysToCategoryViewContainREC = recFileData;
 
+            NSLog(@"categorysToCategoryViewContainREC 333  %d",categorysToCategoryViewContainREC);
+            
             self.serviceData = (NSMutableArray *)data1; //data1 代表service
             [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
 
@@ -497,6 +503,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
+                        NSLog(@"删除了某个节目   500");
                         [_slideView removeFromSuperview];
                         _slideView = nil;
 
@@ -518,7 +525,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                        [_slideView removeFromSuperview];
+                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   522");
                         _slideView = nil;
 
                     }
@@ -598,7 +605,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
 
                     if (_slideView) {
-                        [_slideView removeFromSuperview];
+                        [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   602");
                         _slideView = nil;
 
                     }
@@ -665,7 +672,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                        [_slideView removeFromSuperview];
+                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   669");
                         _slideView = nil;
 
                     }
@@ -687,7 +694,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                        [_slideView removeFromSuperview];
+                        [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   691");
                         _slideView = nil;
 
                     }
@@ -741,7 +748,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
 
                         if (_slideView) {
-                            [_slideView removeFromSuperview];
+                            [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   745");
                             _slideView = nil;
 
                         }
@@ -1291,7 +1298,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 //如果发现第二列，则展示REC这个数组
-                NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSArray * RECTempArr = categorysToCategoryViewContainREC; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSLog(@"categorysToCategoryViewContainREC 444  %d",categorysToCategoryViewContainREC);
+                
                 self.categoryModel = [[CategoryModel alloc]init];
                 self.categoryModel.service_indexArr = RECTempArr;
                 tempArrForServiceArr =  RECTempArr;
@@ -1382,7 +1391,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else if (index == 1)
                 {
                     //如果发现第二列，则展示REC这个数组
-                    NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                    NSArray * RECTempArr =  categorysToCategoryViewContainREC;//[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                    NSLog(@"categorysToCategoryViewContainREC 555  %d",categorysToCategoryViewContainREC);
                     self.categoryModel.service_indexArr = RECTempArr;
                     numberOfRowsForTable = RECTempArr.count;
                     
@@ -1856,7 +1866,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int indexOfCategory =  self.category_index;
     NSArray * allNumberOfServiceArr ;
     
-    NSArray * categoryTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSArray * categoryTempArr = categorysToCategoryViewContainREC ; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC 666  %d",categorysToCategoryViewContainREC);
     if (categoryTempArr.count >1 && categoryTempArr != NULL && categoryTempArr !=nil) {
         //有录制有直播
         
@@ -3584,7 +3595,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"self.categorys=a=a=a= %lu",(unsigned long)self.categorys.count);
     
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
-    getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    getLastRecFileArr  = categorysToCategoryViewContainREC ; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC 777  %d",categorysToCategoryViewContainREC);
+    NSLog(@"getLastRecFileArr.count %lu",(unsigned long)getLastRecFileArr.count);
     WEAKGET
     [request setCompletionBlock:^{
         
@@ -3594,21 +3607,40 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
         NSArray *data1 = response[@"service"];
         NSArray *recFileData = response[@"rec_file_info"];
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        categorysToCategoryViewContainREC = recFileData ;
+        NSLog(@"categorysToCategoryViewContainREC 888  %d",categorysToCategoryViewContainREC);
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            NSLog(@"删除了某个节目");
-                        [_slideView removeFromSuperview];
-                        _slideView = nil;
-            //
-            [self.tableForSliderView reloadData];
-            [self refreshTableviewByEPGTime];
-            [self.table reloadData];
+            NSLog(@"删除了某个节目  3603");
             
-            [self tableViewDataRefreshForMjRefresh_ONEMinute];
+            NSLog(@"self.categorys.count %lu",(unsigned long)self.categorys.count);
+            NSLog(@"recFileData %lu",(unsigned long)recFileData.count);
+            NSLog(@"getLastCategoryArr %lu",(unsigned long)getLastCategoryArr.count);
+            NSLog(@"getLastRecFileArr.count %lu",(unsigned long)getLastRecFileArr.count);
+            
+            if (self.categorys.count > 0 && recFileData.count > 0 && getLastCategoryArr.count > 0 && getLastRecFileArr.count > 0) {
+              
+                [self.tableForSliderView reloadData];
+                [self refreshTableviewByEPGTime];
+                [self.table reloadData];
+                
+                [self tableViewDataRefreshForMjRefresh_ONEMinute];
+            }else
+            {
+                [_slideView removeFromSuperview];
+                _slideView = nil;
+                //
+                [self.tableForSliderView reloadData];
+                [self refreshTableviewByEPGTime];
+                [self.table reloadData];
+                
+                [self tableViewDataRefreshForMjRefresh_ONEMinute];
+            }
+          
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
             //            [_slideView removeFromSuperview];
@@ -3889,7 +3921,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [request startAsynchronous];   //异步
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
-    getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    getLastRecFileArr  = categorysToCategoryViewContainREC ; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC 999  %d",categorysToCategoryViewContainREC);
     WEAKGET
     [request setCompletionBlock:^{
         
@@ -3900,13 +3933,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data1 = response[@"service"];
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        categorysToCategoryViewContainREC = recFileData;
+        NSLog(@"categorysToCategoryViewContainREC aaa  %d",categorysToCategoryViewContainREC);
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+            
+            NSLog(@"删除了某个节目   3911");
             [_slideView removeFromSuperview];
             _slideView = nil;
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
@@ -3914,12 +3951,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
         {
-            
+         
+            NSLog(@"删除了某个节目   3920");
             [_slideView removeFromSuperview];
             _slideView = nil;
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
+            
+            NSLog(@"删除了某个节目   3927");
             [_slideView removeFromSuperview];
             _slideView = nil;
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
@@ -4774,8 +4814,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if ([self.categorys isKindOfClass:[NSMutableArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
                         if (epgDicToSocket.count > 14) { //录制
 
-                            arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-
+                            arrForServiceByCategory = categorysToCategoryViewContainREC ; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                            NSLog(@"categorysToCategoryViewContainREC bbb  %d",categorysToCategoryViewContainREC);
                         }else
                         {
 
@@ -5064,7 +5104,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if ([self.categorys isKindOfClass:[NSArray class]] && [epgDicToSocket isKindOfClass:[NSDictionary class]]){
             if (epgDicToSocket.count > 14) { //录制
 
-                arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                arrForServiceByCategory = categorysToCategoryViewContainREC ; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSLog(@"categorysToCategoryViewContainREC ccc  %d",categorysToCategoryViewContainREC);
+                
 
             }else
             {
@@ -5152,7 +5194,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSDictionary * serviceArrForJudge_dic ;
     //1.判断是不是存在录制  2。如果有录制，优先判断是不是录制类型  3.如果没有录制，则判断是不是有其他类型
     
-    NSArray * RECArrForJudgeCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSArray * RECArrForJudgeCategory = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC ddd  %d",categorysToCategoryViewContainREC);
     
     if (RECArrForJudgeCategory.count > 0 && RECArrForJudgeCategory != nil) {
         for (int i = 0; i<RECArrForJudgeCategory.count; i++) {
@@ -5772,8 +5815,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.serviceData = [USER_DEFAULT objectForKey:@"serviceData_Default"];
                 //                    recFileData = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
                 
-                [self setCategoryAndREC:[USER_DEFAULT objectForKey:@"serviceData_Default"] RECFile:[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"]];
+//                [self setCategoryAndREC:[USER_DEFAULT objectForKey:@"serviceData_Default"] RECFile:[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"]];
                 
+                [self setCategoryAndREC:[USER_DEFAULT objectForKey:@"serviceData_Default"] RECFile:categorysToCategoryViewContainREC];
+                NSLog(@"categorysToCategoryViewContainREC eee  %d",categorysToCategoryViewContainREC);
                 return ;
             }
             self.categorys = (NSMutableArray *)data;
@@ -6180,7 +6225,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
         if (epgDicFromPopSTB.count > 14) { //录制
             
-            arrForServiceByCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+            arrForServiceByCategory = categorysToCategoryViewContainREC ; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+            NSLog(@"categorysToCategoryViewContainREC fff  %d",categorysToCategoryViewContainREC);
             
         }else
         {
@@ -6732,7 +6778,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [request startAsynchronous];   //异步
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
-    getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    getLastRecFileArr  = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC ggg  %d",categorysToCategoryViewContainREC);
     
     WEAKGET
     [request setCompletionBlock:^{
@@ -6744,7 +6791,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data = response[@"category"];
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        categorysToCategoryViewContainREC = recFileData;
         if (data.count == 0 && recFileData.count == 0){ //没有数据
             [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
             if (data1.count == 0 && recFileData.count == 0)
@@ -6754,6 +6802,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     
                     if (_slideView) {
+                        NSLog(@"删除了某个节目   6762");
                         [_slideView removeFromSuperview];
                         _slideView = nil;
                         
@@ -6769,9 +6818,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }else
                 {
-                    //机顶盒连接出错了，所以要显示没有网络的加载图
-                    [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
-                    return ;
+//                    //机顶盒连接出错了，所以要显示没有网络的加载图
+//                    [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
+//                    return ;
                 }
                 [self NOChannelDataShow];
                 [self removeTopProgressView]; //删除进度条
@@ -6823,6 +6872,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 
                 if (_slideView) {
+                    NSLog(@"删除了某个节目   6832");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                 }
@@ -6865,9 +6915,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            [_slideView removeFromSuperview];
-            _slideView = nil;
-            [self tableViewDataRefreshForMjRefresh_ONEMinute];
+            NSLog(@"删除了某个节目   6875");
+//            [_slideView removeFrom Superview];
+//            _slideView = nil;r
+//            [self tableViewDataRefreshForMjRefresh_ONEMinute];
+            
+//            [self.tableForSliderView reloadData];
+//            [self refreshTableviewByEPGTime];
+//            [self.table reloadData];
         }
         
         
@@ -6878,6 +6933,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 
                 if (_slideView) {
+                    NSLog(@"删除了某个节目   6889");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                 }
@@ -6919,7 +6975,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (recFileData.count > 0 && data1.count == 0 ) {
                 //如果发现第二列，则展示REC这个数组
-                NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSArray * RECTempArr = categorysToCategoryViewContainREC ; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSLog(@"categorysToCategoryViewContainREC hhh  %d",categorysToCategoryViewContainREC);
                 self.categoryModel = [[CategoryModel alloc]init];
                 self.categoryModel.service_indexArr = RECTempArr;
                 NSLog(@" self.categoryModel.service_indexArr==333 %@ ", self.categoryModel.service_indexArr);
@@ -7021,7 +7078,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [request startAsynchronous];   //异步
     //
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
-    getLastRecFileArr  = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    getLastRecFileArr  = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC iii  %d",categorysToCategoryViewContainREC);
     WEAKGET
     [request setCompletionBlock:^{
         
@@ -7036,7 +7094,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        categorysToCategoryViewContainREC = recFileData;
+        NSLog(@"categorysToCategoryViewContainREC JJJ  %d",categorysToCategoryViewContainREC);
         dataForData1 = [data1 copy];
         dataForrecFileData = [recFileData copy];
         
@@ -7049,6 +7109,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 
                 if (_slideView) {
+                    NSLog(@"删除了某个节目   7961");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                     
@@ -7098,6 +7159,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //显示列表为空的数据
                     
                     if (_slideView) {
+                        NSLog(@"删除了某个节目   7111");
                         [_slideView removeFromSuperview];
                         _slideView = nil;
                         
@@ -7168,6 +7230,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     
                     if (_slideView) {
+                        NSLog(@"删除了某个节目   7182");
                         [_slideView removeFromSuperview];
                         _slideView = nil;
                         
@@ -7357,8 +7420,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData %@",recFileData);
-        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-        
+//        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
+        categorysToCategoryViewContainREC = recFileData;
+        NSLog(@"categorysToCategoryViewContainREC KKK  %d",categorysToCategoryViewContainREC);
         if ( data1.count == 0 && recFileData.count == 0){
             
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
@@ -7367,6 +7431,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //显示列表为空的数据
                 
                 if (_slideView) {
+                    NSLog(@"删除了某个节目   7382");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                     
@@ -7411,6 +7476,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
                 if (_slideView) {
+                    NSLog(@"删除了某个节目   7427");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                     
@@ -7494,6 +7560,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.categorys = (NSMutableArray *)data;
             NSLog(@"categorys==||=IPChange");
             
+            
+            NSLog(@"删除了某个节目   7512");
             [_slideView removeFromSuperview];
             _slideView = nil;
             
@@ -8732,7 +8800,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)setCategoryItem:(int)inputCategoryDic
 {
     NSLog(@"inputCategoryDic %d",inputCategoryDic);
-    NSArray * RECArrForJudgeCategory = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSArray * RECArrForJudgeCategory = categorysToCategoryViewContainREC; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC LLL  %d",categorysToCategoryViewContainREC);
     if (RECArrForJudgeCategory.count > 0 && RECArrForJudgeCategory != nil) {
         
         if (inputCategoryDic == 1) { //录制
@@ -8826,7 +8895,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else if (playTypeClass == 1){
         
         //如果发现第二列，则展示REC这个数组
-        NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+        NSArray * RECTempArr = categorysToCategoryViewContainREC; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+        NSLog(@"categorysToCategoryViewContainREC MMM  %d",categorysToCategoryViewContainREC);
         /*
          用于分别获取REC Json数据中的值
          **/
@@ -8906,7 +8976,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             
             //如果发现第二列，则展示REC这个数组
-            NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+            NSArray * RECTempArr = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+            NSLog(@"categorysToCategoryViewContainREC NNN%d",categorysToCategoryViewContainREC);
             /*
              用于分别获取REC Json数据中的值
              **/
@@ -9161,8 +9232,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         //判断是不是需要刷新顶部的YLSlider
         NSLog(@"准备做判断是否需要刷新！！！");
-        NSArray *recFileData = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-        if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"] lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+        NSArray *recFileData = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+        NSLog(@"categorysToCategoryViewContainREC OOO  %d",categorysToCategoryViewContainREC);
+//        if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"] lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+        if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:categorysToCategoryViewContainREC lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
+            
+            NSLog(@"删除了某个节目   9183");
             [_slideView removeFromSuperview];
             _slideView = nil;
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
@@ -9175,6 +9250,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 
                 if (_slideView) {
+                    NSLog(@"删除了某个节目   9196");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                 }
@@ -9214,7 +9290,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (recFileData.count > 0 && self.serviceData.count == 0 ) {
                 
                 //如果发现第二列，则展示REC这个数组
-                NSArray * RECTempArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSArray * RECTempArr = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+                NSLog(@"categorysToCategoryViewContainREC PPP  %d",categorysToCategoryViewContainREC);
                 self.categoryModel = [[CategoryModel alloc]init];
                 self.categoryModel.service_indexArr = RECTempArr;
                 tempArrForServiceArr =  RECTempArr;
@@ -9896,7 +9973,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
     }else
     {
-        NSMutableArray * liveMutableArr = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+        NSMutableArray * liveMutableArr = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+        NSLog(@"categorysToCategoryViewContainREC QQQ  %d",categorysToCategoryViewContainREC);
         NSMutableDictionary * liveMutableDic = [[NSMutableDictionary alloc]init];
         if ( !ISNULL(liveMutableArr)) {
             for (int i = 0 ; i < liveMutableArr.count; i++) {
@@ -10172,7 +10250,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)showDelivaryStopped
 {
     NSArray *data1 = self.serviceData;
-    NSArray *recFileData = [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSArray *recFileData = categorysToCategoryViewContainREC; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    NSLog(@"categorysToCategoryViewContainREC RRR  %d",categorysToCategoryViewContainREC);
     if (data1.count == 0 && recFileData.count == 0)
     {
         double delayInSeconds = 0;
