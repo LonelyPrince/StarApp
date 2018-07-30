@@ -210,6 +210,8 @@
         clientNameStr = [[NSString alloc]initWithData:clientNameData encoding:NSUTF8StringEncoding];
     }
     
+    NSLog(@"self.timeLab.text:%@",self.timeLab.text);
+    
     NSLog(@"clientNameStr:%@",clientNameStr);
     
     

@@ -1118,6 +1118,8 @@
                         NSString * clientNameDataToStr =[[NSString alloc] initWithData:clientNameData encoding:NSUTF8StringEncoding];
                         NSLog(@"clientNameDataclientNameData==clientNameData %@",clientNameDataToStr);
                         
+                        NSLog(@"serviceTypeDataToStr==--== %d",serviceTypeDataToStr);
+                        
                         if (serviceTypeDataToStr == 8 && [clientNameDataToStr isEqualToString:deviceString]) {
                             [monitorTableArr insertObject:arr_threeData atIndex:0];
                         }else
@@ -1160,10 +1162,13 @@
                     }
                     else //此处是一种特殊情况，没有找到这个节目
                     {
+                        NSLog(@"serviceTypeData =+++== %@",serviceTypeData);
                         if (refreshTimes == 0) {
                             miniNameTemp = clientNameData;
                             NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,clientNameData, nil];
-                            //                        int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];;
+                            
+                            int  serviceTypeDataToStr = [SocketUtils uint32FromBytes: serviceTypeData];
+                            
                             NSString * clientNameDataToStr =[[NSString alloc] initWithData:clientNameData encoding:NSUTF8StringEncoding];
                             
                             if (clientNameDataToStr.length > 3) {
@@ -1171,15 +1176,24 @@
                                     isHaveMini = 1;
                                     [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                                     NSLog(@"ksksksksksksksk2222222");
+                                }else if(([[clientNameDataToStr substringToIndex:4] caseInsensitiveCompare:@"Star"] == NSOrderedSame ) && serviceTypeDataToStr == 3){
+                                    
+                                    [monitorTableArr addObject:arr_threeData];
                                 }
+                                    
                             }
                             
                             refreshTimes = 1;
                         }
+                        
+                        
+                      
                        
+                    
                         
                         
 //                        [self.tableView reloadData];
+                       
                     }
                     
                 }

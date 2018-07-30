@@ -679,7 +679,7 @@
                     
                     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     
-                    //添加到删除数组
+                    //添加到删除数组  
                     [selectedArray removeObject:indexPath];
                 }else
                 {
