@@ -700,7 +700,14 @@
     
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    
+    if (didDeleteSelects == 0) {
+        [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete"] forState:UIControlStateNormal];
+    }else{
+        [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    }
+    
+    
     
     
 }
@@ -925,7 +932,14 @@
     
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
+   
+    if (didDeleteSelects == 0) {
+        [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete"] forState:UIControlStateNormal];
+    }else{
+        [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    }
+
+    
     
     if (tableView.editing) {  //编辑模式下选中
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
@@ -990,7 +1004,14 @@
     //获得删除的数量
     NSInteger didDeleteSelects = tableView.indexPathsForSelectedRows.count;
     NSLog(@"didDeleteSelects %d",didDeleteSelects);
-    [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    
+    if (didDeleteSelects == 0) {
+        [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete"] forState:UIControlStateNormal];
+    }else{
+        [redDeleteBtn setTitle:[NSString stringWithFormat:@"Delete(%d)",didDeleteSelects] forState:UIControlStateNormal];
+    }
+    
+    
     
     if (tableView.editing) {  //编辑模式下选中
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
