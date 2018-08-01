@@ -178,6 +178,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self configLabNoPlayShow]; //如果视频无法播放，则显示sorry，this video cant play 的字样
         [self configIndicatorView]; //视频未播放加载钱，显示进度圈
+        [self configIndicatorViewDecoder]; //视频未播放加载钱，显示进度圈
         
         [self configRadioShow];  //判断当播放音频时，如果可以播放，则显示音频默认图
         [self configDecoderPINShow];  //判断当前是不是需要展示decoder PIN的输入按钮和文字
@@ -851,6 +852,41 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     self.videoControl.channelNameLab.text = self.video.channelName;
 }
+
+
+
+-(void)configIndicatorViewDecoder
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"IndicatorViewShowNoticDecoder" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IndicatorViewShowNoticDecoder) name:@"IndicatorViewShowNoticDecoder" object:nil];
+}
+//未播放前显示加载圈的通知 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
+-(void)IndicatorViewShowNoticDecoder
+{   //如果URL为空，则不进行播放
+    //    if(self.video.playUrl == NULL || [self.video.playUrl isEqualToString:@""] ||self.video.playUrl == nil)
+    //    {
+    //        [self.videoControl.indicatorView stopAnimating];
+    //    }else
+    //    {
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    
+    [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
+    
+    [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
+    
+    [self.videoControl.indicatorView startAnimating];
+    
+    //    });
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+
+
 #pragma mark -未播放前显示加载圈 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
 //未播放前显示加载圈
 -(void)configIndicatorView
@@ -869,14 +905,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    }else
     //    {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+    
     [self removeConfigDecoderPINShowNotific];   //删除掉了decoder PIN的文字和按钮
     
     [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
     
     [self.videoControl.indicatorView startAnimating];
     
-    //    }
     });
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
@@ -911,7 +946,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNoticDecoder" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.player stop];
     [self.player shutdown];
@@ -1149,7 +1184,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
     
-    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNoticDecoder" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self.player stop];
     [self.player shutdown];
