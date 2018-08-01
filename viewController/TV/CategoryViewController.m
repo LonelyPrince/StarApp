@@ -183,7 +183,7 @@
     {
         imageView.image = [UIImage imageNamed:@"kids"];
     }
-    else if ([name isEqualToString:@"Life Style"] || [name isEqualToString:@"life Style"] || [name isEqualToString:@"life style"] || [name isEqualToString:@"Life style"]  || [name isEqualToString:@"Life_Style"] || [name isEqualToString:@"life_Style"] || [name isEqualToString:@"life_style"] || [name isEqualToString:@"Life_style"]|| [name isEqualToString:@"Life-style"]) //OK1
+    else if ([name isEqualToString:@"Life Style"] || [name isEqualToString:@"life Style"] || [name isEqualToString:@"life style"] || [name isEqualToString:@"Life style"]  || [name isEqualToString:@"Life_Style"] || [name isEqualToString:@"life_Style"] || [name isEqualToString:@"life_style"] || [name isEqualToString:@"Life_style"]|| [name isEqualToString:@"Life-style"] || [name isEqualToString:@"Lifestyle"] || [name isEqualToString:@"lifestyle"] ) //OK1
     {
         imageView.image = [UIImage imageNamed:@"Life Style"];
     }
@@ -211,7 +211,7 @@
     {
         imageView.image = [UIImage imageNamed:@"South African"];
     }
-    else if ([name isEqualToString:@"Special Characteristics"] || [name isEqualToString:@"special Characteristics"] || [name isEqualToString:@"Special characteristics"] || [name isEqualToString:@"special characteristics"] || [name isEqualToString:@"Special_Characteristics"] || [name isEqualToString:@"special_Characteristics"] || [name isEqualToString:@"Special_characteristics"] || [name isEqualToString:@"special_characteristics"])  //OK1
+    else if ([name isEqualToString:@"Special Characteristics"] || [name isEqualToString:@"special Characteristics"] || [name isEqualToString:@"Special characteristics"] || [name isEqualToString:@"special characteristics"] || [name isEqualToString:@"Special_Characteristics"] || [name isEqualToString:@"special_Characteristics"] || [name isEqualToString:@"Special_characteristics"] || [name isEqualToString:@"special_characteristics"] || [name isEqualToString:@"special"] || [name isEqualToString:@"Special"])  //OK1
     {
         imageView.image = [UIImage imageNamed:@"Special Characteristics"];
     }
