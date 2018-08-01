@@ -1045,7 +1045,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
             
             if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
-                
+
             }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
             {
                 //                //new====
@@ -1054,19 +1054,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self prefersStatusBarHidden];
                 [self setNeedsStatusBarAppearanceUpdate];
                 self.view.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-                
+
                 self.searchBtn.frame = CGRectMake(searchBtnX, searchBtnY+1000, searchBtnWidth, searchBtnHeight);
-                
+
                 self.navigationController.navigationBar.translucent = NO;
                 self.extendedLayoutIncludesOpaqueBars
                 = NO;
-                
+
                 self.edgesForExtendedLayout =UIRectEdgeNone;
                 float noewWidth = SCREEN_HEIGHT;
                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",noewWidth],@"noewWidth",nil];
-                
-                
-                
+
+
+
                 //创建通知
                 NSNotification *notification =[NSNotification notificationWithName:@"fixTopBottomImage" object:nil userInfo:dict];
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -1077,16 +1077,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 _slideView.frame = CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5+1000,
                                               SCREEN_WIDTH,
                                               SCREEN_HEIGHT-64.5-1.5-kZXVideoPlayerOriginalHeight-49.5);
-                
+
                 NSLog(@"目前是全屏");
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"fixprogressView" object:nil ];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fixprogressView:) name:@"fixprogressView" object:nil];
-                
+
                 self.topProgressView.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
                 [self.view bringSubviewToFront:self.topProgressView];
                 [self.videoController.view bringSubviewToFront:self.topProgressView];
                 [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-                
+
                 [self judgeProgressIsNeedHide:YES]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
                 _lineView.frame = CGRectMake(0, -64, 0, 0);
             }else
@@ -3114,6 +3114,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 //引导页
 - (void)viewWillAppear:(BOOL)animated{
+    
+    NSLog(@"TV yemain viewWillAppear");
+//    [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"]; //新逻辑，防止打开时全屏异常旋转
+    
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         NSLog(@"第一次启动");
@@ -3125,7 +3129,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:60];
         
     }else{
-        
         self.showTVView = YES;
         [USER_DEFAULT setObject:@"YES" forKey:@"showTVView"];
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
@@ -7573,7 +7576,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
                     
-                    
+
                     //设置滑动条
                     _slideView = [YLSlideView alloc];
                     _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
@@ -7650,11 +7653,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.activeView = nil;
     [self lineAndSearchBtnShow];
 }
-#pragma mark - 防止在刚转到TV页面时就全屏展示，需要至少先等待0.1秒
+#pragma mark - 防止在刚转到TV页面时就全屏展示，需要至少先等待0.1秒 页面打开时执行
 -(void)preventTVViewOnceFullScreen
 {   [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(modeifyTVViewRevolve) object:nil];
-    [self performSelector:@selector(modeifyTVViewRevolve) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(modeifyTVViewRevolve) withObject:nil afterDelay:99999];
     //    [[NSRunLoop currentRunLoop] run];
 }
 -(void)modeifyTVViewRevolve

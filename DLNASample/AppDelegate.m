@@ -91,6 +91,8 @@
     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"]; // 值为YES，代表首页的频道列表还没有展示出来，这个时候不允许旋转
     [USER_DEFAULT setObject:@"" forKey:@"NeedShowChannelNameLabV"];
     
+    [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"]; //此处设置是否可以全屏的信息，防止在手机横屏时进入主页导致UI变化
+    
     [self getCurrentLanguage];
     [self.window makeKeyAndVisible];
     [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
