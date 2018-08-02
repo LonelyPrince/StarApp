@@ -121,6 +121,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     int judgeIsNeedShowDeliveryStop;
     int SDTMonitor_addHistory ;
     
+    int firstjiami;
     NSMutableArray * categorysToCategoryViewContainREC;
 }
 
@@ -377,6 +378,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    firstjiami = 0;
     SDTMonitor_addHistory = 0;
     judgeIsNeedShowDeliveryStop = 0;
     //    pushAlertViewIndex = 0;
@@ -841,11 +843,43 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                                 [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
 
+                                
+                                
+                                
+                            
+                                    NSArray * epg_infoArr = [[NSArray alloc]init];
+                                    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+                                    if (epg_infoArr.count == 0) {
+                                        
+                                        self.event_videoname = @"";
+                                        self.event_startTime = @"";
+                                        self.event_endTime = @"";
+//                                        [GGUtil postsetTimeAndProgressIsNullNotific];
+//                                        [self removeTopProgressView];
+//
+                                    }else
+                                    {
+                                        
+                                        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                                        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                                        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                                        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                                        self.video.playEventName = self.event_videoname;
+                                        
+                                        NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                                        [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                                        [GGUtil postsetTimeAndProgressIsShowNotific];
+                                        
+                                    }
+                                    
+                                    
+                                    
 
                                 [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                                 firstOpenAPP = firstOpenAPP+1;
 
                                 firstfirst = NO;
+                                firstjiami = 1;
 
                             }else //正常播放的步骤
                             {
@@ -2310,13 +2344,157 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     // 此处代表需要记性机顶盒加密验证
                     NSNumber  *numIndex = [NSNumber numberWithInteger:indexPathRow];
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
+                    
+                    
+                 
                     [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                     firstOpenAPP = firstOpenAPP+1;
                     firstfirst = NO;
                     
-                    NSMutableDictionary * epgDicToSocket = [[self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)numIndex]] mutableCopy];
+                    NSLog(@"self.dicTemp** %@",self.dicTemp);
+                    NSMutableDictionary * epgDicToSocket = [[NSMutableDictionary alloc]init];
+                    NSString * numberStr = [NSString stringWithFormat:@"%d",indexPathRow];
+                    epgDicToSocket = [self.dicTemp objectForKey:numberStr];
+                    epgDicToSocket = [epgDicToSocket mutableCopy];
+//                    epgDicToSocket = [self.dicTemp objectForKey:@"1"];
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
+                    
+                   
+                    
+//                    //    //=====daiceshi
+                     dispatch_async(dispatch_get_main_queue(), ^{
+                        self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+                        NSArray * epg_infoArr = [[NSArray alloc]init];
+                        epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+                        if (epg_infoArr.count == 0) {
+
+                            self.event_videoname = @"";
+                            self.event_startTime = @"";
+                            self.event_endTime = @"";
+                            [GGUtil postsetTimeAndProgressIsNullNotific];
+                            [self removeTopProgressView];
+
+                        }else
+                        {
+
+                            self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                            self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                            self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                            self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                            [GGUtil postsetTimeAndProgressIsShowNotific];
+
+                            self.video.playEventName = self.event_videoname;
+                            
+                            NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                            [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                        }
+
+
+                         self.video.startTime = self.event_startTime;
+                         self.video.endTime = self.event_endTime;
+
+                         NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+                         NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
+                         NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
+                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
+
+                             self.video.startTime = @"0";
+                             self.video.endTime = @"0";
+                             self.event_videoname = @"";
+
+
+                             //        double delayInSeconds = 0;
+                             //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                             //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                             //        dispatch_after(popTime, mainQueue, ^{
+
+                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                             [self removeTopProgressView];
+                             NSLog(@"hidenhidenhidenhiden 6666666");
+                             //        });
+                         }else{
+                             self.video.startTime = self.event_startTime;
+                             self.video.endTime = self.event_endTime;
+                             NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
+
+                             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                             self.video.playEventName = self.event_videoname;
+                             
+                             NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                             [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                             
+                             //        double delayInSeconds = 0;
+                             //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                             //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                             //        dispatch_after(popTime, mainQueue, ^{
+
+                             [self removeTopProgressView];
+                             [GGUtil postTimerOfEventTimeNotific];
+                             [self caculatorProgress];
+                             // 只显示时间，不显示进度条
+
+
+                             [self.view addSubview:self.topProgressView];
+                             [self.view bringSubviewToFront:self.topProgressView];
+                             [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+                             
+                             
+                             
+                             NSLog(@"self.video.channelId***** AA %@",self.video.channelId);
+                             NSLog(@"self.video.channelName***** AA %@",self.video.channelName);
+                             
+                             NSDictionary *channlIdNameDic =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.channelId,@"channelIdStr",self.video.channelName,@"channelNameStr", nil];
+                             //创建通知
+                             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameOrOtherInfoNotic" object:nil userInfo:channlIdNameDic];
+                             //通过通知中心发送通知
+                             [[NSNotificationCenter defaultCenter] postNotification:notification2];
+                             //        });
+                         }
+                         });
+//                    //=====daiceshi
+                    
+                    
+                   
+                    
+                    
+                    
+                    
+                    
+                    
+//
+//                    self.video.startTime = self.event_startTime;
+//                    self.video.endTime = self.event_endTime;
+//
+//                    NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+//                    NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
+//                    NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
+//                    if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
+//
+//                        self.video.startTime = @"0";
+//                        self.video.endTime = @"0";
+//                        self.event_videoname = @"";
+//                        [GGUtil postsetTimeAndProgressIsNullNotific];
+//                        [self removeTopProgressView];
+//                        NSLog(@"hidenhidenhidenhiden 6666666");
+//                    }else{
+//                        self.video.startTime = self.event_startTime;
+//                        self.video.endTime = self.event_endTime;
+//                        NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
+//
+//                    }
+//
+//
+//                    [GGUtil postTimerOfEventTimeNotific];
+//                    [self caculatorProgress];
+//                    // 只显示时间，不显示进度条
+//
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [self.view addSubview:self.topProgressView];
+//                        [self.view bringSubviewToFront:self.topProgressView];
+//                        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+//                    });
+//
                     
                     
                 }else //正常播放的步骤
@@ -4433,8 +4611,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"self.topProgressView121 %@",self.topProgressView);
         
+        
         [self.view addSubview:self.topProgressView];
+        
         [self.view bringSubviewToFront:self.topProgressView];
+       
         [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
         
         NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
@@ -5546,7 +5727,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self removeTopProgressView];
                     });
                     NSLog(@"hidenhidenhidenhiden dddddddd");
-
+//
                 }else
                 {
                     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
@@ -6127,6 +6308,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
+  
+//    dispatch_async(dispatch_get_main_queue(), ^{
+    
     [self stopVideoPlay];
     dispatch_async(dispatch_get_main_queue(), ^{
         //回调或者说是通知主线程刷新，
@@ -6320,6 +6504,89 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postIndicatorViewShowNotic];
         });
     }
+    
+    
+//    //=====daiceshi
+//    self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
+//    epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
+//    if (epg_infoArr.count == 0) {
+//
+//    }else
+//    {
+//        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+//        self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//        self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+//        [GGUtil postsetTimeAndProgressIsShowNotific];
+//    }
+//
+//    =====daiceshi
+    if (firstjiami == 1) {
+        
+        
+        self.video.startTime = self.event_startTime;
+        self.video.endTime = self.event_endTime;
+        
+        NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
+        NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
+        NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
+        if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
+            
+            self.video.startTime = @"0";
+            self.video.endTime = @"0";
+            self.event_videoname = @"";
+            
+            
+            //        double delayInSeconds = 0;
+            //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            //        dispatch_after(popTime, mainQueue, ^{
+            
+            [GGUtil postsetTimeAndProgressIsNullNotific];
+            [self removeTopProgressView];
+            NSLog(@"hidenhidenhidenhiden 6666666");
+            //        });
+        }else{
+            self.video.startTime = self.event_startTime;
+            self.video.endTime = self.event_endTime;
+            
+            NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
+            
+            //        double delayInSeconds = 0;
+            //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            //        dispatch_after(popTime, mainQueue, ^{
+            
+           
+            [GGUtil postTimerOfEventTimeNotific];
+            [self removeTopProgressView];
+            [self caculatorProgress];
+            // 只显示时间，不显示进度条
+            
+            
+            [self.view addSubview:self.topProgressView];
+            [self.view bringSubviewToFront:self.topProgressView];
+            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+            
+            
+            NSLog(@"self.video.channelId***** %@",self.video.channelId);
+            NSLog(@"self.video.channelName***** %@",self.video.channelName);
+            NSDictionary *channlIdNameDic =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.channelId,@"channelIdStr",self.video.channelName,@"channelNameStr", nil];
+            //创建通知
+            NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameOrOtherInfoNotic" object:nil userInfo:channlIdNameDic];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            //        });
+        }
+        
+        
+        
+        
+        firstjiami = 0;
+    }
+    
+  
+    
+//           });
     
 }
 #pragma mark - CA弹窗
@@ -8719,6 +8986,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 #pragma mark - 下拉刷新做12秒超时处理
 -(void)endMJRefresh{
+    NSLog(@"结束12秒的下拉刷新，等待===");
     [self.tableForSliderView.mj_header endRefreshing];
 }
 #pragma mark - 如果这个时候展示的不是TV页面，则不进行播放的各个事件通知
