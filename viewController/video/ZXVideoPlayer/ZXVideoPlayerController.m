@@ -634,103 +634,108 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     CGPoint locationPoint = [pan locationInView:self.videoControl];
     CGPoint veloctyPoint = [pan velocityInView:self.videoControl];
     
-    switch (pan.state) {
-        case UIGestureRecognizerStateBegan: { // 开始移动
-            CGFloat x = fabs(veloctyPoint.x);
-            CGFloat y = fabs(veloctyPoint.y);
-            
-            if (x > y) { // 水平移动
-                //                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-                //                    //录制
-                self.panDirection = ZXPanDirectionHorizontal;
-                self.sumTime = self.player.playableDuration; //currentPlaybackTime; // sumTime初值
-                //                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
-                //                    [self.player pause];
-                //                    [self stopDurationTimer];
-                //                }else
-                //                {
-                //                }
-                
-            } else if (x < y) { // 垂直移动
-                self.panDirection = ZXPanDirectionVertical;
-                if (locationPoint.x > self.view.bounds.size.width / 2) { // 音量调节
-                    self.isVolumeAdjust = YES;
-                } else { // 亮度调节
-                    self.isVolumeAdjust = NO;
-                }
-            }
-        }
-            break;
-        case UIGestureRecognizerStateChanged: { // 正在移动
-            switch (self.panDirection) {
-                case ZXPanDirectionHorizontal: {
-                    //
-                    //                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-                    //                        //录制
-                    //                        [self horizontalMoved:veloctyPoint.x];
-                    //                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
-                    //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-                    //                    }else
-                    //                    {
-                    //                    }
-                    
+    if (self.isLocked == YES ) {
+    //上锁了，不能操作
+    }else{
+            switch (pan.state) {
+                case UIGestureRecognizerStateBegan: { // 开始移动
+                    CGFloat x = fabs(veloctyPoint.x);
+                    CGFloat y = fabs(veloctyPoint.y);
+        
+                    if (x > y) { // 水平移动
+                        //                if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                        //                    //录制
+                        self.panDirection = ZXPanDirectionHorizontal;
+                        self.sumTime = self.player.playableDuration; //currentPlaybackTime; // sumTime初值
+                        //                    NSLog(@"currentPlaybackTime== %f",self.player.currentPlaybackTime);
+                        //                    [self.player pause];
+                        //                    [self stopDurationTimer];
+                        //                }else
+                        //                {
+                        //                }
+        
+                    } else if (x < y) { // 垂直移动
+                        self.panDirection = ZXPanDirectionVertical;
+                        if (locationPoint.x > self.view.bounds.size.width / 2) { // 音量调节
+                            self.isVolumeAdjust = YES;
+                        } else { // 亮度调节
+                            self.isVolumeAdjust = NO;
+                        }
+                    }
                 }
                     break;
-                case ZXPanDirectionVertical: {
-                    [self verticalMoved:veloctyPoint.y];
+                case UIGestureRecognizerStateChanged: { // 正在移动
+                    switch (self.panDirection) {
+                        case ZXPanDirectionHorizontal: {
+                            //
+                            //                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                            //                        //录制
+                            //                        [self horizontalMoved:veloctyPoint.x];
+                            //                        NSLog(@"veloctyPoint.x %f",veloctyPoint.x);
+                            //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                            //                    }else
+                            //                    {
+                            //                    }
+        
+                        }
+                            break;
+                        case ZXPanDirectionVertical: {
+                            [self verticalMoved:veloctyPoint.y];
+                        }
+                            break;
+        
+                        default:
+                            break;
+                    }
                 }
                     break;
-                    
+                case UIGestureRecognizerStateEnded: { // 移动停止
+                    switch (self.panDirection) {
+                        case ZXPanDirectionHorizontal: {
+                            //                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
+                            //                        //录制
+                            //                        //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                            //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
+                            //                        //Failed to open segment of playlist
+                            //
+                            //
+                            //                        [self.player seek:floor(self.sumTime)];
+                            //                        while (self.player.playableDuration < (self.sumTime - 2)) {
+                            //                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
+                            //                            NSLog(@" xyz - sumTime %f",self.sumTime);
+                            //                            sleep(2);
+                            //                            NSLog(@" xyz - 0000");
+                            //                            [self.player seek:floor(self.sumTime)];
+                            //                        }
+                            //                        [self.player play];
+                            //                        [self startDurationTimer];
+                            //                        [self.videoControl autoFadeOutControlBar];
+                            //                    }else
+                            //                    {
+                            //                        //                    [self.player seek:floor(self.sumTime)];
+                            //                        [self.player play];
+                            //                        [self startDurationTimer];
+                            //                        [self.videoControl autoFadeOutControlBar];
+                            //                    }
+        
+                        }
+                            break;
+                        case ZXPanDirectionVertical: {
+                            break;
+                        }
+                            break;
+        
+                        default:
+                            break;
+                    }
+                }
+                    break;
+        
                 default:
                     break;
             }
-        }
-            break;
-        case UIGestureRecognizerStateEnded: { // 移动停止
-            switch (self.panDirection) {
-                case ZXPanDirectionHorizontal: {
-                    //                    if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-                    //                        //录制
-                    //                        //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-                    //                        NSLog(@"floor(self.sumTime) %f",floor(self.sumTime));
-                    //                        //Failed to open segment of playlist
-                    //
-                    //
-                    //                        [self.player seek:floor(self.sumTime)];
-                    //                        while (self.player.playableDuration < (self.sumTime - 2)) {
-                    //                            NSLog(@" xyz - playableDuration %f",self.player.playableDuration);
-                    //                            NSLog(@" xyz - sumTime %f",self.sumTime);
-                    //                            sleep(2);
-                    //                            NSLog(@" xyz - 0000");
-                    //                            [self.player seek:floor(self.sumTime)];
-                    //                        }
-                    //                        [self.player play];
-                    //                        [self startDurationTimer];
-                    //                        [self.videoControl autoFadeOutControlBar];
-                    //                    }else
-                    //                    {
-                    //                        //                    [self.player seek:floor(self.sumTime)];
-                    //                        [self.player play];
-                    //                        [self startDurationTimer];
-                    //                        [self.videoControl autoFadeOutControlBar];
-                    //                    }
-                    
-                }
-                    break;
-                case ZXPanDirectionVertical: {
-                    break;
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-            break;
-            
-        default:
-            break;
     }
+
 }
 
 /// pan水平移动
