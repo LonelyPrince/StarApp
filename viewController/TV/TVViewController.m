@@ -518,8 +518,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
+                    NSLog(@" NOChannelDataShow 1111");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    NSLog(@"removeTipLabAndPerformSelector 1111");
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
@@ -539,8 +541,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
+                    NSLog(@" NOChannelDataShow 2222");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    NSLog(@"removeTipLabAndPerformSelector 2222");
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }
@@ -634,9 +638,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 
                 [self NOChannelDataShow];
+                NSLog(@" NOChannelDataShow 3333");
                 [self removeTopProgressView]; //删除进度条
+                NSLog(@"删除进度条removeTopProgressView  1111");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector 3333");
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
 
 
@@ -686,8 +693,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
+                    NSLog(@" NOChannelDataShow 4444");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    NSLog(@"removeTipLabAndPerformSelector 4444");
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
@@ -708,8 +717,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
+                    NSLog(@" NOChannelDataShow 5555");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    NSLog(@"removeTipLabAndPerformSelector 5555");
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }
@@ -773,9 +784,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
 
                     [self NOChannelDataShow];
+                    NSLog(@" NOChannelDataShow 6666");
                     [self removeTopProgressView]; //删除进度条
+                    NSLog(@"删除进度条removeTopProgressView  2222");
                     isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    NSLog(@"removeTipLabAndPerformSelector 6666");
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
                 {
@@ -1954,6 +1968,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:indexPathRow serviceListDic:self.dicTemp];
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   1111");
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic 11111");
             [tempTableviewForFocus reloadData];
@@ -2040,6 +2055,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self removeTopProgressView];
+                            NSLog(@"删除进度条removeTopProgressView  3333");
                         });
                         
                         NSLog(@"hidenhidenhidenhiden 11111");
@@ -2062,6 +2078,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self removeTopProgressView];
+                        NSLog(@"删除进度条removeTopProgressView  4444");
                     });
                 }
                 
@@ -2073,6 +2090,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  5555");
                 }
                 
                 self.TVSubAudioDic = epgDicToSocket;
@@ -2108,6 +2126,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  5555");
                 NSLog(@"hidenhidenhidenhiden 2222222");
             }else{
                 self.video.startTime = self.event_startTime;
@@ -2117,6 +2136,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"timeIsChange1 %@",self.video.startTime);
             
             [self removeTopProgressView];
+            NSLog(@"删除进度条removeTopProgressView  6666");
             [self.timer invalidate];
             self.timer = nil;
             
@@ -2185,6 +2205,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  7777");
             }else
             {
 #pragma mark - 需要注意名称变化
@@ -2198,6 +2219,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  8888");
                     NSLog(@"hidenhidenhidenhiden 333333");
                     
                 }else{
@@ -2217,6 +2239,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  9999");
             }
             self.TVSubAudioDic = epgDicToSocket;
             self.TVChannlDic = self.dicTemp;
@@ -2262,6 +2285,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  aaaa");
                 NSLog(@"hidenhidenhidenhiden 444444");
             }else{
                 self.video.startTime = self.event_startTime;
@@ -2285,6 +2309,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  bbbb");
                 }
                 
                 if (epg_infoArr.count > 0) {
@@ -2303,6 +2328,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  cccc");
                     NSLog(@"hidenhidenhidenhiden 55555");
                 }else{
                     self.video.startTime = self.event_startTime;
@@ -2374,6 +2400,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_endTime = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"删除进度条removeTopProgressView  dddd");
 
                         }else
                         {
@@ -2411,6 +2438,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                              [GGUtil postsetTimeAndProgressIsNullNotific];
                              [self removeTopProgressView];
+                             NSLog(@"删除进度条removeTopProgressView  eeee");
                              NSLog(@"hidenhidenhidenhiden 6666666");
                              //        });
                          }else{
@@ -2430,6 +2458,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                              //        dispatch_after(popTime, mainQueue, ^{
 
                              [self removeTopProgressView];
+                             NSLog(@"删除进度条removeTopProgressView  ffff");
                              [GGUtil postTimerOfEventTimeNotific];
                              [self caculatorProgress];
                              // 只显示时间，不显示进度条
@@ -2531,6 +2560,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //NSData --->byte[]-------NSData----->NSString
 
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   2222");
             //判断状态
             if ([[USER_DEFAULT objectForKey:@"ConnectStatus_userDefault"] isEqualToString: @"ConnectIsSuccess"]) {
                 [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
@@ -2582,6 +2612,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  gggg");
                 NSLog(@"hidenhidenhidenhiden 6666666");
             }else{
                 self.video.startTime = self.event_startTime;
@@ -2591,6 +2622,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
 
             [self setStateNonatic];
+            NSLog(@"setStateNonatic 2600");
 
             [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
 
@@ -2617,6 +2649,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
 
             [self removeTopProgressView];
+            NSLog(@"删除进度条removeTopProgressView  hhhh");
             [self.timer invalidate];
             self.timer = nil;
 
@@ -2649,6 +2682,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             _byteDatas = [[NSMutableData alloc]init];
             
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                NSLog(@"mediaDisConnect   3333");
                 //判断状态
                 if ([[USER_DEFAULT objectForKey:@"ConnectStatus_userDefault"] isEqualToString: @"ConnectIsSuccess"]) {
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
@@ -2697,6 +2731,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"YES" forKey:@"IsfirstPlayRECVideo"];
                 
                 [self setStateNonatic];
+                NSLog(@"setStateNonatic 2707");
                 
                 [USER_DEFAULT setObject:@"NO" forKey:@"isStartBeginPlay"]; //是否已经开始播放，如果已经开始播放，则停止掉中心点的旋转等待圆圈
                 
@@ -2727,6 +2762,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  iiii");
                 [self.timer invalidate];
                 self.timer = nil;
                 
@@ -2736,6 +2772,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"RECChannel" forKey:@"ChannelType"];
                 //            [self.videoController startDurationTimer];
                 [self removeTopProgressView]; //删除直播的进度条
+                NSLog(@"删除进度条removeTopProgressView  jjjj");
                 
             }else
             {
@@ -2756,6 +2793,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@" bu nnge  bof ang ");
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   4444");
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic 44444");
             return ;
@@ -2766,6 +2804,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [GGUtil postnoPlayShowNotic];
         NSLog(@"postnoPlayShowNotic 55555");
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  kkkk");
         self.video.startTime = @"0";
         self.video.endTime = @"0";
         [USER_DEFAULT setObject:self.video.startTime forKey:@"RECVideoStartTime"];
@@ -2885,6 +2924,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  llll");
                     NSLog(@"hidenhidenhidenhiden 77777777");
                 }else{
                     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
@@ -2902,6 +2942,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  mmmm");
             }
             
             isEventStartTimeBiger_NowTime = NO;
@@ -2912,6 +2953,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  nnnn");
             }
             
             self.TVSubAudioDic = epgDicToSocket;
@@ -2928,6 +2970,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                    NSLog(@"mediaDisConnect   5555");
                     [GGUtil postnoPlayShowNotic];
                     NSLog(@"postnoPlayShowNotic 66666");
                 }else{
@@ -3117,6 +3160,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
         [USER_DEFAULT setObject:[NSNumber numberWithInt:row] forKey: @"Touch_Channel_index"];
         if (![[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   6666");
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             [GGUtil postnoPlayShowShutNotic];
 //            [GGUtil postIndicatorViewShowNotic];
@@ -3476,6 +3520,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self updateFullScreenDic];
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   7777");
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic 88888");
             return ;
@@ -3624,13 +3669,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //录制节目
         if (card_ret == 0) {
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
-                
+                NSLog(@"mediaDisConnect   8888");
             }else{
                 [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             }
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic aaaaa");
             [self removeTopProgressView];
+            NSLog(@"删除进度条removeTopProgressView  oooo");
             
             //            self.video.startTime = @"0";
             //            self.video.endTime = @"0";
@@ -3776,9 +3822,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"self.categorys=a=a=a= %lu",(unsigned long)self.categorys.count);
     
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
-    getLastRecFileArr  = categorysToCategoryViewContainREC ; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
+    getLastRecFileArr  = [categorysToCategoryViewContainREC  copy]; // [USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
     NSLog(@"categorysToCategoryViewContainREC 777  %d",categorysToCategoryViewContainREC);
-    NSLog(@"getLastRecFileArr.count %lu",(unsigned long)getLastRecFileArr.count);
+    NSLog(@"getLastRecFileArr.count 3827 %lu",(unsigned long)getLastRecFileArr.count);
     WEAKGET
     [request setCompletionBlock:^{
         
@@ -3799,7 +3845,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"删除了某个节目  3603");
             
             NSLog(@"self.categorys.count %lu",(unsigned long)self.categorys.count);
-            NSLog(@"recFileData %lu",(unsigned long)recFileData.count);
+            NSLog(@"recFileData  3802%lu",(unsigned long)recFileData.count);
             NSLog(@"getLastCategoryArr %lu",(unsigned long)getLastCategoryArr.count);
             NSLog(@"getLastRecFileArr.count %lu",(unsigned long)getLastRecFileArr.count);
             
@@ -3812,9 +3858,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self tableViewDataRefreshForMjRefresh_ONEMinute];
             }else
             {
-                [_slideView removeFromSuperview];
-                _slideView = nil;
-                //
+//                [_slideView removeFromSuperview];
+//                _slideView = nil;
+                NSLog(@" 3864  remove 了列表");
                 [self.tableForSliderView reloadData];
                 [self refreshTableviewByEPGTime];
                 [self.table reloadData];
@@ -4113,7 +4159,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
         NSArray *data1 = response[@"service"];
         NSArray *recFileData = response[@"rec_file_info"];
-        NSLog(@"recFileData %@",recFileData);
+        NSLog(@"recFileData  4116%@",recFileData);
 //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         categorysToCategoryViewContainREC = recFileData;
         NSLog(@"categorysToCategoryViewContainREC aaa  %d",categorysToCategoryViewContainREC);
@@ -4550,6 +4596,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)playClick  //:(NSTimer *)timer
 {
     if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+        NSLog(@"mediaDisConnect   9999");
         
     }else{
         [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
@@ -4564,6 +4611,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"结束==计时===已经播放");
     //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
     [self removeTipLabAndPerformSelector];
+    NSLog(@"removeTipLabAndPerformSelector 7777");
     NSLog(@"从willplay跳转过去 取消25秒的等待6");
     playState = YES;
     NSString * videoOrRadioPlaystr = [USER_DEFAULT objectForKey:@"videoOrRadioPlay"];
@@ -4665,6 +4713,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }else{
         [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+        NSLog(@"删除进度条removeTopProgressView  pppp");
     }
 //    self.topProgressView.alpha = 1;
 }
@@ -4705,6 +4754,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self addHistory:row diction:dic];
                 });
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                    NSLog(@"mediaDisConnect   aaaa");
                     [GGUtil postnoPlayShowNotic];
                     NSLog(@"postnoPlayShowNotic ccccc");
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
@@ -4747,6 +4797,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_endTime = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"删除进度条removeTopProgressView  qqqq");
                         }
                         self.video.startTime = self.event_startTime;
                         self.video.endTime = self.event_endTime;
@@ -4756,6 +4807,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"删除进度条removeTopProgressView  rrrr");
                             NSLog(@"hidenhidenhidenhiden 88888888");
                         }else{
                             self.video.startTime = self.event_startTime;
@@ -4786,6 +4838,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                         [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
                         [self removeTopProgressView];
+                        NSLog(@"删除进度条removeTopProgressView  ssss");
 
                     }else
                     {
@@ -4853,6 +4906,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self addHistory:row diction:self.dicTemp];
                 });
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                    NSLog(@"mediaDisConnect   bbbb");
                     [GGUtil postnoPlayShowNotic];
                     NSLog(@"postnoPlayShowNotic dddddd");
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
@@ -4916,6 +4970,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_endTime = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
+                        NSLog(@"删除进度条removeTopProgressView  tttt");
 
                     }else
                     {
@@ -4929,6 +4984,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"删除进度条removeTopProgressView  uuuu");
                             NSLog(@"hidenhidenhidenhiden 999999999 aaaaaaaaa");
 
                         }else{
@@ -4949,6 +5005,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_endTime = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
+                        NSLog(@"删除进度条removeTopProgressView  vvvv");
                     }
 
                     self.TVSubAudioDic = epgDicToSocket;
@@ -5084,6 +5141,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_endTime = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             [self removeTopProgressView];
+                            NSLog(@"删除进度条removeTopProgressView  wwww");
                         }
                         self.video.startTime = self.event_startTime;
                         self.video.endTime = self.event_endTime;
@@ -5201,6 +5259,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  xxxx");
                 }else
                 {
 #pragma mark - 需要注意名称变化
@@ -5214,6 +5273,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_videoname = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
                         [self removeTopProgressView];
+                        NSLog(@"删除进度条removeTopProgressView  yyyy");
                         NSLog(@"hidenhidenhidenhiden bbbbbbb");
 
                     }
@@ -5475,6 +5535,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //__
     if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+        NSLog(@"mediaDisConnect   cccc");
         [GGUtil postnoPlayShowNotic];
         NSLog(@"postnoPlayShowNotic eeeee");
         return ;
@@ -5545,6 +5606,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.event_videoname = @"";
             [GGUtil postsetTimeAndProgressIsNullNotific];
             [self removeTopProgressView];
+            NSLog(@"删除进度条removeTopProgressView  zzzz");
             NSLog(@"hidenhidenhidenhiden cccccccc ");
             
         }else{
@@ -5561,6 +5623,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  !!!!");
     }
     
     
@@ -5572,6 +5635,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  @@@@");
     }
     
     self.TVSubAudioDic = epgDicToSocket;
@@ -5625,6 +5689,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self updateFullScreenDic];
 
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   dddd");
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic ffffff");
             return ;
@@ -5725,6 +5790,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [GGUtil postsetTimeAndProgressIsNullNotific];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self removeTopProgressView];
+                        NSLog(@"删除进度条removeTopProgressView  ####");
                     });
                     NSLog(@"hidenhidenhidenhiden dddddddd");
 //
@@ -5745,6 +5811,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  $$$$");
                 });
             }
             isEventStartTimeBiger_NowTime = NO;
@@ -5755,12 +5822,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  %%%%");
             }else
             {
                 [GGUtil postsetTimeAndProgressIsShowNotific];
             }
-            self.TVSubAudioDic = epgDicToSocket;
-            self.TVChannlDic = self.dicTemp;
+            self.TVSubAudioDic = [epgDicToSocket mutableCopy];
+            self.TVChannlDic = [self.dicTemp copy];
             tempBoolForServiceArr = YES;
             tempArrForServiceArr =  self.categoryModel.service_indexArr;
             tempDicForServiceArr = self.TVChannlDic;
@@ -5792,6 +5860,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"dispatch_get_global_queue 主线程Socket");
 
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+                    NSLog(@"mediaDisConnect   eeee");
                     [GGUtil postnoPlayShowNotic];
                     NSLog(@"postnoPlayShowNotic gggggg");
                 }else{
@@ -6316,6 +6385,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //回调或者说是通知主线程刷新，
         
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
+            NSLog(@"mediaDisConnect   ffff");
             [GGUtil postnoPlayShowNotic];
             NSLog(@"postnoPlayShowNotic hhhhhh");
             return ;
@@ -6493,7 +6563,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     
     if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
-        
+        NSLog(@"mediaDisConnect   jjjj");
         NSNotification *notification3 =[NSNotification notificationWithName:@"IndicatorViewHiddenNotic" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification3];
         
@@ -6501,6 +6571,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_async(dispatch_get_main_queue(), ^{
             //取消掉提示文字和延迟方法
             [self removeTipLabAndPerformSelector];
+            NSLog(@"removeTipLabAndPerformSelector 8888");
             [GGUtil postIndicatorViewShowNotic];
         });
     }
@@ -6543,6 +6614,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [GGUtil postsetTimeAndProgressIsNullNotific];
             [self removeTopProgressView];
+            NSLog(@"删除进度条removeTopProgressView  ^^^^");
             NSLog(@"hidenhidenhidenhiden 6666666");
             //        });
         }else{
@@ -6559,6 +6631,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
            
             [GGUtil postTimerOfEventTimeNotific];
             [self removeTopProgressView];
+            NSLog(@"删除进度条removeTopProgressView  &&&&");
             [self caculatorProgress];
             // 只显示时间，不显示进度条
             
@@ -6599,6 +6672,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //取消掉提示文字和延迟方法
     [self removeTipLabAndPerformSelector];
+    NSLog(@"removeTipLabAndPerformSelector 9999");
     [GGUtil postIndicatorViewShowNotic];
     //协议改版后，这里的CAThreeData其实应该修改为CAFourData
     NSData * CAThreeData = text.userInfo[@"CAThreedata"];
@@ -6929,6 +7003,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  ****");
     }
     self.TVSubAudioDic = epgDicToSocket;
     
@@ -6982,6 +7057,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  ++++");
     }
     //    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
     //    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
@@ -6991,6 +7067,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_videoname = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  ----");
         NSLog(@"hidenhidenhidenhiden eeeeeeeeee aaaaaaaaa");
     }else{
         self.video.startTime = self.event_startTime;
@@ -7057,12 +7134,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //将数据本地化
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
         
-        NSArray *data1 = response[@"service"];
-        NSArray *data = response[@"category"];
+//        NSArray *data1;
+//        NSArray *data;
+//
+//        if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+//                data1 = response[@"service"];
+//                data = response[@"category"];
+//        }else{
+//
+//        }
+        
+       NSArray * data1 = response[@"service"];
+       NSArray * data = response[@"category"];
+        
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
 //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         categorysToCategoryViewContainREC = recFileData;
+        NSLog(@"categorysToCategoryViewContainREC aaaddd  %d",categorysToCategoryViewContainREC);
         if (data.count == 0 && recFileData.count == 0){ //没有数据
             [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
             if (data1.count == 0 && recFileData.count == 0)
@@ -7092,10 +7181,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //                    [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
 //                    return ;
                 }
-                [self NOChannelDataShow];
-                [self removeTopProgressView]; //删除进度条
+//                [self NOChannelDataShow];
+                NSLog(@" NOChannelDataShow 7777");
+//                [self removeTopProgressView]; //删除进度条
+                NSLog(@"删除进度条removeTopProgressView  }}}}");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+//                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector aaaa");
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             }
             else
@@ -7163,9 +7255,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
             [self NOChannelDataShow];
+            NSLog(@" NOChannelDataShow 8888");
             [self removeTopProgressView]; //删除进度条
+            NSLog(@"删除进度条removeTopProgressView  {{{{");
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            NSLog(@"removeTipLabAndPerformSelector bbbb");
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
         }
         else
@@ -7224,9 +7319,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             [self NOChannelDataShow];
+            NSLog(@" NOChannelDataShow 9999");
             [self removeTopProgressView]; //删除进度条
+            NSLog(@"删除进度条removeTopProgressView  7324");
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            NSLog(@"removeTipLabAndPerformSelector cccc");
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             
         }else
@@ -7358,15 +7456,25 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //将数据本地化
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
         
-        //        NSLog(@"response = %@",response);
-        NSArray *data1 = response[@"service"];
-        
-        //录制节目,保存数据
-        NSArray *recFileData = response[@"rec_file_info"];
-        NSLog(@"recFileData %@",recFileData);
+        NSArray *data1;
+        NSArray *recFileData;
+        if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+            
+            
+            //        NSLog(@"response = %@",response);
+            data1 = response[@"service"];
+            
+            //录制节目,保存数据
+            recFileData = response[@"rec_file_info"];
+            categorysToCategoryViewContainREC = recFileData;   //保证recFileData 有数据
+        }else{
+           NSLog(@"recFileData  7367 的 data_valid_flag == 0  ");
+        }
+       
+        NSLog(@"recFileData  7367%@",recFileData);
 //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-        categorysToCategoryViewContainREC = recFileData;
-        NSLog(@"categorysToCategoryViewContainREC JJJ  %d",categorysToCategoryViewContainREC);
+//        categorysToCategoryViewContainREC = recFileData;
+        NSLog(@"categorysToCategoryViewContainREC JJJ  %@",categorysToCategoryViewContainREC);
         dataForData1 = [data1 copy];
         dataForrecFileData = [recFileData copy];
         
@@ -7402,13 +7510,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return ;
             }
             [self NOChannelDataShow];
+            NSLog(@" NOChannelDataShow aaaa");
             [self removeTopProgressView]; //删除进度条
+            NSLog(@"删除进度条removeTopProgressView  7515");
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             
             if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:deliveryStopTip]) {
                 
             }else{
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector dddd");
             }
             
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
@@ -7453,11 +7564,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 
                 [self NOChannelDataShow];
+                NSLog(@" NOChannelDataShow bbbb");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector eeee");
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 
                 [self removeTopProgressView]; //删除进度条
+                NSLog(@"删除进度条removeTopProgressView  7574");
                 
                 if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
                     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
@@ -7520,11 +7634,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 
                 [self NOChannelDataShow];
+                NSLog(@" NOChannelDataShow cccc");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector ffff");
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 NSLog(@"zidong  刷新了一次");
                 [self removeTopProgressView]; //删除进度条
+                NSLog(@"删除进度条removeTopProgressView  7644");
                 if ( [[USER_DEFAULT objectForKey:@"deliveryPlayState"] isEqualToString:@"stopDelivery"]) {
                     [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
                     [GGUtil postcantDeliveryNotific];
@@ -7615,7 +7732,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     // 特殊情况，有录制但是没有service数据
                     [self.CategoryAndREC removeAllObjects];
-                    NSLog(@"recFileData %@",recFileData);
+                    NSLog(@"recFileData  7619%@",recFileData);
                     [self.CategoryAndREC addObject: recFileData];
                     
                 }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
@@ -7631,7 +7748,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.CategoryAndREC removeAllObjects];
                     NSLog(@"self.categorys %@",self.categorys);
                     [self.CategoryAndREC addObject:data];
-                    NSLog(@"recFileData %@",recFileData);
+                    NSLog(@"recFileData  7635%@",recFileData);
                     [self.CategoryAndREC addObject: recFileData];
                 }
                 if (data1.count == 0 && recFileData.count == 0){
@@ -7689,7 +7806,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
-        NSLog(@"recFileData %@",recFileData);
+        NSLog(@"recFileData  7693%@",recFileData);
 //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         categorysToCategoryViewContainREC = recFileData;
         NSLog(@"categorysToCategoryViewContainREC KKK  %d",categorysToCategoryViewContainREC);
@@ -7711,8 +7828,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 self.NoDataLabel = [[UILabel alloc]init];
                 [self NOChannelDataShow];
+                NSLog(@" NOChannelDataShow dddd");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector gggg");
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 
@@ -7761,9 +7880,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.NoDataLabel = [[UILabel alloc]init];
                 }
                 [self NOChannelDataShow];
+                NSLog(@" NOChannelDataShow eeee");
                 NSLog(@"NOChannelDataShow--!!7777777");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                NSLog(@"removeTipLabAndPerformSelector hhhh");
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             }else
@@ -7807,7 +7928,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 // 特殊情况，有录制但是没有service数据
                 [self.CategoryAndREC removeAllObjects];
-                NSLog(@"recFileData %@",recFileData);
+                NSLog(@"recFileData  7811%@",recFileData);
                 [self.CategoryAndREC addObject: recFileData];
                 
             }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
@@ -7823,7 +7944,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self.CategoryAndREC removeAllObjects];
                 NSLog(@"self.categorys %@",self.categorys);
                 [self.CategoryAndREC addObject:data];
-                NSLog(@"recFileData %@",recFileData);
+                NSLog(@"recFileData  7827%@",recFileData);
                 [self.CategoryAndREC addObject: recFileData];
             }
             
@@ -8581,6 +8702,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 播放过程中，或者点击了加锁的按钮。此时停止掉显示不能播放文字,并且取消掉延迟方法
 -(void)removeTipLabAndPerformSelector
 {
+    NSLog(@" removeTipLabAndPerformSelector  触发");
     dispatch_async(dispatch_get_main_queue(), ^{
         //弹窗之后，取消显示sorry不能播放的字样，并且取消不能播放的提示文字
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
@@ -8647,6 +8769,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [GGUtil postremoveConfigCAPINShowNotific];
     //取消掉20秒后显示提示文字的方法，如果视频要播放呀，则去掉不能播放的字样
     [self removeTipLabAndPerformSelector];
+    NSLog(@"removeTipLabAndPerformSelector iiii");
     
     
     NSNotification *notification3 =[NSNotification notificationWithName:@"animateHideNotific" object:nil userInfo:nil];
@@ -8696,6 +8819,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if(ISNULL([[Time userInfo] objectForKey:@"EndTime"]) || ISNULL([[Time userInfo]objectForKey:@"StarTime"]))
     {
         [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+        NSLog(@"删除进度条removeTopProgressView  8822");
     }
     else
     {
@@ -8706,6 +8830,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+            NSLog(@"删除进度条removeTopProgressView  8833");
             [self removeProgressNotific];
         }
     }
@@ -8783,6 +8908,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     progressEPGArrIndex = progressEPGArrIndex +1;   //准备开始播放下一个节目
     
     [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+    NSLog(@"删除进度条removeTopProgressView  8911");
     
     if(isEventStartTimeBiger_NowTime == YES){
         //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
@@ -8865,17 +8991,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }else{
                     [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+                    NSLog(@"删除进度条removeTopProgressView  8994");
                 }
             }
             else
             {
                 [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+                NSLog(@"删除进度条removeTopProgressView  9000");
                 return;
             }
         }else
         {
             
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+            NSLog(@"删除进度条removeTopProgressView  9007");
             return;
             
         }
@@ -8896,6 +9025,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     if (self.event_endTime == NULL ) {
         [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+        NSLog(@"删除进度条removeTopProgressView  9028");
         
     }else
     {
@@ -8907,6 +9037,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         if (endTimeCutStartTime < 0) {
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+            NSLog(@"删除进度条removeTopProgressView  9040");
         }else
         {
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
@@ -9359,6 +9490,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
         [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  9493");
     }
     self.TVSubAudioDic = epgDicToSocket;
     self.TVChannlDic = self.dicTemp;
@@ -9543,9 +9675,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
             [self NOChannelDataShow];
+            NSLog(@" NOChannelDataShow ffff");
             [self removeTopProgressView]; //删除进度条
+            NSLog(@"删除进度条removeTopProgressView  9680");
             isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+            NSLog(@"removeTipLabAndPerformSelector jjjj");
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             
         }else
@@ -10349,7 +10484,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
-                [self removeTopProgressView];
+//                [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  10488");
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
@@ -10359,6 +10495,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  10497");
             }
             //*********
             
@@ -10458,6 +10595,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  10598");
             }
             isEventStartTimeBiger_NowTime = NO;
             BOOL isEventStartTimeBigNowTime = [self judgeEventStartTime:self.event_videoname startTime:self.event_startTime endTime:self.event_endTime];
@@ -10467,6 +10605,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 [self removeTopProgressView];
+                NSLog(@"删除进度条removeTopProgressView  10607");
             }
             dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queueA, ^{

@@ -2002,15 +2002,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)noPlayShowShutNotic
 {
-    
+    NSLog(@"lab 不存在拉了 ++ %@",lab);
     if ( !lab) {
-        
+     
+        NSLog(@"lab 不存在拉了");
     }else
     {
         [lab removeFromSuperview];
         lab = nil;
         lab = NULL;
-        
+        NSLog(@"lab 不存在拉了 aaaa");
     }
     
     
