@@ -123,6 +123,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     int firstjiami;
     NSMutableArray * categorysToCategoryViewContainREC;
+    
+    BOOL  isPlayFirstChannel;
 }
 
 
@@ -378,6 +380,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    isPlayFirstChannel = NO;
     firstjiami = 0;
     SDTMonitor_addHistory = 0;
     judgeIsNeedShowDeliveryStop = 0;
@@ -3010,6 +3013,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else if ([localLanguage isEqualToString:@"zh"]) {
         localLanguage = @"Chinese";
     }
+    NSLog(@"localLanguage = %@",localLanguage);
     int audiopidTemp;
     
     NSMutableArray * mutableAudioInfo = [USER_DEFAULT objectForKey:@"MutableAudioInfo"];
@@ -3858,14 +3862,28 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self tableViewDataRefreshForMjRefresh_ONEMinute];
             }else
             {
-//                [_slideView removeFromSuperview];
-//                _slideView = nil;
-                NSLog(@" 3864  remove 了列表");
-                [self.tableForSliderView reloadData];
-                [self refreshTableviewByEPGTime];
-                [self.table reloadData];
-                
-                [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                if (getLastCategoryArr != self.categorys.count) {
+                    
+                    isPlayFirstChannel = NO;
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    NSLog(@" 3864  remove 了列表");
+                    [self.tableForSliderView reloadData];
+                    [self refreshTableviewByEPGTime];
+                    [self.table reloadData];
+                    
+                    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                }else{
+                    //                [_slideView removeFromSuperview];
+                    //                _slideView = nil;
+                    NSLog(@" 3864  remove 了列表");
+                    [self.tableForSliderView reloadData];
+                    [self refreshTableviewByEPGTime];
+                    [self.table reloadData];
+                    
+                    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                }
+//                isPlayFirstChannel = YES;
             }
           
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArr.count !=0)
@@ -5679,6 +5697,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     
 }
+
 /////////////本页面的显示播放，打开APP的时候自动播放第一个视频
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
@@ -5827,7 +5846,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             {
                 [GGUtil postsetTimeAndProgressIsShowNotific];
             }
-            self.TVSubAudioDic = [epgDicToSocket mutableCopy];
+            self.TVSubAudioDic = [epgDicToSocket mutableCopy];  //增加了深拷贝，防止出现读写操作异常
             self.TVChannlDic = [self.dicTemp copy];
             tempBoolForServiceArr = YES;
             tempArrForServiceArr =  self.categoryModel.service_indexArr;
@@ -9613,7 +9632,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                               SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
             [self.tableForDicIndexDic removeAllObjects]; //存储表和索引关系的数组
         }
-        [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+        if (isPlayFirstChannel == NO) {
+            
+        }else{
+          [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
+        }
+        
         NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
         [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
         

@@ -272,12 +272,42 @@
     if (![BackupStatusString isEqualToString:@""] && ![BackupStatusString isEqualToString:NOBackUP]) {
         //弹窗提示
         
-        restoreAlert.delegate = self;
-        [restoreAlert show];
+        
+      
+        
+        if (![BackupStatusString isEqualToString:@""] && ![BackupStatusString isEqualToString:NOBackUPAlert]) {
+            
+            //没有back
+            NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+            NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+            NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+            NSString * MLRestoringBackupParameters = NSLocalizedString(@"MLRestoringBackupParameters", nil);
+            restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRestoringBackupParameters delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
+            
+            restoreAlert.delegate = self;
+            [restoreAlert show];
+            
+        }else
+        {
+            //没有back
+            NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
+            NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
+            NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+            NSString * MLRestoringBackupParameters = NSLocalizedString(@"MLRestoringBackupParameters", nil);
+            restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:MLNOBackupRestored delegate:self cancelButtonTitle:ConfirmLabel otherButtonTitles:nil, nil];
+            
+            restoreAlert.delegate = self;
+            [restoreAlert show];
+            
+        }
         
         
     }else
     {
+        NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
+        NSString * MLRestoringBackupParameters = NSLocalizedString(@"MLRestoringBackupParameters", nil);
+        restoreAlert = [[UIAlertView alloc]initWithTitle:nil message:MLRestoringBackupParameters delegate:self cancelButtonTitle:@"OK" otherButtonTitles:CancelLabel, nil];
+        
         NSString * ConfirmLabel = NSLocalizedString(@"ConfirmLabel", nil);
         NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
         UIAlertView * noBackUPAlert = [[UIAlertView alloc]initWithTitle:nil message:MLNOBackupRestored delegate:self cancelButtonTitle:nil otherButtonTitles:ConfirmLabel, nil];
@@ -671,9 +701,9 @@
                 
                 NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
                 if ([backUPLab.text isEqualToString:MLNOBackupRestored]) {
-                    NSLog(@"没有备份信息，无法还原");
-                    NSLog(@"code code 0");
-                    [self showNoBackupHUD];
+//                    NSLog(@"没有备份信息，无法还原");
+//                    NSLog(@"code code 0");
+//                    [self showNoBackupHUD];
                 }else
                 {
                     NSLog(@"备份失败");
@@ -687,9 +717,9 @@
             {
                 NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
                 if ([backUPLab.text isEqualToString:MLNOBackupRestored]) {
-                    NSLog(@"没有备份信息，无法还原");
-                    NSLog(@"code code 0");
-                    [self showNoBackupHUD];
+//                    NSLog(@"没有备份信息，无法还原");
+//                    NSLog(@"code code 0");
+//                    [self showNoBackupHUD];
                 }else
                 {
                     
@@ -708,9 +738,9 @@
                 
                 NSString * MLNOBackupRestored = NSLocalizedString(@"MLNOBackupRestored", nil);
                 if ([backUPLab.text isEqualToString:MLNOBackupRestored]) {
-                    NSLog(@"没有备份信息，无法还原");
-                    NSLog(@"code code 0");
-                    [self showNoBackupHUD];
+//                    NSLog(@"没有备份信息，无法还原");
+//                    NSLog(@"code code 0");
+//                    [self showNoBackupHUD];
                 }else
                 {
                     
