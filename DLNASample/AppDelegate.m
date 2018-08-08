@@ -92,6 +92,8 @@
     [USER_DEFAULT setObject:@"" forKey:@"NeedShowChannelNameLabV"];
     
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"]; //此处设置是否可以全屏的信息，防止在手机横屏时进入主页导致UI变化
+    [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve_Other"];   //防止刚跳转到主页时就旋转到全屏
+    NSLog(@"bubu允许旋转==appde");
     
     [self getCurrentLanguage];
     [self.window makeKeyAndVisible];

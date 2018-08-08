@@ -566,6 +566,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     //    if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
     self.videoControl.fullScreenButton.hidden = NO;
+    
     //    }else
     //    {
     //        NSLog(@"全屏按钮消失---方法:onMpMovie...");
@@ -2249,7 +2250,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.frame = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
             //    self.videoControl.bottomBar.userInteractionEnabled = YES;
             self.isFullscreenMode = YES;
-            NSLog(@"全屏按钮消失---方法:这里是changeTofull  ");
+            NSLog(@"全屏按钮消失---aaaaa  ");
             self.videoControl.fullScreenButton.hidden = YES;
             //    self.videoControl.shrinkScreenButton.hidden = NO;
             self.videoControl.shrinkScreenButton1.hidden = NO;
@@ -2501,7 +2502,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //new====
     }else
     {
-        NSLog(@"全屏按钮显示--changeTofullScreen");
+        
         self.videoControl.fullScreenButton.hidden = NO;
     }
     
@@ -2574,6 +2575,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //    dispatch_after(popTime, mainQueue, ^{
 //
         [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"];
+    NSLog(@"允许旋转==zxvideo");
 //    });
     
     
@@ -2599,11 +2601,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
     self.isFullscreenMode = NO;
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"]) {
-        NSLog(@"全屏按钮出现---方法:restore...");
+        
         self.videoControl.fullScreenButton.hidden = NO;
     }else
     {
-        NSLog(@"全屏按钮消失---方法:restore...");
+        NSLog(@"全屏按钮消失---bbbbbb");
         self.videoControl.fullScreenButton.hidden = YES;
     }
     
@@ -3327,6 +3329,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)fullScreenButtonClick
 {
     [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"]; //新逻辑，防止打开时全屏异常旋转
+    NSLog(@"允许旋转==zxvideo");
     NSLog(@"099=-0=-0=-0");
     if (self.isFullscreenMode) {
         return;

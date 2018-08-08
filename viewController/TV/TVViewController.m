@@ -1096,7 +1096,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.videoController.videoPlayerWillChangeToFullScreenModeBlock = ^(){
             //new====
             NSString * isPreventFullScreenStr = [USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"];//判断是否全屏界面下就跳转到首页面，容易出现界面混乱
-            
             if ([isPreventFullScreenStr isEqualToString:@"NO"]) {
                 
             }else if(([isPreventFullScreenStr isEqualToString:@"YES"]))
@@ -3771,7 +3770,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"mediaDeliveryUpdateNotificSMT" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaDeliveryUpdateSMT) name:@"mediaDeliveryUpdateNotificSMT" object:nil];
-    
+//
     
 }
 -(void)mediaDeliveryUpdateSMT
@@ -8064,7 +8063,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 #pragma mark - 防止在刚转到TV页面时就全屏展示，需要至少先等待0.1秒 页面打开时执行
 -(void)preventTVViewOnceFullScreen
-{   [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
+{
+    [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];
+    if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve_Other"] isEqualToString:@"YES"]) {
+        [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"];
+        [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve_Other"];   //防止刚跳转到主页时就旋转到全屏
+    }
+    
+    NSLog(@"bubu允许旋转==modei 8067");
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(modeifyTVViewRevolve) object:nil];
     [self performSelector:@selector(modeifyTVViewRevolve) withObject:nil afterDelay:99999];
     //    [[NSRunLoop currentRunLoop] run];
@@ -8072,6 +8078,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)modeifyTVViewRevolve
 {
     [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"];
+    NSLog(@"允许旋转==modei 8075");
 }
 
 #pragma mark - 用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
@@ -10706,5 +10713,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [GGUtil postfullScreenBtnShow];
     }
 }
+
 @end
 

@@ -90,11 +90,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             
             NSLog(@"全屏按钮显示--initwith");
             NSLog(@"全屏按钮显示---方法:@NOChannelDataDefault %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
+            
             self.fullScreenButton.hidden = NO;
         }else
         {
-            NSLog(@"全屏按钮消失---方法:initwith ");
-            NSLog(@"全屏按钮消失---方法:@NOChannelDataDefault %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
+//            NSLog(@"全屏按钮消失---方法:initwith ");
+            NSLog(@"全屏按钮消失---ccccc %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
             self.fullScreenButton.hidden = YES;
         }
         //        [self.bottomBar addSubview:self.shrinkScreenButton];
@@ -228,12 +229,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 -(void)fullScreenBtnShow
 {
-    NSLog(@"全屏按钮显示--fullScreenBtnShow");
+    
     self.fullScreenButton.hidden = NO;
 }
 -(void)fullScreenBtnHidden
 {
-    NSLog(@"全屏按钮消失---方法:这里是fullScreenBtnHidden 的方法  ");
+    NSLog(@"全屏按钮消失---ddddd  ");
     self.fullScreenButton.hidden = YES;
 }
 - (void)layoutSubviews

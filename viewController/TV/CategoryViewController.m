@@ -42,6 +42,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
+    [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve_Other"];   //防止刚跳转到主页时就旋转到全屏
+    NSLog(@"bubu允许旋转==cate");
     //    [scroll removeFromSuperview];
     //    scroll = nil;
     

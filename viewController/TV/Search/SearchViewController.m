@@ -95,6 +95,8 @@
     NSLog(@" self.showData %@",self.showData);
     NSLog(@" self.dataList %@",self.dataList);
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"];   //防止刚跳转到主页时就旋转到全屏
+    [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve_Other"];   //防止刚跳转到主页时就旋转到全屏
+    NSLog(@"bubu允许旋转==search");
 //    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //    historySearchTableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 //        [self.tableView reloadData];
@@ -439,48 +441,7 @@
         
         NSLog(@"dicCategory %@",dicCategory);
         
-//        NSLog(@"self.dataList == %@",self.dataList);
-//        
-//        NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
-//        
-//        for (int i = 0; i<category1.count; i++) {   //此时category下有6个分组，第一个分组是3个数据
-//            
-//            NSArray *  service_index = [category1[i] objectForKey:@"service_index"];//service_index是category分类下每个分组中service_index的数据
-//            
-//            for (int y = 0; y<service_index.count; y++) {
-//                
-//                NSLog(@"service_index[y] intValue ：%d",[service_index[y] intValue]);
-//                
-//                if ([service_index[y] intValue] - 1 == index1) {  //// 判断值是否等于行数，如果等于，那么i就是category中的序号，我们取第i个category的service_index数据。
-//                    
-//                    indexForTouch = index1 ;    //这里的indexForTouch 代表点击的数据是数组servie_index下的第几个，从0开始
-//                    //                //获取不同类别下的节目，然后是节目下不同的cell值                10
-//                    for (int x = 0 ; x<service_index.count; x++) {
-//                        //
-//                        //indexCat 代表总的service下第几个
-//                        int indexCat ;
-//                        
-//                        indexCat =[service_index[x] intValue] ;
-//                        data2 = [self.response objectForKey: @"service" ];
-//                        NSLog(@"self.response: %@",self.response);
-//                        NSLog(@"data2--: %@",data2);
-//                        serviceTouch  = data2[indexCat-1];
-//                        //                    //cell.tabledataDic = self.serviceData[indexCat -1];
-//                        //
-//                        [dicCategory setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
-//                      
-//                        
-//                        //                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-//                        //                    
-//                        //                    
-//                    }
-//                    
-//                    
-//                    
-//                    
-//                }
-//            }
-//        }
+
     }
     else if([tableView isEqual:self.historySearchTableview])
     {
