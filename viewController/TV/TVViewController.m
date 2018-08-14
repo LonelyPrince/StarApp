@@ -3860,6 +3860,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //判断是不是需要刷新顶部的YLSlider
+
+        NSMutableArray * abcdef = [response[@"category"] mutableCopy];
+        NSLog(@"xxxxxx====x=x=x=(NSMutableArray *)response[  3802 %ld",abcdef.count);
+        NSLog(@"xxxxxx====x=x=x=self.categorys  3802 %ld",self.categorys.count);
+        NSLog(@"xxxxxx====x=x=x=getLastCategoryArr %ld",getLastCategoryArr.count);
+    //
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
             NSLog(@"删除了某个节目  3603");
 
@@ -3870,13 +3876,31 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
             if (self.categorys.count > 0 && recFileData.count > 0 && getLastCategoryArr.count > 0 && getLastRecFileArrTemp.count > 0) {
 
-                [self.tableForSliderView reloadData];
-                [self refreshTableviewByEPGTime];
-                [self.table reloadData];
-
-                [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                
+                if (getLastCategoryArr != self.categorys.count) {
+                    
+                    isPlayFirstChannel = NO;
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    NSLog(@" 3864  remove 了列表");
+                    [self.tableForSliderView reloadData];
+                    [self refreshTableviewByEPGTime];
+                    [self.table reloadData];
+                    
+                    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                }else{
+                    [self.tableForSliderView reloadData];
+                    [self refreshTableviewByEPGTime];
+                    [self.table reloadData];
+                    
+                    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                }
+                
+                
+                
             }else
             {
+          
                 if (getLastCategoryArr != self.categorys.count) {
 
                     isPlayFirstChannel = NO;

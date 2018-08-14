@@ -2504,6 +2504,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         
         self.videoControl.fullScreenButton.hidden = NO;
+        [self shrinkScreenButton1Click];
     }
     
     
@@ -2607,6 +2608,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         NSLog(@"全屏按钮消失---bbbbbb");
         self.videoControl.fullScreenButton.hidden = YES;
+        [self shrinkScreenButton1Click];
     }
     
     //    self.videoControl.shrinkScreenButton.hidden = YES;
@@ -3544,6 +3546,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
     NSLog(@"111 replace");
 }
+-(void)tuichuFullScreenNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    刷新节目名称的通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tuichuFullScreenNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tuichuFullScreen) name:@"tuichuFullScreenNotific" object:nil];
+}
+-(void)tuichuFullScreen
+{
+    [self shrinkScreenButton1Click];
+}
+
 
 //时间戳转换
 
@@ -5210,6 +5224,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
 
     [self newReplaceEventNameNotific];
+    [self tuichuFullScreenNotific];
     self.videoControl.channelIdLab.text = self.video.channelId;
 
     self.videoControl.channelNameLab.text =  self.video.channelName;

@@ -97,6 +97,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 //            NSLog(@"全屏按钮消失---方法:initwith ");
             NSLog(@"全屏按钮消失---ccccc %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
             self.fullScreenButton.hidden = YES;
+            
+            NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
         }
         //        [self.bottomBar addSubview:self.shrinkScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton1];
