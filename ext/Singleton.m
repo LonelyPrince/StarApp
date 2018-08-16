@@ -2095,13 +2095,6 @@
     NSLog(@" dataToOperate %@",dataToOperate);
     if(data_Refresh_Status_int == 0) //正确
     {
-        //        //发送播放命令
-        //        //创建通知
-        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-        //
-        //        //                        STBDencryptVideoTouchNotific
         NSLog(@"列表为空不做操作");
     }else  //if(data_Refresh_Status_int == 1) //验证错误
     {
@@ -2111,6 +2104,10 @@
         [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
         
         NSLog(@"列表不为空 需要做操作");
+        
+        //如果此方法触发，则EPG列表一分钟刷新一次
+        NSNotification *notificationaa =[NSNotification notificationWithName:@"startOneMinuteNotific" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notificationaa];
     }
     
     
@@ -2637,6 +2634,10 @@
     NSNotification *notification =[NSNotification notificationWithName:@"cantDeliveryNotific" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    //退出EPG1分钟刷新一次
+    NSNotification *notificationaa =[NSNotification notificationWithName:@"endOneMinuteNotific" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notificationaa];
     
 }
 

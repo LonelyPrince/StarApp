@@ -3441,6 +3441,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self allCategorysBtnNotific];
         [self removeLineProgressNotific]; //进度条停止的刷新通知
         [self restartLineProgressNotific]; //进度条重新开始的通知
+        [self startOneMinuteNotific];
+        [self endOneMinuteNotific];
         
         [self refreshTableFocus];  //刷新tableView焦点颜色的通知
         [self reducePushSharingView];  //刷新tableView焦点颜色的通知
@@ -3882,7 +3884,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     isPlayFirstChannel = NO;
                     [_slideView removeFromSuperview];
                     _slideView = nil;
-                    NSLog(@" 3864  remove 了列表");
+                    NSLog(@" 3885  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
                     [self.table reloadData];
@@ -3906,7 +3908,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     isPlayFirstChannel = NO;
                     [_slideView removeFromSuperview];
                     _slideView = nil;
-                    NSLog(@" 3864  remove 了列表");
+                    NSLog(@" 3909  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
                     [self.table reloadData];
@@ -3915,7 +3917,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else{
                     //                [_slideView removeFromSuperview];
                     //                _slideView = nil;
-                    NSLog(@" 3887  remove 了列表");
+                    NSLog(@" 3918  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
                     [self.table reloadData];
@@ -4000,13 +4002,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         LBGetHttpRequest *request = CreateGetHTTP(urlCate);
 
         [request startAsynchronous];
-
+//
         WEAKGET
         [request setCompletionBlock:^{
             NSDictionary *response = httpRequest.responseString.JSONValue;
 
             NSArray *data = response[@"category"];
-
+//
             if (!isValidArray(data) || data.count == 0){
                 return ;
             }
@@ -8428,6 +8430,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [GGUtil postnoPlayShowNotic];
     NSLog(@"postnoPlayShowNotic iiiii");
     
+//    //此时停止1分钟的自动刷新。 如果分发停止，
+//    [self endOneMinute];
+    
 }
 #pragma mark - 当CA卡拔出后，显示加扰节目不能播放
 -(void)NOCACardNotific //机顶盒加锁改变的消息
@@ -8910,6 +8915,36 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)refreshTableviewOneMinute
 {
     ONEMinuteTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:YES];
+}
+#pragma mark - epg一分钟刷新相关
+-(void)startOneMinute
+{
+    //开始一分钟的刷新
+    if (ONEMinuteTimer == nil) {
+        ONEMinuteTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:YES];
+    }
+    
+    NSLog(@"开始一分钟刷新");
+}
+-(void)endOneMinute
+{
+    //结束一分钟的刷新
+    [self removeONEMinuteTimer];
+    NSLog(@"结束一分钟刷新");
+}
+-(void)endOneMinuteNotific
+{
+    //    此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"endOneMinuteNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endOneMinute) name:@"endOneMinuteNotific" object:nil];
+}
+-(void)startOneMinuteNotific
+{
+    //    此处销毁通知，防止一个通知被多次调用
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"startOneMinuteNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startOneMinute) name:@"startOneMinuteNotific" object:nil];
 }
 
 #pragma mark - 进度条
