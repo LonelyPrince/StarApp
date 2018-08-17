@@ -4208,6 +4208,108 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notificationX];
 
+    
+   
+    
+    
+    
+    
+    NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
+    
+    if (isHasChannleDataList == YES) {
+    
+        if ([deliveryPlayState isEqualToString:@"stopDelivery"]){
+            NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+            if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
+                
+                if (storeLastChannelArr.count >= 4) {
+                    NSInteger row ;
+                    NSDictionary * dic = [[NSDictionary alloc]init];
+                    if (storeLastChannelArr.count >= 2) {
+                        row = [storeLastChannelArr[2] integerValue];
+                    }else
+                    {
+                        return;
+                    }
+                    if(storeLastChannelArr.count >= 3) {
+                        dic = storeLastChannelArr [3];
+                    }else
+                    {
+                        return;
+                    }
+                    //=======机顶盒加密
+                    NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                    if (characterStr != NULL && characterStr != nil) {
+                        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                        if (judgeIsSTBDecrypt == YES) {
+                            // 此处代表需要记性机顶盒加密验证
+                            NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                            [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
+                            firstOpenAPP = firstOpenAPP+1;
+                            
+                            firstfirst = NO;
+                        }else //正常播放的步骤
+                        {
+                            [self firstOpenAppAutoPlayZero:row diction:dic];
+                        }
+                    }else //正常播放的步骤
+                    {
+                        [self firstOpenAppAutoPlay:row diction:dic];
+                    }
+                    [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                }else
+                {
+                    return ;
+                }
+                
+            }else
+            {
+                if (historyArr.count > 0) {
+                    NSArray * touchArr = historyArr[historyArr.count - 1];
+                    
+                    if (storeLastChannelArr.count < 2) {
+                        return;
+                    }else
+                    {
+                        if (touchArr.count >= 4) {
+                            NSInteger row = [touchArr[2] integerValue];
+                            NSDictionary * dic = storeLastChannelArr [3];
+                            NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
+                            if (characterStr != NULL && characterStr != nil) {
+                                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                                if (judgeIsSTBDecrypt == YES) {
+                                    // 此处代表需要记性机顶盒加密验证
+                                    NSNumber  *numIndex = [NSNumber numberWithInteger:row];
+                                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                                    [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
+                                    firstOpenAPP = firstOpenAPP+1;
+                                    firstfirst = NO;
+                                }else //正常播放的步骤
+                                {
+                                    [self firstOpenAppAutoPlayZero:row diction:dic];
+                                }
+                            }else //正常播放的步骤
+                            {
+                                //======机顶盒加密
+                                [self firstOpenAppAutoPlay:row diction:dic];
+                            }
+                            
+//                            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                        }else
+                        {
+                            return;
+                        }
+                    }
+                }else
+                {
+                    return;
+                }
+                
+            }
+        }
+    }
+    
 }
 
 -(void)tableViewDataRefreshForSDTMonitorSMT
