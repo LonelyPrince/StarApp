@@ -4845,10 +4845,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.video.channelId =channelIdLabStr;
         self.video.channelName =channelNameLabStr;
         
+        NSLog(@"self.isSelect = ID : %@",self.video.channelId);
         
-        self.videoControl.channelIdLab.text = self.video.channelId;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.videoControl.channelIdLab.text = self.video.channelId;
+            
+            self.videoControl.channelNameLab.text = self.video.channelName;
+        });
         
-        self.videoControl.channelNameLab.text = self.video.channelName;
         
         if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
             self.videoControl.eventnameLabel.text = @"";

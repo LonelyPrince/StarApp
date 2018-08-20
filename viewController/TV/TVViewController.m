@@ -140,7 +140,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 
 @property (nonatomic, strong) UIView *lineView;
-
+//@property (nonatomic, assign) BOOL isSelect;
 @property (nonatomic, strong) NSMutableArray *categorys;
 
 @property (nonatomic, assign) NSInteger currentIndex;
@@ -1799,6 +1799,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
 }
+//- (void)repeatDelay{
+//    self.isSelect = false;
+//    NSLog(@"self.isSelect = false;");
+//}
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //    [tempTableviewForFocus deselectRowAtIndexPath:tempIndexpathForFocus animated:YES];
@@ -1822,6 +1826,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else
     {
+        
+//        if (self.isSelect == false) {
+//            self.isSelect = true;
+//            NSLog(@"self.isSelect = true;");
+//            //在延时方法中将isSelect更改为false
+//            [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:0.3];
+//            // TODO:在下面实现点击cell需要实现的逻辑就可以了
+//
+        
+        
+        
+        
+        
         NSLog(@"self.video.dicChannl88==11");
         [self updateFullScreenDic];
 
@@ -1915,7 +1932,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         NSLog(@"ksksksksksakjsdiasdiuasdasdiu");
-
+        
+        NSLog(@"self.isSelect = true;====");
+//        }
     }
     
 }
@@ -4215,7 +4234,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
-    
     if (isHasChannleDataList == YES) {
     
         if ([deliveryPlayState isEqualToString:@"stopDelivery"]){
