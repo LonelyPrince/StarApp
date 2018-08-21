@@ -78,6 +78,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     float RECTime;
     int durationTimeTemp;
     BOOL pushBtnHasClick;   //防止投屏按钮多次点击
+//    BOOL isLastBtnEnable;
+//    BOOL isLastBtnEnableTemp;
 }
 
 
@@ -221,6 +223,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         judgeVideoIsStatic = 0;
         [self initData];
         pushBtnHasClick = NO;
+//        isLastBtnEnable = NO;
+//        isLastBtnEnableTemp = NO;
     }
     return self;
 }
@@ -2507,8 +2511,64 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self shrinkScreenButton1Click];
     }
     
+//    [self judgeLastBtnIsGrayByDic];
+////    [self judgeNextBtnIsGrayByDic];
+//    [self refreshChannelTable];
     
 }
+//-(void)judgeLastBtnIsGrayByDic
+//{
+//    NSLog(@"judgeLastBtnIsGrayjudgeLastBtnIsGrayjudgeLastBtnIsGray 11111");
+//    //上一个节目
+////    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+////    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+////
+//
+//
+//    NSDictionary *  historyDic  = [self.video.dicChannl mutableCopy];
+//    if (historyDic.count > 0) {
+//
+//        NSDictionary * tempaaa = [historyDic objectForKey:@"0"];
+//        NSLog(@"tempaaa : %@",[tempaaa objectForKey:@"service_name"]);
+//        if ([[tempaaa objectForKey:@"service_name"] isEqualToString:self.videoControl.channelNameLab.text]) {
+//            NSLog(@"self.videoControl.channelNameLab.text %@",self.videoControl.channelNameLab.text);
+//            NSLog(@"YES");
+//            self.videoControl.lastChannelButton.enabled = NO;
+//            isLastBtnEnable = NO;
+//        }else{
+//            self.videoControl.lastChannelButton.enabled = YES;
+//            isLastBtnEnable = YES;
+//        }
+//        isLastBtnEnableTemp = YES;
+//    }
+//
+//}
+//-(void)judgeNextBtnIsGrayByDic
+//{
+//    NSLog(@"judgeLastBtnIsGrayjudgeLastBtnIsGrayjudgeLastBtnIsGray 11111");
+//    //上一个节目
+//    //    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+//    //    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+//    //
+//
+//
+//    NSDictionary *  historyDic  = [self.video.dicChannl mutableCopy];
+//    if (historyDic.count > 0) {
+//        long lasthistory = historyDic.count - 1;
+//        NSString * lasthistoryStr = [NSString stringWithFormat:@"%ld",lasthistory];
+//        NSDictionary * tempaaa = [historyDic objectForKey:lasthistoryStr];
+//        NSLog(@"tempaaa : %@",[tempaaa objectForKey:@"service_name"]);
+//        if ([[tempaaa objectForKey:@"service_name"] isEqualToString:self.videoControl.channelNameLab.text]) {
+//            NSLog(@"self.videoControl.channelNameLab.text %@",self.videoControl.channelNameLab.text);
+//            NSLog(@"YES");
+//            self.videoControl.lastChannelButton.enabled = NO;
+//        }else{
+//            self.videoControl.lastChannelButton.enabled = YES;
+//        }
+//    }
+//
+//
+//}
 
 -(void)abctest
 {
@@ -2969,6 +3029,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {
                 NSLog(@"对不起，已经没有上一个节目了");
                 self.videoControl.lastChannelButton.enabled = NO;
+//                if (isLastBtnEnableTemp == YES) {
+//                    isLastBtnEnableTemp = NO;
+//                    if (isLastBtnEnable) {
+//                        self.videoControl.lastChannelButton.enabled = YES;
+//                    }else{
+//                        self.videoControl.lastChannelButton.enabled = NO;
+//                    }
+//                }else{
+//                    self.videoControl.lastChannelButton.enabled = NO;
+//                }
+               
             }
             
         }else
@@ -3217,6 +3288,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 - (void)channelListBtnClick
 {
+    
+    [self refreshChannelTable];
     //    [tvViewController timerStateInvalidate];
     //    self.tvViewController.timerState = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"timerStateInvalidate" object:nil];
@@ -4088,8 +4161,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)refreshChannelTable
 {
-    //    self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
+    self.video.dicChannl =   [USER_DEFAULT objectForKey:@"VideoTouchOtherViewdicChannl"];
     [self.subAudioTableView reloadData];
+    NSLog(@"刷新全屏tableView==--");
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -1189,13 +1189,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
-    
+
     //     [tempTableviewForFocus reloadData];
     //    [self refreshTableviewByEPGTime];
     //    [self.table reloadData];
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
     //    NSLog(@"search  sousuosoususousouosuosususuos");
-    
+
     //    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
 ////用于刷新页面和slderView
@@ -3862,7 +3862,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"categorysToCategoryViewContainREC*** %@",categorysToCategoryViewContainREC);
     NSLog(@"categorysToCategoryViewContainREC fuqin : %@",[categorysToCategoryViewContainREC superclass]);
     NSMutableArray * getLastRecFileArrTemp = [getLastRecFileArr mutableCopy];
-    NSLog(@"categorysToCategoryViewContainREC 777  %d",categorysToCategoryViewContainREC);
     NSLog(@"getLastRecFileArr.count 3827 %lu",(unsigned long)getLastRecFileArr.count);
     WEAKGET
     [request setCompletionBlock:^{
@@ -4328,6 +4327,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
     }
     
+    [self updateFullScreenDic];
+    
+    NSNotification *notificationcc =[NSNotification notificationWithName:@"refreshChannelTableNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notificationcc];
+
 }
 
 -(void)tableViewDataRefreshForSDTMonitorSMT
@@ -4342,7 +4347,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [request startAsynchronous];   //异步
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
     getLastRecFileArr  = [categorysToCategoryViewContainREC mutableCopy]; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-    NSLog(@"categorysToCategoryViewContainREC 999  %d",categorysToCategoryViewContainREC);
     WEAKGET
     [request setCompletionBlock:^{
         
@@ -4356,7 +4360,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         categorysToCategoryViewContainREC = [recFileData mutableCopy];
         NSLog(@"categorysToCategoryViewContainREC*** 222 %@",categorysToCategoryViewContainREC);
-        NSLog(@"categorysToCategoryViewContainREC aaa  %d",categorysToCategoryViewContainREC);
         self.serviceData = (NSMutableArray *)data1;
         self.categorys = (NSMutableArray *)response[@"category"];  //新加，防止崩溃的地方
         
@@ -5630,7 +5633,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
             self.video.channelCount = tempArrForServiceArr.count;
         }
-        
+
         [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
         NSNumber * channelCountNum = [NSNumber numberWithInt:self.video.channelCount];
         [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
@@ -9390,6 +9393,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.video.channelCount = tempArrForServiceArr.count;
     }
     
+    [USER_DEFAULT setObject:self.video.dicChannl forKey:@"VideoTouchOtherViewdicChannl"];
     
 }
 #pragma mark - 下拉刷新做12秒超时处理
