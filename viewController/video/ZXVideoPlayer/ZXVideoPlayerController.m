@@ -3687,6 +3687,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 /////////////
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//    self.video.channelCount =  [[USER_DEFAULT objectForKey:@"VideoTouchOtherViewchannelCount"] intValue];
     
     if ([_cellStr isEqualToString:@"subt"]) {
         NSLog(@"self.subAudioDic--:%@",self.subAudioDic);
@@ -5353,18 +5354,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"home键在 右");
             [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
 
-            
+
             if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
                 [self abctest];
             }
-            
+
         }
             break;
         case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
             NSLog(@"home键在 左");
             //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
             [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-            
+
             if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
                 [self abctest];
             }
@@ -5463,6 +5464,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
 
 }
+
 -(void)setaudioOrSubtRowIsZero
 {
     audioRow = 0;
