@@ -4210,48 +4210,50 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         
+//
+        NSDictionary *item;
+        if (self.categorys.count > 0) {
+            item = self.categorys[0];   //当前页面类别下的信息
+        }
         
-        
-        
-        NSDictionary *item = self.categorys[0];   //当前页面类别下的信息
         NSLog(@"item**  %@",item);
         NSLog(@"item**dd %d",item.count);
         self.categoryModel = [[CategoryModel alloc]init];
         self.categoryModel.service_indexArr = item[@"service_index"];
-        
+
         for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
             int indexCat ;
             indexCat =[self.categoryModel.service_indexArr[i] intValue];
-            
+
             if ( ISNULL(self.serviceData)) {
-                
+
             }else{
                 [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
             }
-            
+
         }
-        
+
         NSNumber * channelCountNum = [NSNumber numberWithInt:self.dicTemp.count];
-        
-        
-        
+
+
+
         tempArrForServiceArr =  self.categoryModel.service_indexArr;
         tempDicForServiceArr = self.TVChannlDic;
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
-        
-        
+
+
         NSLog(@"channelCountNum %d",[channelCountNum intValue]);
         [USER_DEFAULT setObject:channelCountNum forKey:@"VideoTouchOtherViewchannelCount"];
         self.video.channelCount = channelCountNum;
         [self updateFullScreenDic];
-        
+
         NSNotification *notificationcc =[NSNotification notificationWithName:@"refreshChannelTableNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notificationcc];
-        
-        
-        
-        
+
+
+
+
         
 
     }];
@@ -10773,7 +10775,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             socketView.socket_ServiceModel = [[ServiceModel alloc]init];
             audio_infoArr = [epgDicToSocket objectForKey:@"audio_info"];
             subt_infoArr = [epgDicToSocket objectForKey:@"subt_info"];
-
+ 
             if (audio_infoArr.count > 0 && subt_infoArr.count > 0) {
 
                 int audiopidTemp;
