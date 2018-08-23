@@ -10839,8 +10839,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //再单独开一个线程用于default操作
             dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queueA, ^{
-                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+                
+                NSArray * tempArrForServiceArrTemp = [NSArray arrayWithArray: tempArrForServiceArr];
+                NSDictionary *  tempDicForServiceArrTemp = [tempDicForServiceArr mutableCopy] ;
+                
+                [USER_DEFAULT setObject:tempArrForServiceArrTemp forKey:@"tempArrForServiceArr"];
+                [USER_DEFAULT setObject:tempDicForServiceArrTemp forKey:@"tempDicForServiceArr"];
             });
             [self judgeAllArgueIsZero];
 

@@ -1854,8 +1854,8 @@
 			isa = PBXGroup;
 			children = (
 				709746671D6D8A54002E7A39 /* RunLoop */,
-				709746751D6D8E3F002E7A39 /* Singleton.h */,
 				709746761D6D8E3F002E7A39 /* Singleton.m */,
+				709746751D6D8E3F002E7A39 /* Singleton.h */,
 				70130EAA1D8FEBDA005F0A49 /* SocketUtils.h */,
 				70130EAB1D8FEBDA005F0A49 /* SocketUtils.m */,
 			);
