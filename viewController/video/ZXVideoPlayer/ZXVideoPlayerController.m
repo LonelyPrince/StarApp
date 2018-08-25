@@ -72,14 +72,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int openTime; //用于第一次打开时，触发隐藏方法，防止多次触犯，这里赋值为0
     
     int judgeVideoIsStatic;  //判断视频是否出现了静帧，如果静帧时间超过3秒，则提示不能播放的文字。视频静帧的时候，会触发“媒体网络状态改变的方法”，视频恢复正常播放的时候会触发“播放状态改变”的方法
-    
-    //    NSString *  tempUrl;
-    
     float RECTime;
     int durationTimeTemp;
     BOOL pushBtnHasClick;   //防止投屏按钮多次点击
-//    BOOL isLastBtnEnable;
-//    BOOL isLastBtnEnableTemp;
+    
+    BOOL judgeIsNeedPlay ; //用于更新Video状态时，不播放节目
 }
 
 
@@ -189,7 +186,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self removeConfigRadioShow];  //如果不是音频节目，或者音频节目播放完成，则删除掉音频图
         [self removeConfigDecoderPINShow];  //如果用户点击了按钮，则发送删除通知把decoder的文字和按钮删除掉
         [self removeConfigCAPINShow]; //取消掉CAPIN的文字和按钮删除掉
-        
+        [self judgeIsNeedPlayNotific];
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
@@ -225,6 +222,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         pushBtnHasClick = NO;
 //        isLastBtnEnable = NO;
 //        isLastBtnEnableTemp = NO;
+        judgeIsNeedPlay = YES;
     }
     return self;
 }
@@ -905,6 +903,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"IndicatorViewShowNotic" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(IndicatorViewShowNotic) name:@"IndicatorViewShowNotic" object:nil];
+}
+-(void)judgeIsNeedPlayNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"judgeIsNeedPlayNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(judgeIsNeedPlayFunction) name:@"judgeIsNeedPlayNotific" object:nil];
+}
+-(void)judgeIsNeedPlayFunction
+{
+    judgeIsNeedPlay = NO;
 }
 //未播放前显示加载圈的通知 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
 -(void)IndicatorViewShowNotic
@@ -5294,7 +5303,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // 标题
     self.videoControl.titleLabel.text = self.video.title;
     // play url
-    self.url = [NSURL URLWithString:self.video.playUrl];
+    if (judgeIsNeedPlay == YES) {
+        self.url = [NSURL URLWithString:self.video.playUrl];
+    }else{
+        judgeIsNeedPlay = YES;
+    }
+    
     NSLog(@"contentURL 33ZXVideo");
     //当前节目名称
     self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
