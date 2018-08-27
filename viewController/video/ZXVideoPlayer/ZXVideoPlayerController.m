@@ -2837,10 +2837,27 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"touchArr：%@",touchArr);
 
 
-    NSInteger row = [touchArr[2] intValue];
-    NSDictionary * dic = touchArr [3];
+//   __block NSInteger row ; //= [touchArr[2] intValue];
+
+    NSInteger row ; //= [touchArr[2] intValue];
+//      dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//    for (int i = 0; i < self.video.dicChannl; i ++) {
+//        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+//        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:channleIdStr]]) {
+//            //如果相等，则获取row
+//            row = i;
+//            NSLog(@"此时的 rows是多少： %d",row);
+//        }
+//    }
+//      });
+    NSLog(@"zhxin 执行结束");
+    NSDictionary * dic =  [self.video.dicChannl mutableCopy];  //  touchArr [3];
+
+//    BOOL judgeIsequal = [GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"0"]]];
 
     if (row >= 1) {
+//    if (judgeIsequal == NO) {
+
         self.videoControl.lastChannelButton.enabled = YES;
         self.videoControl.nextChannelButton.enabled = YES;
         NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
@@ -2903,8 +2920,95 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"对不起，已经没有上一个节目了");
         self.videoControl.lastChannelButton.enabled = NO;
     }
-    
+
 }
+//{
+//    [self.player stop];
+//    [self.player shutdown];
+//    [self.player.view removeFromSuperview];
+//
+//    [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
+//    audioRow = 0;
+//    NSLog(@"audioRow==2 %d",audioRow);
+//    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
+//    subtRow = 0;
+//    NSLog(@"shang 上一个节目");
+//
+//    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
+//    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+//
+//    NSArray * touchArr = historyArr[historyArr.count - 1];
+//    NSLog(@"touchArr：%@",touchArr);
+//
+//
+//    NSInteger row = [touchArr[2] intValue];
+//    NSDictionary * dic = touchArr [3];
+//
+//    if (row >= 1) {
+//        self.videoControl.lastChannelButton.enabled = YES;
+//        self.videoControl.nextChannelButton.enabled = YES;
+//        NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
+//        //添加 字典，将label的值通过key值设置传递
+//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+//
+//
+//        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+//        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)(row -1)]];
+//
+//        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+//
+//
+//        if (characterStr != NULL && characterStr != nil) {
+//
+//            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+//            if (judgeIsSTBDecrypt == YES) {
+//                // 此处代表需要记性机顶盒加密验证
+//                //弹窗
+//                //发送通知
+//
+//                //        [self popSTBAlertView];
+//                //        [self popCAAlertView];
+//                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+//                //创建通知
+//                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+//                NSLog(@"POPPOPPOPPOP66666666666");
+//                //通过通知中心发送通知
+//                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//                [self judgeLastBtnIsGray];
+//                NSLog(@"judgeLastBtnIsGray 2222");
+//                //                [self.tabBarController setSelectedIndex:1];
+//
+//            }else //正常播放的步骤
+//            {
+//                //创建通知
+//                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+//                //通过通知中心发送通知
+//                [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                [self judgeLastBtnIsGray];
+//                NSLog(@"judgeLastBtnIsGray 3333");
+//                //                [self.tabBarController setSelectedIndex:1];
+//            }
+//
+//
+//        }else //正常播放的步骤
+//        {
+//
+//
+//            //创建通知
+//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+//            //通过通知中心发送通知
+//            [[NSNotificationCenter defaultCenter] postNotification:notification];
+//            [self judgeLastBtnIsGray];
+//            NSLog(@"judgeLastBtnIsGray 4444");
+//        }
+//
+//    }else
+//    {
+//        NSLog(@"对不起，已经没有上一个节目了");
+//        self.videoControl.lastChannelButton.enabled = NO;
+//    }
+//
+//}
 #pragma  mark -点击了暂停按钮
 - (void)suspendButtonClick
 {
@@ -3025,13 +3129,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSArray * touchArr = historyArr[historyArr.count - 1];
             NSLog(@"touchArr：%@",touchArr);
             
-            
+
+            BOOL judgeIsequal = [GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"0"]]];
+
             NSInteger row = [touchArr[2] intValue];
             //        NSDictionary * dic = touchArr [3];
             NSLog(@"row == row %ld",(long)row);
             
             
-            if (row >= 1) {
+//            if (row >= 1) {
+            if (judgeIsequal == NO) {
                 self.videoControl.lastChannelButton.enabled = YES;
                 
             }else
@@ -3082,7 +3189,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"dic。count :%lu",(unsigned long)dic.count);
             NSLog(@"row1 :%ld",(long)row);
             int dic_Count = [dic count] -1;
-            if (row < dic_Count) {
+            
+            
+            int dicCount = self.video.dicChannl.count -1;
+            BOOL judgeIsequal = [GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%d",dicCount]]];
+            
+            
+            if (judgeIsequal == NO) {
+//            if (row < dic_Count) {
                 //        self.videoControl.lastChannelButton.enabled = YES;
                 self.videoControl.nextChannelButton.enabled = YES;
             }else
@@ -3260,7 +3374,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
     _cellStr = @"audio";
     NSLog(@"audio音轨");
-    
+
     if (self.rightViewShowing == YES)
     {
         [self rightViewHidden];
@@ -4498,10 +4612,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSMutableDictionary * dic;
         if (touchArr.count >= 4) {
             rowIndex = [touchArr[2] intValue];
-            dic = [touchArr [3] mutableCopy];
+            dic = [touchArr [3] mutableCopy];  //dic 包含了all 信息
         }
         
         NSDictionary * epgDicToSocketTemp = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]] copy]; //找到了正在播放的节目的信息
+        //epgDicToSocketTemp  为当前正在播放的节目  所以是用来正在播放的节目和调整后的节目列表有没有关系
         
         //②
         dic = [self.video.dicChannl objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
@@ -4597,7 +4712,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     //    NSArray * touchArr = historyArr[historyArr.count - 1];
     NSLog(@"touchArr：%@",touchArr);
-    NSDictionary * dicAll = touchArr [3];
+    NSDictionary * dicAll = self.video.dicChannl; //touchArr [3];
     
     
     NSLog(@"dicdicdicdic %@",dicAll);

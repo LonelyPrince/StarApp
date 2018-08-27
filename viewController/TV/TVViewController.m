@@ -3311,6 +3311,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (addNewData == YES) {
             NSString * seedNowTime = [GGUtil GetNowTimeString];
             NSNumber *aNumber = [NSNumber numberWithInteger:row];
+            NSLog(@"dic==histaryhsh= %@",dic);
             NSArray * seedNowArr = [NSArray arrayWithObjects:epgDicToSocket,seedNowTime,aNumber,dic,nil];
             if (seedNowArr.count > 0) {
                 //根据数组大小，删除数据。只保留20个以内的历史记录
@@ -4070,6 +4071,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         
+        NSDictionary *item;
+        if (self.categorys.count > 0) {
+            item = self.categorys[0];   //当前页面类别下的信息
+        }
+        
+        NSLog(@"item**  %@",item);
+        NSLog(@"item**dd %d",item.count);
+        self.categoryModel = [[CategoryModel alloc]init];
+        self.categoryModel.service_indexArr = item[@"service_index"];
+        
+        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+            int indexCat ;
+            indexCat =[self.categoryModel.service_indexArr[i] intValue];
+            
+            if ( ISNULL(self.serviceData)) {
+                
+            }else{
+                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+            }
+        }
         
         
 //         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:deliveryStopTip] || [[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:videoCantPlayTip])  {
@@ -4079,12 +4100,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //         }else{
 //             NSLog(@"此处是分发停止 deliveryStopTip 22 %@",[USER_DEFAULT objectForKey:@"playStateType"]);
 //             NSLog(@"此处是分发停止 deliveryStopTip    NONOONONO");
+        
              for (int i = 0; i < mutableArrTemp.count; i++) {
                  
                  NSDictionary * serviceArrForJudge_dic = mutableArrTemp[i];
                  BOOL isTwoDicEqual =  [GGUtil judgeTwoEpgDicIsEqual:epgDicToSocket TwoDic:serviceArrForJudge_dic];
                  
                  if (isTwoDicEqual == YES) {
+                     
                      isHavePlayingChannel = YES;
                      if ([serviceArrForJudge_dic isEqual: epgDicToSocket] ) {
                          [self SDTfirstOpenAppAutoPlay:rowIndex diction:dic];
@@ -4138,6 +4161,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                              // 此处代表需要记性机顶盒加密验证
                              NSNumber  *numIndex = [NSNumber numberWithInteger:rowIndex];
                              NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"LiveTouch",@"textThree",nil];
+//                             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
+                             
                              [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                              firstOpenAPP = firstOpenAPP+1;
                              firstfirst = NO;
@@ -4157,26 +4182,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                          }
                          
                          
-                         NSDictionary *item;
-                         if (self.categorys.count > 0) {
-                             item = self.categorys[0];   //当前页面类别下的信息
-                         }
-                         
-                         NSLog(@"item**  %@",item);
-                         NSLog(@"item**dd %d",item.count);
-                         self.categoryModel = [[CategoryModel alloc]init];
-                         self.categoryModel.service_indexArr = item[@"service_index"];
-                         
-                         for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                             int indexCat ;
-                             indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                             
-                             if ( ISNULL(self.serviceData)) {
-                                 
-                             }else{
-                                 [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                             }
-                         }
+//                         NSDictionary *item;
+//                         if (self.categorys.count > 0) {
+//                             item = self.categorys[0];   //当前页面类别下的信息
+//                         }
+//
+//                         NSLog(@"item**  %@",item);
+//                         NSLog(@"item**dd %d",item.count);
+//                         self.categoryModel = [[CategoryModel alloc]init];
+//                         self.categoryModel.service_indexArr = item[@"service_index"];
+//
+//                         for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+//                             int indexCat ;
+//                             indexCat =[self.categoryModel.service_indexArr[i] intValue];
+//
+//                             if ( ISNULL(self.serviceData)) {
+//
+//                             }else{
+//                                 [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//                             }
+//                         }
                          
                          NSNumber * channelCountNum = [NSNumber numberWithInt:self.dicTemp.count];
                          
@@ -4262,27 +4287,27 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
 //
-        NSLog(@"执行全屏页面tableView数据刷新");
-        NSDictionary *item;
-        if (self.categorys.count > 0) {
-            item = self.categorys[0];   //当前页面类别下的信息
-        }
-        
-        NSLog(@"item**  %@",item);
-        NSLog(@"item**dd %d",item.count);
-        self.categoryModel = [[CategoryModel alloc]init];
-        self.categoryModel.service_indexArr = item[@"service_index"];
-
-        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-            int indexCat ;
-            indexCat =[self.categoryModel.service_indexArr[i] intValue];
-
-            if ( ISNULL(self.serviceData)) {
-
-            }else{
-                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-            }
-        }
+//        NSLog(@"执行全屏页面tableView数据刷新");
+//        NSDictionary *item;
+//        if (self.categorys.count > 0) {
+//            item = self.categorys[0];   //当前页面类别下的信息
+//        }
+//
+//        NSLog(@"item**  %@",item);
+//        NSLog(@"item**dd %d",item.count);
+//        self.categoryModel = [[CategoryModel alloc]init];
+//        self.categoryModel.service_indexArr = item[@"service_index"];
+//
+//        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+//            int indexCat ;
+//            indexCat =[self.categoryModel.service_indexArr[i] intValue];
+//
+//            if ( ISNULL(self.serviceData)) {
+//
+//            }else{
+//                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+//            }
+//        }
 
         NSNumber * channelCountNum = [NSNumber numberWithInt:self.dicTemp.count];
 
@@ -4310,7 +4335,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self playVideo];
 
 
-        
+        NSNotification *notificationXY =[NSNotification notificationWithName:@"judgeLastNextBtnIsEnableNotific" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:notificationXY];
 
     }];
     double delayInSeconds = 1;
