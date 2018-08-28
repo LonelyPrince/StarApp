@@ -4065,6 +4065,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         if (!ISEMPTY(self.video.dicSubAudio)) {
             
+            self.subAudioDic = self.video.dicSubAudio;
+            
             NSArray * audioArr = [[NSArray alloc]init];
             
             audioArr  =[self.subAudioDic  objectForKey:@"audio_info"];
