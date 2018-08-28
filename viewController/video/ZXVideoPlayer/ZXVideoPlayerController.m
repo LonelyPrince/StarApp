@@ -77,6 +77,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     BOOL pushBtnHasClick;   //防止投屏按钮多次点击
     
     BOOL judgeIsNeedPlay ; //用于更新Video状态时，不播放节目
+    
+    int nowPlayChannelId;
+    BOOL nowPlayChannelIdBoolValue;
 }
 
 
@@ -199,6 +202,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self judgeLastNextBtnIsEnableNotific]; //每次判断上一个下一个节目是不是需要enable = no
         [self refreshChannelTableNotific];
         
+        [self returnNewChannelIdNotific];
+        
         self.rightViewShowing = NO;
         //                self.tvViewControlller = [[TVViewController alloc]init];
         self.socketView1 = [[SocketView alloc]init];
@@ -223,6 +228,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        isLastBtnEnable = NO;
 //        isLastBtnEnableTemp = NO;
         judgeIsNeedPlay = YES;
+        nowPlayChannelId = 0;
+        nowPlayChannelIdBoolValue = NO;
     }
     return self;
 }
@@ -2850,6 +2857,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //        }
 //    }
 //      });
+    
+    if (nowPlayChannelIdBoolValue == YES) {
+        nowPlayChannelIdBoolValue = NO;
+        row = nowPlayChannelId;
+    }
     NSLog(@"zhxin 执行结束");
     NSDictionary * dic =  [self.video.dicChannl mutableCopy];  //  touchArr [3];
 
@@ -3629,6 +3641,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)setUrl:(NSURL *)url
 {
     
+    nowPlayChannelIdBoolValue = NO;
     //    self.player = [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:self.view];
     //     self.view = self.player.view ;
     //
@@ -4252,12 +4265,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         
                         [cell.channelId setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                         [cell.channelName setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                        
+                        NSLog(@" index : row :  %d",indexPath.row);
                     }else
                     {
                         [cell.channelId setTextColor:[UIColor whiteColor]];
                         [cell.channelName setTextColor:[UIColor whiteColor]];
                         
+                     
                     }
                 });
                 
@@ -4276,6 +4290,35 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
 }
+-(void)returnNewChannelIdNotific
+{
+    //新建一个通知，用来监听从机顶盒密码验证正确跳转来的播放
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"returnNewChannelIdNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(returnNewChannelId:) name:@"returnNewChannelIdNotific" object:nil];
+}
+-(void)returnNewChannelId:(NSNotification *)text//当节目正在播放时，收到加锁通知
+{
+    NSLog(@"changeCALockDataDic %@",text.userInfo[@"textOne"]);
+    nowPlayChannelId = [text.userInfo[@"textOne"]intValue];
+    
+    
+    NSLog(@"nowPlayChannelId %d",nowPlayChannelId);
+    nowPlayChannelIdBoolValue = YES;
+    
+//    [self updateChannelCALockService:changeCALockData];
+}
+
+
+
+
+
+
+
+
+
+
+
 -(void)refreshChannelTableNotific
 {
     //此处销毁通知，防止一个通知被多次调用    // 1

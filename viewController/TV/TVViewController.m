@@ -1623,6 +1623,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+                
+                NSLog(@" index : row :shushushu   %d",indexPath.row);
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -4101,6 +4103,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //             NSLog(@"此处是分发停止 deliveryStopTip 22 %@",[USER_DEFAULT objectForKey:@"playStateType"]);
 //             NSLog(@"此处是分发停止 deliveryStopTip    NONOONONO");
         
+        tempArrForServiceArr =  self.categoryModel.service_indexArr;
+        tempDicForServiceArr = self.TVChannlDic;
+        self.video.dicChannl = [tempDicForServiceArr mutableCopy];
+        
+        int playingRow;
+        for (int i = 0; i < self.video.dicChannl; i ++) {
+            NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+            if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:channleIdStr]]) {
+                //如果相等，则获取row
+                playingRow = i;
+                NSLog(@"index : row 此时的 rows是多少： %d",playingRow);
+                
+                break;
+            }
+        }
+        
+        
+        NSNumber * numplayingRow= [NSNumber numberWithInteger:playingRow];
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numplayingRow,@"textOne",nil];
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"returnNewChannelIdNotific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+        
              for (int i = 0; i < mutableArrTemp.count; i++) {
                  
                  NSDictionary * serviceArrForJudge_dic = mutableArrTemp[i];
@@ -4227,6 +4255,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                          //通过通知中心发送通知
                          [[NSNotificationCenter defaultCenter] postNotification:notification1];
                          
+                         [tempTableviewForFocus reloadData];
+                         [self refreshTableviewByEPGTime];
+                         
                          [self playVideo];
 
                          
@@ -4282,6 +4313,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [tempTableviewForFocus reloadData];
         [self refreshTableviewByEPGTime];
         //        [self.table reloadData];
+        
+        
+        
+       
         
         
         
