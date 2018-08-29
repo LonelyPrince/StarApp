@@ -5303,7 +5303,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)setTimeAndProgressIsNull
 {
-    
+    self.videoControl.eventnameLabel.hidden = YES;
+    self.videoControl.FullEventYFlabel.hidden = YES;
     
     self.videoControl.eventTimeLabNow.hidden = YES;
     self.videoControl.eventTimeLabAll.hidden = YES;
@@ -5317,13 +5318,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.eventTimeLabNow.hidden = NO;
         self.videoControl.eventTimeLabAll.hidden = NO;
         NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO 2222");
+        
+//        self.videoControl.eventnameLabel.hidden = NO;
+//        self.videoControl.FullEventYFlabel.hidden = NO;
     }else
     {
         self.videoControl.eventTimeLabNow.hidden = YES;
         self.videoControl.eventTimeLabAll.hidden = YES;
+        
+        self.videoControl.eventnameLabel.hidden = NO;
+        self.videoControl.FullEventYFlabel.hidden = NO;
     }
     
 }
+//-(void)setvideoNmaeIsShow
+//{
+//    self.videoControl.eventnameLabel.hidden = NO;
+//    self.videoControl.FullEventYFlabel.hidden = NO;
+//}
 #pragma mark - 判断进度条是不是需要显示
 -(void)configTimerOfEventTimeNotific
 {
@@ -5341,6 +5353,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setTimeAndProgressIsShowNotific" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTimeAndProgressIsShow) name:@"setTimeAndProgressIsShowNotific" object:nil];
+    
+  
 }
 //判断进度条是不是需要显示
 -(void)TimerOfEventTimeNotific

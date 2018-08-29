@@ -510,6 +510,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (YES && recFileData.count == 0) {
                 //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+                    NSLog(@"data_valid_flag AAAAAAAA 0");
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
@@ -534,6 +535,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
                 {
+                    NSLog(@"data_valid_flag ========== 0");
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
@@ -617,7 +619,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
                 
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                    
+                    NSLog(@"data_valid_flag AAAAAAAA 1");
                     if (_slideView) {
                         [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   602");
                         _slideView = nil;
@@ -636,6 +638,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }else
                 {
+                    NSLog(@"data_valid_flag ========== 1");
                     //机顶盒连接出错了，所以要显示没有网络的加载图
                     [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                     return ;
@@ -685,7 +688,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (serviceDatabool && recFileData.count == 0) {
                 //            [self getServiceData]; //如果 self.serviceData 数据为空，则重新获取数据
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                    
+                    NSLog(@"data_valid_flag AAAAAAAA 2");
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
@@ -709,7 +712,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
                 }else
                 {
-                    
+                    NSLog(@"data_valid_flag ========== 2");
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
@@ -767,7 +770,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
                     
                     if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                        
+                        NSLog(@"data_valid_flag AAAAAAAA 3");
                         if (_slideView) {
                             [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   745");
                             _slideView = nil;
@@ -786,6 +789,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         }
                     }else
                     {
+                        NSLog(@"data_valid_flag ========== 3");
                         //机顶盒连接出错了，所以要显示没有网络的加载图
                         [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                         return ;
@@ -1176,6 +1180,34 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [self.view addSubview:_fullScreenView];
+}
+
+-(void)timeAndNameShow
+{
+    [GGUtil postsetTimeAndProgressIsShowNotific];
+    
+    
+    self.video.startTime = self.event_startTime;
+    self.video.endTime = self.event_endTime;
+    
+    [self caculatorProgress];
+    // 只显示时间，不显示进度条
+    
+    
+    [self.view addSubview:self.topProgressView];
+    [self.view bringSubviewToFront:self.topProgressView];
+}
+-(void)timeAndNameHidden
+{
+    self.video.startTime = @"0";
+    self.video.endTime = @"0";
+    self.event_videoname = @"";
+    [GGUtil postsetTimeAndProgressIsNullNotific];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self removeTopProgressView];
+        NSLog(@"删除进度条removeTopProgressView  3333");
+    });
+    
 }
 
 //搜索按钮
@@ -3827,10 +3859,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [request setCompletionBlock:^{
 
         NSDictionary *response = httpRequest.responseString.JSONValue;
-
+        NSArray *data1 = response[@"service"];
+//        if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
+//
+            [self judgeIShowEit:data1];
+//            NSLog(@"不不清空信息");
+//        }else{
+//            NSLog(@"清空信息");
+//        }
         //将数据本地化
         [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
-        NSArray *data1 = response[@"service"];
+        
         NSArray *recFileData = response[@"rec_file_info"];
         //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         categorysToCategoryViewContainREC = [recFileData mutableCopy];
@@ -7494,7 +7533,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-            
+            NSLog(@"data_valid_flag AAAAAAAA 4");
             
             //        NSLog(@"response = %@",response);
             data1 = response[@"service"];
@@ -7504,6 +7543,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             categorysToCategoryViewContainREC = [recFileData mutableCopy];   //保证recFileData 有数据
              NSLog(@"categorysToCategoryViewContainREC*** 333 %@",categorysToCategoryViewContainREC);
         }else{
+            NSLog(@"data_valid_flag ========== 4");
             NSLog(@"recFileData  7367 的 data_valid_flag == 0  ");
         }
         
@@ -7516,7 +7556,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
                 
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                    
+                    NSLog(@"data_valid_flag AAAAAAAA 5");
                     if (_slideView) {
                         NSLog(@"删除了某个节目   6762");
                         [_slideView removeFromSuperview];
@@ -7534,6 +7574,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }else
                 {
+                    NSLog(@"data_valid_flag ========== 5");
                     //                    //机顶盒连接出错了，所以要显示没有网络的加载图
                     //                    [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                     //                    return ;
@@ -7589,7 +7630,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+                NSLog(@"data_valid_flag AAAAAAAA 6");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   6832");
                     [_slideView removeFromSuperview];
@@ -7606,6 +7647,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }else
             {
+                NSLog(@"data_valid_flag ========== 6");
                 //机顶盒连接出错了，所以要显示没有网络的加载图
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
@@ -7653,7 +7695,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+                NSLog(@"data_valid_flag AAAAAAAA 7");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   6889");
                     [_slideView removeFromSuperview];
@@ -7671,6 +7713,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }else
             {
+                NSLog(@"data_valid_flag ========== 7");
                 //机顶盒连接出错了，所以要显示没有网络的加载图
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
@@ -7817,16 +7860,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data1;
         NSArray *recFileData;
         if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-            
+            NSLog(@"data_valid_flag AAAAAAAA 8 一分钟刷新");
             
             //        NSLog(@"response = %@",response);
             data1 = response[@"service"];
-            
+//            [self judgeIShowEit:data1];
             //录制节目,保存数据
             recFileData = response[@"rec_file_info"];
             categorysToCategoryViewContainREC = [recFileData mutableCopy];   //保证recFileData 有数据
             NSLog(@"categorysToCategoryViewContainREC*** 444 %@",categorysToCategoryViewContainREC);
         }else{
+            NSLog(@"data_valid_flag ========== 8");
             NSLog(@"recFileData  7367 的 data_valid_flag == 0  ");
         }
         
@@ -7844,7 +7888,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+                NSLog(@"data_valid_flag AAAAAAAA 9");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   7961");
                     [_slideView removeFromSuperview];
@@ -7864,6 +7908,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }else
             {
+                NSLog(@"data_valid_flag ========== 9");
                 //机顶盒连接出错了，所以要显示没有网络的加载图
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
@@ -7897,7 +7942,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
-                    
+                    NSLog(@"data_valid_flag AAAAAAAA 10");
                     if (_slideView) {
                         NSLog(@"删除了某个节目   7111");
                         [_slideView removeFromSuperview];
@@ -7917,6 +7962,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }else
                 {
+                    NSLog(@"data_valid_flag ========== 10");
                     //                //机顶盒连接出错了，所以要显示没有网络的加载图
                     //                [self tableViewDataRefreshForMjRefresh_ONEMinute]; //如果数据为空，则重新获取数据
                     return ;
@@ -7971,7 +8017,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
                 
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                    
+                    NSLog(@"data_valid_flag AAAAAAAA 11");
                     if (_slideView) {
                         NSLog(@"删除了某个节目   7182");
                         [_slideView removeFromSuperview];
@@ -7987,6 +8033,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }else
                 {
+                    NSLog(@"data_valid_flag ========== 11");
                     //机顶盒连接出错了，所以要显示没有网络的加载图
                     [self tableViewDataRefreshForMjRefresh_ONEMinute]; //如果数据为空，则重新获取数据
                     return ;
@@ -8176,7 +8223,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
-                
+                NSLog(@"data_valid_flag AAAAAAAA 12");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   7382");
                     [_slideView removeFromSuperview];
@@ -8199,6 +8246,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }else
             {
+                NSLog(@"data_valid_flag ========== 12");
                 double delayInSeconds = 1;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -8221,7 +8269,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [self getServiceDataForIPChange];
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+                NSLog(@"data_valid_flag AAAAAAAA 13");
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
                 if (_slideView) {
@@ -8249,6 +8297,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
             }else
             {
+                NSLog(@"data_valid_flag ========== 13");
                 //机顶盒连接出错了，所以要显示没有网络的加载图
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                 NSLog(@"NOChannelDataDefault 222");
@@ -10064,7 +10113,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                
+                NSLog(@"data_valid_flag AAAAAAAA 14");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   9196");
                     [_slideView removeFromSuperview];
@@ -10082,6 +10131,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }else
             {
+                NSLog(@"data_valid_flag ========== 14");
                 //机顶盒连接出错了，所以要显示没有网络的加载图
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
@@ -11264,6 +11314,56 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [GGUtil postfullScreenBtnShow];
     }
 }
-
+-(void)judgeIShowEit:(NSArray *)serviceArr
+{
+    NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
+    NSArray * touchArr ;
+    if (historyArr.count >= 1) {
+        touchArr = historyArr[historyArr.count - 1];
+    }else
+    {
+        return;
+    }
+    
+    NSInteger rowIndex;
+    if (touchArr.count >= 4) {
+        rowIndex = [touchArr[2] intValue];
+    }
+    NSDictionary * serviceArrTempDic = [[NSDictionary alloc]init];
+    if (serviceArr.count > 0) {
+      serviceArrTempDic = serviceArr[rowIndex];
+        NSArray * serviceArrTempDic_arr = [serviceArrTempDic objectForKey:@"epg_info"];
+        if (serviceArrTempDic_arr.count > 0) {
+            NSLog(@"data_valid_flag AAAAAAAA  buhui 清除EIT信息");
+            
+//            [self timeAndNameShow];
+            
+            [GGUtil postsetTimeAndProgressIsShowNotific];
+            self.video.startTime = [serviceArrTempDic_arr[0] objectForKey:@"event_starttime"];
+            self.video.endTime = [serviceArrTempDic_arr[0] objectForKey:@"event_endtime"];
+            self.event_startTime = self.video.startTime ;
+            self.event_endTime = self.video.endTime;
+            
+            
+            NSLog(@"self.video.startTime ***++__ %@",self.video.startTime);
+            NSLog(@"self.video.endTime ***++__%@",self.video.endTime);
+            [GGUtil postTimerOfEventTimeNotific];
+            [self caculatorProgress];
+            // 只显示时间，不显示进度条
+            
+            
+            [self.view addSubview:self.topProgressView];
+            [self.view bringSubviewToFront:self.topProgressView];
+            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+            
+        }else{
+            NSLog(@"data_valid_flag AAAAAAAA  清除EIT信息");
+            [self timeAndNameHidden];
+        }
+    }else{
+      
+    }
+    
+}
 @end
 
