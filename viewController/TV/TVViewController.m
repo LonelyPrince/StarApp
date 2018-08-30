@@ -3896,7 +3896,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (self.categorys.count > 0 && recFileData.count > 0 && getLastCategoryArr.count > 0 && getLastRecFileArrTemp.count > 0) {
 
                 
-                if (getLastCategoryArr != self.categorys.count) {
+                if (getLastCategoryArr.count != self.categorys.count) {
+                    
                     
                     isPlayFirstChannel = NO;
                     [_slideView removeFromSuperview];
@@ -4075,7 +4076,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         NSLog(@"item**  %@",item);
-        NSLog(@"item**dd %d",item.count);
         self.categoryModel = [[CategoryModel alloc]init];
         self.categoryModel.service_indexArr = item[@"service_index"];
         
@@ -4530,7 +4530,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
         //判断是不是需要刷新顶部的YLSlider
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
-            
+
             NSLog(@"删除了某个节目   3911");
             [_slideView removeFromSuperview];
             _slideView = nil;
