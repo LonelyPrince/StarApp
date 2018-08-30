@@ -3862,7 +3862,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data1 = response[@"service"];
 //        if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
 //
-            [self judgeIShowEit:data1];
+//            [self judgeIShowEit:data1];
 //            NSLog(@"不不清空信息");
 //        }else{
 //            NSLog(@"清空信息");
@@ -4103,6 +4103,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         tempDicForServiceArr = self.TVChannlDic;
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
         
+        [self judgeIShowEit:data1];
+        
         int playingRow;
         for (int i = 0; i < self.video.dicChannl; i ++) {
             NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
@@ -4115,6 +4117,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
         }
         
+        NSLog(@"index : row 此时的 rows是多少： ==== %d",playingRow);
         
         NSNumber * numplayingRow= [NSNumber numberWithInteger:playingRow];
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numplayingRow,@"textOne",nil];
@@ -11325,13 +11328,33 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         return;
     }
     
+    
+    
+    
     NSInteger rowIndex;
-    if (touchArr.count >= 4) {
-        rowIndex = [touchArr[2] intValue];
+    int playingRow;
+    for (int i = 0; i < self.video.dicChannl; i ++) {
+        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:channleIdStr]]) {
+            //如果相等，则获取row
+            playingRow = i;
+            NSLog(@"index : row 此时的 rows是多少： %d",playingRow);
+            
+            break;
+        }
     }
+    rowIndex = playingRow;
+    
+    
+    
+    
+
+//    if (touchArr.count >= 4) {
+//        rowIndex = [touchArr[2] intValue];
+//    }
     NSDictionary * serviceArrTempDic = [[NSDictionary alloc]init];
     if (serviceArr.count > 0) {
-      serviceArrTempDic = serviceArr[rowIndex];
+      serviceArrTempDic = serviceArr[rowIndex]; //7
         NSArray * serviceArrTempDic_arr = [serviceArrTempDic objectForKey:@"epg_info"];
         if (serviceArrTempDic_arr.count > 0) {
             NSLog(@"data_valid_flag AAAAAAAA  buhui 清除EIT信息");
