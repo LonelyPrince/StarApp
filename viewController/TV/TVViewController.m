@@ -4105,19 +4105,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self judgeIShowEit:data1];
         
+        NSLog(@"index : row 此时的 rows是多少： 开始11 ");
+        
         int playingRow;
-        for (int i = 0; i < self.video.dicChannl; i ++) {
+        for (int i = 0; i < self.video.dicChannl.count; i ++) {
             NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
             if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:channleIdStr]]) {
                 //如果相等，则获取row
                 playingRow = i;
                 NSLog(@"index : row 此时的 rows是多少： %d",playingRow);
-                
+                NSLog(@"index : row 此时的 rows是多少： 中间11 %d",playingRow);
                 break;
             }
         }
         
-        NSLog(@"index : row 此时的 rows是多少： ==== %d",playingRow);
+        NSLog(@"index : row 此时的 rows是多少： 结束11 %d",playingRow);
         
         NSNumber * numplayingRow= [NSNumber numberWithInteger:playingRow];
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numplayingRow,@"textOne",nil];
@@ -11330,21 +11332,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    
+    NSLog(@"index : row 此时的 rows是多少： 开始22 ");
     NSInteger rowIndex;
     int playingRow;
-    for (int i = 0; i < self.video.dicChannl; i ++) {
+    for (int i = 0; i < self.video.dicChannl.count; i ++) {
         NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
         if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:channleIdStr]]) {
             //如果相等，则获取row
             playingRow = i;
             NSLog(@"index : row 此时的 rows是多少： %d",playingRow);
-            
+            NSLog(@"index : row 此时的 rows是多少： 中间22 ");
             break;
         }
     }
     rowIndex = playingRow;
     
+    NSLog(@"index : row 此时的 rows是多少： 结束22 ");
     
     
     
