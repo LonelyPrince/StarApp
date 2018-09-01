@@ -590,6 +590,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.audioBtn.hidden = YES;
     self.videoControl.channelListBtn.hidden = YES;
     self.videoControl.eventTimeLabNow.hidden = YES;
+    NSLog(@" eventTimeLabNow.hidden==  消失 11");
     self.videoControl.eventTimeLabAll.hidden = YES;
     
     
@@ -798,14 +799,38 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 /// pan垂直移动
 - (void)verticalMoved:(CGFloat)value
 {
-    if (self.isVolumeAdjust) {
-        // 调节系统音量
-        [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点
-        //        self.volumeViewSlider.value -= value / 10000;
-    }else {
-        // 亮度
-        [UIScreen mainScreen].brightness -= value / 10000;
+    double systemVersion = [GGUtil getSystemVersion];
+    
+    NSLog(@"systemVersion %f",systemVersion);
+    
+    if (systemVersion > 11.39) {
+        if (self.isVolumeAdjust) {
+            // 调节系统音量
+//                    [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点   // 小于iOS 11.4 用这个方法
+            self.volumeViewSlider.value -= value / 4000;   //ios  11.4 可以用这个方法
+        }else {
+            // 亮度
+            [UIScreen mainScreen].brightness -= value / 10000;
+        }
+    }else{
+        if (self.isVolumeAdjust) {
+            // 调节系统音量
+            [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点   // 小于iOS 11.4 用这个方法
+//            self.volumeViewSlider.value -= value / 10000;   //ios  11.4 可以用这个方法
+        }else {
+            // 亮度
+            [UIScreen mainScreen].brightness -= value / 10000;
+        }
     }
+    
+//    if (self.isVolumeAdjust) {
+//        // 调节系统音量
+////        [MPMusicPlayerController applicationMusicPlayer].volume -= value / 4000; // 这种简单的方式调节音量也可以，只是CPU高一点点   // 小于iOS 11.4 用这个方法
+//                self.volumeViewSlider.value -= value / 10000;   //ios  11.4 可以用这个方法
+//    }else {
+//        // 亮度
+//        [UIScreen mainScreen].brightness -= value / 10000;
+//    }
     
 }
 
@@ -2289,16 +2314,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
 
                 self.videoControl.eventTimeLabNow.hidden = YES;
+                NSLog(@" eventTimeLabNow.hidden==  消失 22");
                 self.videoControl.eventTimeLabAll.hidden = YES;
 
             }else
             {
                 if ([self.video.startTime isEqualToString:@"0"] || [self.video.endTime isEqualToString:@"0"]) {
                     self.videoControl.eventTimeLabNow.hidden = YES;
+                    NSLog(@" eventTimeLabNow.hidden==  消失 33");
                     self.videoControl.eventTimeLabAll.hidden = YES;
                 }else{
 
                     self.videoControl.eventTimeLabNow.hidden = NO;
+                    NSLog(@" eventTimeLabNow.hidden==  显示 11");
                     self.videoControl.eventTimeLabAll.hidden = NO;
                     NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO");
 
@@ -2707,6 +2735,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.channelListBtn.hidden = YES;
     //    self.videoControl.eventTimeLab.hidden = YES;
     self.videoControl.eventTimeLabNow.hidden = YES;
+    NSLog(@" eventTimeLabNow.hidden==  消失 44");
     self.videoControl.eventTimeLabAll.hidden = YES;
     self.videoControl.eventnameLabel.hidden = NO;
     
@@ -5257,6 +5286,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             [GGUtil postsetTimeAndProgressIsNullNotific];
+            NSLog(@"postsetTimeAndProgressIsNullNotific==  11");
         } else
         {
             dValueTime = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
@@ -5271,6 +5301,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  22");
     }
     
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
@@ -5307,6 +5338,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.FullEventYFlabel.hidden = YES;
     
     self.videoControl.eventTimeLabNow.hidden = YES;
+    NSLog(@" eventTimeLabNow.hidden==  消失 55");
     self.videoControl.eventTimeLabAll.hidden = YES;
     
 }
@@ -5316,6 +5348,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.isFullscreenMode) {
         
         self.videoControl.eventTimeLabNow.hidden = NO;
+        NSLog(@" eventTimeLabNow.hidden==  显示 22");
         self.videoControl.eventTimeLabAll.hidden = NO;
         NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO 2222");
         
@@ -5324,6 +5357,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }else
     {
         self.videoControl.eventTimeLabNow.hidden = YES;
+        NSLog(@" eventTimeLabNow.hidden==  消失 66");
         self.videoControl.eventTimeLabAll.hidden = YES;
         
         self.videoControl.eventnameLabel.hidden = NO;
@@ -5386,6 +5420,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             [GGUtil postsetTimeAndProgressIsNullNotific];
+            NSLog(@"postsetTimeAndProgressIsNullNotific==  33");
         }else
         {
 
@@ -5428,6 +5463,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  44");
                 }
                 NSLog(@"bb1 bb1 :%d",bb1);
 
@@ -5442,8 +5478,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  55");
                 }
                 else{
+                    [self setTimeAndProgressIsShow];
                     NSLog(@"nowTime nowTime :%@",nowTime);
                     NSLog(@"nowTime nowTime :%@",aa);
 
@@ -5460,6 +5498,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  66");
 
             }
 

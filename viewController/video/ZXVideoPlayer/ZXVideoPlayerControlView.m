@@ -138,6 +138,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.channelListBtn.hidden = YES;
         //        self.eventTimeLab.hidden = YES;
         self.eventTimeLabNow.hidden = YES;
+        NSLog(@" eventTimeLabNow.hidden==  消失 000");
         self.eventTimeLabAll.hidden = YES;
         
 #pragma mark - 此处注意：如果是录制则添加slider，否则不添加

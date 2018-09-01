@@ -1203,6 +1203,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.video.endTime = @"0";
     self.event_videoname = @"";
     [GGUtil postsetTimeAndProgressIsNullNotific];
+    NSLog(@"postsetTimeAndProgressIsNullNotific==  77");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  3333");
@@ -2050,7 +2051,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
                 [self.videoController setaudioOrSubtRowIsZero];
                 //__
-
+                
                 NSArray * audio_infoArr = [[NSArray alloc]init];
                 NSArray * subt_infoArr = [[NSArray alloc]init];
                 NSArray * epg_infoArr = [[NSArray alloc]init];
@@ -2117,6 +2118,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.video.endTime = @"0";
                         self.event_videoname = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
+                        NSLog(@"postsetTimeAndProgressIsNullNotific==  88");
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  3333");
@@ -2140,6 +2142,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = @"";
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  99");
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self removeTopProgressView];
                         NSLog(@"删除进度条removeTopProgressView  4444");
@@ -2153,6 +2156,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = @"";
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  aa");
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  5555");
                 }
@@ -2189,6 +2193,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.video.endTime = @"0";
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  bb");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  5555");
                 NSLog(@"hidenhidenhidenhiden 2222222");
@@ -2268,6 +2273,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  cc");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  7777");
             }else
@@ -2282,6 +2288,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  dd");
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  8888");
                     NSLog(@"hidenhidenhidenhiden 333333");
@@ -2302,6 +2309,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  ee");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  9999");
             }
@@ -2348,6 +2356,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.video.endTime = @"0";
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  ff");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  aaaa");
                 NSLog(@"hidenhidenhidenhiden 444444");
@@ -2372,6 +2381,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = @"";
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  gg");
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  bbbb");
                 }
@@ -2391,6 +2401,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  hh");
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  cccc");
                     NSLog(@"hidenhidenhidenhiden 55555");
@@ -2463,6 +2474,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_startTime = @"";
                             self.event_endTime = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                            NSLog(@"postsetTimeAndProgressIsNullNotific==  ii");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  dddd");
 
@@ -2501,6 +2513,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             //        dispatch_after(popTime, mainQueue, ^{
 
                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                            NSLog(@"postsetTimeAndProgressIsNullNotific==  jj");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  eeee");
                             NSLog(@"hidenhidenhidenhiden 6666666");
@@ -2632,6 +2645,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.video.endTime = @"0";
                 self.event_videoname = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  kk");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  gggg");
                 NSLog(@"hidenhidenhidenhiden 6666666");
@@ -2944,6 +2958,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  ll");
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  llll");
                     NSLog(@"hidenhidenhidenhiden 77777777");
@@ -2962,6 +2977,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  mm");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  mmmm");
             }
@@ -2973,6 +2989,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  nn");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  nnnn");
             }
@@ -5174,6 +5191,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_startTime = @"";
                             self.event_endTime = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                            NSLog(@"postsetTimeAndProgressIsNullNotific==  oo");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  qqqq");
                         }
@@ -5184,6 +5202,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             //                            self.video.endTime = @"0";
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                            NSLog(@"postsetTimeAndProgressIsNullNotific==  pp");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  rrrr");
                             NSLog(@"hidenhidenhidenhiden 88888888");
@@ -5347,6 +5366,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_startTime = @"";
                         self.event_endTime = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
+                        NSLog(@"postsetTimeAndProgressIsNullNotific==  qq");
                         [self removeTopProgressView];
                         NSLog(@"删除进度条removeTopProgressView  tttt");
                         
@@ -5361,6 +5381,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.video.endTime = @"0";
                             self.event_videoname = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                            NSLog(@"postsetTimeAndProgressIsNullNotific==  rr");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  uuuu");
                             NSLog(@"hidenhidenhidenhiden 999999999 aaaaaaaaa");
@@ -5382,6 +5403,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_startTime = @"";
                         self.event_endTime = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
+                        NSLog(@"postsetTimeAndProgressIsNullNotific==  ss");
                         [self removeTopProgressView];
                         NSLog(@"删除进度条removeTopProgressView  vvvv");
                     }
@@ -5518,6 +5540,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             self.event_startTime = @"";
                             self.event_endTime = @"";
                             [GGUtil postsetTimeAndProgressIsNullNotific];
+                            NSLog(@"postsetTimeAndProgressIsNullNotific==  tt");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  wwww");
                         }
@@ -5636,6 +5659,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = @"";
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  uu");
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  xxxx");
                 }else
@@ -5650,6 +5674,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.video.endTime = @"0";
                         self.event_videoname = @"";
                         [GGUtil postsetTimeAndProgressIsNullNotific];
+                        NSLog(@"postsetTimeAndProgressIsNullNotific==  vv");
                         [self removeTopProgressView];
                         NSLog(@"删除进度条removeTopProgressView  yyyy");
                         NSLog(@"hidenhidenhidenhiden bbbbbbb");
@@ -5672,6 +5697,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = @"";
                     self.event_endTime = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  ww");
                 }
                 
                 self.TVSubAudioDic = epgDicToSocket;
@@ -5983,6 +6009,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.endTime = @"0";
             self.event_videoname = @"";
             [GGUtil postsetTimeAndProgressIsNullNotific];
+            NSLog(@"postsetTimeAndProgressIsNullNotific==  xx");
             [self removeTopProgressView];
             NSLog(@"删除进度条removeTopProgressView  zzzz");
             NSLog(@"hidenhidenhidenhiden cccccccc ");
@@ -6000,6 +6027,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_startTime = @"";
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  yy");
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  !!!!");
     }
@@ -6012,6 +6040,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_startTime = @"";
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  zz");
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  @@@@");
     }
@@ -6168,6 +6197,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  0a");
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self removeTopProgressView];
                         NSLog(@"删除进度条removeTopProgressView  ####");
@@ -6189,6 +6219,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  0b");
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  $$$$");
@@ -6201,6 +6232,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  0c");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  %%%%");
             }else
@@ -6993,6 +7025,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //        dispatch_after(popTime, mainQueue, ^{
             
             [GGUtil postsetTimeAndProgressIsNullNotific];
+            NSLog(@"postsetTimeAndProgressIsNullNotific==  0d");
             [self removeTopProgressView];
             NSLog(@"删除进度条removeTopProgressView  ^^^^");
             NSLog(@"hidenhidenhidenhiden 6666666");
@@ -7382,6 +7415,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_startTime = @"";
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  0f");
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  ****");
     }
@@ -7436,6 +7470,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_startTime = @"";
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  0g");
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  ++++");
     }
@@ -7446,6 +7481,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.video.endTime = @"0";
         self.event_videoname = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  0h");
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  ----");
         NSLog(@"hidenhidenhidenhiden eeeeeeeeee aaaaaaaaa");
@@ -9484,21 +9520,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }else
     {
-        //假如说开始时间不知道，只知道一个结束时间，那么我们能够通过结束时间来计算刷新的时间点
-        //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
-        NSInteger endTime =[self.event_endTime intValue ];
-        NSString *nowDate = [GGUtil GetNowTimeString];
-        NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
         
-        if (endTimeCutStartTime < 0) {
+        if ([self.event_startTime  intValue] > [[GGUtil GetNowTimeString] intValue]) {
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
-            NSLog(@"删除进度条removeTopProgressView  9040");
-        }else
-        {
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
-            [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];  //记录一个结束时间，到达这个时间点后需要刷新进度条
-        }
-        
+            NSLog(@"删除进度条removeTopProgressView  AAAA");
+        }else{
+            //假如说开始时间不知道，只知道一个结束时间，那么我们能够通过结束时间来计算刷新的时间点
+            //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
+            NSInteger endTime =[self.event_endTime intValue ];
+            NSString *nowDate = [GGUtil GetNowTimeString];
+            NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
+            
+            if (endTimeCutStartTime < 0) {
+                [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
+                NSLog(@"删除进度条removeTopProgressView  9040");
+            }else
+            {
+                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
+                [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];  //记录一个结束时间，到达这个时间点后需要刷新进度条
+            }
+        }   
     }
     
 }
@@ -9948,6 +9989,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.event_startTime = @"";
         self.event_endTime = @"";
         [GGUtil postsetTimeAndProgressIsNullNotific];
+        NSLog(@"postsetTimeAndProgressIsNullNotific==  0i");
         [self removeTopProgressView];
         NSLog(@"删除进度条removeTopProgressView  9493");
     }
@@ -10953,6 +10995,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  0j");
                 //                [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  10488");
             }
@@ -10963,6 +11006,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  0k");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  10497");
             }
@@ -11089,6 +11133,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.video.endTime = @"0";
                     self.event_videoname = @"";
                     [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  0l");
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self removeTopProgressView];
                         NSLog(@"删除进度条removeTopProgressView  ####");
@@ -11110,6 +11155,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  0m");
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  $$$$");
@@ -11122,6 +11168,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
+                NSLog(@"postsetTimeAndProgressIsNullNotific==  0n");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  %%%%");
             }else
