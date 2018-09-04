@@ -127,6 +127,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL  isPlayFirstChannel;
     BOOL  ishuifuchuchang;
     BOOL  isRemoveTip;
+    
 }
 
 
@@ -382,6 +383,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+
     isRemoveTip = NO;
     ishuifuchuchang = NO;
     isPlayFirstChannel = NO;
@@ -738,7 +740,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }
             [self activeViewRemove];
-            
+
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
             [self playVideo];
             
@@ -3812,7 +3814,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)mediaDeliveryUpdateSMT
 {
-    NSLog(@"//此时应该列表刷新11");
+    NSLog(@"//此时应该列表刷新SMT");
     
     // ① 刷新  ②先判断有没有正在播放的节目了  ③如果有正在播放的节目，并且判断和正在播放的节目的dic信息是否相等，如果不相等则重新播放
     
@@ -3824,6 +3826,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [USER_DEFAULT setObject:@"" forKey:@"playStateType"]; //设置为空，防止“delivery has  been....”产生
         [self tableViewDataRefreshForMjRefresh_ONEMinute];
+        NSLog(@"//此时应该列表刷新SMT===channelListIsHas 是 yes ");
     }
     //**
     //①刷新
@@ -3844,6 +3847,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [USER_DEFAULT setObject:@"" forKey:@"playStateType"]; //设置为空，防止“delivery has  been....”产生
         [self tableViewDataRefreshForMjRefresh_ONEMinute];
+        NSLog(@"//此时应该列表刷新11===channelListIsHas 是 yes ");
     }
     //**
     //①刷新
@@ -4225,6 +4229,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                              firstOpenAPP = firstOpenAPP+1;
                              firstfirst = NO;
      
+                             NSLog(@"啊啊啊啊啊啊啊啊啊啊啊啊啊啊");
+                             
                          }
                          
                          
@@ -4417,12 +4423,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     NSString * deliveryPlayState =  [USER_DEFAULT objectForKey:@"deliveryPlayState"];
-    if (isHasChannleDataList == YES) {
-    
+    if (isHasChannleDataList == YES ) {
+
         if ([deliveryPlayState isEqualToString:@"stopDelivery"]){
             NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
             if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
-                
+
                 if (storeLastChannelArr.count >= 4) {
                     NSInteger row ;
                     NSDictionary * dic = [[NSDictionary alloc]init];
@@ -4448,7 +4454,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
                             [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                             firstOpenAPP = firstOpenAPP+1;
-                            
+
                             firstfirst = NO;
                         }else //正常播放的步骤
                         {
@@ -4463,12 +4469,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {
                     return ;
                 }
-                
+
             }else
             {
                 if (historyArr.count > 0) {
                     NSArray * touchArr = historyArr[historyArr.count - 1];
-                    
+
                     if (storeLastChannelArr.count < 2) {
                         return;
                     }else
@@ -4488,14 +4494,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                     firstfirst = NO;
                                 }else //正常播放的步骤
                                 {
+
                                     [self firstOpenAppAutoPlayZero:row diction:dic];
+                                    
+                                    isHasChannleDataList = YES;
+                                    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+                                    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+                                    NSLog(@" 正常播放AAAAAAA");
                                 }
                             }else //正常播放的步骤
                             {
                                 //======机顶盒加密
                                 [self firstOpenAppAutoPlay:row diction:dic];
                             }
-                            
+
 //                            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
                         }else
                         {
@@ -4506,7 +4518,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 {
                     return;
                 }
-                
+
             }
         }
     }
@@ -7624,7 +7636,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@" NOChannelDataShow 7777");
                 //                [self removeTopProgressView]; //删除进度条
                 NSLog(@"删除进度条removeTopProgressView  }}}}");
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                isHasChannleDataList = YES;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 //                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                 NSLog(@"removeTipLabAndPerformSelector aaaa");
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];

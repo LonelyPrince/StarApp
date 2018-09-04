@@ -2890,6 +2890,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (nowPlayChannelIdBoolValue == YES) {
         nowPlayChannelIdBoolValue = NO;
         row = nowPlayChannelId;
+    }else{
+        row = [touchArr[2] intValue];
     }
     NSLog(@"zhxin 执行结束");
     NSDictionary * dic =  [self.video.dicChannl mutableCopy];  //  touchArr [3];
