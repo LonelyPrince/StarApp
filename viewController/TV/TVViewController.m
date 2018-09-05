@@ -9584,10 +9584,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //删除节目进度条并且停止计时器
 -(void)removeTopProgressView
 {
+//    dispatch_async(dispatch_get_main_queue(), ^{
     [USER_DEFAULT setObject:@"NO" forKey:@"topProgressViewISNotExist"];
     [self.topProgressView removeFromSuperview];
     [self.timer invalidate];
     self.timer = nil;
+        
+        NSLog(@"removeTopProgressViewremoveTopProgressViewremoveTopProgressView");
+//    });
     //    dispatch_async(dispatch_get_main_queue(), ^{
     //        self.topProgressView.alpha = 0;
     ////        [self.topProgressView removeFromSuperview];
@@ -11170,14 +11174,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }else
             {
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
                 [GGUtil postsetTimeAndProgressIsNullNotific];
                 NSLog(@"postsetTimeAndProgressIsNullNotific==  0m");
-                dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //增加主线程操作方法
+                    
                     [self removeTopProgressView];
                     NSLog(@"删除进度条removeTopProgressView  $$$$");
+                    
                 });
             }
             isEventStartTimeBiger_NowTime = NO;
