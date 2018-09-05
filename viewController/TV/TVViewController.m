@@ -4124,7 +4124,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         tempDicForServiceArr = self.TVChannlDic;
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
         
-        [self judgeIShowEit:data1];
+        if (epgDicToSocket.count > 14) {  //录制
+            //不操作
+            NSLog(@"当前是录制节目 AAAA");
+        }else{
+                [self judgeIShowEit:data1]; // 直播
+            NSLog(@"当前是直播节目 AAAA");
+        }
+        
         
         NSLog(@"index : row 此时的 rows是多少： 开始11 ");
         
@@ -11391,7 +11398,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    NSLog(@"index : row 此时的 rows是多少： 开始22 ");
     NSInteger rowIndex;
     int playingRow;
     for (int i = 0; i < self.video.dicChannl.count; i ++) {
@@ -11400,13 +11406,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //如果相等，则获取row
             playingRow = i;
             NSLog(@"index : row 此时的 rows是多少： %d",playingRow);
-            NSLog(@"index : row 此时的 rows是多少： 中间22 ");
             break;
         }
     }
     rowIndex = playingRow;
-    
-    NSLog(@"index : row 此时的 rows是多少： 结束22 ");
     
     
     
@@ -11415,8 +11418,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        rowIndex = [touchArr[2] intValue];
 //    }
     NSDictionary * serviceArrTempDic = [[NSDictionary alloc]init];
+    
     if (serviceArr.count > 0) {
-      serviceArrTempDic = serviceArr[rowIndex]; //7
+        if (rowIndex < serviceArr.count) {
+            serviceArrTempDic = serviceArr[rowIndex]; //7
+        }else{
+            serviceArrTempDic = nil;
+        }
+//      serviceArrTempDic = serviceArr[rowIndex]; //7
         NSArray * serviceArrTempDic_arr = [serviceArrTempDic objectForKey:@"epg_info"];
         if (serviceArrTempDic_arr.count > 0) {
             NSLog(@"data_valid_flag AAAAAAAA  buhui 清除EIT信息");
