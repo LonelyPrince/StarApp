@@ -1946,8 +1946,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                 [self addHistory:indexPath.row diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
-                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+//                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+//                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
 
                 //                sleep(10);
@@ -6266,15 +6266,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self getsubt];
             //*********
             
-            //再单独开一个线程用于default操作
-            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
-            dispatch_async(queueA, ^{
-                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
-                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
-                
-                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
-            });
+//            //再单独开一个线程用于default操作
+//            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
+//            dispatch_async(queueA, ^{
+//                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
+//                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+//                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+//
+//                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
+//            });
             
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
             if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
@@ -7448,8 +7448,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self getsubt];
     //*********
     
-    [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-    [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+//    [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+//    [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
     self.video.dicChannl = [tempDicForServiceArr mutableCopy];
     
     NSLog(@"self.video.dicChannl77 %@",self.video.dicChannl);
@@ -10559,8 +10559,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 [self addHistory:pushChannelId diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
-                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+//                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+//                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -10663,8 +10663,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 [self addHistory:pushChannelId diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
-                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+//                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+//                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -11042,8 +11042,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSArray * tempArrForServiceArrTemp = [NSArray arrayWithArray: tempArrForServiceArr];
                 NSDictionary *  tempDicForServiceArrTemp = [tempDicForServiceArr mutableCopy] ;
                 
-                [USER_DEFAULT setObject:tempArrForServiceArrTemp forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArrTemp forKey:@"tempDicForServiceArr"];
+//                [USER_DEFAULT setObject:tempArrForServiceArrTemp forKey:@"tempArrForServiceArr"];
+//                [USER_DEFAULT setObject:tempDicForServiceArrTemp forKey:@"tempDicForServiceArr"];
             });
             [self judgeAllArgueIsZero];
 
@@ -11212,15 +11212,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self getsubt];
             //*********
             
-            //再单独开一个线程用于default操作
-            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
-            dispatch_async(queueA, ^{
-                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
-                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
-                
-                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
-            });
+//            //再单独开一个线程用于default操作
+//            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
+//            dispatch_async(queueA, ^{
+//                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
+//                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
+//                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
+//
+//                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
+//            });
             
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
             if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
