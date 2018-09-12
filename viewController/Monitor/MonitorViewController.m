@@ -110,6 +110,7 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.2];
         
+        
     }
     
     [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
@@ -287,8 +288,7 @@
         //        [self initData];
         [self loadUI];  //***
         [self getNotificInfo]; //通过发送通知给TV页，TV页通过socket获取到tuner消息
-        //    [self initRefresh]; //开始每隔几秒向TV页发送通知，用来收到数据并且刷新数据
-        //    [self loadNav];
+        
         isRefreshScroll = NO;
     }else
     {
@@ -338,11 +338,10 @@
     NSData * retDataByMySelf = [[NSData alloc]init];
     retDataByMySelf = text.userInfo[@"resourceInfoData"];    //返回的data
     
-    //    NSData * dataTemp = [[NSData alloc]init];
-    //    dataTemp = [USER_DEFAULT objectForKey:@"retDataForMonitor"];
     NSLog(@"retDataByMySelf: %@",retDataByMySelf);
     
     [self getEffectiveData:retDataByMySelf];
+    NSLog(@"finally 111");
     
 }
 
@@ -357,7 +356,7 @@
     deliveryCount = 0;
     pushVodCount = 0;
     NSLog(@"=======================notific");
-    
+
     //    self.blocktest = ^(NSDictionary * dic)
     //    {
     //        //此处是返回值处理方法
@@ -370,18 +369,18 @@
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];  //防止device页面接收
-    
-    
+
+
     //////////////////////////// 从socket返回数据
     //此处销毁通知，防止一个通知被多次调用
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getResourceInfo" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
-    
-    
+
+
     //    [USER_DEFAULT objectForKey:@"CICHUSHIDIC"];
     //    NSLog(@"此处是返回：%@", [USER_DEFAULT objectForKey:@"CICHUSHIDIC"]);
-    
+
 }
 
 
@@ -393,9 +392,12 @@
     NSLog(@"此处是socket返回");
     
     NSData * retData = [[NSData alloc]init];
+
     retData = text.userInfo[@"resourceInfoData"];    //返回的data
-    //        [self getTunerNum:retData];  //获得总的tuner的数量
-    [self getEffectiveData:retData];//获得有效数据的信息，不同tuner的信息
+    
+            [self getEffectiveData:retData];//获得有效数据的信息，不同tuner的信息
+            NSLog(@"finally 2222");
+ 
     
 }
 
@@ -440,23 +442,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"netWorkIsConnectNotice" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netWorkIsConnect) name:@"netWorkIsConnectNotice" object:nil];
 }
--(void)initRefresh
-{
-   
-    //创建通知
-    NSNotification *notification =[NSNotification notificationWithName:@"tunerRevice" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [USER_DEFAULT  setObject:@"deviceClose" forKey:@"deviceOpenStr"];  //防止device页面接收
-    
-    //////////////////////////// 从socket返回数据
-    //此处销毁通知，防止一个通知被多次调用
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"getResourceInfo" object:nil];
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
-    
-    
-    
-}
+
 -(void)loadUI
 {
     NSLog(@"=======--:%ld",(long)tunerNum);
@@ -908,6 +894,7 @@
 //获得有效数据的信息，不同tuner的信息
 -(void)getEffectiveData:(NSData *) allTunerData
 {
+ 
     [monitorTableArr removeAllObjects];
     if (networIsConnect == YES) {
         NSLog(@"=======================test gettuner");
@@ -916,21 +903,16 @@
         NSData * dataLen = [[NSData alloc]init];
         if ([allTunerData length] >= 24 + 4) {
             dataLen = [allTunerData subdataWithRange:NSMakeRange(24, 4)];
+            NSLog(@"ccccc");
         }else
         {
             return;
         }
         
         
-        NSLog(@"datalen: %@",dataLen);
-        //    int value;
-        //    value = 0;
-        NSLog(@"可能报错3");
-        //    [dataLen getBytes: &value length: sizeof(value)];   //获取总长度
+       
         uint32_t value = [SocketUtils uint32FromBytes:dataLen];
-        NSLog(@"可能报错4");
-        //    [socketUtils uint16FromBytes:]
-        //tuner的有效数据区
+       
         NSData * effectiveData = [[NSData alloc]init];
         
         if ([allTunerData length] >= 38 + value-10) {
@@ -946,15 +928,10 @@
 #pragma mark  将11 改成了4
         for (int ai = 0; ai < 4; ai++ ) {  //目前会返回11条数据
             
-            
-            //       NSMutableData * tunerDataone = [NSMutableData dataWithData:allTunerData];
             int mutablefigure = placeFigure;
             NSLog(@"----len placeFigure:%d",placeFigure);
             NSLog(@"----len mutablefigure:%d",mutablefigure);
             NSLog(@"----len effectiveData:%@",effectiveData);
-            //        char buffer;
-            //        [effectiveData getBytes:&buffer range:NSMakeRange(mutablefigure, 4)];
-            
             NSLog(@"effectiveData: %@",effectiveData);
             NSData * databuff = [[NSData alloc]init];
             if ([effectiveData length] >= mutablefigure + 4) {
@@ -1155,12 +1132,12 @@
                                 NSLog(@"ksksksksksksksk111111");
                             }
                         }
-                        
-                        
-                        
-                        
-                        NSLog(@"[self.tableView reloadData]  11111 %@",monitorTableArr);
-                        [self.tableView reloadData];
+ 
+
+                            NSLog(@"[self.tableView reloadData]  11111 %@",monitorTableArr);
+                            [self.tableView reloadData];
+                            NSLog(@"finally 33333");
+ 
                     }
                     else //此处是一种特殊情况，没有找到这个节目
                     {
@@ -1209,11 +1186,11 @@
                         gaoqingChannel = 0;
                     }
                 }
-                if (isHaveSTB == NO && livePlayCount >0) {
-                    
-                    
+                if (isHaveSTB == NO ) {//&& livePlayCount >0) {
+                
+//                if (isHaveSTB == NO && livePlayCount >0) {
+                
                     NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",[SocketUtils bytesFromUInt32:1],@"", nil];
-//                    NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",serviceTypeData,@"", nil];
                     [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                     gaoqingChannel = 1;
                     isHaveSTB = YES;
@@ -1238,31 +1215,18 @@
                 placeFigure  = placeFigure + 15+clientNameLen;
             }
             
-            //        int mutablefigure = ai;
-            //        mutablefigure = mutablefigure*7;
             placeFigure =placeFigure +7;  //placeFigure+ mutablefigure ;
             
         }
-        
-        //    [self loadNav];
-        //    [self loadUI];
-        
-        //    [self loadCicle];
-        //    [self loadTableview];
-        //    [self loadNumLab];
         
         if (tableInitNum == 0) {
             [self loadTableview];
             tableInitNum++;
             
         }
-        //    else
-        //    {
-        //     [tableView reloadData];
-        //    }
+        
         
         [tableView reloadData];
-        //    [self loadTableview];
         
         if (tunerNum == 0) {
             
@@ -1270,7 +1234,7 @@
         }
         
         [self changeView];
-        NSLog(@"======222-2-2-2-2");
+        NSLog(@"finally 4444");
     }
     else
     {}
