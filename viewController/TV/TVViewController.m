@@ -5110,8 +5110,18 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             progressEPGArrIndex = 0;
             
-            
+            if (self.timer != nil) {
+                [self.timer invalidate];
+                self.timer = nil;
+                
+                NSLog(@"出现一次 数据进度条数据没有清空 ");
+            }else
+            {
+                NSLog(@"出现一次 数据进度条数据没有清空 =====");
+            }
+                
             self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
+     
             
             int tempIndex =progressEPGArrIndex;
             NSString * tempIndexStr = [NSString stringWithFormat:@"%d",tempIndex];
@@ -7931,6 +7941,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //        NSLog(@"response = %@",response);
             data1 = response[@"service"];
+            NSLog(@"data 111 %@",data1);
 //            [self judgeIShowEit:data1];
             //录制节目,保存数据
             recFileData = response[@"rec_file_info"];
@@ -8256,6 +8267,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     
     
+
 }
 #pragma mark - IP改变后的刷新方法
 //IP改变后或者是HMC改变后的刷新方法  ,类似于getServiceData
@@ -9274,7 +9286,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)refreshTableviewOneMinute
 {
-    ONEMinuteTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:YES];
+    ONEMinuteTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(refreshTableviewOneMinute_Temp) userInfo:nil repeats:YES];
+}
+-(void)refreshTableviewOneMinute_Temp
+{
+    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+    
+    
+        double delayInSeconds = 6;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+    
+            [self tableViewDataRefreshForMjRefresh_ONEMinute];
+        });
+    
 }
 #pragma mark - epg一分钟刷新相关
 -(void)startOneMinute
