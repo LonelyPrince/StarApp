@@ -926,7 +926,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (data1.count == 0 && recFileData.count == 0)
             {
+                NSLog(@"meiyou数据");
             }else{
+                NSLog(@"meiyou NONO数据");
                 [self initProgressLine];
                 [self.table reloadData];
             }
@@ -1646,6 +1648,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
         }
+        NSLog(@"====test");
         if (!ISEMPTY(self.dicTemp)) {
             cell.nowTimeStr = nwoTimeBreakStr;  //这里的nwoTimeBreakStr 是在numbeOfrows获取的当前时间
             cell.dataDic = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
@@ -4124,6 +4127,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         tempDicForServiceArr = self.TVChannlDic;
         self.video.dicChannl = [tempDicForServiceArr mutableCopy];
         
+        NSLog(@"此处是判断judgeIShowEit");
         if (epgDicToSocket.count > 14) {  //录制
             //不操作
             NSLog(@"当前是录制节目 AAAA");
@@ -5118,9 +5122,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString *nowDate = [GGUtil GetNowTimeString];
             NSInteger endTimeCutStartTime =endTime-[nowDate integerValue];
             
+            NSLog(@"这出问题了 %d",endTimeCutStartTime);
             if (endTimeCutStartTime > 0) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
                 [self performSelector:@selector(progressRefresh) withObject:nil afterDelay:endTimeCutStartTime];
+            }else{
+                NSLog(@"这出问题了");
             }
         }
         
@@ -9318,6 +9325,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
         
         self.progressViews = @[ self.topProgressView ];
+        NSLog(@"enumerateObjectsUsingBlock-progress初始化了");
     }
 }
 
@@ -9347,10 +9355,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.progress = timeCut;
     
     
-    
+    NSLog(@"enumerateObjectsUsingBlock ???");
+    NSLog(@"enumerateObjectsUsingBlock.progressViews 状态 %@ ",self.progressViews);
     [self.progressViews enumerateObjectsUsingBlock:^(THProgressView *progressView, NSUInteger idx, BOOL *stop) {
         [USER_DEFAULT setObject:starttime forKey:@"StarTime"];
         [progressView setProgress:self.progress animated:YES ];
+        NSLog(@"enumerateObjectsUsingBlock");
     }];
     
 }
@@ -9589,7 +9599,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.topProgressView removeFromSuperview];
     [self.timer invalidate];
     self.timer = nil;
-        
+        // 1 33 2  17   3-- //  12----4   9--5  7 --6  6 --7   5--8   4--9  4--10 3--11
         NSLog(@"removeTopProgressViewremoveTopProgressViewremoveTopProgressView");
 //    });
     //    dispatch_async(dispatch_get_main_queue(), ^{
@@ -11441,6 +11451,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"data_valid_flag AAAAAAAA  buhui 清除EIT信息");
             
 //            [self timeAndNameShow];
+            
+            NSLog(@"enumerateObjectsUsingBlockself.topProgressView %@",self.topProgressView);
+            
+            if (self.topProgressView == nil) {
+                [self initProgressLine];
+                NSLog(@"enumerateObjectsUsingBlockself.topProgressVi 初始化  %@",self.topProgressView);
+            }else{
+                [self initProgressLine];
+            }
+            
             
             [GGUtil postsetTimeAndProgressIsShowNotific];
             self.video.startTime = [serviceArrTempDic_arr[0] objectForKey:@"event_starttime"];

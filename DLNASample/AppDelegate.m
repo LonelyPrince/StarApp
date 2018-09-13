@@ -68,7 +68,6 @@
     
     
     [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(checkIPTimer) userInfo:nil repeats:YES];
-    //    self.ipString =  [GGUtil getIPAddress];
     self.ipString =  [GGUtil getIPAddress:YES];
     
     
@@ -587,6 +586,33 @@ void UncaughtExceptionHandler(NSException *exception) {
             
             NSLog(@"IP 网络改变");
             NSLog(@"IP 改变了在 checkIPTimer");
+            
+            [self.dataSource removeAllObjects];
+            [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空
+            
+            self.ipString = IPstrNow;
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            
+        }
+    }else{
+        
+        NSLog(@"yemian 页面已经加载完成");
+        
+        
+        NSLog(@" checkIPTimer IP 1 %@", self.ipString);
+        NSString * IPstrNow=  [GGUtil getIPAddress:YES];
+        if ([IPstrNow isEqualToString:self.ipString]) {
+            
+        }else
+        {
+            NSLog(@" checkIPTimer IP 不一样了 2 %@", self.ipString);
+            
+            NSLog(@"IP 网络改变");
+            NSLog(@"IP 改变了在 checkIPTimer 3333");
             
             [self.dataSource removeAllObjects];
             [USER_DEFAULT setObject:[self.dataSource copy]  forKey:@"DmsDevice"];   //此处数据为空

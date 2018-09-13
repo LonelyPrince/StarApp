@@ -3563,6 +3563,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [[NSNotificationCenter defaultCenter]postNotificationName:@"lockButtonHide" object:nil];
         
         [self.videoControl animateShow];
+        NSLog(@"animateShow 111");
     }
 }
 
@@ -3703,6 +3704,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification5];
         
+        NSLog(@"animateShow   showshow");
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         self.player = nil;

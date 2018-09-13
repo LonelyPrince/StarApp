@@ -253,6 +253,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             barIsShowing = 1;
             self.isBarShowing = NO;
             [self animateShow];
+            NSLog(@"animateShow 222");
             
         }else
         {
@@ -260,6 +261,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             int show;
             [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
             [self animateShow];
+            NSLog(@"animateShow 333");
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             show = 2;
@@ -864,6 +866,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 -(void)channeListIsShow
 {
     [self animateShow];
+    NSLog(@"animateShow 444");
     
     NSLog(@"做一次显示的操作");
 }
@@ -875,6 +878,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
     [self performSelector:@selector(animateHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
     
+    NSLog(@"animateHide 显示了");
     
 }
 
@@ -972,6 +976,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             } else {
                 [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
                 [self animateShow];
+                NSLog(@"animateShow 555");
                 [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
                 [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 show = 2;
@@ -1662,6 +1667,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             barIsShowing = 1;
             self.isBarShowing = NO;
             [self animateShow];
+            NSLog(@"animateShow 666");
             
         }else
         {
@@ -1669,6 +1675,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             int show;
             [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
             [self animateShow];
+            NSLog(@"animateShow 777");
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             show = 2;
