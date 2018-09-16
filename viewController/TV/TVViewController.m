@@ -1661,8 +1661,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                
+
                 NSLog(@" index : row :shushushu   %d",indexPath.row);
+                NSLog(@"时间==111====test %d",indexPath.row);
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -1845,13 +1846,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //}
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"时间==111 哈哈哈哈 %d",indexPath.row);
     //    [tempTableviewForFocus deselectRowAtIndexPath:tempIndexpathForFocus animated:YES];
     if ([tableView isEqual:pushTableView]) {
-        
+
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
+
         tempPushViewCell = [tableView cellForRowAtIndexPath:indexPath];
-        
+
         NSString * str = pushBtnSelectArr[indexPath.row];
         if ([str isEqualToString:@"NO"]) {
             [pushBtnSelectArr setObject:@"YES" atIndexedSubscript:indexPath.row];
@@ -1861,12 +1863,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [pushBtnSelectArr setObject:@"NO" atIndexedSubscript:indexPath.row];
             tempPushViewCell.pushBtnImageView.image = [UIImage imageNamed:@"NoSelect"];
         }
-        
-        
+
+
     }
     else
     {
-        
+
 //        if (self.isSelect == false) {
 //            self.isSelect = true;
 //            NSLog(@"self.isSelect = true;");
@@ -1874,13 +1876,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //            [self performSelector:@selector(repeatDelay) withObject:nil afterDelay:0.3];
 //            // TODO:在下面实现点击cell需要实现的逻辑就可以了
 //
-        
-        
-        
-        
-        
+
+
+
+
+
         NSLog(@"self.video.dicChannl88==11");
-        [self updateFullScreenDic];
+        
 
         TVViewTouchPlay = YES;
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
@@ -1904,7 +1906,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
         indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
 
- 
+
 //
         //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
 
@@ -1963,20 +1965,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.videoController.player.view removeFromSuperview];
         }
 
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [tempTableviewForFocus reloadData];
         });
-        
+
         [tempTableviewForFocus reloadData];
-        
-        
+
+
         NSLog(@"ksksksksksakjsdiasdiuasdasdiu");
-        
+
         NSLog(@"self.isSelect = true;====");
-//        }
+
+        
+        [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
     }
-    
+    //
+}
+-(void)refreshFullScreen
+{
+    [self updateFullScreenDic];
 }
 #pragma mark - 点击tableView 变蓝
 -(void)performChangeColor
@@ -2028,12 +2036,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - didselecttableview 方法中播放事件
 -(void)didselectRowToPlayClick
 {
-    NSLog(@"时间==111");
+    
     //    [_slideView reloadDataNoVisibleZero];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"dispatch_get_global_queue 播放的第一个方法");
         NSUInteger  indexPathRow = [indexpathRowStr integerValue];
         NSLog(@" indexPathRow %lu",(unsigned long)indexPathRow);
+        NSLog(@"时间==111第 %d个节目===",indexPathRow);
         //=======机顶盒加密
         NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:indexPathRow serviceListDic:self.dicTemp];
 
@@ -2416,7 +2425,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"hidenhidenhidenhiden 555555 aaaaaaa");
                 }
             }
-            [self updateFullScreenDic];
+//            [self updateFullScreenDic];
+            [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
             //            [self.tableForSliderView reloadData];
             [tempTableviewForFocus reloadData];
             [self refreshTableviewByEPGTime];
