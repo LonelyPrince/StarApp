@@ -62,6 +62,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL firstfirst;   //第一次打开时，自动播放第一个节目，这时候需要将socket的touch事件放到viewdidload之后
     
     UITableView * tempTableviewForFocus;  //用于保存全屏页面点击时候的焦点
+    UITableView * tempTableviewForFocusTemp ;  //用来判断是否在一个页面点击切换，如果是的话，则不进行多余刷新
     NSIndexPath * tempIndexpathForFocus;  //用于保存全屏页面点击时候的焦点
     NSArray * tempArrForServiceArr;
     BOOL tempBoolForServiceArr;
@@ -418,6 +419,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     progressEPGArr = [[NSMutableArray alloc]init];
     
     tempTableviewForFocus = [[UITableView alloc]init]; //用于保存全屏页面点击时候的焦点
+    tempTableviewForFocusTemp = [[UITableView alloc]init];
     tempIndexpathForFocus = [[NSIndexPath alloc]init];  //用于保存全屏页面点击时候的焦点
     
     tempArrForServiceArr = [[NSArray alloc]init]; //用于保存点击后的列表数组信息
@@ -1642,6 +1644,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         static NSString *TableSampleIdentifier = @"TVCell";
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         tempTableviewForFocus = tableView;
+        NSLog(@"tempTableviewForFocus %@",tempTableviewForFocus);
+        
         TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
         if (cell == nil){
             cell = [TVCell loadFromNib];
@@ -1664,6 +1668,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                 NSLog(@" index : row :shushushu   %d",indexPath.row);
                 NSLog(@"时间==111====test %d",indexPath.row);
+                
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -1966,25 +1971,42 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
 
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [tempTableviewForFocus reloadData];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [tempTableviewForFocus reloadData];
+//        });
+//
+//        [tempTableviewForFocus reloadData];
+        [tableView reloadData];   //刷新主页面，防止焦点不会出现焦点
+
+        double delayInSeconds = 0.2;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+              [tableView reloadData];    //刷新主页面，防止焦点不会正常修改
         });
-
-        [tempTableviewForFocus reloadData];
-
-
+        
         NSLog(@"ksksksksksakjsdiasdiuasdasdiu");
 
         NSLog(@"self.isSelect = true;====");
 
-        
+//        [self updateFullScreenDic];
         [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
     }
     //
 }
 -(void)refreshFullScreen
 {
-    [self updateFullScreenDic];
+    [self updateFullScreenDic];   //刷新全屏方法
+//    [tempTableviewForFocus reloadData];
+//    if ([tempTableviewForFocus isEqual:tempTableviewForFocus]) {
+//
+//        NSLog(@"kslskslskslslsslslsl");
+//    }else{
+//        tempTableviewForFocusTemp = [tempTableviewForFocus mutableCopy];
+//        [tempTableviewForFocus reloadData];
+//        NSLog(@"kslskslskslslsslslsl==========");
+//    }
+    
 }
 #pragma mark - 点击tableView 变蓝
 -(void)performChangeColor
