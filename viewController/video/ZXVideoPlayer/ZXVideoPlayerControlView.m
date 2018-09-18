@@ -16,7 +16,7 @@
 //#import "UIButton+EnlargeTouchArea.h"
 
 static const CGFloat kVideoControlBarHeight = 50;  // 20.0 + 30.0;
-static const CGFloat kVideoControlAnimationTimeInterval = 0.1;
+static const CGFloat kVideoControlAnimationTimeInterval =  0.1;
 static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
@@ -735,10 +735,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     }
     
     
-    
+    NSLog(@"animateHide 1111");
     [[NSNotificationCenter defaultCenter] postNotificationName:kZXPlayerControlViewHideNotification object:nil];
     
     [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
+        NSLog(@"animateHide 2222");
         BOOL lockButtonIsClick =  [USER_DEFAULT boolForKey:@"lockedFullScreen"];
         if (lockButtonIsClick) { //如果锁屏按钮已经点击
             
@@ -785,12 +786,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
+        NSLog(@"animateHide 3333");
     }];
     double delayInSeconds = 0.3;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
-        
+        NSLog(@"animateHide 4444");
         //0.3s 后销毁
         if (self.FullEventYFlabel) {
             [self.FullEventYFlabel removeFromSuperview];
@@ -802,6 +804,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
     });
     [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
+    NSLog(@"animateHide 5555");
 }
 
 - (void)animateShow
@@ -817,9 +820,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             return;
         }
         
-        
+        NSLog(@"animateHide 5555AA");
         [UIView animateWithDuration:kVideoControlAnimationTimeInterval animations:^{
-            
+            NSLog(@"animateHide 6666");
             BOOL isFullScreenMode =[USER_DEFAULT boolForKey:@"isFullScreenMode"];
             if (isFullScreenMode) {   //如果是全屏模式并且topbar展示时才初始化新建一个跑马灯
                 NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
@@ -855,9 +858,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         } completion:^(BOOL finished) {
             self.isBarShowing = YES;
             [self autoFadeOutControlBar];
+            NSLog(@"animateHide 7777");
         }];
         
         [USER_DEFAULT setBool:YES forKey:@"isBarIsShowNow"]; //阴影此时是显示
+        NSLog(@"animateHide 8888");
     }
     
 }
@@ -872,19 +877,21 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 }
 - (void)autoFadeOutControlBar
 {
+    NSLog(@"animateHide 9999");
     if (!self.isBarShowing) {
         return;
     }
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
     [self performSelector:@selector(animateHide) withObject:nil afterDelay:kVideoControlBarAutoFadeOutTimeInterval];
     
-    NSLog(@"animateHide 显示了");
+    NSLog(@"animateHide aaaa");
     
 }
 
 - (void)cancelAutoFadeOutControlBar
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(animateHide) object:nil];
+    NSLog(@"animateHide bbbb");
 }
 
 - (void)autoFadeRightTableView{

@@ -5238,7 +5238,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"333 replace333");
     }
     
-    
+    [self.videoControl autoFadeOutControlBar];
+    NSLog(@"jajajajajajajajajaj");
 }
 
 -(void)RECsetEventTime

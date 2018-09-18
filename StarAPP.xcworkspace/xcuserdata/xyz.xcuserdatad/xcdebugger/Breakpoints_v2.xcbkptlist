@@ -9,13 +9,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "558865685.601261"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
+            timestampString = "558954587.984524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1656"
-            endingLineNumber = "1656"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
+            landmarkName = "-animateHide"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerControlView.m"
+            timestampString = "558954587.984859"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
+            landmarkName = "-lockButtonShow"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
+            timestampString = "558954587.985108"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5076"
+            endingLineNumber = "5076"
+            landmarkName = "-setChannelNameAndEventNameNotic:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
