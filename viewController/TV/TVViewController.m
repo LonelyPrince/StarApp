@@ -1887,7 +1887,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 
         NSLog(@"self.video.dicChannl88==11");
-        
+
 
         TVViewTouchPlay = YES;
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
@@ -1905,14 +1905,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         tempIndexpathForFocus = indexPath;
         nowPlayChannelInfo.numberOfRowInt = indexPath.row;
 
-        //====快速切换频道名称和节目名称
+//        ====快速切换频道名称和节目名称
         NSDictionary * epgDicToSocket = [self.dicTemp objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
         [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
         indexpathRowStr = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
 
 
-//
         //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
 
         NSMutableArray *  historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
@@ -1930,7 +1929,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             rowIndex = [touchArr[2] intValue];
             dic = touchArr [3];
         }
-
+//
         NSDictionary * epgDicToSocketTemp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)rowIndex]]; //找到了正在播放的节目的信息
 
         //②
@@ -2730,6 +2729,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             //** 计算进度条
             [self caculatorProgress];
+            
             
         }
     }

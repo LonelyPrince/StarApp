@@ -526,7 +526,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         //        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     else
-    {   NSLog(@"playState222---.self.loadState %lu",(unsigned long)self.loadState);
+    {
+        NSLog(@"playState222---.self.loadState %lu",(unsigned long)self.loadState);
         if (MPMovieLoadStateUnknown) {
             NSLog(@"playState---=====状态未知");
         }if (MPMovieLoadStatePlayable) {
@@ -5128,7 +5129,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.text = self.video.channelId;
             
             self.videoControl.channelNameLab.text = self.video.channelName;
-        });
+        
         
         
         if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
@@ -5143,7 +5144,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         self.videoControl.progressSlider.hidden = YES;
         self.videoControl.progressSlider.alpha = 0;
         
-        
+        });
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
             self.videoControl.channelIdLab.frame = CGRectMake(42, 16, 56 , 55); //
             NSLog(@"self.videoControl.channelIdLab 555");
@@ -5166,6 +5167,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             }
             
         }
+        
     }else
     {
         self.videoControl.channelIdLab.text = @"";
@@ -5529,7 +5531,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSLog(@"contentURL 33ZXVideo");
     //当前节目名称
-    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+//    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
     NSLog(@"444 replace444 %@",self.videoControl.eventnameLabel.text);
     //        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";

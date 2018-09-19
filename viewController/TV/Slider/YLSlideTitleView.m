@@ -54,7 +54,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     //设置 content size
     float buttonWidth = 0.f;
     
-    for (NSUInteger i = 0; i<_titles.count; i++) {
+    for (NSUInteger i = 0; i<_titles.count ; i++) {
         
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         
