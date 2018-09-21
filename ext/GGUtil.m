@@ -1170,4 +1170,3 @@ static const char *getPropertyType(objc_property_t property) {
     [[NSNotificationCenter defaultCenter] postNotification:notification22];
 }
 @end
-

@@ -5110,6 +5110,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             if ([startTimeTempStr intValue] <= [[GGUtil GetNowTimeString]intValue]) {
                 NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
                 self.video.playEventName =eventNameLabStr;
+                
+                self.video.startTime = [arrNowPlayingTemp[0] objectForKey:@"event_starttime"];
+                self.video.endTime = [arrNowPlayingTemp[0] objectForKey:@"event_endtime"];
             }else
             {
                 self.video.playEventName = @"";
@@ -5132,11 +5135,47 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         
         
-        if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
-            self.videoControl.eventnameLabel.text = @"";
-        }else{
-            self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-        }
+//        if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
+//            self.videoControl.eventnameLabel.text = @"";
+//            NSLog(@"calcalcalclalcal==NONONO");
+//        }else{
+//            self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+//            self.videoControl.eventnameLabel.hidden = NO;
+//            NSLog(@"calcalcalclalcal");
+//        }
+            
+            
+            
+            
+            if ([[GGUtil GetNowTimeString] intValue] < [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] > [self.video.startTime intValue]) {
+                if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0)  {
+                  
+                    NSLog(@"calcalcalclalcal self.videoControl.eventnameLabel %@",self.video.startTime);
+                    self.videoControl.eventnameLabel.text = @"";
+                    NSLog(@"calcalcalclalcal==NONONO");
+                } else
+                {
+                    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+                    self.videoControl.eventnameLabel.hidden = NO;
+                    NSLog(@"calcalcalclalcal");
+                    NSLog(@"calcalcalclalcalaa self.videoControl.eventnameLabel %@",self.video.startTime);
+                }
+            }else
+            {
+               
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         
         NSLog(@"222 replace222 %@",self.videoControl.eventnameLabel.text);
         //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目

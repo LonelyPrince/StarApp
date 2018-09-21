@@ -5051,27 +5051,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     //自动搜搜时，此方法得取消
     //普通点击播放情况得存在
-//
-//    if (isRemoveTip == YES) {
-//        NSLog(@"********==**自动搜索");
-//        isRemoveTip = NO;
-//    }else
-//    {
-//        NSLog(@"********==**普通的播放");
-      [self removeTipLabAndPerformSelector];
-//    }
-//
-    NSLog(@"removeTipLabAndPerformSelector 7777");
-    NSLog(@"从willplay跳转过去 取消25秒的等待6");
-    playState = YES;
-    NSString * videoOrRadioPlaystr = [USER_DEFAULT objectForKey:@"videoOrRadioPlay"];
-    if ([videoOrRadioPlaystr isEqualToString:@"radio"]) {
-        //发送通知，添加radio图片
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"configRadioShowNotific" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        //
+        //    if (isRemoveTip == YES) {
+        //        NSLog(@"********==**自动搜索");
+        //        isRemoveTip = NO;
+        //    }else
+        //    {
+        //        NSLog(@"********==**普通的播放");
+        [self removeTipLabAndPerformSelector];
+        //    }
+        //
+        NSLog(@"removeTipLabAndPerformSelector 7777");
+        NSLog(@"从willplay跳转过去 取消25秒的等待6");
+        playState = YES;
+        NSString * videoOrRadioPlaystr = [USER_DEFAULT objectForKey:@"videoOrRadioPlay"];
+        if ([videoOrRadioPlaystr isEqualToString:@"radio"]) {
+            //发送通知，添加radio图片
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"configRadioShowNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }
+        
+    });
+
 }
 /// 媒体网络加载状态改变
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
