@@ -5156,7 +5156,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 } else
                 {
                     self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-                    self.videoControl.eventnameLabel.hidden = NO;
+//                    self.videoControl.eventnameLabel.hidden = NO;
                     NSLog(@"calcalcalclalcal");
                     NSLog(@"calcalcalclalcalaa self.videoControl.eventnameLabel %@",self.video.startTime);
                 }
@@ -5570,7 +5570,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSLog(@"contentURL 33ZXVideo");
     //当前节目名称
-//    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+    self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
     NSLog(@"444 replace444 %@",self.videoControl.eventnameLabel.text);
     //        self.videoControl.eventnameLabel.text = @"1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890|1234567890123456789012345678901234567890";
     //    self.videoControl.eventnameLabel.text = @"补充下，之前所说有点问题，苹果和pad不是不能播、只是没显示出来播放按钮、 被误导了。直接播.m3u8地址就会调动系统自身播放器，出现播放按钮。 PC上的浏览器不能播m3u8，安卓借用H5封装可以播，ios可以直接播。 这是系统本身决定的";
