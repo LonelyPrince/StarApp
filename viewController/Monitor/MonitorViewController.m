@@ -116,21 +116,6 @@
     
     [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
     
-    //    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 230, 100, 100)];
-    //    btn.backgroundColor = [UIColor redColor];
-    //    [self.view addSubview:btn];
-    //    [scrollView addSubview:btn];
-    //    [btn addTarget:self action:@selector(aaaaaa) forControlEvents:UIControlEventTouchUpInside];
-    //
-    //
-    //    UIButton * btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    btn1 = [[UIButton alloc]initWithFrame:CGRectMake(120, 230, 100, 100)];
-    //    btn1.backgroundColor = [UIColor blackColor];
-    //    [self.view addSubview:btn1];
-    //    [scrollView addSubview:btn1];
-    //    [btn1 addTarget:self action:@selector(netWorkIsConnect) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 #define mark - 网络断开时出发此方法
 -(void)netWorkIsColse
@@ -272,20 +257,6 @@
         [scrollView removeFromSuperview];
         scrollView = nil;
         
-        //    UILabel * shadowLab = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, 230, 30)];
-        //    shadowLab.text = @"测试案例";
-        //    shadowLab.shadowColor = RGBA(30, 30, 30, 0.5) ;//设置文本的阴影色彩和透明度。
-        //     shadowLab.shadowOffset = CGSizeMake(2.0f, 2.0f);     //设置阴影的倾斜角度。
-        //    UILabel * shadowLab1 = [[UILabel alloc]initWithFrame:CGRectMake(210, 120, 230, 30)];
-        //    shadowLab1.text = @"123123213123";
-        //
-        //    shadowLab1.shadowColor = RGBA(130, 130, 30, 0.5);    //设置文本的阴影色彩和透明度。
-        //    shadowLab1.shadowOffset = CGSizeMake(2.0f, 2.0f);     //设置阴影的倾斜角度。
-        //
-        //    [self.view addSubview:shadowLab];
-        //    [self.view addSubview:shadowLab1];
-        //    [self getTunerInfo];
-        //        [self initData];
         [self loadUI];  //***
         [self getNotificInfo]; //通过发送通知给TV页，TV页通过socket获取到tuner消息
         
@@ -1231,6 +1202,11 @@
             
         }
         
+        
+        
+        if (monitorTableArr.count == 1 && tunerNum > 1 ) {
+            monitorTableArr = [monitorTableArrTempArr mutableCopy];
+        }
         
             
         [tableView reloadData];
