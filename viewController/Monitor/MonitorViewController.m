@@ -43,6 +43,7 @@
     BOOL networIsConnect; //networIsClose   //1.系统断网了，所以monitor页面的一切信息都不显示,所以用networIsConnect作为判断 2.同时也用于左滑删除时，禁止刷新列表的操作
     NSData * miniNameTemp;
     int refreshTimes;
+    NSMutableArray * monitorTableArrTempArr;
 }
 @end
 
@@ -136,7 +137,6 @@
 {
     NSLog(@"Major aaaaaaaaaaaaaaa");
     
-    //    [self.tableView reloadData];
     
     [self.tableView removeFromSuperview];
     self.scrollView.scrollEnabled = NO;
@@ -349,6 +349,7 @@
 {
     tunerNum = 0; ///******
     [monitorTableArr removeAllObjects];
+    NSLog(@"=-=-=1111=1== 哈哈哈2");
     livePlayCount = 0;
     NSLog(@"livePlayCount livePlayCount bbbb %ld",livePlayCount);
     liveRecordCount = 0;
@@ -407,6 +408,7 @@
 }
 -(void)initData
 {
+    monitorTableArrTempArr = [[NSMutableArray alloc]init];
     scrollUp = NO;
     lastPosition = 0;
     livePlayCount = 0;
@@ -895,7 +897,12 @@
 -(void)getEffectiveData:(NSData *) allTunerData
 {
  
+    if (monitorTableArr.count > 0) {
+        monitorTableArrTempArr = [monitorTableArr mutableCopy];
+    }
+    
     [monitorTableArr removeAllObjects];
+    NSLog(@"=-=-=1111=1== 哈哈哈1");
     if (networIsConnect == YES) {
         NSLog(@"=======================test gettuner");
         NSLog(@"allTunerData :%@",allTunerData);
@@ -1136,6 +1143,7 @@
 
                             NSLog(@"[self.tableView reloadData]  11111 %@",monitorTableArr);
                             [self.tableView reloadData];
+                        NSLog(@"reload 11111");
                             NSLog(@"finally 33333");
  
                     }
@@ -1170,8 +1178,6 @@
                        
                     
                         
-                        
-//                        [self.tableView reloadData];
                        
                     }
                     
@@ -1187,9 +1193,9 @@
                     }
                 }
                 if (isHaveSTB == NO ) {//&& livePlayCount >0) {
-                
+
 //                if (isHaveSTB == NO && livePlayCount >0) {
-                
+
                     NSArray * arr_threeData =[ [NSArray alloc]initWithObjects:@"",[SocketUtils bytesFromUInt32:1],@"", nil];
                     [monitorTableArr addObject:arr_threeData];  //把展示节目列表添加到数组中，用于展示
                     gaoqingChannel = 1;
@@ -1226,7 +1232,10 @@
         }
         
         
+            
         [tableView reloadData];
+        NSLog(@"reload  的数据 %@",monitorTableArr);
+        NSLog(@"reload 22222");
         
         if (tunerNum == 0) {
             
@@ -1235,6 +1244,7 @@
         
         [self changeView];
         NSLog(@"finally 4444");
+        
     }
     else
     {}
@@ -1573,8 +1583,15 @@
     
     //>>
     NSArray * monitorTypeArr = [[NSArray alloc]init];
-    NSLog(@"monitorTableArr.count %d",monitorTableArr.count);
-    NSLog(@"indexPath.row %d",indexPath.row);
+    NSLog(@"=-=-=1111=1==monitorTableArr.count %d",monitorTableArr.count);
+    NSLog(@"=-=-=1111=1==indexPath.row %d",indexPath.row);
+    NSLog(@"ccccc");
+
+//    monitorTableArrTempArr
+    if (monitorTableArr.count == 0) {
+        monitorTableArr = [monitorTableArrTempArr mutableCopy];
+        NSLog(@"aaaa卧槽，差点越界出错");
+    }
     
     if (monitorTableArr.count > 0 && monitorTableArr.count > indexPath.row ) {
         
@@ -1655,29 +1672,32 @@
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         
-        
-        
-        
-        //        //////////////////////////// 从socket返回数据
-        //        //此处销毁通知，防止一个通知被多次调用
-        //        [[NSNotificationCenter defaultCenter] removeObserver:self];
-        //        //注册通知
-        //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getResourceInfo:) name:@"getResourceInfo" object:nil];
-        
-        
-        
-        
-        ///////******
-        NSLog(@"monitorTableArr:%@",monitorTableArr);
+       
         if (monitorTableArr.count == 0 ) {
+            NSLog(@"aaaaabababababababa arr为空");
+            
+            monitorTableArr = [monitorTableArrTempArr mutableCopy];
+            [monitorTableArr removeObjectAtIndex:0];
+            //这里添加删除的socket
+            /*删除tableView中的一行*/
+            [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            [tableView reloadData];
+       
+            [tableView endUpdates];
+          
+            [self performSelector:@selector(willReFresh) withObject:self afterDelay:0.2];
+         
             return;
         }
-        [monitorTableArr removeObjectAtIndex:indexPath.row];
+        
+        [monitorTableArr removeObjectAtIndex:0];
         //这里添加删除的socket
         /*删除tableView中的一行*/
         [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [tableView reloadData];
+        NSLog(@"reload 33333");
         
     }
     
