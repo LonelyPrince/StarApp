@@ -183,6 +183,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 @property (strong,nonatomic)NSMutableArray * CategoryAndREC;        //category和REC录制组合起来之后的数组
 @property (strong,nonatomic)NSMutableDictionary * RECAndLiveCellForRowsDic;  //用于
 @property (nonatomic, strong) NSTimer *pushTVTimer;   //进度条的计时器
+@property (strong,nonatomic)NSMutableDictionary * dicTemp_Temp;
 ///*
 // 字幕 音轨
 // */
@@ -3627,6 +3628,112 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"postnoPlayShowNotic 99999");
             }else //视频没有停止分发，跳转界面可以播放
             {
+                [self tableViewDataRefreshForMjRefresh_ONEMinute];
+                [self startOneMinute];
+                
+                NSLog(@"zhangsansansnasan===");
+                
+              
+                
+                ////******
+                
+                //====_)))
+                NSInteger rowTemp ;
+
+                if (storeLastChannelArr.count >= 4) {
+                                        NSDictionary * dic = [[NSDictionary alloc]init];
+                    if (storeLastChannelArr.count >= 2) {
+                        rowTemp = [storeLastChannelArr[2] integerValue];
+                    }else
+                    {
+                        return;
+                    }
+                    if(storeLastChannelArr.count >= 3) {
+                        //                                dic = storeLastChannelArr [3];
+                        dic = self.dicTemp;
+                    }else
+                    {
+                        return;
+                    }
+                }
+                
+                
+                
+                
+                double delayInSeconds = 2;
+                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+                dispatch_after(popTime, mainQueue, ^{
+                    NSLog(@"self.dicTemp_Temp2222 %@",self.dicTemp_Temp);
+                    NSMutableDictionary * epgDicToSocket_forJump = [[self.dicTemp_Temp objectForKey:[NSString stringWithFormat:@"%ld",(long)rowTemp]] mutableCopy];
+                    NSArray * epg_infoArr = [[NSArray alloc]init];
+                    epg_infoArr = [epgDicToSocket_forJump objectForKey:@"epg_info"];
+                    if (self.topProgressView == nil) {
+                        [self initProgressLine];
+                        NSLog(@"enumerateObjectsUsingBlockself.topProgressVi 初始化  %@",self.topProgressView);
+                    }else{
+                        [self initProgressLine];
+                    }
+                    
+                    
+                    [GGUtil postsetTimeAndProgressIsShowNotific];
+                    self.video.startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                    self.video.endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                    self.event_startTime = self.video.startTime ;
+                    self.event_endTime = self.video.endTime;
+                    
+                    
+                    NSLog(@"self.video.startTime ***++__aa %@",self.video.startTime);
+                    NSLog(@"self.video.endTime ***++__aa%@",self.video.endTime);
+                    [GGUtil postTimerOfEventTimeNotific];
+                    [self caculatorProgress];
+                    // 只显示时间，不显示进度条
+                    
+                    
+                    [self.view addSubview:self.topProgressView];
+                    [self.view bringSubviewToFront:self.topProgressView];
+                    [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+//                });
+                
+//                    NSLog(@"self.dicTemp_Temp2222 %@",self.dicTemp_Temp);
+//                    NSMutableDictionary * epgDicToSocket_forJump = [[self.dicTemp_Temp objectForKey:[NSString stringWithFormat:@"%ld",(long)rowTemp]] mutableCopy];
+//                    NSArray * epg_infoArr = [[NSArray alloc]init];
+//                    epg_infoArr = [epgDicToSocket_forJump objectForKey:@"epg_info"];
+//                    if (self.topProgressView == nil) {
+//                        [self initProgressLine];
+//                        NSLog(@"enumerateObjectsUsingBlockself.topProgressVi 初始化  %@",self.topProgressView);
+//                    }else{
+//                        [self initProgressLine];
+//                    }
+//
+//
+//                    [GGUtil postsetTimeAndProgressIsShowNotific];
+//                    self.video.startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+//                    self.video.endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+//                    self.event_startTime = self.video.startTime ;
+//                    self.event_endTime = self.video.endTime;
+//
+//
+//                    NSLog(@"self.video.startTime ***++__aa %@",self.video.startTime);
+//                    NSLog(@"self.video.endTime ***++__aa%@",self.video.endTime);
+//                    [GGUtil postTimerOfEventTimeNotific];
+//                    [self caculatorProgress];
+//                    // 只显示时间，不显示进度条
+//
+//
+//                    [self.view addSubview:self.topProgressView];
+//                    [self.view bringSubviewToFront:self.topProgressView];
+//                    [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+
+                
+                //++++--=-
+                
+                
+                
+                ////*******
+                
+                
                 [self removeLabAndAddIndecatorView];
                 NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
                 if([jumpFormOtherView isEqualToString:@"YES"])
@@ -3644,11 +3751,22 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 return;
                             }
                             if(storeLastChannelArr.count >= 3) {
-                                dic = storeLastChannelArr [3];
+//                                dic = storeLastChannelArr [3];
+                                dic = self.dicTemp;
                             }else
                             {
                                 return;
                             }
+                            
+                   
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             //=======机顶盒加密
                             NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
                             if (characterStr != NULL && characterStr != nil) {
@@ -3677,6 +3795,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }else
                     {
+                        
                         if (historyArr.count > 0) {
                             NSArray * touchArr = historyArr[historyArr.count - 1];
                             
@@ -3687,6 +3806,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 if (touchArr.count >= 4) {
                                     NSInteger row = [touchArr[2] integerValue];
                                     NSDictionary * dic = storeLastChannelArr [3];
+                                    dic = self.dicTemp;
                                     NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
                                     if (characterStr != NULL && characterStr != nil) {
                                         BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
@@ -3700,6 +3820,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                         }else //正常播放的步骤
                                         {
                                             [self firstOpenAppAutoPlayZero:row diction:dic];
+                                            
                                         }
                                     }else //正常播放的步骤
                                     {
@@ -3720,6 +3841,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }
                 }
+                });
             }
         }
     }else
@@ -8284,6 +8406,33 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self setSearchViewData];
             NSLog(@"setSearchViewDatasetSearchViewData===4444");
         }
+        
+        for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
+            int indexCat ;
+            //        indexCat =[self.categoryModel.service_indexArr[i] intValue];
+            if (i < self.categoryModel.service_indexArr.count) {
+                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+            }else
+            {
+                return;
+            }
+            
+            if ( ISNULL(self.serviceData)) {
+                
+            }else{
+                //            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                if (indexCat -1 < self.serviceData.count) {
+                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                    
+                }else
+                {
+                    return;
+                }
+            }
+            NSLog(@"zhangsansansnasan");
+        }
+        self.dicTemp_Temp = [self.dicTemp mutableCopy];
+        NSLog(@"self.dicTemp_Temp1111 %@",self.dicTemp_Temp);
     }];
     
     
@@ -8303,6 +8452,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
     }
     
+
     
 
 }
