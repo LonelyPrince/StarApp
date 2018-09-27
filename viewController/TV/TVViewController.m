@@ -8380,12 +8380,25 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
             int indexCat ;
             //        indexCat =[self.categoryModel.service_indexArr[i] intValue];
-            if (i < self.categoryModel.service_indexArr.count) {
-                indexCat =[self.categoryModel.service_indexArr[i] intValue];
+            
+            if ([self.categoryModel.service_indexArr[i] isKindOfClass:[NSDictionary class]] || [self.categoryModel.service_indexArr[i] isKindOfClass:[NSMutableDictionary class]]){
+             
+                NSLog(@"feiintleixing");
+                NSLog(@"feiintleixing %@", self.categoryModel.service_indexArr[i]);
+                return;
+
             }else
             {
-                return;
+                if (i < self.categoryModel.service_indexArr.count) {
+                    NSLog(@"arrrrrrrrrrr[i] %@",self.categoryModel.service_indexArr[i]);
+                    indexCat =[self.categoryModel.service_indexArr[i] intValue];
+                }else
+                {
+                    return;
+                }
             }
+            
+           
             
             if ( ISNULL(self.serviceData)) {
                 
