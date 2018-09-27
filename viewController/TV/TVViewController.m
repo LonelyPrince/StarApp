@@ -3675,60 +3675,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self initProgressLine];
                     }
                     
+                    if (epg_infoArr.count > 0) {
+                        [GGUtil postsetTimeAndProgressIsShowNotific];
+                        self.video.startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                        self.video.endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                        self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                        self.event_startTime = self.video.startTime ;
+                        self.event_endTime = self.video.endTime;
+                        
+                        
+                        NSLog(@"self.video.startTime ***++__aa %@",self.video.startTime);
+                        NSLog(@"self.video.endTime ***++__aa%@",self.video.endTime);
+                        [GGUtil postTimerOfEventTimeNotific];
+                        [self caculatorProgress];
+                        // 只显示时间，不显示进度条
+                        
+                        
+                        [self.view addSubview:self.topProgressView];
+                        [self.view bringSubviewToFront:self.topProgressView];
+                        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+                    }else{
+
+                    }
                     
-                    [GGUtil postsetTimeAndProgressIsShowNotific];
-                    self.video.startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-                    self.video.endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
-                    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
-                    self.event_startTime = self.video.startTime ;
-                    self.event_endTime = self.video.endTime;
-                    
-                    
-                    NSLog(@"self.video.startTime ***++__aa %@",self.video.startTime);
-                    NSLog(@"self.video.endTime ***++__aa%@",self.video.endTime);
-                    [GGUtil postTimerOfEventTimeNotific];
-                    [self caculatorProgress];
-                    // 只显示时间，不显示进度条
-                    
-                    
-                    [self.view addSubview:self.topProgressView];
-                    [self.view bringSubviewToFront:self.topProgressView];
-                    [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-                    //                });
-                    
-                    //                    NSLog(@"self.dicTemp_Temp2222 %@",self.dicTemp_Temp);
-                    //                    NSMutableDictionary * epgDicToSocket_forJump = [[self.dicTemp_Temp objectForKey:[NSString stringWithFormat:@"%ld",(long)rowTemp]] mutableCopy];
-                    //                    NSArray * epg_infoArr = [[NSArray alloc]init];
-                    //                    epg_infoArr = [epgDicToSocket_forJump objectForKey:@"epg_info"];
-                    //                    if (self.topProgressView == nil) {
-                    //                        [self initProgressLine];
-                    //                        NSLog(@"enumerateObjectsUsingBlockself.topProgressVi 初始化  %@",self.topProgressView);
-                    //                    }else{
-                    //                        [self initProgressLine];
-                    //                    }
-                    //
-                    //
-                    //                    [GGUtil postsetTimeAndProgressIsShowNotific];
-                    //                    self.video.startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
-                    //                    self.video.endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
-                    //                    self.event_startTime = self.video.startTime ;
-                    //                    self.event_endTime = self.video.endTime;
-                    //
-                    //
-                    //                    NSLog(@"self.video.startTime ***++__aa %@",self.video.startTime);
-                    //                    NSLog(@"self.video.endTime ***++__aa%@",self.video.endTime);
-                    //                    [GGUtil postTimerOfEventTimeNotific];
-                    //                    [self caculatorProgress];
-                    //                    // 只显示时间，不显示进度条
-                    //
-                    //
-                    //                    [self.view addSubview:self.topProgressView];
-                    //                    [self.view bringSubviewToFront:self.topProgressView];
-                    //                    [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-                    
-                    
-                    //++++--=-
-                    
+                   
                     
                     
                     ////*******
