@@ -4169,7 +4169,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 NSArray * audio_infoArrTemp = [fourceDic objectForKey:@"audio_info"];
                 NSDictionary * audioDicBlue;
-                if (audioRow > audio_infoArrTemp.count && audio_infoArrTemp.count > 0) {
+                if (audioRow >= audio_infoArrTemp.count && audio_infoArrTemp.count > 0) {
                     audioDicBlue = [fourceDic objectForKey:@"audio_info"][0];
                 }else
                 {
@@ -4218,7 +4218,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 }
                 
                 audioRow =  [audioNumber intValue];
-                NSDictionary * audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                NSArray * fourceDicArr = [fourceDic objectForKey:@"audio_info"];
+                NSDictionary * audioDicBlue ;
+                if (fourceDicArr.count > audioRow ) {
+                    audioDicBlue = [fourceDic objectForKey:@"audio_info"][audioRow];
+                }else if (fourceDicArr.count > 0 ){
+                    audioDicBlue = [fourceDic objectForKey:@"audio_info"][0];
+                }
+                
+                
                 
                 if ([cell.dataDic isEqual:audioDicBlue]) {
                     
