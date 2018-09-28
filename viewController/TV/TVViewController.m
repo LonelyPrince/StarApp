@@ -3674,7 +3674,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }else{
                         [self initProgressLine];
                     }
-                    
+
                     if (epg_infoArr.count > 0) {
                         [GGUtil postsetTimeAndProgressIsShowNotific];
                         self.video.startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
@@ -3682,35 +3682,35 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                         self.event_startTime = self.video.startTime ;
                         self.event_endTime = self.video.endTime;
-                        
-                        
+
+
                         NSLog(@"self.video.startTime ***++__aa %@",self.video.startTime);
                         NSLog(@"self.video.endTime ***++__aa%@",self.video.endTime);
                         [GGUtil postTimerOfEventTimeNotific];
                         [self caculatorProgress];
                         // 只显示时间，不显示进度条
-                        
-                        
+
+
                         [self.view addSubview:self.topProgressView];
                         [self.view bringSubviewToFront:self.topProgressView];
                         [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
                     }else{
 
                     }
-                    
-                   
-                    
-                    
+
+
+
+
                     ////*******
-                    
-                    
-                    [self removeLabAndAddIndecatorView];
+
+
+//                    [self removeLabAndAddIndecatorView];
                     NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
                     if([jumpFormOtherView isEqualToString:@"YES"])
                     {
                         NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
                         if (historyArr == NULL || historyArr.count == 0 || historyArr == nil) {
-                            
+
                             if (storeLastChannelArr.count >= 4) {
                                 NSInteger row ;
                                 NSDictionary * dic = [[NSDictionary alloc]init];
@@ -3727,16 +3727,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 {
                                     return;
                                 }
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
+
+
+
+
                                 //=======机顶盒加密
                                 NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
                                 if (characterStr != NULL && characterStr != nil) {
@@ -3747,7 +3747,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                         NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
                                         [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                                         firstOpenAPP = firstOpenAPP+1;
-                                        
+
                                         firstfirst = NO;
                                     }else //正常播放的步骤
                                     {
@@ -3762,13 +3762,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             {
                                 return ;
                             }
-                            
+
                         }else
                         {
-                            
+
                             if (historyArr.count > 0) {
                                 NSArray * touchArr = historyArr[historyArr.count - 1];
-                                
+
                                 if (storeLastChannelArr.count < 2) {
                                     return;
                                 }else
@@ -3790,14 +3790,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                             }else //正常播放的步骤
                                             {
                                                 [self firstOpenAppAutoPlayZero:row diction:dic];
-                                                
+
                                             }
                                         }else //正常播放的步骤
                                         {
                                             //======机顶盒加密
                                             [self firstOpenAppAutoPlay:row diction:dic];
                                         }
-                                        
+
                                         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
                                     }else
                                     {
@@ -3808,7 +3808,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             {
                                 return;
                             }
-                            
+
                         }
                     }
                 });
