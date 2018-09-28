@@ -231,7 +231,6 @@
 #define mark - 网络连接后触发此方法
 -(void)netWorkIsConnect
 {
-    NSLog(@"Major ccccccccccccccccc");
     if (refreshTimer == nil && networIsConnect == NO) {
         refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(refreshViewByJudgeData) userInfo:nil repeats:YES];
     }
@@ -867,10 +866,11 @@
 //获得有效数据的信息，不同tuner的信息
 -(void)getEffectiveData:(NSData *) allTunerData
 {
- 
-    if (monitorTableArr.count > 0) {
-        monitorTableArrTempArr = [monitorTableArr mutableCopy];
-    }
+//    NSLog(@"monitorTableArr.countddd %d",monitorTableArr.count);
+//    if (monitorTableArr.count > 0) {
+//        monitorTableArrTempArr = [monitorTableArr mutableCopy];
+//        NSLog(@"cccccccc 4444 %d",monitorTableArr.count);
+//    }
     
     [monitorTableArr removeAllObjects];
     NSLog(@"=-=-=1111=1== 哈哈哈1");
@@ -1113,6 +1113,7 @@
  
 
                             NSLog(@"[self.tableView reloadData]  11111 %@",monitorTableArr);
+                        NSLog(@"cccccccc 5555 %d",monitorTableArr.count);
                             [self.tableView reloadData];
                         NSLog(@"reload 11111");
                             NSLog(@"finally 33333");
@@ -1174,7 +1175,7 @@
                 }
                 
                 NSLog(@"monitorTableArrmonitorTableArr %@",monitorTableArr);
-                
+                NSLog(@"cccccccc 6666 %d",monitorTableArr.count);
                 
                 //***********
                 
@@ -1204,9 +1205,13 @@
         
         
         
-        if (monitorTableArr.count == 1 && tunerNum > 1 ) {
-            monitorTableArr = [monitorTableArrTempArr mutableCopy];
-        }
+//        if (monitorTableArr.count == 1 && tunerNum > 0 ) {
+//            monitorTableArr = [monitorTableArrTempArr mutableCopy];
+//            NSLog(@"abababababab");
+//            NSLog(@"cccccccc 1111 %d",monitorTableArr.count);
+//        }else{
+//            NSLog(@"ababababababcccc");
+//        }
         
             
         [tableView reloadData];
@@ -1224,6 +1229,12 @@
     }
     else
     {}
+    NSLog(@"monitorTableArr.countddd %d",monitorTableArr.count);
+    if (monitorTableArr.count > 0) {
+        monitorTableArrTempArr = [monitorTableArr mutableCopy];
+        NSLog(@"cccccccc 4444 %d",monitorTableArr.count);
+    }
+
 }
 
 -(void)changeView
@@ -1566,6 +1577,7 @@
 //    monitorTableArrTempArr
     if (monitorTableArr.count == 0) {
         monitorTableArr = [monitorTableArrTempArr mutableCopy];
+        NSLog(@"cccccccc 2222 %d",monitorTableArr.count);
         NSLog(@"aaaa卧槽，差点越界出错");
     }
     
@@ -1633,7 +1645,6 @@
 /*删除用到的函数*/
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"aaaaabababababababa");
     [tableView beginUpdates];
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
@@ -1653,6 +1664,7 @@
             NSLog(@"aaaaabababababababa arr为空");
             
             monitorTableArr = [monitorTableArrTempArr mutableCopy];
+            NSLog(@"cccccccc 3333 %d",monitorTableArr.count);
             [monitorTableArr removeObjectAtIndex:0];
             //这里添加删除的socket
             /*删除tableView中的一行*/
