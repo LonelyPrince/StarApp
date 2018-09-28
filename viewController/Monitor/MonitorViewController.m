@@ -792,6 +792,7 @@
 {
     
     //    return tunerNum;
+    NSLog(@"monitorTableArr.countcount %d",monitorTableArr.count);
     return monitorTableArr.count;
     
 }
@@ -815,7 +816,6 @@
 //                tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     
-   
     if (monitorTableArr != NULL && monitorTableArr != nil && monitorTableArr.count > 0) {
         cell.dataArr = monitorTableArr[indexPath.row];
         NSLog(@"cell.dataArr == %@",cell.dataArr);
@@ -1057,15 +1057,11 @@
                     
                     
                     //                //新的数据
-                    NSString * newservice_network = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: networkIdData]]; //[[NSString alloc]initWithData:networkIdData encoding:NSUTF8StringEncoding];
-                    
-                    
-                    NSString * newservice_ts =   [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: tsIdData]];//[[NSString alloc]initWithData:tsIdData encoding:NSUTF8StringEncoding];
-                    NSString * newservice_service = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: serviceIdData]];// [[NSString alloc]initWithData:serviceIdData encoding:NSUTF8StringEncoding];
-                    //                NSString * newservice_tunertype =  [[NSString alloc]initWithData:serviceTypeData encoding:NSUTF8StringEncoding];
-                    //                NSString * newservice_apiservicetype =  [[NSString alloc]initWithData:serviceTypeData encoding:NSUTF8StringEncoding];
-                    
-                    if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts]  && [service_service isEqualToString:newservice_service]  //&& [service_tuner isEqualToString:newservice_tunertype]
+                    NSString * newservice_network = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: networkIdData]];
+                    NSString * newservice_ts =   [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: tsIdData]];
+                    NSString * newservice_service = [NSString stringWithFormat:@"%d",[SocketUtils uint16FromBytes: serviceIdData]];
+                   
+                    if ([service_network isEqualToString:newservice_network] && [service_ts isEqualToString:newservice_ts]  && [service_service isEqualToString:newservice_service]
                         ) {
                         
                         //这种情况下是找到了节目
@@ -1464,71 +1460,6 @@
             self.tableView.scrollEnabled = YES;
         }
         
-        
-        //    if (tunerNum == 0 &&  scrollUp == YES) {      //从顶部向下滑动，类似于没有数据时，从下往上滑动
-        //        NSLog(@"scrollView.contentOffset.y:%f",self.scrollView.contentOffset.y);
-        //        if (self.tableView.contentOffset.y<275&& scrollUp == YES
-        //            //        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25
-        //            ){
-        //            CGPoint position = CGPointMake(0, 275);
-        //
-        //            [UIView animateWithDuration:0.4
-        //                                  delay:0.02
-        //                                options:UIViewAnimationCurveLinear
-        //                             animations:^{
-        //                                 //                             [scrollView setContentOffset: position ];
-        //                                 self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        //                                 //                             scrollView.contentOffset = CGPointMake(0, 0);
-        //                                 self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);//SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200);
-        //
-        //                                 scrollUp = NO;
-        //                                 //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-        //                                 self.tableView.scrollEnabled = NO;
-        //                             }
-        //                             completion:^(BOOL finished)
-        //             { NSLog(@"animateanimate1111");
-        //                 self.tableView.scrollEnabled = NO;
-        //             } ];
-        //            NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
-        //            self.tableView.scrollEnabled = NO;
-        //        }
-        //    }else if (tunerNum == 0 &&  scrollUp == NO)   //从下向上滑动，类似于没有数据时，从下往上滑动
-        //    {
-        //        CGPoint position = CGPointMake(0, 275);
-        //        //        [scrollView     :position animated:YES];
-        //        [UIView animateWithDuration:0.4
-        //                              delay:0.02
-        //                            options:UIViewAnimationCurveLinear
-        //                         animations:^{
-        //
-        //                             //效果：最终到达顶端
-        //                             self.scrollView.frame = CGRectMake(0, -275, SCREEN_WIDTH, SCREEN_HEIGHT+tunerNum*80+200);//
-        //
-        //                             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,SCREEN_HEIGHT); //TopViewHeight+tunerNum*80+200-93);
-        //
-        //                             scrollUp = YES;
-        //                             self.tableView.scrollEnabled = YES;
-        //                             self.scrollView.bounces=NO;
-        //                             //                             scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200);
-        //                         }
-        //                         completion:^(BOOL finished)
-        //         {
-        //             NSLog(@"animateanimate2222");
-        //             self.tableView.scrollEnabled = YES;
-        //
-        //             self.scrollView.bounces=NO;
-        ////             self.scrollView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        ////             //                             scrollView.contentOffset = CGPointMake(0, 0);
-        ////             self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH,TopViewHeight+tunerNum*80+200 + 400);
-        ////
-        ////             self.scrollView.contentOffset = CGPointMake(0, 275);
-        //
-        //         } ];
-        //        NSLog(@"scrollView.contentOffset2.y:%f",scrollView.contentOffset.y);
-        //        self.tableView.scrollEnabled = YES;
-        //
-        //    }
-        //    else{
         if(scrollView.class == self.tableView.class){
             if (self.tableView.contentOffset.y<-30&& scrollUp == YES
                 //        currentPostion - lastPosition < 20 && scrollView.contentOffset.y <25

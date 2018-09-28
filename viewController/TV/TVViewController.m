@@ -686,7 +686,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postfullScreenBtnShow];
             NSLog(@"[GGUtil postfullScreenBtnShow]; 显示11");
             //将数据本地化
-            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+            if (![response objectForKey:@"service"] == nil) {
+                [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+            }
             
             self.serviceData = (NSMutableArray *)data1; //data1 代表service
             [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
@@ -4021,7 +4023,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //            NSLog(@"清空信息");
         //        }
         //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        if (![response objectForKey:@"service"] == nil) {
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        }
         
         NSArray *recFileData = response[@"rec_file_info"];
         //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
@@ -4686,7 +4690,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
         //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        if (![response objectForKey:@"service"] == nil) {
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        }
         NSArray *data1 = response[@"service"];
         NSArray *recFileData = response[@"rec_file_info"];
         NSLog(@"recFileData  4116%@",recFileData);
@@ -6615,7 +6621,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
         //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        if (![response objectForKey:@"service"] == nil) {
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        }
         
         //        NSLog(@"response = %@",response);
         NSArray *data1 = response[@"service"];
@@ -7731,7 +7739,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [request setCompletionBlock:^{
         NSDictionary *response = httpRequest.responseString.JSONValue;
         //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        if (![response objectForKey:@"service"] == nil) {
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        }
         
         //        NSArray *data1;
         //        NSArray *data;
@@ -8079,7 +8089,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
         //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        if (![response objectForKey:@"service"] == nil) {
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        }
         
         NSArray *data1;
         NSArray *recFileData;
@@ -8473,7 +8485,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSDictionary *response = httpRequest.responseString.JSONValue;
         
         //将数据本地化
-        [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        if (![response objectForKey:@"service"] == nil) {
+            [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
+        }
         NSArray *data1 = response[@"service"];
         
         
