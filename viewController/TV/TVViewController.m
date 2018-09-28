@@ -590,6 +590,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.tableForDicIndexDic removeAllObjects];
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                     [GGUtil postfullScreenBtnShow];
+                    NSLog(@"[GGUtil postfullScreenBtnShow]; 显示66");
                 }else //横屏状态，不刷新
                 {
                     //设置滑动条
@@ -601,6 +602,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.tableForDicIndexDic removeAllObjects];
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                     [GGUtil postfullScreenBtnShow];
+                    NSLog(@"[GGUtil postfullScreenBtnShow]; 显示77");
                 }
                 
                 
@@ -672,7 +674,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnHidden" object:nil userInfo:nil];
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                    
+                    NSLog(@"[GGUtil postfullScreenBtnShow]; 隐藏11");
                     
                 });
                 
@@ -682,6 +684,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         else{
             [GGUtil postfullScreenBtnShow];
+            NSLog(@"[GGUtil postfullScreenBtnShow]; 显示11");
             //将数据本地化
             [USER_DEFAULT setObject:response forKey:@"TVHttpAllData"];
             
@@ -828,6 +831,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [self.tableForDicIndexDic removeAllObjects];
                             [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                             [GGUtil postfullScreenBtnShow];
+                            NSLog(@"[GGUtil postfullScreenBtnShow]; 显示22");
                         }else //横屏状态，不刷新
                         {
                             
@@ -840,6 +844,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [self.tableForDicIndexDic removeAllObjects];
                             [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                             [GGUtil postfullScreenBtnShow];
+                            NSLog(@"[GGUtil postfullScreenBtnShow]; 显示33");
                         }
                         
                         
@@ -8664,6 +8669,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self.view addSubview:_slideView];
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 
+                [GGUtil postfullScreenBtnShow];
             }
             else
             {
@@ -10381,6 +10387,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             [GGUtil postfullScreenBtnShow];
+            NSLog(@"[GGUtil postfullScreenBtnShow]; 显示44");
         }
     }else
     {
@@ -11528,6 +11535,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else
     {
         [GGUtil postfullScreenBtnShow];
+        NSLog(@"[GGUtil postfullScreenBtnShow]; 显示55");
     }
 }
 -(void)judgeIShowEit:(NSArray *)serviceArr

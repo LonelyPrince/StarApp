@@ -815,7 +815,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     //    }
     
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"] || barIsShowing == 1) {
-        barIsShowing = 0;
+        barIsShowing = 1;
+        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
         if (self.isBarShowing) {
             return;
         }
@@ -936,7 +937,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 
 - (void)onTap:(UITapGestureRecognizer *)gesture
 {
-    
+    NSLog(@"taptaptaptaptap");
     //    [self rightTableViewHide];
     //第一步先判断是不是按了锁
     if ([USER_DEFAULT boolForKey:@"lockedFullScreen"]) {
