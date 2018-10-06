@@ -190,6 +190,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self removeConfigDecoderPINShow];  //如果用户点击了按钮，则发送删除通知把decoder的文字和按钮删除掉
         [self removeConfigCAPINShow]; //取消掉CAPIN的文字和按钮删除掉
         [self judgeIsNeedPlayNotific];
+        [self judgeIsNeedPlayNotificYes];
         [self configIndicatorViewHidden]; //开始播放或者几秒后仍未播放则取消加载进度圈，改为sorry提示字
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
@@ -947,6 +948,20 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)judgeIsNeedPlayFunction
 {
     judgeIsNeedPlay = NO;
+    NSLog(@"judgeIsNeedPlay no");
+    
+}
+-(void)judgeIsNeedPlayNotificYes
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"judgeIsNeedPlayNotificYes" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(judgeIsNeedPlayIsYes) name:@"judgeIsNeedPlayNotificYes" object:nil];
+}
+-(void)judgeIsNeedPlayIsYes
+{
+    judgeIsNeedPlay = YES;
+    NSLog(@"judgeIsNeedPlay yes");
 }
 //未播放前显示加载圈的通知 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
 -(void)IndicatorViewShowNotic
@@ -3675,28 +3690,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     
     nowPlayChannelIdBoolValue = NO;
-    //    self.player = [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:self.view];
-    //     self.view = self.player.view ;
-    //
-    //    self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    //    self.player.view.frame = self.view.bounds;
-    //
-    ////    [self.view insertSubview:playerView atIndex:1];
-    //    [self.player play];
-    //    UIView *playerView = [[UIView alloc]initWithFrame:self.view.frame];
     
-    //    [self.view addSubview:playerView];
-    //    self.player = [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:self.playerView];
-    
-    
-    //    [operationQueue cancelAllOperations];
-    //
-    //    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
-    //
-    //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-    //            // 处理耗时操作的代码块...
+    NSLog(@"urlurlurl %@",url);
     if (url == nil) {
-        
+
     }else
     {
         
@@ -5572,11 +5569,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // play url
     if (judgeIsNeedPlay == YES) {
         self.url = [NSURL URLWithString:self.video.playUrl];
+        NSLog(@"judgeIsNeedPlay 11111");
     }else{
         judgeIsNeedPlay = YES;
+        NSLog(@"judgeIsNeedPlay 222222");
     }
-    
-    NSLog(@"contentURL 33ZXVideo");
+    NSLog(@"contentURL 33ZXVideo1 %@",self.video.playUrl);
+    NSLog(@"contentURL 33ZXVideo %@",self.url);
     //当前节目名称
     self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
     NSLog(@"444 replace444 %@",self.videoControl.eventnameLabel.text);
