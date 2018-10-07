@@ -5110,7 +5110,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
         NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
         if (arrNowPlayingTemp.count > 0) {
-            
+            NSLog(@"arrNowPlayingTemp111");
             NSString * startTimeTempStr = [arrNowPlayingTemp[0] objectForKey:@"event_starttime"];
             if ([startTimeTempStr intValue] <= [[GGUtil GetNowTimeString]intValue]) {
                 NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
@@ -5120,13 +5120,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.video.endTime = [arrNowPlayingTemp[0] objectForKey:@"event_endtime"];
             }else
             {
+                NSLog(@"arrNowPlayingTemp000");
                 self.video.playEventName = @"";
+                self.video.startTime = @"";
+                self.video.endTime = @"";
             }
             
             
         }else
         {
+            NSLog(@"arrNowPlayingTemp222");
             self.video.playEventName = @"";
+            self.video.startTime = @"";
+            self.video.endTime = @"";
         }
         self.video.channelId =channelIdLabStr;
         self.video.channelName =channelNameLabStr;
@@ -5151,23 +5157,41 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             
             
-            
             if ([[GGUtil GetNowTimeString] intValue] < [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] > [self.video.startTime intValue]) {
                 if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0)  {
-                  
-                    NSLog(@"calcalcalclalcal self.videoControl.eventnameLabel %@",self.video.startTime);
+
+//                    NSLog(@"calcalcalclalcal self.videoControl.eventnameLabel %@",self.video.startTime);
                     self.videoControl.eventnameLabel.text = @"";
-                    NSLog(@"calcalcalclalcal==NONONO");
+//                    NSLog(@"calcalcalclalcal==NONONO");
+                    NSLog(@" ==== 没有EPG %@",self.video.startTime);
                 } else
                 {
                     self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-//                    self.videoControl.eventnameLabel.hidden = NO;
+                    
+                    
+                    if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+                        self.videoControl.eventnameLabel.hidden = YES;
+                    }else
+                    {
+                        self.videoControl.eventnameLabel.hidden = NO;
+                    }
+                    
                     NSLog(@"calcalcalclalcal");
                     NSLog(@"calcalcalclalcalaa self.videoControl.eventnameLabel %@",self.video.startTime);
+                    NSLog(@" ==== 有EPG1 %@",self.video.startTime);
                 }
             }else
             {
-               
+                self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
+                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+                    self.videoControl.eventnameLabel.hidden = YES;
+                }else
+                {
+                    self.videoControl.eventnameLabel.hidden = NO;
+                }
+                NSLog(@"calcalcalclalcal");
+                NSLog(@"calcalcalclalcalaa self.videoControl.eventnameLabel %@",self.video.startTime);
+                NSLog(@" ==== 有EPG2 %@",self.video.startTime);
             }
             
             
