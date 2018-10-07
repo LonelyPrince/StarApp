@@ -1042,14 +1042,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"playvideo 的线程");
     if (!self.videoController) {
         self.videoController = [[ZXVideoPlayerController alloc] initWithFrame:CGRectMake(0, VIDEOHEIGHT, kZXVideoPlayerOriginalWidth, kZXVideoPlayerOriginalHeight)];
-        //**用于刷新列表的timer 设置，防止在没网的情况下，过长时间停留在无网络图下，又可能出现异常
-        NSString * nowTimeStr = [GGUtil GetNowTimeString];
-        NSInteger firstRefreshTime = ([nowTimeStr integerValue] / 60 + 1) * 60 - [nowTimeStr integerValue] + 2;
-        //刚进来，先整点刷新一次   repeats:NO
-        viewFirstShowTimer = [NSTimer scheduledTimerWithTimeInterval:firstRefreshTime target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:NO];
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshTableviewOneMinute) object:nil];
-        [self performSelector:@selector(refreshTableviewOneMinute) withObject:nil afterDelay:firstRefreshTime];
-        //*******
+       
         
         __weak typeof(self) weakSelf = self;
         self.videoController.videoPlayerGoBackBlock = ^{
@@ -1178,6 +1171,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
     }
     
+    //**用于刷新列表的timer 设置，防止在没网的情况下，过长时间停留在无网络图下，又可能出现异常
+    NSString * nowTimeStr = [GGUtil GetNowTimeString];
+    NSInteger firstRefreshTime = ([nowTimeStr integerValue] / 60 + 1) * 60 - [nowTimeStr integerValue] + 2;
+    NSLog(@"firstRefreshTime 刷新时间 %d",firstRefreshTime);
+    //刚进来，先整点刷新一次   repeats:NO
+    viewFirstShowTimer = [NSTimer scheduledTimerWithTimeInterval:firstRefreshTime target:self selector:@selector(tableViewDataRefreshForMjRefresh_ONEMinute) userInfo:nil repeats:NO];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshTableviewOneMinute) object:nil];
+    [self performSelector:@selector(refreshTableviewOneMinute) withObject:nil afterDelay:firstRefreshTime];
+    //*******
     
     if (self.showTVView == YES) {
         self.videoController.video = self.video;
@@ -8023,7 +8025,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [self refreshTableviewByEPGTime];
         });
-        [NSThread sleepForTimeInterval:1.5];
+        [NSThread sleepForTimeInterval:1];
         //    [self mediaDeliveryUpdate];
         //    [tableForSliderView reloadData];
         // 结束刷新
@@ -9489,12 +9491,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self tableViewDataRefreshForMjRefresh_ONEMinute];
     
     
-    double delayInSeconds = 6;
+    double delayInSeconds = 1;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
         
         [self tableViewDataRefreshForMjRefresh_ONEMinute];
+        NSLog(@"jajsjsjsjsjssjsjjsdbjasgjsada 111111");
+//        [self tableViewDataRefreshForMjRefresh];
+    });
+    
+    double delayInSeconds1 = 3;
+    dispatch_time_t popTime2 = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds1 * NSEC_PER_SEC);
+    dispatch_after(popTime2, mainQueue, ^{
+        
+        [self tableViewDataRefreshForMjRefresh_ONEMinute];
+        NSLog(@"jajsjsjsjsjssjsjjsdbjasgjsada 111111");
+//        [self tableViewDataRefreshForMjRefresh];
+    });
+    
+    double delayInSeconds2 = 7;
+    dispatch_time_t popTime3 = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds2 * NSEC_PER_SEC);
+    dispatch_after(popTime3, mainQueue, ^{
+        
+        [self tableViewDataRefreshForMjRefresh_ONEMinute];
+//        [self tableViewDataRefreshForMjRefresh];
+        NSLog(@"jajsjsjsjsjssjsjjsdbjasgjsada");
     });
     
 }
