@@ -52,6 +52,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     int64_t byteValue1;   //视频缓存1
     int64_t byteValue2;   //视频缓存2
     NSString * deviceString;
+    NSString * deviceString1;
     
     int currentProgress;
     int subtRow;
@@ -2557,7 +2558,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 
             //IJK
-            self.player.view.frame = self.view.bounds;
+//            self.player.view.frame = self.view.bounds;
+            deviceString1 = [GGUtil deviceVersion];
+            if ( [deviceString1 isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+                NSLog(@"此刻是5s和4s的大小");
+                [self.player.view removeFromSuperview];
+                self.player.view.frame = CGRectMake(0, 25, SCREEN_HEIGHT, SCREEN_WIDTH - 50);
+                [self.view insertSubview:self.player.view atIndex:0];
+            }else{
+                self.player.view.frame = self.view.bounds;
+            }
             NSLog(@"self.view.bounds %d");
             //new====
         }else
@@ -3716,7 +3726,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"self.playerView %@",self.player);
         NSLog(@"Setself.playerView1url %@",url);
         
-        self.player.view.frame = self.view.bounds;
+//        self.player.view.frame = self.view.bounds;
+        
+        deviceString1 = [GGUtil deviceVersion];
+        if ( [deviceString1 isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+            NSLog(@"此刻是5s和4s的大小");
+            self.player.view.frame = CGRectMake(0, 25, SCREEN_HEIGHT, SCREEN_WIDTH - 50);
+        }else{
+            self.player.view.frame = self.view.bounds;
+        }
+        
         
         [self.view insertSubview:self.player.view atIndex:0];
         
