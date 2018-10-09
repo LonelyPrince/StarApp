@@ -48,6 +48,7 @@
     NSString * deviceString;
     
     BOOL viewFirstOpen;   //页面第一次加载，快速完成，不做0.2秒等待
+    CGPoint  point;
 }
 @property (nonatomic,assign)float allHistoryBtnHeight;
 @property (nonatomic,strong)UIScrollView * scroll;
@@ -76,6 +77,7 @@
 //}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    point = CGPointMake(0, 0);
     self.tabBarController.tabBar.hidden = NO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -163,14 +165,12 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"112313123123123213213211111");
     
     if (viewFirstOpen == YES) {
         [self viewWillAppearDealyFunction];
         viewFirstOpen = NO;
     }else
     {
-        NSLog(@"112313123123123213213222222");
         //防止用户快速切换，做延迟处理
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.2];
@@ -190,7 +190,7 @@
     [USER_DEFAULT setObject:[NSNumber numberWithInt:1] forKey:@"viewDidloadHasRunBool"];    // 此处做一次判断，判断是不是连接状态，如果是的，则执行live页面的时候不执行【socket viewDidload】
     
     self.tabBarController.tabBar.hidden = NO;
-    [scroll removeFromSuperview];
+    [scroll removeFromSuperview]; // 不刷新的话，会影响显示
     scroll = nil;
     
     historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
@@ -212,6 +212,12 @@
     self.tableView.scrollEnabled =NO;
     [self TVViewAppear]; //TV 页面进去即开始播放
     
+    if ((point.y + SCREEN_HEIGHT - 49) > scroll.contentSize.height ) {
+        NSLog(@"scroll越界了");
+    }else{
+            [scroll setContentOffset:point animated:NO];
+        NSLog(@"scrollmeiy 越界了");
+    }
     
 }
 -(void)TVViewAppear
@@ -548,6 +554,12 @@
 ////    [hisBtn setFrame:CGRectMake(0, 64 - scrollView.contentOffset.y, SCREEN_WIDTH, 45)];
 //}
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    //获取scrollView的偏移量
+    point = scrollView.contentOffset;
+    NSLog(@"正在滚动:%@", NSStringFromCGPoint(point));
+}
 -(void)addHistoryBtn
 {
     historyBtn1_width = (SCREEN_WIDTH+1)/3 - 0.5;
