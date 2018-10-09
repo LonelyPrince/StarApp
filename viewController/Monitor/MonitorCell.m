@@ -223,7 +223,7 @@
         
         self.channelImg.image = [UIImage imageNamed:@"blueSTBIcon"];
         
-        self.programeClass.image = [UIImage imageNamed:@"play"];
+        self.programeClass.image = [UIImage imageNamed:@"monitor_live"];
         NSString * MMLLive = NSLocalizedString(@"MMLLive", nil);
         NSLog(@"[epgDic objectForKey: %@",[epgDic objectForKey:@"event_name"]);
         

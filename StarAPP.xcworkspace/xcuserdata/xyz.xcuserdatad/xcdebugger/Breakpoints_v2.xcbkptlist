@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/video/ZXVideoPlayer/ZXVideoPlayerController.m"
-            timestampString = "560674677.3180211"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "560699563.341115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "965"
-            endingLineNumber = "965"
-            landmarkName = "-judgeIsNeedPlayIsYes"
+            startingLineNumber = "8686"
+            endingLineNumber = "8686"
+            landmarkName = "-getServiceDataForIPChange"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
