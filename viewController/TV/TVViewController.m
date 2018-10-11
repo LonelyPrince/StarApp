@@ -1660,7 +1660,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (cell == nil){
             cell = [TVCell loadFromNib];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
+
         }
         NSLog(@"====test");
         if (!ISEMPTY(self.dicTemp)) {
@@ -1675,10 +1675,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                
-                NSLog(@" index : row :shushushu   %d",indexPath.row);
-                NSLog(@"时间==111====test %d",indexPath.row);
-                
+
+
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -1687,11 +1685,32 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.channel_id setTextColor:CellGrayColor];//[UIColor greenColor]
                 [cell.channel_Name setTextColor:CellGrayColor];//[UIColor greenColor]
             }
+            
+          
         }else{//如果为空，什么都不执行
         }
+        
         return cell;
     }
 }
+//-(void)focusPlaceNotific
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"focusPlacefunction" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(focusPlacefunction) name:@"focusPlacefunction" object:nil];
+//}
+//-(void)focusPlacefunction
+//{
+//    //增加通知判断，在通知发出时，使用定位方法
+//    double systemVersion = [GGUtil getSystemVersion];
+//    if (systemVersion > 11) {
+//        tempTableviewForFocus.estimatedRowHeight = 0;
+//        tempTableviewForFocus.estimatedSectionFooterHeight = 0;
+//        tempTableviewForFocus.estimatedSectionHeaderHeight = 0;
+//
+//        [tempTableviewForFocus scrollToRowAtIndexPath:tempIndexpathForFocus  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+//    }
+//}
 -(void)reducePushSharingView
 {
     
@@ -1956,8 +1975,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
                 
-                //                sleep(10);
-                NSLog(@"dispatch_get_global_queue 加入历史记录==结束");
             });
             
             //    //关闭当前正在播放的节目
@@ -1967,11 +1984,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         
-        //        dispatch_async(dispatch_get_main_queue(), ^{
-        //            [tempTableviewForFocus reloadData];
-        //        });
-        //
-        //        [tempTableviewForFocus reloadData];
         [tableView reloadData];   //刷新主页面，防止焦点不会出现焦点
         
         double delayInSeconds = 0.2;
@@ -1980,29 +1992,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_after(popTime, mainQueue, ^{
             [tableView reloadData];    //刷新主页面，防止焦点不会正常修改
         });
-        
-        NSLog(@"ksksksksksakjsdiasdiuasdasdiu");
-        
-        NSLog(@"self.isSelect = true;====");
-        
-        //        [self updateFullScreenDic];
+     
         [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
     }
-    //
 }
 -(void)refreshFullScreen
 {
     [self updateFullScreenDic];   //刷新全屏方法
-    //    [tempTableviewForFocus reloadData];
-    //    if ([tempTableviewForFocus isEqual:tempTableviewForFocus]) {
-    //
-    //        NSLog(@"kslskslskslslsslslsl");
-    //    }else{
-    //        tempTableviewForFocusTemp = [tempTableviewForFocus mutableCopy];
-    //        [tempTableviewForFocus reloadData];
-    //        NSLog(@"kslskslskslslsslslsl==========");
-    //    }
-    
 }
 #pragma mark - 点击tableView 变蓝
 -(void)performChangeColor
@@ -3508,6 +3504,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self refreshTableFocus];  //刷新tableView焦点颜色的通知
         [self reducePushSharingView];  //刷新tableView焦点颜色的通知
+//        [self focusPlaceNotific];  //焦点定位通知
         [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
         
         
@@ -8077,7 +8074,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
     getLastRecFileArr  = [categorysToCategoryViewContainREC mutableCopy]; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-    NSLog(@"categorysToCategoryViewContainREC iii  %d",categorysToCategoryViewContainREC);
     WEAKGET
     [request setCompletionBlock:^{
         
@@ -8091,25 +8087,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray *data1;
         NSArray *recFileData;
         if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-            NSLog(@"data_valid_flag AAAAAAAA 8 一分钟刷新");
-            
-            //        NSLog(@"response = %@",response);
             data1 = response[@"service"];
-            NSLog(@"data 111 %@",data1);
-            //            [self judgeIShowEit:data1];
             //录制节目,保存数据
             recFileData = response[@"rec_file_info"];
             categorysToCategoryViewContainREC = [recFileData mutableCopy];   //保证recFileData 有数据
-            NSLog(@"categorysToCategoryViewContainREC*** 444 %@",categorysToCategoryViewContainREC);
-        }else{
-            NSLog(@"data_valid_flag ========== 8");
-            NSLog(@"recFileData  7367 的 data_valid_flag == 0  ");
         }
-        
-        NSLog(@"recFileData  7367%@",recFileData);
-        //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
-        //        categorysToCategoryViewContainREC = recFileData;
-        NSLog(@"categorysToCategoryViewContainREC JJJ  %@",categorysToCategoryViewContainREC);
+       
         dataForData1 = [data1 copy];
         dataForrecFileData = [recFileData copy];
         
@@ -8120,9 +8103,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
-                NSLog(@"data_valid_flag AAAAAAAA 9");
                 if (_slideView) {
-                    NSLog(@"删除了某个节目   7961");
                     [_slideView removeFromSuperview];
                     _slideView = nil;
                     
@@ -8402,6 +8383,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"setSearchViewDatasetSearchViewData===4444");
         }
         
+        if ([self.categoryModel.service_indexArr isKindOfClass:[NSArray class]] || [self.categoryModel.service_indexArr isKindOfClass:[NSMutableArray class]]){
+            
         for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
             int indexCat ;
             //        indexCat =[self.categoryModel.service_indexArr[i] intValue];
@@ -8438,6 +8421,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
             NSLog(@"zhangsansansnasan");
+        }
         }
         self.dicTemp_Temp = [self.dicTemp mutableCopy];
         NSLog(@"self.dicTemp_Temp1111 %@",self.dicTemp_Temp);
@@ -11611,15 +11595,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //      serviceArrTempDic = serviceArr[rowIndex]; //7
         NSArray * serviceArrTempDic_arr = [serviceArrTempDic objectForKey:@"epg_info"];
         if (serviceArrTempDic_arr.count > 0) {
-            NSLog(@"data_valid_flag AAAAAAAA  buhui 清除EIT信息");
-            
-            //            [self timeAndNameShow];
-            
-            NSLog(@"enumerateObjectsUsingBlockself.topProgressView %@",self.topProgressView);
-            
             if (self.topProgressView == nil) {
                 [self initProgressLine];
-                NSLog(@"enumerateObjectsUsingBlockself.topProgressVi 初始化  %@",self.topProgressView);
             }else{
                 [self initProgressLine];
             }
@@ -11642,9 +11619,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.view addSubview:self.topProgressView];
             [self.view bringSubviewToFront:self.topProgressView];
             [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-            
         }else{
-            NSLog(@"data_valid_flag AAAAAAAA  清除EIT信息");
             [self timeAndNameHidden];
         }
     }else{
