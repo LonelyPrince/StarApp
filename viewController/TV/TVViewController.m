@@ -234,8 +234,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.tabBarController.tabBar.backgroundColor = [UIColor whiteColor];
     //打开时开始连接socket并且发送心跳
     self.socketView = [[SocketView  alloc]init];
-    //    [self.socketView viewDidLoad];
-    //    firstShow =NO;
+    
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstStartTransform"];
     
     activeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,
@@ -865,7 +864,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     {
                         
                     }
-                    //            [self.socketView viewDidLoad];
                     if (firstfirst == YES) {
                         
                         //=======机顶盒加密
@@ -3763,6 +3761,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 NSArray * touchArr = historyArr[historyArr.count - 1];
 
                                 if (storeLastChannelArr.count < 2) {
+//                                    dic = self.dicTemp;
+                                    [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                                     return;
                                 }else
                                 {
@@ -6260,20 +6260,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-        NSLog(@"dispatch_get_global_queue 播放的第二个方法");
+      
         [self updateFullScreenDic];
-        
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
-            NSLog(@"mediaDisConnect   dddd");
             [GGUtil postnoPlayShowNotic];
-            NSLog(@"postnoPlayShowNotic ffffff");
             return ;
-            
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
         }
-        NSLog(@"dispatch_get_global_queue 播放的第二个方法==结束");
     });
     if (self.showTVView == YES) {
         NSLog(@"已经跳转到firstopen方法");
@@ -6294,9 +6288,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSLog(@"dispatch_get_global_queue 播放的第三个方法");
                 [self addHistory:row diction:dic];
-                NSLog(@"dispatch_get_global_queue 播放的第三个方法 == 结束");
             });
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
             [self.videoController setaudioOrSubtRowIsZero];
@@ -6455,15 +6447,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
                     NSLog(@"mediaDisConnect   eeee");
                     [GGUtil postnoPlayShowNotic];
-                    NSLog(@"postnoPlayShowNotic gggggg");
                 }else{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
-                    
+                    NSLog(@"11111==");
                     if (self.showTVView == YES) {
+                        NSLog(@"22222==");
                         self.videoController.socketView1 = self.socketView;
                         [self.socketView  serviceTouch ];
                     }else
                     {
+                        NSLog(@"333333==");
                         NSLog(@"已经不是TV页面了");
                         [self ifNotISTVView];
                     }
@@ -8472,11 +8465,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         //录制节目,保存数据
         NSArray *recFileData = response[@"rec_file_info"];
-        NSLog(@"recFileData  7693%@",recFileData);
-        //        [USER_DEFAULT setObject:recFileData forKey:@"categorysToCategoryViewContainREC"];
         categorysToCategoryViewContainREC = [recFileData mutableCopy];
-        NSLog(@"categorysToCategoryViewContainREC*** 555 %@",categorysToCategoryViewContainREC);
-        NSLog(@"categorysToCategoryViewContainREC KKK  %d",categorysToCategoryViewContainREC);
         if ( data1.count == 0 && recFileData.count == 0){
             
             //证明已经连接上了，但是数据为空，所以我们要显示列表数据为空
@@ -8670,7 +8659,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self.socketView viewDidLoad];
             if (firstfirst == YES) {
                 
-                
+                NSLog(@" firstfirst == YES ");
                 //=======机顶盒加密
                 NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
                 if (characterStr != NULL && characterStr != nil) {
@@ -8693,7 +8682,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                 }
             }else
-            {}
+            {
+                NSLog(@" firstfirst == NO ");
+                NSLog(@"判断是没有正确进行播放");
+            }
             [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
             
         }];
@@ -8702,6 +8694,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self initProgressLine];
         [self.table reloadData];
         
+        
+        
+        
+
     }];
     
 }

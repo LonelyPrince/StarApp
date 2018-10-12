@@ -394,14 +394,9 @@
                             NSLog(@"self.response: %@",self.response);
                             NSLog(@"data2--: %@",data2);
                             serviceTouch  = data2[indexCat-1];
-                            //                    //cell.tabledataDic = self.serviceData[indexCat -1];
-                            //
+                           
                             [dicCategory1 setObject:serviceTouch forKey:[NSString stringWithFormat:@"%d",x]];
     
-    
-                            //                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                            //
-                            //
                         }
     
                         [dicTempReturn setObject:dicCategory1 forKey:@"DicForReturn"];

@@ -4495,7 +4495,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 //            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshTableFocusNotific" object:nil userInfo:indexPathdict];
             }else{//如果为空，什么都不执行
             }
-            //        [self.socketView1  serviceTouch ];
         }
     }
     else if ([_cellStr isEqualToString:@"audio"]) {
@@ -4694,7 +4693,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
             }else{//如果为空，什么都不执行
             }
-            //        [self.socketView1  serviceTouch ];
         }
     }
     else if ([_cellStr isEqualToString:@"channel"]) {
@@ -4761,7 +4759,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
             }else{//如果为空，什么都不执行
             }
-            //        [self.socketView1  serviceTouch ];
         }
     }
     

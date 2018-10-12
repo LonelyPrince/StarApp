@@ -119,6 +119,7 @@
     data_service = [userDef objectForKey:@"data_service"];
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
+    NSLog(@"播放视频的Socket");
     
 }
 #pragma mark - 播放录制视频
