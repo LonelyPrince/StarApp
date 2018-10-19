@@ -519,9 +519,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //显示列表为空的数据
                     if (_slideView) {
                         NSLog(@"删除了某个节目   500");
-                        [_slideView removeFromSuperview];
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     
                     if (!self.NoDataImageview) {
@@ -543,9 +543,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   522");
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   522");
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     
                     if (!self.NoDataImageview) {
@@ -589,7 +589,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.tableForDicIndexDic removeAllObjects];
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                     [GGUtil postfullScreenBtnShow];
-                    NSLog(@"[GGUtil postfullScreenBtnShow]; 显示66");
+                    
                 }else //横屏状态，不刷新
                 {
                     //设置滑动条
@@ -627,9 +627,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     NSLog(@"data_valid_flag AAAAAAAA 1");
                     if (_slideView) {
-                        [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   602");
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   602");
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
@@ -701,9 +701,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   669");
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   669");
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     
                     if (!self.NoDataImageview) {
@@ -725,9 +725,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                        [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   691");
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   691");
+//                        _slideView = nil;
+[self searchBtnClick];
                     }
                     
                     if (!self.NoDataImageview) {
@@ -781,9 +781,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                         NSLog(@"data_valid_flag AAAAAAAA 3");
                         if (_slideView) {
-                            [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   745");
-                            _slideView = nil;
-                            
+//                            [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   745");
+//                            _slideView = nil;
+                            [self dealSliderview:self.categorys];
                         }
                         //机顶盒连接成功了，但是没有数据
                         //显示列表为空的数据
@@ -1224,9 +1224,120 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     
 }
+#pragma mark - 处理sliderview增减的逻辑
+-(void)dealSliderview:(NSMutableArray *)titleArr
+{
+    
+    
+    NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:[self titleArrReplace1:titleArr],@"titleInfo", nil];
+    //创建通知，防止刷新后跳转错页面
+    NSNotification *notification =[NSNotification notificationWithName:@"changeButton" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    //@"changeView"的作用是用来修改View的count个数，防止切换的时页面数量出现错误
+    [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
+    [self.CategoryAndREC removeAllObjects];
+    [self.CategoryAndREC addObject:titleArr];
+    
+    
+    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"changeView" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+    
+    NSMutableArray *ArrayTocategory_temp =  [[NSMutableArray alloc]init];
+    [ArrayTocategory_temp addObject:titleArr];
+    [USER_DEFAULT setObject:ArrayTocategory_temp forKey:@"categorysToCategoryView"];
+}
+
+
+-(NSMutableArray *)titleArrReplace1:(NSMutableArray*)titles
+{
+    NSMutableArray * _titles =[[NSMutableArray alloc]init];
+    NSMutableArray * tempTitlesArr = [[NSMutableArray alloc]init];
+    /*
+     1.先判断是那种类型，录制和直播节目是否同时存在
+     2.根部不同的类别进行数据组合和最后的赋值
+     **/
+    //#define   RecAndLiveNotHave  @"0"      //录制和直播都不存在
+    //#define   RecExit            @"1"      //录制存在直播不存在
+    //#define   LiveExit           @"2"      //录制不存在直播存在
+    //#define   RecAndLiveAllHave  @"3"      //录制直播都存在
+   
+        if(titles.count > 0){
+//            tempTitlesArr =titles[0];
+            for (int i = 0 ; i < titles.count; i++) {
+                NSDictionary *item = titles[i];
+                NSString * tempArray;
+                tempArray =item[@"category_name"];
+
+                [_titles addObject:tempArray];
+
+            }
+        }
+         
+    
+    
+    //假装删除第三个数据
+//    [_titles removeObjectAtIndex:3];
+//    [_titles removeObjectAtIndex:2];
+//    [_titles removeObjectAtIndex:1];
+
+    return _titles;
+}
+
+
+
 
 //搜索按钮
 -(void)searchBtnClick
+//{
+//
+//
+//    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"changeView" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+////    [self dealSliderview:self.CategoryAndREC];
+//
+////    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"changeButton" object:nil userInfo:nil];
+////    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+//
+//
+//// 以下代码对View的取消加载有用
+//    /*
+//    NSMutableArray * testMutable = [[NSMutableArray alloc]init];
+//    //[self.CategoryAndREC mutableCopy];
+//    testMutable = [self.CategoryAndREC[0] mutableCopy];
+//    [testMutable removeObjectAtIndex:1];
+////    [testMutable removeObjectAtIndex:testMutable.count -1];
+//
+//
+//
+//    [self.CategoryAndREC removeAllObjects];
+//    [self.CategoryAndREC addObject:testMutable];
+//
+//
+//    [_slideView reloadData];
+//    [tableForSliderView reloadData];
+//    [tempTableviewForFocus reloadData];
+//
+//    [self.tableForSliderView reloadData];
+//    [self refreshTableviewByEPGTime];
+//    [self.table reloadData];
+//    */
+//
+////    [self.tableForSliderView reloadData];
+////    [self refreshTableviewByEPGTime];
+////    [self.table reloadData];
+////
+////    _slideView = [YLSlideView alloc];
+////    _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
+////                                                      SCREEN_WIDTH,
+////                                                      SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
+////
+////    isHasChannleDataList = YES;
+////    [self.tableForDicIndexDic removeAllObjects];
+////
+////
+////
+//}
 {
     /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
@@ -1236,13 +1347,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
-    
+
     //     [tempTableviewForFocus reloadData];
     //    [self refreshTableviewByEPGTime];
     //    [self.table reloadData];
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
     //    NSLog(@"search  sousuosoususousouosuosususuos");
-    
+
     //    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
 ////用于刷新页面和slderView
@@ -1306,6 +1417,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 - (TVTable *)slideView:(YLSlideView *)slideView
      cellForRowAtIndex:(NSUInteger)index{
     
+    NSLog(@"indexindexindexindex %d",index);
     tableForSliderView =[slideView dequeueReusableCell];
     //    TVTable * cell = [slideView dequeueReusableCell];
     
@@ -1320,7 +1432,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     MJRefreshNormalHeader *header = [[MJRefreshNormalHeader alloc] init];
     [header setRefreshingTarget:self refreshingAction:@selector(headerClick)];  //下拉触发
     tableForSliderView.mj_header = header;
-    
+
     //    //保存到字典中 tableView和index
     //    NSDictionary * dicTableAndIndex = [[NSDictionary alloc]init];
     NSMutableArray * arrTemp = [[NSMutableArray alloc]init];
@@ -1329,16 +1441,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [arrTemp addObject:indexforTableToNum];
     [arrTemp addObject:tableForSliderView];
     int categorysNum =  self.categorys.count;
-    
+
     if (self.tableForDicIndexDic.count < categorysNum) {
         [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
     }else
     {
-        
+
         [self.tableForDicIndexDic removeAllObjects];
         [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
     }
-    
+
     return tableForSliderView;
 }
 // 头部的下 拉刷新触发事件
@@ -3581,8 +3693,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)refreshFirstViewTbaleview
 {
-    //    [_slideView removeFromSuperview];
-    //    _slideView = nil;
     [self tableViewDataRefreshForMjRefresh_ONEMinute];
 }
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
@@ -3641,7 +3751,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     if(storeLastChannelArr.count >= 3) {
                         //                                dic = storeLastChannelArr [3];
-                        dic = self.dicTemp;
+                        dic = self.dicTemp; //此处会出问题，如果分类不在all channels，则会跳转到错误的节目
                     }else
                     {
                         return;
@@ -4048,8 +4158,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     
                     isPlayFirstChannel = NO;
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                     NSLog(@" 3885  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
@@ -4073,8 +4184,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (getLastCategoryArr.count != self.categorys.count) {
                     
                     isPlayFirstChannel = NO;
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    NSLog(@"self.categorys.count %d",self.categorys.count);
+                    [self dealSliderview:self.categorys];
                     NSLog(@" 3909  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
@@ -4082,8 +4195,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     [self tableViewDataRefreshForMjRefresh_ONEMinute];
                 }else{
-                    //                [_slideView removeFromSuperview];
-                    //                _slideView = nil;
                     NSLog(@" 3918  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
@@ -4096,8 +4207,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else if(getLastCategoryArr.count > 0 && self.categorys.count == 0 && getLastRecFileArrTemp.count !=0)
         {
-            //            [_slideView removeFromSuperview];
-            //            _slideView = nil;
+          
             [self.tableForSliderView reloadData];
             [self refreshTableviewByEPGTime];
             [self.table reloadData];
@@ -4105,9 +4215,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
-            //            [_slideView removeFromSuperview];
-            //            _slideView = nil;
-            //
+            
             [self.tableForSliderView reloadData];
             [self refreshTableviewByEPGTime];
             [self.table reloadData];
@@ -4699,8 +4807,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:recFileData lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
             
             NSLog(@"删除了某个节目   3911");
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+            [self dealSliderview:self.categorys];
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
             //            [self tableViewDataRefreshForMjRefresh];
             
@@ -4708,15 +4817,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             
             NSLog(@"删除了某个节目   3920");
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+            [self dealSliderview:self.categorys];
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
             
             NSLog(@"删除了某个节目   3927");
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+            [self dealSliderview:self.categorys];
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -6981,7 +7092,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else{
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
         }
-        //
+        
         if (self.showTVView == YES) {
             /**
              1.弹窗
@@ -7718,7 +7829,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [request startAsynchronous];   //异步
     getLastCategoryArr = self.categorys; //[USER_DEFAULT objectForKey:@"serviceData_Default"];
     getLastRecFileArr  = [categorysToCategoryViewContainREC mutableCopy]; //[USER_DEFAULT objectForKey:@"categorysToCategoryViewContainREC"];
-    NSLog(@"categorysToCategoryViewContainREC ggg  %d",categorysToCategoryViewContainREC);
     
     WEAKGET
     [request setCompletionBlock:^{
@@ -7767,7 +7877,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
         
-        
+         
         if (data.count == 0 && recFileData.count == 0){ //没有数据
             [USER_DEFAULT setObject:@"RecAndLiveNotHave" forKey:@"RECAndLiveType"];
             if (data1.count == 0 && recFileData.count == 0)
@@ -7778,9 +7888,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"data_valid_flag AAAAAAAA 5");
                     if (_slideView) {
                         NSLog(@"删除了某个节目   6762");
-                        [_slideView removeFromSuperview];
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
@@ -7852,8 +7962,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 6");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   6832");
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
@@ -7917,8 +8028,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 7");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   6889");
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
@@ -8000,7 +8112,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSInteger index = [numTemp integerValue];
         
         [self returnDicTemp:index]; //根据是否有录制返回不同的item
-        //        [self.tableForSliderView reloadData];
         [tempTableviewForFocus reloadData];
         [self refreshTableviewByEPGTime];
         // 模拟延迟2秒
@@ -8016,11 +8127,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self refreshTableviewByEPGTime];
         });
         [NSThread sleepForTimeInterval:1];
-        //    [self mediaDeliveryUpdate];
-        //    [tableForSliderView reloadData];
-        // 结束刷新
         
-        NSLog(@"endRefreshing 1111");
         [self.tableForSliderView.mj_header endRefreshing];
         
         //////eos  HT
@@ -8097,9 +8204,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                 if (_slideView) {
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
@@ -8151,9 +8258,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"data_valid_flag AAAAAAAA 10");
                     if (_slideView) {
                         NSLog(@"删除了某个节目   7111");
-                        [_slideView removeFromSuperview];
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     
                     //机顶盒连接成功了，但是没有数据
@@ -8226,9 +8333,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"data_valid_flag AAAAAAAA 11");
                     if (_slideView) {
                         NSLog(@"删除了某个节目   7182");
-                        [_slideView removeFromSuperview];
-                        _slideView = nil;
-                        
+//                        [_slideView removeFromSuperview];
+//                        _slideView = nil;
+                        [self dealSliderview:self.categorys];
                     }
                     
                     if (!self.NoDataImageview) {
@@ -8475,9 +8582,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 12");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   7382");
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                 }
                 
                 self.NoDataImageview = [[UIImageView alloc]init];
@@ -8523,9 +8630,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //显示列表为空的数据
                 if (_slideView) {
                     NSLog(@"删除了某个节目   7427");
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
-                    
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                 }
                 
                 if (!self.NoDataImageview) {
@@ -8611,9 +8718,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             
             NSLog(@"删除了某个节目   7512");
-            [_slideView removeFromSuperview];
-            _slideView = nil;
-            
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+            [self dealSliderview:self.categorys];
             if (!_slideView) {
                 
                 [self playVideo];
@@ -9875,7 +9982,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)endMJRefresh{
     NSLog(@"结束12秒的下拉刷新，等待===");
     NSLog(@"endRefreshing 2222");
-    [self.tableForSliderView.mj_header endRefreshing];
+//    if (self.tableForSliderView == NULL || self.tableForSliderView == nil) {
+//        //重新复制
+////        [self.tableForStoreRefreshData.mj_header endRefreshing];
+//        NSLog(@"数据为空，所以重新结束");
+//    }else{
+        [self.tableForSliderView.mj_header endRefreshing];
+        NSLog(@"数据不为空，所以不重新结束");
+//    }
+    
+    NSLog(@"刷新刷新的结束刷新 %@",self.tableForSliderView);
 }
 #pragma mark - 如果这个时候展示的不是TV页面，则不进行播放的各个事件通知
 //如果这个时候展示的不是TV页面，则不进行播放的各个事件通知
@@ -10408,8 +10524,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if ([self judgeIfNeedRefreshSliderView:self.categorys recFileArr:categorysToCategoryViewContainREC lastCategoryArr:getLastCategoryArr lastRECFileArr:getLastRecFileArr]) {
             
             NSLog(@"删除了某个节目   9183");
-            [_slideView removeFromSuperview];
-            _slideView = nil;
+//            [_slideView removeFromSuperview];
+//            _slideView = nil;
+            [self dealSliderview:self.categorys];
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         NSDictionary *response = [USER_DEFAULT objectForKey:@"TVHttpAllData"];
@@ -10421,8 +10538,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 14");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   9196");
-                    [_slideView removeFromSuperview];
-                    _slideView = nil;
+//                    [_slideView removeFromSuperview];
+//                    _slideView = nil;
+                    [self dealSliderview:self.categorys];
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
@@ -11605,8 +11723,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.event_endTime = self.video.endTime;
             
             
-            NSLog(@"self.video.startTime ***++__ %@",self.video.startTime);
-            NSLog(@"self.video.endTime ***++__%@",self.video.endTime);
             [GGUtil postTimerOfEventTimeNotific];
             [self caculatorProgress];
             // 只显示时间，不显示进度条
@@ -11621,7 +11737,5 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }else{
         
     }
-    
 }
 @end
-

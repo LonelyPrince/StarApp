@@ -17,6 +17,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     //    NSArray    *_titles;
     NSMutableArray    *_titles;
     NSUInteger  _previousPage;
+    NSMutableArray    *_titles_temp;
     
 }
 //设置 view 和 button
@@ -38,6 +39,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         self.backgroundColor = [UIColor whiteColor];
         //        _titles              = [self titleArrReplace:titles];
         _titles              = [titles copy];
+        _titles_temp         = [titles mutableCopy];
         
         _previousPage        = 0;
         self.delegate        = self;
@@ -78,7 +80,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         buttonWidth += CGRectGetWidth(button.frame);
         
         button.tag             = YLSlideTitleViewButtonTag + i;
-        button.backgroundColor = [UIColor whiteColor];
+        button.backgroundColor = [UIColor clearColor];//[UIColor redColor];
         
         [button addTarget:self
                    action:@selector(buttonEvents:)
@@ -131,8 +133,102 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
     
+    //修改title 值和数量
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeButton" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeButton:) name:@"changeButton" object:nil];
+    
     
 }
+//- (void)configView_titleTemp{
+//
+//    //设置 content size
+//    float buttonWidth = 0.f;
+//
+//    for (NSUInteger i = 0; i<_titles.count ; i++) {
+//
+//        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+//
+//        [button setTitle:_titles[i] forState:UIControlStateNormal];
+//
+//        [button setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];   //大约等于黑色
+//
+//        [button.titleLabel setFont:buttonFont(button,YLSlideTitleViewTitleMin)];
+//
+//
+//
+//        CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
+//                                                           label:button.titleLabel];
+//
+//        CGRect frame;
+//        frame.origin = CGPointMake(buttonWidth, 0);
+//        frame.size   = CGSizeMake(titleSize.width+20, 48);  //两个字之间的间距
+//
+//        [button setFrame:frame];
+//
+//        buttonWidth += CGRectGetWidth(button.frame);
+//
+//        button.tag             = YLSlideTitleViewButtonTag + i;
+//        button.backgroundColor = [UIColor clearColor];//[UIColor redColor];
+//
+//        [button addTarget:self
+//                   action:@selector(buttonEvents:)
+//         forControlEvents:UIControlEventTouchUpInside];
+//
+//        [self configButtonWithOffsetx:0];
+//
+//        [self addSubview:button];
+//
+//
+//    }
+//
+//
+//    self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
+//
+//    __WEAK_SELF_YLSLIDE
+//
+//    self.slideTitleViewScrollBlock =^(CGFloat offsetx){
+//
+//
+//        __STRONG_SELF_YLSLIDE
+//        [strongSelf configButtonWithOffsetx:offsetx];
+//        NSLog(@"offsetx %f",offsetx);
+//
+//    };
+//
+//    self.slideViewWillScrollEndBlock =^(CGFloat offsetx){
+//
+//        NSLog(@"offsetx1 %f",offsetx);
+//        __STRONG_SELF_YLSLIDE
+//        //设置 Button 可见
+//        CGFloat x = offsetx * (60 / self.frame.size.width) - 60;
+//
+//        //        NSLog(@"self.frame.size.width %f",self.frame.size.width);
+//        //        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
+//        //
+//        //
+//        //        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
+//
+//        [strongSelf scrollRectToVisible:CGRectMake(x, 0,
+//                                                   strongSelf.frame.size.width,
+//                                                   strongSelf.frame.size.height)
+//                               animated:YES];
+//
+//    };
+//
+//
+//    //此处销毁通知，防止一个通知被多次调用
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"categorysTouchToViews" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
+//
+//    //修改title 值和数量
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeButton" object:nil];
+//    //注册通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeButton:) name:@"changeButton" object:nil];
+//
+//
+//}
 -(void)categorysTouchToViews:(NSNotification *)text
 {
     NSInteger currentIndex = [text.userInfo[@"currentIndex"]integerValue];
@@ -316,8 +412,120 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
     
+//    _titles = nil;
+//    [self configView];
 }
 
+-(void)changeButton:(NSNotification *)text
+{
+    //针对一个特殊环境做测试，删除title数量，修改title名称
+    _titles_temp = text.userInfo[@"titleInfo"];
+
+    float buttonWidth = 0.f;
+    if (_titles_temp.count < _titles.count) {
+        int countChazhi = _titles.count - _titles_temp.count;
+        for (int i = 0; i < countChazhi ; i ++) {
+            UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count - i-1 +YLSlideTitleViewButtonTag];
+            currentButton.backgroundColor = [UIColor clearColor];
+            [currentButton removeFromSuperview];
+
+        }
+        for (int i = 0; i < _titles_temp.count ; i ++) {
+            UIButton * currentButton = (UIButton*)[self viewWithTag:i +YLSlideTitleViewButtonTag];
+            currentButton.backgroundColor = [UIColor clearColor];//[UIColor blueColor];
+            [currentButton setTitle:_titles_temp[i] forState:UIControlStateNormal];
+
+            
+            CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
+                                                               label:currentButton.titleLabel];
+            
+            CGRect frame;
+            frame.origin = CGPointMake(buttonWidth, 0);
+            frame.size   = CGSizeMake(titleSize.width+20, 48);  //两个字之间的间距
+            
+            [currentButton setFrame:frame];
+            
+            buttonWidth += CGRectGetWidth(currentButton.frame);
+        }
+
+
+    
+    
+        self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
+
+        _titles = [_titles_temp mutableCopy];
+    }else if (_titles_temp.count == _titles.count)
+    {
+        for (int i = 0; i < _titles_temp.count ; i ++) {
+            UIButton * currentButton = (UIButton*)[self viewWithTag:i +YLSlideTitleViewButtonTag];
+            currentButton.backgroundColor = [UIColor clearColor]; //[UIColor blueColor];
+            [currentButton setTitle:_titles_temp[i] forState:UIControlStateNormal];
+            
+            
+            CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
+                                                               label:currentButton.titleLabel];
+            
+            CGRect frame;
+            frame.origin = CGPointMake(buttonWidth, 0);
+            frame.size   = CGSizeMake(titleSize.width+20, 48);  //两个字之间的间距
+            
+            [currentButton setFrame:frame];
+            
+            buttonWidth += CGRectGetWidth(currentButton.frame);
+        }
+        
+        
+        
+        
+        self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
+        _titles = [_titles_temp mutableCopy];
+    }else if (_titles_temp.count > _titles.count){
+        
+        int countChazhi = _titles_temp.count - _titles.count;
+        
+        for (int i = 0; i < _titles.count ; i ++) {
+            UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count - i-1 +YLSlideTitleViewButtonTag];
+            currentButton.backgroundColor = [UIColor clearColor];
+            [currentButton removeFromSuperview];
+            currentButton = nil;
+            
+        }
+        
+//        for (int i = 0; i < countChazhi ; i ++) {
+            _titles = [_titles_temp mutableCopy];
+            NSLog(@"_title s %lu",(unsigned long)_titles.count);
+            [self configView];
+            
+//        }
+        
+        _titles = [_titles_temp mutableCopy];
+    }
+    
+    
+////    以下代码是对 button增加的处理逻辑
+//    NSMutableArray * abcdd = [[NSMutableArray alloc]init];
+//    abcdd = [_titles mutableCopy];
+//    [abcdd addObjectsFromArray:abcdd];
+//    _titles = [abcdd mutableCopy];
+//    NSLog(@"_title s %d",_titles.count);
+//    NSLog(@"_title s %d",abcdd.count);
+//    [self configView];
+//
+//
+//
+////    以下代码是对 button减少的处理逻辑
+//    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count - 1 +YLSlideTitleViewButtonTag];
+//    currentButton.backgroundColor = [UIColor clearColor];
+//    [currentButton removeFromSuperview];
+    
+    
+//    //以下代码是对button 的 title进行修改
+//    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count - 3 +YLSlideTitleViewButtonTag];
+//    currentButton.backgroundColor = [UIColor blueColor];
+//    [currentButton setTitle:@"testaa" forState:UIControlStateNormal];
+    
+    
+}
 
 @end
 

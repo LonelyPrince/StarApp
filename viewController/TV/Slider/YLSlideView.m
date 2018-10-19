@@ -52,6 +52,11 @@
         
         
         [self setSliderViewAlphaConfig];
+        
+        //此处销毁通知，防止一个通知被多次调用
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeView" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeView) name:@"changeView" object:nil];
     }
     
     return self;
@@ -481,10 +486,12 @@
         scrollView.pagingEnabled   = YES;
         scrollView.showsHorizontalScrollIndicator = NO;
         
+        
         scrollView;
     });
     NSLog(@"_mainScrollview.f %@",_mainScrollview);
     [self addSubview:_mainScrollview];
+
     
     self.slideTitleView = ({
         
@@ -588,6 +595,7 @@
     [_slideTitleView bringSubviewToFront:self.triangleView];
     [self.lineview  bringSubviewToFront:self.triangleView];
     
+    
 }
 
 #pragma mark Set Get
@@ -596,5 +604,16 @@
     _mainScrollview.showsHorizontalScrollIndicator = showsScrollViewHorizontalScrollIndicator;
     
 }
-
+-(void)changeView
+{
+    
+//    setSliderViewAlpha = 1;
+//
+//    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count -1 +YLSlideTitleViewButtonTag];
+//    currentButton.backgroundColor = [UIColor clearColor];
+//    [currentButton removeFromSuperview];
+    
+    [self reloadData];
+    
+}
 @end
