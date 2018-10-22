@@ -356,16 +356,9 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     
     _previousPage = button.tag - YLSlideTitleViewButtonTag;
     
-    NSLog(@"_previousPage %d",_previousPage);
     
     //    NSLog(@"currentButton2:%f",currentButton.frame.origin.x);
     _currentBtnX = currentButton.frame.origin.x  +currentButton.bounds.size.width/2 - self.preScrollViewCut;
-    
-    NSLog(@"currentButton.frame.origin.x %f",currentButton.frame.origin.x);
-    NSLog(@"currentButton.bounds.size.width  %f",currentButton.bounds.size.width);
-    
-    NSLog(@"_currentBtnX %f",_currentBtnX);
-    NSLog(@"self.preScrollViewCut %f",self.preScrollViewCut);
     
     
     self.dict =[[NSDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%f",_currentBtnX],@"currentBtnX", nil];

@@ -94,7 +94,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.fullScreenButton.hidden = NO;
         }else
         {
-//            NSLog(@"全屏按钮消失---方法:initwith ");
+            //            NSLog(@"全屏按钮消失---方法:initwith ");
             NSLog(@"全屏按钮消失---ccccc %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
             self.fullScreenButton.hidden = YES;
             
@@ -417,13 +417,13 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.lastChannelButton.frame = CGRectMake(20-7, CGRectGetHeight(self.bottomBar.bounds) -16.5 - 17-13, 44, 44);
             
             //修改这里，但是需要判断是不是直播
-//            self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+            //            self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             //进行判断,看是不是录制节目
             if ([self.channelIdLab.text  isEqual: @""] || [self.channelIdLab.text isEqualToString:@""]) {
-                 self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+                self.nextChannelButton.frame = CGRectMake(115, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             }else
             {
-                 self.nextChannelButton.frame = CGRectMake(90, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
+                self.nextChannelButton.frame = CGRectMake(90, CGRectGetHeight(self.bottomBar.bounds) -16.5 -17-13, 44, 44);
             }
             
             
@@ -456,7 +456,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"self.videoControl.channelIdLab 777002");
         }
         //*********
-//        self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
+        //        self.channelIdLab.frame = CGRectMake(42, 16, 56 , 55);
         NSLog(@"self.videoControl.channelIdLab 777");
         //        self.channelNameLab.frame = CGRectMake(42+60, 34, 200+180, 18);
         self.FulleventNameLab.frame = CGRectMake(42, 52, 300, 18);
@@ -1102,11 +1102,11 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 400) {  //全屏
             _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 85);
             //        _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 100);
-
+            
             _topControllerImage.image = [UIImage imageNamed:@"全屏顶背景"];
             _bottomControllerImage.image = [UIImage imageNamed:@"全屏底背景"];
-
-
+            
+            
             _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
             
             _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
@@ -1118,8 +1118,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             _topControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 43);
             _bottomControllerImage.frame =  CGRectMake(0, 0,Imagewidth, 50);
             NSLog(@"_bottomControllerImageFF4");
-//            _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
-//            _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
+            //            _topControllerImage.image = [UIImage imageNamed:@"Overlay"];
+            //            _bottomControllerImage.image = [UIImage imageNamed:@"Group 16"];
             _topControllerImage.image = [UIImage imageNamed:@"竖屏顶背景"];
             _bottomControllerImage.image = [UIImage imageNamed:@"竖屏底背景"];
             
@@ -1162,9 +1162,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 
                 
                 _topBar.frame =CGRectMake(0, 0,Imagewidth, 85);
-//                NSLog(@"验证 bottomBar CGRectGetHeightaa %f",kZXVideoPlayerOriginalHeight);
-//                NSLog(@"验证 bottomBar CGRectGetHeight %f",kZXVideoPlayerOriginalHeight - 50);
-//                NSLog(@"验证 bottomBar CGRectGetHeightWW %f",kZXVideoPlayerOriginalWidth);
+                //                NSLog(@"验证 bottomBar CGRectGetHeightaa %f",kZXVideoPlayerOriginalHeight);
+                //                NSLog(@"验证 bottomBar CGRectGetHeight %f",kZXVideoPlayerOriginalHeight - 50);
+                //                NSLog(@"验证 bottomBar CGRectGetHeightWW %f",kZXVideoPlayerOriginalWidth);
                 _bottomBar.frame =  CGRectMake(0, kZXVideoPlayerOriginalWidth - 50,Imagewidth, 50);
                 NSLog(@"验证 bottomBar dddddddd");
                 screenWidthTemp1 = [UIScreen mainScreen].bounds.size.width;
@@ -1210,14 +1210,14 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _rightView = [UIView new];
         _rightView.accessibilityIdentifier = @"RightView";
         
-//                _rightControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
-//                _rightControllerImage.frame =  CGRectMake([UIScreen mainScreen].bounds.size.width - 145, 0, 145, [UIScreen mainScreen].bounds.size.height);
+        //                _rightControllerImage  = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"渐变"]];
+        //                _rightControllerImage.frame =  CGRectMake([UIScreen mainScreen].bounds.size.width - 145, 0, 145, [UIScreen mainScreen].bounds.size.height);
         
-//        [_rightView setImage:[UIImage imageNamed:@"渐变"]];
-//                [_rightView addSubview:_rightControllerImage];
+        //        [_rightView setImage:[UIImage imageNamed:@"渐变"]];
+        //                [_rightView addSubview:_rightControllerImage];
         
         
-//        _rightView.backgroundColor = [UIColor blackColor];
+        //        _rightView.backgroundColor = [UIColor blackColor];
         
     }
     return _rightView;
@@ -1465,10 +1465,10 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     if (!_pushBtn) {
         _pushBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_pushBtn setImage:[UIImage imageNamed:@"投屏横"] forState:UIControlStateNormal];
-//        _pushBtn.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        //        _pushBtn.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
         
-//        _pushBtn.alpha = 0.5;
-//        _pushBtn.enabled = NO;
+        //        _pushBtn.alpha = 0.5;
+        //        _pushBtn.enabled = NO;
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushBtnNotEnabled" object:nil];
         //注册通知
@@ -1525,7 +1525,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 - (UISlider *)progressSlider
 {
     if (!_progressSlider) {
-//        _progressSlider = [[MySlider alloc] init];
+        //        _progressSlider = [[MySlider alloc] init];
         _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
         [_progressSlider setMinimumTrackTintColor:[UIColor redColor]];
