@@ -865,7 +865,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }
                     if (firstfirst == YES) {
-                        
+                        NSLog(@"进入了 firstfirstfirstfirst");
                         //=======机顶盒加密
                         NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
                         if (characterStr != NULL && characterStr != nil) {
@@ -926,7 +926,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                         }
                     }else
-                    {}
+                    {
+                        NSLog(@"没有没有进入了 firstfirstfirstfirst");
+                    }
                     
                     [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
                 }
@@ -1368,6 +1370,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     //    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
+//
 ////用于刷新页面和slderView
 //-(void)refreshSliderAndTableview
 //{
@@ -3559,6 +3562,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
     }else{
         self.showTVView = YES;
+        NSLog(@" firstfirstfirstfirst=== yes1");
         [USER_DEFAULT setObject:@"YES" forKey:@"showTVView"];
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
@@ -6397,6 +6401,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    NSLog(@"firstfirstfirstfirst 播放播放");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
         [self updateFullScreenDic];
@@ -6408,7 +6413,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
     });
     if (self.showTVView == YES) {
-        NSLog(@"已经跳转到firstopen方法");
+        NSLog(@"已经跳转到firstfirstfirstfirst方法");
         [self removeLabAndAddIndecatorView];
         [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
         NSMutableDictionary * epgDicToSocket = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
@@ -6426,6 +6431,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"firstfirstfirstfirst 加入历史");
                 [self addHistory:row diction:dic];
             });
             [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
@@ -6603,7 +6609,29 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             });
         }
         
+    }else{
+        NSMutableDictionary * epgDicToSocket = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
+        if (epgDicToSocket.count > 14) {  //录制
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self addHistory:row diction:dic];
+            });
+        }else
+        {
+//            NSLog(@"主页点击播放的跳转方法");
+//            //快速切换频道名称和节目名称
+//            NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
+//            [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
+//
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSLog(@"firstfirstfirstfirst 加入历史22222");
+                [self addHistory:row diction:dic];
+            });
+        }
     }
+    
+    
+    NSLog(@"退出 firstfirstfirstfirst");
 }
 -(UIViewController*) findBestViewController:(UIViewController*)vc {
     NSLog(@"viewController222== %@",vc);
@@ -8119,6 +8147,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
                 }
                 self.showTVView = YES;
+                NSLog(@" firstfirstfirstfirst=== yes2");
                 
                 [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                 
@@ -9566,6 +9595,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)viewWillDisappear:(BOOL)animated
 {
     self.showTVView = NO;
+    NSLog(@" firstfirstfirstfirst=== no");
     [USER_DEFAULT setObject:@"NO" forKey:@"showTVView"];
     NSLog(@" viewWillDisappear viewWillDisappear");
     [self removeONEMinuteTimer];
@@ -10621,6 +10651,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.dicTemp setObject:RECTempArr[i] forKey:[NSString stringWithFormat:@"%d",i] ];
                 }
                 self.showTVView = YES;
+                NSLog(@" firstfirstfirstfirst=== yes3");
                 [self firstOpenAppAutoPlayZero:0 diction:self.dicTemp];
                 firstOpenAPP = firstOpenAPP+1;
                 firstfirst = NO;
