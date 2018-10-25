@@ -949,7 +949,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 -(void)judgeIsNeedPlayFunction
 {
     judgeIsNeedPlay = NO;
-    NSLog(@"judgeIsNeedPlay no");
+    NSLog(@"judgeIsNeedPlay no111");
     
 }
 -(void)judgeIsNeedPlayNotificYes

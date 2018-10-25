@@ -2799,6 +2799,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
+            NSLog(@"self.video.playUrl %@",self.video.playUrl);
             self.video.channelId = self.service_videoindex;
             self.video.channelName = self.service_videoname;
             self.video.playEventName = self.event_videoname;
@@ -3688,16 +3689,21 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.extendedLayoutIncludesOpaqueBars =NO;
     self.modalPresentationCapturesStatusBarAppearance =NO;
     self.navigationController.navigationBar.translucent =NO;
+    NSLog(@"this is Major 22222 33333");
     if (firstfirst == YES) {
         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];
+        NSLog(@"this is Major 22222 33333===1");
     }else
     {
+        NSLog(@"this is Major 22222 33333===2");
         if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
             [self showDelivaryStopped];
+            NSLog(@"this is Major 22222 33333===3");
         }else
         {
             [self judgeJumpFromOtherView];
-            
+            NSLog(@"this is Major 22222 33333===4");
+            NSLog(@"this is Major 22222 ====");
         }
     }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -7941,12 +7947,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                     NSLog(@"data_valid_flag AAAAAAAA 5");
-                    if (_slideView) {
-                        NSLog(@"删除了某个节目   6762");
-                        //                        [_slideView removeFromSuperview];
-                        //                        _slideView = nil;
-                        [self dealSliderview:self.categorys];
-                    }
+                    
+                    [_slideView removeFromSuperview];
+                    _slideView = nil;
+                    [self NOChannelDataShow];
+                    
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (!self.NoDataImageview) {
@@ -7956,14 +7961,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (!self.NoDataLabel) {
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
-                }else
-                {
-                    NSLog(@"data_valid_flag ========== 5");
-                    //                    //机顶盒连接出错了，所以要显示没有网络的加载图
-                    //                    [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
-                    //                    return ;
                 }
-                //                [self NOChannelDataShow];
+                
                 NSLog(@" NOChannelDataShow 7777");
                 //                [self removeTopProgressView]; //删除进度条
                 NSLog(@"删除进度条removeTopProgressView  }}}}");
@@ -8282,7 +8281,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self tableViewDataRefreshForMjRefresh]; //如果数据为空，则重新获取数据
                 return ;
             }
-            [self NOChannelDataShow];
+//            [self NOChannelDataShow];  //bug 45874 不显示为空的图标
             NSLog(@" NOChannelDataShow aaaa");
             [self removeTopProgressView]; //删除进度条
             NSLog(@"删除进度条removeTopProgressView  7515");
