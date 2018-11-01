@@ -1483,6 +1483,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 -(void)pushBtnNotEnabled
 {
     _pushBtn.enabled = NO;
+    NSLog(@"");
 }
 -(void)pushBtnEnabled
 {

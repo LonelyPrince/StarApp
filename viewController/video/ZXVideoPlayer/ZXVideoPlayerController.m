@@ -248,8 +248,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     } else {
         return YES;
     }
-}
-
+}//
 #pragma mark -
 #pragma mark - Public Method
 
@@ -3722,7 +3721,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"self.View %@",self.view);
         
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:url withOptions:nil playView:nil];
-        
+        NSLog(@"111222111");
         NSLog(@"self.playerView %@",self.player);
         NSLog(@"Setself.playerView1url %@",url);
         
@@ -5152,8 +5151,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
         self.video.channelId =channelIdLabStr;
         self.video.channelName =channelNameLabStr;
-        
+        NSLog(@"self.isSelect = ID11 : %@",channelIdLabStr);
         NSLog(@"self.isSelect = ID : %@",self.video.channelId);
+        NSLog(@"video 是否存在 %@",self.video);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.videoControl.channelIdLab.text = self.video.channelId;
@@ -5209,19 +5209,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSLog(@"calcalcalclalcalaa self.videoControl.eventnameLabel %@",self.video.startTime);
                 NSLog(@" ==== 有EPG2 %@",self.video.startTime);
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+         
             NSLog(@"222 replace222 %@",self.videoControl.eventnameLabel.text);
             //    NSString * eventNameLabStr = [[nowPlayingDic objectForKey:@"epg_info"][0] objectForKey:@"event_name"];  //这里得做修改，因为不能总播放第一个节目
             
@@ -5601,6 +5589,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 - (void)setVideo:(ZXVideo *)video
 {
+    NSLog(@"111222111===");
     NSLog(@"contentURL 22ZXVideo");
     _video = video;
     

@@ -99,14 +99,6 @@ NSString * const TYPE_ARRAY   = @"T@\"NSArray\"";
     [self heartBeat];
     
     NSString * DMSIP = [USER_DEFAULT objectForKey:@"HMC_DMSIP"];
-    
-    if (DMSIP != NULL ) {
-        
-    }else
-    {
-        
-    }
-    
     //连接
     //    [Singleton sharedInstance].socketHost = @"192.168.1.183"; //host设定
     [Singleton sharedInstance].socketHost =DMSIP; //host设定

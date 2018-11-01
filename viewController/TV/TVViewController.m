@@ -128,7 +128,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL  isPlayFirstChannel;
     BOOL  ishuifuchuchang;
     BOOL  isRemoveTip;
-    
+    BOOL  testNetwork;
 }
 
 
@@ -254,7 +254,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     hudLab.text = MLNetworkError;
     hudLab.font = FONT(15);
     hudLab.textColor = [UIColor grayColor];
-    
+    testNetwork = NO;
     
     //    [hudView addSubview:hudImage];
     
@@ -344,6 +344,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.activeView addSubview:hudImage];
     [self.activeView addSubview:hudLab];
     [self.view addSubview:activeView];
+    
 }
 
 - (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
@@ -383,7 +384,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
-    
+    testNetwork = NO;
     isRemoveTip = NO;
     ishuifuchuchang = NO;
     isPlayFirstChannel = NO;
@@ -1095,6 +1096,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     //视频播放
     //----直播源
     self.video = [[ZXVideo alloc] init];
+    NSLog(@"ccccccsssccscscs");
     self.video.channelId = self.service_videoindex;
     self.video.channelName = self.service_videoname;
     self.video.playEventName = self.event_videoname;
@@ -1138,7 +1140,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
-
 - (void)playVideo
 {
     NSLog(@"已经跳转到firstopen方法 在playVideo 中播放");
@@ -1833,6 +1834,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         return cell;
     }else
     {
+        
         static NSString *TableSampleIdentifier = @"TVCell";
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         tempTableviewForFocus = tableView;
@@ -1842,7 +1844,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (cell == nil){
             cell = [TVCell loadFromNib];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
         }
         NSLog(@"====test");
         if (!ISEMPTY(self.dicTemp)) {
@@ -1858,7 +1859,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 
-                
+
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -1869,7 +1870,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
             
-        }else{//如果为空，什么都不执行
         }
         
         return cell;
@@ -2811,6 +2811,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 获取信息，准备播放
 - (void)getDataService:(NSNotification *)text
 {
+    testNetwork = YES;
     NSLog(@"this is Major 22222");
     judgeIsNeedShowDeliveryStop = 2;
     if (self.showTVView == YES) {
@@ -3827,12 +3828,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self startOneMinute];
                 
                 NSLog(@"zhangsansansnasan===");
-                
-                
-                
+               
                 ////******
                 
-                //====_)))
                 NSInteger rowTemp ;
                 
                 if (storeLastChannelArr.count >= 4) {
@@ -3892,12 +3890,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }else{
                         
                     }
-                    
-                    
-                    
-                    
+            
                     ////*******
-                    
                     
                     //                    [self removeLabAndAddIndecatorView];
                     NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
@@ -3922,16 +3916,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 {
                                     return;
                                 }
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+                          
                                 //=======机顶盒加密
                                 NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:row serviceListDic:dic];
                                 if (characterStr != NULL && characterStr != nil) {
@@ -3986,6 +3971,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                 firstfirst = NO;
                                             }else //正常播放的步骤
                                             {
+                                                NSLog(@"qidian");
+                                                NSLog(@"row %d",row);
+                                                NSLog(@"dic %@",dic);
                                                 [self firstOpenAppAutoPlayZero:row diction:dic];
                                                 
                                             }
@@ -6550,7 +6538,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSLog(@"删除进度条removeTopProgressView  ####");
                     });
                     NSLog(@"hidenhidenhidenhiden dddddddd");
-                    //
                 }else
                 {
                     self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
@@ -6558,7 +6545,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                     self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
                     NSLog(@"hidenhidenhidenhiden dddddddd aaaaaaaaa");
-                    
                 }
             }else
             {
@@ -6592,18 +6578,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             tempArrForServiceArr =  self.categoryModel.service_indexArr;
             tempDicForServiceArr = self.TVChannlDic;
             [self getsubt];
-            //*********
-            
-            //            //再单独开一个线程用于default操作
-            //            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
-            //            dispatch_async(queueA, ^{
-            //                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
-            //                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-            //                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
-            //
-            //                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
-            //            });
-            
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
             if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                 self.video.channelCount = tempArrForServiceArr.count;
@@ -8751,10 +8725,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 [GGUtil postfullScreenBtnShow];
             }
-            else
-            {
-            }
-            if (self.socketView == nil) {
+            
+            NSLog(@"ccccss%@",[USER_DEFAULT objectForKey:@"playStateType"]);
+            if (testNetwork == NO) {
                 [self.socketView viewDidLoad];
             }
             if (firstfirst == YES) {
