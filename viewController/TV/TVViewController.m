@@ -2642,7 +2642,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             return ;
             
-        }else
+        }
+        else
         {
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             
@@ -2665,22 +2666,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     NSLog(@"self.dicTemp** %@",self.dicTemp);
                     NSMutableDictionary * epgDicToSocket = [[NSMutableDictionary alloc]init];
-                    NSString * numberStr = [NSString stringWithFormat:@"%d",indexPathRow];
+                    NSString * numberStr = [NSString stringWithFormat:@"%lu",(unsigned long)indexPathRow];
                     epgDicToSocket = [self.dicTemp objectForKey:numberStr];
                     epgDicToSocket = [epgDicToSocket mutableCopy];
-                    //                    epgDicToSocket = [self.dicTemp objectForKey:@"1"];
                     NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket,@"nowPlayingDic", nil];
                     [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
                     
-                    
-                    
-                    //                    //    //=====daiceshi
+                                        //    //=====daiceshi
                     dispatch_async(dispatch_get_main_queue(), ^{
                         self.service_videoname = [epgDicToSocket objectForKey:@"service_name"];
                         NSArray * epg_infoArr = [[NSArray alloc]init];
                         epg_infoArr = [epgDicToSocket objectForKey:@"epg_info"];
                         if (epg_infoArr.count == 0) {
-                            
+
                             self.event_videoname = @"";
                             self.event_startTime = @"";
                             self.event_endTime = @"";
@@ -2688,41 +2686,41 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             NSLog(@"postsetTimeAndProgressIsNullNotific==  ii");
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  dddd");
-                            
+
                         }else
                         {
-                            
+
                             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                             self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                             self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
                             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                             [GGUtil postsetTimeAndProgressIsShowNotific];
-                            
+
                             self.video.playEventName = self.event_videoname;
-                            
+
                             NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
                             [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
                         }
-                        
-                        
+
+
                         self.video.startTime = self.event_startTime;
                         self.video.endTime = self.event_endTime;
-                        
+
                         NSLog(@"[[GGUtil GetNowTimeString] intValue] %d",[[GGUtil GetNowTimeString] intValue]);
                         NSLog(@"[self.video.endTime intValue] %d",[self.video.endTime intValue]);
                         NSLog(@"[self.video.startTime intValue] %d",[self.video.startTime intValue]);
                         if ([[GGUtil GetNowTimeString] intValue] > [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] < [self.video.startTime intValue]) {
-                            
+
                             self.video.startTime = @"0";
                             self.video.endTime = @"0";
                             self.event_videoname = @"";
-                            
-                            
+
+
                             //        double delayInSeconds = 0;
                             //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
                             //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
                             //        dispatch_after(popTime, mainQueue, ^{
-                            
+                            NSLog(@"self.video.channelId***** AA11 %@",self.video.channelId);
                             [GGUtil postsetTimeAndProgressIsNullNotific];
                             NSLog(@"postsetTimeAndProgressIsNullNotific==  jj");
                             [self removeTopProgressView];
@@ -2730,37 +2728,38 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             NSLog(@"hidenhidenhidenhiden 6666666");
                             //        });
                         }else{
+                        
                             self.video.startTime = self.event_startTime;
                             self.video.endTime = self.event_endTime;
                             NSLog(@"hidenhidenhidenhiden 66666666 aaaaaa");
-                            
+
                             self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                             self.video.playEventName = self.event_videoname;
-                            
+
                             NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
                             [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
-                            
+
                             //        double delayInSeconds = 0;
                             //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
                             //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
                             //        dispatch_after(popTime, mainQueue, ^{
-                            
+
                             [self removeTopProgressView];
                             NSLog(@"删除进度条removeTopProgressView  ffff");
                             [GGUtil postTimerOfEventTimeNotific];
                             [self caculatorProgress];
                             // 只显示时间，不显示进度条
-                            
-                            
+
+
                             [self.view addSubview:self.topProgressView];
                             [self.view bringSubviewToFront:self.topProgressView];
                             [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-                            
-                            
-                            
+
+
+
                             NSLog(@"self.video.channelId***** AA %@",self.video.channelId);
                             NSLog(@"self.video.channelName***** AA %@",self.video.channelName);
-                            
+
                             NSDictionary *channlIdNameDic =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.channelId,@"channelIdStr",self.video.channelName,@"channelNameStr", nil];
                             //创建通知
                             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameOrOtherInfoNotic" object:nil userInfo:channlIdNameDic];
@@ -7166,8 +7165,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             STBAlert.title = STBTitle;
             if (self.showTVView == YES) {
                 [STBAlert show];
+                [self performSelector:@selector(changeCAAlertTitle) withObject:nil afterDelay:0.3];//将CA PIN 的文字改成@"Please input your CA PIN"
             }else
-            {
+            { 
                 [self ifNotISTVView];
             }
             STBTextField_Encrypt.text = @"";
@@ -7395,8 +7395,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
             
             
-            NSLog(@"self.video.channelId***** %@",self.video.channelId);
-            NSLog(@"self.video.channelName***** %@",self.video.channelName);
+//            NSLog(@"self.video.channelId***** %@",self.video.channelId);
+//            NSLog(@"self.video.channelName***** %@",self.video.channelName);
             NSDictionary *channlIdNameDic =[[NSDictionary alloc] initWithObjectsAndKeys:self.video.channelId,@"channelIdStr",self.video.channelName,@"channelNameStr", nil];
             //创建通知
             NSNotification *notification2 =[NSNotification notificationWithName:@"setChannelNameOrOtherInfoNotic" object:nil userInfo:channlIdNameDic];
@@ -11645,8 +11645,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         return;
     }
-    
-    
+   
     
     NSInteger rowIndex;
     int playingRow;
@@ -11703,8 +11702,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else{
             [self timeAndNameHidden];
         }
-    }else{
-        
     }
 }
 @end
