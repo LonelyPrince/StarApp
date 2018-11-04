@@ -4725,6 +4725,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
                                     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
                                     NSLog(@" 正常播放AAAAAAA");
+                                    
+                                    [self.tableForSliderView reloadData];
+                                    [tempTableviewForFocus reloadData];
+                                    [self refreshTableviewByEPGTime];
+                                    [self.table reloadData];
                                 }
                             }else //正常播放的步骤
                             {
@@ -4746,7 +4751,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
         }
     }
-    
+    double delayInSeconds1 = 1;
+    dispatch_queue_t mainQueue1 = dispatch_get_main_queue();
+    dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds1 * NSEC_PER_SEC);
+    dispatch_after(popTime1, mainQueue1, ^{
+                [self.tableForSliderView reloadData];
+        [tempTableviewForFocus reloadData];
+        [self refreshTableviewByEPGTime];
+                [self.table reloadData];
+        NSLog(@"???????");
+    });
     
     
     
