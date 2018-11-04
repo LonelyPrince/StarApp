@@ -452,7 +452,7 @@
     //    int currentPage = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
     //    NSLog(@"==- 当scrollView滚动的时候，不停调用 ");
-    
+    NSLog(@"==- 减速完成（停止）222 ");
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -468,12 +468,13 @@
     }
     
     NSLog(@"==- 减速完成（停止） ");
+    
 }
 
 #pragma mark configSlideView
 
 - (void)configSlideView{
-    
+    NSLog(@"==- 减速完成（停止）333 ");
     _visibleCells  = [[NSMutableSet alloc]init];
     _recycledCells = [[NSMutableSet alloc]init];
     

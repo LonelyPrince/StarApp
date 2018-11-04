@@ -52,7 +52,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     return self;
 }
 - (void)configView{
-    
+    NSLog(@"==- 减速完成（停止） 444");
     //设置 content size
     float buttonWidth = 0.f;
     
@@ -138,99 +138,10 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeButton:) name:@"changeButton" object:nil];
     
-    
 }
-//- (void)configView_titleTemp{
-//
-//    //设置 content size
-//    float buttonWidth = 0.f;
-//
-//    for (NSUInteger i = 0; i<_titles.count ; i++) {
-//
-//        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-//
-//        [button setTitle:_titles[i] forState:UIControlStateNormal];
-//
-//        [button setTitleColor:[UIColor colorWithRed:0x21/255.0 green:0x21/255.0 blue:0x21/255.0 alpha:1] forState:UIControlStateNormal];   //大约等于黑色
-//
-//        [button.titleLabel setFont:buttonFont(button,YLSlideTitleViewTitleMin)];
-//
-//
-//
-//        CGSize titleSize = [YLSlideTitleView boudingRectWithSize:CGSizeMake(SCREEN_WIDTH_YLSLIDE, YLSildeTitleViewHeight)
-//                                                           label:button.titleLabel];
-//
-//        CGRect frame;
-//        frame.origin = CGPointMake(buttonWidth, 0);
-//        frame.size   = CGSizeMake(titleSize.width+20, 48);  //两个字之间的间距
-//
-//        [button setFrame:frame];
-//
-//        buttonWidth += CGRectGetWidth(button.frame);
-//
-//        button.tag             = YLSlideTitleViewButtonTag + i;
-//        button.backgroundColor = [UIColor clearColor];//[UIColor redColor];
-//
-//        [button addTarget:self
-//                   action:@selector(buttonEvents:)
-//         forControlEvents:UIControlEventTouchUpInside];
-//
-//        [self configButtonWithOffsetx:0];
-//
-//        [self addSubview:button];
-//
-//
-//    }
-//
-//
-//    self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
-//
-//    __WEAK_SELF_YLSLIDE
-//
-//    self.slideTitleViewScrollBlock =^(CGFloat offsetx){
-//
-//
-//        __STRONG_SELF_YLSLIDE
-//        [strongSelf configButtonWithOffsetx:offsetx];
-//        NSLog(@"offsetx %f",offsetx);
-//
-//    };
-//
-//    self.slideViewWillScrollEndBlock =^(CGFloat offsetx){
-//
-//        NSLog(@"offsetx1 %f",offsetx);
-//        __STRONG_SELF_YLSLIDE
-//        //设置 Button 可见
-//        CGFloat x = offsetx * (60 / self.frame.size.width) - 60;
-//
-//        //        NSLog(@"self.frame.size.width %f",self.frame.size.width);
-//        //        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
-//        //
-//        //
-//        //        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
-//
-//        [strongSelf scrollRectToVisible:CGRectMake(x, 0,
-//                                                   strongSelf.frame.size.width,
-//                                                   strongSelf.frame.size.height)
-//                               animated:YES];
-//
-//    };
-//
-//
-//    //此处销毁通知，防止一个通知被多次调用
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"categorysTouchToViews" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(categorysTouchToViews:) name:@"categorysTouchToViews" object:nil];
-//
-//    //修改title 值和数量
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeButton" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeButton:) name:@"changeButton" object:nil];
-//
-//
-//}
 -(void)categorysTouchToViews:(NSNotification *)text
 {
+    NSLog(@"==- 减速完成（停止）555 ");
     NSInteger currentIndex = [text.userInfo[@"currentIndex"]integerValue];
     //    [self slideViewRecycle];
     //    [self visibleViewDelegateForIndex:currentIndex];
@@ -249,6 +160,8 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     
 }
 - (void)configButtonWithOffsetx:(CGFloat)offsetx{
+    
+    NSLog(@"==- 减速完成（停止）666 ");
     
 #warning 在重复使用 [UIFont fontWithName:button.titleLabel.font.fontName size:titleSize]方法会占用极大的内存(已反复试验)，每次都需要对Label进行处理。在此处请谨慎使用此方法，此变换效果也是其中一种可根据自行需求进行修改。有更好的方法可告知。
     
@@ -323,6 +236,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
 //按钮点击
 - (void)buttonEvents:(UIButton*)button{
     
+    NSLog(@"==- 减速完成（停止）777 ");
     NSLog(@" currentPage === %d",(button.tag - YLSlideTitleViewButtonTag) );
     
     int YLSlideTitleViewButtonTagIndex = button.tag - YLSlideTitleViewButtonTag;
@@ -372,6 +286,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
 #pragma mark
 + (CGSize)boudingRectWithSize:(CGSize)size label:(UILabel*)label
 {
+    NSLog(@"==- 减速完成（停止） 888");
 #warning 如果你是IOS7以下设备使用，请增加相对应的方法
     UIFont * font = label.font;
     font = [font fontWithSize:YLSlideTitleViewTitleMax];
@@ -391,6 +306,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
+    NSLog(@"==- 减速完成（停止） 999");
     //    NSLog(@"currentButton3: + %f",scrollView.contentOffset.x);
     _currentBtnX = _currentBtnX - scrollView.contentOffset.x + self.preScrollViewCut ;
     
@@ -411,6 +327,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
 
 -(void)changeButton:(NSNotification *)text
 {
+    NSLog(@"==- 减速完成（停止） 000");
     //针对一个特殊环境做测试，删除title数量，修改title名称
     _titles_temp = text.userInfo[@"titleInfo"];
 

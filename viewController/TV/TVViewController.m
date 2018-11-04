@@ -1080,9 +1080,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSNumber * currentIndex = [NSNumber numberWithInteger:beforeRefreshIndex];
         NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex,@"currentIndex", nil];
         //创建通知，防止刷新后跳转错页面
-        NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//        NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     });
     
     
@@ -9270,7 +9270,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [tempDic_updateCharacter setObject:newService_character forKey:@"service_character"];
                     
                     NSLog(@"tempDic_updateCharacter 4 %@",tempDic_updateCharacter);
-                    NSMutableDictionary * mutableDicTemp = [dic mutableCopy];
+//                    NSMutableDictionary * mutableDicTemp = [dic mutableCopy];
+                     NSMutableDictionary * mutableDicTemp = [self.dicTemp mutableCopy];
                     
                     NSLog(@"mutableDicTemp%@",mutableDicTemp);
                     //                    [mutableDicTemp setObject:[tempDic_updateCharacter copy] forKey:[NSString stringWithFormat:@"%ld",(long)row]];
@@ -10812,30 +10813,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [self PushSelectBtnClick];  //此处可能报错=====Major
             [self.videoController setPushBtnHasClickNO];
             [pushTVTimer invalidate];
-            
+
             NSNumber * currentIndex = [NSNumber numberWithInt:0];
             NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndex,@"currentIndex", nil];
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
+
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                
-                
+
+
                 [self addHistory:pushChannelId diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
                 //                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
                 //                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
-                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.2];
-                });
+
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(performChangeColor) object:nil];
+//                    [self performSelector:@selector(performChangeColor) withObject:nil afterDelay:0.5];
+//                });
                 //变蓝
-                
+
             });
             //=======机顶盒加密
             NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:pushChannelId serviceListDic:self.dicTemp];
@@ -10847,12 +10848,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",self.dicTemp,@"textTwo", @"LiveTouch",@"textThree",nil];
                     [GGUtil postSTBDencryptNotific:dict_STBDecrypt];
                     firstOpenAPP = firstOpenAPP+1;
-                    
+
                     firstfirst = NO;
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
-                    
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         //关闭当前正在播放的节目
                         [self.videoController.player stop];
@@ -10863,7 +10864,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //关闭当前正在播放的节目
                     [self.videoController.player stop];
@@ -10877,7 +10878,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
-                
+
                 [self tableViewCellToBlue:0 indexhah:pushChannelId AllNumberOfService:self.dicTemp.count];
             });
         }
