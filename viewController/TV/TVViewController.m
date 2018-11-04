@@ -681,36 +681,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     return ;
                 }
                 
-                //无数据时展示，但是当前有数据
-//                [USER_DEFAULT setObject:@"stopDelivery" forKey:@"deliveryPlayState"];
-//
-//
-//
-//                [self NOChannelDataShow];
-//                NSLog(@" NOChannelDataShow 3333");
-//                [self removeTopProgressView]; //删除进度条
-//                NSLog(@"删除进度条removeTopProgressView  1111");
-//                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-//                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-//                NSLog(@"removeTipLabAndPerformSelector 3333");
-//                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-//
-//
-//                double delayInSeconds = 0.8;
-//                dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//                dispatch_after(popTime, mainQueue, ^{
-//                    [self ifNotISTVView];
-//                    [GGUtil postcantDeliveryNotific];
-//                    NSNotification *notification1 =[NSNotification notificationWithName:@"fullScreenBtnHidden" object:nil userInfo:nil];
-//                    //通过通知中心发送通知
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//                    NSLog(@"[GGUtil postfullScreenBtnShow]; 隐藏11");
-//
-//                });
-//
-                
-                
             }
             else{
                 NSLog(@"datdattdatdatt %@",data1);
@@ -789,10 +759,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             self.serviceData = (NSMutableArray *)data1; //data1 代表service
             NSLog(@"serviceDatanullllllllllll  2222");
-            if (self.categorys.count > 0) {
+//            if (self.categorys.count > 0) {
                 [USER_DEFAULT setObject:self.categorys forKey:@"serviceCategory_Default"];
                 [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-            }
+//            }
 //            [USER_DEFAULT setObject:self.categorys forKey:@"serviceCategory_Default"];
 //            [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
             
@@ -962,10 +932,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         [self.view addSubview:_slideView];
                         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                        
-                    }
-                    else
-                    {
                         
                     }
                     if (firstfirst == YES) {
@@ -1255,7 +1221,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 self.topProgressView.frame = CGRectMake(0, SCREEN_WIDTH -50 , SCREEN_HEIGHT, 2);
                 [self.view bringSubviewToFront:self.topProgressView];
                 [self.videoController.view bringSubviewToFront:self.topProgressView];
-                [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
                 
                 [self judgeProgressIsNeedHide:YES]; //判断进度条需不需要隐藏，第一个参数表示是否全屏
                 _lineView.frame = CGRectMake(0, -64, 0, 0);
@@ -2633,7 +2598,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.view addSubview:self.topProgressView];
                 [self.view bringSubviewToFront:self.topProgressView];
-                [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
             });
             
             //取消加载环
@@ -2753,9 +2717,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                             [self.view addSubview:self.topProgressView];
                             [self.view bringSubviewToFront:self.topProgressView];
-                            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-
-
 
                             NSLog(@"self.video.channelId***** AA %@",self.video.channelId);
                             NSLog(@"self.video.channelName***** AA %@",self.video.channelName);
@@ -3625,7 +3586,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self preventTVViewOnceFullScreen]; //防止刚切换到主界面全屏
         [self performSelector:@selector(notHaveNetWork) withObject:nil afterDelay:10];
         TVViewTouchPlay = YES;
-        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
         
         tableviewinit  = tableviewinit +1;
         statusNum = 1;
@@ -3885,7 +3845,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         [self.view addSubview:self.topProgressView];
                         [self.view bringSubviewToFront:self.topProgressView];
-                        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
                     }else{
                         
                     }
@@ -4550,28 +4509,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }
                     
-                    
-                    //                         NSDictionary *item;
-                    //                         if (self.categorys.count > 0) {
-                    //                             item = self.categorys[0];   //当前页面类别下的信息
-                    //                         }
-                    //
-                    //                         NSLog(@"item**  %@",item);
-                    //                         NSLog(@"item**dd %d",item.count);
-                    //                         self.categoryModel = [[CategoryModel alloc]init];
-                    //                         self.categoryModel.service_indexArr = item[@"service_index"];
-                    //
-                    //                         for (int i = 0 ; i<self.categoryModel.service_indexArr.count; i++) {
-                    //                             int indexCat ;
-                    //                             indexCat =[self.categoryModel.service_indexArr[i] intValue];
-                    //
-                    //                             if ( ISNULL(self.serviceData)) {
-                    //
-                    //                             }else{
-                    //                                 [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
-                    //                             }
-                    //                         }
-                    
+                
                     NSNumber * channelCountNum = [NSNumber numberWithInt:self.dicTemp.count];
                     
                     
@@ -4608,8 +4546,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
         }
-        //         }
-        
+      
         //        //③如果有正在播放的节目，并且判断和正在播放的节目的dic信息是否相等，如果不相等则重新播放
         if (isHavePlayingChannel == NO) {
             NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
@@ -5373,8 +5310,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self.view addSubview:self.topProgressView];
         
         [self.view bringSubviewToFront:self.topProgressView];
-        
-        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
         
         NSMutableDictionary * dict = [[NSMutableDictionary alloc]init];
         NSLog(@"self.event_startTime--==%@",self.event_startTime);
@@ -7167,7 +7102,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [STBAlert show];
                 [self performSelector:@selector(changeCAAlertTitle) withObject:nil afterDelay:0.3];//将CA PIN 的文字改成@"Please input your CA PIN"
             }else
-            { 
+            {
                 [self ifNotISTVView];
             }
             STBTextField_Encrypt.text = @"";
@@ -7392,7 +7327,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [self.view addSubview:self.topProgressView];
             [self.view bringSubviewToFront:self.topProgressView];
-            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
             
             
 //            NSLog(@"self.video.channelId***** %@",self.video.channelId);
@@ -9620,7 +9554,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.topProgressView.progressBackgroundColor = [UIColor colorWithRed:0x80 green:0x80 blue:0x80 alpha:0.3];
         [self.view addSubview:self.topProgressView];
         [self.view bringSubviewToFront:self.topProgressView];
-        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
         
         self.progressViews = @[ self.topProgressView ];
         NSLog(@"enumerateObjectsUsingBlock-progress初始化了");
@@ -9771,7 +9704,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.view addSubview:self.topProgressView];
                         [self.view bringSubviewToFront:self.topProgressView];
-                        [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
                     });
                     
                     
@@ -9892,20 +9824,20 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //删除节目进度条并且停止计时器
 -(void)removeTopProgressView
 {
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    [USER_DEFAULT setObject:@"NO" forKey:@"topProgressViewISNotExist"];
+//
     [self.topProgressView removeFromSuperview];
     [self.timer invalidate];
     self.timer = nil;
-    // 1 33 2  17   3-- //  12----4   9--5  7 --6  6 --7   5--8   4--9  4--10 3--11
+    
+    
     NSLog(@"removeTopProgressViewremoveTopProgressViewremoveTopProgressView");
-    //    });
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    //        self.topProgressView.alpha = 0;
-    ////        [self.topProgressView removeFromSuperview];
-    ////        [self.timer invalidate];
-    ////            self.timer = nil;
-    //    });
+    
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//
+//            [self.topProgressView removeFromSuperview];
+//            [self.timer invalidate];
+//            self.timer = nil;
+//        });
     
 }
 
@@ -9921,8 +9853,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     [self.view bringSubviewToFront:self.topProgressView];
     [self.videoController.view bringSubviewToFront:self.topProgressView];
-    [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
-    //    [self.topProgressView removeFromSuperview];
     
     NSDictionary * dict = text.userInfo[@"restartTopProgressViewDic"];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateProgress:) userInfo:dict repeats:YES];
@@ -11695,10 +11625,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self caculatorProgress];
             // 只显示时间，不显示进度条
             
-            
             [self.view addSubview:self.topProgressView];
             [self.view bringSubviewToFront:self.topProgressView];
-            [USER_DEFAULT setObject:@"YES" forKey:@"topProgressViewISNotExist"];
+           
         }else{
             [self timeAndNameHidden];
         }
