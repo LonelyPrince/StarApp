@@ -4640,41 +4640,38 @@
     
     
     NSInteger tagIndex = [sender tag];
-//    if (tagIndex == 6) {
-//        //进入历史界面
-//        //    self.tableView.editing = YES;
-//        //跳转到历史界面
-//        self.historyView = [[HistoryViewController alloc]init];
-//        //        [self presentModalViewController:self.routeView animated:YES];
-//        //        [self.navigationController pushViewController:self.historyView animated:YES];
-//        if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
-//            [self.navigationController pushViewController:self.historyView animated:YES];
-//        }else
-//        {
-//            NSLog(@"此处可能会由于页面跳转过快报错");
-//        }
-//
-//
-//
-//        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-//        self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-//
-//        self.historyView.navigationItem.leftBarButtonItem = myButton;
-//    }else
-//    {
+ 
         NSArray * touchArr = historyArr[historyArr.count - tagIndex];
         
         NSInteger row = [touchArr[2] intValue];
         NSDictionary * dic = touchArr [3];
         
-        NSNumber * numIndex = [NSNumber numberWithInt:row];
+    
         
         NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
         NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
         if (epgDicToSocket_temp.count <= 14 ) { //直播
             dic = dicTemp;
         }
-        
+    
+        for (int i = 0; i < dic.count; i ++) {
+            NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+            NSLog(@"test  == %d",i);
+            if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
+                //如果相等，则获取row
+                row = i;
+                NSLog(@"test 11");
+                break;
+            }else
+            {
+                row = 0;
+                NSLog(@"test 22");
+//                break;
+            }
+        }
+        NSLog(@"jsjsjsjsjsjsjajdandaon");
+        NSNumber * numIndex = [NSNumber numberWithInt:row];
         //添加 字典，将label的值通过key值设置传递
         NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
         
