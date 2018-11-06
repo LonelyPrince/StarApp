@@ -214,7 +214,7 @@
     
     if ((point.y + SCREEN_HEIGHT - 49) > scroll.contentSize.height ) {
     }else{
-            [scroll setContentOffset:point animated:NO];
+        [scroll setContentOffset:point animated:NO];
     }
     
 }
@@ -766,7 +766,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -780,7 +780,7 @@
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -794,7 +794,7 @@
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -808,7 +808,7 @@
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
@@ -822,7 +822,7 @@
                     service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             if (historyDic6.count > 15) {
                 service_logic_number6 = [self getlogicNmuber:[historyDic6 objectForKey:@"service_logic_number"] ];
@@ -1091,7 +1091,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -1104,7 +1104,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -1117,7 +1117,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -1131,7 +1131,7 @@
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
@@ -1144,7 +1144,7 @@
                 {
                     service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
                 
             }
             
@@ -1326,7 +1326,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -1340,11 +1340,11 @@
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-
+                
                 NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
                 NSString * eventName = [historyDic3 objectForKey:@"event_name"];
                 if ([eventName isEqualToString:@""]) {
@@ -1354,7 +1354,7 @@
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-  //                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -1368,7 +1368,7 @@
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             
             
@@ -1526,7 +1526,7 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -1539,7 +1539,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -1552,7 +1552,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             
             
@@ -1681,7 +1681,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -1694,7 +1694,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             
             
@@ -1748,7 +1748,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
             }
             
@@ -1989,7 +1989,7 @@
                 }
                 
             }];
-
+            
             
             //            ==
             if (historyDic1.count > 15) {
@@ -2076,7 +2076,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -2090,7 +2090,7 @@
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -2103,11 +2103,11 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
-
+                
                 NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
                 NSString * eventName = [historyDic4 objectForKey:@"event_name"];
                 if ([eventName isEqualToString:@""]) {
@@ -2116,7 +2116,7 @@
                 {
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
@@ -2129,7 +2129,7 @@
                 {
                     service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             if (historyDic6.count > 15) {
                 service_logic_number6 = [self getlogicNmuber:[historyDic6 objectForKey:@"service_logic_number"] ];
@@ -2337,7 +2337,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -2350,11 +2350,11 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
-             
+                
                 NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
                 NSString * eventName = [historyDic3 objectForKey:@"event_name"];
                 if ([eventName isEqualToString:@""]) {
@@ -2363,7 +2363,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -2376,7 +2376,7 @@
                 {
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
@@ -2389,7 +2389,7 @@
                 {
                     service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -2551,8 +2551,8 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -2565,7 +2565,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -2578,7 +2578,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -2591,7 +2591,7 @@
                 {
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             
             
@@ -2731,9 +2731,9 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -2746,9 +2746,9 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-
                 
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -2761,7 +2761,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             
             
@@ -2875,7 +2875,7 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
             }
             
@@ -3213,7 +3213,7 @@
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
                 
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -3226,7 +3226,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -3239,13 +3239,13 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
                 
                 
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
@@ -3258,7 +3258,7 @@
                 {
                     service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             if (historyDic6.count > 15) {
                 service_logic_number6 = [self getlogicNmuber:[historyDic6 objectForKey:@"service_logic_number"] ];
@@ -3470,8 +3470,8 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -3484,7 +3484,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -3497,7 +3497,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -3510,7 +3510,7 @@
                 {
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             if (historyDic5.count > 15) {
                 service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
@@ -3523,7 +3523,7 @@
                 {
                     service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name5 = [historyDic5 objectForKey:@"file_name"];
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
             }
             
             
@@ -3704,7 +3704,7 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -3717,7 +3717,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -3730,7 +3730,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             if (historyDic4.count > 15) {
                 service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
@@ -3743,7 +3743,7 @@
                 {
                     service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name4 = [historyDic4 objectForKey:@"file_name"];
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
             }
             
             
@@ -3914,7 +3914,7 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -3927,7 +3927,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             if (historyDic3.count > 15) {
                 service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
@@ -3940,7 +3940,7 @@
                 {
                     service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name3 = [historyDic3 objectForKey:@"file_name"];
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
             }
             
             
@@ -4071,7 +4071,7 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
             }
             if (historyDic2.count > 15) {
                 service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
@@ -4084,7 +4084,7 @@
                 {
                     service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-//                service_name2 = [historyDic2 objectForKey:@"file_name"];
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
             }
             
             
@@ -4139,8 +4139,8 @@
                 {
                     service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
                 }
-
-//                service_name1 = [historyDic1 objectForKey:@"file_name"];
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
                 
                 
             }
@@ -4630,6 +4630,96 @@
 
 //点击观看历史直接播放
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr
+//{
+//    NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
+//    //        //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification2];
+//
+//    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+//    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+//
+//
+//    NSInteger tagIndex = [sender tag];
+//
+//    NSArray * touchArr = historyArr[historyArr.count - tagIndex];
+//
+//    NSInteger row = [touchArr[2] intValue];
+//    NSDictionary * dic = touchArr [3];
+//
+//
+//
+//    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+//    NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+//
+//    if (epgDicToSocket_temp.count <= 14 ) { //直播
+//        dic = dicTemp;
+//    }
+//
+//    for (int i = 0; i < dic.count; i ++) {
+//        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+//        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
+//            //如果相等，则获取row
+//            row = i;
+//            break;
+//        }else
+//        {
+//            row = 0;
+//        }
+//    }
+//    NSLog(@"jsjsjsjsjsjsjajdandaon");
+//    NSNumber * numIndex = [NSNumber numberWithInt:row];
+//    //添加 字典，将label的值通过key值设置传递
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+//
+//    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+//    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+//
+//    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+//
+//    if (characterStr != NULL && characterStr != nil) {
+//
+//        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+//        if (judgeIsSTBDecrypt == YES) {
+//            // 此处代表需要记性机顶盒加密验证
+//            //弹窗
+//            //发送通知
+//
+//            //        [self popSTBAlertView];
+//            //        [self popCAAlertView];
+//            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+//            //创建通知
+//            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+//            //通过通知中心发送通知
+//            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+//
+//            [self.tabBarController setSelectedIndex:1];
+//
+//        }else //正常播放的步骤
+//        {
+//            //创建通知
+//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+//            //通过通知中心发送通知
+//            [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+//            [self.tabBarController setSelectedIndex:1];
+//        }
+//
+//
+//    }else //正常播放的步骤
+//    {
+//
+//
+//        //创建通知
+//        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+//
+//        [self.tabBarController setSelectedIndex:1];
+//    }
+//
+//    [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
+//
+//}
 {
     NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
     //        //通过通知中心发送通知
@@ -4640,79 +4730,69 @@
     
     
     NSInteger tagIndex = [sender tag];
- 
-        NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-        
-        NSInteger row = [touchArr[2] intValue];
-        NSDictionary * dic = touchArr [3];
-        
+    //    if (tagIndex == 6) {
+    //        //进入历史界面
+    //        //    self.tableView.editing = YES;
+    //        //跳转到历史界面
+    //        self.historyView = [[HistoryViewController alloc]init];
+    //        //        [self presentModalViewController:self.routeView animated:YES];
+    //        //        [self.navigationController pushViewController:self.historyView animated:YES];
+    //        if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
+    //            [self.navigationController pushViewController:self.historyView animated:YES];
+    //        }else
+    //        {
+    //            NSLog(@"此处可能会由于页面跳转过快报错");
+    //        }
+    //
+    //
+    //
+    //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+    //        self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+    //
+    //        self.historyView.navigationItem.leftBarButtonItem = myButton;
+    //    }else
+    //    {
+    NSArray * touchArr = historyArr[historyArr.count - tagIndex];
     
-        
-        NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
-        NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    NSInteger row = [touchArr[2] intValue];
+    NSDictionary * dic = touchArr [3];
     
-        if (epgDicToSocket_temp.count <= 14 ) { //直播
-            dic = dicTemp;
-        }
+    NSNumber * numIndex = [NSNumber numberWithInt:row];
     
-        for (int i = 0; i < dic.count; i ++) {
-            NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
-            NSLog(@"test  == %d",i);
-            if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
-                //如果相等，则获取row
-                row = i;
-                NSLog(@"test 11");
-                break;
-            }else
-            {
-                row = 0;
-                NSLog(@"test 22");
-//                break;
-            }
-        }
-        NSLog(@"jsjsjsjsjsjsjajdandaon");
-        NSNumber * numIndex = [NSNumber numberWithInt:row];
-        //添加 字典，将label的值通过key值设置传递
-        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+    NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    if (epgDicToSocket_temp.count <= 14 ) { //直播
+        dic = dicTemp;
+    }
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+    
+    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+    
+    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+    
+    if (characterStr != NULL && characterStr != nil) {
         
-        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-        
-        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-        
-        if (characterStr != NULL && characterStr != nil) {
+        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+        if (judgeIsSTBDecrypt == YES) {
+            // 此处代表需要记性机顶盒加密验证
+            //弹窗
+            //发送通知
             
-            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-            if (judgeIsSTBDecrypt == YES) {
-                // 此处代表需要记性机顶盒加密验证
-                //弹窗
-                //发送通知
-                
-                //        [self popSTBAlertView];
-                //        [self popCAAlertView];
-                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-                //创建通知
-                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                
-                [self.tabBarController setSelectedIndex:1];
-                
-            }else //正常播放的步骤
-            {
-                //创建通知
-                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                
-                [self.tabBarController setSelectedIndex:1];
-            }
+            //        [self popSTBAlertView];
+            //        [self popCAAlertView];
+            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
+            [self.tabBarController setSelectedIndex:1];
             
         }else //正常播放的步骤
         {
-            
-            
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知
@@ -4721,12 +4801,26 @@
             [self.tabBarController setSelectedIndex:1];
         }
         
-//    }
+        
+    }else //正常播放的步骤
+    {
+        
+        
+        //创建通知
+        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        [self.tabBarController setSelectedIndex:1];
+    }
+    
+    //    }
     
     [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
     
     
 }
+
 -(void)TVViewAppearNO
 {
     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法

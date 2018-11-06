@@ -1600,7 +1600,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                     
                 }
-                [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                if (index == 0) {
+                    [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                    NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 11111");
+                }
+                
             }else if (playTypeClass == 3){
                 
                 if (index == 0) {
@@ -1636,7 +1640,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 }
                             }
                         }
-                        [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                        if (index == 0) {
+                            [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                            NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 222222");
+                        }
+                        
                         numberOfRowsForTable = self.categoryModel.service_indexArr.count;
                     }
                     
@@ -2115,7 +2123,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //加入历史记录
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSLog(@"dispatch_get_global_queue 加入历史记录");
-                
+                NSLog(@" self.dicTemp test== %@",self.dicTemp);
                 [self addHistory:indexPath.row diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
                 //                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
@@ -3391,7 +3399,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"mediaDisConnect   6666");
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             [GGUtil postnoPlayShowShutNotic];
-            //            [GGUtil postIndicatorViewShowNotic];
             if (SDTMonitor_addHistory == 0) {
                 [GGUtil postIndicatorViewShowNotic];
             }else{ // SDTMonitor_addHistory == 1 代表是触发监控导致的addhistory
@@ -3399,13 +3406,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             
         }
-        //        if (self.showTVView == YES) {
-        //            [self ifNeedPlayClick];
-        //            NSLog(@"play-Click 3333");
-        //        }else
-        //        {
-        //            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
-        //        }
         NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%d",row]];
         [self judgeNowISRadio:epgDicToSocket]; //此处加个方法，判断是不是音频
         progressEPGArr =[epgDicToSocket objectForKey:@"epg_info"];  //新加的，为了进度条保存EPG数据
@@ -3492,12 +3492,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [mutaArray removeObjectAtIndex:i];
                         [mutaArray  addObject:[tempArr copy]];
                         
-                        //                        NSLog(@"=ZZ==========tempArr %@",tempArr);
-                        //                        NSLog(@"=ZZ==========epgDicToSocket %@",epgDicToSocket);
-                        //                        NSLog(@"=ZZ==========dic %@",dic);
-                        //                        NSLog(@"=ZZ==========mutaArray %@",mutaArray);
-                        
-                        //                        NSLog(@"相同的历史 ：%@",[tempArr copy]);
                         break;
                     }
                 }
@@ -9200,7 +9194,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     self.dicTemp = [dic mutableCopy];   //修改self.dicTemp
                     [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
-                    
+                    NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 33333");
                     NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
                     
                     [serviceData_DefaultTemp replaceObjectAtIndex:i withObject:[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]]];
@@ -9290,7 +9284,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     self.dicTemp = [dic mutableCopy];
                     [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
-                    
+                    NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 444444");
                     [self notIsPlayingUpdateHistoryArr:network_id_int ts_int:ts_id_int service_int:service_id_int character_int:program_character_int dic_history3Dic:dic];  //修改一下，把历史的第一条数据删除
                     
                     NSMutableArray * serviceData_DefaultTemp = [[USER_DEFAULT objectForKey:@"serviceData_Default"] mutableCopy];
@@ -10037,8 +10031,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         {
                             self.dicTemp =  [dicTemp_Temp mutableCopy];
                             [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                            NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 555555");
                         }
                         [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                        NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 666666");
                     }
                 }
             }
@@ -10070,6 +10066,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }
                 [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+                NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 777777");
             }
         }
     }
@@ -10124,7 +10121,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
         }
-        [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+        if ( index == 0) {
+            [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+            NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 88888");
+        }
     }else if (playTypeClass == 3){
         
         if (index == 0) {
@@ -10159,6 +10159,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
             [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
+            NSLog(@"selfDicTemp。coun %d",self.dicTemp.count); NSLog(@"selfDicTemp 99999");
         }else if (index == 1)
         {
             
@@ -10206,7 +10207,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     }
                 }
             }
-            [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];
         }
     }
 }
@@ -11486,7 +11486,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             tempDicForServiceArr = self.TVChannlDic;
             [self getsubt];
             //*********
-            
+//
             //            //再单独开一个线程用于default操作
             //            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
             //            dispatch_async(queueA, ^{
