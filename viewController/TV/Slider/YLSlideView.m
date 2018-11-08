@@ -296,10 +296,7 @@
                 if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
                     [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
                     //发送焦点定位通知
-                    
-//                    NSNotification *notification =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:nil];
-//                    //通过通知中心发送通知
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+ 
                 }else
                 {
                     return ;

@@ -1218,6 +1218,11 @@
             
             [self.tabBarController setSelectedIndex:1];
             [self.navigationController popViewControllerAnimated:YES];
+            
+            //创建通知
+            NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
         }else //正常播放的步骤
         {
             
@@ -1229,6 +1234,11 @@
             
             [self.tabBarController setSelectedIndex:1];
             [self.navigationController popViewControllerAnimated:YES];
+            
+            //创建通知
+            NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
             
         }
         
@@ -1244,6 +1254,11 @@
         //    [self.navigationController pushViewController:_tvViewController animated:YES];
         [self.tabBarController setSelectedIndex:1];
         [self.navigationController popViewControllerAnimated:YES];
+        
+        //创建通知
+        NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
     }
     
 }

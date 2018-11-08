@@ -1848,24 +1848,38 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         return cell;
     }
 }
-//-(void)focusPlaceNotific
-//{
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"focusPlacefunction" object:nil];
-//    //注册通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(focusPlacefunction) name:@"focusPlacefunction" object:nil];
-//}
-//-(void)focusPlacefunction
-//{
-//    //增加通知判断，在通知发出时，使用定位方法
-//    double systemVersion = [GGUtil getSystemVersion];
-//    if (systemVersion > 11) {
-//        tempTableviewForFocus.estimatedRowHeight = 0;
-//        tempTableviewForFocus.estimatedSectionFooterHeight = 0;
-//        tempTableviewForFocus.estimatedSectionHeaderHeight = 0;
+-(void)focusPlaceNotific
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"focusPlacefunction" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(focusPlacefunction:) name:@"focusPlacefunction" object:nil];
+}
+-(void)focusPlacefunction:(NSNotification *)text
+{
+  
+    NSInteger row = [text.userInfo[@"textOne"]integerValue];
+    NSDictionary * dic = [[NSDictionary alloc]init];
+    dic = text.userInfo[@"textTwo"];
+    
+//    //先传输数据到socket，然后再播放视频
+//    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
 //
-//        [tempTableviewForFocus scrollToRowAtIndexPath:tempIndexpathForFocus  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-//    }
-//}
+   
+    double delayInSeconds = 0.5;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"延时执行的0.4秒");
+        
+        if (row != 0 && row < [tableForSliderView numberOfRowsInSection:0]) {
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+            
+            [tableForSliderView scrollToRowAtIndexPath:indexPath  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }
+    });
+//     成本价在 每月 1350， 三个月是 4050 。   所以对外价格  我计划定在  2000每月，5500每季度
+//    [tempTableviewForFocus scrollToRowAtIndexPath:tempIndexpathForFocus  atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
 -(void)reducePushSharingView
 {
     
@@ -3657,7 +3671,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self refreshTableFocus];  //刷新tableView焦点颜色的通知
         [self reducePushSharingView];  //刷新tableView焦点颜色的通知
-        //        [self focusPlaceNotific];  //焦点定位通知
+                [self focusPlaceNotific];  //焦点定位通知
         [self mediaDeliveryUpdateNotific];   //机顶盒数据刷新，收到通知，节目列表也刷新
         
         
@@ -10175,6 +10189,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
         }else  //录制分类之后的节目分类
         {
+            
             NSDictionary *item = self.categorys[index - 1];   //当前页面类别下的信息
             self.categoryModel = [[CategoryModel alloc]init];
             

@@ -5420,6 +5420,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@" eventTimeLabNow.hidden==  消失 55");
     self.videoControl.eventTimeLabAll.hidden = YES;
     
+    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
 }
 -(void)setTimeAndProgressIsShow
 {

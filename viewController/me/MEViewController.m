@@ -4630,157 +4630,59 @@
 
 //点击观看历史直接播放
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr
-//{
-//    NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
-//    //        //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification2];
-//
-//    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
-//    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-//
-//
-//    NSInteger tagIndex = [sender tag];
-//
-//    NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-//
-//    NSInteger row = [touchArr[2] intValue];
-//    NSDictionary * dic = touchArr [3];
-//
-//
-//
-//    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
-//    NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-//
-//    if (epgDicToSocket_temp.count <= 14 ) { //直播
-//        dic = dicTemp;
-//    }
-//
-//    for (int i = 0; i < dic.count; i ++) {
-//        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
-//        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
-//            //如果相等，则获取row
-//            row = i;
-//            break;
-//        }else
-//        {
-//            row = 0;
-//        }
-//    }
-//    NSLog(@"jsjsjsjsjsjsjajdandaon");
-//    NSNumber * numIndex = [NSNumber numberWithInt:row];
-//    //添加 字典，将label的值通过key值设置传递
-//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-//
-//    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-//    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-//
-//    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-//
-//    if (characterStr != NULL && characterStr != nil) {
-//
-//        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-//        if (judgeIsSTBDecrypt == YES) {
-//            // 此处代表需要记性机顶盒加密验证
-//            //弹窗
-//            //发送通知
-//
-//            //        [self popSTBAlertView];
-//            //        [self popCAAlertView];
-//            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-//            //创建通知
-//            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//
-//            [self.tabBarController setSelectedIndex:1];
-//
-//        }else //正常播放的步骤
-//        {
-//            //创建通知
-//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
-//            [self.tabBarController setSelectedIndex:1];
-//        }
-//
-//
-//    }else //正常播放的步骤
-//    {
-//
-//
-//        //创建通知
-//        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
-//
-//        [self.tabBarController setSelectedIndex:1];
-//    }
-//
-//    [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
-//
-//}
 {
     NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
     //        //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification2];
-    
+
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-    
-    
+
+
     NSInteger tagIndex = [sender tag];
-    //    if (tagIndex == 6) {
-    //        //进入历史界面
-    //        //    self.tableView.editing = YES;
-    //        //跳转到历史界面
-    //        self.historyView = [[HistoryViewController alloc]init];
-    //        //        [self presentModalViewController:self.routeView animated:YES];
-    //        //        [self.navigationController pushViewController:self.historyView animated:YES];
-    //        if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
-    //            [self.navigationController pushViewController:self.historyView animated:YES];
-    //        }else
-    //        {
-    //            NSLog(@"此处可能会由于页面跳转过快报错");
-    //        }
-    //
-    //
-    //
-    //        UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
-    //        self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
-    //
-    //        self.historyView.navigationItem.leftBarButtonItem = myButton;
-    //    }else
-    //    {
+
     NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-    
+
     NSInteger row = [touchArr[2] intValue];
     NSDictionary * dic = touchArr [3];
-    
-    NSNumber * numIndex = [NSNumber numberWithInt:row];
-    
+
+
+
     NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
     NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+
     if (epgDicToSocket_temp.count <= 14 ) { //直播
         dic = dicTemp;
     }
-    
+    for (int i = 0; i < dic.count; i ++) {
+        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
+            //如果相等，则获取row
+            row = i;
+            break;
+        }else
+        {
+            row = 0;
+        }
+    }
+    NSLog(@"jsjsjsjsjsjsjajdandaon");
+    NSNumber * numIndex = [NSNumber numberWithInt:row];
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-    
+
     //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-    
+
     NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-    
+
     if (characterStr != NULL && characterStr != nil) {
-        
+
         BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
         if (judgeIsSTBDecrypt == YES) {
             // 此处代表需要记性机顶盒加密验证
             //弹窗
             //发送通知
-            
+
             //        [self popSTBAlertView];
             //        [self popCAAlertView];
             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
@@ -4788,38 +4690,53 @@
             NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
-            
+
             [self.tabBarController setSelectedIndex:1];
             
+            //创建通知
+            NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
+
         }else //正常播放的步骤
         {
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
+
             [self.tabBarController setSelectedIndex:1];
+            
+            
+            
+            //创建通知
+            NSNotification *notification1 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification1];
         }
-        
-        
+
+
     }else //正常播放的步骤
     {
-        
-        
+
+
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        
+
         [self.tabBarController setSelectedIndex:1];
+        
+        //创建通知
+        NSNotification *notification1 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification1];
     }
-    
-    //    }
-    
+
     [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
-    
-    
+
 }
+
 
 -(void)TVViewAppearNO
 {
