@@ -1372,10 +1372,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
 //搜索按钮
 -(void)searchBtnClick
-//{
-////    [self tableViewDataRefreshForMjRefresh_ONEMinute];
-//    [self tableViewDataRefreshForMjRefresh];
-//}
 {
     /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
