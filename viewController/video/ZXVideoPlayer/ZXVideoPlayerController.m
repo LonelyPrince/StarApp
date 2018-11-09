@@ -196,6 +196,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         [self setChannelNameOrOtherInfo];   //设置频道名称和其他信息
         [self setChannelNameAndEventName];   //快速设置频道名称和节目名称等信息
+        [self setSubtitleRenderringOnNotific];
+        [self setSubtitleRenderringOffNotific];
         [self setRECTimeNotific];   //设置录制时间
         [self configLabNoPlayShowShut]; //播放活加载状态，不显示播放字样
         
@@ -994,7 +996,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowNotic) name:@"noPlayShowNotic" object:nil];
 }
-
+//字幕开关
+-(void)setSubtitleRenderringOnNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setSubtitleRenderringOnNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSubtitleOpen) name:@"setSubtitleRenderringOnNotific" object:nil];
+}
+-(void)setSubtitleRenderringOffNotific
+{
+    //此处销毁通知，防止一个通知被多次调用    // 1
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setSubtitleRenderringOffNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSubtitleOff) name:@"setSubtitleRenderringOffNotific" object:nil];
+}
 #pragma mark - CA PIN输入按钮和文字展示
 -(void)configCAPINShow
 {
@@ -1664,16 +1680,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  停止播放的动作
 -(void)noPlayShowNotic
 {
-
-
+    
+    
     NSString * DeliveryHasStopped = NSLocalizedString(@"DeliveryHasStopped", nil);
     NSString * StarTimesNotConnected = NSLocalizedString(@"StarTimesNotConnected", nil);
     NSString * NoResourcesLabel = NSLocalizedString(@"NoResourcesLabel", nil);
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-
+        
         NSString * isShowLabStr = [USER_DEFAULT objectForKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
-
+        
         if ([isShowLabStr isEqualToString:@"POP"]) {
             //什么都不执行,因为此时有弹窗的文字在展示
             NSLog(@"此时有弹窗POPPOPPOPPOPPOP");
@@ -1687,9 +1703,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //
             //①创建通知,删除进度条
             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-
+            
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+            
             //②右侧列表消失
             NSLog(@"右侧列表消失 noPlayShowNotic111");
             //            self.subAudioTableView.hidden = YES;
@@ -1706,19 +1722,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             [self.player shutdown];
             [self.player.view removeFromSuperview];
             //
-
+            
             //取消弹窗
-
+            
             NSNotification *notification3 =[NSNotification notificationWithName:@"RemoveAlertViewnotific" object:nil userInfo:nil];
             [[NSNotificationCenter defaultCenter] postNotification:notification3];
-
+            
             //取消掉pin的文字和按钮
             [self removeConfigCAPINShowNotific];
             [self removeConfigDecoderPINShowNotific];
             NSLog(@"此处取消弹窗=====");
-
-
-
+            
+            
+            
             //            //⑥显示不能播放的字，通过判断home键的位置来判断label的显示大小和位置
             UIDeviceOrientation orientation = self.getDeviceOrientation;
             if (!self.isLocked)
@@ -1727,14 +1743,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSLog(@"height== %f",self.view.frame.size.height);
                 NSLog(@"screenWidth== %f",[UIScreen mainScreen].bounds.size.width);
                 NSLog(@"screenHeight== %f",[UIScreen mainScreen].bounds.size.height);
-
+                
                 //转盘方向  研究
-
+                
                 switch (orientation) {
                     case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
                         NSLog(@"home键在 下");
                         [self restoreOriginalScreen];
-
+                        
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
@@ -1755,14 +1771,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                     lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                                 }
-
+                                
                             }else
                             {
                                 NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                 lab.text = labText;
                             }
-
-
+                            
+                            
                             lab.font = FONT(17);
                             lab.textAlignment = NSTextAlignmentCenter;
                             lab.textColor = [UIColor whiteColor];
@@ -1770,22 +1786,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                             CGSize size=[lab.text sizeWithAttributes:attrs];
                             lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-
+                            
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+                            
                         }
                     }
                         break;
                     case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
                         NSLog(@"home键在 上");
-
+                        
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
-
-
+                            
+                            
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
@@ -1816,22 +1832,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                             CGSize size=[lab.text sizeWithAttributes:attrs];
                             lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-
+                            
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+                            
                         }
                     }
                         break;
                     case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                         NSLog(@"home键在 右");
                         [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-
+                        
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
-
+                            
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
@@ -1861,10 +1877,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             [self.view addSubview:lab];
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                             CGSize size=[lab.text sizeWithAttributes:attrs];
-
+                            
                             lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-
-
+                            
+                            
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                             //通过通知中心发送通知
@@ -1876,10 +1892,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         NSLog(@"home键在 左");
                         //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                         [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-
+                        
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
-
+                            
                             NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                             if (videoOrRadiostr != NULL) {
                                 if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
@@ -1909,16 +1925,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                             CGSize size=[lab.text sizeWithAttributes:attrs];
                             lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-
+                            
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+                            
                         }
                     }
                         break;
-
+                        
                     default: // 还有一种情况是界面朝上或者界面朝下
                     {
                         NSLog(@"width %f",self.view.frame.size.width);
@@ -1927,7 +1943,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         {           // Device oriented vertically, home button on the bottom
                             NSLog(@"home键在 下");
                             [self restoreOriginalScreen];
-
+                            
                             if ( !lab) {
                                 lab = [[UILabel alloc]init];
                                 NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
@@ -1952,8 +1968,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                     NSString * labText = NSLocalizedString(@"videoCantPlayTip", nil);
                                     lab.text = labText;
                                 }
-
-
+                                
+                                
                                 lab.font = FONT(17);
                                 lab.textAlignment = NSTextAlignmentCenter;
                                 lab.textColor = [UIColor whiteColor];
@@ -1961,21 +1977,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                                 CGSize size=[lab.text sizeWithAttributes:attrs];
                                 lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-
+                                
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+                                
                             }
                         }else //证明此时是横屏状态
                         {      // Device oriented horizontally, home button on the right
                             NSLog(@"home键在 右");
                             [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-
+                            
                             if ( !lab) {
                                 lab = [[UILabel alloc]init];
-
+                                
                                 NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                                 if (videoOrRadiostr != NULL) {
                                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
@@ -2005,22 +2021,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
                                 CGSize size=[lab.text sizeWithAttributes:attrs];
                                 lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
-
-
+                                
+                                
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                             }
                         }
-
-
-
-
+                        
+                        
+                        
+                        
                     }
                         break;
                 }
-
+                
                 if (lab) {
                     NSString * videoOrRadiostr = [USER_DEFAULT objectForKey:@"videoOrRadioTip"];
                     if (playStateType != NULL && [playStateType isEqualToString:deliveryStopTip] ) {
@@ -2044,7 +2060,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         lab.text = labText;   //如果不为空,则显示@"videoOrRadioTip" 的文字，否则总是展示Video不能播放
                     }
                     NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
-
+                    
                     if ([UIScreen mainScreen].bounds.size.width <  [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.height > 420) {
                         CGSize size=[lab.text sizeWithAttributes:attrs];
                         lab.frame = CGRectMake((SCREEN_WIDTH - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
@@ -2053,19 +2069,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         CGSize size=[lab.text sizeWithAttributes:attrs];
                         lab.frame = CGRectMake((SCREEN_HEIGHT - size.width)/2, (self.view.frame.size.height - size.height )/2, size.width, size.height);
                     }
-
+                    
                 }
             }
-
+            
         }
-
-
-
-
+        
+        
+        
+        
     });
-
-
-
+    
+    
+    
 }
 -(void)noPlayShowShutNotic
 {
@@ -5048,17 +5064,32 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"mediaIsPrepareToPlayDidChange\n");
 }
 
+#pragma mark - 打开字幕
+-(void)setSubtitleOpen
+{
+    //    [self setSubtitleRenderring:YES];
+    [self.player setSubtitleRenderring:YES];
+    NSLog(@"setSubtitleRenderring11");
+}
+#pragma mark - 关闭字幕
+-(void)setSubtitleOff
+{
+    //    [self setSubtitleRenderring:NO];
+    [self.player setSubtitleRenderring:NO];
+    NSLog(@"setSubtitleRenderring00");
+}
+
 - (void)MPMoviePlayerRestartNotification{
     NSLog(@"MMoviePlayerRestartNotification\n");
     
     
-//    [self.player prepareToPlay:0];
-//    [self.player play];
+    //    [self.player prepareToPlay:0];
+    //    [self.player play];
     
     NSLog(@"MMMself.url %@",self.url);
     NSLog(@"MMMself.video.playUrl %@",self.video.playUrl);
     
-//    self.url = [NSURL URLWithString:self.video.playUrl];
+    //    self.url = [NSURL URLWithString:self.video.playUrl];
     if (self.video.playUrl != NULL) {
         [self.player shutdown];
         [self.player.view removeFromSuperview];

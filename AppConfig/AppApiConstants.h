@@ -52,7 +52,7 @@
 
 //new
 //#define S_category @"flag=0"      //参数
-#define S_category @"flag=0&service_type=1"      //参数
+#define S_category @"flag=0&service_type=1"      //参数--影响标清高清显示 1 标清  2是高清  3 是标清+高清
 
 //get  online device
 
