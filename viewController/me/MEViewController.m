@@ -602,8 +602,273 @@
         UIImageView * channelImage6 = [[UIImageView alloc]initWithFrame:CGRectMake((106-30)/2, (50 - 30), 30, 30)];
         channelImage6.image = image;
         
-        //6
-        if (historyArr.count >5) {
+        if (historyArr.count >6) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((106-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((106-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+            
+            
+            
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((106-66)/2, (50 - 30), 66, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((106-66)/2, (50 - 30), 66, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((106-66)/2, (50 - 30), 66, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((106-66)/2, (50 - 30), 66, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((106-66)/2, (50 - 30), 66, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
+            
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            
+            [scroll addSubview:historyBtnPiece6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+
+        if (historyArr.count == 6) {
             
             NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
             NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
@@ -1858,8 +2123,276 @@
         UIImageView * channelImage6 = [[UIImageView alloc]initWithFrame:CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height)];
         channelImage6.image = image;
         
-        //6
-        if (historyArr.count >5) {
+        
+        if (historyArr.count >6) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            
+            //            if (historyDic3.count > 15) {
+            //                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+            //                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+            //
+            //                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+            //                channelImage3.clipsToBounds = YES;
+            //            }else
+            //            {
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    
+                    channelImage3.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            //            }
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                //[_dataDic objectForKey:@"epg_info"]
+                //        image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:30];
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((125-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            //            ==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic4 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic4 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name4 = serviceName;
+                }else
+                {
+                    service_name4 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            
+            [scroll addSubview:historyBtnPiece6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+
+        if (historyArr.count == 6) {
             
             NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
             NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
@@ -3018,8 +3551,252 @@
         UIImageView * channelImage6 = [[UIImageView alloc]initWithFrame:CGRectMake((138-30)/2, (50 - 30), 30, 30)];
         channelImage6.image = image;
         
-        //6
-        if (historyArr.count >5) {
+        if (historyArr.count >6) {
+            
+            NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
+            NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
+            NSDictionary * historyDic3 = historyArr[historyArr.count - 1 - 2][0];
+            NSDictionary * historyDic4 = historyArr[historyArr.count - 1 - 3][0];
+            NSDictionary * historyDic5 = historyArr[historyArr.count - 1 - 4][0];
+            
+            
+            [channelImage sd_setImageWithURL:[NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic1 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage.frame =  CGRectMake((138-30)/2, (50 - 30), 30, 30);
+                }else
+                {
+                    channelImage.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage2 sd_setImageWithURL:[NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+                
+                
+                if ([NSURL URLWithString:[historyDic2 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage2.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage2.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            
+            [channelImage3 sd_setImageWithURL:[NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic3 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage3.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage3.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage4 sd_setImageWithURL:[NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic4 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage4.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage4.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            [channelImage5 sd_setImageWithURL:[NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]]  placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+                
+                
+                
+                if ([NSURL URLWithString:[historyDic5 objectForKey:@"service_logo_url"]] == NULL) {
+                    channelImage5.frame =  CGRectMake((138-image.size.width)/2, (50 - image.size.height), image.size.width, image.size.height);
+                }else
+                {
+                    channelImage5.frame =  CGRectMake((138-78)/2, (50 - 30), 78, 30);
+                }
+                
+            }];
+            //==
+            if (historyDic1.count > 15) {
+                channelImage.image = [UIImage imageNamed:@"录制透明"];
+                //                channelImage.frame =  CGRectMake((125-78)/2, (50 - 30), 78, 30);
+                channelImage.frame =  CGRectMake((138-66)/2, (50 - 30), 66, 30);
+                
+                channelImage.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage.clipsToBounds = YES;
+            }
+            if (historyDic2.count > 15) {
+                channelImage2.image = [UIImage imageNamed:@"录制透明"];
+                channelImage2.frame =  CGRectMake((138-66)/2, (50 - 30), 66, 30);
+                
+                channelImage2.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage2.clipsToBounds = YES;
+            }
+            if (historyDic3.count > 15) {
+                channelImage3.image = [UIImage imageNamed:@"录制透明"];
+                channelImage3.frame =  CGRectMake((138-66)/2, (50 - 30), 66, 30);
+                
+                channelImage3.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage3.clipsToBounds = YES;
+            }
+            if (historyDic4.count > 15) {
+                channelImage4.image = [UIImage imageNamed:@"录制透明"];
+                channelImage4.frame =  CGRectMake((138-66)/2, (50 - 30), 66, 30);
+                
+                channelImage4.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage4.clipsToBounds = YES;
+            }
+            if (historyDic5.count > 15) {
+                channelImage5.image = [UIImage imageNamed:@"录制透明"];
+                channelImage5.frame =  CGRectMake((138-66)/2, (50 - 30), 66, 30);
+                
+                channelImage5.contentMode = UIViewContentModeScaleAspectFit;
+                channelImage5.clipsToBounds = YES;
+            }
+            NSString * service_logic_number1;
+            NSString * service_name1 ;
+            NSString * service_logic_number2;
+            NSString * service_name2 ;
+            NSString * service_logic_number3;
+            NSString * service_name3 ;
+            NSString * service_logic_number4;
+            NSString * service_name4 ;
+            NSString * service_logic_number5;
+            NSString * service_name5 ;
+            
+            service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+            service_name1 = [historyDic1 objectForKey:@"service_name"];
+            
+            service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+            service_name2 = [historyDic2 objectForKey:@"service_name"];
+            
+            service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+            service_name3 = [historyDic3 objectForKey:@"service_name"];
+            
+            service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+            service_name4 = [historyDic4 objectForKey:@"service_name"];
+            
+            service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+            service_name5 = [historyDic5 objectForKey:@"service_name"];
+            
+            if (historyDic1.count > 15) {
+                service_logic_number1 = [self getlogicNmuber:[historyDic1 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic1 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic1 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name1 = serviceName;
+                }else
+                {
+                    service_name1 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                
+                //                service_name1 = [historyDic1 objectForKey:@"file_name"];
+            }
+            if (historyDic2.count > 15) {
+                service_logic_number2 = [self getlogicNmuber:[historyDic2 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic2 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic2 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name2 = serviceName;
+                }else
+                {
+                    service_name2 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                //                service_name2 = [historyDic2 objectForKey:@"file_name"];
+            }
+            if (historyDic3.count > 15) {
+                service_logic_number3 = [self getlogicNmuber:[historyDic3 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic3 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic3 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name3 = serviceName;
+                }else
+                {
+                    service_name3 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                //                service_name3 = [historyDic3 objectForKey:@"file_name"];
+            }
+            if (historyDic4.count > 15) {
+                service_logic_number4 = [self getlogicNmuber:[historyDic4 objectForKey:@"service_logic_number"] ];
+                
+                
+                //                service_name4 = [historyDic4 objectForKey:@"file_name"];
+            }
+            if (historyDic5.count > 15) {
+                service_logic_number5 = [self getlogicNmuber:[historyDic5 objectForKey:@"service_logic_number"] ];
+                
+                NSString * serviceName = [historyDic5 objectForKey:@"service_name"];
+                NSString * eventName = [historyDic5 objectForKey:@"event_name"];
+                if ([eventName isEqualToString:@""]) {
+                    service_name5 = serviceName;
+                }else
+                {
+                    service_name5 = [NSString stringWithFormat:@"%@_%@",serviceName,eventName];
+                }
+                //                service_name5 = [historyDic5 objectForKey:@"file_name"];
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            [historyBtnPiece1 addSubview:channelImage];
+            
+            historyNameLab2.text = [NSString stringWithFormat:@"%@ %@",service_logic_number2,service_name2];
+            [historyBtnPiece2 addSubview:channelImage2];
+            
+            historyNameLab3.text = [NSString stringWithFormat:@"%@ %@",service_logic_number3,service_name3];
+            [historyBtnPiece3 addSubview:channelImage3];
+            
+            historyNameLab4.text = [NSString stringWithFormat:@"%@ %@",service_logic_number4,service_name4];
+            [historyBtnPiece4 addSubview:channelImage4];
+            
+            historyNameLab5.text = [NSString stringWithFormat:@"%@ %@",service_logic_number5,service_name5];
+            [historyBtnPiece5 addSubview:channelImage5];
+            //        [historyBtnPiece6 addSubview:channelImage];
+            
+            [scroll addSubview:historyBtnPiece6];
+            [scroll addSubview:historyBtnPiece5];
+            [scroll addSubview:historyBtnPiece4];
+            [scroll addSubview:historyBtnPiece3];
+            [scroll addSubview:historyBtnPiece2];
+            [scroll addSubview:historyBtnPiece1];
+            
+        }
+
+        if (historyArr.count == 6) {
             
             NSDictionary * historyDic1 = historyArr[historyArr.count - 1 - 0][0];
             NSDictionary * historyDic2 = historyArr[historyArr.count - 1 - 1][0];
@@ -4481,68 +5258,71 @@
 }
 //6
 -(void)addSixBtn
-//{
-//    historyBtnPiece6 = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [historyBtnPiece6 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-//    [historyBtnPiece6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
-//    [historyBtnPiece6 setBackgroundImage:[UIImage imageNamed:@"矩形6"] forState:UIControlStateNormal];
-//    historyBtnPiece6.tag = 6;
-//    //    [scroll addSubview:historyBtnPiece6];
-//
-//    historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(0, 45,historyBtnPiece6.bounds.size.width, 20)];
-//
-//    NSString * MoreLabel = NSLocalizedString(@"MoreLabel", nil);
-//    historyNameLab6.text = MoreLabel;
-//    historyNameLab6.textColor = [UIColor whiteColor];
-//    historyNameLab6.font = FONT(16);
-//    historyNameLab6.textAlignment = NSTextAlignmentCenter;
-//    [historyBtnPiece6 addSubview:historyNameLab6];
-//
-//}
 {
-    historyBtnPiece6 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [historyBtnPiece6 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
-    [historyBtnPiece6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
-    [historyBtnPiece6 setBackgroundImage:[UIImage imageNamed:@"矩形6"] forState:UIControlStateNormal];
-    historyBtnPiece6.tag = 6;
-    //    [scroll addSubview:historyBtnPiece5];
-    
-    
-    
-    deviceString = [GGUtil deviceVersion];
-    if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
-        NSLog(@"此刻是5s和4s的大小");
+    if (historyArr.count == 6) {
+        historyBtnPiece6 = [UIButton buttonWithType:UIButtonTypeCustom];
+        [historyBtnPiece6 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+        [historyBtnPiece6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
+        [historyBtnPiece6 setBackgroundImage:[UIImage imageNamed:@"矩形6"] forState:UIControlStateNormal];
+        historyBtnPiece6.tag = 6;
+        //    [scroll addSubview:historyBtnPiece5];
         
-        historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
-        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+        
+        
+        deviceString = [GGUtil deviceVersion];
+        if ([deviceString isEqualToString:@"iPhone5"] || [deviceString isEqualToString:@"iPhone5S"] ||[deviceString isEqualToString:@"iPhoneSE"] || [deviceString isEqualToString:@"iPhone5C"] || [deviceString isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+            NSLog(@"此刻是5s和4s的大小");
+            
+            historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(10, 70, 86, 13)];
+            //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            historyNameLab6.textColor = [UIColor whiteColor];
+            historyNameLab6.font = FONT(12);
+            historyNameLab6.textAlignment = NSTextAlignmentCenter;
+            [historyBtnPiece6 addSubview:historyNameLab6];
+            
+            
+        }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
+            NSLog(@"此刻是6的大小");
+            
+            historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
+            //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            historyNameLab6.textColor = [UIColor whiteColor];
+            historyNameLab6.font = FONT(12);
+            historyNameLab6.textAlignment = NSTextAlignmentCenter;
+            [historyBtnPiece6 addSubview:historyNameLab6];
+            
+            
+        }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
+            NSLog(@"此刻是6 plus的大小");
+            
+            historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
+            //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
+            historyNameLab6.textColor = [UIColor whiteColor];
+            historyNameLab6.font = FONT(12);
+            historyNameLab6.textAlignment = NSTextAlignmentCenter;
+            [historyBtnPiece6 addSubview:historyNameLab6];
+            
+        }
+    }else if (historyArr.count >6)
+    {
+        historyBtnPiece6 = [UIButton buttonWithType:UIButtonTypeCustom];
+        [historyBtnPiece6 setFrame:CGRectMake(historyBtn1_width + 1 +historyBtn2_width, 45+ 0.5+HISTORYBTNPIECE_HEIGHT, historyBtn1_width, HISTORYBTNPIECE_HEIGHT)];
+        [historyBtnPiece6 addTarget:self action:@selector(touchToSee:) forControlEvents:UIControlEventTouchUpInside];
+        [historyBtnPiece6 setBackgroundImage:[UIImage imageNamed:@"矩形6"] forState:UIControlStateNormal];
+        historyBtnPiece6.tag = 6;
+        //    [scroll addSubview:historyBtnPiece6];
+    
+        historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(0, 45,historyBtnPiece6.bounds.size.width, 20)];
+    
+        NSString * MoreLabel = NSLocalizedString(@"MoreLabel", nil);
+        historyNameLab6.text = MoreLabel;
         historyNameLab6.textColor = [UIColor whiteColor];
-        historyNameLab6.font = FONT(12);
+        historyNameLab6.font = FONT(16);
         historyNameLab6.textAlignment = NSTextAlignmentCenter;
         [historyBtnPiece6 addSubview:historyNameLab6];
-        
-        
-    }else if ([deviceString isEqualToString:@"iPhone6"] || [deviceString isEqualToString:@"iPhone6S"] || [deviceString isEqualToString:@"iPhone7"] || [deviceString isEqualToString:@"iPhone8"] || [deviceString isEqualToString:@"iPhoneX"]  || [deviceString isEqualToString:@"iPhone Simulator"]) {
-        NSLog(@"此刻是6的大小");
-        
-        historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(15, 70, 95, 13)];
-        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        historyNameLab6.textColor = [UIColor whiteColor];
-        historyNameLab6.font = FONT(12);
-        historyNameLab6.textAlignment = NSTextAlignmentCenter;
-        [historyBtnPiece6 addSubview:historyNameLab6];
-        
-        
-    }else if ([deviceString isEqualToString:@"iPhone6 Plus"] || [deviceString isEqualToString:@"iPhone6S Plus"] || [deviceString isEqualToString:@"iPhone7 Plus"] || [deviceString isEqualToString:@"iPhone8 Plus"]) {
-        NSLog(@"此刻是6 plus的大小");
-        
-        historyNameLab6= [[UILabel alloc]initWithFrame:CGRectMake(19, 70, 100, 13)];
-        //    historyNameLab1.text = [NSString stringWithFormat:@"%@ %@",service_logic_number1,service_name1];
-        historyNameLab6.textColor = [UIColor whiteColor];
-        historyNameLab6.font = FONT(12);
-        historyNameLab6.textAlignment = NSTextAlignmentCenter;
-        [historyBtnPiece6 addSubview:historyNameLab6];
-        
+    
     }
+    
     
     
     
@@ -4631,109 +5411,213 @@
 //点击观看历史直接播放
 -(void)touchToSee :(id)sender   //(NSArray* )touchArr
 {
-    NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification2];
-
-    //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
-    [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
-
-
-    NSInteger tagIndex = [sender tag];
-
-    NSArray * touchArr = historyArr[historyArr.count - tagIndex];
-
-    NSInteger row = [touchArr[2] intValue];
-    NSDictionary * dic = touchArr [3];
-
-
-
-    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
-    NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-
-    if (epgDicToSocket_temp.count <= 14 ) { //直播
-        dic = dicTemp;
-    }
-    for (int i = 0; i < dic.count; i ++) {
-        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
-        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
-            //如果相等，则获取row
-            row = i;
-            break;
+    if (historyArr.count >6) {
+       
+        NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        
+        //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+        [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+        
+        
+        NSInteger tagIndex = [sender tag];
+        if (tagIndex == 6) {
+            //进入历史界面
+            //    self.tableView.editing = YES;
+            //跳转到历史界面
+            self.historyView = [[HistoryViewController alloc]init];
+            //        [self presentModalViewController:self.routeView animated:YES];
+            //        [self.navigationController pushViewController:self.historyView animated:YES];
+            if(![self.navigationController.topViewController isKindOfClass:[self.historyView class]]) {
+                [self.navigationController pushViewController:self.historyView animated:YES];
+            }else
+            {
+                NSLog(@"此处可能会由于页面跳转过快报错");
+            }
+            
+            
+            
+            UIBarButtonItem *myButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back Arrow"] style:UIBarButtonItemStyleBordered target:self action:@selector(clickEvent)];
+            self.historyView.navigationController.navigationBar.tintColor = RGBA(0x94, 0x94, 0x94, 1);
+            
+            self.historyView.navigationItem.leftBarButtonItem = myButton;
         }else
         {
-            row = 0;
-        }
-    }
-    NSLog(@"jsjsjsjsjsjsjajdandaon");
-    NSNumber * numIndex = [NSNumber numberWithInt:row];
-    //添加 字典，将label的值通过key值设置传递
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-
-    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-
-    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-
-    if (characterStr != NULL && characterStr != nil) {
-
-        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-        if (judgeIsSTBDecrypt == YES) {
-            // 此处代表需要记性机顶盒加密验证
-            //弹窗
-            //发送通知
-
-            //        [self popSTBAlertView];
-            //        [self popCAAlertView];
-            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-            //创建通知
-            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification1];
-
-            [self.tabBarController setSelectedIndex:1];
+            NSArray * touchArr = historyArr[historyArr.count - tagIndex];
             
-            //创建通知
-            NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            NSInteger row = [touchArr[2] intValue];
+            NSDictionary * dic = touchArr [3];
+            
+            NSNumber * numIndex = [NSNumber numberWithInt:row];
+            
+            NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+            NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+            if (epgDicToSocket_temp.count <= 14 ) { //直播
+                dic = dicTemp;
+            }
+            
+            //添加 字典，将label的值通过key值设置传递
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+            
+            //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+            NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+            
+            NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+            
+            if (characterStr != NULL && characterStr != nil) {
+                
+                BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+                if (judgeIsSTBDecrypt == YES) {
+                    // 此处代表需要记性机顶盒加密验证
+                    //弹窗
+                    //发送通知
+                    
+                    //        [self popSTBAlertView];
+                    //        [self popCAAlertView];
+                    NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                    //创建通知
+                    NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                    
+                    [self.tabBarController setSelectedIndex:1];
+                    
+                }else //正常播放的步骤
+                {
+                    //创建通知
+                    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    
+                    [self.tabBarController setSelectedIndex:1];
+                }
+                
+                
+            }else //正常播放的步骤
+            {
+                
+                
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                [self.tabBarController setSelectedIndex:1];
+            }
+            
+        }
+        
+        [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
+        
 
+    }else
+    {
+        NSNotification *notification2 =[NSNotification notificationWithName:@"setSliderViewAlphaConfig" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        
+        //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
+        [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
+        
+        
+        NSInteger tagIndex = [sender tag];
+        
+        NSArray * touchArr = historyArr[historyArr.count - tagIndex];
+        
+        NSInteger row = [touchArr[2] intValue];
+        NSDictionary * dic = touchArr [3];
+        
+        
+        
+        NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+        NSDictionary * epgDicToSocket_temp = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        
+        if (epgDicToSocket_temp.count <= 14 ) { //直播
+            dic = dicTemp;
+        }
+        for (int i = 0; i < dic.count; i ++) {
+            NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+            if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[dic objectForKey:channleIdStr]]) {
+                //如果相等，则获取row
+                row = i;
+                break;
+            }else
+            {
+                row = 0;
+            }
+        }
+        NSLog(@"jsjsjsjsjsjsjajdandaon");
+        NSNumber * numIndex = [NSNumber numberWithInt:row];
+        //添加 字典，将label的值通过key值设置传递
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        
+        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        
+        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+        
+        if (characterStr != NULL && characterStr != nil) {
+            
+            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+            if (judgeIsSTBDecrypt == YES) {
+                // 此处代表需要记性机顶盒加密验证
+                //弹窗
+                //发送通知
+                
+                //        [self popSTBAlertView];
+                //        [self popCAAlertView];
+                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                
+                [self.tabBarController setSelectedIndex:1];
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
+                
+            }else //正常播放的步骤
+            {
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                [self.tabBarController setSelectedIndex:1];
+                
+                
+                
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            }
+            
+            
         }else //正常播放的步骤
         {
+            
+            
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+            
             [self.tabBarController setSelectedIndex:1];
-            
-            
             
             //创建通知
             NSNotification *notification1 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
         }
-
-
-    }else //正常播放的步骤
-    {
-
-
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-        [self.tabBarController setSelectedIndex:1];
         
-        //创建通知
-        NSNotification *notification1 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification1];
+        [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
     }
-
-    [self TVViewAppearNO];  //点击这六个按钮则跳转到TV页面不会自动播放历史的第一个节目
+    
 
 }
 

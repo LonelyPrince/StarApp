@@ -1371,14 +1371,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 打开字幕  调用[self setSubtitleOpen];
 -(void)setSubtitleOpen
 {
-    NSNotification *notification3 =[NSNotification notificationWithName:@"setSubtitleRenderringOnNotific" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification3];
+    NSNotification *notification =[NSNotification notificationWithName:@"setSubtitleRenderringOnNotific" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 #pragma mark - 关闭字幕  调用[self setSubtitleOff];
 -(void)setSubtitleOff
 {
-    NSNotification *notification3 =[NSNotification notificationWithName:@"setSubtitleRenderringOffNotific" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notification3];
+    NSNotification *notification =[NSNotification notificationWithName:@"setSubtitleRenderringOffNotific" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 //搜索按钮
