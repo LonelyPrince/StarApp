@@ -2078,7 +2078,6 @@
 //对socket读取文件进行操作   case = 0
 -(void)readSocketCommandTypeISZero  :(NSData *)dataToOperate
 {
-    
     //此处是验证机顶盒密码
     NSData * data_Refresh_Status = [[NSData alloc]init];
     //获得数据区的长度
