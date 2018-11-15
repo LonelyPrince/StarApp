@@ -129,6 +129,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL  ishuifuchuchang;
     BOOL  isRemoveTip;
     BOOL  testNetwork;
+    
+    BOOL viewWillDisapper;
 }
 
 
@@ -384,6 +386,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void) initData
 {
+    viewWillDisapper = NO;
     testNetwork = NO;
     isRemoveTip = NO;
     ishuifuchuchang = NO;
@@ -1994,6 +1997,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)firstOpenAppAutoPlayZero:(NSInteger)row diction :(NSDictionary *)dic
 {
+    NSLog(@"CA 控制消息 2");
+    
     [self firstOpenAppAutoPlay:row diction:dic];
     firstOpenAPP = firstOpenAPP+1;
     firstfirst = NO;
@@ -3245,6 +3250,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
                     
                     if (self.showTVView == YES) {
+                        NSLog(@"bfoang");
                         self.videoController.socketView1 = self.socketView;
                         [self.socketView  serviceTouch ];
                     }else
@@ -3592,12 +3598,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 //引导页
 - (void)viewWillAppear:(BOOL)animated{
-    
+    viewWillDisapper = NO;
+    NSLog(@"页面切换 viewWillAppear");
     NSLog(@"TV yemain viewWillAppear");
     //    [USER_DEFAULT setObject:@"YES" forKey:@"modeifyTVViewRevolve"]; //新逻辑，防止打开时全屏异常旋转
     
+    NSLog(@"firstStart数据为： %d",[[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]);
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        
+        NSLog(@"第一次启动历史消息：%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"historySeed"]);
         NSLog(@"第一次启动");
         self.tabBarController.tabBar.hidden = YES;
         statusNum = 0;
@@ -3655,6 +3665,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [self lineView];  //一条0.5pt的线
     viewDidloadHasRunBool =  [[USER_DEFAULT objectForKey:@"viewDidloadHasRunBool"] intValue];
+    [self CADencryptNotific];   //CA加密的通知
+    [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
+    [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
+    [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
+    [self NOCACardNotific];   //CA加密弹窗中，取消了CA加密的播放通知
+    
     if (viewDidloadHasRunBool == 0) {
         
         [self getServiceData];    //刚进入页面，重新搜索获取表数据
@@ -3701,11 +3717,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self ChangeSTBLockNotific];   //机顶盒加锁后的播放通知
         
         
-        [self CADencryptNotific];   //CA加密的通知
-        [self CADencryptFailedNotific];   //CA加密,但是未验证成功，重新弹窗的通知
-        [self CADencryptInputAgainNotific];   //第一次没有输入 CA PIN，第二次点击CA PIN按钮重新打开窗口输入
-        [self ChangeCALockNotific];   //CA加密弹窗中，取消了CA加密的播放通知
-        [self NOCACardNotific];   //CA加密弹窗中，取消了CA加密的播放通知
         
         [self returnFromHomeToTVViewNotific];   //用户按home键回到主界面，再次返回时，如果是首页，则自动播放历史中的最后一个视频
         [self cantDeliveryNotific]; //停止分发的通知，这个时候显示停止分发的提示语
@@ -6874,7 +6885,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"CADencryptNotific" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(popCAAlertView:) name:@"CADencryptNotific" object:nil];
-    
+ 
+    NSLog(@"CA 控制消息 1");
 }
 -(void)STBDencryptNotific
 {
@@ -6910,7 +6922,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * CAPINIsIncorrect = NSLocalizedString(@"CAPINIsIncorrect", nil);
     CAAlert.title = CAPINIsIncorrect;
     if (self.showTVView == YES) {
-        [CAAlert show];
+        if (viewWillDisapper == YES) {
+        }else{
+            [CAAlert show];
+        }
+        NSLog(@"CAAlert show 1");
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -6992,6 +7008,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self touchSelectChannel:STBTouch_Row diction:STBTouch_Dic];
         
+    }else
+    {
+        NSLog(@"CAPIN 节目");
+        
+//        [self firstOpenAppAutoPlay:10 diction:self.dic];
     }
 }
 -(BOOL)isSTBDEncrypt :(NSString *)characterStr
@@ -7038,7 +7059,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSString * DecoderPINIsIncorrect = NSLocalizedString(@"DecoderPINIsIncorrect", nil);
         STBAlert.title = DecoderPINIsIncorrect;
         if (self.showTVView == YES) {
-            [STBAlert show];
+            if (viewWillDisapper == YES) {
+            }else{
+                [STBAlert show];
+            }
             NSLog(@"asoabsfbasfbaofbasobfasbfjbasbdn c");
         }else
         {
@@ -7061,7 +7085,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
     STBAlert.title = STBTitle;
     if (self.showTVView == YES) {
-        [STBAlert show];
+        if (viewWillDisapper == YES) {
+        }else{
+            [STBAlert show];
+        }
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -7080,7 +7107,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
     CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
     if (self.showTVView == YES) {
-        [CAAlert show];
+        if (viewWillDisapper == YES) {
+        }else{
+            [CAAlert show];
+        }
+        NSLog(@"CAAlert show 2");
     }else
     {
         NSLog(@"已经不是TV页面了");
@@ -7128,7 +7159,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString * STBTitle = NSLocalizedString(@"DecoderPIN", nil);
             STBAlert.title = STBTitle;
             if (self.showTVView == YES) {
-                [STBAlert show];
+                if (viewWillDisapper == YES) {
+                }else{
+                    [STBAlert show];
+                }
                 [self performSelector:@selector(changeCAAlertTitle) withObject:nil afterDelay:0.3];//将CA PIN 的文字改成@"Please input your CA PIN"
             }else
             {
@@ -7440,15 +7474,26 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     if (CATuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
         //证明一致，是这个CA节目
-        
+        //=== zuku  305   ；  bollow  550  ；  focus  457   ；
+        NSLog(@"CA 证明一致，是这个CA节目 1%@",socketView.socket_ServiceModel.service_tuner_mode);
+        NSLog(@"CA 证明一致，是这个CA节目 2%@",socketView.socket_ServiceModel.service_network_id);
+        NSLog(@"CA 证明一致，是这个CA节目 3%@",socketView.socket_ServiceModel.service_ts_id);
+        NSLog(@"CA 证明一致，是这个CA节目 4%@",socketView.socket_ServiceModel.service_service_id);
         [self stopVideoPlay];
-        
+//
         [CAAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
         CAAlert.delegate =  self;
         NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
         CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
         if (self.showTVView == YES) {
-            [CAAlert show];
+            //主页换台；tabbar换界面；全屏换台
+            if (viewWillDisapper == YES) {
+            }else{
+                [CAAlert show];
+            }
+            
+            NSLog(@"CAAlert show 3 ");
+            
         }else
         {
             NSLog(@"已经不是TV页面了");
@@ -7469,6 +7514,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if (CAAlert.alertViewStyle == UIAlertViewStyleSecureTextInput) {
             NSString * CAPINLabel = NSLocalizedString(@"CAPINLabel", nil);
             CATextField_Encrypt.placeholder = CAPINLabel;
+        }
+        
+        
+        //做第二次判断
+        if (CATuner_modeStr  == [socketView.socket_ServiceModel.service_tuner_mode  intValue] &&CANetwork_idStr  == [socketView.socket_ServiceModel.service_network_id  intValue] && CATs_idStr == [socketView.socket_ServiceModel.service_ts_id intValue] && CAService_idStr == [socketView.socket_ServiceModel.service_service_id intValue]) {
+            
+        }else{
+            if(CAAlert){
+                NSLog(@"判断出错，此节目不是CA节目");
+                [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
+            }
         }
         
     }else
@@ -9456,6 +9512,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)viewDidDisappear:(BOOL)animated
 {
+    viewWillDisapper = YES;
+    NSLog(@"页面切换 viewDidDisappear");
     [self removeONEMinuteTimer];
     self.video.playUrl = @"";
     
@@ -9469,6 +9527,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - UIViewController对象的视图即将消失、被覆盖或是隐藏时调用
 -(void)viewWillDisappear:(BOOL)animated
 {
+    viewWillDisapper = YES;
+    NSLog(@"页面切换 viewWillDisapper");
     self.showTVView = NO;
     NSLog(@" firstfirstfirstfirst=== no");
     [USER_DEFAULT setObject:@"NO" forKey:@"showTVView"];
@@ -10248,7 +10308,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSString * CAAlertTitle = NSLocalizedString(@"CAPIN", nil);
             CAAlert.title = CAAlertTitle; //@"Please input your CA PIN";
             if (self.showTVView == YES) {
-                [CAAlert show];
+                if (viewWillDisapper == YES) {
+                }else{
+                    [CAAlert show];
+                }
+                NSLog(@"CAAlert show 4");
             }else
             {
                 [self ifNotISTVView];
@@ -11545,6 +11609,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)SetService_videoindex:(NSDictionary *)epgDicToSocket
 {
+    NSLog(@"判断 CA 证明一致，是这个CA节目 ");
     socketView.socket_ServiceModel.service_network_id = [epgDicToSocket objectForKey:@"service_network_id"];
     socketView.socket_ServiceModel.service_ts_id =[epgDicToSocket objectForKey:@"service_ts_id"];
     socketView.socket_ServiceModel.service_tuner_mode = [epgDicToSocket objectForKey:@"service_tuner_mode"];
