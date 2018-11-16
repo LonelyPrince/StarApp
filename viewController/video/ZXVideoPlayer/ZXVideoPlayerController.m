@@ -3908,7 +3908,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
             }else
             {
-                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
             }
             
             //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
@@ -3932,7 +3932,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-audioarr.count*45)/2, 145,audioarr.count*46);
             }else
             {
-                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
                 
             }
             [self.videoControl.audioBtn setEnabled:YES];
@@ -3951,7 +3951,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
         }else
         {
-            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 0, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
         }
         
         NSLog(@"self.video.channelCount %d",self.video.channelCount);
