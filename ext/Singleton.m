@@ -2484,6 +2484,8 @@
 //对socket读取文件进行操作   case = 8
 -(void)readSocketCommandTypeISEight :(NSData *)dataToOperate
 {
+    NSLog(@"case = 8 弹出CA加锁框");
+    NSLog(@"CA 控制消息 3");
     
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"CAThreedata",nil];
     //创建通知

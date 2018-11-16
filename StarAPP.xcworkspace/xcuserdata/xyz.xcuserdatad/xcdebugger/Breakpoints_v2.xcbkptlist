@@ -9,13 +9,76 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.727988"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "563856799.4685481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10034"
-            endingLineNumber = "10034"
-            landmarkName = "-setCategoryItem:"
+            startingLineNumber = "871"
+            endingLineNumber = "871"
+            landmarkName = "-searchBar:textDidChange:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SearchViewController searchBar:textDidChange:]"
+                  moduleName = "StarAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
+                  timestampString = "563941079.460609"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "871"
+                  endingLineNumber = "871"
+                  offsetFromSymbolStart = "7444">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SearchViewController searchBar:textDidChange:]"
+                  moduleName = "StarAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
+                  timestampString = "563941079.462724"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "871"
+                  endingLineNumber = "871"
+                  offsetFromSymbolStart = "7680">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SearchViewController searchBar:textDidChange:]"
+                  moduleName = "StarAPP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xyz/Desktop/StarApp/viewController/TV/Search/SearchViewController.m"
+                  timestampString = "563941079.464628"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "871"
+                  endingLineNumber = "871"
+                  offsetFromSymbolStart = "7924">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "563856799.468617"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "841"
+            endingLineNumber = "841"
+            landmarkName = "-searchBar:textDidChange:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +88,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.729073"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "563856799.4686691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10054"
-            endingLineNumber = "10054"
-            landmarkName = "-setCategoryItem:"
+            startingLineNumber = "827"
+            endingLineNumber = "827"
+            landmarkName = "-searchBar:textDidChange:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +104,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.729651"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "563856799.468716"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3848"
-            endingLineNumber = "3848"
-            landmarkName = "-judgeJumpFromOtherView"
+            startingLineNumber = "825"
+            endingLineNumber = "825"
+            landmarkName = "-searchBar:textDidChange:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +120,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.730137"
+            filePath = "viewController/TV/Search/SearchViewController.m"
+            timestampString = "563856799.468762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3935"
-            endingLineNumber = "3935"
-            landmarkName = "-judgeJumpFromOtherView"
+            startingLineNumber = "808"
+            endingLineNumber = "808"
+            landmarkName = "-searchBar:textDidChange:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +136,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.7306269"
+            filePath = "viewController/TV/CategoryViewController.m"
+            timestampString = "563969087.617795"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3889"
-            endingLineNumber = "3889"
-            landmarkName = "-judgeJumpFromOtherView"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
+            landmarkName = "-titleArrReplace:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,13 +152,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.731056"
+            filePath = "viewController/TV/CategoryViewController.m"
+            timestampString = "563969087.617862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3948"
-            endingLineNumber = "3948"
-            landmarkName = "-judgeJumpFromOtherView"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "-titleArrReplace:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +168,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.731487"
+            filePath = "ext/Singleton.m"
+            timestampString = "564023317.9847701"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10550"
-            endingLineNumber = "10550"
-            landmarkName = "-newSlideView"
+            startingLineNumber = "2559"
+            endingLineNumber = "2559"
+            landmarkName = "-readSocketCommandTypeISThirteenth:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +185,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "viewController/TV/TVViewController.m"
-            timestampString = "563764518.731952"
+            timestampString = "564023317.984895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1503"
-            endingLineNumber = "1503"
-            landmarkName = "-slideView:cellForRowAtIndex:"
+            startingLineNumber = "6975"
+            endingLineNumber = "6975"
+            landmarkName = "-allVideoTouchFromSTB"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "564023317.985809"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "7013"
+            endingLineNumber = "7013"
+            landmarkName = "-allVideoTouchFromSTB"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "viewController/TV/TVViewController.m"
+            timestampString = "564023317.9864039"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "7478"
+            endingLineNumber = "7478"
+            landmarkName = "-popCAAlertView:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

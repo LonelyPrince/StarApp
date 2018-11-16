@@ -540,8 +540,6 @@
 		70848AF41F7DE1A5005A4FA6 /* 4关于.png in Resources */ = {isa = PBXBuildFile; fileRef = 70848AF01F7DE1A4005A4FA6 /* 4关于.png */; };
 		70848B061F7E1CB1005A4FA6 /* 引导页1.png in Resources */ = {isa = PBXBuildFile; fileRef = 70848B051F7E1CB1005A4FA6 /* 引导页1.png */; };
 		708F9F631FED0028003ABBDA /* NowPlayChannelInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 708F9F621FED0028003ABBDA /* NowPlayChannelInfo.m */; };
-		7093368C1F5907C000328799 /* 无频道列表@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7093368A1F5907C000328799 /* 无频道列表@2x.png */; };
-		7093368D1F5907C000328799 /* 无频道列表@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7093368B1F5907C000328799 /* 无频道列表@3x.png */; };
 		7094D8361FC408B600F22B14 /* 播放@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7094D8301FC408B500F22B14 /* 播放@2x.png */; };
 		7094D8371FC408B600F22B14 /* 暂停@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7094D8311FC408B500F22B14 /* 暂停@2x.png */; };
 		7094D8381FC408B600F22B14 /* 播放@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7094D8321FC408B500F22B14 /* 播放@1x.png */; };
@@ -564,6 +562,8 @@
 		70B41A212004935900930846 /* Input@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A1E2004935800930846 /* Input@1x.png */; };
 		70B41A222004935900930846 /* Input@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A1F2004935800930846 /* Input@3x.png */; };
 		70B41A232004935900930846 /* Input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B41A202004935800930846 /* Input@2x.png */; };
+		70B7DB0B219E4CC30064846E /* 无频道列表@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B7DB09219E4CC30064846E /* 无频道列表@2x.png */; };
+		70B7DB0C219E4CC30064846E /* 无频道列表@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70B7DB0A219E4CC30064846E /* 无频道列表@3x.png */; };
 		70C217D81FE1167800780D7D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 70C217DA1FE1167800780D7D /* Localizable.strings */; };
 		70C9E40E1FDFC4BC007D2994 /* 进度条按钮@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */; };
 		70C9E4141FDFCD10007D2994 /* MySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9E4131FDFCD10007D2994 /* MySlider.m */; };
@@ -1355,8 +1355,6 @@
 		70848B051F7E1CB1005A4FA6 /* 引导页1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "引导页1.png"; sourceTree = "<group>"; };
 		708F9F611FED0028003ABBDA /* NowPlayChannelInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowPlayChannelInfo.h; sourceTree = "<group>"; };
 		708F9F621FED0028003ABBDA /* NowPlayChannelInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NowPlayChannelInfo.m; sourceTree = "<group>"; };
-		7093368A1F5907C000328799 /* 无频道列表@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无频道列表@2x.png"; sourceTree = "<group>"; };
-		7093368B1F5907C000328799 /* 无频道列表@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无频道列表@3x.png"; sourceTree = "<group>"; };
 		7094D8301FC408B500F22B14 /* 播放@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "播放@2x.png"; sourceTree = "<group>"; };
 		7094D8311FC408B500F22B14 /* 暂停@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "暂停@2x.png"; sourceTree = "<group>"; };
 		7094D8321FC408B500F22B14 /* 播放@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "播放@1x.png"; sourceTree = "<group>"; };
@@ -1383,6 +1381,8 @@
 		70B41A1E2004935800930846 /* Input@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@1x.png"; sourceTree = "<group>"; };
 		70B41A1F2004935800930846 /* Input@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@3x.png"; sourceTree = "<group>"; };
 		70B41A202004935800930846 /* Input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Input@2x.png"; sourceTree = "<group>"; };
+		70B7DB09219E4CC30064846E /* 无频道列表@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无频道列表@2x.png"; sourceTree = "<group>"; };
+		70B7DB0A219E4CC30064846E /* 无频道列表@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "无频道列表@3x.png"; sourceTree = "<group>"; };
 		70C217D11FE1154600780D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MasterViewController.xib; sourceTree = "<group>"; };
 		70C217D21FE1154600780D7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 		70C217D31FE1155200780D7D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MasterViewController.strings; sourceTree = "<group>"; };
@@ -2569,8 +2569,8 @@
 				70A21D0E1FFB39F20095DACE /* 投屏横@2x.png */,
 				70A21D111FFB39F30095DACE /* 投屏横@3x.png */,
 				70C9E40B1FDFC4BB007D2994 /* 进度条按钮@2x.png */,
-				7093368A1F5907C000328799 /* 无频道列表@2x.png */,
-				7093368B1F5907C000328799 /* 无频道列表@3x.png */,
+				70B7DB09219E4CC30064846E /* 无频道列表@2x.png */,
+				70B7DB0A219E4CC30064846E /* 无频道列表@3x.png */,
 				70362CF71F009CCD0012A309 /* placeholder1@1x.png */,
 				70362CF81F009CCD0012A309 /* placeholder1@2x.png */,
 				70362CF91F009CCD0012A309 /* placeholder1@3x.png */,
@@ -3110,6 +3110,7 @@
 				707FE7471DACC3C30087C361 /* live icon@2x.png in Resources */,
 				7037AE8E20A5242E00FDA0B0 /* 渐变@3x.png in Resources */,
 				70FFE3D51DE2D07600223E43 /* 圆环-9.png in Resources */,
+				70B7DB0C219E4CC30064846E /* 无频道列表@3x.png in Resources */,
 				707FE7541DACC3C30087C361 /* Path 2@3x.png in Resources */,
 				705AFA9D2109A127003EB0FC /* Movies & Series@2x.png in Resources */,
 				70E7125B1DB5EE1300BD98EE /* Group 7@2x.png in Resources */,
@@ -3138,7 +3139,6 @@
 				A4A66A0C1555E44100AED3AF /* InfoPlist.strings in Resources */,
 				7040E2351DAE12B80063DB66 /* Group 10 Copy 2@3x.png in Resources */,
 				7094D8391FC408B600F22B14 /* 播放@3x.png in Resources */,
-				7093368C1F5907C000328799 /* 无频道列表@2x.png in Resources */,
 				701A98BB1DB47A3100460220 /* 频道列表@2x.png in Resources */,
 				705AFA8B2109A036003EB0FC /* Indian@2x.png in Resources */,
 				7040E23A1DAE12B80063DB66 /* Group 15 Copy 2@2x.png in Resources */,
@@ -3513,7 +3513,6 @@
 				702CE4491DDA9881000A0513 /* 9@2x.png in Resources */,
 				702218BB1E5AD304005D96A0 /* 未加锁 @3x.png in Resources */,
 				701A98BC1DB47A3100460220 /* 频道列表@3x.png in Resources */,
-				7093368D1F5907C000328799 /* 无频道列表@3x.png in Resources */,
 				70FFE3CF1DE2D07600223E43 /* 圆环-3.png in Resources */,
 				706D1C9320301E6E002496B4 /* 联系我们@1x.png in Resources */,
 				704858091E46D0E60052318D /* placeholder@1x.png in Resources */,
@@ -3588,6 +3587,7 @@
 				70FFE3D21DE2D07600223E43 /* 圆环-6.png in Resources */,
 				702CE43B1DDA9881000A0513 /* 4@3x.png in Resources */,
 				70261E201FA1F62B00D7F4F0 /* 路由无网络@1x.png in Resources */,
+				70B7DB0B219E4CC30064846E /* 无频道列表@2x.png in Resources */,
 				70FFE4031DE3EF4800223E43 /* 时移@2x.png in Resources */,
 				705AFA9C2109A127003EB0FC /* Movies & Series@3x.png in Resources */,
 				70848AF11F7DE1A5005A4FA6 /* 关于@1x.png in Resources */,

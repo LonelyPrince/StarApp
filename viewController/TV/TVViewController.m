@@ -9460,8 +9460,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)setSearchViewData
 {
     NSLog(@"setSearchViewDatasetSearchViewData");
-    [searchViewCon.dataList removeAllObjects];
-    [searchViewCon.showData removeAllObjects];
+    if (searchViewCon.dataList.count > 0) {
+        [searchViewCon.dataList removeAllObjects];
+    }
+    if (searchViewCon.showData.count > 0) {
+        [searchViewCon.showData removeAllObjects];
+    }
+    
     searchViewCon.dataList =  [searchViewCon getServiceArray ];  //dataList 是所有的名字和符号的组合
     
     searchViewCon.showData = [NSMutableArray arrayWithArray:searchViewCon.dataList];
@@ -10396,7 +10401,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)NOChannelDataShow
 {
     self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
-    self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 60)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 ,  60,  60) ;
+    self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 189*0.8)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 - 20 ,  189*0.8,  110*0.8) ;
     self.NoDataImageview.alpha = 1;
     [self.view addSubview:self.NoDataImageview];
     
@@ -10404,7 +10409,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     self.NoDataLabel.text = ChannelListIsEmpty;
     self.NoDataLabel.textColor = UIColorFromRGB(0x848484);
-    CGSize sizeNoDataLabel = [GGUtil sizeWithText:ChannelListIsEmpty font:[UIFont systemFontOfSize:24] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize sizeNoDataLabel = [GGUtil sizeWithText:ChannelListIsEmpty font:[UIFont systemFontOfSize:20] maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     self.NoDataLabel.frame = CGRectMake((SCREEN_WIDTH - sizeNoDataLabel.width)/2,self.NoDataImageview.frame.origin.y + 10 + self.NoDataImageview.frame.size.height , sizeNoDataLabel.width, sizeNoDataLabel.height);
     self.NoDataLabel.textAlignment = NSTextAlignmentCenter;
     self.NoDataLabel.alpha = 1;
