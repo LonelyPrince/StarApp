@@ -88,6 +88,7 @@
     
     [USER_DEFAULT  setObject:@"NO" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面还没有加载完成
     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"]; // 值为YES，代表首页的频道列表还没有展示出来，这个时候不允许旋转
+    NSLog(@"YESYES  bb");
     [USER_DEFAULT setObject:@"" forKey:@"NeedShowChannelNameLabV"];
     
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"]; //此处设置是否可以全屏的信息，防止在手机横屏时进入主页导致UI变化
@@ -360,52 +361,6 @@ void UncaughtExceptionHandler(NSException *exception) {
                 //这里将service 地址本地存储
                 NSString * kSDLB_SYS_SERVERStr =[NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",HMC_DMSIP];    //服务器地址
                 [USER_DEFAULT setObject:kSDLB_SYS_SERVERStr  forKey:@"HMCServiceStr"];
-                
-                //这里将G_device 地址本地存储
-                //                NSString * G_deviceStr =[NSString stringWithFormat:@"http://%@/test/online_devices",HMC_DMSIP];    //G_device地址
-                //                [USER_DEFAULT setObject:G_deviceStr  forKey:@"G_deviceStr"];
-                
-                //                #define G_device  @"http://192.168.1.55/test/online_devices //@"http://www.tenbre.net/test/online_devices"//
-                //                #define kSDLB_SYS_SERVER(x) [NSString stringWithFormat:@"http://%@/cgi-bin/cgi_channel_list.cgi?",x]    //服务器地址
-                //                if (openfirst == 1) {
-                //                    {
-                ////                    即使相同也运行
-                //                    }else
-                //                    {
-                ////                    不运行
-                //                    }
-                
-                //第一次打应用，防止oldDMS的IP和DMSIP相同，所以这里先做一次请求
-                //                if (openfirst == 1) {
-                //                    openfirst++;
-                //                    NSLog(@"IP出现一次======不同");
-                //                    NSLog(@"DMSIP:5555");
-                //                    //创建通知
-                //                    NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-                //                    //通过通知中心发送通知
-                //                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                //
-                //                    //创建通知
-                //                    NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
-                //                    //通过通知中心发送通知
-                //                    [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                //                }
-                //                else{
-                //                    if (! [oldHMC_DMSIP isEqualToString: HMC_DMSIP]) {
-                //                        NSLog(@"IP出现一次不同");
-                //                        NSLog(@"DMSIP:5555");
-                //                        //创建通知
-                //                        NSNotification *notification =[NSNotification notificationWithName:@"IPHasChanged" object:nil userInfo:nil];
-                //                        //通过通知中心发送通知
-                //                        [[NSNotificationCenter defaultCenter] postNotification:notification];
-                //
-                //                        //创建通知
-                //                        NSNotification *notification1 =[NSNotification notificationWithName:@"HMCHasChanged" object:nil userInfo:nil];
-                //                        //通过通知中心发送通知
-                //                        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-                //
-                //                    }
-                //                }
                 
             }
         }

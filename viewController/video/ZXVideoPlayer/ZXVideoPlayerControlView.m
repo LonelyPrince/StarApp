@@ -92,15 +92,27 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             NSLog(@"全屏按钮显示---方法:@NOChannelDataDefault %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
             
             self.fullScreenButton.hidden = NO;
+            NSLog(@"fullScreenButton.hidden NO4");
+            _pushBtn.hidden =NO;
         }else
         {
             //            NSLog(@"全屏按钮消失---方法:initwith ");
             NSLog(@"全屏按钮消失---ccccc %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
-            self.fullScreenButton.hidden = YES;
             
-            NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            double delayInSeconds = 0.2;
+            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, mainQueue, ^{
+               
+                self.fullScreenButton.hidden = YES;
+                
+                NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                _pushBtn.hidden =YES;
+            });
+            
         }
         //        [self.bottomBar addSubview:self.shrinkScreenButton];
         [self.bottomBar addSubview:self.shrinkScreenButton1];
@@ -236,11 +248,20 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     
     self.fullScreenButton.hidden = NO;
+    NSLog(@"fullScreenButton.hidden NO5");
+    _pushBtn.hidden = NO;
 }
 -(void)fullScreenBtnHidden
 {
     NSLog(@"全屏按钮消失---ddddd  ");
     self.fullScreenButton.hidden = YES;
+    _pushBtn.hidden = YES;
+    self.channelIdLab.text = @"";
+    self.channelNameLab.text = @"";
+    
+    NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 - (void)layoutSubviews
 {
@@ -816,7 +837,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"] || barIsShowing == 1) {
         barIsShowing = 1;
-        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+//        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+//        NSLog(@"NONO 11");
         if (self.isBarShowing) {
             return;
         }

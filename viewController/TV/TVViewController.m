@@ -507,14 +507,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (!self.NoDataLabel) {
                     self.NoDataLabel = [[UILabel alloc]init];
                 }
-                //                    [self NOChannelDataShow];
-                //                    NSLog(@" NOChannelDataShow 1111");
-                //                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                //                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                //                    NSLog(@"removeTipLabAndPerformSelector 1111");
-                //                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                //                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-                
                 
                 [GGUtil postremoveConfigCAPINShowNotific];
                 [self removeTipLabAndPerformSelector];
@@ -522,12 +514,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 self.NoDataLabel = [[UILabel alloc]init];
                 [self NOChannelDataShow];
-                NSLog(@" NOChannelDataShow dddd");
+                NSLog(@" NOChannelDataShow dddd 1");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                 NSLog(@"removeTipLabAndPerformSelector gggg");
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                NSLog(@"YESYES  11");
                 [self cantDelivery];
                 
             }else   //无数据   data_valid_flag = 0   ===代表停留在正在搜索界面
@@ -561,6 +554,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         isHasChannleDataList = YES;
                         [self.tableForDicIndexDic removeAllObjects];
                         [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                        NSLog(@"NONO 22");
                         [GGUtil postfullScreenBtnShow];
                         NSLog(@"[GGUtil postfullScreenBtnShow]; 显示22");
                     }else //横屏状态，不刷新
@@ -574,6 +568,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                         [self.tableForDicIndexDic removeAllObjects];
                         [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                        NSLog(@"NONO 33");
                         [GGUtil postfullScreenBtnShow];
                         NSLog(@"[GGUtil postfullScreenBtnShow]; 显示33");
                     }
@@ -624,7 +619,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                                       SCREEN_HEIGHT-64.5-1.5-   kZXVideoPlayerOriginalHeight-49.5)  forTitles:self.CategoryAndREC];
                     isHasChannleDataList = YES;
                     [self.tableForDicIndexDic removeAllObjects];
-                    [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                    if (self.CategoryAndREC.count > 0) {
+                        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                        NSLog(@"NONO 44");
+                    }
+                    
+                    
                     [GGUtil postfullScreenBtnShow];
                     
                 }else //横屏状态，不刷新
@@ -637,6 +637,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                     [self.tableForDicIndexDic removeAllObjects];
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"NONO 55");
                     [GGUtil postfullScreenBtnShow];
                     NSLog(@"[GGUtil postfullScreenBtnShow]; 显示77");
                 }
@@ -796,6 +797,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"removeTipLabAndPerformSelector 4444");
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"YESYES  22");
                 }else
                 {
                     NSLog(@"data_valid_flag ========== 2");
@@ -820,6 +822,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"removeTipLabAndPerformSelector 5555");
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"YESYES  33");
                 }
                 
             }
@@ -889,6 +892,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                     NSLog(@"removeTipLabAndPerformSelector 6666");
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"YESYES  44");
                 }else
                 {
                     self.categorys = (NSMutableArray *)data;
@@ -908,6 +912,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             isHasChannleDataList = YES;
                             [self.tableForDicIndexDic removeAllObjects];
                             [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                            NSLog(@"NONO 66");
                             [GGUtil postfullScreenBtnShow];
                             NSLog(@"[GGUtil postfullScreenBtnShow]; 显示22");
                         }else //横屏状态，不刷新
@@ -921,6 +926,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             
                             [self.tableForDicIndexDic removeAllObjects];
                             [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                            NSLog(@"NONO 77");
                             [GGUtil postfullScreenBtnShow];
                             NSLog(@"[GGUtil postfullScreenBtnShow]; 显示33");
                         }
@@ -5421,7 +5427,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick: (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
-    
+    if ( [[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+        NSLog(@"列表为空，不播放");
+    }else{
+        
+ 
     [USER_DEFAULT setObject:@"YES" forKey:@"VideoTouchFromOtherView"]; //记录其他界面的点击播放时间，因为其他界面跳转过来的播放，可能会导致self.Video重新复制，导致EPG数据无法接受
     TVViewTouchPlay = NO;
     //=====则去掉不能播放的字样，加上加载环
@@ -6135,7 +6145,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self updateFullScreenDic];
         
     }
-    
+}
     
 }
 -(int)judgeCategoryType:(NSDictionary *)NowServiceDic
@@ -7956,30 +7966,25 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         self.NoDataLabel = [[UILabel alloc]init];
                     }
                     [self NOChannelDataShow];
+                    
+                    
+                    [GGUtil postremoveConfigCAPINShowNotific];
+                    [self removeTipLabAndPerformSelector];
+                    self.NoDataImageview = [[UIImageView alloc]init];
+                    
+                    self.NoDataLabel = [[UILabel alloc]init];
+                    [self NOChannelDataShow];
+                    NSLog(@" NOChannelDataShow dddd 2");
+                    isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
+                    [self removeTipLabAndPerformSelector];   //取消不能播放的文字
+                    NSLog(@"removeTipLabAndPerformSelector gggg");
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
+                    [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"YESYES  55");
+                    [self cantDelivery];
                 }
                 
-                //                NSLog(@" NOChannelDataShow 7777");
-                //                //                [self removeTopProgressView]; //删除进度条
-                //                NSLog(@"删除进度条removeTopProgressView  }}}}");
-                ////                isHasChannleDataList = YES;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                //                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                //                //                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                //                NSLog(@"removeTipLabAndPerformSelector aaaa");
-                //                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-                
-                [GGUtil postremoveConfigCAPINShowNotific];
-                [self removeTipLabAndPerformSelector];
-                self.NoDataImageview = [[UIImageView alloc]init];
-                
-                self.NoDataLabel = [[UILabel alloc]init];
-                [self NOChannelDataShow];
-                NSLog(@" NOChannelDataShow dddd");
-                isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
-                [self removeTipLabAndPerformSelector];   //取消不能播放的文字
-                NSLog(@"removeTipLabAndPerformSelector gggg");
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
-                [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
-                [self cantDelivery];
+               
             }
             else
             {
@@ -7992,6 +7997,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }
                     [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"NONO 88");
                 }
             }
             return ;
@@ -8068,6 +8074,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
             NSLog(@"removeTipLabAndPerformSelector bbbb");
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            NSLog(@"YESYES  66");
         }
         else
         {
@@ -8079,6 +8086,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NONO 99");
             }
             
             self.serviceData = (NSMutableArray *)data1;
@@ -8129,6 +8137,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
             NSLog(@"removeTipLabAndPerformSelector cccc");
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            NSLog(@"YESYES  77");
             
         }else
         {
@@ -8142,6 +8151,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NONO 00");
             }
             
             if (recFileData.count > 0 && data1.count == 0 ) {
@@ -8294,6 +8304,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         NSLog(@"removeTipLabAndPerformSelector dddd");
                     }
                     [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                    NSLog(@"YESYES  88");
+                    
                     [self showDelivaryStopped];
                 }else if (data1.count == 0 && recFileData.count > 0)
                 {
@@ -8573,12 +8585,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
                 self.NoDataLabel = [[UILabel alloc]init];
                 [self NOChannelDataShow];
-                NSLog(@" NOChannelDataShow dddd");
+                NSLog(@" NOChannelDataShow dddd 3");
                 isHasChannleDataList = NO;   //跳转页面的时候，不用播放节目，防止出现加载圈和文字
                 [self removeTipLabAndPerformSelector];   //取消不能播放的文字
                 NSLog(@"removeTipLabAndPerformSelector gggg");
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                NSLog(@"YESYES  99");
                 
                 
                 
@@ -8593,6 +8606,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
                 
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NONO aa");
                 return ;
             }
             
@@ -8635,11 +8649,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"removeTipLabAndPerformSelector hhhh");
                 [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStartTransform"];
                 [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+                NSLog(@"YESYES  00");
             }else
             {
                 NSLog(@"data_valid_flag ========== 13");
                 //机顶盒连接出错了，所以要显示没有网络的加载图
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NONO bb");
                 NSLog(@"NOChannelDataDefault 222");
                 [self getServiceDataForIPChange]; //如果数据为空，则重新获取数据
                 //                return ;
@@ -10401,7 +10417,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)NOChannelDataShow
 {
     self.NoDataImageview.image = [UIImage imageNamed:@"无频道列表@3x"];
-    self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 189*0.8)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 - 20 ,  189*0.8,  110*0.8) ;
+    self.NoDataImageview.frame = CGRectMake((SCREEN_WIDTH - 189*0.8)/2, (SCREEN_HEIGHT -(64.5+kZXVideoPlayerOriginalHeight+1.5 + 110 + 49))/2 + 64.5+kZXVideoPlayerOriginalHeight+1.5 - 5 ,  189*0.8,  110*0.8) ;
     self.NoDataImageview.alpha = 1;
     [self.view addSubview:self.NoDataImageview];
     
@@ -10417,6 +10433,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     isPlayFirstChannel = YES;
     ishuifuchuchang = YES;
+    
+    //出现频道列表为空，隐藏播放窗口信息
+    [GGUtil showDeliveryStopIsNull];
+    
 }
 -(BOOL)judgeIfNeedRefreshSliderView :(NSArray *)categoryArr recFileArr:(NSArray *)recFileArr lastCategoryArr:(NSArray *)lastCategory lastRECFileArr:(NSArray *)lastFileArr
 {
@@ -10572,6 +10592,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self removeTipLabAndPerformSelector];   //取消不能播放的文字
             NSLog(@"removeTipLabAndPerformSelector jjjj");
             [USER_DEFAULT setObject:@"YES" forKey:@"NOChannelDataDefault"];
+            NSLog(@"YESYES  aa");
             
         }else
         {
@@ -10582,6 +10603,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [[NSNotificationCenter defaultCenter] postNotification:notification1];
                 }
                 [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+                NSLog(@"NONO cc");
             }
             if (recFileData.count > 0 && self.serviceData.count == 0 ) {
                 
