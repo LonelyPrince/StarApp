@@ -48,9 +48,10 @@
     //new====
     if ([nav.topViewController isKindOfClass:[TVViewController class]] && ![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
         //    if ([nav.topViewController isKindOfClass:[ViewController class]]) {
+        NSLog(@"Interfac 全屏");
         return UIInterfaceOrientationMaskPortrait;
     }
-    
+        NSLog(@"Interfac 竖屏");
     return UIInterfaceOrientationMaskAllButUpsideDown;
     
     //new====

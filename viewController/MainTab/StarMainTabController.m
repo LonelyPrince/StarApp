@@ -143,6 +143,7 @@
             NSLog(@"第一次启动旋转");
             
             NSLog(@"第一次启动");
+            NSLog(@"Interfac 竖屏");
             return UIInterfaceOrientationMaskPortrait;   //不旋转
         }
         
@@ -174,9 +175,7 @@
                 case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                     NSLog(@"此时 home键4在 左");
                     return UIInterfaceOrientationMaskLandscapeLeft;
-                    //                            return UIInterfaceOrientationMaskLandscapeRight;
-                    //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
-                    //                            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    
                 }
                     break;
                     
@@ -186,20 +185,20 @@
             //                    NSLog(@"asdahsdhk:%d",UIInterfaceOrientationMaskLandscapeLeft);
             //                    NSLog(@"asdahsdhk11:%d",UIInterfaceOrientationLandscapeRight);
             //                    NSLog(@"asdahsdhk11:%d",UIInterfaceOrientationPortraitUpsideDown);
-            
+            NSLog(@"Interfac 全屏 33");
             return UIInterfaceOrientationMaskLandscapeRight;
+    
         }else
         {
+            NSLog(@"Interfac 全屏11");
+            [USER_DEFAULT setObject:@"Full" forKey:@"FullScreenJudge" ];
             return UIInterfaceOrientationMaskAllButUpsideDown;
         }
         
     }
+        NSLog(@"Interfac 全屏 22");
+    [USER_DEFAULT setObject:@"NOFull" forKey:@"FullScreenJudge" ];
     return UIInterfaceOrientationMaskPortrait;    //不旋转
-    //new====
-    //    }else
-    //    {
-    //     return UIInterfaceOrientationMaskPortrait;    //不旋转
-    //    }
-    //new====
+   
 }
 @end

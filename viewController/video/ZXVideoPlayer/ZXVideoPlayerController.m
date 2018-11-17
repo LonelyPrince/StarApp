@@ -1108,6 +1108,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                 NSLog(@"home键在 右");
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                NSLog(@"changeToFullScreenForOrientation 11");
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
@@ -1139,8 +1140,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                 NSLog(@"home键在 左");
-                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                NSLog(@"changeToFullScreenForOrientation 22");
                 
                 if (!CAPINLab) {
                     CAPINLab = [[UILabel alloc]init];
@@ -1209,8 +1210,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 }else //此时是横屏状态
                 {     // Device oriented horizontally, home button on the left
                     NSLog(@"home键在 左");
-                    //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                     [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    NSLog(@"changeToFullScreenForOrientation 33");
                     
                     if (!CAPINLab) {
                         CAPINLab = [[UILabel alloc]init];
@@ -1345,7 +1346,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                 NSLog(@"home键在 右");
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                
+                NSLog(@"changeToFullScreenForOrientation 44");
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
                     NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
@@ -1376,9 +1377,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                 NSLog(@"home键在 左");
-                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                
+                NSLog(@"changeToFullScreenForOrientation 55");
                 if (!decoderPINLab) {
                     decoderPINLab = [[UILabel alloc]init];
                     NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
@@ -1447,9 +1447,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 }else //此时是横屏状态
                 {     // Device oriented horizontally, home button on the left
                     NSLog(@"home键在 左");
-                    //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                     [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                    
+                    NSLog(@"changeToFullScreenForOrientation 66");
                     if (!decoderPINLab) {
                         decoderPINLab = [[UILabel alloc]init];
                         NSString * PleaseInputLab = NSLocalizedString(@"PleaseInputLab", nil);
@@ -1599,7 +1598,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                 NSLog(@"home键在 右");
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                
+                NSLog(@"changeToFullScreenForOrientation 66");
                 if (!radioImageView) {
                     radioImageView = [[UIImageView alloc]init];
                     radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
@@ -1611,9 +1610,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                 NSLog(@"home键在 左");
-                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                
+                NSLog(@"changeToFullScreenForOrientation 77");
                 if (!radioImageView) {
                     radioImageView = [[UIImageView alloc]init];
                     radioImageView.image = [UIImage imageNamed:@"音频背景.jpg"];
@@ -1837,8 +1835,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         break;
                     case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                         NSLog(@"home键在 右");
+                        if ([[USER_DEFAULT objectForKey:@"FullScreenJudge"] isEqualToString:@"Full"]) {
                         [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                        
+                        }
+                        NSLog(@"changeToFullScreenForOrientation 88");
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
                             
@@ -1884,9 +1884,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         break;
                     case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                         NSLog(@"home键在 左");
-                        //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                         [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                        
+                        NSLog(@"changeToFullScreenForOrientation 99");
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
                             
@@ -1982,7 +1981,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         {      // Device oriented horizontally, home button on the right
                             NSLog(@"home键在 右");
                             [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                            
+                            NSLog(@"changeToFullScreenForOrientation 00");
                             if ( !lab) {
                                 lab = [[UILabel alloc]init];
                                 
@@ -2217,13 +2216,19 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 break;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                 NSLog(@"此时 home键3在 右");
-                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                if ([[USER_DEFAULT objectForKey:@"FullScreenJudge"] isEqualToString:@"Full"]) {
+                    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    NSLog(@"changeToFullScreenForOrientation aa");
+                }
+                
             }
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                 NSLog(@"此时 home键3在 左");
-                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
+                if ([[USER_DEFAULT objectForKey:@"FullScreenJudge"] isEqualToString:@"Full"]) {
                 [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                NSLog(@"changeToFullScreenForOrientation bb");
+                }
             }
                 break;
                 
@@ -2251,35 +2256,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             default:
                 break;
         }
-        //        switch (orientationBHor) {
-        //            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
-        //                NSLog(@"home键在 下");
-        ////                [self restoreOriginalScreen];
-        //                [self changeToFullScreenForOrientation:orientationBHor];
-        //            }
-        //                break;
-        //            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
-        //                NSLog(@"home键在 上");
-        //                [self changeToFullScreenForOrientation:orientationBHor];
-        //            }
-        //                break;
-        //            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
-        //                NSLog(@"home键在 右");
-        //                [self changeToFullScreenForOrientation:orientationBHor];
-        ////                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-        //            }
-        //                break;
-        //            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
-        //                NSLog(@"home键在 左");
-        //                [self changeToFullScreenForOrientation:orientationBHor];
-        //                //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
-        ////                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-        //            }
-        //                break;
-        //
-        //            default:
-        //                break;
-        //        }
+ 
     }
     
 }
@@ -3621,6 +3598,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     // FIXME: ?
     [self changeToOrientation:UIDeviceOrientationLandscapeLeft];
     [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+    NSLog(@"changeToFullScreenForOrientation cc");
 }
 /// 投屏按钮点击
 - (void)pushButtonClick
@@ -5726,57 +5704,63 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     UIDeviceOrientation orientation = self.getDeviceOrientation;
     
-    switch (orientation) {
-        case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
-            NSLog(@"home键在 下");
-            
-        }
-            break;
-        case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
-            NSLog(@"home键在 上");
-            [self abctest];
-        }
-            break;
-        case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
-            NSLog(@"home键在 右");
-            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-            
-            
-            if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
+    if ([[USER_DEFAULT objectForKey:@"FullScreenJudge"] isEqualToString:@"Full"]) {
+        switch (orientation) {
+            case UIDeviceOrientationPortrait: {           // Device oriented vertically, home button on the bottom
+                NSLog(@"home键在 下");
+                
+            }
+                break;
+            case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
+                NSLog(@"home键在 上");
                 [self abctest];
             }
-            
-        }
-            break;
-        case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
-            NSLog(@"home键在 左");
-            //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
-            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-            
-            if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
-                [self abctest];
-            }
-        }
-            break;
-            
-        default:
-        {     // Device oriented horizontally, home button on the left
-            NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
-            
-            NSLog(@"self.view.frame.size.width %@",NSStringFromCGRect(self.view.frame));
-            
-            NSLog(@"UIScreen mainScreen].bounds.size.width %@",NSStringFromCGRect([UIScreen mainScreen].bounds));
-            
-            
-            if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+                break;
+            case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
+                NSLog(@"home键在 右");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                
+                
+                
+                NSLog(@"changeToFullScreenForOrientation dd");
+                
                 if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
-                    [self abctest];  //全屏页面时候，加载跑马灯的名字
+                    [self abctest];
+                }
+                
+            }
+                break;
+            case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
+                NSLog(@"home键在 左");
+                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                NSLog(@"changeToFullScreenForOrientation ee");
+                if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
+                    [self abctest];
                 }
             }
-            NSLog(@"可能会出错的地方self.view.frame.bounds.width3");
+                break;
+                
+            default:
+            {     // Device oriented horizontally, home button on the left
+                NSLog(@"手机可能屏幕朝上，可能不知道方向，可能斜着");
+                
+                NSLog(@"self.view.frame.size.width %@",NSStringFromCGRect(self.view.frame));
+                
+                NSLog(@"UIScreen mainScreen].bounds.size.width %@",NSStringFromCGRect([UIScreen mainScreen].bounds));
+                
+                
+                if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
+                    if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
+                        [self abctest];  //全屏页面时候，加载跑马灯的名字
+                    }
+                }
+                NSLog(@"可能会出错的地方self.view.frame.bounds.width3");
+            }
+                break;
         }
-            break;
     }
+    
+
     
     
     if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {
@@ -5993,7 +5977,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                         NSLog(@"home键在 右");
                         [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                        
+                        NSLog(@"changeToFullScreenForOrientation ff");
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
                             
@@ -6039,9 +6023,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         break;
                     case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                         NSLog(@"home键在 左");
-                        //                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeRight];
                         [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                        
+                        NSLog(@"changeToFullScreenForOrientation gg");
                         if ( !lab) {
                             lab = [[UILabel alloc]init];
                             
@@ -6137,7 +6120,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                         {      // Device oriented horizontally, home button on the right
                             NSLog(@"home键在 右");
                             [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                            
+                            NSLog(@"changeToFullScreenForOrientation hh");
                             if ( !lab) {
                                 lab = [[UILabel alloc]init];
                                 
