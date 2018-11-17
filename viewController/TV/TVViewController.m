@@ -465,7 +465,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //获取table
 -(void) getServiceData
 {
-    
+    NSLog(@"getServiceData*");
     isHasChannleDataList = YES;
     
     //获取数据的链接
@@ -3760,6 +3760,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
             [self showDelivaryStopped];
             NSLog(@"this is Major 22222 33333===3");
+            
+            
+            double delayInSeconds = 0.1;
+            dispatch_queue_t mainQueue = dispatch_get_main_queue();
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, mainQueue, ^{
+               
+                if ([self.videoController.player isPlaying]) {
+                    
+                }else{
+//                    [self getServiceData];
+//                    NSLog(@"this is Major 播放getServiceDatagetServiceData");
+//
+//                    NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"]; //历史数据
+//                    NSArray * nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
+//                    NSInteger row = [nowPlayChannel_Arr[2] intValue];
+//                    //        NSDictionary * dic = nowPlayChannel_Arr [3];
+//
+//                    [self firstOpenAppAutoPlay:row diction:self.dicTemp];
+                    [self judgeJumpFromOtherView];
+                }
+               
+            });
+            
         }else
         {
             [self judgeJumpFromOtherView];
@@ -6980,6 +7004,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)allVideoTouchFromSTB
 {
+    
+    
     //判断类型
     //    STBTouchType_Str
     if([STBTouchType_Str isEqualToString:@"otherTouch"])
@@ -7022,7 +7048,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         NSLog(@"CAPIN 节目");
         
-//        [self firstOpenAppAutoPlay:10 diction:self.dic];
+        NSArray * arrHistoryNow = [USER_DEFAULT objectForKey:@"historySeed"]; //历史数据
+        NSArray * nowPlayChannel_Arr = arrHistoryNow[arrHistoryNow.count - 1];
+        NSInteger row = [nowPlayChannel_Arr[2] intValue];
+//        NSDictionary * dic = nowPlayChannel_Arr [3];
+        
+        [self firstOpenAppAutoPlay:row diction:self.dicTemp];
     }
 }
 -(BOOL)isSTBDEncrypt :(NSString *)characterStr
