@@ -2080,6 +2080,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"时间==111 哈哈哈哈 %d",indexPath.row);
+    
+    
     //    [tempTableviewForFocus deselectRowAtIndexPath:tempIndexpathForFocus animated:YES];
     if ([tableView isEqual:pushTableView]) {
         
@@ -2101,6 +2103,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else
     {
+        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification5];
         
         NSLog(@"self.video.dicChannl88==11");
         
@@ -2793,20 +2798,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self firstOpenAppAutoPlayZero:indexPathRow diction:self.dicTemp];
             }
         }
-        //        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
-        //        //通过通知中心发送通知
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification5];
-        //        NSLog(@"animateShow TV didselec");
-        
-        //        double delayInSeconds = 0;
-        //        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-        //        dispatch_after(popTime, mainQueue, ^{
-        //            NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
-        //            //通过通知中心发送通知
-        //            [[NSNotificationCenter defaultCenter] postNotification:notification5];
-        //            NSLog(@"animateShow TV didselec");
-        //        });
         
         NSLog(@"dispatch_get_global_queue 播放的第一个方法==结束");
     });
@@ -5451,6 +5442,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick: (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+    double delayInSeconds = 1.2;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+            NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification5];
+        
+        });
+    
     if ( [[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
         NSLog(@"列表为空，不播放");
     }else{
@@ -6427,6 +6428,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)firstOpenAppAutoPlay : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
+   
     NSLog(@"firstfirstfirstfirst 播放播放");
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         

@@ -3697,9 +3697,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         
         
-        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification5];
+//        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification5];
         
         NSLog(@"animateShow   showshow");
         [self.player shutdown];
@@ -4395,12 +4395,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
     [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
     
-    //    if (self.rightViewShowing == YES)
-    //    {
-    //        self.videoControl.isBarShowing = NO;
-    //        [self rightViewHidden];
-    //    }
-    NSInteger rowIndex;
     if ([_cellStr isEqualToString:@"subt"]) {
         
         //①加入播放判断，如果节目正在播放，则不点击没有反应，不会重新播放
@@ -4832,6 +4826,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
     
+    NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification5];
     
     if (characterStr != NULL && characterStr != nil) {
         
@@ -4889,6 +4886,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 //音轨字幕点击
 -(void)touchToSeeAudioSubt :(NSDictionary* )dic DicWithRow:(NSInteger)row audio:(NSInteger)audioIndex subt:(NSInteger)subtIndex
 {
+    NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification5];
     
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
