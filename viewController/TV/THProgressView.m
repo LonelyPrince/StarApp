@@ -191,7 +191,7 @@ static const CGFloat kBorderWidth = 0.0f;
         animation.autoreverses = YES;
         NSLog(@"self.progress :%f",progress);
         
-        
+        NSLog(@"self.progressLayer %@",self.progressLayer);
         [self.progressLayer addAnimation:animation forKey:@"progress"];
     }
     else {

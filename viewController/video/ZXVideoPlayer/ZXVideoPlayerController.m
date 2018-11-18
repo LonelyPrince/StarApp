@@ -229,8 +229,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         judgeVideoIsStatic = 0;
         [self initData];
         pushBtnHasClick = NO;
-        //        isLastBtnEnable = NO;
-        //        isLastBtnEnableTemp = NO;
         judgeIsNeedPlay = YES;
         nowPlayChannelId = 0;
         nowPlayChannelIdBoolValue = NO;
@@ -919,6 +917,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //    });
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    NSLog(@"removeProgressNotific 11");
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
@@ -977,9 +976,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     });
     //创建通知
-    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+//    NSLog(@"removeProgressNotific 22");
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 #pragma mark -如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  通知播放的动作               以下几种情况可以使用①CRC 错误（此时的CRC也无法判断）  ②播放时间超过15秒  ③播放器通知（暂时没有找到不能播放的通知）  ④盒子主动停掉，盒子的stop通知（socket 16：代表我主动停止分发   socket 19：代表机顶盒主动停）
 //如果不能播放，则显示不能播放字样
@@ -1695,7 +1695,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //
             //①创建通知,删除进度条
             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-            
+            NSLog(@"removeProgressNotific 33");
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             //②右侧列表消失
@@ -1781,6 +1781,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific 44");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                             
@@ -1827,6 +1828,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific 55");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                             
@@ -1877,6 +1879,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific 66");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                         }
@@ -1921,6 +1924,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific 77");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                             
@@ -1973,6 +1977,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                                NSLog(@"removeProgressNotific 88");
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                                 
@@ -2018,6 +2023,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                                NSLog(@"removeProgressNotific 99");
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                             }
@@ -2885,22 +2891,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSArray * touchArr = historyArr[historyArr.count - 1];
     NSLog(@"touchArr：%@",touchArr);
+   
     
-    
-    //   __block NSInteger row ; //= [touchArr[2] intValue];
-    
-    NSInteger row ; //= [touchArr[2] intValue];
-    //      dispatch_async(dispatch_get_global_queue(0, 0), ^{
-    //    for (int i = 0; i < self.video.dicChannl; i ++) {
-    //        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
-    //        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr[0]   TwoDic:[self.video.dicChannl objectForKey:channleIdStr]]) {
-    //            //如果相等，则获取row
-    //            row = i;
-    //            NSLog(@"此时的 rows是多少： %d",row);
-    //        }
-    //    }
-    //      });
-    
+    NSInteger row ;
+   
     if (nowPlayChannelIdBoolValue == YES) {
         nowPlayChannelIdBoolValue = NO;
         row = nowPlayChannelId;
@@ -2979,93 +2973,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
 }
-//{
-//    [self.player stop];
-//    [self.player shutdown];
-//    [self.player.view removeFromSuperview];
-//
-//    [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
-//    audioRow = 0;
-//    NSLog(@"audioRow==2 %d",audioRow);
-//    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
-//    subtRow = 0;
-//    NSLog(@"shang 上一个节目");
-//
-//    NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
-//    historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-//
-//    NSArray * touchArr = historyArr[historyArr.count - 1];
-//    NSLog(@"touchArr：%@",touchArr);
-//
-//
-//    NSInteger row = [touchArr[2] intValue];
-//    NSDictionary * dic = touchArr [3];
-//
-//    if (row >= 1) {
-//        self.videoControl.lastChannelButton.enabled = YES;
-//        self.videoControl.nextChannelButton.enabled = YES;
-//        NSNumber * numIndex = [NSNumber numberWithInt:(row -1)];
-//        //添加 字典，将label的值通过key值设置传递
-//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-//
-//
-//        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-//        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)(row -1)]];
-//
-//        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-//
-//
-//        if (characterStr != NULL && characterStr != nil) {
-//
-//            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-//            if (judgeIsSTBDecrypt == YES) {
-//                // 此处代表需要记性机顶盒加密验证
-//                //弹窗
-//                //发送通知
-//
-//                //        [self popSTBAlertView];
-//                //        [self popCAAlertView];
-//                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-//                //创建通知
-//                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-//                NSLog(@"POPPOPPOPPOP66666666666");
-//                //通过通知中心发送通知
-//                [[NSNotificationCenter defaultCenter] postNotification:notification1];
-//                [self judgeLastBtnIsGray];
-//                NSLog(@"judgeLastBtnIsGray 2222");
-//                //                [self.tabBarController setSelectedIndex:1];
-//
-//            }else //正常播放的步骤
-//            {
-//                //创建通知
-//                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//                //通过通知中心发送通知
-//                [[NSNotificationCenter defaultCenter] postNotification:notification];
-//                [self judgeLastBtnIsGray];
-//                NSLog(@"judgeLastBtnIsGray 3333");
-//                //                [self.tabBarController setSelectedIndex:1];
-//            }
-//
-//
-//        }else //正常播放的步骤
-//        {
-//
-//
-//            //创建通知
-//            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-//            //通过通知中心发送通知
-//            [[NSNotificationCenter defaultCenter] postNotification:notification];
-//            [self judgeLastBtnIsGray];
-//            NSLog(@"judgeLastBtnIsGray 4444");
-//        }
-//
-//    }else
-//    {
-//        NSLog(@"对不起，已经没有上一个节目了");
-//        self.videoControl.lastChannelButton.enabled = NO;
-//    }
-//
-//}
 #pragma  mark -点击了暂停按钮
 - (void)suspendButtonClick
 {
@@ -3100,7 +3007,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
     audioRow = 0;
     NSLog(@"audioRow==3 %d",audioRow);
-    //    [USER_DEFAULT setObject:[NSNumber numberWithInt:audioRow] forKey:@"audioRow" ];
     subtRow = 0;
     NSLog(@"下一个节目");
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
@@ -3164,7 +3070,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知 现在我刷的BTC  BCH 交易对，总是出现挂单未成交的情况
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
+
             [self judgeNextBtnIsGray];
         }
     }else
@@ -5379,6 +5285,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         dValueTime = 0;
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+        NSLog(@"removeProgressNotific 00");
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     } else
@@ -5414,6 +5321,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             dValueTime = 0;
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+            NSLog(@"removeProgressNotific aa");
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             [GGUtil postsetTimeAndProgressIsNullNotific];
@@ -5429,6 +5337,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         TimeIntervalString = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",allTime]];
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+        NSLog(@"removeProgressNotific bb");
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
         [GGUtil postsetTimeAndProgressIsNullNotific];
@@ -5472,23 +5381,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@" eventTimeLabNow.hidden==  消失 55");
     self.videoControl.eventTimeLabAll.hidden = YES;
     
-    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
 -(void)setTimeAndProgressIsShow
 {
     
+    NSLog(@"setTimeAndProgressIsShowing");
     if (self.isFullscreenMode) {
         
         self.videoControl.eventTimeLabNow.hidden = NO;
         NSLog(@" eventTimeLabNow.hidden==  显示 22");
         self.videoControl.eventTimeLabAll.hidden = NO;
         NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO 2222");
-        
-        //        self.videoControl.eventnameLabel.hidden = NO;
-        //        self.videoControl.FullEventYFlabel.hidden = NO;
+       
     }else
     {
         self.videoControl.eventTimeLabNow.hidden = YES;
@@ -5552,6 +5460,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@"EPGArrindexEPGArrindexEPGArrindex %d",EPGArrindex);
         if (EPGArrindex > arr.count-1) {
             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+            NSLog(@"removeProgressNotific cc");
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             [GGUtil postsetTimeAndProgressIsNullNotific];
@@ -5595,6 +5504,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     aa = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%f",aa1]];
                     //创建通知
                     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    NSLog(@"removeProgressNotific dd");
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                     [GGUtil postsetTimeAndProgressIsNullNotific];
@@ -5605,11 +5515,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSString * nowTime = [self timeWithTimeIntervalString:[NSString  stringWithFormat:@"%d",bb1]];
                 NSLog(@"nowTime %@",nowTime);
                 
-                //            if([nowTime intValue] >= [aa intValue] )
                 if(bb1 >= aa1  )
                 {
                     NSLog(@"出错了，节目的当前时间不能大于结束时间");
                     NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                    NSLog(@"removeProgressNotific ee");
                     //通过通知中心发送通知
                     [[NSNotificationCenter defaultCenter] postNotification:notification];
                     [GGUtil postsetTimeAndProgressIsNullNotific];
@@ -5630,6 +5540,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             {
                 NSLog(@"出错了，节目的当前时间不能大于结束时间");
                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                NSLog(@"removeProgressNotific ff");
                 //通过通知中心发送通知
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 [GGUtil postsetTimeAndProgressIsNullNotific];
@@ -5857,6 +5768,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSString * playStateType = [USER_DEFAULT objectForKey:@"playStateType"];//text.userInfo[@"playStateType"];
             //①创建通知,删除进度条
             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+            NSLog(@"removeProgressNotific gg");
             
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             //②右侧列表消失
@@ -5922,6 +5834,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific hh");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                             
@@ -5968,6 +5881,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific ii");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                             
@@ -6016,6 +5930,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific jj");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                         }
@@ -6060,6 +5975,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                             
                             //创建通知
                             NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                            NSLog(@"removeProgressNotific kk");
                             //通过通知中心发送通知
                             [[NSNotificationCenter defaultCenter] postNotification:notification];
                             
@@ -6112,6 +6028,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                                NSLog(@"removeProgressNotific ll");
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                                 
@@ -6157,6 +6074,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                 
                                 //创建通知
                                 NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+                                NSLog(@"removeProgressNotific mm");
                                 //通过通知中心发送通知
                                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                             }
