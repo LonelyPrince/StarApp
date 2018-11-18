@@ -519,6 +519,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else
         {
             [self.videoControl.indicatorView startAnimating];
+            NSLog(@"indicatorView startAnimating 11");
         }
         
         //        //创建通知
@@ -913,6 +914,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
     
     [self.videoControl.indicatorView startAnimating];
+    NSLog(@"indicatorView startAnimating 22");
     
     //    });
     //创建通知
@@ -973,6 +975,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         [self removeConfigCAPINShowNotific];   //删除掉了CA PIN的文字和按钮
         
         [self.videoControl.indicatorView startAnimating];
+        NSLog(@"indicatorView startAnimating 33");
         
     });
     //创建通知
@@ -2453,7 +2456,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.FullEventYFlabel = nil;
             [self.videoControl.FullEventYFlabel stopTimer];
             
-            [self abctest];
+//            [self abctest];
+            NSLog(@"abctest===111");
             //    }
             
             
@@ -2658,7 +2662,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     NSLog(@"FullEventYFlabel lalal2 :%@",self.videoControl.FullEventYFlabel);
-    NSString * abcaa =self.videoControl.eventnameLabel.text;
+//    NSString * abcaa = @"ccc";//self.videoControl.eventnameLabel.text;
+    NSString * abcaa =  self.videoControl.eventnameLabel.text;
+    NSLog(@"abctest===abcaa %@",abcaa);
     NSArray * arr = [[NSArray alloc]init];
     if(abcaa == nil|| abcaa == NULL)
     {
@@ -5049,6 +5055,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)setChannelNameAndEventNameNotic :(NSNotification *)text{
     
+    
     //先获取当前正在播放的节目字典
     NSDictionary * nowPlayingDic = text.userInfo[@"nowPlayingDic"];
     
@@ -5081,7 +5088,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
         
         NSString * channelNameLabStr = [nowPlayingDic objectForKey:@"service_name"];
+        
+        
+        
         NSArray * arrNowPlayingTemp = [nowPlayingDic objectForKey:@"epg_info"];
+        
+        
         if (arrNowPlayingTemp.count > 0) {
             NSLog(@"arrNowPlayingTemp111");
             NSString * startTimeTempStr = [arrNowPlayingTemp[0] objectForKey:@"event_starttime"];
@@ -5117,19 +5129,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.channelIdLab.text = self.video.channelId;
             
             self.videoControl.channelNameLab.text = self.video.channelName;
-            
-            
-            
-            //        if (([[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue]) == 0  || ([[GGUtil GetNowTimeString] intValue]  - [self.video.endTime intValue]) > 0 ) {
-            //            self.videoControl.eventnameLabel.text = @"";
-            //            NSLog(@"calcalcalclalcal==NONONO");
-            //        }else{
-            //            self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
-            //            self.videoControl.eventnameLabel.hidden = NO;
-            //            NSLog(@"calcalcalclalcal");
-            //        }
-            
-            
             
             if ([[GGUtil GetNowTimeString] intValue] < [self.video.endTime intValue] || [[GGUtil GetNowTimeString] intValue] > [self.video.startTime intValue]) {
                 if ([self.video.startTime intValue] == nil || [self.video.startTime intValue] == NULL || [self.video.startTime intValue] == 0)  {
@@ -5180,7 +5179,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSLog(@"self.videoControl.channelIdLab 555");
             self.videoControl.channelNameLab.frame = CGRectMake(42+40, 34, sizeChannelName.width+180, 18); //sizeChannelId.width+12
             self.videoControl.pushBtn.frame = CGRectMake(CGRectGetWidth(self.videoControl.topBar.bounds) - 75,26, 56 , 55);
+            self.videoControl.eventnameLabel.text = [self.video.playEventName mutableCopy];
             [self abctest];
+            NSLog(@"abctest===222");
         }else
         {
             self.videoControl.channelIdLab.frame = CGRectMake(20, 10, 25, 18);
@@ -5625,6 +5626,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             case UIDeviceOrientationPortraitUpsideDown: { // Device oriented vertically, home button on the top
                 NSLog(@"home键在 上");
                 [self abctest];
+                NSLog(@"abctest===333");
             }
                 break;
             case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
@@ -5637,6 +5639,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 
                 if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
                     [self abctest];
+                    NSLog(@"abctest===444");
                 }
                 
             }
@@ -5647,6 +5650,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 NSLog(@"changeToFullScreenForOrientation ee");
                 if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
                     [self abctest];
+                    NSLog(@"abctest===555");
                 }
             }
                 break;
@@ -5663,6 +5667,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 if ([UIScreen mainScreen].bounds.size.width > [UIScreen mainScreen].bounds.size.height && [UIScreen mainScreen].bounds.size.width > 420) { //全屏
                     if ([[USER_DEFAULT objectForKey:@"modeifyTVViewRevolve"] isEqualToString:@"YES"]) {
                         [self abctest];  //全屏页面时候，加载跑马灯的名字
+                        NSLog(@"abctest===666");
                     }
                 }
                 NSLog(@"可能会出错的地方self.view.frame.bounds.width3");
@@ -6155,6 +6160,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     //
     NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"加载环展示 111");
     
     audioRow = 0;
     subtRow = 0;

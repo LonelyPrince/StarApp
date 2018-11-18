@@ -850,7 +850,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             if (isFullScreenMode) {   //如果是全屏模式并且topbar展示时才初始化新建一个跑马灯
                 NSNotification *notification =[NSNotification notificationWithName:@"abctest" object:nil userInfo:nil];
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
-                
+                NSLog(@"abctest===777");
                 
             }
             //--

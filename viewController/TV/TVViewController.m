@@ -3494,7 +3494,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
             [GGUtil postnoPlayShowShutNotic];
             if (SDTMonitor_addHistory == 0) {
-                [GGUtil postIndicatorViewShowNotic];
+//                [GGUtil postIndicatorViewShowNotic]; //bug 45854
+                NSLog(@"加载环展示 222");
             }else{ // SDTMonitor_addHistory == 1 代表是触发监控导致的addhistory
                 SDTMonitor_addHistory = 0;
             }
@@ -5493,6 +5494,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [self removeTopProgressView]; //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
         NSLog(@"删除进度条removeTopProgressView  pppp");
         NSLog(@"caculatorProgress 计算进度条 22");
+        self.event_videoname = @"";
+        //=======
+        //刷新节目名称
+        self.video.playEventName = self.event_videoname;
+        NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+        NSLog(@"5555555 replace progresFresh");
     }
     //    self.topProgressView.alpha = 1;
 }
@@ -7511,6 +7519,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self removeTipLabAndPerformSelector];
             NSLog(@"removeTipLabAndPerformSelector 8888");
             [GGUtil postIndicatorViewShowNotic];
+            NSLog(@"加载环展示 333");
         });
     }
     
@@ -7612,6 +7621,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self removeTipLabAndPerformSelector];
     NSLog(@"removeTipLabAndPerformSelector 9999");
     [GGUtil postIndicatorViewShowNotic];
+    NSLog(@"加载环展示 444");
     //协议改版后，这里的CAThreeData其实应该修改为CAFourData
     NSData * CAThreeData = text.userInfo[@"CAThreedata"];
     
@@ -9700,6 +9710,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     [GGUtil postnoPlayShowShutNotic];
     [GGUtil postIndicatorViewShowNotic];
+    NSLog(@"加载环展示 555");
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -9859,6 +9870,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     {
         [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
         NSLog(@"删除进度条removeTopProgressView  8822");
+        self.event_videoname = @"";
+        //=======
+        //刷新节目名称
+        self.video.playEventName = self.event_videoname;
+        NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+        NSLog(@"5555555 replace progresFresh");
     }
     else
     {
@@ -9871,6 +9889,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
             NSLog(@"删除进度条removeTopProgressView  8833");
             [self removeProgressNotific];
+            self.event_videoname = @"";
+            //=======
+            //刷新节目名称
+            self.video.playEventName = self.event_videoname;
+            NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+            NSLog(@"5555555 replace progresFresh");
         }
     }
     self.progress = timeCut;
@@ -9950,6 +9975,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
     NSLog(@"删除进度条removeTopProgressView  8911");
+    self.event_videoname = @"";
+    //=======
+    //刷新节目名称
+    self.video.playEventName = self.event_videoname;
+    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+    NSLog(@"5555555 replace progresFresh");
     
     if(isEventStartTimeBiger_NowTime == YES){
         //加一个判断，防止EPG的第一个数据的开始时间大于当前时间
@@ -10032,12 +10064,28 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else{
                     [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
                     NSLog(@"删除进度条removeTopProgressView  8994");
+                    
+                    self.event_videoname = @"";
+                    //=======
+                    //刷新节目名称
+                    self.video.playEventName = self.event_videoname;
+                    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                    NSLog(@"5555555 replace progresFresh");
                 }
             }
             else
             {
                 [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
                 NSLog(@"删除进度条removeTopProgressView  9000");
+                
+                self.event_videoname = @"";
+                //=======
+                //刷新节目名称
+                self.video.playEventName = self.event_videoname;
+                NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                NSLog(@"5555555 replace progresFresh");
                 return;
             }
         }else
@@ -10045,6 +10093,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
             NSLog(@"删除进度条removeTopProgressView  9007");
+            
+            self.event_videoname = @"";
+            //=======
+            //刷新节目名称
+            self.video.playEventName = self.event_videoname;
+            NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+            NSLog(@"5555555 replace progresFresh");
             return;
             
         }
@@ -10066,6 +10122,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     if (self.event_endTime == NULL ) {
         [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
         NSLog(@"删除进度条removeTopProgressView  9028");
+        self.event_videoname = @"";
+        //=======
+        //刷新节目名称
+        self.video.playEventName = self.event_videoname;
+        NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+        NSLog(@"5555555 replace progresFresh");
         
     }else
     {
@@ -10073,6 +10136,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         if ([self.event_startTime  intValue] > [[GGUtil GetNowTimeString] intValue]) {
             [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
             NSLog(@"删除进度条removeTopProgressView  AAAA");
+            self.event_videoname = @"";
+            //=======
+            //刷新节目名称
+            self.video.playEventName = self.event_videoname;
+            NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+            NSLog(@"5555555 replace progresFresh");
         }else{
             //假如说开始时间不知道，只知道一个结束时间，那么我们能够通过结束时间来计算刷新的时间点
             //此处应该加一个方法，判断 endtime - starttime 之后，让进度条刷新从新计算
@@ -10083,6 +10153,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if (endTimeCutStartTime < 0) {
                 [self removeTopProgressView];  //如果时间不存在，则删除进度条，等到下一个节目的时候再显示
                 NSLog(@"删除进度条removeTopProgressView  9040");
+                self.event_videoname = @"";
+                //=======
+                //刷新节目名称
+                self.video.playEventName = self.event_videoname;
+                NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                NSLog(@"5555555 replace progresFresh");
             }else
             {
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(progressRefresh) object:nil];
