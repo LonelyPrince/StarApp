@@ -835,7 +835,13 @@
             [historySearchTableview reloadData];
         }else
         {
-            [_showData removeAllObjects];
+            NSLog(@"_showData 2222");
+            NSLog(@"_showData %@",showData);
+            if (showData.count > 0) {
+                [_showData removeAllObjects];
+            }
+            
+            NSLog(@"_showData 3333");
             [_tableView reloadData];
            
             

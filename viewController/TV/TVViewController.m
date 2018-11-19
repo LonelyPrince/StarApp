@@ -3662,6 +3662,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"firstStart数据为： %d",[[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]);
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         NSLog(@"第一次启动历史消息：%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"historySeed"]);
         NSLog(@"第一次启动");
