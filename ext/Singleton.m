@@ -2487,6 +2487,7 @@
     NSLog(@"case = 8 弹出CA加锁框");
     NSLog(@"CA 控制消息 3");
     
+    NSLog(@"dataToOperateccc %@",dataToOperate);
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:dataToOperate,@"CAThreedata",nil];
     //创建通知
     NSNotification *notification =[NSNotification notificationWithName:@"CADencryptNotific" object:nil userInfo:dict];
