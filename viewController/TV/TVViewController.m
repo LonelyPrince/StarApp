@@ -756,6 +756,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         else{
             [GGUtil postfullScreenBtnShow];
+            [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
             NSLog(@"[GGUtil postfullScreenBtnShow]; 显示11");
             //将数据本地化
             if (![response objectForKey:@"service"] == nil) {
