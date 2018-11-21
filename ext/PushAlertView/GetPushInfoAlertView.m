@@ -486,5 +486,8 @@ const static CGFloat kCustomMotionEffectExtent                = 10.0;
 }
 //
 //
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end
