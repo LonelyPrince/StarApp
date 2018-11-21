@@ -138,6 +138,7 @@
     //    {
     //new====
     
+    NSLog(@"NOChannelDataDefault == aa %@ ",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
     if ([viewNow isKindOfClass:[TVViewController class]] && ![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
         if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStartTransform"]){
             NSLog(@"第一次启动旋转");

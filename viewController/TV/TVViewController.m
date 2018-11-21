@@ -1008,7 +1008,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     {
                         NSLog(@"没有没有进入了 firstfirstfirstfirst");
                     }
-                    
+                    NSLog(@"NOChannelDataDefault == bb %@ ",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
                     [USER_DEFAULT  setObject:@"YES" forKey:@"viewHasAddOver"];  //第一次进入时，显示页面加载完成
                 }
             }];
@@ -1389,7 +1389,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSNotification *notification =[NSNotification notificationWithName:@"setSubtitleRenderringOffNotific" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
-
 //搜索按钮
 -(void)searchBtnClick
 {
@@ -8912,6 +8911,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 
             }else if(recFileData.count == 0 && data.count != 0) //有直播没录制
             {
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                 [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
                 
                 [self.CategoryAndREC removeAllObjects];
@@ -8944,7 +8944,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
                 if (isFullScreen == NO) {   //竖屏状态
                     
-                    
+                    [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                     //设置滑动条
                     _slideView = [YLSlideView alloc];
                     _slideView = [_slideView initWithFrame:CGRectMake(0, 64.5+kZXVideoPlayerOriginalHeight+1.5,
@@ -8966,7 +8966,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSArray *ArrayTocategory = [NSArray arrayWithArray:self.CategoryAndREC];
                 [USER_DEFAULT setObject:ArrayTocategory forKey:@"categorysToCategoryView"];
                 
-                
+                [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
                 _slideView.backgroundColor = [UIColor whiteColor];
                 _slideView.delegate        = self;
                 
@@ -9016,8 +9016,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         [self initProgressLine];
         [self.table reloadData];
-        
-        
         
         
         
