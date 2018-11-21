@@ -6792,6 +6792,50 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 NSLog(@"dispatch_get_global_queue 主线程Socket == 结束");
             });
+            double delayInSeconds1 = 0;
+            dispatch_queue_t mainQueue1 = dispatch_get_main_queue();
+            dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds1 * NSEC_PER_SEC);
+            dispatch_after(popTime1, mainQueue1, ^{
+                NSMutableDictionary * epgDicToSocket1 = [[NSMutableDictionary alloc]init];
+                NSString * numberStr1 = [NSString stringWithFormat:@"%lu",(unsigned long)row];
+                epgDicToSocket1 = [self.dicTemp objectForKey:numberStr1];
+                epgDicToSocket1 = [epgDicToSocket1 mutableCopy];
+                NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket1,@"nowPlayingDic", nil];
+                [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
+                
+                self.service_videoname = [epgDicToSocket1 objectForKey:@"service_name"];
+                NSArray * epg_infoArr = [[NSArray alloc]init];
+                epg_infoArr = [epgDicToSocket1 objectForKey:@"epg_info"];
+                if (epg_infoArr.count == 0) {
+                    
+                    self.event_videoname = @"";
+                    self.event_startTime = @"";
+                    self.event_endTime = @"";
+                    [GGUtil postsetTimeAndProgressIsNullNotific];
+                    NSLog(@"postsetTimeAndProgressIsNullNotific==  ii");
+                    [self removeTopProgressView];
+                    NSLog(@"删除进度条removeTopProgressView  dddd");
+                    
+                }else
+                {
+                    
+                    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                    self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
+                    self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
+                    self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
+                    [GGUtil postsetTimeAndProgressIsShowNotific];
+                    
+                    self.video.playEventName = self.event_videoname;
+                    
+                    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
+                    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+                }
+                
+                
+                self.video.startTime = self.event_startTime;
+                self.video.endTime = self.event_endTime;
+                [self caculatorProgress];
+            });
         }
         
     }else{
