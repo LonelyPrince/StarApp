@@ -69,16 +69,8 @@
 }
 -(void)setSliderViewAlpha
 {
-//    NSLog(@"执行操作--隐藏");
-//    self.alpha = 0;
-//
-//    double delayInSeconds = 0.25;
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, mainQueue, ^{
-//        NSLog(@"执行操作--显示4");
-//        self.alpha = 1;
-//    });
+
+    NSLog(@"setSliderViewAlpha == ");
 }
 -(NSMutableArray *)titleArrReplace:(NSMutableArray*)titles
 {
@@ -147,7 +139,7 @@
 }
 - (void)dealloc{
     [self removeObserver:self forKeyPath:@"delegate"];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 #pragma mark RecycledCell
 
