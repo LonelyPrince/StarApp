@@ -2068,8 +2068,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     NSLog(@"时间==111 哈哈哈哈 %d",indexPath.row);
     
-    
-    //    [tempTableviewForFocus deselectRowAtIndexPath:tempIndexpathForFocus animated:YES];
     if ([tableView isEqual:pushTableView]) {
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -2090,12 +2088,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else
     {
-        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification5];
-        
-        
-        NSLog(@"self.video.dicChannl88==11");
+//        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+//        //通过通知中心发送通知
+//        [[NSNotificationCenter defaultCenter] postNotification:notification5];
         
         TVViewTouchPlay = YES;
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
@@ -2155,7 +2150,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"不相等");
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
             [self performSelector:@selector(didselectRowToPlayClick) withObject:nil afterDelay:0.3];
-//            [self removeLabAndAddIndecatorView];
             [self removeLabAndAddIndecatorView_temp];
             //=====则去掉不能播放的字样，加上加载环
 
@@ -2166,10 +2160,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@" self.dicTemp test== %@",self.dicTemp);
                 [self addHistory:indexPath.row diction:self.dicTemp];
                 [USER_DEFAULT setObject:@"NO" forKey:@"audioOrSubtTouch"];
-                //                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-                //                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
                 [self.videoController setaudioOrSubtRowIsZero];
-                
+
             });
             
             //    //关闭当前正在播放的节目
@@ -2189,7 +2181,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
         
         [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
-        
+
         double delayInSeconds1 = 0;
         dispatch_queue_t mainQueue1 = dispatch_get_main_queue();
         dispatch_time_t popTime1 = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds1 * NSEC_PER_SEC);
@@ -2200,12 +2192,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             epgDicToSocket1 = [epgDicToSocket1 mutableCopy];
             NSDictionary *nowPlayingDic =[[NSDictionary alloc] initWithObjectsAndKeys:epgDicToSocket1,@"nowPlayingDic", nil];
             [GGUtil postsetChannelNameAndEventNameNotic:nowPlayingDic];
-            
+
             self.service_videoname = [epgDicToSocket1 objectForKey:@"service_name"];
             NSArray * epg_infoArr = [[NSArray alloc]init];
             epg_infoArr = [epgDicToSocket1 objectForKey:@"epg_info"];
             if (epg_infoArr.count == 0) {
-                
+
                 self.event_videoname = @"";
                 self.event_startTime = @"";
                 self.event_endTime = @"";
@@ -2213,23 +2205,23 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"postsetTimeAndProgressIsNullNotific==  ii");
                 [self removeTopProgressView];
                 NSLog(@"删除进度条removeTopProgressView  dddd");
-                
+
             }else
             {
-                
+
                 self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                 self.event_startTime = [epg_infoArr[0] objectForKey:@"event_starttime"];
                 self.event_endTime = [epg_infoArr[0] objectForKey:@"event_endtime"];
                 self.event_videoname = [epg_infoArr[0] objectForKey:@"event_name"];
                 [GGUtil postsetTimeAndProgressIsShowNotific];
-                
+
                 self.video.playEventName = self.event_videoname;
-                
+
                 NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"replaceEventNameNotific" object:nil userInfo:nil];
                 [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
             }
-            
-            
+
+
             self.video.startTime = self.event_startTime;
             self.video.endTime = self.event_endTime;
             [self caculatorProgress];
@@ -2290,6 +2282,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - didselecttableview 方法中播放事件
 -(void)didselectRowToPlayClick
 {
+    NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification5];
     
     //    [_slideView reloadDataNoVisibleZero];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
