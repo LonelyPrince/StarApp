@@ -1375,7 +1375,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
                 decoderPINBtn.layer.cornerRadius = 14.0f;
                 decoderPINBtn.layer.masksToBounds = YES;
-                
+//
             }
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
@@ -1670,6 +1670,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noPlayShowShutNotic" object:nil];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowShutNotic) name:@"noPlayShowShutNotic" object:nil];
+    
+    //此处销毁通知，防止一个通知被多次调用    // 2
+    //此通知用于主页点击播放，防止加载环和不能播放的文字同时显示
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noPlayShowShutNotic_temp" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noPlayShowShutNotic_temp) name:@"noPlayShowShutNotic_temp" object:nil];
 }
 #pragma  mark - 不能播放时，准备显示不能播放的文字 @"sorry, this Video/Radio Cant play"
 //如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  停止播放的动作
@@ -1841,7 +1846,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                     case UIDeviceOrientationLandscapeLeft: {      // Device oriented horizontally, home button on the right
                         NSLog(@"home键在 右");
                         if ([[USER_DEFAULT objectForKey:@"FullScreenJudge"] isEqualToString:@"Full"]) {
-                        [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                            [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
                         }
                         NSLog(@"changeToFullScreenForOrientation 88");
                         if ( !lab) {
@@ -2097,6 +2102,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         lab = nil;
         lab = NULL;
         NSLog(@"lab 不存在拉了 aaaa");
+    }
+    
+    
+}
+-(void)noPlayShowShutNotic_temp
+{
+    NSLog(@"lab 不存在拉了 ++ %@",lab);
+    if ( !lab) {
+        
+        [GGUtil postIndicatorViewShowNotic];
+    }else
+    {
+        [lab removeFromSuperview];
+        lab = nil;
+        lab = NULL;
+        [GGUtil postIndicatorViewShowNotic];
     }
     
     
@@ -3794,7 +3815,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-subtarr.count*45)/2, 145,subtarr.count*46);
             }else
             {
-                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds) - 25);
             }
             
             //        [self.videoControl.subtBtn setEnabled:YES];  //此处需要置灰，以后再开放这个接口
@@ -3818,7 +3839,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-audioarr.count*45)/2, 145,audioarr.count*46);
             }else
             {
-                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+                self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds)- 25);
                 
             }
             [self.videoControl.audioBtn setEnabled:YES];
@@ -3837,7 +3858,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.subAudioTableView.frame = CGRectMake(CGRectGetWidth(self.view.bounds)-145,( SCREEN_WIDTH-self.video.channelCount*45)/2, 145,self.video.channelCount*46);
         }else
         {
-            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds));
+            self.subAudioTableView.frame  =  CGRectMake(CGRectGetWidth(self.view.bounds)-145, 20, 145, CGRectGetHeight(self.videoControl.rightView.bounds) - 25);
         }
         
         NSLog(@"self.video.channelCount %d",self.video.channelCount);
@@ -4965,23 +4986,24 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"setSubtitleRenderring00");
 }
 
-- (void)MPMoviePlayerRestartNotification{
+- (void)MPMoviePlayerRestartNotification
+{
     NSLog(@"MMoviePlayerRestartNotification\n");
-    
-    
+
+
     //    [self.player prepareToPlay:0];
     //    [self.player play];
-    
+
     NSLog(@"MMMself.url %@",self.url);
     NSLog(@"MMMself.video.playUrl %@",self.video.playUrl);
-    
+
     //    self.url = [NSURL URLWithString:self.video.playUrl];
     if (self.video.playUrl != NULL) {
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         self.player = nil;
         [self.player stop];
-        
+
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:[NSURL URLWithString:self.video.playUrl] withOptions:nil playView:nil];
         deviceString1 = [GGUtil deviceVersion];
         if ( [deviceString1 isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
@@ -4990,9 +5012,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else{
             self.player.view.frame = self.view.bounds;
         }
-        
+
         [self.view insertSubview:self.player.view atIndex:0];
-        
+
         if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
             [self.player prepareToPlay:0];
             [self.player play];
