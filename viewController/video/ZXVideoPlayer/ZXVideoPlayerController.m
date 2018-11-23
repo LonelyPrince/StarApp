@@ -979,10 +979,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     });
     //创建通知
-//    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-//    NSLog(@"removeProgressNotific 22");
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    //    NSLog(@"removeProgressNotific 22");
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 #pragma mark -如果不能播放 ，则①显示不能播放的文字  ② 取消掉加载环  ③  通知播放的动作               以下几种情况可以使用①CRC 错误（此时的CRC也无法判断）  ②播放时间超过15秒  ③播放器通知（暂时没有找到不能播放的通知）  ④盒子主动停掉，盒子的stop通知（socket 16：代表我主动停止分发   socket 19：代表机顶盒主动停）
 //如果不能播放，则显示不能播放字样
@@ -1375,7 +1375,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                 decoderPINBtn.frame = CGRectMake((self.view.frame.size.width - sizeDecoderPINBtn.width)/2,self.view.frame.size.height/2+15, sizeDecoderPINBtn.width, sizeDecoderPIN.height);
                 decoderPINBtn.layer.cornerRadius = 14.0f;
                 decoderPINBtn.layer.masksToBounds = YES;
-//
+                //
             }
                 break;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
@@ -2256,8 +2256,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             case UIDeviceOrientationLandscapeRight: {     // Device oriented horizontally, home button on the left
                 NSLog(@"此时 home键3在 左");
                 if ([[USER_DEFAULT objectForKey:@"FullScreenJudge"] isEqualToString:@"Full"]) {
-                [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
-                NSLog(@"changeToFullScreenForOrientation bb");
+                    [self changeToFullScreenForOrientation:UIDeviceOrientationLandscapeLeft];
+                    NSLog(@"changeToFullScreenForOrientation bb");
                 }
             }
                 break;
@@ -2286,7 +2286,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             default:
                 break;
         }
- 
+        
     }
     
 }
@@ -2477,7 +2477,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.videoControl.FullEventYFlabel = nil;
             [self.videoControl.FullEventYFlabel stopTimer];
             
-//            [self abctest];
+            [self abctest];
             NSLog(@"abctest===111");
             //    }
             
@@ -2683,7 +2683,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     NSLog(@"FullEventYFlabel lalal2 :%@",self.videoControl.FullEventYFlabel);
-//    NSString * abcaa = @"ccc";//self.videoControl.eventnameLabel.text;
+    //    NSString * abcaa = @"ccc";//self.videoControl.eventnameLabel.text;
     NSString * abcaa =  self.videoControl.eventnameLabel.text;
     NSLog(@"abctest===abcaa %@",abcaa);
     NSArray * arr = [[NSArray alloc]init];
@@ -2918,10 +2918,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     NSArray * touchArr = historyArr[historyArr.count - 1];
     NSLog(@"touchArr：%@",touchArr);
-   
+    
     
     NSInteger row ;
-   
+    
     if (nowPlayChannelIdBoolValue == YES) {
         nowPlayChannelIdBoolValue = NO;
         row = nowPlayChannelId;
@@ -3097,7 +3097,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知 现在我刷的BTC  BCH 交易对，总是出现挂单未成交的情况
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-
+            
             [self judgeNextBtnIsGray];
         }
     }else
@@ -3630,9 +3630,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         
         
-//        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
-//        //通过通知中心发送通知
-//        [[NSNotificationCenter defaultCenter] postNotification:notification5];
+        //        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+        //        //通过通知中心发送通知
+        //        [[NSNotificationCenter defaultCenter] postNotification:notification5];
         
         NSLog(@"animateShow   showshow");
         [self.player shutdown];
@@ -4989,21 +4989,21 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 - (void)MPMoviePlayerRestartNotification
 {
     NSLog(@"MMoviePlayerRestartNotification\n");
-
-
+    
+    
     //    [self.player prepareToPlay:0];
     //    [self.player play];
-
+    
     NSLog(@"MMMself.url %@",self.url);
     NSLog(@"MMMself.video.playUrl %@",self.video.playUrl);
-
+    
     //    self.url = [NSURL URLWithString:self.video.playUrl];
     if (self.video.playUrl != NULL) {
         [self.player shutdown];
         [self.player.view removeFromSuperview];
         self.player = nil;
         [self.player stop];
-
+        
         self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:[NSURL URLWithString:self.video.playUrl] withOptions:nil playView:nil];
         deviceString1 = [GGUtil deviceVersion];
         if ( [deviceString1 isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
@@ -5012,9 +5012,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }else{
             self.player.view.frame = self.view.bounds;
         }
-
+        
         [self.view insertSubview:self.player.view atIndex:0];
-
+        
         if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
             [self.player prepareToPlay:0];
             [self.player play];
@@ -5404,9 +5404,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@" eventTimeLabNow.hidden==  消失 55");
     self.videoControl.eventTimeLabAll.hidden = YES;
     
-//    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    //    NSNotification *notification =[NSNotification notificationWithName:@"removeProgressNotific" object:nil userInfo:nil];
+    //    //通过通知中心发送通知
+    //    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
 -(void)setTimeAndProgressIsShow
@@ -5419,7 +5419,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         NSLog(@" eventTimeLabNow.hidden==  显示 22");
         self.videoControl.eventTimeLabAll.hidden = NO;
         NSLog(@"self.videoControl.eventTimeLabNow.text   NONONO 2222");
-       
+        
     }else
     {
         self.videoControl.eventTimeLabNow.hidden = YES;
@@ -5698,7 +5698,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         }
     }
     
-
+    
     
     
     if ([[USER_DEFAULT objectForKey:@"VideoTouchFromOtherView"] isEqualToString:@"YES"]) {

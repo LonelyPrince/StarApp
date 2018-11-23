@@ -103,7 +103,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             dispatch_queue_t mainQueue = dispatch_get_main_queue();
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
-               
+                
                 self.fullScreenButton.hidden = YES;
                 
                 NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
@@ -809,7 +809,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         self.isBarShowing = NO;
         NSLog(@"animateHide 3333");
     }];
-    double delayInSeconds = 0.3;
+    double delayInSeconds = 0;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
@@ -837,8 +837,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"NO"] || barIsShowing == 1) {
         barIsShowing = 1;
-//        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
-//        NSLog(@"NONO 11");
+        //        [USER_DEFAULT setObject:@"NO" forKey:@"NOChannelDataDefault"];
+        //        NSLog(@"NONO 11");
         if (self.isBarShowing) {
             return;
         }
