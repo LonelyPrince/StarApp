@@ -78,6 +78,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     BOOL pushBtnHasClick;   //防止投屏按钮多次点击
     
     BOOL judgeIsNeedPlay ; //用于更新Video状态时，不播放节目
+    BOOL judgeIsNeedPlay_sec ; //用于判断是刚刚judgejumpFromotherView结束
     
     int nowPlayChannelId;
     BOOL nowPlayChannelIdBoolValue;
@@ -232,6 +233,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         judgeIsNeedPlay = YES;
         nowPlayChannelId = 0;
         nowPlayChannelIdBoolValue = NO;
+        judgeIsNeedPlay_sec = NO;
     }
     return self;
 }
@@ -944,8 +946,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)judgeIsNeedPlayFunction
 {
-    judgeIsNeedPlay = NO;
-    NSLog(@"judgeIsNeedPlay no111");
+    if (judgeIsNeedPlay_sec == YES) {
+        
+    }else{
+        judgeIsNeedPlay = NO;
+        NSLog(@"judgeIsNeedPlay no111");
+    }
+    
     
 }
 -(void)judgeIsNeedPlayNotificYes
@@ -957,8 +964,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 }
 -(void)judgeIsNeedPlayIsYes
 {
+    judgeIsNeedPlay_sec = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judgeIsNeedPlay_sec_change) object:nil];
+    //
+    [self performSelector:@selector(judgeIsNeedPlay_sec_change) withObject:nil afterDelay:25];
     judgeIsNeedPlay = YES;
     NSLog(@"judgeIsNeedPlay yes");
+}
+-(void)judgeIsNeedPlay_sec_change
+{
+    judgeIsNeedPlay_sec = NO;
 }
 //未播放前显示加载圈的通知 ①显示加载圈时停止显示decoder PIN 按钮 ②停止显示不能播放文字
 -(void)IndicatorViewShowNotic
@@ -2907,10 +2922,40 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 #pragma mark -
 #pragma mark - Action Code
 
+#pragma  mark -点击了暂停按钮
+- (void)suspendButtonClick
+{
+    
+    
+    if ([self.player isPlaying]) {  //暂停
+        [self.player pause];
+        NSLog(@"用户点击了暂停按钮");
+        //给通知，暂停进度条
+        
+        [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"播放"] forState:UIControlStateNormal];
+        
+        [self stopDurationTimer];
+    }else  //重新播放
+    {
+        [self.player play];
+        NSLog(@"用户点击了播放按钮");
+        //重新启动进度条
+        
+        [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
+        [self startDurationTimer];
+    }
+    
+    
+}
+
 ////
 ///上一个节目
 - (void)lastChannelButtonClick
 {
+//    self.videoControl.eventTimeLabNow.text = @"";
+//    self.videoControl.eventTimeLabAll.text = @"";
+//    [self setEventTime];
+    
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];
@@ -3009,33 +3054,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     }
     
 }
-#pragma  mark -点击了暂停按钮
-- (void)suspendButtonClick
-{
-    
-    
-    if ([self.player isPlaying]) {  //暂停
-        [self.player pause];
-        NSLog(@"用户点击了暂停按钮");
-        //给通知，暂停进度条
-        
-        [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"播放"] forState:UIControlStateNormal];
-        
-        [self stopDurationTimer];
-    }else  //重新播放
-    {
-        [self.player play];
-        NSLog(@"用户点击了播放按钮");
-        //重新启动进度条
-        
-        [self.videoControl.suspendButton setImage:[UIImage imageNamed:@"暂停"] forState:UIControlStateNormal];
-        [self startDurationTimer];
-    }
-    
-    
-}
+
 - (void)nextChannelButtonClick
 {
+//    self.videoControl.eventTimeLabNow.text = @"";
+//    self.videoControl.eventTimeLabAll.text = @"";
+//    [self setEventTime];
+    
     [self.player stop];
     [self.player shutdown];
     [self.player.view removeFromSuperview];

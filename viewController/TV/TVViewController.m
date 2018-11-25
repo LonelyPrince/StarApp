@@ -3724,6 +3724,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     });
     
     [GGUtil getCurrentLanguage];
+    
 }
 //0.3s 后执行
 -(void)viewWillAppearDealyFunction
@@ -9105,6 +9106,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)returnFromHomeToTVView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
+    
+    if ([[USER_DEFAULT objectForKey:@"TouchHome"] isEqualToString:@"1"]) {
+        [self getServiceDataForIPChange];
+        [self tableViewDataRefreshForMjRefresh];
+        
+        [self.tableForSliderView reloadData];
+        [self refreshTableviewByEPGTime];
+        [self.table reloadData];
+        [USER_DEFAULT setObject:@"0" forKey:@"TouchHome"];
+        
+        NSLog(@"按理说是触发home按下 --- 做一次刷新");
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
         NSLog(@"取消25秒的等待5");
@@ -9187,6 +9201,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         
     }
+    
+    
 }
 #pragma mark - 当节目CA加密弹窗过程中，收到了取消弹窗的通知
 -(void)ChangeCALockNotific //机顶盒加锁改变的消息

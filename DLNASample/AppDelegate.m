@@ -195,6 +195,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 
     printf("按理说是触发home按下\n");
+    [USER_DEFAULT setObject:@"1" forKey:@"TouchHome"];
     
 }
 - (void)applicationDidBecomeActive:(UIApplication *)application
