@@ -5361,6 +5361,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         } else
         {
             dValueTime = [[GGUtil GetNowTimeString] intValue]  - [self.video.startTime intValue];
+            //此处可以在做显示操作
+            NSLog(@"postsetTimeAndProgressIsNullNotific==  显示11");
+            [GGUtil postsetTimeAndProgressIsShowNotific];
         }
     }else
     {
@@ -5392,12 +5395,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     self.videoControl.eventTimeLabNow.text = [NSString stringWithFormat:@"%@ ",nowTime];
     NSLog(@"self.videoControl.eventTimeLabNow.text 33 %@",self.videoControl.eventTimeLabNow.text);
     self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
+
     
     //进行判断,看是不是录制节目.并且录制节目没有断开网络
     if ([self.videoControl.channelIdLab.text  isEqual: @""] || [self.videoControl.channelIdLab.text isEqualToString:@""]) {
-        
+
         if ([[USER_DEFAULT objectForKey:@"playStateType"] isEqualToString:mediaDisConnect]) {
-            
+
             self.videoControl.eventTimeLabNow.text = @"00:00:00";
             NSLog(@"self.videoControl.eventTimeLabNow.text 44 %@",self.videoControl.eventTimeLabNow.text);
             self.videoControl.eventTimeLabAll.text = [NSString stringWithFormat:@"| %@",TimeIntervalString];
