@@ -535,7 +535,7 @@
         {
         //搜索失败，证明没有这个历史了
             NSLog(@"没有这个节目了");
-            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@""  message:@"sorry,can't serarch this video" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@""  message:@"Sorry,can't search this video" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
             
             [alertView show];
             
