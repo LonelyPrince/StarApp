@@ -8738,7 +8738,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
             [self refreshTableviewByEPGTime];
             [self.table reloadData];
-            [self setSearchViewData];
+//            [self setSearchViewData];
             NSLog(@"setSearchViewDatasetSearchViewData===4444");
         }
 

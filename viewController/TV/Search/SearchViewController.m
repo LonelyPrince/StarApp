@@ -41,18 +41,10 @@
 @synthesize historySearchDelBtn;
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
-//    [self getServiceArray];
+    [super viewDidLoad];
     [self loadNav];
     [self initData];
-//    self.dataList = [[NSMutableArray alloc]init];
-    
-//    [self.tableView reloadData];
-//    self.showData = [USER_DEFAULT objectForKey:@"showData"];
-//    NSLog(@"self.showData: %@",self.showData);
 
-    NSLog(@"%lu",(unsigned long)[_dataList count]);
-//    self.showData = [NSMutableArray arrayWithArray:_dataList];
     
     NSString * SearchLabel = NSLocalizedString(@"SearchLabel", nil);
     [self.searchBar setPlaceholder:SearchLabel];
@@ -201,7 +193,7 @@
             NSString * LogicName = [NSString stringWithFormat:@"%@  %@",serviceLogic,serviceName];
             
             [self.dataList addObject:LogicName];
-            NSLog(@"self.dataList == %@",self.dataList);
+            NSLog(@"self.dataList == 11 %@",self.dataList);
         }
         
         
@@ -368,7 +360,7 @@
 //    }
 //    return dicTemp11;
     
-    NSLog(@"self.dataList == %@",self.dataList);
+    NSLog(@"self.dataList == 22 %@",self.dataList);
     
             NSArray * category1 = [self.response objectForKey:@"category"];   //category是所有的类别分类的数据
     
@@ -421,7 +413,7 @@
  
     if ([tableView isEqual:self.tableView]) {
         NSLog(@"showData == %@",self.showData);
-        NSLog(@"self.dataList == %@",self.dataList);
+        NSLog(@"self.dataList == 33 %@",self.dataList);
         int index1 ;
         if (self.showData.count - 1 >= indexPath.row) {
             index1 = [self.dataList indexOfObject:self.showData[indexPath.row]];   //这里判断出是第几个service，下一步寻找这个index存在在那个category中
