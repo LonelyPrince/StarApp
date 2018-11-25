@@ -10013,14 +10013,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
 }
 
--(void)fixprogressView :(NSNotification *)text{
+-(void)fixprogressView :(NSNotification *)text
+{
     int show = [text.userInfo[@"boolBarShow"] intValue];
     touchStatusNum = show;
     if (show ==1) {
         BOOL isFullScreen =  [USER_DEFAULT boolForKey:@"isFullScreenMode"];
         if (isFullScreen == YES) {
             //此刻是全屏，隐藏进度条
-            [UIView animateWithDuration:0.3 animations:^{
+            [UIView animateWithDuration:0 animations:^{
                 //                self.topProgressView.hidden = YES;
                 self.topProgressView.alpha = 0;
             }];

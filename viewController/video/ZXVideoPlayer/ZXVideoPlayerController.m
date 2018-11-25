@@ -3431,13 +3431,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         
     }
     
-    //    if (self.video.dicChannl.count > ) {
-    //        statements
-    //    }
     
-    //    NSArray *   =[self.chann  objectForKey:@"audio_info"];
-    //    BOOL judgeIsNull = [self judgeAudioIsNull:self.video.dicChannl];
-    //    NSArray * subtarr =[self.video.dicChannl  objectForKey:@"epg_info"];
     if (self.video.dicChannl.count == 0 || self.video.dicChannl == NULL || self.video.dicChannl == nil || [self.subAudioTableView numberOfRowsInSection:0] <=0 || [self.subAudioTableView numberOfRowsInSection:0] <= channelPositionIndex) {
         
         NSLog(@"节目列表可能没有数据");
