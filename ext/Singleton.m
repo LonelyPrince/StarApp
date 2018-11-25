@@ -2479,6 +2479,7 @@
     NSNotification *notification =[NSNotification notificationWithName:@"NOCACardNotific" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
+    NSLog(@"CACACASSSDNNONONON");
 }
 
 //对socket读取文件进行操作   case = 8

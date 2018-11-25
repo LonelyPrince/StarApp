@@ -2096,6 +2096,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if ( !lab) {
         
         NSLog(@"lab 不存在拉了");
+        
+        [lab removeFromSuperview];
+        lab = nil;
+        lab = NULL;
     }else
     {
         [lab removeFromSuperview];
@@ -2111,13 +2115,18 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"lab 不存在拉了 ++ %@",lab);
     if ( !lab) {
         
-        [GGUtil postIndicatorViewShowNotic];
+        [lab removeFromSuperview];
+        lab = nil;
+        lab = NULL;
+        
+//        [GGUtil postIndicatorViewShowNotic];
+        
     }else
     {
         [lab removeFromSuperview];
         lab = nil;
         lab = NULL;
-        [GGUtil postIndicatorViewShowNotic];
+//        [GGUtil postIndicatorViewShowNotic];
     }
     
     

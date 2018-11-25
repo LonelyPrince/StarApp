@@ -2091,7 +2091,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
 //        //通过通知中心发送通知
 //        [[NSNotificationCenter defaultCenter] postNotification:notification5];
-        
+        [self removeLabAndAddIndecatorView_temp];
         TVViewTouchPlay = YES;
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
         [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
@@ -9391,6 +9391,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     uint8_t NOCACardStatusInt = [SocketUtils uint8FromBytes:NOCACardStatus];
     
     NSLog(@"NOCACardStatusInt %d",NOCACardStatusInt);
+    //在判断是不是为3 之前，先判断是不是同一个节目
+ 
+    
     if (NOCACardStatusInt != 3) {
         
         [USER_DEFAULT setObject:@"Lab" forKey:@"LabOrPop"];  //不能播放的文字和弹窗互斥出现
@@ -9784,8 +9787,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
         [GGUtil postnoPlayShowShutNotic];
-        
-//        [GGUtil postIndicatorViewShowNotic];
+    
+        [GGUtil postIndicatorViewShowNotic];
     
 ////    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [GGUtil postnoPlayShowShutNotic];
@@ -9798,11 +9801,12 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //防止产生加载环和不能播放的文字同时出现的问题
 -(void)removeLabAndAddIndecatorView_temp
 {
-    
-
+//    NSLog(@"removeLabAndAddIndecatorView_tempremoveLabAndAddIndecatorView_temp");
     NSNotification *notification1 =[NSNotification notificationWithName:@"noPlayShowShutNotic_temp" object:nil userInfo:nil];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
+    
+//    [GGUtil postnoPlayShowShutNotic];
     
 //    [GGUtil postnoPlayShowShutNotic];
     
@@ -10020,9 +10024,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 //                self.topProgressView.hidden = YES;
                 self.topProgressView.alpha = 0;
             }];
-        }else
-        {//此刻是竖屏，不隐藏进度条
-            
         }
         [USER_DEFAULT setBool:NO forKey:@"isBarIsShowNow"]; //阴影此时是隐藏
         [self prefersStatusBarHidden];
