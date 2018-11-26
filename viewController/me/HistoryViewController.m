@@ -1281,7 +1281,7 @@
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissAlertview_play) object:nil];
         [self performSelector:@selector(dismissAlertview_play) withObject:nil afterDelay:1];
-        
+//
     }
 
     

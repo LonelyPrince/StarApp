@@ -1327,8 +1327,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     
     
-    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"changeView" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+//    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"changeView" object:nil userInfo:nil];
+//    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
     
     NSMutableArray *ArrayTocategory_temp =  [[NSMutableArray alloc]init];
     

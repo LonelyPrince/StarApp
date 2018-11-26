@@ -401,38 +401,13 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
             
         }
         
-//        for (int i = 0; i < countChazhi ; i ++) {
+ 
             _titles = [_titles_temp mutableCopy];
             NSLog(@"_title s %lu",(unsigned long)_titles.count);
             [self configView];
-            
-//        }
-        
+  
         _titles = [_titles_temp mutableCopy];
     }
-    
-    
-////    以下代码是对 button增加的处理逻辑
-//    NSMutableArray * abcdd = [[NSMutableArray alloc]init];
-//    abcdd = [_titles mutableCopy];
-//    [abcdd addObjectsFromArray:abcdd];
-//    _titles = [abcdd mutableCopy];
-//    NSLog(@"_title s %d",_titles.count);
-//    NSLog(@"_title s %d",abcdd.count);
-//    [self configView];
-//
-//
-//
-////    以下代码是对 button减少的处理逻辑
-//    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count - 1 +YLSlideTitleViewButtonTag];
-//    currentButton.backgroundColor = [UIColor clearColor];
-//    [currentButton removeFromSuperview];
-    
-    
-//    //以下代码是对button 的 title进行修改
-//    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count - 3 +YLSlideTitleViewButtonTag];
-//    currentButton.backgroundColor = [UIColor blueColor];
-//    [currentButton setTitle:@"testaa" forState:UIControlStateNormal];
     
     
 }
