@@ -12,7 +12,7 @@
 
 #define ONEDAY 86400
 //#define ONEDAY    5//86400  //99999999 //81000
-@interface HistoryViewController ()
+@interface HistoryViewController ()<UIAlertViewDelegate>
 {
     UIButton * editButton;
     NSMutableArray * dataArray;
@@ -33,6 +33,9 @@
     //    UIView *customSeparatorView;
     //    CGFloat separatorHight;
     //
+    NSInteger row_notExist;
+    NSDictionary * dic_notExist  ;
+    UIAlertView * linkAlert ;
     
 }
 //@property (nonatomic,weak)UIView *originSeparatorView;
@@ -1173,7 +1176,7 @@
         dic = dicTemp;
     }
   
-    
+    BOOL historyChannelIsExist = YES;
     for (int i = 0; i < dic.count; i ++) {
         NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
         NSLog(@"test  == %d",i);
@@ -1181,57 +1184,82 @@
             //如果相等，则获取row
             row = i;
             NSLog(@"test 11");
+            historyChannelIsExist = YES ;
             break;
         }else
         {
             row = 0;
+            historyChannelIsExist = NO;
             NSLog(@"test 22");
             //                break;
         }
     }
-    NSLog(@"jsjsjsjsjsjsjajdandaon");
-    NSNumber * numIndex = [NSNumber numberWithInt:row];
-    //添加 字典，将label的值通过key值设置传递
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-    
-    //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
-    NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-    
-    NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-    
-    
-    if (characterStr != NULL && characterStr != nil) {
+    if (historyChannelIsExist == YES) {
+        //正常执行
         
-        BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
-        if (judgeIsSTBDecrypt == YES) {
-            // 此处代表需要记性机顶盒加密验证
-            //弹窗
-            //发送通知
+        NSLog(@"jsjsjsjsjsjsjajdandaon");
+        NSNumber * numIndex = [NSNumber numberWithInt:row];
+        //添加 字典，将label的值通过key值设置传递
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
+        
+        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+        NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
+        
+        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+        
+        
+        if (characterStr != NULL && characterStr != nil) {
             
-            //        [self popSTBAlertView];
-            //        [self popCAAlertView];
-            NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
-            //创建通知
-            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification1];
+            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+            if (judgeIsSTBDecrypt == YES) {
+                // 此处代表需要记性机顶盒加密验证
+                //弹窗
+                //发送通知
+                
+                //        [self popSTBAlertView];
+                //        [self popCAAlertView];
+                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                
+                [self.tabBarController setSelectedIndex:1];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            }else //正常播放的步骤
+            {
+                
+                
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                [self.tabBarController setSelectedIndex:1];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
+                
+            }
             
-            [self.tabBarController setSelectedIndex:1];
-            [self.navigationController popViewControllerAnimated:YES];
             
-            //创建通知
-            NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification2];
         }else //正常播放的步骤
         {
-            
-            
             //创建通知
             NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
+            //    [self.navigationController popViewControllerAnimated:YES];
+            //    [self.navigationController popToViewController:_tvViewController animated:YES];
+            //    [self.navigationController pushViewController:_tvViewController animated:YES];
             [self.tabBarController setSelectedIndex:1];
             [self.navigationController popViewControllerAnimated:YES];
             
@@ -1239,27 +1267,107 @@
             NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification2];
-            
         }
+    }else{
+        row_notExist = row;
+        dic_notExist = dic;
+        //不存在该节目，弹窗
+         linkAlert = [[UIAlertView alloc]initWithTitle:nil message:@"Sorry, this video not exist." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
         
+        [linkAlert show];
         
-    }else //正常播放的步骤
-    {
-        //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        //    [self.navigationController popViewControllerAnimated:YES];
-        //    [self.navigationController popToViewController:_tvViewController animated:YES];
-        //    [self.navigationController pushViewController:_tvViewController animated:YES];
-        [self.tabBarController setSelectedIndex:1];
-        [self.navigationController popViewControllerAnimated:YES];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissAlertview) object:nil];
+        [self performSelector:@selector(dismissAlertview) withObject:nil afterDelay:0.9];
         
-        //创建通知
-        NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(dismissAlertview_play) object:nil];
+        [self performSelector:@selector(dismissAlertview_play) withObject:nil afterDelay:1];
+        
     }
+
+    
+}
+
+-(void)dismissAlertview
+{
+    [linkAlert dismissWithClickedButtonIndex:0 animated:NO];
+}
+-(void)dismissAlertview_play
+{
+    
+        //正常执行
+        
+        NSLog(@"jsjsjsjsjsjsjajdandaon");
+        NSNumber * numIndex = [NSNumber numberWithInt:row_notExist];
+        //添加 字典，将label的值通过key值设置传递
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic_notExist,@"textTwo", nil];
+        
+        //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
+        NSDictionary * epgDicToSocket = [dic_notExist objectForKey:[NSString stringWithFormat:@"%ld",(long)row_notExist]];
+        
+        NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
+        
+        
+        if (characterStr != NULL && characterStr != nil) {
+            
+            BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
+            if (judgeIsSTBDecrypt == YES) {
+                // 此处代表需要记性机顶盒加密验证
+                //弹窗
+                //发送通知
+                
+                //        [self popSTBAlertView];
+                //        [self popCAAlertView];
+                NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic_notExist,@"textTwo", @"otherTouch",@"textThree",nil];
+                //创建通知
+                NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification1];
+                
+                [self.tabBarController setSelectedIndex:1];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
+            }else //正常播放的步骤
+            {
+                
+                
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                [self.tabBarController setSelectedIndex:1];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                //创建通知
+                NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification2];
+                
+            }
+            
+            
+        }else //正常播放的步骤
+        {
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            //    [self.navigationController popViewControllerAnimated:YES];
+            //    [self.navigationController popToViewController:_tvViewController animated:YES];
+            //    [self.navigationController pushViewController:_tvViewController animated:YES];
+            [self.tabBarController setSelectedIndex:1];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            //创建通知
+            NSNotification *notification2 =[NSNotification notificationWithName:@"focusPlacefunction" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification2];
+        }
+    
     
 }
 
