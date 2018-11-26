@@ -1283,7 +1283,6 @@
         [self performSelector:@selector(dismissAlertview_play) withObject:nil afterDelay:1];
 //
     }
-
     
 }
 

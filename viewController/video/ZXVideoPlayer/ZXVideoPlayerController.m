@@ -6269,14 +6269,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             
             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
             //创建通知
-            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific" object:nil userInfo:dict_STBDecrypt];
+            NSNotification *notification1 =[NSNotification notificationWithName:@"popSTBAlertView_noConnect" object:nil userInfo:dict_STBDecrypt];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
             
         }else //正常播放的步骤
         {
             //创建通知
-            NSNotification *notification4 =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+            NSNotification *notification4 =[NSNotification notificationWithName:@"VideoTouchNoific_notConnect" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification4];
         }
@@ -6285,7 +6285,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         
         //创建通知
-        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific" object:nil userInfo:dict];
+        NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific_notConnect" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     }

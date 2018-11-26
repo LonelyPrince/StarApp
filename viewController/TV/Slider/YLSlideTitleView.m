@@ -405,6 +405,7 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
             _titles = [_titles_temp mutableCopy];
             NSLog(@"_title s %lu",(unsigned long)_titles.count);
             [self configView];
+        
   
         _titles = [_titles_temp mutableCopy];
     }
