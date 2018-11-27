@@ -6215,14 +6215,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSNotification *notification =[NSNotification notificationWithName:@"IndicatorViewShowNotic" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     NSLog(@"加载环展示 111");
-    
+
     audioRow = 0;
     subtRow = 0;
     NSLog(@"shang 上一个节目");
-    
+
     NSMutableArray *  historyArr  = [[NSMutableArray alloc]init];
     historyArr  =   [[USER_DEFAULT objectForKey:@"historySeed"] mutableCopy];
-    
+
     NSArray * touchArr;
     if (historyArr.count >= 1) {
         touchArr = historyArr[historyArr.count - 1];
@@ -6230,7 +6230,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         return;
     }
-    
+
     NSInteger row = 0;
     if (touchArr.count >= 2) {
         row = [touchArr[2] intValue];
@@ -6238,7 +6238,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         return;
     }
-    
+
     NSDictionary * dic ;
     if (touchArr.count >= 3) {
         dic = touchArr [3];
@@ -6246,33 +6246,33 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         return;
     }
-    
-    
+
+
     //        if (row >= 1) {
     self.videoControl.lastChannelButton.enabled = YES;
     self.videoControl.nextChannelButton.enabled = YES;
     NSNumber * numIndex = [NSNumber numberWithInt:row];
     //添加 字典，将label的值通过key值设置传递
     NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", nil];
-    
-    
+
+
     //这里需要进行一次判断，看是不是需要弹出机顶盒加锁密码框
     NSDictionary * epgDicToSocket = [dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]];
-    
+
     NSString * characterStr = [epgDicToSocket objectForKey:@"service_character"]; //新加了一个service_character
-    
-    
+
+
     if (characterStr != NULL && characterStr != nil) {
-        
+
         BOOL judgeIsSTBDecrypt = [GGUtil isSTBDEncrypt:characterStr];
         if (judgeIsSTBDecrypt == YES) {
-            
+
             NSDictionary *dict_STBDecrypt =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",dic,@"textTwo", @"otherTouch",@"textThree",nil];
             //创建通知
-            NSNotification *notification1 =[NSNotification notificationWithName:@"popSTBAlertView_noConnect" object:nil userInfo:dict_STBDecrypt];
+            NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptNotific_noConnect" object:nil userInfo:dict_STBDecrypt];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification1];
-            
+
         }else //正常播放的步骤
         {
             //创建通知
@@ -6280,16 +6280,16 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification4];
         }
-        
+
     }else //正常播放的步骤
     {
-        
+
         //创建通知
         NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoific_notConnect" object:nil userInfo:dict];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
-    
+
 }
 
 -(void)judgeLastNextBtnIsEnableNotific

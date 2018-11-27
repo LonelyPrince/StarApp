@@ -46,28 +46,28 @@
     NSLog(@"socket连接成功");
     NSLog(@"接下来开始发送心跳");
     [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
-    
+
     if (self.connectStatus >3) {
         //连接状态存储
         [USER_DEFAULT setObject:@"ConnectIsSuccess" forKey:@"ConnectStatus_userDefault"];
-        
+
         //从断开状态到连接状态，开始重新播放
         NSNotification *notification1 =[NSNotification notificationWithName:@"reConnectSocketFromDisConnect" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
-        
+
         NSNotification *notification3 =[NSNotification notificationWithName:@"pushBtnEnabled" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification3];
         [USER_DEFAULT setObject:@"" forKey:@"playStateType"];
-        
+
         NSNotification *notification4 =[NSNotification notificationWithName:@"reConnectSocketToRefreshTable" object:nil userInfo:nil];
         [[NSNotificationCenter defaultCenter] postNotification:notification4];
-        
+
     }
     NSNotification *notification =[NSNotification notificationWithName:@"netWorkIsConnectNotice" object:nil userInfo:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     //
     self.connectStatus = 0; //连接成功，则赋值为0
-    
+
     // 每隔15s像服务器发送心跳包
     [sock readDataWithTimeout:-1 tag:0];
     self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:15 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];// 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
