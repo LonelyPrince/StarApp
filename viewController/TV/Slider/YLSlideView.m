@@ -52,6 +52,7 @@
         
         
         [self setSliderViewAlphaConfig];
+        [self setSliderViewByReSetNotific];
         
         //此处销毁通知，防止一个通知被多次调用
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeView" object:nil];
@@ -60,6 +61,18 @@
     }
     
     return self;
+}
+
+//被重新设置
+-(void)setSliderViewByReSetNotific
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"setSliderViewByReSetNotific" object:nil];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSliderViewByReSet) name:@"setSliderViewByReSetNotific" object:nil];
+}
+-(void)setSliderViewByReSet
+{
+    _prePageIndex = 0;
 }
 -(void)setSliderViewAlphaConfig
 {
@@ -399,12 +412,17 @@
     
 }
 - (void)visibleViewDelegateForIndex:(NSUInteger)index{
-    
+    NSLog(@"visibleViewDelegateForIndex == %d",index);
     if (_prePageIndex != index) {
         if ([_delegate respondsToSelector:@selector(slideVisibleView:forIndex:)]) {
             [_delegate slideVisibleView:[self visibleCellForIndex:index] forIndex:index];
             //            [_delegate slideVisibleView:[self visibleCellForIndex:index] forIndex:2];
+        }else{
+            NSLog(@"没有 slideVisibleView 方法");
         }
+    }else
+    {
+        NSLog(@"没有 slideVisibleView 方法 222");
     }
     
     _prePageIndex = index;

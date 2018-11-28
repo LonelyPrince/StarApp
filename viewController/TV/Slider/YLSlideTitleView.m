@@ -408,6 +408,10 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         
   
         _titles = [_titles_temp mutableCopy];
+        
+        NSNotification *notification =[NSNotification notificationWithName:@"setSliderViewByReSetNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }
     
     

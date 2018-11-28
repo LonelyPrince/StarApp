@@ -499,6 +499,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                        [_slideView removeFromSuperview];
                     //                        _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview 11");
                 }
                 
                 if (!self.NoDataImageview) {
@@ -782,6 +783,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //                        [_slideView removeFromSuperview];  NSLog(@"删除了某个节目   669");
                         //                        _slideView = nil;
                         [self dealSliderview:self.categorys];
+                        NSLog(@"dealSliderview 22");
                     }
                     
                     if (!self.NoDataImageview) {
@@ -865,6 +867,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             //                            [_slideView removeFromSuperview];   NSLog(@"删除了某个节目   745");
                             //                            _slideView = nil;
                             [self dealSliderview:self.categorys];
+                            NSLog(@"dealSliderview 33");
                         }
                         //机顶盒连接成功了，但是没有数据
                         //显示列表为空的数据
@@ -1308,7 +1311,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - 处理sliderview增减的逻辑
 -(void)dealSliderview:(NSMutableArray *)titleArr
 {
-    
+    NSLog(@"dealSliderview 处理函数");
     
     NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:[self titleArrReplace1:titleArr],@"titleInfo", nil];
     //创建通知，防止刷新后跳转错页面
@@ -4343,6 +4346,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [_slideView removeFromSuperview];
                     //                    _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview 44");
                     NSLog(@" 3885  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
@@ -4370,6 +4374,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    _slideView = nil;
                     NSLog(@"self.categorys.count %d",self.categorys.count);
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview 55");
                     NSLog(@" 3909  remove 了列表 删除了某个节目");
                     [self.tableForSliderView reloadData];
                     [self refreshTableviewByEPGTime];
@@ -4488,7 +4493,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         NSDictionary *item;
-        if (self.categorys.count > 0) {
+        if (self.categorys.count > 0 && self.categorys.count > [indexforTableToNum intValue] ) {
             item = self.categorys[[indexforTableToNum intValue]];   //当前页面类别下的信息
         }
         
@@ -4929,6 +4934,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [_slideView removeFromSuperview];
             //            _slideView = nil;
             [self dealSliderview:self.categorys];
+            NSLog(@"dealSliderview 66");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
             //            [self tableViewDataRefreshForMjRefresh];
             
@@ -4939,6 +4945,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [_slideView removeFromSuperview];
             //            _slideView = nil;
             [self dealSliderview:self.categorys];
+            NSLog(@"dealSliderview 77");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }else if (getLastCategoryArr.count == 0 && self.categorys.count > 0  )
         {
@@ -4947,6 +4954,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [_slideView removeFromSuperview];
             //            _slideView = nil;
             [self dealSliderview:self.categorys];
+            NSLog(@"dealSliderview 88");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         
@@ -9335,6 +9343,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [_slideView removeFromSuperview];
                     //                    _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview 99");
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
@@ -9411,6 +9420,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [_slideView removeFromSuperview];
                     //                    _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview 00");
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
@@ -9580,6 +9590,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         //                    [_slideView removeFromSuperview];
                         //                    _slideView = nil;
                         [self dealSliderview:self.categorys];
+                        NSLog(@"dealSliderview aa");
                     }
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
@@ -9879,6 +9890,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [_slideView removeFromSuperview];
                     //                    _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview bb");
                 }
                 
                 self.NoDataImageview = [[UIImageView alloc]init];
@@ -9931,6 +9943,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [_slideView removeFromSuperview];
                     //                    _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview cc");
                 }
                 
                 if (!self.NoDataImageview) {
@@ -10023,6 +10036,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [_slideView removeFromSuperview];
             //            _slideView = nil;
             [self dealSliderview:self.categorys];
+            NSLog(@"dealSliderview dd");
             if (!_slideView) {
                 
                 [self playVideo];
@@ -11963,6 +11977,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             //            [_slideView removeFromSuperview];
             //            _slideView = nil;
             [self dealSliderview:self.categorys];
+            NSLog(@"dealSliderview ee");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
         }
         NSDictionary *response = [USER_DEFAULT objectForKey:@"TVHttpAllData"];
@@ -11977,6 +11992,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //                    [_slideView removeFromSuperview];
                     //                    _slideView = nil;
                     [self dealSliderview:self.categorys];
+                    NSLog(@"dealSliderview ff");
                 }
                 //机顶盒连接成功了，但是没有数据
                 //显示列表为空的数据
