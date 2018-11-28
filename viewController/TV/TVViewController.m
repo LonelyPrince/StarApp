@@ -2180,6 +2180,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [tableView reloadData];    //刷新主页面，防止焦点不会正常修改
         });
         
+
         [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
 
         double delayInSeconds1 = 0;
@@ -12839,7 +12840,19 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)SDTfirstOpenAppAutoPlaySMT : (NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
     if (self.showTVView == YES) {
+        
+        
+        [self stopVideoPlay];
+        
         [self removeLabAndAddIndecatorView];
+        double delayInSeconds = 0.2;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+
+            [GGUtil postIndicatorViewShowNotic];
+        });
+        
         [USER_DEFAULT setObject:@"no" forKey:@"alertViewHasPop"];
         NSMutableDictionary * epgDicToSocket = [[dic objectForKey:[NSString stringWithFormat:@"%ld",(long)row]] mutableCopy];
         if (epgDicToSocket.count > 14) {  //录制
@@ -12987,18 +13000,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             tempArrForServiceArr =  self.categoryModel.service_indexArr;
             tempDicForServiceArr = self.TVChannlDic;
             [self getsubt];
-            //*********
-            //
-            //            //再单独开一个线程用于default操作
-            //            dispatch_queue_t  queueA = dispatch_queue_create("firstOpen",DISPATCH_QUEUE_CONCURRENT);
-            //            dispatch_async(queueA, ^{
-            //                NSLog(@"dispatch_get_global_queue 播放的第四个方法");
-            //                [USER_DEFAULT setObject:tempArrForServiceArr forKey:@"tempArrForServiceArr"];
-            //                [USER_DEFAULT setObject:tempDicForServiceArr forKey:@"tempDicForServiceArr"];
-            //
-            //                NSLog(@"dispatch_get_global_queue 播放的第四个方法 == 结束");
-            //            });
-            
+           
             self.video.dicChannl = [tempDicForServiceArr mutableCopy];
             if ([tempArrForServiceArr isKindOfClass:[NSArray class]]){
                 self.video.channelCount = tempArrForServiceArr.count;
@@ -13008,8 +13010,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [[NSNotificationCenter defaultCenter] removeObserver:self name:@"notice" object:nil];
             //注册通知
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getDataService:) name:@"notice" object:nil];
-            
-            NSLog(@"    ");
+           
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"dispatch_get_global_queue 主线程Socket");
                 
@@ -13017,6 +13018,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"mediaDisConnect   eeee");
                     [GGUtil postnoPlayShowNotic];
                     NSLog(@"postnoPlayShowNotic gggggg");
+                
+                    
                 }else{
                     [USER_DEFAULT setObject:videoCantPlayTip forKey:@"playStateType"];
                     
