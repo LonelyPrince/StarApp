@@ -5531,7 +5531,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 //row 代表是service的每个类别下的序列是几，dic代表每个类别下的service
 -(void)VideoTouchNoificClick: (NSNotification *)text//(NSInteger)row diction :(NSDictionary *)dic  //:(NSNotification *)text{
 {
-    double delayInSeconds = 1.2;
+    double delayInSeconds = 0;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, mainQueue, ^{
@@ -8163,6 +8163,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark - STB弹窗
 -(void)popSTBAlertView: (NSNotification *)text
 {
+    
+    double delayInSeconds = 0;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification5];
+        
+    });
     
     //    dispatch_async(dispatch_get_main_queue(), ^{
     
@@ -12363,6 +12373,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self.videoController.player shutdown];
                         [self.videoController.player.view removeFromSuperview];
                     });
+                    
+                    NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification5];
                 }
             }else //正常播放的步骤
             {
@@ -12374,6 +12388,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [self.videoController.player shutdown];
                     [self.videoController.player.view removeFromSuperview];
                 });
+                
+                NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification5];
             }
             
             firstOpenAPP = firstOpenAPP+1;
@@ -12461,10 +12479,30 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }else //正常播放的步骤
                 {
                     [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                    
+//                    double delayInSeconds = 0.5;
+//                    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//                    dispatch_after(popTime, mainQueue, ^{
+                        NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+                        //通过通知中心发送通知
+                        [[NSNotificationCenter defaultCenter] postNotification:notification5];
+                        
+//                    });
                 }
             }else //正常播放的步骤
             {
                 [self firstOpenAppAutoPlayZero:pushChannelId diction:self.dicTemp];
+                
+//                double delayInSeconds = 0.5;
+//                dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//                dispatch_after(popTime, mainQueue, ^{
+                    NSNotification *notification5 =[NSNotification notificationWithName:@"viewShowNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification5];
+                    
+//                });
             }
             
             firstOpenAPP = firstOpenAPP+1;
