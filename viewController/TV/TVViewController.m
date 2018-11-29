@@ -3890,6 +3890,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 #pragma mark -//如果是从其他的页面跳转过来的，则自动播放上一个视频（犹豫中特殊情况，视频断开后，此方法会无效。除非用户重新点击观看）
 -(void)judgeJumpFromOtherView //如果是从其他的页面条转过来的，则自动播放上一个视频
 {
+    
+//     [self tableViewCellToBlue:0  indexhah:5 AllNumberOfService:1000];
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [self updateFullScreenDic];
         
@@ -4072,12 +4075,25 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                 NSLog(@"row %d",row);
                                                 NSLog(@"dic %@",dic);
                                                 [self firstOpenAppAutoPlayZero:row diction:dic];
+                                                
+//                                                NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//
+//                                                int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//
+//                                                [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
 
                                             }
                                         }else //正常播放的步骤
                                         {
                                             //======机顶盒加密
                                             [self firstOpenAppAutoPlay:row diction:dic];
+                                            
+                                            
+//                                            NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//
+//                                            int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//
+//                                            [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
                                         }
 
                                         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
@@ -10161,7 +10177,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     
     if ([[USER_DEFAULT objectForKey:@"TouchHome"] isEqualToString:@"1"]) {
-        [self getServiceDataForIPChange];
+//        [self getServiceDataForIPChange];
         [self tableViewDataRefreshForMjRefresh];
         
         [self.tableForSliderView reloadData];
@@ -11551,7 +11567,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 if ( ISNULL(self.serviceData)) {
                                     
                                 }else{
-                                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                                    
+                                    if (self.serviceData.count > indexCat -1 ) {
+                                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                                    }
+                                    
                                 }
                                 
                             }
@@ -11591,7 +11611,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         
                     }else{
                         
-                        [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        if (self.serviceData.count > indexCat -1) {
+                            [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                        }
+                        
                     }
                 }
                 [USER_DEFAULT setObject:self.dicTemp forKey:@"selfDicTemp"];

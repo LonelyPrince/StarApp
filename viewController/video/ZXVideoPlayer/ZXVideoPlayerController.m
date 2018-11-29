@@ -2732,7 +2732,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     
-    
 }
 - (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize
 {
