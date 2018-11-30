@@ -12349,6 +12349,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 ///创建机顶盒/手机 分享视频到手机 弹窗
 -(void)createGetAlertView{
+    if (self.showTVView == YES) {
+        
+    
     JXAlertView = [[GetPushInfoAlertView alloc] init];
     [JXAlertView setContainerView:[self createGetPushAlertView]];
     NSString * CancelLabel = NSLocalizedString(@"CancelLabel", nil);
@@ -12455,6 +12458,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [JXAlertView show];
     
+    }
 }
 ///创建机顶盒分享视频到手机录制
 -(void)createLiveGetAlertView{
