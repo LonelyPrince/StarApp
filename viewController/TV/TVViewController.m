@@ -4524,7 +4524,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             if ( ISNULL(self.serviceData)) {
                 
             }else{
-                [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                if (self.serviceData .count > indexCat -1) {
+                    [self.dicTemp setObject:self.serviceData[indexCat -1] forKey:[NSString stringWithFormat:@"%d",i] ];     //将EPG字典放一起
+                }
             }
         }
         
@@ -4837,7 +4839,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
             }else
             {
-                if (historyArr.count > 0) {
+                if (historyArr.count > 0 ) {
                     NSArray * touchArr = historyArr[historyArr.count - 1];
 
                     if (storeLastChannelArr.count < 2) {
@@ -10181,7 +10183,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     
     if ([[USER_DEFAULT objectForKey:@"TouchHome"] isEqualToString:@"1"]) {
-        [self getServiceDataForIPChange];
+//        [self getServiceDataForIPChange];
         [self tableViewDataRefreshForMjRefresh];
         
         [self.tableForSliderView reloadData];
