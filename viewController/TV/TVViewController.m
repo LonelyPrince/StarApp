@@ -8340,7 +8340,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             else
             {
                 NSArray * serviceArrForJudge =  [USER_DEFAULT objectForKey:@"serviceData_Default"];
-                NSDictionary * serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
+                NSDictionary * serviceForJudgeDic;
+                if ([arrForServiceByCategory[i] intValue]-1 <  serviceArrForJudge.count) {
+                    serviceForJudgeDic = serviceArrForJudge[[arrForServiceByCategory[i] intValue]-1];
+                }
+                
                 
                 //此处需要验证epg节目中的三个值是否相等 ，这里第一个参数代表最新数据
                 BOOL isEqualForTwoDic = [GGUtil judgeTwoEpgDicIsEqual: serviceForJudgeDic TwoDic:epgDicFromPopSTB];
@@ -10177,7 +10181,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 {
     
     if ([[USER_DEFAULT objectForKey:@"TouchHome"] isEqualToString:@"1"]) {
-//        [self getServiceDataForIPChange];
+        [self getServiceDataForIPChange];
         [self tableViewDataRefreshForMjRefresh];
         
         [self.tableForSliderView reloadData];
@@ -10187,7 +10191,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSLog(@"按理说是触发home按下 --- 做一次刷新");
     }
-    
+    [CAAlert dismissWithClickedButtonIndex:1 animated:YES];
+    [STBAlert dismissWithClickedButtonIndex:1 animated:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playClick) object:nil];
         NSLog(@"取消25秒的等待5");

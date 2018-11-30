@@ -93,6 +93,9 @@
     
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve"]; //此处设置是否可以全屏的信息，防止在手机横屏时进入主页导致UI变化
     [USER_DEFAULT setObject:@"NO" forKey:@"modeifyTVViewRevolve_Other"];   //防止刚跳转到主页时就旋转到全屏
+    [USER_DEFAULT setObject:@"0" forKey:@"viewISTVView"];  //如果是TV页面，则再用户按home键后再次进入，需要重新播放 , 0 代表不是TV页面， 1 代表是TV页面
+    [USER_DEFAULT setObject:@"0" forKey:@"TouchHome"];
+    NSLog(@"viewISTVViewviewISTVView 00");
     NSLog(@"bubu允许旋转==appde");
     
     [self getCurrentLanguage];
@@ -209,12 +212,15 @@ void UncaughtExceptionHandler(NSException *exception) {
         
         printf("按理说是重新进来后响应\n");
         
+        NSLog(@"viewISTVViewviewISTVView 11");
         NSString *  viewIsTVView =  [USER_DEFAULT objectForKey:@"viewISTVView"];
         NSString *  viewHasAddOver =  [USER_DEFAULT objectForKey:@"viewHasAddOver"];  //页面已经加载完成
+        NSString *  TouchHome = [USER_DEFAULT objectForKey:@"TouchHome"];
         
-        if ([viewIsTVView isEqualToString:@"1"]  && [viewHasAddOver isEqualToString:@"YES"]) {
+        if ([viewIsTVView isEqualToString:@"1"]  && [viewHasAddOver isEqualToString:@"YES"] && [TouchHome isEqualToString:@"1"] ) {
             //是TV页面，需要重新播放第一个视频
-            
+            NSLog(@"viewISTVViewviewISTVView 22");
+            NSLog(@"returnFromHomeToTVViewNotific");
             NSNotification *notification =[NSNotification notificationWithName:@"returnFromHomeToTVViewNotific" object:nil userInfo:nil];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
