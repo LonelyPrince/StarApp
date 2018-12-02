@@ -120,6 +120,7 @@
     [self.socket writeData:data_service withTimeout:1 tag:2];
     
     NSLog(@"播放视频的Socket");
+    NSLog(@"self.showTVView====YES==cc");
     
 }
 #pragma mark - 播放录制视频

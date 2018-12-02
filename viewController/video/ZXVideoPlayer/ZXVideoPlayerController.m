@@ -5612,6 +5612,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     NSLog(@"111222111===");
     NSLog(@"contentURL 22ZXVideo");
+    NSLog(@"self.showTVView====CCCC");
     _video = video;
     
     // 标题
@@ -5620,9 +5621,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (judgeIsNeedPlay == YES) {
         self.url = [NSURL URLWithString:self.video.playUrl];
         NSLog(@"judgeIsNeedPlay 11111");
+        NSLog(@"self.showTVView====DDD");
     }else{
         judgeIsNeedPlay = YES;
         NSLog(@"judgeIsNeedPlay 222222");
+        NSLog(@"self.showTVView====EEE");
     }
     NSLog(@"contentURL 33ZXVideo1 %@",self.video.playUrl);
     NSLog(@"contentURL 33ZXVideo %@",self.url);
