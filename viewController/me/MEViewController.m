@@ -5759,6 +5759,7 @@
 -(void)TVViewAppearNO
 {
     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+    NSLog(@"jumpFormOtherView==NONOBBB");
 }
 
 -(void)viewDidAppear:(BOOL)animated

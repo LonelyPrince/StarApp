@@ -2905,13 +2905,15 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
 //            self.video.playUrl = @"http:///segment_delivery/delivery_0/play_tv2ip_0.m3u8";
            //可能会出现 从主页面热启动进入界面，但是节目无法播放
-            NSString *str1 = [self.video.playUrl substringToIndex:8];//截取掉下标7之前的字符串
-            NSString *str2 = [self.video.playUrl substringFromIndex:8];//截取掉下标7之后的字符串
-            NSLog(@"截取的值为：%@",str1);
-            if ([str1 isEqualToString:@"http:///"]) {
-                str1 = @"http://192.168.88.55/";
-                self.video.playUrl = [NSString stringWithFormat:@"%@%@",str1,str2];
-                NSLog(@"这里URL出现错误 ，重新搭配URL %@",self.video.playUrl);
+            if (self.video.playUrl.length > 8) {
+                NSString *str1 = [self.video.playUrl substringToIndex:8];//截取掉下标7之前的字符串
+                NSString *str2 = [self.video.playUrl substringFromIndex:8];//截取掉下标7之后的字符串
+                NSLog(@"截取的值为：%@",str1);
+                if ([str1 isEqualToString:@"http:///"]) {
+                    str1 = @"http://192.168.88.55/";
+                    self.video.playUrl = [NSString stringWithFormat:@"%@%@",str1,str2];
+                    NSLog(@"这里URL出现错误 ，重新搭配URL %@",self.video.playUrl);
+                }
             }
             
             NSLog(@"self.video.playUrl %@",self.video.playUrl);
@@ -3836,6 +3838,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"this is Major 22222 33333");
     if (firstfirst == YES) {
         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];
+        NSLog(@"jumpFormOtherView==NONO111");
         NSLog(@"this is Major 22222 33333===1");
     }else
     {
@@ -4008,6 +4011,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
                     //                    [self removeLabAndAddIndecatorView];
                     NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
+                    NSLog(@"jumpFormOtherViewjumpFormOtherView %@",jumpFormOtherView);
                     if([jumpFormOtherView isEqualToString:@"YES"])
                     {
                         NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
@@ -4051,6 +4055,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                     [self firstOpenAppAutoPlay:row diction:dic];
                                 }
                                 [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                                NSLog(@"jumpFormOtherView==NONO222");
                             }else
                             {
                                 return ;
@@ -4110,6 +4115,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                         }
 
                                         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                                        NSLog(@"jumpFormOtherView==NONO333");
                                     }else
                                     {
                                         return;
@@ -4845,6 +4851,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [self firstOpenAppAutoPlay:row diction:dic];
                     }
                     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+                    NSLog(@"jumpFormOtherView==NONO444");
                 }else
                 {
                     return ;
@@ -4893,7 +4900,6 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                 [self firstOpenAppAutoPlay:row diction:dic];
                             }
 
-                            //                            [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
                         }else
                         {
                             return;

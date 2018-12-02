@@ -129,6 +129,7 @@
 -(void)TVViewAppear
 {
     [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+    NSLog(@"jumpFormOtherView==NONOAAAA");
 }
 
 #pragma mark -- 加载右上角的barItem，barItem的图片是一张“垃圾桶”的形状

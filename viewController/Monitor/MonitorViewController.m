@@ -275,6 +275,12 @@
 -(void)TVViewAppear
 {
     [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+    NSLog(@"jumpFormOtherView==yesyesyes");
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [USER_DEFAULT setObject:@"YES" forKey:@"jumpFormOtherView"];//为TV页面存储方法
+    NSLog(@"jumpFormOtherView==yesyesyes");
 }
 -(void)refreshViewByJudgeData    //通过获得一次tuner消息，判断tuner消息是不是发生了变化
 {
