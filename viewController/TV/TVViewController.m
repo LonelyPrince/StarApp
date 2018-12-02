@@ -767,10 +767,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             self.serviceData = (NSMutableArray *)data1; //data1 代表service
             NSLog(@"serviceDatanullllllllllll  2222");
-            //            if (self.categorys.count > 0) {
+                        if (self.categorys.count > 0) {
             [USER_DEFAULT setObject:self.categorys forKey:@"serviceCategory_Default"];
             [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
-            //            }
+                        }
             //            [USER_DEFAULT setObject:self.categorys forKey:@"serviceCategory_Default"];
             //            [USER_DEFAULT setObject:self.serviceData forKey:@"serviceData_Default"];
             
@@ -2903,6 +2903,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             self.video.playUrl = @"";
             self.video.playUrl = [[NSString alloc] initWithData:_byteDatas encoding:NSUTF8StringEncoding];
+//            self.video.playUrl = @"http:///segment_delivery/delivery_0/play_tv2ip_0.m3u8";
+           //可能会出现 从主页面热启动进入界面，但是节目无法播放
+            NSString *str1 = [self.video.playUrl substringToIndex:8];//截取掉下标7之前的字符串
+            NSString *str2 = [self.video.playUrl substringFromIndex:8];//截取掉下标7之后的字符串
+            NSLog(@"截取的值为：%@",str1);
+            if ([str1 isEqualToString:@"http:///"]) {
+                str1 = @"http://192.168.88.55/";
+                self.video.playUrl = [NSString stringWithFormat:@"%@%@",str1,str2];
+                NSLog(@"这里URL出现错误 ，重新搭配URL %@",self.video.playUrl);
+            }
+            
             NSLog(@"self.video.playUrl %@",self.video.playUrl);
             self.video.channelId = self.service_videoindex;
             self.video.channelName = self.service_videoname;
