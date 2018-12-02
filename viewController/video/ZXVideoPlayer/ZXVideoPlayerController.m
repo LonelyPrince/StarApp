@@ -5626,6 +5626,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
         judgeIsNeedPlay = YES;
         NSLog(@"judgeIsNeedPlay 222222");
         NSLog(@"self.showTVView====EEE");
+        self.url = [NSURL URLWithString:self.video.playUrl];
     }
     NSLog(@"contentURL 33ZXVideo1 %@",self.video.playUrl);
     NSLog(@"contentURL 33ZXVideo %@",self.url);

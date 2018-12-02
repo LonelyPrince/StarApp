@@ -4694,7 +4694,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     [tempTableviewForFocus reloadData];
                     [self refreshTableviewByEPGTime];
 
-                    [self playVideo];
+//                    [self playVideo];
 
 
                     return ;
@@ -4771,7 +4771,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification1];
         NSLog(@"judgeIsNeedPlay cccacacacacacacac  bbbbbbb");
-        [self playVideo];
+//        [self playVideo];
 
 
         NSNotification *notificationXY =[NSNotification notificationWithName:@"judgeLastNextBtnIsEnableNotific" object:nil userInfo:nil];
