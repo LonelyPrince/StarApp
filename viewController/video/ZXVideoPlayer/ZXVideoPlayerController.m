@@ -580,6 +580,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     
     
     self.videoControl.fullScreenButton.hidden = NO;
+    self.videoControl.pushBtn.hidden = NO;
     NSLog(@"fullScreenButton.hidden NO1");
     self.videoControl.shrinkScreenButton1.hidden = YES;
     self.videoControl.lastChannelButton.hidden = YES;

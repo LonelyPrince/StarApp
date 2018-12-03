@@ -86,6 +86,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //        [self.bottomBar addSubview:self.pauseButton];
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
+        [self.topBar addSubview:self.pushBtn];
         if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
             
             NSLog(@"全屏按钮显示--initwith");
@@ -94,6 +95,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.fullScreenButton.hidden = NO;
             NSLog(@"fullScreenButton.hidden NO4");
             _pushBtn.hidden =NO;
+            NSLog(@"_pushBtn.hidden== NO11");
         }else
         {
             //            NSLog(@"全屏按钮消失---方法:initwith ");
@@ -111,6 +113,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
                 [[NSNotificationCenter defaultCenter] postNotification:notification];
                 
                 _pushBtn.hidden =YES;
+                NSLog(@"_pushBtn.hidden== NO22");
             });
             
         }
@@ -250,12 +253,14 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     self.fullScreenButton.hidden = NO;
     NSLog(@"fullScreenButton.hidden NO5");
     _pushBtn.hidden = NO;
+    NSLog(@"_pushBtn.hidden== NO33");
 }
 -(void)fullScreenBtnHidden
 {
     NSLog(@"全屏按钮消失---ddddd  ");
     self.fullScreenButton.hidden = YES;
     _pushBtn.hidden = YES;
+    NSLog(@"_pushBtn.hidden== NO44");
     self.channelIdLab.text = @"";
     self.channelNameLab.text = @"";
     
@@ -323,6 +328,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 100);
             
             NSLog(@"_bottomControllerImageFF1");
+            NSLog(@"lalalalalalalalalalalal555 == 1");
             
         }else
         {
@@ -333,6 +339,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - 50,0, 50,50);
             _bottomControllerImage.frame =  CGRectMake(0, 0,CGRectGetWidth(self.bounds), 50);
             NSLog(@"_bottomControllerImageFF!!");
+            NSLog(@"lalalalalalalalalalalal555 == 2");
+            self.pushBtn.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - 55,0, 62 , 40);
         }
         
         NSLog(@"slef.x :%f",CGRectGetMinX(self.bounds));
@@ -1276,6 +1284,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _fullScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
         
     }
+    NSLog(@"_pushBtn.hidden== Full 初始化 ");
     return _fullScreenButton;
 }
 
@@ -1500,6 +1509,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushBtnEnabled) name:@"pushBtnEnabled" object:nil];
     }
+    NSLog(@"_pushBtn.hidden==  初始化");
     return _pushBtn;
 }
 -(void)pushBtnNotEnabled
