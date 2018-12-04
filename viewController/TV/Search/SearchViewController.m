@@ -827,10 +827,14 @@
             [historySearchTableview reloadData];
         }else
         {
-            NSLog(@"_showData 2222");
-            NSLog(@"_showData %@",showData);
-            if (showData.count > 0) {
+            NSLog(@"_showData-- 2222");
+            NSLog(@"_showData-- %@",showData);
+
+            if ([_showData isKindOfClass:[NSMutableArray class]]) {
                 [_showData removeAllObjects];
+            }else
+            {
+                NSLog(@"_showData--非NSMutableArray，remove会崩溃");
             }
             
             NSLog(@"_showData 3333");
