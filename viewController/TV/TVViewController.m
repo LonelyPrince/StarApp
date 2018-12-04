@@ -10213,6 +10213,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     if ([[USER_DEFAULT objectForKey:@"TouchHome"] isEqualToString:@"1"]) {
 //        [self getServiceDataForIPChange];
+//        [self tableViewDataRefreshForMjRefresh_forHomeToTVView];
         [self tableViewDataRefreshForMjRefresh];
 
         [self.tableForSliderView reloadData];
@@ -10231,9 +10232,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 
     [self removeLabAndAddIndecatorView];
 
-    //        NSString * jumpFormOtherView =  [USER_DEFAULT objectForKey:@"jumpFormOtherView"];
-    //        if([jumpFormOtherView isEqualToString:@"YES"])
-    //        {
+    
     NSMutableArray * historyArr  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
 
     NSArray * touchArr = historyArr[historyArr.count - 1];
@@ -12464,8 +12463,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 ///创建机顶盒/手机 分享视频到手机 弹窗
 -(void)createGetAlertView{
-    if (self.showTVView == YES) {
-        
+    
+//    if (self.showTVView == YES) {
+//    NSLog(@"self.showTVView YESYES");
     
     JXAlertView = [[GetPushInfoAlertView alloc] init];
     [JXAlertView setContainerView:[self createGetPushAlertView]];
@@ -12573,7 +12573,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     [JXAlertView show];
     
-    }
+//    }else{
+//        NSLog(@"self.showTVView NONO");
+//    }
 }
 ///创建机顶盒分享视频到手机录制
 -(void)createLiveGetAlertView{
@@ -12705,27 +12707,29 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)addPushMutableArr:(NSNotification *)text{
     
     NSLog(@"添加投屏信息到数组");
-    
-    NSMutableArray * textAndIndexMutableArr = [[NSMutableArray alloc]init];
-    [textAndIndexMutableArr addObject:text];
-    [textAndIndexMutableArr addObject:@"Service"];
-    
-    NSLog(@"dengd 等待投屏");
-    
-    
-    [shareViewArr addObject:textAndIndexMutableArr];
-    
-    //①将每一个投屏信息添加到数据
-    //②逐个从数组中取出，然后逐个发送通知进行操作。如果点击了签一个被取消掉了，那么后一个跟进
-    if (shareViewArr.count > 0 && shareViewArr.count == 1) {
-        NSNotification * textOne = shareViewArr[0][0];
-        NSString * typeStr = shareViewArr[0][1];
+    if (self.showTVView == YES) {
         
-        if ([typeStr isEqualToString:@"Service"]) {
-            [self OtherDevicePushToPhone:textOne];
-        }else
-        {
-            [self OtherDevicePushToPhoneLive:textOne];
+        NSMutableArray * textAndIndexMutableArr = [[NSMutableArray alloc]init];
+        [textAndIndexMutableArr addObject:text];
+        [textAndIndexMutableArr addObject:@"Service"];
+        
+        NSLog(@"dengd 等待投屏");
+        
+        
+        [shareViewArr addObject:textAndIndexMutableArr];
+        
+        //①将每一个投屏信息添加到数据
+        //②逐个从数组中取出，然后逐个发送通知进行操作。如果点击了签一个被取消掉了，那么后一个跟进
+        if (shareViewArr.count > 0 && shareViewArr.count == 1) {
+            NSNotification * textOne = shareViewArr[0][0];
+            NSString * typeStr = shareViewArr[0][1];
+            
+            if ([typeStr isEqualToString:@"Service"]) {
+                [self OtherDevicePushToPhone:textOne];
+            }else
+            {
+                [self OtherDevicePushToPhoneLive:textOne];
+            }
         }
     }
 }

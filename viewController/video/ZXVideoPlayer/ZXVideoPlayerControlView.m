@@ -106,14 +106,27 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
             dispatch_after(popTime, mainQueue, ^{
                 
-                self.fullScreenButton.hidden = YES;
-                
-                NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
-                //通过通知中心发送通知
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                
-                _pushBtn.hidden =YES;
-                NSLog(@"_pushBtn.hidden== NO22");
+                NSLog(@"fullScreenButton.hidden yes3 ");
+                if (![[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
+                    NSLog(@"全屏按钮显示--initwith");
+                    NSLog(@"全屏按钮显示---方法:@NOChannelDataDefault %@",[USER_DEFAULT objectForKey:@"NOChannelDataDefault"]);
+                    
+                    self.fullScreenButton.hidden = NO;
+                    NSLog(@"fullScreenButton.hidden NO4  other");
+                    _pushBtn.hidden =NO;
+                    NSLog(@"_pushBtn.hidden== NO11");
+                }else{
+                    self.fullScreenButton.hidden = YES;
+                    NSLog(@"fullScreenButton.hidden yes3 other");
+                    
+                    NSNotification *notification =[NSNotification notificationWithName:@"tuichuFullScreenNotific" object:nil userInfo:nil];
+                    //通过通知中心发送通知
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    
+                    _pushBtn.hidden =YES;
+                    NSLog(@"_pushBtn.hidden== NO22");
+                }
+               
             });
             
         }
@@ -259,6 +272,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     NSLog(@"全屏按钮消失---ddddd  ");
     self.fullScreenButton.hidden = YES;
+    NSLog(@"fullScreenButton.hidden yes4 ");
     _pushBtn.hidden = YES;
     NSLog(@"_pushBtn.hidden== NO44");
     self.channelIdLab.text = @"";

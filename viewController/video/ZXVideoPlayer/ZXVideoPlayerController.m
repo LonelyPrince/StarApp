@@ -2355,6 +2355,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
             self.isFullscreenMode = YES;
             NSLog(@"全屏按钮消失---aaaaa  ");
             self.videoControl.fullScreenButton.hidden = YES;
+            NSLog(@"fullScreenButton.hidden yes1 ");
             //    self.videoControl.shrinkScreenButton.hidden = NO;
             self.videoControl.shrinkScreenButton1.hidden = NO;
             self.videoControl.lastChannelButton.hidden = NO;
@@ -2783,6 +2784,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     {
         NSLog(@"全屏按钮消失---bbbbbb");
         self.videoControl.fullScreenButton.hidden = YES;
+        NSLog(@"fullScreenButton.hidden yes2 ");
         [self shrinkScreenButton1Click];
     }
     
