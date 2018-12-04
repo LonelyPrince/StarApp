@@ -945,6 +945,54 @@ static const char *getPropertyType(objc_property_t property) {
     
 }
 
++ (BOOL) judgeTwoEpgDicIsEqual_logic: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic
+{
+    
+    if (firstDic.count > 17 && twoDic.count > 17) { //两个都是录制文件
+        NSString * service_tuner_mode1 = [firstDic objectForKey:@"tuner_mode"];
+        NSString * service_network_id1 = [firstDic objectForKey:@"network_id"];
+        NSString * service_ts_id1 =      [firstDic objectForKey:@"ts_id"];
+        NSString * service_service_id1 = [firstDic objectForKey:@"service_id"];
+        NSString * service_file_name1 =  [firstDic objectForKey:@"file_name"];
+        
+        
+        NSString * service_tuner_mode2 = [twoDic objectForKey:@"tuner_mode"];
+        NSString * service_network_id2 = [twoDic objectForKey:@"network_id"];
+        NSString * service_ts_id2 =      [twoDic objectForKey:@"ts_id"];
+        NSString * service_service_id2 = [twoDic objectForKey:@"service_id"];
+        NSString * service_file_name2 =  [twoDic objectForKey:@"file_name"];
+        
+        if ([service_tuner_mode1 isEqualToString:service_tuner_mode2] && [service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2] && [service_file_name1 isEqualToString:service_file_name2]) {
+            return YES;
+        }else
+        {
+            return NO;
+        }
+    }else
+    {
+        NSString * service_network_id1 = [firstDic objectForKey:@"service_network_id"];
+        NSString * service_ts_id1 = [firstDic objectForKey:@"service_ts_id"];
+        NSString * service_service_id1 = [firstDic objectForKey:@"service_service_id"];
+        NSString * service_logic_id1 = [firstDic objectForKey:@"service_logic_number"];
+        
+        
+        NSString * service_network_id2 = [twoDic objectForKey:@"service_network_id"];
+        NSString * service_ts_id2 = [twoDic objectForKey:@"service_ts_id"];
+        NSString * service_service_id2 = [twoDic objectForKey:@"service_service_id"];
+        NSString * service_logic_id2 = [twoDic objectForKey:@"service_logic_number"];
+        
+        
+        if ([service_network_id1 isEqualToString:service_network_id2] && [service_ts_id1 isEqualToString:service_ts_id2] && [service_service_id1 isEqualToString:service_service_id2] && [service_logic_id1 isEqualToString:service_logic_id2]) {
+            return YES;
+        }else
+        {
+            return NO;
+        }
+    }
+    
+    
+    
+}
 +(int)judgePlayTypeClass
 {
     /*
@@ -1170,3 +1218,4 @@ static const char *getPropertyType(objc_property_t property) {
     [[NSNotificationCenter defaultCenter] postNotification:notification22];
 }
 @end
+

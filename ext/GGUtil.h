@@ -103,6 +103,7 @@
 +(BOOL)isCADEncrypt :(NSString *)characterStr;
 +(NSString *)judgeIsNeedSTBDecrypt :(NSInteger)row  serviceListDic :(NSDictionary *)dic;
 + (BOOL)judgeTwoEpgDicIsEqual: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic;
++ (BOOL)judgeTwoEpgDicIsEqual_logic: (NSDictionary *)firstDic TwoDic:(NSDictionary *)twoDic;
 +(int)judgePlayTypeClass;
 + (NSString *)timeHMSWithTimeIntervalString:(NSString *)timeString;
 + (NSString *)timeYMDHMWithTimeIntervalString:(NSString *)timeString;
