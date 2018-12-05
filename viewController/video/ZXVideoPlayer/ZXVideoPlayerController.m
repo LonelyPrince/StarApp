@@ -4953,10 +4953,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
                                                  name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
                                                object:self.player];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(MPMoviePlayerRestartNotification)
-                                                 name:IJKMPMoviePlayerRestartNotification
-                                               object:self.player];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(MPMoviePlayerRestartNotification)
+//                                                 name:IJKMPMoviePlayerRestartNotification
+//                                               object:self.player];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(moviePlayBackStateDidChange:)
@@ -5016,46 +5016,46 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     NSLog(@"setSubtitleRenderring00");
 }
 
-- (void)MPMoviePlayerRestartNotification
-{
-    NSLog(@"MMoviePlayerRestartNotification\n");
-    
-    
-    //    [self.player prepareToPlay:0];
-    //    [self.player play];
-    
-    NSLog(@"MMMself.url %@",self.url);
-    NSLog(@"MMMself.video.playUrl %@",self.video.playUrl);
-    
-    //    self.url = [NSURL URLWithString:self.video.playUrl];
-    if (self.video.playUrl != NULL) {
-        [self.player shutdown];
-        [self.player.view removeFromSuperview];
-        self.player = nil;
-        [self.player stop];
-        
-        self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:[NSURL URLWithString:self.video.playUrl] withOptions:nil playView:nil];
-        deviceString1 = [GGUtil deviceVersion];
-        if ( [deviceString1 isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
-            NSLog(@"此刻是5s和4s的大小");
-            self.player.view.frame = CGRectMake(0, 25, SCREEN_HEIGHT, SCREEN_WIDTH - 50);
-        }else{
-            self.player.view.frame = self.view.bounds;
-        }
-        
-        [self.view insertSubview:self.player.view atIndex:0];
-        
-        if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
-            [self.player prepareToPlay:0];
-            [self.player play];
-        }else
-        {
-            [self.player shutdown];
-            [self.player.view removeFromSuperview];
-            self.player = nil;
-        }
-    }
-}
+//- (void)MPMoviePlayerRestartNotification
+//{
+//    NSLog(@"MMoviePlayerRestartNotification\n");
+//
+//
+//    //    [self.player prepareToPlay:0];
+//    //    [self.player play];
+//
+//    NSLog(@"MMMself.url %@",self.url);
+//    NSLog(@"MMMself.video.playUrl %@",self.video.playUrl);
+//
+//    //    self.url = [NSURL URLWithString:self.video.playUrl];
+//    if (self.video.playUrl != NULL) {
+//        [self.player shutdown];
+//        [self.player.view removeFromSuperview];
+//        self.player = nil;
+//        [self.player stop];
+//
+//        self.player =  [[IJKFFMoviePlayerController alloc]initWithContentURL:[NSURL URLWithString:self.video.playUrl] withOptions:nil playView:nil];
+//        deviceString1 = [GGUtil deviceVersion];
+//        if ( [deviceString1 isEqualToString:@"iPhone4S"] || [deviceString isEqualToString:@"iPhone4"]) {
+//            NSLog(@"此刻是5s和4s的大小");
+//            self.player.view.frame = CGRectMake(0, 25, SCREEN_HEIGHT, SCREEN_WIDTH - 50);
+//        }else{
+//            self.player.view.frame = self.view.bounds;
+//        }
+//
+//        [self.view insertSubview:self.player.view atIndex:0];
+//
+//        if ([[USER_DEFAULT objectForKey:@"showTVView"] isEqualToString:@"YES"]) {
+//            [self.player prepareToPlay:0];
+//            [self.player play];
+//        }else
+//        {
+//            [self.player shutdown];
+//            [self.player.view removeFromSuperview];
+//            self.player = nil;
+//        }
+//    }
+//}
 
 //
 - (void)moviePlayBackStateDidChange:(NSNotification*)notification {
