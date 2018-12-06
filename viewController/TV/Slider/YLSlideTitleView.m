@@ -114,11 +114,11 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         //设置 Button 可见
         CGFloat x = offsetx * (60 / self.frame.size.width) - 60;
         
-        //        NSLog(@"self.frame.size.width %f",self.frame.size.width);
-        //        NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
-        //
-        //
-        //        NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
+//                NSLog(@"self.frame.size.width %f",self.frame.size.width);
+//                NSLog(@"offsetx * (60 / self.frame.size.width) %f",offsetx * (60 / self.frame.size.width));
+//
+//
+//                NSLog(@"self.frame.size.width1 %f",self.frame.size.width);
         
         [strongSelf scrollRectToVisible:CGRectMake(x, 0,
                                                    strongSelf.frame.size.width,
@@ -282,7 +282,6 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
-
 #pragma mark
 + (CGSize)boudingRectWithSize:(CGSize)size label:(UILabel*)label
 {
@@ -372,17 +371,23 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
             }
         }
 
-
-        NSNumber * currentIndexForCategoryNum = @(currentIndexForCategory);
-        NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategoryNum,@"currentIndex", nil];
-        
-        NSNotification *notification12 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
-        [[NSNotificationCenter defaultCenter] postNotification:notification12];
-        
-    
-    
         self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
-
+        //        NSNumber * currentIndexForCategoryNum = @(currentIndexForCategory);
+        //        NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategoryNum,@"currentIndex", nil];
+        //
+        //        NSNotification *notification12 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+        //        [[NSNotificationCenter defaultCenter] postNotification:notification12];
+        
+        
+        //        NSLog(@"==- 减速完成（停止）555 ");
+        
+        
+        //        NSInteger currentIndex = currentIndexForCategory;
+        //        UIButton * btn = [[UIButton alloc]init];
+        //        btn.tag = currentIndex+YLSlideTitleViewButtonTag;
+        //        [self buttonEvents_titleCut:btn];
+        
+ 
         _titles = [_titles_temp mutableCopy];
     }else if (_titles_temp.count == _titles.count)
     {
