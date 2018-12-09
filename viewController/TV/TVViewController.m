@@ -1146,7 +1146,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         self.videoController.videoPlayerWillChangeToOriginalScreenModeBlock = ^(){
             
             NSLog(@"切换为竖屏模式");
-            
+            [self focusLocation];
             statusNum = 2;
             [self prefersStatusBarHidden];
             [self setNeedsStatusBarAppearanceUpdate];
@@ -1403,6 +1403,44 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 //搜索按钮
 -(void)searchBtnClick
+//{
+////    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+//
+//    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+//    NSMutableArray * historyArr1  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+//    NSArray * touchArr1 = historyArr1[historyArr1.count - 1];
+//    int row1 ;
+//    NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//
+//
+//
+//    for (int i = 0; i < dicTemp.count; i ++) {
+//        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+//        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr1[0]   TwoDic:[dicTemp objectForKey:channleIdStr]]) {
+//            //如果相等，则获取row
+//            row1 = i;
+//            break;
+//        }else
+//        {
+//            row1 = 0;
+//        }
+//    }
+//
+//
+//        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//
+//        NSLog(@"row1row1 %d",row1);
+//        [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+//
+//    double delayInSeconds = 0.2;
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, mainQueue, ^{
+//        NSLog(@"延时执行的0.4秒");
+//       [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+//    });
+//
+//}
 {
     /**/
     if(![self.navigationController.topViewController isKindOfClass:[searchViewCon class]]) {
@@ -1529,6 +1567,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     self.tableForSliderView =  self.tableForTemp;
     NSLog(@" tableForSliderView a 33");
     NSLog(@"tableForSliderView a 33 %@",tableForSliderView);
+    
+    NSLog(@"当前需要刷新的tableForSliderView11 %@ /n",self.tableForSliderView);
     // 可在此处实现下拉刷新时要执行的代码
     // ......
     
@@ -1544,7 +1584,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 #define mark - 主页横向类别列表
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
-    
+    [self focusLocation];
     NSLog(@"index :%@ ",@(index));
     NSLog(@"self.category_index :%d",index);
     nowPlayChannelInfo.numberOfCategoryInt = index;
@@ -3721,7 +3761,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
-        //
+
+        [self focusLocation];
+ 
     }
     double delayInSeconds = 0.7;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -3838,6 +3880,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"this is Major 22222 33333===1");
     }else
     {
+       
+
+        
+        
         NSLog(@"this is Major 22222 33333===2");
         if ([[USER_DEFAULT objectForKey:@"NOChannelDataDefault"] isEqualToString:@"YES"]) {
             [self showDelivaryStopped];
@@ -3929,6 +3975,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
         }else
         {
+            
+           
+            
             if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
                 //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字                [self stopVideoPlay]; //停止视频播放
                 [USER_DEFAULT setObject:deliveryStopTip forKey:@"playStateType"];
@@ -3963,6 +4012,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
                 
                 [self removeLabAndAddIndecatorView];
+                
+                
+               
                 
                 
                 double delayInSeconds = 2;
@@ -4090,11 +4142,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                 NSLog(@"dic %@",dic);
                                                 [self firstOpenAppAutoPlayZero:row diction:dic];
                                                 
-                                                //                                                NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-                                                //
-                                                //                                                int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-                                                //
-                                                //                                                [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
+//                                                                                                NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//
+//                                                                                                int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//
+//                                                                                                [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
                                                 
                                             }
                                         }else //正常播放的步骤
@@ -4103,11 +4155,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                             [self firstOpenAppAutoPlay:row diction:dic];
                                             
                                             
-                                            //                                            NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-                                            //
-                                            //                                            int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-                                            //
-                                            //                                            [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
+//                                                                                        NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+//
+//                                                                                        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+//
+//                                                                                        [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
                                         }
                                         
                                         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
@@ -4449,11 +4501,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         NSString *  indexforTableToNum = YLSlideTitleViewButtonTagIndexStr;
         
-        self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
-        NSLog(@" tableForSliderView a 44");
-        NSLog(@"tableForSliderView a 44 %@",tableForSliderView);
+        
         
         if (YLSlideTitleViewButtonTagIndex < self.tableForDicIndexDic.count) {
+            
+            self.tableForSliderView = [self.tableForDicIndexDic objectForKey:indexforTableToNum][1];
+            NSLog(@" tableForSliderView a 44");
+            NSLog(@"tableForSliderView a 44 %@",tableForSliderView);
+            
             NSLog(@"YLSlideTitleViewButtonTagIndex small");
             NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
             
@@ -9210,7 +9265,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self performSelector:@selector(endMJRefresh) withObject:nil afterDelay:EndMJRefreshTime];
     NSLog(@"12 秒后准备停止刷新");
     
-    NSLog(@"当前需要刷新的tableForSliderView %@",self.tableForSliderView);
+    NSLog(@"当前需要刷新的tableForSliderView22 %@ /n",self.tableForSliderView);
     
     //获取数据的链接
     NSString *url = [NSString stringWithFormat:@"%@",S_category];
@@ -9502,7 +9557,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
         
         NSString *  indexforTableToNum =YLSlideTitleViewButtonTagIndexStr ;
-        self.tableForSliderView = [self.tableForDicIndexDic objectForKey :indexforTableToNum] [1];
+        if (self.tableForDicIndexDic.count > [indexforTableToNum intValue] ) {
+            self.tableForSliderView = [self.tableForDicIndexDic objectForKey :indexforTableToNum] [1];
+        }
+        
         NSLog(@" tableForSliderView a 66");
         NSLog(@"tableForSliderView a 66 %@",tableForSliderView);
         NSNumber * numTemp = [self.tableForDicIndexDic objectForKey:indexforTableToNum][0];
@@ -9525,6 +9583,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         });
         [NSThread sleepForTimeInterval:1];
         
+        NSLog(@"当前需要刷新的tableForSliderView33 %@ /n",self.tableForSliderView);
         [self.tableForSliderView.mj_header endRefreshing];
         
         
@@ -11506,6 +11565,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     ////        [self.tableForStoreRefreshData.mj_header endRefreshing];
     //        NSLog(@"数据为空，所以重新结束");
     //    }else{
+    NSLog(@"当前需要刷新的tableForSliderView44 %@ /n",self.tableForSliderView);
     [self.tableForSliderView.mj_header endRefreshing];
     NSLog(@"数据不为空，所以不重新结束");
     //    }
@@ -13327,5 +13387,44 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [self timeAndNameHidden];
         }
     }
+}
+-(void)focusLocation
+{
+    //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+    
+    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+    NSMutableArray * historyArr1  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+    NSArray * touchArr1 = historyArr1[historyArr1.count - 1];
+    int row1 ;
+    NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+    
+    
+    
+    for (int i = 0; i < dicTemp.count; i ++) {
+        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr1[0]   TwoDic:[dicTemp objectForKey:channleIdStr]]) {
+            //如果相等，则获取row
+            row1 = i;
+            break;
+        }else
+        {
+            row1 = 0;
+        }
+    }
+    
+    
+    int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+    
+    NSLog(@"row1row1 %d",row1);
+    [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+    
+    double delayInSeconds = 0.2;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"延时执行的0.4秒");
+        [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+    });
+    
 }
 @end
