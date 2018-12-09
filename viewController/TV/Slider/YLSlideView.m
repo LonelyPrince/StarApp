@@ -58,6 +58,10 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeView" object:nil];
         //注册通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeView) name:@"changeView" object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"recycle" object:nil];
+        //注册通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recycle) name:@"recycle" object:nil];
     }
     
     return self;
@@ -187,10 +191,11 @@
     
     // 添加重用Cell
     for (NSUInteger index = currentPage ; index <= nextPage; index++) {
-        
+        NSLog(@"slideView-index cccc %lu",(unsigned long)index);
         if (![self isVisibleCellForIndex:index]) {
             
             TVTable *cell = [_delegate slideView:self cellForRowAtIndex:index];
+            NSLog(@"slideView-index %lu",index);
             [self configCellWithCell:cell forIndex:index];
             
             [_visibleCells addObject:cell];
@@ -213,7 +218,7 @@
 - (BOOL)isVisibleCellForIndex:(NSUInteger)index{
     
     BOOL isVisibleCell = NO;
-    
+    NSLog(@"每次判断是不是同一个cell");
     for (TVTable * cell in _visibleCells) {
         
         if (cell.index == index) {
@@ -623,5 +628,9 @@
     
     [self reloadData];
     
+}
+-(void)recycle
+{
+    [self slideViewRecycle];
 }
 @end

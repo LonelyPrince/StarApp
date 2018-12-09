@@ -345,8 +345,8 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         UIButton * currentButton = (UIButton*)[self viewWithTag:[titleNumStr integerValue] +YLSlideTitleViewButtonTag];
         currentButtonName = currentButton.titleLabel.text;
         
-        NSLog(@"**currentIndexForCategory %d",currentIndexForCategory);
-        NSLog(@"**titleNumStr %d",titleNumStr);
+        NSLog(@"**currentIndexForCategory %@",currentIndexForCategory);
+        NSLog(@"**titleNumStr %@",titleNumStr);
         NSLog(@"**currentButtonName %@",currentButtonName);
         for (int i = 0; i < _titles_temp.count ; i ++) {
             UIButton * currentButton = (UIButton*)[self viewWithTag:i +YLSlideTitleViewButtonTag];
@@ -372,11 +372,20 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         }
 
         self.contentSize = CGSizeMake(buttonWidth, YLSildeTitleViewHeight);
-        //        NSNumber * currentIndexForCategoryNum = @(currentIndexForCategory);
-        //        NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategoryNum,@"currentIndex", nil];
-        //
-        //        NSNotification *notification12 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
-        //        [[NSNotificationCenter defaultCenter] postNotification:notification12];
+        
+        if(titleNumStr.intValue == _titles.count - 1  )
+        {
+                    NSNumber * currentIndexForCategoryNum = @(_titles_temp.count - 1);
+                    NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategoryNum,@"currentIndex", nil];
+            
+                    NSNotification *notification12 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification12];
+        }
+//        NSNumber * currentIndexForCategoryNum = @(currentIndexForCategory);
+//        NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:currentIndexForCategoryNum,@"currentIndex", nil];
+//
+//        NSNotification *notification12 =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
+//        [[NSNotificationCenter defaultCenter] postNotification:notification12];
         
         
         //        NSLog(@"==- 减速完成（停止）555 ");
@@ -444,6 +453,9 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         
     }else if (_titles_temp.count > _titles.count){
         
+        //            NSNotification *recycleNotific =[NSNotification notificationWithName:@"recycle" object:nil userInfo:nil];
+        //            [[NSNotificationCenter defaultCenter] postNotification:recycleNotific];
+        
         NSString * titleNumStr =  [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
         int currentIndexForCategory = 0 ;
         NSString * currentButtonName ;
@@ -471,8 +483,8 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         
       
         
-        NSLog(@"**currentIndexForCategory %d",currentIndexForCategory);
-        NSLog(@"**titleNumStr %d",titleNumStr);
+        NSLog(@"**currentIndexForCategory %@",currentIndexForCategory);
+        NSLog(@"**titleNumStr %@",titleNumStr);
         NSLog(@"**currentButtonName %@",currentButtonName);
         
         for (int i = 0 ; i < _titles_temp.count; i ++) {
@@ -495,6 +507,9 @@ static inline UIFont *buttonFont(UIButton *button,CGFloat titleSize){
         NSNotification *notification =[NSNotification notificationWithName:@"setSliderViewByReSetNotific" object:nil userInfo:nil];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+
+        
     }
     
     
