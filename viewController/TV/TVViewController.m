@@ -1121,6 +1121,24 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
+-(void)tableViewCellToBlueNoReload :(NSInteger)numberOfIndex  indexhah :(NSInteger)numberOfIndexForService AllNumberOfService:(NSInteger)AllNumberOfServiceIndex
+{
+    
+    NSNumber * numIndex = [NSNumber numberWithInteger:numberOfIndex];   //分类中第几个
+    NSNumber * numIndex2 = [NSNumber numberWithInteger:numberOfIndexForService];  //列表中的第几个
+    NSNumber * numIndex3 = [NSNumber numberWithInteger:AllNumberOfServiceIndex];    //列表一共有几个
+    
+    //添加 字典，将label的值通过key值设置传递
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:numIndex,@"textOne",numIndex2,@"textTwo", numIndex3,@"textThree",nil];
+    //创建通知
+    //    NSNotification *notification =[NSNotification notificationWithName:@"VideoTouchNoificAudioSubt" object:nil userInfo:dict];
+    
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"tableViewChangeBlue_NoReload" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+}
 - (void)playVideo
 {
     NSLog(@"已经跳转到firstopen方法 在playVideo 中播放");
@@ -1584,9 +1602,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 #define mark - 主页横向类别列表
 - (void)slideVisibleView:(TVTable *)cell forIndex:(NSUInteger)index{
-    [self focusLocation];
+    [self focusLocation_NoReload];
     NSLog(@"index :%@ ",@(index));
-    NSLog(@"self.category_index :%d",index);
+    NSLog(@"self.category_index :%lu",(unsigned long)index);
     nowPlayChannelInfo.numberOfCategoryInt = index;
     if(index < 10000)
     {
@@ -1905,8 +1923,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-                
-                
+
+
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -2216,7 +2234,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         [tableView reloadData];   //刷新主页面，防止焦点不会出现焦点
-        
+
         double delayInSeconds = 0.2;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -13424,6 +13442,45 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     dispatch_after(popTime, mainQueue, ^{
         NSLog(@"延时执行的0.4秒");
         [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+    });
+    
+}
+-(void)focusLocation_NoReload
+{
+    //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
+    
+    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+    NSMutableArray * historyArr1  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+    NSArray * touchArr1 = historyArr1[historyArr1.count - 1];
+    int row1 ;
+    NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+    
+    
+    
+    for (int i = 0; i < dicTemp.count; i ++) {
+        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr1[0]   TwoDic:[dicTemp objectForKey:channleIdStr]]) {
+            //如果相等，则获取row
+            row1 = i;
+            break;
+        }else
+        {
+            row1 = 0;
+        }
+    }
+    
+    
+    int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+    
+    NSLog(@"row1row1 %d",row1);
+    [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+    
+    double delayInSeconds = 0.2;
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, mainQueue, ^{
+        NSLog(@"延时执行的0.4秒");
+        [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
     });
     
 }
