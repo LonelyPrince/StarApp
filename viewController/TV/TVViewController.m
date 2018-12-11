@@ -128,6 +128,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     BOOL  ishuifuchuchang;
     BOOL  isRemoveTip;
     BOOL  testNetwork;
+    BOOL  judge_firstOpen_focusLocation; //判断是不是第一次打开，防止触发跳转定位方法，默认0.2秒之内为NO
     
     BOOL viewWillDisapper;
     NSInteger row_notExist;
@@ -300,6 +301,10 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [self.kvo_NoDataPic addObserver:self forKeyPath:@"numberOfTable_NoData" options:NSKeyValueObservingOptionNew context:nil];
     viewDidloadHasRunBool = 0;
     [USER_DEFAULT setObject: [NSNumber numberWithInt:viewDidloadHasRunBool] forKey:@"viewDidloadHasRunBool"];
+    
+    judge_firstOpen_focusLocation = NO;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judge_firstOpen_focusLocation) object:nil];
+    [self performSelector:@selector(judge_firstOpen_focusLocation) withObject:nil afterDelay:1];
 }
 #pragma mark-----KVO回调----
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
@@ -807,7 +812,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     //机顶盒连接成功了，但是没有数据
                     //显示列表为空的数据
                     if (_slideView) {
-                     
+                        
                         [self searchBtnClick];
                     }
                     
@@ -863,7 +868,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     if (response[@"data_valid_flag"] != NULL && ![response[@"data_valid_flag"] isEqualToString:@"0"] ) {
                         NSLog(@"data_valid_flag AAAAAAAA 3");
                         if (_slideView) {
-                        
+                            
                             [self dealSliderview:self.categorys];
                             NSLog(@"dealSliderview 33");
                         }
@@ -1363,7 +1368,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     [USER_DEFAULT setObject:ArrayTocategory_temp forKey:@"categorysToCategoryView"];
     
-//    (TVTable *)slideView:(YLSlideView *)slideView  cellForRowAtIndex:(NSUInteger)index
+    //    (TVTable *)slideView:(YLSlideView *)slideView  cellForRowAtIndex:(NSUInteger)index
     
     //数量从小变大，可以建议此方法打开。  但是还需要防止其他页面变成首页的数据
     [_slideView reloadDataNoVisibleZero];
@@ -1468,13 +1473,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"此处可能会由于页面跳转过快报错");
     }
     searchViewCon.tabBarController.tabBar.hidden = YES;
-
+    
     //     [tempTableviewForFocus reloadData];
     //    [self refreshTableviewByEPGTime];
     //    [self.table reloadData];
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
     //    NSLog(@"search  sousuosoususousouosuosususuos");
-
+    
     //    [self refreshSliderAndTableViewNoVisible];    //增加刷新做测试
 }
 //table可以滑动的次数
@@ -1524,7 +1529,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     NSLog(@"TV-slideView-index %d",index);
     
-//    NSLog(@"indexindexindexindex %d",index);
+    //    NSLog(@"indexindexindexindex %d",index);
     self.tableForSliderView = [slideView dequeueReusableCell];
     NSLog(@" tableForSliderView a 11");
     NSLog(@"tableForSliderView a 11 %@",self.tableForSliderView);
@@ -1544,37 +1549,37 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     MJRefreshNormalHeader *header = [[MJRefreshNormalHeader alloc] init];
     [header setRefreshingTarget:self refreshingAction:@selector(headerClick)];  //下拉触发
     tableForSliderView.mj_header = header;
-
     
-    for (int i = 0; i < self.categorys.count; i ++) {
-        NSMutableArray * arrTemp = [[NSMutableArray alloc]init];
-        NSString *  indexforTableToNum =  [NSString stringWithFormat:@"%lu",(unsigned long)index];
-        //    [NSNumber numberWithInteger:index];
-        [arrTemp addObject:indexforTableToNum];
-        [arrTemp addObject:tableForSliderView];
-        int categorysNum =  self.categorys.count;
-        NSLog(@"categorysNum 1491 %d",categorysNum);
-        NSLog(@"categorysNum tableForDicIndexDic.count : %d",self.tableForDicIndexDic.count);
-        
-        if (self.tableForDicIndexDic.count <= categorysNum) {
-            [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
-            NSLog(@"[NSString stringWithFormat]1493 ：   %@",[NSString stringWithFormat:@"%@",arrTemp[0]]);
-            NSLog(@"[NSString stringWithFormat]arrTemp 1493 ：   %@",arrTemp);
-        }
-//        else
-//        {
-//
-//            [self.tableForDicIndexDic removeAllObjects];
-//            [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
-//            NSLog(@"[NSString stringWithFormat]1501 ：   %@",[NSString stringWithFormat:@"%@",arrTemp[0]]);
-//            NSLog(@"[NSString stringWithFormat]arrTemp 1501 ：   %@",arrTemp);
-//        }
+    
+    //    for (int i = 0; i < self.categorys.count; i ++) {
+    NSMutableArray * arrTemp = [[NSMutableArray alloc]init];
+    NSString *  indexforTableToNum =  [NSString stringWithFormat:@"%lu",(unsigned long)index];
+    //    [NSNumber numberWithInteger:index];
+    [arrTemp addObject:indexforTableToNum];
+    [arrTemp addObject:tableForSliderView];
+    int categorysNum =  self.categorys.count;
+    NSLog(@"categorysNum 1491 %d",categorysNum);
+    NSLog(@"categorysNum tableForDicIndexDic.count : %d",self.tableForDicIndexDic.count);
+    
+    if (self.tableForDicIndexDic.count <= categorysNum) {
+        [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
+        NSLog(@"[NSString stringWithFormat]1493 ：   %@",[NSString stringWithFormat:@"%@",arrTemp[0]]);
+        NSLog(@"[NSString stringWithFormat]arrTemp 1493 ：   %@",arrTemp);
     }
+    //        else
+    //        {
+    //
+    //            [self.tableForDicIndexDic removeAllObjects];
+    //            [self.tableForDicIndexDic setObject:arrTemp forKey:[NSString stringWithFormat:@"%@",arrTemp[0]]];
+    //            NSLog(@"[NSString stringWithFormat]1501 ：   %@",[NSString stringWithFormat:@"%@",arrTemp[0]]);
+    //            NSLog(@"[NSString stringWithFormat]arrTemp 1501 ：   %@",arrTemp);
+    //        }
+    //    }
     
     
     
     
-   
+    
     
     
     return tableForSliderView;
@@ -1902,7 +1907,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         static NSString *TableSampleIdentifier = @"TVCell";
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        tempTableviewForFocus = tableView;
+        //        tempTableviewForFocus = tableView;
         NSLog(@"tempTableviewForFocus %@",tempTableviewForFocus);
         
         TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
@@ -1923,8 +1928,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [cell.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
                 [cell.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
-
-
+                
+                
             }else
             {
                 [cell.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
@@ -2159,7 +2164,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     }
     else
     {
-        [self removeLabAndAddIndecatorView_temp];
+        
         TVViewTouchPlay = YES;
         //每次播放前，都先把 @"deliveryPlayState" 状态重置，这个状态是用来判断视频断开分发后，除非用户点击
         [USER_DEFAULT setObject:@"beginDelivery" forKey:@"deliveryPlayState"];
@@ -2210,6 +2215,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }
         else
         {
+            [self removeLabAndAddIndecatorView_temp];
             judgeIsNeedShowDeliveryStop = 1;
             NSLog(@"不相等");
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(didselectRowToPlayClick) object:nil];
@@ -2234,7 +2240,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         
         [tableView reloadData];   //刷新主页面，防止焦点不会出现焦点
-
+        
         double delayInSeconds = 0.2;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
@@ -2652,9 +2658,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             }
             [self judgeAllArgueIsZero];
             [self getsubt];
-          
+            
             [tempTableviewForFocus reloadData];
-      
+            
             tempBoolForServiceArr = YES;
             tempArrForServiceArr =  self.categoryModel.service_indexArr;
             tempDicForServiceArr = self.TVChannlDic;
@@ -2736,7 +2742,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     NSLog(@"hidenhidenhidenhiden 555555 aaaaaaa");
                 }
             }
-
+            
             [self performSelector:@selector(refreshFullScreen) withObject:nil afterDelay:0.5];
             [tempTableviewForFocus reloadData];
             [self refreshTableviewByEPGTime];
@@ -3779,9 +3785,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(viewWillAppearDealyFunction) object:nil];
         [self performSelector:@selector(viewWillAppearDealyFunction) withObject:nil afterDelay:0.3];
         
-
         [self focusLocation];
- 
+        
     }
     double delayInSeconds = 0.7;
     dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -3898,8 +3903,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSLog(@"this is Major 22222 33333===1");
     }else
     {
-       
-
+        
+        
         
         
         NSLog(@"this is Major 22222 33333===2");
@@ -3994,7 +3999,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         }else
         {
             
-           
+            
             
             if ([deliveryPlayState isEqualToString:@"stopDelivery"]) {
                 //①视频停止分发，断开了和盒子的连接，跳转界面不播放  ②禁止播放  ③取消掉加载环  ④ 显示不能播放的文字                [self stopVideoPlay]; //停止视频播放
@@ -4032,7 +4037,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 [self removeLabAndAddIndecatorView];
                 
                 
-               
+                
                 
                 
                 double delayInSeconds = 2;
@@ -4160,11 +4165,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                                 NSLog(@"dic %@",dic);
                                                 [self firstOpenAppAutoPlayZero:row diction:dic];
                                                 
-//                                                                                                NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-//
-//                                                                                                int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-//
-//                                                                                                [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
+                                                //                                                                                                NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+                                                //
+                                                //                                                                                                int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+                                                //
+                                                //                                                                                                [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
                                                 
                                             }
                                         }else //正常播放的步骤
@@ -4173,11 +4178,11 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                                             [self firstOpenAppAutoPlay:row diction:dic];
                                             
                                             
-//                                                                                        NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-//
-//                                                                                        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-//
-//                                                                                        [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
+                                            //                                                                                        NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+                                            //
+                                            //                                                                                        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+                                            //
+                                            //                                                                                        [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row AllNumberOfService:1000];
                                         }
                                         
                                         [USER_DEFAULT setObject:@"NO" forKey:@"jumpFormOtherView"];//为TV页面存储方法
@@ -4470,7 +4475,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (getLastCategoryArr.count != self.categorys.count) {
                     
                     isPlayFirstChannel = NO;
-                  
+                    
                     NSLog(@"self.categorys.count %d",self.categorys.count);
                     [self dealSliderview:self.categorys];
                     NSLog(@"dealSliderview 55");
@@ -5053,7 +5058,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         {
             
             NSLog(@"删除了某个节目   3927");
-           
+            
             [self dealSliderview:self.categorys];
             NSLog(@"dealSliderview 88");
             [self tableViewDataRefreshForMjRefresh_ONEMinute];
@@ -5099,7 +5104,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 return;
             }
         }
-       
+        
         [tempTableviewForFocus reloadData];
         
         double delayInSeconds = 2;
@@ -5278,7 +5283,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 });
             }
         }
-      
+        
         [tempTableviewForFocus reloadData];
         [self refreshTableviewByEPGTime];
         
@@ -6114,7 +6119,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         }
                         
                         [self updateFullScreenDic];
-                      
+                        
                         [tempTableviewForFocus reloadData];
                         [self refreshTableviewByEPGTime];
                         [self caculatorProgress];
@@ -6273,7 +6278,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             [[NSNotificationCenter defaultCenter] postNotification:notification];
             
             [tempTableviewForFocus reloadData];
-          
+            
             NSArray * serviceArrForJudge =  self.serviceData;
             //这里获得当前焦点
             NSArray * arrForServiceByCategory = [[NSArray alloc]init];
@@ -6534,7 +6539,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                             
                         }
                         
-                      
+                        
                         [tempTableviewForFocus reloadData];
                         [self refreshTableviewByEPGTime];
                         
@@ -6760,7 +6765,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                         [[NSNotificationCenter defaultCenter] postNotification:notification12];
                         
                         [tempTableviewForFocus reloadData];
-                     
+                        
                         NSArray * serviceArrForJudge =  self.serviceData;
                         //这里获得当前焦点
                         NSArray * arrForServiceByCategory = [[NSArray alloc]init];
@@ -7045,7 +7050,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSNotification *notification =[NSNotification notificationWithName:@"categorysTouchToViews" object:nil userInfo:dict];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-           
+            
             [tempTableviewForFocus reloadData];
             
             //        __NSConstantString * abc =
@@ -8700,7 +8705,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                     
                 }
             }
-
+            
         }
         
     });
@@ -9495,7 +9500,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 7");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   6889");
-                  
+                    
                     [self dealSliderview:self.categorys];
                     NSLog(@"dealSliderview 00");
                 }
@@ -9594,7 +9599,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, mainQueue, ^{
-         
+            
             [tempTableviewForFocus reloadData];
             
             [self refreshTableviewByEPGTime];
@@ -9668,7 +9673,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 if (data1.count == 0 && recFileData.count == 0)
                 {
                     if (_slideView) {
-                      
+                        
                         [self dealSliderview:self.categorys];
                         NSLog(@"dealSliderview aa");
                     }
@@ -9851,7 +9856,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 }
             }
             
-           
+            
             [tempTableviewForFocus reloadData];
             
             // 模拟延迟2秒
@@ -9964,7 +9969,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 12");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   7382");
-                   
+                    
                     [self dealSliderview:self.categorys];
                     NSLog(@"dealSliderview bb");
                 }
@@ -10108,7 +10113,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             
             NSLog(@"删除了某个节目   7512");
-           
+            
             [self dealSliderview:self.categorys];
             NSLog(@"dealSliderview dd");
             if (!_slideView) {
@@ -11588,14 +11593,14 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     NSLog(@"数据不为空，所以不重新结束");
     //    }
     
-//    NSLog(@"刷新刷新的结束刷新 %@",self.tableForSliderView);
-//    NSLog(@"self.tableForDicIndexDic本身 %@",self.tableForDicIndexDic);
-//    for (int i = 0 ; i < self.tableForDicIndexDic.count; i ++ ) {
-//        NSLog(@"self.tableForDicIndexDic = %d",self.tableForDicIndexDic.count);
-//        TVTable * slideViewForRefresh = [self.tableForDicIndexDic objectForKey :[NSString stringWithFormat:@"%d",i]][1];
-//        [slideViewForRefresh.mj_header endRefreshing];
-//        NSLog(@"刷新刷新的结束刷新 ==  %@",self.tableForSliderView);
-//    }
+    //    NSLog(@"刷新刷新的结束刷新 %@",self.tableForSliderView);
+    //    NSLog(@"self.tableForDicIndexDic本身 %@",self.tableForDicIndexDic);
+    //    for (int i = 0 ; i < self.tableForDicIndexDic.count; i ++ ) {
+    //        NSLog(@"self.tableForDicIndexDic = %d",self.tableForDicIndexDic.count);
+    //        TVTable * slideViewForRefresh = [self.tableForDicIndexDic objectForKey :[NSString stringWithFormat:@"%d",i]][1];
+    //        [slideViewForRefresh.mj_header endRefreshing];
+    //        NSLog(@"刷新刷新的结束刷新 ==  %@",self.tableForSliderView);
+    //    }
     
     
 }
@@ -12169,7 +12174,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 NSLog(@"data_valid_flag AAAAAAAA 14");
                 if (_slideView) {
                     NSLog(@"删除了某个节目   9196");
-                  
+                    
                     [self dealSliderview:self.categorys];
                     NSLog(@"dealSliderview ff");
                 }
@@ -13448,40 +13453,46 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 -(void)focusLocation_NoReload
 {
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
-    
-    NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
-    NSMutableArray * historyArr1  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
-    NSArray * touchArr1 = historyArr1[historyArr1.count - 1];
-    int row1 ;
-    NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-    
-    
-    
-    for (int i = 0; i < dicTemp.count; i ++) {
-        NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
-        if ([GGUtil judgeTwoEpgDicIsEqual: touchArr1[0]   TwoDic:[dicTemp objectForKey:channleIdStr]]) {
-            //如果相等，则获取row
-            row1 = i;
-            break;
-        }else
-        {
-            row1 = 0;
+    if (judge_firstOpen_focusLocation == YES) {
+        NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
+        NSMutableArray * historyArr1  =  (NSMutableArray *) [USER_DEFAULT objectForKey:@"historySeed"];
+        NSArray * touchArr1 = historyArr1[historyArr1.count - 1];
+        int row1 ;
+        NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
+        
+        
+        
+        for (int i = 0; i < dicTemp.count; i ++) {
+            NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
+            if ([GGUtil judgeTwoEpgDicIsEqual: touchArr1[0]   TwoDic:[dicTemp objectForKey:channleIdStr]]) {
+                //如果相等，则获取row
+                row1 = i;
+                break;
+            }else
+            {
+                row1 = 0;
+            }
         }
+        
+        
+        int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
+        
+        NSLog(@"row1row1 %d",row1);
+        [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+        
+        double delayInSeconds = 0.2;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            NSLog(@"延时执行的0.4秒");
+            [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+        });
     }
     
     
-    int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-    
-    NSLog(@"row1row1 %d",row1);
-    [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
-    
-    double delayInSeconds = 0.2;
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, mainQueue, ^{
-        NSLog(@"延时执行的0.4秒");
-        [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
-    });
-    
+}
+-(void)judge_firstOpen_focusLocation
+{
+    judge_firstOpen_focusLocation = YES;
 }
 @end

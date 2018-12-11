@@ -86,7 +86,7 @@
 }
 -(void)setSliderViewAlpha
 {
-
+    
     NSLog(@"setSliderViewAlpha == ");
 }
 -(NSMutableArray *)titleArrReplace:(NSMutableArray*)titles
@@ -312,7 +312,7 @@
                 if ([tableViewForSliderView numberOfRowsInSection:0] > row2) {
                     [tableViewForSliderView selectRowAtIndexPath:scrollIndexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
                     //发送焦点定位通知
- 
+                    
                 }else
                 {
                     return ;
@@ -326,7 +326,7 @@
                 
                 //                self.tableForSliderView.alpha = 0;
                 
-                [tableViewForSliderView reloadData];
+                //                [tableViewForSliderView reloadData];
                 
                 double delayInSeconds = 0.13;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -406,7 +406,7 @@
                 
                 //                self.tableForSliderView.alpha = 0;
                 
-//                [tableViewForSliderView reloadData];
+                //                [tableViewForSliderView reloadData];
                 
                 double delayInSeconds = 0.13;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
@@ -496,7 +496,7 @@
     
     [self slideViewRecycle];
     
-//    [self visibleViewDelegateForIndex:0];
+    //    [self visibleViewDelegateForIndex:0];
     
     
 }
@@ -590,7 +590,7 @@
     });
     NSLog(@"_mainScrollview.f %@",_mainScrollview);
     [self addSubview:_mainScrollview];
-
+    
     
     self.slideTitleView = ({
         
@@ -708,11 +708,11 @@
 -(void)changeView
 {
     
-//    setSliderViewAlpha = 1;
-//
-//    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count -1 +YLSlideTitleViewButtonTag];
-//    currentButton.backgroundColor = [UIColor clearColor];
-//    [currentButton removeFromSuperview];
+    //    setSliderViewAlpha = 1;
+    //
+    //    UIButton * currentButton = (UIButton*)[self viewWithTag:_titles.count -1 +YLSlideTitleViewButtonTag];
+    //    currentButton.backgroundColor = [UIColor clearColor];
+    //    [currentButton removeFromSuperview];
     
     [self reloadData];
     

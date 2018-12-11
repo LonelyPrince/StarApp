@@ -21,14 +21,41 @@
     // Initialization code
     
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
+
     // Configure the view for the selected state
 }
 
-
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+//    [super setSelected:selected animated:animated];
+//
+////    if (self.cellByDid == YES) {
+//        if (selected) {
+//            [self.event_nextNameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [self.event_nameLab setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [self.event_nextTime setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [self.channel_id setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//            [self.channel_Name setTextColor:RGBA(0x60, 0xa3, 0xec, 1)];
+//
+//            NSLog(@"cell - 22 %@",self.channel_Name);
+//            NSLog(@"TVCELL === select show");
+//        } else {
+//            [self.event_nextNameLab setTextColor:CellGrayColor];  //CellGrayColor
+//            [self.event_nameLab setTextColor:CellBlackColor];  //CellBlackColor
+//            [self.event_nextTime setTextColor:CellGrayColor];//[UIColor greenColor]
+//            [self.channel_id setTextColor:CellGrayColor];//[UIColor greenColor]
+//            [self.channel_Name setTextColor:CellGrayColor];//[UIColor greenColor]
+//
+//            NSLog(@"cell - 33 ");
+//            NSLog(@"TVCELL === select diss");
+//        }
+////    }else{
+////        NSLog(@"展示 cellByDidNONO ");
+////    }
+//
+//
+//}
 + (id)loadFromNib
 {
     NSString *xibName = NSStringFromClass([self class]);
