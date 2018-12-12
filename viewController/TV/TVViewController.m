@@ -1947,7 +1947,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         
         static NSString *TableSampleIdentifier = @"TVCell";
         tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        //        tempTableviewForFocus = tableView;
+                tempTableviewForFocus = tableView;
         NSLog(@"tempTableviewForFocus %@",tempTableviewForFocus);
         
         TVCell *cell = [tableView dequeueReusableCellWithIdentifier:TableSampleIdentifier];
@@ -10155,6 +10155,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             NSLog(@"删除了某个节目   7512");
             
 //            [self dealSliderview:self.categorys];
+
             [self dealSliderview_NoReload:self.categorys];
             NSLog(@"dealSliderview dd");
             if (!_slideView) {
