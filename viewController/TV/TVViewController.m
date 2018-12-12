@@ -1374,6 +1374,46 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     [_slideView reloadDataNoVisibleZero];
     
 }
+-(void)dealSliderview_NoReload:(NSMutableArray *)titleArr
+{
+    NSLog(@"dealSliderview 处理函数");
+    NSLog(@"titleArr %@",titleArr);
+    NSDictionary * dict =[[NSDictionary alloc] initWithObjectsAndKeys:[self titleArrReplace1:titleArr],@"titleInfo", nil];
+    //创建通知，防止刷新后跳转错页面
+    NSNotification *notification =[NSNotification notificationWithName:@"changeButton" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
+    //@"changeView"的作用是用来修改View的count个数，防止切换的时页面数量出现错误
+    [USER_DEFAULT setObject:@"LiveExit" forKey:@"RECAndLiveType"];
+    [self.CategoryAndREC removeAllObjects];
+    if (titleArr.count == 0 || titleArr == nil) {
+        NSLog(@"titleArr 此时为空");
+        return;
+    }else{
+        [self.CategoryAndREC addObject:titleArr];
+    }
+    
+    
+    
+    //    NSNotification *replaceEventNameNotific =[NSNotification notificationWithName:@"changeView" object:nil userInfo:nil];
+    //    [[NSNotificationCenter defaultCenter] postNotification:replaceEventNameNotific];
+    
+    NSMutableArray *ArrayTocategory_temp =  [[NSMutableArray alloc]init];
+    
+    if (titleArr.count == 0 || titleArr == nil) {
+        NSLog(@"titleArr 此时为空");
+        return;
+    }else{
+        [ArrayTocategory_temp addObject:titleArr];
+    }
+    [USER_DEFAULT setObject:ArrayTocategory_temp forKey:@"categorysToCategoryView"];
+    
+    //    (TVTable *)slideView:(YLSlideView *)slideView  cellForRowAtIndex:(NSUInteger)index
+    
+    //数量从小变大，可以建议此方法打开。  但是还需要防止其他页面变成首页的数据
+//    [_slideView reloadDataNoVisibleZero];
+    
+}
 
 
 -(NSMutableArray *)titleArrReplace1:(NSMutableArray*)titles
@@ -10114,7 +10154,8 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             
             NSLog(@"删除了某个节目   7512");
             
-            [self dealSliderview:self.categorys];
+//            [self dealSliderview:self.categorys];
+            [self dealSliderview_NoReload:self.categorys];
             NSLog(@"dealSliderview dd");
             if (!_slideView) {
                 
@@ -13459,9 +13500,9 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         NSArray * touchArr1 = historyArr1[historyArr1.count - 1];
         int row1 ;
         NSString * YLSlideTitleViewButtonTagIndexStr = [USER_DEFAULT objectForKey:@"YLSlideTitleViewButtonTagIndexStr"];
-        
-        
-        
+
+
+
         for (int i = 0; i < dicTemp.count; i ++) {
             NSString * channleIdStr = [NSString stringWithFormat:@"%d",i];
             if ([GGUtil judgeTwoEpgDicIsEqual: touchArr1[0]   TwoDic:[dicTemp objectForKey:channleIdStr]]) {
@@ -13473,13 +13514,13 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
                 row1 = 0;
             }
         }
-        
-        
+
+
         int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
-        
+
         NSLog(@"row1row1 %d",row1);
         [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
-        
+
         double delayInSeconds = 0.2;
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
