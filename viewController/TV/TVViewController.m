@@ -304,7 +304,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     judge_firstOpen_focusLocation = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(judge_firstOpen_focusLocation) object:nil];
-    [self performSelector:@selector(judge_firstOpen_focusLocation) withObject:nil afterDelay:1];
+    [self performSelector:@selector(judge_firstOpen_focusLocation) withObject:nil afterDelay:2.5];
 }
 #pragma mark-----KVO回调----
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
@@ -13438,7 +13438,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
     
     int YLSlideTitleViewButtonTagIndex = [YLSlideTitleViewButtonTagIndexStr  intValue];
     
-    NSLog(@"row1row1 %d",row1);
+    NSLog(@"row1row1-- %d",row1);
     [self tableViewCellToBlue:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
     
     double delayInSeconds = 0.2;
