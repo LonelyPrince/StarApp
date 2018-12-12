@@ -326,7 +326,7 @@
                 
                 //                self.tableForSliderView.alpha = 0;
                 
-                //                [tableViewForSliderView reloadData];
+                                [tableViewForSliderView reloadData];
                 
                 double delayInSeconds = 0.13;
                 dispatch_queue_t mainQueue = dispatch_get_main_queue();
