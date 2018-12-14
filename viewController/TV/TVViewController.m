@@ -696,15 +696,16 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
             else{
                 NSLog(@"datdattdatdatt %@",data1);
                 [self activeViewRemove];
-                
+
                 [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(notHaveNetWork) object:nil];
                 [self playVideo];
-                
+
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.socketView viewDidLoad];
                 });
                 if (firstfirst == YES) {
-                    NSLog(@"进入了 firstfirstfirstfirst");
+                    NSLog(@"进入了 firstfirstfirstfirst22");
                     //=======机顶盒加密
                     NSString * characterStr = [GGUtil judgeIsNeedSTBDecrypt:0 serviceListDic:self.dicTemp];
                     if (characterStr != NULL && characterStr != nil) {
@@ -13455,6 +13456,7 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
 }
 -(void)focusLocation
 {
+    NSLog(@"focusLocationfocusLocation");
     //    [self tableViewDataRefreshForMjRefresh_ONEMinute];
     
     NSDictionary * dicTemp = [USER_DEFAULT objectForKey:@"selfDicTemp"];
@@ -13528,6 +13530,17 @@ UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegat
         dispatch_after(popTime, mainQueue, ^{
             NSLog(@"延时执行的0.4秒");
             [self tableViewCellToBlueNoReload:YLSlideTitleViewButtonTagIndex  indexhah:row1 AllNumberOfService:1000];
+        });
+    }else{
+        double delayInSeconds = 1;
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, mainQueue, ^{
+            NSLog(@"正在刷新中显示数据");
+            [self tableViewCellToBlueNoReload:0  indexhah:0 AllNumberOfService:1000];
+            
+            NSIndexPath *indexPathNow = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self tableView:tempTableviewForFocus didSelectRowAtIndexPath:indexPathNow];
         });
     }
     
