@@ -2811,33 +2811,7 @@
     NSNotification *notification1 =[NSNotification notificationWithName:@"setPushDataNotific" object:nil userInfo:dict];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    
-    //
-    //    uint32_t data_Refresh_Status_int = [SocketUtils uint8FromBytes:data_Refresh_Status];
-    //
-    //    NSLog(@" dataToOperate %@",dataToOperate);
-    //    if(data_Refresh_Status_int == 0) //正确
-    //    {
-    //        //        //发送播放命令
-    //        //        //创建通知
-    //        //        NSNotification *notification1 =[NSNotification notificationWithName:@"STBDencryptVideoTouchNotific" object:nil userInfo:nil];
-    //        //        //通过通知中心发送通知
-    //        //        [[NSNotificationCenter defaultCenter] postNotification:notification1];
-    //        //
-    //        //        //                        STBDencryptVideoTouchNotific
-    //        NSLog(@"列表为空不做操作");
-    //    }else  //if(data_Refresh_Status_int == 1) //验证错误
-    //    {
-    //
-    //        NSNotification *updateNotification =[NSNotification notificationWithName:@"mediaDeliveryUpdateNotific" object:nil userInfo:nil];
-    //        //通过通知中心发送通知
-    //        [[NSNotificationCenter defaultCenter] postNotification:updateNotification];
-    //
-    //        NSLog(@"列表不为空 需要做操作");
-    //    }
-    //
-    //
-    
+     
 }
 @end
 
